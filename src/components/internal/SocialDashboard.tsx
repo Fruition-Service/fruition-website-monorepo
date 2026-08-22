@@ -6,6 +6,7 @@ import { PenSquare } from "lucide-react"
 import type { SocialRow } from "@/app/api/internal/social/posts/route"
 import type { Composition } from "@/lib/social/composition"
 import type { AnalyticsOverview, AnalyticsRow, PostAnalytics } from "@/lib/social/zernio"
+import { renderMentions } from "@/lib/social/mentions"
 import { rollupStatus } from "@/lib/social/status"
 import { PlatformNameIcon } from "@/components/internal/SocialIcons"
 import { Button } from "@/components/ui/button"
@@ -207,7 +208,7 @@ export default function SocialDashboard() {
         status: sent.length ? rollupStatus(sent) : c.status,
         composition: c,
         channels,
-        preview: c.masterContent || Object.values(c.platforms)[0]?.content || "",
+        preview: renderMentions(c.masterContent || Object.values(c.platforms)[0]?.content || ""),
       }
     })
 
@@ -691,8 +692,12 @@ function PostRow({
                   </span>
                 )}
               </div>
-              <p className="truncate text-sm text-foreground">{row.title || row.content.split("\n")[0]}</p>
-              <p className="truncate text-xs text-muted-foreground">{row.content.replace(/\n+/g, " ")}</p>
+              <p className="truncate text-sm text-foreground">
+                {row.title || renderMentions(row.content).split("\n")[0]}
+              </p>
+              <p className="truncate text-xs text-muted-foreground">
+                {renderMentions(row.content).replace(/\n+/g, " ")}
+              </p>
               {line && <p className="mt-1 font-mono text-[11px] tabular-nums text-primary">{line}</p>}
             </div>
             <div className="flex shrink-0 flex-col items-end justify-center gap-1.5">
@@ -881,7 +886,9 @@ function PerformanceList({
                 <PlatformNameIcon name={row.platform} size={15} />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm text-foreground">{row.content.split("\n")[0] || "(no caption)"}</p>
+                <p className="truncate text-sm text-foreground">
+                  {renderMentions(row.content).split("\n")[0] || "(no caption)"}
+                </p>
                 <p className="mt-0.5 truncate font-mono text-[11px] tabular-nums text-muted-foreground">
                   {metricLine(row.metrics) ?? "no engagement recorded yet"}
                 </p>

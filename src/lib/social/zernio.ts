@@ -59,6 +59,8 @@ export interface PlatformSpec {
   needsMedia: boolean
   /** Whether to attach blog images at all (Reddit stays a text post). */
   supportsMedia: boolean
+  /** Platform accepts a PDF/slide document instead of an image (LinkedIn only). */
+  supportsDocument?: boolean
   /** Which generated caption this platform uses (gbp-au + gbp-sg share one). */
   captionKey: "twitter" | "googlebusiness" | "instagram" | "linkedin" | "pinterest" | "reddit"
 
@@ -82,7 +84,9 @@ export interface PlatformSpec {
   notes: string[]
 }
 
-const PINTEREST_BOARD_ID = process.env.ZERNIO_PINTEREST_BOARD_ID || "1009369403924050337"
+/** Board "Profile" on the Pinterest account reconnected 2026-08-20; the old "CRM"
+ *  board id belonged to the previous account and 404s. */
+const PINTEREST_BOARD_ID = process.env.ZERNIO_PINTEREST_BOARD_ID || "1123648244470313717"
 /** Optional subreddit override; empty = the account's default subreddit. */
 const REDDIT_SUBREDDIT = process.env.ZERNIO_REDDIT_SUBREDDIT || ""
 
@@ -208,6 +212,7 @@ export const PLATFORMS: PlatformSpec[] = [
     limit: 3000,
     needsMedia: false,
     supportsMedia: true,
+    supportsDocument: true,
     captionKey: "linkedin",
     maxMedia: 1,
     linkInBody: true,
@@ -215,6 +220,8 @@ export const PLATFORMS: PlatformSpec[] = [
     notes: [
       "Only the first ~2 lines show in the feed before “see more”.",
       "Posts to the Fruition company page, not a personal profile.",
+      "A PDF posts as a swipeable carousel — up to 100 MB and 300 pages, and it replaces the image.",
+      "Tagging a company works; the tag is stored as markup and expands when it publishes.",
     ],
   },
   {
@@ -343,6 +350,57 @@ export async function listZernioAccounts(): Promise<ZernioAccount[]> {
     return data.accounts ?? []
   } catch {
     return [] // a channels lookup failing must never blank the whole panel
+  }
+}
+
+/** One account tagged in a LinkedIn post, as Zernio resolves it. */
+export interface LinkedInMention {
+  urn: string
+  type: "person" | "organization"
+  displayName: string
+  /** Ready to paste into the caption: "@[monday.com](urn:li:organization:…)". */
+  mentionFormat: string
+  vanityName?: string
+  /** Zernio's caveat about person mentions, when it returns one. */
+  notice?: string
+}
+
+/**
+ * Turn a LinkedIn company/profile URL (or bare vanity name) into a mention.
+ *
+ * LinkedIn has no plain-text @mention: the post body has to carry the
+ * account's URN, and only LinkedIn can say what that URN is. Zernio resolves
+ * it against the connected account and expands the markup at publish time.
+ *
+ * Company mentions always resolve. Person mentions need the connected account
+ * to administer at least one organisation — a LinkedIn API limit on resolving
+ * a profile URL, not on publishing — so they can fail where a company won't.
+ */
+export async function resolveLinkedInMention(
+  target: string,
+  displayName?: string,
+): Promise<LinkedInMention> {
+  const spec = platformSpec("linkedin")
+  const params = new URLSearchParams({ url: target })
+  if (displayName) params.set("displayName", displayName)
+  const data = await zernioJson<{
+    urn?: string
+    type?: string
+    displayName?: string
+    mentionFormat?: string
+    vanityName?: string
+    personMentionNotice?: string
+    warning?: string
+  }>(`/accounts/${spec.accountId}/linkedin-mentions?${params}`)
+
+  if (!data.urn || !data.mentionFormat) throw new Error("LinkedIn returned no account for that link")
+  return {
+    urn: data.urn,
+    type: data.type === "person" ? "person" : "organization",
+    displayName: data.displayName ?? displayName ?? target,
+    mentionFormat: data.mentionFormat,
+    vanityName: data.vanityName,
+    notice: data.warning ?? data.personMentionNotice,
   }
 }
 
@@ -688,9 +746,14 @@ export interface PlatformDraftInput {
 
 function platformEntry(
   spec: PlatformSpec,
-  args: { title?: string; link?: string; subreddit?: string; boardId?: string },
+  args: { title?: string; link?: string; subreddit?: string; boardId?: string; documentName?: string },
 ): ZernioPlatformEntry {
   const psd: Record<string, unknown> = {}
+  if (spec.key === "linkedin" && args.documentName) {
+    // LinkedIn refuses a document post without a title, and shows this one on
+    // the carousel — so it's the filename unless the writer named it.
+    psd.documentTitle = clampText(args.documentName, 100)
+  }
   if (spec.key === "pinterest") {
     const boardId = args.boardId || PINTEREST_BOARD_ID
     if (boardId) psd.boardId = boardId
@@ -715,6 +778,44 @@ export interface SocialDraftResult {
   error?: string
 }
 
+/** An image, a document, or nothing — what one post attaches. */
+export interface MediaChoice {
+  imageUrl?: string
+  /** Publicly reachable PDF/PPT/DOC. LinkedIn only; posts as a carousel. */
+  documentUrl?: string
+  /** Shown on the LinkedIn carousel; falls back to the post name. */
+  documentName?: string
+}
+
+/**
+ * Build `mediaItems` for one platform.
+ *
+ * A LinkedIn document and an image can't coexist on the same post, and the
+ * document wins: someone who attached a PDF meant to post the PDF. Returns
+ * undefined when there's nothing to attach, so callers can leave the field off
+ * the request entirely rather than sending an empty array.
+ */
+function mediaItemsFor(
+  spec: PlatformSpec,
+  media: MediaChoice,
+  imageTitle?: string,
+): Array<{ type: string; url: string; title?: string }> | undefined {
+  if (media.documentUrl && spec.supportsDocument) {
+    return [
+      {
+        type: "document",
+        url: media.documentUrl,
+        ...(media.documentName ? { title: media.documentName } : {}),
+      },
+    ]
+  }
+  if (media.imageUrl && spec.supportsMedia) {
+    const url = spec.key === "instagram" ? instagramSafeImageUrl(media.imageUrl) : media.imageUrl
+    return [{ type: "image", url, ...(imageTitle ? { title: imageTitle } : {}) }]
+  }
+  return undefined
+}
+
 /**
  * Create ONE Zernio draft with exact copy, and return its id.
  *
@@ -731,11 +832,14 @@ export async function createDraftPost(args: {
   /** Pinterest pin title / Reddit post title. */
   title?: string
   imageUrl?: string
+  documentUrl?: string
+  documentName?: string
   link?: string
   subreddit?: string
   boardId?: string
 }): Promise<string> {
   const spec = platformSpec(args.key)
+  const documentName = args.documentUrl ? args.documentName || args.name : undefined
   const body: Record<string, unknown> = {
     title: args.name.slice(0, 120),
     content: clampText(args.key === "twitter" ? clampTwitter(args.content) : args.content, spec.limit),
@@ -746,14 +850,17 @@ export async function createDraftPost(args: {
         link: args.link || SITE_BASE,
         subreddit: args.subreddit,
         boardId: args.boardId,
+        documentName,
       }),
     ],
     metadata: targetMetadata(args.target, args.key),
   }
-  if (args.imageUrl && spec.supportsMedia) {
-    const url = spec.key === "instagram" ? instagramSafeImageUrl(args.imageUrl) : args.imageUrl
-    body.mediaItems = [{ type: "image", url, title: args.name.slice(0, 90) }]
-  }
+  const mediaItems = mediaItemsFor(
+    spec,
+    { imageUrl: args.imageUrl, documentUrl: args.documentUrl, documentName },
+    args.name.slice(0, 90),
+  )
+  if (mediaItems) body.mediaItems = mediaItems
   const data = await zernioJson<{ post?: { _id?: string } }>("/posts", {
     method: "POST",
     body: JSON.stringify(body),
@@ -831,10 +938,13 @@ export async function updateSocialDraft(args: {
   title?: string
   blogUrl?: string
   imageUrl?: string
+  documentUrl?: string
+  documentName?: string
   subreddit?: string
   boardId?: string
 }): Promise<void> {
   const spec = platformSpec(args.key)
+  const documentName = args.documentUrl ? args.documentName : undefined
   const body: Record<string, unknown> = {
     content: clampText(args.key === "twitter" ? clampTwitter(args.content) : args.content, spec.limit),
     platforms: [
@@ -843,12 +953,20 @@ export async function updateSocialDraft(args: {
         link: args.blogUrl || SITE_BASE,
         subreddit: args.subreddit,
         boardId: args.boardId,
+        documentName,
       }),
     ],
   }
-  // imageUrl semantics: undefined = leave media as-is, "" = remove, url = set.
-  if (args.imageUrl !== undefined && spec.supportsMedia) {
-    body.mediaItems = args.imageUrl ? [{ type: "image", url: args.imageUrl }] : []
+  // imageUrl / documentUrl semantics: undefined = leave media as-is,
+  // "" = remove, url = set. Either one being present rebuilds the whole list,
+  // because a document and an image can't both be attached.
+  if (args.imageUrl !== undefined || args.documentUrl !== undefined) {
+    body.mediaItems =
+      mediaItemsFor(spec, {
+        imageUrl: args.imageUrl || undefined,
+        documentUrl: args.documentUrl || undefined,
+        documentName,
+      }) ?? []
   }
   await zernioJson(`/posts/${args.postId}`, { method: "PUT", body: JSON.stringify(body) })
 }
@@ -890,6 +1008,8 @@ export async function publishSocialDraft(args: {
   title?: string
   blogUrl: string
   imageUrl?: string
+  documentUrl?: string
+  documentName?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string }> {
@@ -914,15 +1034,18 @@ export async function publishSocialDraft(args: {
         link: args.blogUrl,
         subreddit: args.subreddit,
         boardId: args.boardId,
+        documentName: args.documentName,
       }),
     ],
     isDraft: false,
     publishNow: true,
   }
-  if (args.imageUrl && spec.supportsMedia) {
-    const url = spec.key === "instagram" ? instagramSafeImageUrl(args.imageUrl) : args.imageUrl
-    body.mediaItems = [{ type: "image", url }]
-  }
+  const mediaItems = mediaItemsFor(spec, {
+    imageUrl: args.imageUrl,
+    documentUrl: args.documentUrl,
+    documentName: args.documentName,
+  })
+  if (mediaItems) body.mediaItems = mediaItems
   const data = await zernioJson<{ post?: { status?: string } }>(`/posts/${args.postId}`, {
     method: "PUT",
     body: JSON.stringify(body),
@@ -943,6 +1066,8 @@ export async function republishCancelledPost(args: {
   title?: string
   blogUrl: string
   imageUrl?: string
+  documentUrl?: string
+  documentName?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string; postId: string }> {
@@ -959,6 +1084,7 @@ export async function republishCancelledPost(args: {
           link: args.blogUrl,
           subreddit: args.subreddit,
           boardId: args.boardId,
+          documentName: args.documentName,
         }),
       ],
       metadata: args.oldPost.metadata ?? {},
@@ -989,6 +1115,8 @@ export async function scheduleSocialPost(args: {
   title?: string
   link?: string
   imageUrl?: string
+  documentUrl?: string
+  documentName?: string
   subreddit?: string
   boardId?: string
   /** ISO timestamp; must be in the future. */
@@ -1008,16 +1136,19 @@ export async function scheduleSocialPost(args: {
         link: args.link || SITE_BASE,
         subreddit: args.subreddit,
         boardId: args.boardId,
+        documentName: args.documentName,
       }),
     ],
     isDraft: false,
     scheduledFor: args.scheduledFor,
     ...(args.timezone ? { timezone: args.timezone } : {}),
   }
-  if (args.imageUrl && spec.supportsMedia) {
-    const url = spec.key === "instagram" ? instagramSafeImageUrl(args.imageUrl) : args.imageUrl
-    body.mediaItems = [{ type: "image", url }]
-  }
+  const mediaItems = mediaItemsFor(spec, {
+    imageUrl: args.imageUrl,
+    documentUrl: args.documentUrl,
+    documentName: args.documentName,
+  })
+  if (mediaItems) body.mediaItems = mediaItems
   const data = await zernioJson<{ post?: { status?: string; scheduledFor?: string } }>(`/posts/${args.postId}`, {
     method: "PUT",
     body: JSON.stringify(body),
