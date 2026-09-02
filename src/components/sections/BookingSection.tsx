@@ -894,9 +894,6 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         </div>
       </div>
 
-      <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
-        Times shown in {tzLabel(tz)} — we detected your region and timezone, switch either above if that&rsquo;s wrong.
-      </span>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <Cta disabled={slot == null} onClick={() => { if (slot != null) { setSubmitError(""); setStep(2) } }}>
