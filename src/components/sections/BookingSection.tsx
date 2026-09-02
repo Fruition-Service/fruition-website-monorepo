@@ -45,7 +45,7 @@ interface Slot {
 
 /** Mirrors LeadRegion in @/lib/leadNotify — redeclared so this client
  *  component doesn't pull the server-only lead pipeline into the bundle. */
-type BookingRegion = "APAC" | "SEA" | "IND" | "NA" | "UK"
+export type BookingRegion = "APAC" | "SEA" | "IND" | "NA" | "UK"
 
 /** A consultant in the region's pool. */
 interface ConsultantInfo {
@@ -80,6 +80,12 @@ export interface BookingSectionProps {
   calendlyUrl?: string
   /** Defaults to BOOKING_MODE; pass it to override a single placement. */
   mode?: BookingMode
+  /**
+   * Pins the desk instead of detecting it, so one page can show every region
+   * side by side. Only /contactustest passes this — real placements leave it
+   * unset so cf-ipcountry decides and the visitor can still correct it.
+   */
+  forceRegion?: BookingRegion
 }
 
 const TZS: [string, string][] = [
@@ -384,10 +390,11 @@ function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: string; onS
   return <div ref={hostRef} style={{ width: "100%", height: 700 }} />
 }
 
-function BookingCard({ duration, askTeamSize, calendlyUrl }: {
+function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
   duration: number
   askTeamSize: boolean
   calendlyUrl: string
+  forceRegion?: BookingRegion
 }) {
   const [tz, setTz] = useState("Australia/Sydney")
   /**
@@ -408,8 +415,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
    * Calendly. Pinning it keeps both halves on one event type.
    */
   const [region, setRegion] = useState<BookingRegion | null>(null)
-  /** Set only when the visitor corrects the detected region themselves. */
-  const [regionOverride, setRegionOverride] = useState<BookingRegion | null>(null)
+  /** Set when the visitor corrects the detected region — or pinned by a preview. */
+  const [regionOverride, setRegionOverride] = useState<BookingRegion | null>(forceRegion ?? null)
   /**
    * Everyone covering this region. The card shows whoever owns the selected
    * slot, so in a pooled region the face changes when the visitor picks a time
@@ -915,6 +922,7 @@ export default function BookingSection({
   askTeamSize = true,
   calendlyUrl = "https://calendly.com/global-calendar-fruitionservices",
   mode = BOOKING_MODE,
+  forceRegion,
 }: BookingSectionProps) {
   // The office strap follows the CMS office list (see OfficeStrapProvider) so
   // adding or renaming an office is a single edit in Sanity.
@@ -957,7 +965,7 @@ export default function BookingSection({
             overflow:hidden keeps the flush iframe inside the rounded corners. */}
         <div style={{ background: "#fff", borderRadius: 24, boxShadow: "0 34px 70px -26px rgba(8,0,32,.65)", overflow: "hidden", minHeight: 474 }}>
           {mode === "consultant" ? (
-            <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} />
+            <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} forceRegion={forceRegion} />
           ) : (
             // No onScheduled: nothing was captured up front, so there is no lead
             // to promote — the shared account's invitee.created webhook records
