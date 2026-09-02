@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { requirePortalUser, getPortalAdmin } from "@/lib/portalAuth"
-import { getGa4Overview, getGscClicksByPage } from "@/lib/googleAnalytics"
+import { getGa4Overview, getGscClicksByPage, getBlogPerformance } from "@/lib/googleAnalytics"
+import { getAeoVisibility } from "@/lib/marketaInsights"
+import { getAllBlogPostsForPortal } from "@/sanity/queries"
 import PortalShell from "@/components/internal/PortalShell"
+import BlogPerformanceTable from "@/components/internal/BlogPerformanceTable"
 import { SectionCards } from "@/components/section-cards"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive-dynamic"
 import { Button } from "@/components/ui/button"
@@ -55,11 +58,21 @@ export default async function DashboardPage() {
     // Portal DB not reachable — show an empty drafts state rather than 500.
   }
 
-  // Analytics (null until the Google service-account secret is set).
-  const [ga4, gsc] = await Promise.all([
+  // Analytics (null until the Google service-account secret is set). Each source
+  // is independent so one outage cannot blank the dashboard.
+  const [ga4, gsc, performance, aeo, posts] = await Promise.all([
     getGa4Overview(28).catch(() => null),
     getGscClicksByPage(28).catch(() => null),
+    getBlogPerformance(28).catch(() => null),
+    getAeoVisibility(90),
+    // Titles only — analytics reports paths, and a slug reads badly in a table.
+    getAllBlogPostsForPortal().catch(() => [] as { slug?: string; title?: string }[]),
   ])
+
+  const postTitles = new Map<string, string>()
+  for (const p of (posts as { slug?: string; title?: string }[]) ?? []) {
+    if (p.slug && p.title) postTitles.set(p.slug, p.title)
+  }
   const nf = (n: number) => n.toLocaleString()
 
   return (
@@ -92,6 +105,60 @@ export default async function DashboardPage() {
       <div className="px-1">
         <ChartAreaInteractive />
       </div>
+
+      {performance && performance.posts.length > 0 ? (
+        <Card>
+          <CardHeader>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <CardTitle>Top posts</CardTitle>
+                <CardDescription>
+                  Views, search performance and CTA clicks over the last 28 days.
+                </CardDescription>
+              </div>
+              <Link
+                href="/internal/insights"
+                className="text-sm font-medium text-[var(--purple-primary)]"
+              >
+                All performance →
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <BlogPerformanceTable
+              posts={performance.posts}
+              titles={postTitles}
+              limit={5}
+              ctaTrackingIdle={performance.ctaTrackingIdle}
+            />
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {aeo && aeo.totalRuns > 0 ? (
+        <Card>
+          <CardHeader>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <CardTitle>AI answer visibility</CardTitle>
+                <CardDescription>
+                  {aeo.citationRate.toFixed(0)}% of sampled AI answers cite Fruition
+                  {aeo.topCompetitors.length > 0
+                    ? ` — most-cited rival: ${aeo.topCompetitors[0].name}`
+                    : ""}
+                  .
+                </CardDescription>
+              </div>
+              <Link
+                href="/internal/insights"
+                className="text-sm font-medium text-[var(--purple-primary)]"
+              >
+                Details →
+              </Link>
+            </div>
+          </CardHeader>
+        </Card>
+      ) : null}
 
       <Card>
         <CardHeader>

@@ -87,6 +87,7 @@ export default function StickyCtaBar({
       <div
         role="region"
         aria-label="Consultation banner"
+        data-cta-location="sticky"
         className="relative mx-auto flex max-w-[1200px] flex-col gap-4 overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_48%,var(--purple-primary)_110%)] p-[20px_16px_16px_20px] shadow-[0_12px_32px_-14px_rgba(16,0,58,0.4)] md:gap-[18px] md:rounded-3xl md:bg-[linear-gradient(120deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_46%,var(--purple-primary)_105%)] md:p-[24px_24px_24px_28px] md:shadow-[0_16px_40px_-16px_rgba(16,0,58,0.4)] lg:flex-row lg:items-center lg:gap-6 lg:bg-[linear-gradient(99deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_44%,var(--purple-primary)_100%)] lg:rounded-[20px] lg:p-[24px_24px_24px_34px]"
       >
         {/* Lilac glow — bottom-right on phones, top-right from md up. */}

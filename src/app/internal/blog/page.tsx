@@ -3,7 +3,10 @@ import { requirePortalUser, getPortalAdmin } from "@/lib/portalAuth"
 import { getAllBlogPostsForPortal } from "@/sanity/queries"
 import PortalShell from "@/components/internal/PortalShell"
 import PageHeader from "@/components/internal/PageHeader"
+import BlogPerformanceTable from "@/components/internal/BlogPerformanceTable"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { getBlogPerformance } from "@/lib/googleAnalytics"
 import BlogTable, { type PostRow } from "./BlogTable"
 
 export const dynamic = "force-dynamic"
@@ -106,18 +109,24 @@ export default async function BlogIndexPage() {
 
   // Drafts are a shared team workspace — fetch everyone's. Sanity holds every
   // post live on the site, whatever tool published it.
-  const [{ data: drafts }, posts] = await Promise.all([
+  const [{ data: drafts }, posts, performance] = await Promise.all([
     admin
       .from("portal_drafts")
       .select("id, title, metadata, updated_at")
       .order("updated_at", { ascending: false })
       .limit(500),
     getAllBlogPostsForPortal().catch(() => []) as Promise<SanityPost[]>,
+    // Analytics is a side panel on this page, never a reason it fails to load.
+    getBlogPerformance(28).catch(() => null),
   ])
 
   const rows = buildRows((drafts ?? []) as DraftRow[], posts)
   const industries = [...new Set(rows.map((r) => r.industry).filter((i): i is string => Boolean(i)))].sort()
   const published = rows.filter((r) => r.status === "published").length
+  const titles = new Map<string, string>()
+  for (const p of posts) {
+    if (p.slug && p.title) titles.set(p.slug, p.title)
+  }
 
   return (
     <PortalShell email={user.email} active="blog" title="Blog posts">
@@ -127,6 +136,29 @@ export default async function BlogIndexPage() {
         actions={<Button render={<Link href="/internal/blog/new" />}>New post</Button>}
       />
       <BlogTable rows={rows} industries={industries} />
+
+      {performance && performance.posts.length > 0 ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base text-ink-heading">Performance</CardTitle>
+            <CardDescription>
+              Top posts by views over the last 28 days.{" "}
+              <Link href="/internal/insights" className="underline">
+                See all posts and competitor data
+              </Link>
+              .
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <BlogPerformanceTable
+              posts={performance.posts}
+              titles={titles}
+              limit={10}
+              ctaTrackingIdle={performance.ctaTrackingIdle}
+            />
+          </CardContent>
+        </Card>
+      ) : null}
     </PortalShell>
   )
 }

@@ -8,6 +8,7 @@ import { OfficeStrapProvider } from "@/components/OfficeStrapProvider"
 import NavigationProgress from "@/components/NavigationProgress"
 import CookieNotice from "@/components/CookieNotice"
 import SiteFrame from "@/components/SiteFrame"
+import CtaClickTracker from "@/components/CtaClickTracker"
 import AwardBanner from "@/components/home/AwardBanner"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import { getSiteSettings } from "@/sanity/queries"
@@ -243,6 +244,7 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
       </head>
       <body className={`${poppins.variable} ${jetbrainsMono.variable} antialiased`}>
+        <CtaClickTracker />
         {/* GTM's no-JS fallback. It records the pageview only; none of the
             container's tags run without JavaScript. */}
         <noscript>
