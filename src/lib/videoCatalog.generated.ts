@@ -23,6 +23,13 @@ export const GENERATED_VIDEO_CATALOG: Record<string, VideoCatalogEntry> = {
     uploadDate: "2025-01-23T07:55:16-08:00",
     duration: "PT2M4S",
   },
+  // Technology for Teachers and Students
+  "1uq813_jroA": {
+    name: "The Beginner's Guide to Microsoft Planner",
+    description: "This beginner's guide to Microsoft Planner will show you how to get started with this powerful project management and to-do list tool. Learn how to access Microsoft Planner and navigate its interface, picking up essential planner tips and tricks along the way.",
+    uploadDate: "2026-03-27T09:00:00-07:00",
+    duration: "PT15M20S",
+  },
   // monday.com
   "1xJrE6BNQzo": {
     name: "Automate your work: Automations | monday.com tutorials",
@@ -246,6 +253,13 @@ export const GENERATED_VIDEO_CATALOG: Record<string, VideoCatalogEntry> = {
     name: "ClickUp Tutorial for Beginners (Step by Step)",
     uploadDate: "2026-02-16T08:11:33-08:00",
     duration: "PT10M51S",
+  },
+  // Fruition Services
+  "qfU-lauww6E": {
+    name: "How We Save 2-3 Hours/Day with AI-Powered Meeting Follow-Ups (Make.com + n8n Tutorial)",
+    description: "Description: This isn't theory. We've been running this in production across our team, and it's saving each person 2-3 hours daily while improving the quality of our client communications.",
+    uploadDate: "2026-02-10T19:12:40-08:00",
+    duration: "PT4M27S",
   },
   // monday.com
   qrQ_x6BO8KQ: {
