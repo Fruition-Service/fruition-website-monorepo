@@ -1,3 +1,5 @@
+import { pageBodyField, LEGACY_BODY_DESCRIPTION } from './objects/pageBody'
+
 export default {
   name: 'locationPage',
   title: 'Location Page',
@@ -14,7 +16,7 @@ export default {
     { name: 'primaryCtaUrl', title: 'Primary CTA URL', type: 'string' },
     { name: 'secondaryCtaLabel', title: 'Secondary CTA Label', type: 'string' },
     { name: 'secondaryCtaUrl', title: 'Secondary CTA URL', type: 'string' },
-    { name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }] },
+    pageBodyField(LEGACY_BODY_DESCRIPTION),
     { name: 'country', title: 'Country', type: 'string' },
     { name: 'region', title: 'Region', type: 'string' },
 
