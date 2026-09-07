@@ -15,8 +15,8 @@ import {
   SolutionCardsSection,
   TestimonialCtaBanner,
   JoinStatsSection,
-  TextContentSection,
   BenefitLedgerSection,
+  CapabilityBlocksSection,
   TemplateSpecSection,
 } from "@/components/sections"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
@@ -59,7 +59,8 @@ export default async function Page() {
 
   const faqTabs = resolveFaqTabs(page.faqTabs, centralFaqs)
 
-  const { benefitLedger, templateSpec } = getIndustrySections("monday-for-real-estate")
+  const { capabilityBlocks, benefitLedger, templateSpec } =
+    getIndustrySections("monday-for-real-estate")
 
   const featuredTestimonial =
     caseStudies?.find(
@@ -255,16 +256,18 @@ export default async function Page() {
         testimonials={caseStudies}
       />
 
-      {/* 9. Text section — Additional tips */}
-      {page.textContentSections?.map(
-        (section: { _key?: string; heading?: string; body?: string; theme?: "light" | "tint" }) => (
-          <TextContentSection
-            key={section._key}
-            heading={section.heading}
-            body={section.body}
-            theme={section.theme}
-          />
-        ),
+      {/* 9. Additional tips — three panels. Copy lives in industrySections.ts
+          alongside this page's other section-designed long-form content. */}
+      {capabilityBlocks && (
+        <CapabilityBlocksSection
+          eyebrow={capabilityBlocks.eyebrow}
+          heading={capabilityBlocks.heading}
+          headingAccent={capabilityBlocks.headingAccent}
+          lead={capabilityBlocks.lead}
+          columns={capabilityBlocks.columns}
+          blocks={capabilityBlocks.blocks}
+          theme="tint"
+        />
       )}
 
       {/* 10. FAQ */}

@@ -146,6 +146,36 @@ const CONSTRUCTION: IndustrySections = {
 }
 
 const REAL_ESTATE: IndustrySections = {
+  // Was a single centred prose block on the page (Sanity `textContentSections`),
+  // where the three tips ran together as one wall of text. Same copy, re-cut as
+  // panels; each tip splits at its own sentence boundary into lead + closing note.
+  capabilityBlocks: {
+    eyebrow: '// Implementation tips',
+    heading: 'Additional tips for successful',
+    headingAccent: 'CRM implementation',
+    lead: 'At Fruition Services, we have a tailored approach to help you implement monday.com as your purpose-built CRM for real estate.',
+    columns: 3,
+    blocks: [
+      {
+        number: '01',
+        title: 'Stakeholder Engagement',
+        lead: 'Getting buy-in from all stakeholders, including your team members, is essential before starting the implementation process.',
+        note: "This ensures that everyone is on board and committed to the project's success.",
+      },
+      {
+        number: '02',
+        title: 'Start Small, Scale Up',
+        lead: "If you're new to CRM, we recommend starting with a smaller scope and gradually expanding the implementation.",
+        note: 'This approach prevents overwhelming your team and allows for better management of the implementation process.',
+      },
+      {
+        number: '03',
+        title: 'Consultant Support',
+        lead: 'If you require additional guidance or expertise, consider getting help from a consultant.',
+        note: 'They bring their experience and knowledge to help you navigate the implementation process effectively and avoid common pitfalls.',
+      },
+    ],
+  },
   benefitLedger: {
     eyebrow: '// Real estate CRM',
     heading: 'Why choose monday CRM for',
