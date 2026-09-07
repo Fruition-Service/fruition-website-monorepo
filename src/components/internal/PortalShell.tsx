@@ -11,11 +11,12 @@ const TITLES: Record<string, string> = {
   blog: "Blog drafts",
   social: "Social posts",
   insights: "Content Performance",
+  qr: "QR Code Generator",
 }
 
 interface Props {
   email?: string | null
-  active?: "dashboard" | "new" | "profile" | "team" | "blog" | "social" | "insights"
+  active?: "dashboard" | "new" | "profile" | "team" | "blog" | "social" | "insights" | "qr"
   /** Overrides the header title derived from `active`. */
   title?: string
   children: React.ReactNode

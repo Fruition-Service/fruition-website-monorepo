@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, PenSquare, Users, UserPlus, FileText, Newspaper, Palette, Sparkles, Receipt, PlusCircle, Share2, Radar } from "lucide-react"
+import { LayoutDashboard, PenSquare, Users, UserPlus, FileText, Newspaper, Palette, Sparkles, Receipt, PlusCircle, Share2, Radar, QrCode } from "lucide-react"
 
 import {
   Sidebar,
@@ -62,6 +62,10 @@ const MODULES: { label: string; items: NavItem[] }[] = [
       { title: "Invoices", href: "/internal/invoices", icon: Receipt, match: "exact" },
       { title: "New Invoice", href: "/internal/invoices/new", icon: PlusCircle, match: "prefix" },
     ],
+  },
+  {
+    label: "Tools",
+    items: [{ title: "QR codes", href: "/internal/qr", icon: QrCode, match: "prefix" }],
   },
   {
     label: "Team Management",
