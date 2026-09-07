@@ -1,3 +1,8 @@
+import { pageBodyField } from './objects/pageBody'
+
+const PAGE_BODY_DESCRIPTION =
+  'Rendered as the long-form copy on policy pages (e.g. /data-privacy). On pages built from the section fields below it is unrendered Wix-migration content — kept so the original copy is not lost; do not use "Remove the block" on it.'
+
 export default {
   name: 'page',
   title: 'Page',
@@ -59,7 +64,7 @@ export default {
       }],
     },
     { name: 'heroLocalVideoSrc', title: 'Hero Local Video Path (e.g. /videos/hero.mp4)', type: 'string' },
-    { name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }] },
+    pageBodyField(PAGE_BODY_DESCRIPTION),
 
     // Capabilities / Benefits grid (e.g. "Why Join Fruition")
     { name: 'capabilitiesEyebrow', title: 'Capabilities Eyebrow (e.g. "BENEFITS")', type: 'string' },

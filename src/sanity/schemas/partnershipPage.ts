@@ -1,3 +1,5 @@
+import { pageBodyField, LEGACY_BODY_DESCRIPTION } from './objects/pageBody'
+
 export default {
   name: 'partnershipPage',
   title: 'Partnership Page',
@@ -16,7 +18,7 @@ export default {
     { name: 'primaryCtaUrl', title: 'Primary CTA URL', type: 'string' },
     { name: 'secondaryCtaLabel', title: 'Secondary CTA Label', type: 'string' },
     { name: 'secondaryCtaUrl', title: 'Secondary CTA URL', type: 'string' },
-    { name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }] },
+    pageBodyField(LEGACY_BODY_DESCRIPTION),
     { name: 'partnerName', title: 'Partner Name', type: 'string' },
     { name: 'partnerLogo', title: 'Partner Logo', type: 'image' },
 

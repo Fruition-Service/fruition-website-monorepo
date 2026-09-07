@@ -1,3 +1,5 @@
+import { pageBodyField, LEGACY_BODY_DESCRIPTION } from './objects/pageBody'
+
 export default {
   name: 'industryPage',
   title: 'Industry Page',
@@ -62,7 +64,7 @@ export default {
     { name: 'secondaryCtaUrl', title: 'Secondary CTA URL', type: 'string' },
 
     // Body content
-    { name: 'body', title: 'Body', type: 'array', of: [{ type: 'block' }] },
+    pageBodyField(LEGACY_BODY_DESCRIPTION),
 
     // Logo cloud overrides
     { name: 'logoCloudHeadingPart1', title: 'Logo Cloud Heading (prefix)', type: 'string' },
