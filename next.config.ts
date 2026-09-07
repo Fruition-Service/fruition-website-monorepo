@@ -195,6 +195,14 @@ const auditRedirects: Redirect[] = [
   // 20-21: deleted automations posts → the canonical automations guide.
   { source: "/post/monday-com-automations", destination: "/post/how-to-monday-com-automations", statusCode: 301 },
   { source: "/post/monday-automation-secrets", destination: "/post/how-to-monday-com-automations", statusCode: 301 },
+
+  // ── Follow-up removals on the same SEO thread ──
+  // Same treatment as the block above: the Sanity blogPost is unpublished
+  // (recoverable from scripts/data/blog-archive/) and its URL 301s to the page
+  // that now carries the topic.
+
+  // The Platinum-partner announcement post; the partnership page covers it.
+  { source: "/post/mondaycom-platinum-partner-fruition", destination: "/partnerships/monday-consulting-partner", statusCode: 301 },
 ];
 
 const nextConfig: NextConfig = {
