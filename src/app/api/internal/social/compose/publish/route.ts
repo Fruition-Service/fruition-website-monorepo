@@ -6,15 +6,19 @@ import {
   constraintsOf,
   getComposition,
   knownKeys,
+  liveOf,
+  mediaUrlsOf,
   statusFrom,
   updateComposition,
   type Composition,
   type CompositionPlatform,
+  type ComposerLive,
 } from "@/lib/social/composition"
 import { problemsFor } from "@/lib/social/validate"
 import { shortenForChannel } from "@/lib/social/shortLinks"
 import {
   createDraftPost,
+  fetchPostsById,
   getZernioPost,
   platformSpec,
   publishSocialDraft,
@@ -23,6 +27,7 @@ import {
   unscheduleSocialPost,
   type PlatformKey,
   type PlatformSpec,
+  type ZernioPost,
 } from "@/lib/social/zernio"
 
 export const runtime = "nodejs"
@@ -56,15 +61,20 @@ interface PublishResult {
  * Deriving it once keeps validation and publishing looking at the same post.
  * They used to compute the image separately, which is how a rule can pass on
  * a picture that never gets sent.
+ *
+ * `live` is the channel's Zernio draft, and only matters when no media choice
+ * was ever recorded for the channel: the composer shows that channel carrying
+ * whatever is on the draft, so publishing has to send the same thing.
  */
 function attachments(
   spec: PlatformSpec,
   draft: CompositionPlatform,
+  live?: ComposerLive,
 ): { imageUrls?: string[]; documentUrl?: string } {
   const documentUrl = spec.supportsDocument ? draft.documentUrl || undefined : undefined
   if (documentUrl) return { documentUrl }
   if (!spec.supportsMedia) return {}
-  return { imageUrls: channelImages(draft) }
+  return { imageUrls: channelImages(draft, live) }
 }
 
 export async function POST(req: Request) {
@@ -112,12 +122,31 @@ export async function POST(req: Request) {
     }
   }
 
+  // Read the Zernio drafts of the channels that never recorded a media choice,
+  // and nothing else: those are the only ones whose images come from Zernio
+  // rather than from the row, and an extra read per channel is not free. A
+  // Zernio outage here degrades to "no fallback" instead of failing the publish,
+  // exactly as the composer degrades to "not connected".
+  const unresolved: Partial<Record<PlatformKey, string>> = {}
+  for (const key of keys) {
+    const draft = composition.platforms[key] as CompositionPlatform
+    if (draft.zernioPostId && mediaUrlsOf(draft) === undefined) unresolved[key] = draft.zernioPostId
+  }
+  const livePosts: Partial<Record<PlatformKey, ZernioPost>> = Object.keys(unresolved).length
+    ? await fetchPostsById(unresolved).catch(() => ({}))
+    : {}
+  const live: Partial<Record<PlatformKey, ComposerLive>> = {}
+  for (const key of keys) {
+    const found = liveOf(livePosts[key])
+    if (found) live[key] = found
+  }
+
   // Validate everything BEFORE creating any Zernio draft, so a rejected publish
   // leaves nothing half-created behind.
   const problems = keys.flatMap((key) => {
     const draft = composition.platforms[key] as CompositionPlatform
     const spec = platformSpec(key)
-    const { imageUrls, documentUrl } = attachments(spec, draft)
+    const { imageUrls, documentUrl } = attachments(spec, draft, live[key])
     return problemsFor(constraintsOf(spec), {
       content: draft.content,
       title: draft.title,
@@ -133,7 +162,7 @@ export async function POST(req: Request) {
 
   for (const key of keys) {
     const draft = platforms[key] as CompositionPlatform
-    const { imageUrls, documentUrl } = attachments(platformSpec(key), draft)
+    const { imageUrls, documentUrl } = attachments(platformSpec(key), draft, live[key])
     const documentName = draft.documentName
     try {
       const { content, link } = await shortenForChannel({

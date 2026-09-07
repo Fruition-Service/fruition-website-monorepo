@@ -184,9 +184,20 @@ function cleanPlatforms(
   return out
 }
 
-/** A channel's chosen images, in carousel order. [] when it has none. */
-export function channelImages(draft: CompositionPlatform): string[] {
-  return mediaUrlsOf(draft) ?? []
+/**
+ * A channel's images, in carousel order, as they would actually go out. [] when
+ * it has none.
+ *
+ * "No choice recorded" (no media key at all) falls back to whatever the Zernio
+ * draft already carries, exactly as the composer shows it. Publishing read this
+ * as [] while the composer read it as the draft's pictures, so the portal could
+ * show a channel with an image and then publish it without one.
+ * An explicit [] (or the pre-carousel `mediaUrl: ""`) is a deliberate none and
+ * never inherits.
+ */
+export function channelImages(draft: CompositionPlatform | undefined, live?: ComposerLive): string[] {
+  const chosen = draft && mediaUrlsOf(draft)
+  return chosen ?? live?.mediaUrls ?? []
 }
 
 /**
@@ -369,7 +380,11 @@ export interface ComposerState {
   shortLinks: ShortLink[]
 }
 
-function liveOf(post: ZernioPost | undefined): ComposerLive | undefined {
+/**
+ * The live half of a channel, read off its Zernio post. Exported so the publish
+ * route resolves media from the same shape the composer renders.
+ */
+export function liveOf(post: ZernioPost | undefined): ComposerLive | undefined {
   if (!post) return undefined
   const entry = post.platforms?.[0]
   return {
@@ -429,13 +444,12 @@ export function effectiveMedia(
 ): string[] {
   if (!spec.supportsMedia) return []
   if (effectiveDocument(draft, live, spec)) return []
-  const chosen = draft && mediaUrlsOf(draft)
+  // Same resolution the publish route uses, deliberately shared: the two used
+  // to compute it separately and disagreed about "no choice recorded".
   // Not capped at `maxMedia` here: an over-full channel has to reach the
   // validator as it stands, or the page would show no blocker for a carousel
   // the publish route is going to refuse.
-  if (chosen !== undefined) return chosen
-  // No local choice: whatever is already on the Zernio draft is the truth.
-  return live?.mediaUrls ?? []
+  return channelImages(draft, live)
 }
 
 /**

@@ -186,3 +186,71 @@ describe("the whole way from the composer's save to Zernio", () => {
     expect(lastWrite()?.body.mediaItems).toEqual([])
   })
 })
+
+describe("a channel that never recorded a media choice", () => {
+  /**
+   * The composer and the publish route read the same row two ways: the composer
+   * fell back to the channel's Zernio draft, publishing did not. So a channel
+   * whose picture only lived on the draft showed an image in the portal and
+   * went out without one. Both now resolve it through channelImages.
+   */
+  const spec = platformSpec("instagram")
+  const live = { postId: "p1", status: "draft", mediaUrls: SLIDES.slice(0, 2) }
+
+  it("inherits the Zernio draft's images, exactly as the composer shows them", () => {
+    const draft = platformsFromInput({ instagram: { content: "caption" } })!.instagram!
+    expect(channelImages(draft, live)).toEqual(SLIDES.slice(0, 2))
+    expect(channelImages(draft, live)).toEqual(effectiveMedia(draft, live, spec))
+  })
+
+  it("publishes those inherited images rather than an empty post", async () => {
+    const draft = platformsFromInput({ instagram: { content: "caption" } })!.instagram!
+    await publishSocialDraft({
+      postId: "p1",
+      key: "instagram",
+      content: "caption",
+      blogUrl: "",
+      imageUrls: channelImages(draft, live),
+    })
+    expect(mediaOf(lastWrite()).map((m) => m.url)).toEqual(SENT.slice(0, 2))
+  })
+
+  it("still caps the inherited carousel at the channel's limit", async () => {
+    const many = Array.from(
+      { length: 12 },
+      (_, i) => `https://cdn.sanity.io/images/p/production/s${i}-1080x1350.png`,
+    )
+    const draft = platformsFromInput({ instagram: { content: "caption" } })!.instagram!
+    await publishSocialDraft({
+      postId: "p1",
+      key: "instagram",
+      content: "caption",
+      blogUrl: "",
+      imageUrls: channelImages(draft, { postId: "p1", status: "draft", mediaUrls: many }),
+    })
+    expect(mediaOf(lastWrite())).toHaveLength(spec.maxMedia)
+  })
+
+  it("leaves a deliberate none alone, on either row shape", () => {
+    const picked = platformsFromInput({ instagram: { content: "caption", mediaUrls: [] } })!.instagram!
+    expect(channelImages(picked, live)).toEqual([])
+    // The pre-carousel shape the LinkedIn channel published with: "" is a
+    // recorded choice to send no picture, not an absent one.
+    expect(channelImages({ content: "", mediaUrl: "" }, live)).toEqual([])
+  })
+
+  it("publishes nothing for a channel that deliberately picked none", async () => {
+    await publishSocialDraft({
+      postId: "p1",
+      key: "linkedin",
+      content: "caption",
+      blogUrl: "",
+      imageUrls: channelImages({ content: "", mediaUrl: "" }, live),
+    })
+    expect(lastWrite()?.body.mediaItems).toBeUndefined()
+  })
+
+  it("never lets the draft override an explicit selection", () => {
+    expect(channelImages({ content: "", mediaUrls: [SLIDES[3]] }, live)).toEqual([SLIDES[3]])
+  })
+})
