@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { ChangeEvent, CSSProperties, ReactNode } from "react"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
@@ -96,8 +97,31 @@ const TZS: [string, string][] = [
   ["America/New_York", "New York (EDT)"],
   ["America/Los_Angeles", "Los Angeles (PDT)"],
 ]
-/** The platforms we implement — answers "What should we prepare for?". */
-const PLATFORMS = ["monday.com", "HubSpot", "ClickUp", "Make", "n8n", "Aircall", "Other"]
+/**
+ * The platforms we implement — answers "What should we prepare for?".
+ *
+ * The mark makes the row scannable: people recognise the monday or HubSpot
+ * logo faster than they read a word, and it disambiguates "Make" and "Claude",
+ * which are ordinary words as well as products.
+ *
+ * Marks are the Simple Icons set already in `public/images/home/logos`, so no
+ * new brand assets were introduced. ClickUp and Aircall have no mark there yet
+ * — the only files we hold are a "Registered Partner" badge and a white-on-
+ * transparent wordmark, neither usable at this size — so those two chips render
+ * as text until the icons are added. `logo` being optional is what keeps that a
+ * graceful gap rather than a broken image.
+ */
+const PLATFORMS: { name: string; logo?: string }[] = [
+  { name: "monday.com", logo: "/images/home/logos/monday.svg" },
+  { name: "HubSpot", logo: "/images/home/logos/hubspot.svg" },
+  { name: "ClickUp" },
+  { name: "Make", logo: "/images/home/logos/make.svg" },
+  { name: "n8n", logo: "/images/home/logos/n8n.svg" },
+  { name: "Aircall" },
+  { name: "Claude", logo: "/images/home/logos/claude.svg" },
+  { name: "OpenAI", logo: "/images/home/logos/openai.svg" },
+  { name: "Other" },
+]
 
 /**
  * The desks a visitor can book, and what to call them. Detection is right most
@@ -157,6 +181,7 @@ const pill = (sel: boolean, wide?: boolean): CSSProperties => ({
   boxShadow: sel ? "0 6px 18px -8px rgba(128,21,232,.55)" : "none", transition: "all .16s ease",
 })
 const chip = (sel: boolean): CSSProperties => ({
+  display: "inline-flex", alignItems: "center", gap: 7,
   height: 36, padding: "0 15px", borderRadius: 9999, fontFamily: "var(--font-sans)", fontSize: 13.5,
   fontWeight: 500, cursor: "pointer", border: `1px solid ${sel ? "var(--purple-primary)" : "var(--color-border)"}`,
   background: sel ? "var(--color-brand-soft)" : "#fff", color: sel ? "var(--purple-primary)" : "var(--text-dark)",
@@ -729,8 +754,16 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
             <span style={label}>What should we prepare for?</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {PLATFORMS.map((t) => (
-                <button key={t} type="button" onClick={() => setPlatform(t)} style={chip(t === platform)}>{t}</button>
+              {PLATFORMS.map(({ name, logo }) => (
+                <button key={name} type="button" onClick={() => setPlatform(name)} style={chip(name === platform)}>
+                  {logo && (
+                    // Decorative: the chip already names the product, so an alt
+                    // would just have a screen reader say it twice.
+                    <Image src={logo} alt="" aria-hidden width={16} height={16} unoptimized
+                      style={{ width: 15, height: 15, objectFit: "contain", flex: "none" }} />
+                  )}
+                  {name}
+                </button>
               ))}
             </div>
           </div>
