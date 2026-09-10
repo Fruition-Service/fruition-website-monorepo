@@ -2,11 +2,12 @@ import { NextResponse } from "next/server"
 import { getPortalApiUser } from "@/lib/portalAuth"
 import {
   DESIGN_DOC_MODEL,
-  FRUITION_DOC_SYSTEM_PROMPT,
   FRUITION_LOGO_TOKEN,
+  buildDocPrompt,
   designDocUserInstruction,
-} from "@/lib/design/fruitionDocPrompt"
-import { FRUITION_LOGO_WHITE_DATA_URI } from "@/lib/design/fruitionLogo"
+} from "@/lib/design/buildDocPrompt"
+import { FRUITION_LOGO_WHITE_DATA_URI } from "@/lib/design/theme/assets"
+import { DEFAULT_TEMPLATE_ID, isTemplateId } from "@/lib/design/templates"
 
 export const runtime = "nodejs"
 // A full document redesign is slow: OpenRouter spends ~30-60s parsing the PDF
@@ -18,6 +19,9 @@ export const maxDuration = 300
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 const MAX_PDF_BYTES = 10 * 1024 * 1024
+// Pasted / extracted text. Roughly 250k tokens of source, well under the model's
+// context once the prompt and output budget are accounted for.
+const MAX_TEXT_CHARS = 600_000
 const MAX_OUTPUT_TOKENS = 64000
 // Comment sent before the model's first token so bytes flow immediately and at
 // least every HEARTBEAT_MS. It sits before <!doctype html>, so the client's
@@ -47,7 +51,8 @@ function describeUpstreamError(body: string, status: number): string {
 }
 
 /**
- * Restyle an uploaded PDF into a Fruition-branded HTML document.
+ * Restyle a source document (an uploaded PDF, or extracted/pasted text) into a
+ * Fruition-branded HTML document using the selected template.
  *
  * Routes through OpenRouter (same as src/lib/claudeClient.ts) so billing rolls
  * up under one account and the model is swappable. OpenRouter parses the PDF
@@ -72,17 +77,45 @@ export async function POST(req: Request) {
 
   const file = form.get("file")
   const title = (form.get("title") as string | null)?.trim() || undefined
-  if (!(file instanceof File)) {
-    return NextResponse.json({ error: "Missing PDF file." }, { status: 400 })
+  const rawTemplate = form.get("template") as string | null
+  const template = isTemplateId(rawTemplate) ? rawTemplate : DEFAULT_TEMPLATE_ID
+  const text = (form.get("text") as string | null)?.trim() || ""
+
+  // Two input shapes: a PDF the model parses natively, or already-extracted
+  // text (pasted Markdown, or DOCX/PPTX extracted in the browser — see
+  // src/lib/design/extract). Exactly one is required.
+  const hasFile = file instanceof File
+  if (!hasFile && !text) {
+    return NextResponse.json({ error: "Provide a PDF or some text to redesign." }, { status: 400 })
   }
-  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-    return NextResponse.json({ error: "Only PDF files are supported." }, { status: 400 })
-  }
-  if (file.size > MAX_PDF_BYTES) {
-    return NextResponse.json({ error: "PDF is too large (max 10 MB)." }, { status: 400 })
+  if (hasFile) {
+    if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+      return NextResponse.json({ error: "Only PDF files are supported." }, { status: 400 })
+    }
+    if (file.size > MAX_PDF_BYTES) {
+      return NextResponse.json({ error: "PDF is too large (max 10 MB)." }, { status: 400 })
+    }
+  } else if (text.length > MAX_TEXT_CHARS) {
+    return NextResponse.json(
+      { error: `That's too long (max ${MAX_TEXT_CHARS.toLocaleString()} characters).` },
+      { status: 400 },
+    )
   }
 
-  const pdfBase64 = Buffer.from(await file.arrayBuffer()).toString("base64")
+  const instruction = designDocUserInstruction(template, title)
+  const userContent: Record<string, unknown>[] = [{ type: "text", text: instruction }]
+  if (hasFile) {
+    const pdfBase64 = Buffer.from(await file.arrayBuffer()).toString("base64")
+    userContent.push({
+      type: "file",
+      file: {
+        filename: file.name || "document.pdf",
+        file_data: `data:application/pdf;base64,${pdfBase64}`,
+      },
+    })
+  } else {
+    userContent.push({ type: "text", text: `Source document:\n\n${text}` })
+  }
 
   const requestBody = JSON.stringify({
     model: DESIGN_DOC_MODEL,
@@ -95,23 +128,12 @@ export async function POST(req: Request) {
     // no such per-region model gating, so route there first; fallbacks remain
     // enabled for resilience if Anthropic is briefly unavailable.
     provider: { order: ["anthropic"], allow_fallbacks: true },
-    // Use Claude's native PDF understanding rather than an OCR pre-pass.
-    plugins: [{ id: "file-parser", pdf: { engine: "native" } }],
+    // Use Claude's native PDF understanding rather than an OCR pre-pass. Only
+    // meaningful when a file is attached.
+    ...(hasFile ? { plugins: [{ id: "file-parser", pdf: { engine: "native" } }] } : {}),
     messages: [
-      { role: "system", content: FRUITION_DOC_SYSTEM_PROMPT },
-      {
-        role: "user",
-        content: [
-          { type: "text", text: designDocUserInstruction(title) },
-          {
-            type: "file",
-            file: {
-              filename: file.name || "document.pdf",
-              file_data: `data:application/pdf;base64,${pdfBase64}`,
-            },
-          },
-        ],
-      },
+      { role: "system", content: buildDocPrompt(template) },
+      { role: "user", content: userContent },
     ],
   })
 

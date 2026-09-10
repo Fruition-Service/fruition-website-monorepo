@@ -7,20 +7,28 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import DesignChatPanel from "@/components/internal/DesignChatPanel"
 import { applyEdits, parseEditResponse } from "@/lib/design/docEdit"
-import { withPrintFixes } from "@/lib/design/printFixes"
+import { withTheme } from "@/lib/design/theme"
 
 interface Props {
   id: string
   title: string
   html: string
   sourceFilename?: string | null
+  /** Template id, or "legacy" for documents generated before templates existed. */
+  template?: string | null
 }
 
 /**
  * Preview a generated design document, edit it via the Claude chat panel,
  * export it (print → PDF), rename, delete.
  */
-export default function DesignDocViewer({ id, title: initialTitle, html: initialHtml, sourceFilename }: Props) {
+export default function DesignDocViewer({
+  id,
+  title: initialTitle,
+  html: initialHtml,
+  sourceFilename,
+  template,
+}: Props) {
   const router = useRouter()
   const iframeRef = React.useRef<HTMLIFrameElement>(null)
   const [title, setTitle] = React.useState(initialTitle)
@@ -41,7 +49,7 @@ export default function DesignDocViewer({ id, title: initialTitle, html: initial
   }
 
   function downloadHtml() {
-    const blob = new Blob([withPrintFixes(html)], { type: "text/html" })
+    const blob = new Blob([withTheme(html, template)], { type: "text/html" })
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
@@ -214,7 +222,7 @@ export default function DesignDocViewer({ id, title: initialTitle, html: initial
             ref={iframeRef}
             title={title}
             sandbox="allow-same-origin allow-modals allow-popups allow-popups-to-escape-sandbox"
-            srcDoc={withPrintFixes(html)}
+            srcDoc={withTheme(html, template)}
             className="h-[80vh] w-full rounded-[calc(var(--radius-card)-8px)] border border-[var(--color-border)] bg-white"
           />
         </div>
