@@ -82,9 +82,12 @@ export interface BookingSectionProps {
   /** Defaults to BOOKING_MODE; pass it to override a single placement. */
   mode?: BookingMode
   /**
-   * Pins the desk instead of detecting it, so one page can show every region
-   * side by side. Only /contactustest passes this — real placements leave it
-   * unset so cf-ipcountry decides and the visitor can still correct it.
+   * Pins the desk instead of detecting it from cf-ipcountry. The country
+   * landing pages declare their own (via CalendlySection), and /contactustest
+   * uses it to show every region at once. Everywhere else leaves it unset.
+   *
+   * Only the starting value: the region switch on the card still works, so a
+   * visitor on the wrong country's page can move themselves.
    */
   forceRegion?: BookingRegion
 }

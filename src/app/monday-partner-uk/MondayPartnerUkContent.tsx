@@ -201,6 +201,7 @@ export default function MondayPartnerUkContent({
 
       {/* Calendly — booking CTA follows immediately on the proof that earns it */}
       <CalendlySection
+        region="UK"
         heading={page.calendlyHeading || "Book A 30-Min Consultation with A monday.com Expert"}
         subheading={
           page.calendlySubheading ||
