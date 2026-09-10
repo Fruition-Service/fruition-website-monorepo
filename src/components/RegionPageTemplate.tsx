@@ -143,6 +143,7 @@ export default function RegionPageTemplate({
         heading={content.closingCta.heading}
         subheading={content.closingCta.lead}
         calendlyUrl={rawCalendly}
+        bookingRegion={content.bookingRegion}
       />
     </div>
   )

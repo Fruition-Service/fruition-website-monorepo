@@ -119,6 +119,7 @@ const australia: RegionContent = {
   slug: "monday-partner-australia",
   country: "Australia",
   teamRegion: "APAC",
+  bookingRegion: "APAC",
   flag: "🇦🇺",
   hero: {
     eyebrow: "monday.com Platinum Partner · Sydney · Melbourne · Brisbane · Adelaide · Perth",
@@ -244,6 +245,7 @@ const unitedKingdom: RegionContent = {
   slug: "monday-partner-uk",
   country: "the United Kingdom",
   teamRegion: "UK",
+  bookingRegion: "UK",
   flag: "🇬🇧",
   hero: {
     eyebrow: "monday.com Platinum Partner · London · Manchester · Birmingham · Edinburgh",
@@ -369,6 +371,7 @@ const unitedStates: RegionContent = {
   slug: "monday-partner-us",
   country: "the United States",
   teamRegion: "US",
+  bookingRegion: "NA",
   flag: "🇺🇸",
   hero: {
     eyebrow: "monday.com Platinum Partner · New York · Chicago · Austin · San Francisco",
@@ -494,6 +497,7 @@ const singapore: RegionContent = {
   slug: "monday-partner-singapore",
   country: "Singapore",
   teamRegion: "APAC",
+  bookingRegion: "SEA",
   flag: "🇸🇬",
   hero: {
     eyebrow: "monday.com Platinum Partner · Singapore · Malaysia · Indonesia · Thailand",
@@ -620,6 +624,7 @@ const india: RegionContent = {
   slug: "monday-partner-india",
   country: "India",
   teamRegion: "IN",
+  bookingRegion: "IND",
   flag: "🇮🇳",
   hero: {
     eyebrow: "monday.com Platinum Partner · Delhi NCR · Mumbai · Bengaluru · Hyderabad",
@@ -745,6 +750,7 @@ const philippines: RegionContent = {
   slug: "monday-partner-philippines",
   country: "the Philippines",
   teamRegion: "APAC",
+  bookingRegion: "SEA",
   flag: "🇵🇭",
   hero: {
     eyebrow: "monday.com Platinum Partner · Metro Manila · Cebu · Davao · Clark",

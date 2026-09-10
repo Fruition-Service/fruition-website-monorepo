@@ -1,3 +1,5 @@
+import type { BookingRegion } from "@/components/sections/BookingSection"
+import type { TeamRegion } from "@/components/TeamGridSection"
 /**
  * Content model for the region pages (/monday-partner-*).
  *
@@ -50,8 +52,18 @@ export interface RegionContent {
   /** Sanity `locationPage` slug this content belongs to. */
   slug: string
   country: string
-  /** Team-grid region code (APAC | UK | US | IN). */
-  teamRegion: string
+  /**
+   * Which team members the grid shows — the Sanity teamMember tag vocabulary.
+   * Not the same thing as `bookingRegion`, and not the same values: this page
+   * set uses US/IN/APAC where booking uses NA/IND/SEA.
+   */
+  teamRegion: TeamRegion
+  /**
+   * Which consultation desk the booking card offers, instead of detecting it
+   * from the visitor's IP. A country page is already an answer to "where are
+   * you?", so declaring it beats geo-detection here.
+   */
+  bookingRegion: BookingRegion
   flag: string
 
   hero: {
