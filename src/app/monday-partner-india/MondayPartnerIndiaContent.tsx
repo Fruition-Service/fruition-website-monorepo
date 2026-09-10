@@ -194,7 +194,7 @@ export default function MondayPartnerIndiaContent({
 
       {/* Calendly — booking CTA follows immediately on the proof that earns it */}
       <CalendlySection
-        region="IND"
+        bookingRegion="IND"
         heading={page.calendlyHeading || "Schedule A 30-Min Consultation With One of Our monday.com Implementation Consultants"}
         subheading={page.calendlySubheading}
         calendlyUrl={rawCalendly}

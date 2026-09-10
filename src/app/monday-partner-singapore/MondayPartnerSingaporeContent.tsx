@@ -195,7 +195,7 @@ export default function MondayPartnerSingaporeContent({
 
       {/* Calendly — booking CTA follows immediately on the proof that earns it */}
       <CalendlySection
-        region="SEA"
+        bookingRegion="SEA"
         heading={page.calendlyHeading || "Schedule a 30 minute Call With One of Our monday.com Consultants Today"}
         subheading={
           page.calendlySubheading ||
