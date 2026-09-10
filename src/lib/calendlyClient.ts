@@ -1,4 +1,5 @@
 import type { LeadRegion } from "@/lib/leadNotify"
+import { REGION_BOOKING } from "@/lib/regionBooking"
 
 /**
  * Thin server-side wrapper around the Calendly v2 API for the custom
@@ -11,27 +12,15 @@ const CALENDLY_API = "https://api.calendly.com"
 const EVENT_TYPE = (uuid: string) => `https://api.calendly.com/event_types/${uuid}`
 
 /**
- * The four regional consultations published on
- * calendly.com/global-calendar-fruitionservices — the same ones the site's
- * fallback link sends visitors to. Verified against the API 2026-07-31.
- *
- * These replace a set of `collective` duplicates on secret /d/… links that the
- * map previously pointed at. Those duplicates are hosted by two people each,
- * so availability was the thin intersection of both calendars: over the week
- * of 3 Aug the [APAC] duplicate offered 20 slots with no Wednesday at all and
- * the [US] one offered 19 with no Thursday, while these four offer 77–99 each
- * across all five weekdays.
- *
- * India has no event type of its own, so IND rides on South-East Asia — the
- * nearest business hours (IST is SGT−2:30).
+ * The shared account's regional event types, as full API URIs. Kept as a
+ * derived view of REGION_BOOKING so the uuid used for availability can never
+ * drift from the scheduling page the visitor is sent to.
  */
-export const REGION_EVENT_TYPES: Record<LeadRegion, string> = {
-  APAC: EVENT_TYPE("50ec7db3-e50d-43e4-b9d2-5a3c0eecea9b"), // [Australia & New Zealand]
-  SEA: EVENT_TYPE("b46e38ae-b292-47f1-a348-45274bb7e64d"), //  [South-East Asia]
-  IND: EVENT_TYPE("b46e38ae-b292-47f1-a348-45274bb7e64d"), //  [South-East Asia]
-  UK: EVENT_TYPE("24539274-650a-47ec-994b-a19bc1026437"), //   [UK & Europe]
-  NA: EVENT_TYPE("e5644214-e726-4cc7-865b-6fcc9f992139"), //   [US & Canada]
-}
+export const REGION_EVENT_TYPES: Record<LeadRegion, string> = Object.fromEntries(
+  (Object.entries(REGION_BOOKING) as [LeadRegion, { eventTypeUuid: string }][]).map(
+    ([region, b]) => [region, EVENT_TYPE(b.eventTypeUuid)],
+  ),
+) as Record<LeadRegion, string>
 
 function getToken(): string {
   const t = process.env.CALENDLY_API_TOKEN

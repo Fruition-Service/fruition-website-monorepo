@@ -1,22 +1,22 @@
 import type { LeadRegion } from "@/lib/leadNotify"
 
 /**
- * The regional consultants and their own 30-minute Calendly links.
+ * The regional consultants: who covers each region, and their own 30-minute
+ * Calendly links.
  *
- * These replace the shared `global-calendar-fruitionservices` account, whose
- * four regional event types are all hosted by one placeholder user with almost
- * nothing booked on it — it offered a near-flat 15–20 slots every weekday, so a
- * visitor could book straight over a consultant's real meeting.
+ * Bookings no longer go to these personal links. The site briefly routed each
+ * region to the consultant's own event type — that gave real, conflict-checked
+ * availability, but it put website leads on private calendars the team can't
+ * see, which is what Josh asked to have reverted. Booking now targets the
+ * shared account's regional event types (see REGION_BOOKING in regionBooking).
  *
- * Each link below is the consultant's personal event type, backed by their own
- * connected calendar. Verified against Calendly on 2026-07-31; over the week of
- * 3 Aug they returned genuinely uneven, conflict-checked availability (Nikki
- * fully booked, Zach's Thursday gone, Josh's Mon–Wed tight and Thu–Fri open).
+ * What this map still decides is *who the lead belongs to*: the monday owner,
+ * and the name and face on the booking card. `calendlyUrl` survives as the
+ * last-resort fallback if the shared calendar can't be reached at all.
  *
- * `eventTypeUuid` is unused in phase 1 — the visitor confirms on Calendly's own
- * booking page — and is here for the API-booking phase, which needs a token per
- * consultant because Calendly refuses cross-account access (a token that
- * doesn't own the event type gets "Permission Denied", verified 2026-07-31).
+ * Verified against Calendly on 2026-07-31; Kevin's Europe/London zone
+ * re-confirmed against the API 2026-09-02 (his monday profile says Zurich and
+ * is the stale record).
  */
 
 /**
@@ -30,6 +30,19 @@ export interface ConsultantPrefill {
   title?: number
   phone?: number
   message?: number
+  /** A multi-select "which service?" question, answered with one choice. */
+  service?: number
+}
+
+/**
+ * Anything a booking link can be built against: a consultant's own event type,
+ * or one of the shared account's regional ones (see REGION_BOOKING). Only these
+ * three fields decide the URL, so both shapes go through buildBookingUrl.
+ */
+export interface BookingTarget {
+  calendlyUrl: string
+  availabilityTimezone: string
+  prefill: ConsultantPrefill
 }
 
 export interface Consultant {
@@ -103,8 +116,9 @@ export const REGION_CONSULTANTS: Record<LeadRegion, Consultant[]> = {
       companyRequired: true,
     },
   ],
-  // Nikki first, Thana as the overflow — Nikki was fully booked the whole week
-  // of 3 Aug on her own, which is exactly the gap pooling closes.
+  // Nikki alone. Thana was here as overflow while each region booked a personal
+  // calendar and Nikki's own week could fill up; bookings now land on the shared
+  // regional event type, so the pool only decides who owns the lead.
   SEA: [
     {
       key: "nikki",
@@ -114,17 +128,6 @@ export const REGION_CONSULTANTS: Record<LeadRegion, Consultant[]> = {
       eventTypeUuid: "ef3e72ac-bf64-48ec-ac4b-04f2333463f8",
       availabilityTimezone: "Asia/Bangkok",
       mondayUserId: 74789722,
-      prefill: { message: 1 },
-      companyRequired: false,
-    },
-    {
-      key: "thana",
-      name: "Thana Witchawut",
-      firstName: "Thana",
-      calendlyUrl: "https://calendly.com/thana-fruitionservices/30min",
-      eventTypeUuid: "4c6c527e-6057-4054-97c0-355ca492c4a6",
-      availabilityTimezone: "Asia/Bangkok",
-      mondayUserId: 95135535,
       prefill: { message: 1 },
       companyRequired: false,
     },
@@ -228,6 +231,8 @@ export interface BookingPrefill {
   title?: string
   phone?: string
   message?: string
+  /** One of the event type's own service choices, or omitted. */
+  service?: string
   /** Site path the visitor started from — carried as utm_content. */
   sourcePage?: string
   /** UTC ISO start of the slot the visitor picked on our own calendar. */
@@ -270,7 +275,7 @@ function isoInZone(utcIso: string, tz: string): string | null {
  * when they already picked a slot here — deep-linked straight to that time, so
  * confirming is one click rather than choosing all over again.
  */
-export function buildBookingUrl(c: Consultant, lead: BookingPrefill): string {
+export function buildBookingUrl(c: BookingTarget, lead: BookingPrefill): string {
   const params = new URLSearchParams({
     name: lead.name,
     email: lead.email,
@@ -309,6 +314,7 @@ export function buildBookingUrl(c: Consultant, lead: BookingPrefill): string {
   put(c.prefill.title, lead.title)
   put(c.prefill.phone, lead.phone)
   put(c.prefill.message, lead.message)
+  put(c.prefill.service, lead.service)
   for (const [slot, parts] of slots) params.set(`a${slot}`, parts.join("\n\n"))
 
   // URLSearchParams writes spaces as "+", and Calendly's widget re-encodes the

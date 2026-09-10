@@ -20,18 +20,20 @@ import { useOfficeStrap } from "@/components/OfficeStrapProvider"
  * Both stay built and working; flipping the constant swaps the card back. The
  * picker below must not be deleted while "consultant" is still a mode.
  *
- * Availability comes from /api/scheduling/availability, which reads the real
- * calendar of the consultant who covers the visitor's region (detected from
- * Cloudflare's cf-ipcountry). Slots arrive as UTC instants; the visitor's
- * timezone is auto-detected and switchable, and all day grouping and time
- * labels are derived client-side with Intl.
+ * Availability comes from /api/scheduling/availability, which reads the shared
+ * account's event type for the visitor's region (detected from Cloudflare's
+ * cf-ipcountry, and correctable with the region switch above the grid). Slots
+ * arrive as UTC instants; the visitor's timezone is auto-detected and
+ * switchable, and all day grouping and time labels are derived client-side
+ * with Intl.
  *
  * Details are captured by /api/scheduling/lead *before* the booking is
  * confirmed — that records the enquiry on the ILE board even if the visitor
- * never finishes — and the visitor then confirms on the consultant's own
- * Calendly, deep-linked to the slot they already chose with their details
- * prefilled. Nothing in the flow can block a booking: every failure path still
- * lands them on a calendar.
+ * never finishes — and the visitor then confirms on that regional booking page,
+ * deep-linked to the slot they already chose with their details prefilled. The
+ * consultant named on the card is who takes the call and owns the lead; the
+ * meeting itself lands on the shared calendar. Nothing in the flow can block a
+ * booking: every failure path still lands them on a calendar.
  */
 
 /** A bookable slot: UTC ISO start, and which consultant owns it. */
@@ -63,7 +65,7 @@ export type BookingMode = "global" | "consultant"
  * What fills the booking card, site-wide. "global" while regional routing is
  * settled in Calendly — flip to "consultant" to bring the picker back.
  */
-export const BOOKING_MODE: BookingMode = "global"
+export const BOOKING_MODE: BookingMode = "consultant"
 
 export interface BookingSectionProps {
   eyebrow?: string
@@ -90,6 +92,21 @@ const TZS: [string, string][] = [
 ]
 /** The platforms we implement — answers "What should we prepare for?". */
 const PLATFORMS = ["monday.com", "HubSpot", "ClickUp", "Make", "n8n", "Aircall", "Other"]
+
+/**
+ * The desks a visitor can book, and what to call them. Detection is right most
+ * of the time and wrong loudly: a US company browsing from a Sydney office got
+ * offered the ANZ desk, and there was no way to say otherwise. Picking here
+ * re-fetches availability against that region's event type, so the correction
+ * lands on the calendar as well as the CRM.
+ */
+const REGION_LABELS: [BookingRegion, string][] = [
+  ["APAC", "Australia & NZ"],
+  ["SEA", "South-East Asia"],
+  ["IND", "India & UAE"],
+  ["UK", "UK & Europe"],
+  ["NA", "US & Canada"],
+]
 const SIZES = ["1–10", "11–50", "51–200", "200+"]
 const DOW = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -391,6 +408,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
    * Calendly. Pinning it keeps both halves on one event type.
    */
   const [region, setRegion] = useState<BookingRegion | null>(null)
+  /** Set only when the visitor corrects the detected region themselves. */
+  const [regionOverride, setRegionOverride] = useState<BookingRegion | null>(null)
   /**
    * Everyone covering this region. The card shows whoever owns the selected
    * slot, so in a pooled region the face changes when the visitor picks a time
@@ -410,6 +429,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
   const [sending, setSending] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [bookingUrl, setBookingUrl] = useState("")
+  /** The region's shared booking page, used when live availability fails. */
+  const [regionBookingUrl, setRegionBookingUrl] = useState("")
 
   /* auto-detect timezone once. Set in an effect, not a lazy initial state, so
      server and client render the same thing on first paint. */
@@ -426,18 +447,21 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
   useEffect(() => {
     if (!detectedTz) return
     let live = true
-    fetch(`/api/scheduling/availability?tz=${encodeURIComponent(detectedTz)}`)
+    const q = new URLSearchParams({ tz: detectedTz })
+    if (regionOverride) q.set("region", regionOverride)
+    fetch(`/api/scheduling/availability?${q}`)
       .then((r) => r.json())
-      .then((d: { slots?: Slot[]; region?: BookingRegion; consultants?: ConsultantInfo[] }) => {
+      .then((d: { slots?: Slot[]; region?: BookingRegion; consultants?: ConsultantInfo[]; bookingUrl?: string }) => {
         if (!live) return
         if (d.region) setRegion(d.region)
+        if (d.bookingUrl) setRegionBookingUrl(d.bookingUrl)
         if (d.consultants?.length) setPool(d.consultants)
         if (d.slots && d.slots.length > 0) setRawSlots(d.slots)
         else setFailed(true)
       })
       .catch(() => { if (live) setFailed(true) })
     return () => { live = false }
-  }, [detectedTz])
+  }, [detectedTz, regionOverride])
 
   /* group slots by calendar day in the selected timezone */
   const slotsByDay = useMemo(() => {
@@ -474,6 +498,17 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
     () => (slot ? pool.find((c) => c.key === slot.host) : undefined) ?? pool[0],
     [pool, slot],
   )
+
+  /** A slot belongs to the calendar it came from, so a desk change clears it. */
+  function onRegionChange(next: BookingRegion) {
+    if (next === (regionOverride ?? region)) return
+    setRegionOverride(next)
+    setRawSlots(null)
+    setSlot(null)
+    setDayKey(null)
+    setMonthOffsetOverride(null)
+    setFailed(false)
+  }
 
   const onField = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setF((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -586,15 +621,12 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
     return (
       <div style={{ fontFamily: "var(--font-sans)", color: "var(--text-dark)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 18, minHeight: 414, padding: 30 }}>
         <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--color-text-secondary)", maxWidth: 380 }}>
-          {consultant?.firstName
-            ? `Live availability couldn\u2019t load just now \u2014 pick your time on ${consultant.firstName}\u2019s calendar instead.`
-            : "Live availability couldn\u2019t load just now \u2014 pick your time on our calendar instead."}
+          Live availability couldn&rsquo;t load just now &mdash; pick your time on our booking calendar instead.
         </span>
-        {/* The region's own consultant, not the shared account: that account's
-            availability belongs to nobody, so falling back to it would undo
-            exactly what this component fixes. Only if the region never resolved
-            do we use the generic link. */}
-        <CtaLink href={consultant?.calendlyUrl || calendlyUrl}>Open the booking calendar</CtaLink>
+        {/* The region's own page on the shared account — the same desk the
+            picker was about to offer. Only if the region never resolved do we
+            fall through to the site-wide link. */}
+        <CtaLink href={regionBookingUrl || calendlyUrl}>Open the booking calendar</CtaLink>
       </div>
     )
   }
@@ -789,6 +821,21 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
             </span>
           </div>
         </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
+          <select
+            value={regionOverride ?? region ?? ""}
+            onChange={(e) => onRegionChange(e.target.value as BookingRegion)}
+            aria-label="Which region are you in?"
+            style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}
+          >
+            {region == null && <option value="">Region</option>}
+            {REGION_LABELS.map(([v, l]) => (
+              <option key={v} value={v}>{l}</option>
+            ))}
+          </select>
+        </label>
         <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
           <select value={tz} onChange={(e) => setTz(e.target.value)} style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}>
@@ -797,6 +844,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
             ))}
           </select>
         </label>
+        </div>
       </div>
 
       <div className="fr-booking-card-grid" style={{ display: "grid", gridTemplateColumns: "1.25fr .75fr", gap: 20, alignItems: "start" }}>
@@ -840,7 +888,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
       </div>
 
       <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
-        Times shown in {tzLabel(tz)} — we detected your timezone, switch it above if that&rsquo;s wrong.
+        Times shown in {tzLabel(tz)} — we detected your region and timezone, switch either above if that&rsquo;s wrong.
       </span>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -848,7 +896,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl }: {
           {slot == null || !dayKey ? "Pick a time to continue" : `Continue · ${dayShort(dayKey)} at ${fmtTime(slot.start, tz)}`}
         </Cta>
         <span style={{ fontSize: 12, color: "var(--color-text-secondary)", textAlign: "center" }}>
-          {consultant?.firstName ? `Live availability from ${consultant.firstName}'s calendar` : "Live availability · real consultant calendars"}
+          {consultant?.firstName ? `Live availability \u00b7 you'll meet ${consultant.firstName}` : "Live availability \u00b7 confirmed instantly"}
         </span>
       </div>
     </div>
