@@ -18,13 +18,24 @@ export interface TeamMember {
   order?: number
 }
 
+/**
+ * The region tags a teamMember can carry, from the list in the Sanity schema.
+ *
+ * Deliberately NOT the booking desks in BookingSection: this vocabulary is
+ * per-country (SG, IN, PH, AU) where booking is per-desk (SEA, IND, NA). They
+ * overlap on APAC and UK, and differ on four of the six region pages — so a
+ * value swapped between them looks plausible and silently filters the grid to
+ * nobody. Typing it makes that a compile error instead.
+ */
+export type TeamRegion = "APAC" | "SG" | "IN" | "PH" | "UK" | "US" | "AU"
+
 interface Props {
   heading?: string
   subheading?: string
   ctaLabel?: string
   ctaUrl?: string
   members: TeamMember[]
-  region?: string
+  region?: TeamRegion
 }
 
 function safeImageUrl(ref: SanityImageRef): string | null {
