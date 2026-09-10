@@ -104,22 +104,29 @@ const TZS: [string, string][] = [
  * logo faster than they read a word, and it disambiguates "Make" and "Claude",
  * which are ordinary words as well as products.
  *
- * Marks are the Simple Icons set already in `public/images/home/logos`, so no
- * new brand assets were introduced. ClickUp and Aircall have no mark there yet
- * — the only files we hold are a "Registered Partner" badge and a white-on-
- * transparent wordmark, neither usable at this size — so those two chips render
- * as text until the icons are added. `logo` being optional is what keeps that a
- * graceful gap rather than a broken image.
+ * Marks live in `public/images/home/logos`. Most are the Simple Icons set the
+ * review badges use; ClickUp, Aircall and OpenAI are PNGs Edward supplied,
+ * downscaled to 96px — the chip paints them at 15px, so the 505–800px
+ * originals were ~144KB of detail nobody can see.
+ *
+ * OpenAI is a PNG rather than the Simple Icons SVG on purpose: that mark is a
+ * fine-line knot which turns to mush at this size. Keep `openai.svg` — it is
+ * not an orphan, HeroNetwork still builds its path from a slug and renders it
+ * larger, where the line weight is fine.
+ *
+ * `logo` stays optional so "Other" — which is not a product — has no mark, and
+ * so a future entry without one degrades to a plain chip rather than a broken
+ * image.
  */
 const PLATFORMS: { name: string; logo?: string }[] = [
   { name: "monday.com", logo: "/images/home/logos/monday.svg" },
   { name: "HubSpot", logo: "/images/home/logos/hubspot.svg" },
-  { name: "ClickUp" },
+  { name: "ClickUp", logo: "/images/home/logos/clickup.png" },
   { name: "Make", logo: "/images/home/logos/make.svg" },
   { name: "n8n", logo: "/images/home/logos/n8n.svg" },
-  { name: "Aircall" },
+  { name: "Aircall", logo: "/images/home/logos/aircall.png" },
   { name: "Claude", logo: "/images/home/logos/claude.svg" },
-  { name: "OpenAI", logo: "/images/home/logos/openai.svg" },
+  { name: "OpenAI", logo: "/images/home/logos/openai.png" },
   { name: "Other" },
 ]
 
