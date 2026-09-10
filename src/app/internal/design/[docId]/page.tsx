@@ -16,7 +16,7 @@ export default async function DesignDocPage({
   const admin = getPortalAdmin()
   const { data } = await admin
     .from("design_docs")
-    .select("id, title, source_filename, html")
+    .select("id, title, source_filename, html, template")
     .eq("id", docId)
     .eq("author_id", user.id) // docs are private to their author
     .maybeSingle()
@@ -29,6 +29,7 @@ export default async function DesignDocPage({
         title={data.title}
         html={data.html}
         sourceFilename={data.source_filename}
+        template={data.template}
       />
     </PortalShell>
   )

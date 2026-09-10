@@ -4,6 +4,8 @@ import { requirePortalUser, getPortalAdmin } from "@/lib/portalAuth"
 import PortalShell from "@/components/internal/PortalShell"
 import PageHeader from "@/components/internal/PageHeader"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { getTemplate } from "@/lib/design/templates"
 
 export const dynamic = "force-dynamic"
 
@@ -11,6 +13,7 @@ interface DocRow {
   id: string
   title: string
   source_filename: string | null
+  template: string | null
   updated_at: string
 }
 
@@ -19,7 +22,7 @@ export default async function DesignIndexPage() {
   const admin = getPortalAdmin()
   const { data } = await admin
     .from("design_docs")
-    .select("id, title, source_filename, updated_at")
+    .select("id, title, source_filename, template, updated_at")
     .eq("author_id", user.id)
     .order("updated_at", { ascending: false })
   const docs = (data ?? []) as DocRow[]
@@ -29,7 +32,7 @@ export default async function DesignIndexPage() {
       <>
         <PageHeader
           title="Design documents"
-          description="PDFs redesigned in the Fruition document style. Only you can see your documents."
+          description="Documents redesigned in the Fruition house style. Only you can see your documents."
           actions={<Button render={<Link href="/internal/design/new" />}>New document</Button>}
         />
 
@@ -37,7 +40,7 @@ export default async function DesignIndexPage() {
           <div className="mt-8 flex flex-col items-center gap-2 rounded-card border border-dashed border-[var(--color-border)] p-10 text-center">
             <Palette className="size-6 text-[var(--purple-primary)]" />
             <p className="text-sm text-muted-foreground">
-              No documents yet. Upload a PDF to create your first Fruition-branded document.
+              No documents yet. Upload a document or paste some text to create your first one.
             </p>
           </div>
         ) : (
@@ -56,13 +59,18 @@ export default async function DesignIndexPage() {
                       </p>
                     )}
                   </div>
-                  <span className="shrink-0 text-xs text-muted-foreground">
+                  <div className="flex shrink-0 items-center gap-3">
+                    {doc.template && doc.template !== "legacy" && (
+                      <Badge variant="secondary">{getTemplate(doc.template).label}</Badge>
+                    )}
+                  <span className="text-xs text-muted-foreground">
                     {new Date(doc.updated_at).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
                     })}
                   </span>
+                  </div>
                 </Link>
               </li>
             ))}
