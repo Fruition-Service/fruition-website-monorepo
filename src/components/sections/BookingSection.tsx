@@ -32,9 +32,10 @@ import { useOfficeStrap } from "@/components/OfficeStrapProvider"
  * confirmed — that records the enquiry on the ILE board even if the visitor
  * never finishes — and the visitor then confirms on that regional booking page,
  * deep-linked to the slot they already chose with their details prefilled. The
- * consultant named on the card is who takes the call and owns the lead; the
- * meeting itself lands on the shared calendar. Nothing in the flow can block a
- * booking: every failure path still lands them on a calendar.
+ * card names the desk's country rather than a person: whoever covers that
+ * region takes the call and owns the lead, and the meeting itself lands on the
+ * shared calendar. Nothing in the flow can block a booking: every failure path
+ * still lands them on a calendar.
  */
 
 /** A bookable slot: UTC ISO start, and which consultant owns it. */
@@ -47,18 +48,6 @@ interface Slot {
 /** Mirrors LeadRegion in @/lib/leadNotify — redeclared so this client
  *  component doesn't pull the server-only lead pipeline into the bundle. */
 export type BookingRegion = "APAC" | "SEA" | "IND" | "NA" | "UK"
-
-/** A consultant in the region's pool. */
-interface ConsultantInfo {
-  key?: string
-  name?: string
-  firstName?: string
-  /** Their own booking page — the fallback when live availability fails. */
-  calendlyUrl?: string
-  /** Sanity team photo — the same one used on /fruition-team. */
-  photoUrl?: string | null
-  role?: string | null
-}
 
 export type BookingMode = "global" | "consultant"
 
@@ -225,39 +214,152 @@ const ctaStyle = (hover: boolean, disabled?: boolean): CSSProperties => ({
 })
 
 /**
- * The consultant's face, from the same Sanity photo as /fruition-team.
+ * Which desk the visitor is being booked onto, as a country.
  *
- * Falls back to their initials rather than a generic mark: not every team
- * member has a photo, and "NG" still tells the visitor a specific person is
- * taking the call. A plain <img> (not next/image) keeps the Sanity CDN out of
- * the remotePatterns config for what is a single 38px thumbnail.
+ * The card used to show the consultant's photo, name and role. It shows the
+ * region instead: the shared calendar hands the meeting to whoever covers that
+ * desk, so naming one person promised something the round-robin doesn't always
+ * keep, and the flag answers the question people actually ask first — is there
+ * someone in my part of the world?
+ *
+ * One country per region, the office the desk is run out of: the region covers
+ * more than that country (APAC includes New Zealand, IND includes the UAE),
+ * which is why the region switch above still reads "Australia & NZ".
  */
-function Avatar({ name, photoUrl }: { name?: string; photoUrl?: string | null }) {
-  const [broken, setBroken] = useState(false)
-  const initials = (name ?? "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("")
-  const base: CSSProperties = {
-    width: 38, height: 38, borderRadius: "50%", flex: "none",
-    background: "var(--color-brand-soft)", color: "var(--purple-primary)",
+const REGION_DESK: Record<BookingRegion, { country: string; flag: "AU" | "SG" | "IN" | "GB" | "US" }> = {
+  APAC: { country: "Australia", flag: "AU" },
+  SEA: { country: "Singapore", flag: "SG" },
+  IND: { country: "India", flag: "IN" },
+  UK: { country: "the United Kingdom", flag: "GB" },
+  NA: { country: "the United States", flag: "US" },
+}
+
+/** A star as a path, so the flags below need no external assets. */
+function star(cx: number, cy: number, r: number, points = 5, inner = 0.42): string {
+  let d = ""
+  for (let i = 0; i < points * 2; i++) {
+    const rad = i % 2 === 0 ? r : r * inner
+    const a = -Math.PI / 2 + (i * Math.PI) / points
+    d += `${i ? "L" : "M"}${(cx + rad * Math.cos(a)).toFixed(2)} ${(cy + rad * Math.sin(a)).toFixed(2)}`
   }
-  if (photoUrl && !broken) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={photoUrl} alt={name ? `${name}, Fruition consultant` : ""}
-        onError={() => setBroken(true)}
-        style={{ ...base, objectFit: "cover" }}
-      />
-    )
-  }
+  return `${d}Z`
+}
+
+/** Drawn once in a 60x30 box; both the UK flag and Australia's canton use it. */
+const UNION_JACK = (
+  <>
+    <rect width={60} height={30} fill="#012169" />
+    <path d="M0 0 60 30M60 0 0 30" stroke="#fff" strokeWidth={7} />
+    <path d="M0 0 60 30M60 0 0 30" stroke="#C8102E" strokeWidth={3} />
+    <path d="M30 0V30M0 15H60" stroke="#fff" strokeWidth={10} />
+    <path d="M30 0V30M0 15H60" stroke="#C8102E" strokeWidth={6} />
+  </>
+)
+
+/**
+ * The five flags, each drawn to *cover* a 60x60 box so the circle crop loses
+ * the outer edges rather than letterboxing them — the same framing every
+ * circle-flag set uses. Nested <svg> elements clip to their own viewport,
+ * which is what keeps Australia's Union Jack inside its canton.
+ */
+const FLAGS: Record<string, ReactNode> = {
+  AU: (
+    <>
+      <rect x={-30} width={120} height={60} fill="#00247D" />
+      <svg x={-30} y={0} width={60} height={30} viewBox="0 0 60 30">{UNION_JACK}</svg>
+      <path d={star(0, 45, 8, 7)} fill="#fff" />
+      <path d={star(48, 19, 3.6)} fill="#fff" />
+      <path d={star(42, 35, 3.6)} fill="#fff" />
+      <path d={star(52, 49, 3.2)} fill="#fff" />
+      <path d={star(58, 31, 3.2)} fill="#fff" />
+      <path d={star(49, 31, 1.9)} fill="#fff" />
+    </>
+  ),
+  GB: <svg x={-30} y={0} width={120} height={60} viewBox="0 0 60 30">{UNION_JACK}</svg>,
+  US: (
+    <>
+      <rect x={-27} width={114} height={60} fill="#fff" />
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <rect key={i} x={-27} y={i * 9.23} width={114} height={4.62} fill="#B22234" />
+      ))}
+      <rect x={-27} width={45.6} height={32.3} fill="#3C3B6E" />
+      {[0, 1, 2, 3].map((row) =>
+        [0, 1, 2, 3, 4].map((col) => (
+          <path
+            key={`${row}-${col}`}
+            d={star(-23 + col * 9.5 + (row % 2 ? 4.75 : 0), 4 + row * 8, 1.9)}
+            fill="#fff"
+          />
+        )),
+      )}
+    </>
+  ),
+  IN: (
+    <>
+      <rect x={-15} width={90} height={20} fill="#FF9933" />
+      <rect x={-15} y={20} width={90} height={20} fill="#fff" />
+      <rect x={-15} y={40} width={90} height={20} fill="#138808" />
+      <circle cx={30} cy={30} r={8.6} fill="none" stroke="#000080" strokeWidth={1.3} />
+      {Array.from({ length: 12 }, (_, i) => {
+        const a = (i * Math.PI) / 6
+        return (
+          <line
+            key={i}
+            x1={30 + 2.2 * Math.cos(a)} y1={30 + 2.2 * Math.sin(a)}
+            x2={30 + 8.2 * Math.cos(a)} y2={30 + 8.2 * Math.sin(a)}
+            stroke="#000080" strokeWidth={0.8}
+          />
+        )
+      })}
+      <circle cx={30} cy={30} r={1.8} fill="#000080" />
+    </>
+  ),
+  SG: (
+    <>
+      <rect x={-15} width={90} height={30} fill="#EF3340" />
+      <rect x={-15} y={30} width={90} height={30} fill="#fff" />
+      {/* The crescent and stars sit a touch right of where the flag puts them:
+          the hoist edge is off-crop, and on the true offset the crescent would
+          be sliced by the circle. */}
+      <circle cx={13} cy={16} r={10.5} fill="#fff" />
+      <circle cx={18.6} cy={16} r={9} fill="#EF3340" />
+      {[[32, 9], [25.3, 13.9], [38.7, 13.9], [27.9, 21.8], [36.1, 21.8]].map(([x, y]) => (
+        <path key={`${x}-${y}`} d={star(x, y, 2.7)} fill="#fff" />
+      ))}
+    </>
+  ),
+}
+
+/**
+ * The desk's flag, circle-cropped into the 38px the consultant photo used to
+ * fill. Drawn inline rather than as flag emoji, which don't render at all on
+ * Windows — they degrade there to the two bare letters of the country code.
+ *
+ * Before the region resolves there is no flag to show, so it falls back to a
+ * globe: a placeholder country would be a guess the visitor then has to spot
+ * and correct.
+ */
+function RegionFlag({ region }: { region: BookingRegion | null }) {
+  const flag = region ? FLAGS[REGION_DESK[region].flag] : null
   return (
-    <div aria-hidden={!initials} style={{ ...base, display: "flex", alignItems: "center", justifyContent: "center", fontSize: initials.length > 1 ? 14 : 17, fontWeight: 700 }}>
-      {initials || "F"}
-    </div>
+    <span
+      aria-hidden
+      style={{
+        width: 38, height: 38, borderRadius: "50%", flex: "none", overflow: "hidden",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        background: flag ? "#fff" : "var(--color-brand-soft)",
+        boxShadow: "inset 0 0 0 1px rgba(15,15,30,.12)",
+      }}
+    >
+      {flag ? (
+        <svg width={38} height={38} viewBox="0 0 60 60">{flag}</svg>
+      ) : (
+        <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="var(--purple-primary)" strokeWidth="2" strokeLinecap="round">
+          <circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" />
+          <path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" />
+        </svg>
+      )}
+    </span>
   )
 }
 
@@ -449,12 +551,6 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
   const [region, setRegion] = useState<BookingRegion | null>(null)
   /** Set when the visitor corrects the detected region — or pinned by a preview. */
   const [regionOverride, setRegionOverride] = useState<BookingRegion | null>(forceRegion ?? null)
-  /**
-   * Everyone covering this region. The card shows whoever owns the selected
-   * slot, so in a pooled region the face changes when the visitor picks a time
-   * only the second consultant has free.
-   */
-  const [pool, setPool] = useState<ConsultantInfo[]>([])
   const [failed, setFailed] = useState(false)
   const [dayKey, setDayKey] = useState<string | null>(null)
   const [slot, setSlot] = useState<Slot | null>(null)
@@ -490,11 +586,10 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
     if (regionOverride) q.set("region", regionOverride)
     fetch(`/api/scheduling/availability?${q}`)
       .then((r) => r.json())
-      .then((d: { slots?: Slot[]; region?: BookingRegion; consultants?: ConsultantInfo[]; bookingUrl?: string }) => {
+      .then((d: { slots?: Slot[]; region?: BookingRegion; bookingUrl?: string }) => {
         if (!live) return
         if (d.region) setRegion(d.region)
         if (d.bookingUrl) setRegionBookingUrl(d.bookingUrl)
-        if (d.consultants?.length) setPool(d.consultants)
         if (d.slots && d.slots.length > 0) setRawSlots(d.slots)
         else setFailed(true)
       })
@@ -528,15 +623,9 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
     if (!dayKey || !slotsByDay.has(dayKey)) setDayKey(dayKeys[0])
   }, [slotsByDay, dayKeys, dayKey, slot, tz])
 
-  /**
-   * Whoever the card should be showing: the host of the selected slot, else the
-   * region's first choice. In a pooled region picking an overflow time swaps the
-   * photo and the name, so the visitor always sees who they'll actually meet.
-   */
-  const consultant = useMemo(
-    () => (slot ? pool.find((c) => c.key === slot.host) : undefined) ?? pool[0],
-    [pool, slot],
-  )
+  /** The desk the card is booking against: corrected by the visitor, pinned by
+   *  a preview, or detected from cf-ipcountry — null until the fetch lands. */
+  const activeRegion = regionOverride ?? region
 
   /** A slot belongs to the calendar it came from, so a desk change clears it. */
   function onRegionChange(next: BookingRegion) {
@@ -695,7 +784,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               Last step — confirm {dayShort(dayKey)} at {fmtTime(slot.start, tz)}
             </span>
             <span style={{ fontFamily: "var(--font-sans)", fontSize: 12.5, color: "var(--color-text-secondary)" }}>
-              {consultant?.firstName ? `${consultant.firstName} has your details already, just press Schedule.` : "Your details are filled in already, just press Schedule."}
+              Your details are filled in already, just press Schedule.
             </span>
           </div>
         </div>
@@ -852,18 +941,15 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
     <div className="fr-booking-pad" style={{ fontFamily: "var(--font-sans)", color: "var(--text-dark)", display: "flex", flexDirection: "column", gap: 20, padding: 30 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 11, flex: "1 1 240px", minWidth: 0 }}>
-          <Avatar name={consultant?.name} photoUrl={consultant?.photoUrl} />
-          {/* minWidth:0 + ellipsis so a long role ("Founder & CEO,
-              ex-monday.com") truncates instead of wrapping the timezone
-              picker onto its own line. */}
+          <RegionFlag region={activeRegion} />
+          {/* minWidth:0 + ellipsis so the longest desk ("the United Kingdom")
+              truncates instead of wrapping the timezone picker onto its own
+              line. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
             <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>Discovery call · {duration} min</span>
-            <span
-              title={consultant?.name ? `${consultant.name}${consultant.role ? ` · ${consultant.role}` : ""}` : undefined}
-              style={{ fontSize: 12.5, color: "var(--color-text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
-            >
-              {consultant?.name
-                ? `with ${consultant.name}${consultant.role ? ` · ${consultant.role}` : ""}`
+            <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              {activeRegion
+                ? `with a consultant in ${REGION_DESK[activeRegion].country}`
                 : "with a certified monday consultant"}
             </span>
           </div>
@@ -872,12 +958,12 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
           <select
-            value={regionOverride ?? region ?? ""}
+            value={activeRegion ?? ""}
             onChange={(e) => onRegionChange(e.target.value as BookingRegion)}
             aria-label="Which region are you in?"
             style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}
           >
-            {region == null && <option value="">Region</option>}
+            {activeRegion == null && <option value="">Region</option>}
             {REGION_LABELS.map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
             ))}
@@ -940,7 +1026,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
           {slot == null || !dayKey ? "Pick a time to continue" : `Continue · ${dayShort(dayKey)} at ${fmtTime(slot.start, tz)}`}
         </Cta>
         <span style={{ fontSize: 12, color: "var(--color-text-secondary)", textAlign: "center" }}>
-          {consultant?.firstName ? `Live availability \u00b7 you'll meet ${consultant.firstName}` : "Live availability \u00b7 confirmed instantly"}
+          {"Live availability \u00b7 confirmed instantly"}
         </span>
       </div>
     </div>
