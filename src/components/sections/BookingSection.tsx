@@ -1040,7 +1040,7 @@ export default function BookingSection({
   sub = "Pick a time and we'll map your pipeline live on the call: your stages, your handoffs, your reporting. No slides.",
   email = "contact@fruitionservices.io",
   offices,
-  proof = "Platinum monday.com partner · 500+ implementations",
+  proof = "Platinum monday.com partner · 900+ implementations",
   duration = 30,
   askTeamSize = true,
   calendlyUrl = "https://calendly.com/global-calendar-fruitionservices",

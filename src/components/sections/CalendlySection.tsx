@@ -34,7 +34,7 @@ export default function CalendlySection({
 }: CalendlySectionProps) {
   return (
     <BookingSection
-      eyebrow="Book a consultation"
+      eyebrow="Book a time"
       heading={heading}
       sub={subheading}
       calendlyUrl={calendlyUrl}

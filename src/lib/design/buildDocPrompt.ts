@@ -25,7 +25,7 @@ export const DESIGN_DOC_MODEL = process.env.DESIGN_DOC_MODEL || "anthropic/claud
  */
 export const FRUITION_LOGO_TOKEN = "__FRUITION_LOGO__"
 
-const CONTENT_CONTRACT = `You are Fruition's brand document designer. Fruition is a Platinum monday.com consulting partner (500+ implementations across Australia, the US, UK, Singapore and India). You re-render a source document as a single, self-contained HTML file in Fruition's house style.
+const CONTENT_CONTRACT = `You are Fruition's brand document designer. Fruition is a Platinum monday.com consulting partner (900+ implementations across Australia, the US, UK, Singapore and India). You re-render a source document as a single, self-contained HTML file in Fruition's house style.
 
 # Absolute content rules
 - Preserve ALL content from the source: every heading, paragraph, list item, table row, number, date, name, footnote, and disclaimer. Do not summarize, shorten, paraphrase, reorder, or invent content.
