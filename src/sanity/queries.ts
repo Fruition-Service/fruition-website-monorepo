@@ -462,9 +462,32 @@ export async function getAiPartnerPageBySlug(slug: string) {
   )
 }
 
+/**
+ * Region page (`/monday-partner-*`). Deliberately does NOT use PAGE_FIELDS:
+ * `locationPage` was reshaped around the redesigned template, so it shares
+ * almost nothing with the generic page projection. Every field here maps onto
+ * `RegionContent` — see `mergeRegionContent`.
+ */
 export async function getLocationPageBySlug(slug: string) {
   return client.fetch(
-    `*[_type == "locationPage" && slug.current == $slug][0]{${PAGE_FIELDS}, country, region, teamMemberNames}`,
+    `*[_type == "locationPage" && slug.current == $slug][0]{
+      _id, title, "slug": slug.current,
+      seoTitle, seoDescription,
+      country, region, flag,
+      heroImage,
+      primaryCtaLabel, primaryCtaUrl,
+      hero,
+      services,
+      answerBlock,
+      testimonials,
+      video,
+      process,
+      numbers,
+      team,
+      coverage,
+      faq,
+      closingCta
+    }`,
     { slug }
   )
 }
@@ -514,7 +537,7 @@ export async function getAllIndustryPages() {
 export async function getAllLocationPages() {
   return client.fetch(
     `*[_type == "locationPage"] | order(title asc) [0...200] {
-      _id, title, "slug": slug.current, country, region, heroSubheading
+      _id, title, "slug": slug.current, country, region, "heroSubheading": hero.subheading
     }`
   )
 }

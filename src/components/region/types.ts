@@ -3,15 +3,14 @@ import type { TeamRegion } from "@/components/TeamGridSection"
 /**
  * Content model for the region pages (/monday-partner-*).
  *
- * The redesign introduced six structural sections that have no equivalent in
- * the `locationPage` Sanity schema (services grid, AEO answer block, process,
- * numbers, national coverage, long-form FAQ). Rather than grow the schema and
- * reseed six documents, this content lives in `src/data/regionPages.ts` — the
- * same pattern the long-form industry and practice pages already use.
+ * Every field below is editable in Sanity on the matching `locationPage`
+ * document — the schema mirrors this interface one-for-one, and all six
+ * documents are seeded with the copy in `src/data/regionPages.ts`.
  *
- * Sanity still owns everything it already owned: SEO title/description, the
- * hero image, testimonials, the team roster, the Calendly link and the
- * per-region monday.com referral URL (partner UTM attribution stays editable).
+ * That file remains the shipped default: `mergeRegionContent` overlays the
+ * Sanity document on top of it, so a field left blank in the Studio renders
+ * the code copy rather than a hole in the page. Sanity also owns the hero
+ * image, the case studies, the team roster and the Calendly link.
  */
 
 export interface RegionService {
@@ -95,6 +94,17 @@ export interface RegionContent {
   testimonials: {
     heading: string
     lead: string
+  }
+
+  video: {
+    eyebrow: string
+    heading: string
+    lead: string
+    caption: string
+    /** YouTube video ID, not a URL. */
+    videoId: string
+    /** Accessible title for the embed. */
+    videoTitle: string
   }
 
   process: {
