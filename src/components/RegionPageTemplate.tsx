@@ -99,6 +99,23 @@ export default function RegionPageTemplate({
 
       <AnswerBlockSection answerBlock={content.answerBlock} />
 
+      {/*
+        The contact + booking band sits third, straight under the "who is the
+        best partner" answer block: the page has just made its case, so the way
+        to act on it is right there rather than ten sections down.
+
+        It used to close the page — BookingSection is the purple→midnight
+        gradient the design ends on — so nothing follows the FAQ now. The FAQ's
+        own contact aside (a consultant + mailto) carries the bottom instead,
+        and the sticky CTA bar stays available the whole way down.
+      */}
+      <CalendlySection
+        heading={content.closingCta.heading}
+        subheading={content.closingCta.lead}
+        calendlyUrl={rawCalendly}
+        bookingRegion={content.bookingRegion}
+      />
+
       <TestimonialsGrid
         heading={content.testimonials.heading}
         ctaLabel="Book a call"
@@ -131,19 +148,6 @@ export default function RegionPageTemplate({
         heading={content.faq.heading}
         contactLead={content.faq.contactLead}
         items={faqItems}
-      />
-
-      {/*
-        The design closes on a purple→midnight gradient CTA. BookingSection is
-        already that gradient and already owns the `#book` anchor every CTA on
-        the page resolves to, so it plays the closing-CTA role directly rather
-        than sitting under a second, near-identical dark banner.
-      */}
-      <CalendlySection
-        heading={content.closingCta.heading}
-        subheading={content.closingCta.lead}
-        calendlyUrl={rawCalendly}
-        bookingRegion={content.bookingRegion}
       />
     </div>
   )
