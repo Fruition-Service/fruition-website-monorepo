@@ -1,0 +1,2429 @@
+[
+  {
+    "_createdAt": "2026-03-27T03:22:05Z",
+    "_id": "locationPage-monday-partner-australia",
+    "_rev": "7wWYYRe4HGRItegPjxOxf0",
+    "_system": {
+      "base": {
+        "id": "locationPage-monday-partner-australia",
+        "rev": "05OFSWoh1BoG8flppLF30V"
+      }
+    },
+    "_type": "locationPage",
+    "_updatedAt": "2026-09-01T13:08:13Z",
+    "calendlyHeading": "Book a 30-min consultation with a monday.com expert",
+    "calendlySubheading": "Schedule a personalised monday.com demo with our certified consultants to discover how the platform can be customised for your specific business needs.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-australia-0",
+        "_type": "capabilityCard",
+        "description": "Integrate remote and office workflows while meeting Fair Work Act requirements and maintaining team coordination across Australian locations.",
+        "emoji": "🏢",
+        "title": "Hybrid Work Compliance"
+      },
+      {
+        "_key": "cap-monday-partner-australia-1",
+        "_type": "capabilityCard",
+        "description": "Accelerate technology adoption with expert-led programmes that minimise productivity disruptions for Australian teams.",
+        "emoji": "🎓",
+        "title": "Digital Training Excellence"
+      },
+      {
+        "_key": "cap-monday-partner-australia-2",
+        "_type": "capabilityCard",
+        "description": "Automate routine tasks to support Australian workplace wellness standards and enable focus on strategic work.",
+        "emoji": "⚖️",
+        "title": "Work-Life Balance Automation"
+      },
+      {
+        "_key": "cap-monday-partner-australia-3",
+        "_type": "capabilityCard",
+        "description": "Empower teams to identify inefficiencies and implement improvements that boost individual and organisational performance.",
+        "emoji": "🛠️",
+        "title": "Process Optimisation Skills"
+      },
+      {
+        "_key": "cap-monday-partner-australia-4",
+        "_type": "capabilityCard",
+        "description": "Maintain team cohesion and transparency across Australia's diverse geographic regions through unified platforms.",
+        "emoji": "🌏",
+        "title": "Cross-Timezone Collaboration"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across Australian businesses",
+    "comparisonHeading": "monday.com features built for Australian teams",
+    "comparisonSubheading": "How monday.com transforms day-to-day work for businesses across Sydney, Melbourne, Brisbane and beyond.",
+    "comparisonTabs": [
+      {
+        "_key": "leadership",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "l1",
+            "_type": "comparisonItem",
+            "description": "Integrate remote and office workflows while meeting Fair Work Act requirements and maintaining team coordination across Australian locations.",
+            "number": "01",
+            "title": "Hybrid Work Compliance"
+          },
+          {
+            "_key": "l2",
+            "_type": "comparisonItem",
+            "description": "Accelerate technology adoption with expert-led programmes that minimise productivity disruptions for Australian teams.",
+            "number": "02",
+            "title": "Digital Training Excellence"
+          },
+          {
+            "_key": "l3",
+            "_type": "comparisonItem",
+            "description": "Automate routine tasks to support Australian workplace wellness standards and enable focus on strategic work.",
+            "number": "03",
+            "title": "Work-Life Balance Automation"
+          },
+          {
+            "_key": "l4",
+            "_type": "comparisonItem",
+            "description": "Empower teams to identify inefficiencies and implement improvements that boost individual and organisational performance.",
+            "number": "04",
+            "title": "Process Optimisation Skills"
+          },
+          {
+            "_key": "l5",
+            "_type": "comparisonItem",
+            "description": "Maintain team cohesion and transparency across Australia's diverse geographic regions through unified platforms.",
+            "number": "05",
+            "title": "Cross-Timezone Collaboration"
+          }
+        ],
+        "label": "Top Leadership Challenges"
+      },
+      {
+        "_key": "features",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "f1",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com function as your dedicated process manager, continuously operating behind the scenes to guarantee that your initiatives progress seamlessly and productively.",
+            "number": "01",
+            "title": "Save Time with Automations"
+          },
+          {
+            "_key": "f2",
+            "_type": "comparisonItem",
+            "description": "You can create rich documents directly within monday and embed real-time project information from any of your boards within those docs.",
+            "number": "02",
+            "title": "Centralised Documentation"
+          },
+          {
+            "_key": "f3",
+            "_type": "comparisonItem",
+            "description": "Turn project data into visually engaging and easily digestible information. This not only simplifies data analysis but also improves decision-making by presenting data in a more clear and actionable format.",
+            "number": "03",
+            "title": "Visualise with Dashboards and Charts"
+          },
+          {
+            "_key": "f4",
+            "_type": "comparisonItem",
+            "description": "Organise projects using Agile or traditional methodologies popular across Melbourne, Sydney, and regional business hubs.",
+            "number": "04",
+            "title": "Flexible Organisation"
+          },
+          {
+            "_key": "f5",
+            "_type": "comparisonItem",
+            "description": "Keep all your data in monday.com and integrate with Xero, MYOB and Aircall to increase team alignment and improve business organisation. Avoid juggling disconnected apps and make sure nothing falls between the cracks.",
+            "number": "05",
+            "title": "Integrate with other tools"
+          }
+        ],
+        "label": "monday.com Features"
+      },
+      {
+        "_key": "how-help",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "h1",
+            "_type": "comparisonItem",
+            "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+            "number": "01",
+            "title": "Process Discovery → Business Process Audit"
+          },
+          {
+            "_key": "h2",
+            "_type": "comparisonItem",
+            "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+            "number": "02",
+            "title": "Technical Architecture → System Integration Scope"
+          },
+          {
+            "_key": "h3",
+            "_type": "comparisonItem",
+            "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+            "number": "03",
+            "title": "Solution Design → Implementation"
+          },
+          {
+            "_key": "h4",
+            "_type": "comparisonItem",
+            "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+            "number": "04",
+            "title": "Efficiency Impact → ROI Opportunity Analysis"
+          },
+          {
+            "_key": "h5",
+            "_type": "comparisonItem",
+            "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+            "number": "05",
+            "title": "Change Readiness → Adoption & Training Strategies"
+          }
+        ],
+        "label": "How We Can Help"
+      }
+    ],
+    "country": "Australia",
+    "croSections": {
+      "leadForm": {
+        "enabled": true,
+        "fields": [
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5Iia",
+            "label": "Primary industry",
+            "options": [
+              "Mining & Resources Logistics",
+              "Property Development & Construction",
+              "Professional Services & Agencies",
+              "Other"
+            ],
+            "required": false,
+            "type": "select"
+          }
+        ],
+        "heading": "Book a scope assessment with a local Australian consultant",
+        "source": "monday-partner-australia",
+        "subheading": "AEST/AEDT support · Tailored to mining, property, construction and professional services.",
+        "submitLabel": "Schedule a Scope Assessment",
+        "successMessage": "Thanks, a local Australian consultant will reach out within one business day."
+      },
+      "statBanner": {
+        "metrics": [
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5IXs",
+            "text": "Sydney & Melbourne consultants",
+            "value": "AEST"
+          },
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5IdE",
+            "text": "Aussie clients serviced",
+            "value": "500+"
+          }
+        ],
+        "statement": "We design automated, single-source-of-truth workspaces that unify your CRM, project management and reporting into a single platform, cutting administrative drag and saving team hours.",
+        "theme": "dark"
+      },
+      "stickyCtaLabel": "Book an AU Consultation",
+      "stickyCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+      "symptomsChecklist": {
+        "heading": "Siloed tool consolidation",
+        "items": [
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5I1k",
+            "text": "Your CRM, project management and reporting live in separate tools"
+          },
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5I76",
+            "text": "You are paying for overlapping software licences"
+          },
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5ICS",
+            "text": "Data integrity breaks across remote or multi-city workforces"
+          }
+        ],
+        "subheading": "Stop paying for fragmented software subscriptions across Sydney, Melbourne and Brisbane."
+      },
+      "threeStep": {
+        "heading": "Our 3-phase risk-free delivery",
+        "steps": [
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5IHo",
+            "description": "Deep audit of your current workflows across AEST/AEDT teams.",
+            "number": "01",
+            "title": "Discovery & Process Mapping"
+          },
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5INA",
+            "description": "Tailoring advanced boards and automations.",
+            "number": "02",
+            "title": "Bespoke Architecture Setup"
+          },
+          {
+            "_key": "j3mhrmkZhhtq0NN3hP5ISW",
+            "description": "Hands-on training to guarantee 100% team adoption.",
+            "number": "03",
+            "title": "Change Management & Adoption"
+          }
+        ]
+      },
+      "trustBadges": [
+        {
+          "_key": "j3mhrmkZhhtq0NN3hP5Inw",
+          "label": "monday.com Certified Platinum Partner"
+        },
+        {
+          "_key": "j3mhrmkZhhtq0NN3hP5ItI",
+          "label": "Advanced Delivery Accredited Agency"
+        },
+        {
+          "_key": "j3mhrmkZhhtq0NN3hP5Iye",
+          "label": "5/5 Star Rated Global Implementation Partner"
+        }
+      ],
+      "trustBadgesTheme": "light"
+    },
+    "faqHeading": "Frequently asked questions",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-australia-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-australia-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-australia-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-australia-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-australia-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "featureBlocks": [
+      {
+        "_key": "fb-0",
+        "_type": "featureBlock",
+        "body": "Give directors a general overview of the team's progress with calendars, Gantt charts, and dashboards. So, even if you have 10+ boards, senior management can see what someone is working on, how projects are doing, and why tasks are delayed–all with just a few clicks.",
+        "ctaLabel": "📊 Our Project Management Solutions",
+        "ctaUrl": "/monday-consulting-solutions/monday-project-management",
+        "image": "/images/au-rollup.avif",
+        "title": "Build a high-level roll-up of all your boards"
+      },
+      {
+        "_key": "fb-1",
+        "_type": "featureBlock",
+        "body": "Have a monday.com partner build a system designed to support the way you want your business to run. That means you start with the \"meat and potatoes\" of your platform in place. So later, if you need to adapt to new requirements, you can easily piggyback off of the original set-up.",
+        "ctaLabel": "📈 Our CRM Solutions",
+        "ctaUrl": "/monday-crm-consulting",
+        "image": "/images/au-create-crm.avif",
+        "title": "Create a CRM or project management tool that fits you"
+      },
+      {
+        "_key": "fb-2",
+        "_type": "featureBlock",
+        "body": "Get the entire team monday.com training. Make sure all of your team members get the onboarding they need to feel comfortable using the platform day in and day out. So when you actually start using the platform, it becomes your single source of truth.",
+        "ctaLabel": "👩🏽‍💼👨🏻‍💼 Our Training Services",
+        "ctaUrl": "/monday-training",
+        "image": "/images/au-training.avif",
+        "title": "Training & managed services"
+      },
+      {
+        "_key": "fb-3",
+        "_type": "featureBlock",
+        "body": "Eliminate manual work with automation. Seamlessly integrate Gmail, Outlook, Sharepoint, Teams, accounting software, ChatGPT, and dozens of other tools with the software's open API.",
+        "ctaLabel": "⚡️ See Our Solutions",
+        "ctaUrl": "/monday-consulting-solutions",
+        "image": "/images/au-integrate.avif",
+        "title": "Integrate your email and all external tools"
+      }
+    ],
+    "heroHeading": "Drive Peak Efficiency with a Premier monday.com Partner Australia.",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-7fb7832d53ed3a7d7391f913fcb3eee681e72483-4976x1780-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Get a Certified monday.com Platinum Partner and expert consultant to handle your entire monday CRM implementation and integration. Servicing 500+ clients across Sydney, Brisbane, Melbourne, Adelaide and Perth: get running in days, not months.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in Australia",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-australia-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-australia-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-australia-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-australia-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform powering 500+ Australian teams.",
+    "methodologyHeading": "Our expert consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-australia-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-australia-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-australia-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-australia-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-australia-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "APAC",
+    "roiStats": [
+      {
+        "_key": "roi-0",
+        "_type": "roiStat",
+        "label": "ROI",
+        "value": "288%"
+      },
+      {
+        "_key": "roi-1",
+        "_type": "roiStat",
+        "label": "Hours Saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "roi-2",
+        "_type": "roiStat",
+        "label": "Meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "roi-3",
+        "_type": "roiStat",
+        "label": "Net Value",
+        "value": "489,794"
+      }
+    ],
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/lang/en-au/crm",
+    "seoDescription": "Scale your business with monday.com platinum partner in Australia. Our expert consultants build high-performing workflows with implementation and automation.",
+    "seoTitle": "monday.com Certified Consulting Partner in Australia | Fruition Services",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-australia"
+    },
+    "teamGridCtaLabel": "Learn More About Us",
+    "teamGridCtaUrl": "/fruition-team",
+    "teamGridHeading": "Meet the Fruition Australia team",
+    "testimonialsGridCtaLabel": "🚀  Start Your Transformation",
+    "testimonialsGridHeading": "What our customers say about us 🙌",
+    "testimonialsGridStatCtaLabel": "Read our case studies",
+    "testimonialsGridStatCtaUrl": "/customer-testimonials",
+    "testimonialsGridStatSubtitle": "have maximised their workflows with our monday.com expert support",
+    "testimonialsGridStatValue": "500+",
+    "title": "monday.com Partner Australia"
+  },
+  {
+    "_createdAt": "2026-03-27T03:22:17Z",
+    "_id": "locationPage-monday-partner-india",
+    "_rev": "7wWYYRe4HGRItegPjwa3VW",
+    "_system": {
+      "base": {
+        "id": "locationPage-monday-partner-india",
+        "rev": "teYo5SgUrFJ21nkOqyIoam"
+      }
+    },
+    "_type": "locationPage",
+    "_updatedAt": "2026-09-01T05:23:17Z",
+    "calendlyHeading": "Book a 30-min consultation with a monday.com expert",
+    "calendlySubheading": "Schedule a personalised monday.com demo with our certified consultants to discover how the platform can be customised for your specific business needs.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-india-0",
+        "_type": "capabilityCard",
+        "description": "Improve reporting visibility into business performance to make better decisions and quickly correct course on strategic initiatives.",
+        "emoji": "💰",
+        "title": "Financial Uncertainty"
+      },
+      {
+        "_key": "cap-monday-partner-india-1",
+        "_type": "capabilityCard",
+        "description": "Team enablement and implementation of AI and automation technologies to improve workforce efficiency and unlock hidden inefficiencies.",
+        "emoji": "🤖",
+        "title": "AI & Automation"
+      },
+      {
+        "_key": "cap-monday-partner-india-2",
+        "_type": "capabilityCard",
+        "description": "Optimise productivity and culture across distributed teams while maintaining operational excellence.",
+        "emoji": "🏢",
+        "title": "Hybrid Work Management"
+      },
+      {
+        "_key": "cap-monday-partner-india-3",
+        "_type": "capabilityCard",
+        "description": "Attract and keep key talent in a competitive market while upskilling for future needs.",
+        "emoji": "👥",
+        "title": "Talent Retention & Personal Development"
+      },
+      {
+        "_key": "cap-monday-partner-india-4",
+        "_type": "capabilityCard",
+        "description": "Protect against evolving threats while ensuring data privacy and regulatory compliance.",
+        "emoji": "🔐",
+        "title": "Cybersecurity & Digital Risk"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across Indian businesses",
+    "comparisonHeading": "monday.com features built for Indian teams",
+    "comparisonSubheading": "How monday.com transforms work for Indian businesses across Mumbai, Delhi NCR, Hyderabad and beyond.",
+    "comparisonTabs": [
+      {
+        "_key": "leadership",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "l1",
+            "_type": "comparisonItem",
+            "description": "Improving reporting visibility of business performance to make better decisions and to quickly correct course on strategic initiatives.",
+            "number": "01",
+            "title": "Financial Uncertainty"
+          },
+          {
+            "_key": "l2",
+            "_type": "comparisonItem",
+            "description": "Team enablement and implementation of AI & Automation technologies to improve workforce efficiency and unlock hidden inefficiencies.",
+            "number": "02",
+            "title": "AI & Automation"
+          },
+          {
+            "_key": "l3",
+            "_type": "comparisonItem",
+            "description": "Optimising productivity and culture across distributed teams while maintaining operational excellence.",
+            "number": "03",
+            "title": "Hybrid Work Management"
+          },
+          {
+            "_key": "l4",
+            "_type": "comparisonItem",
+            "description": "Attracting and keeping key talent in a competitive market while upskilling for future needs.",
+            "number": "04",
+            "title": "Talent Retention & Personal Development"
+          },
+          {
+            "_key": "l5",
+            "_type": "comparisonItem",
+            "description": "Protecting against evolving threats while ensuring data privacy and regulatory compliance.",
+            "number": "05",
+            "title": "Cybersecurity & Digital Risk"
+          }
+        ],
+        "label": "Top Leadership Challenges"
+      },
+      {
+        "_key": "features",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "f1",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com function as your dedicated process manager, continuously operating behind the scenes to guarantee that your initiatives progress seamlessly and productively.",
+            "number": "01",
+            "title": "Save Time with Automations"
+          },
+          {
+            "_key": "f2",
+            "_type": "comparisonItem",
+            "description": "You can create rich documents directly within monday and embed real-time project information from any of your boards within those docs.",
+            "number": "02",
+            "title": "Centralised Documentation"
+          },
+          {
+            "_key": "f3",
+            "_type": "comparisonItem",
+            "description": "Turn project data into visually engaging and easily digestible information. This not only simplifies data analysis but also improves decision-making by presenting data in a more clear and actionable format.",
+            "number": "03",
+            "title": "Visualise with Dashboards and Charts"
+          },
+          {
+            "_key": "f4",
+            "_type": "comparisonItem",
+            "description": "Organise projects using Agile or traditional methodologies popular across India's tech hubs in Bengaluru, Hyderabad, Pune, and Mumbai.",
+            "number": "04",
+            "title": "Flexible Organisation"
+          },
+          {
+            "_key": "f5",
+            "_type": "comparisonItem",
+            "description": "Keep all your data in monday.com and integrate with Tally, Zoho, Razorpay, Aircall, and more to increase team alignment and improve business organisation. Avoid juggling disconnected apps and make sure nothing falls between the cracks.",
+            "number": "05",
+            "title": "Integrate with other tools"
+          }
+        ],
+        "label": "monday.com Features"
+      },
+      {
+        "_key": "how-help",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "h1",
+            "_type": "comparisonItem",
+            "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+            "number": "01",
+            "title": "Process Discovery → Business Process Audit"
+          },
+          {
+            "_key": "h2",
+            "_type": "comparisonItem",
+            "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+            "number": "02",
+            "title": "Technical Architecture → System Integration Scope"
+          },
+          {
+            "_key": "h3",
+            "_type": "comparisonItem",
+            "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+            "number": "03",
+            "title": "Solution Design → Implementation"
+          },
+          {
+            "_key": "h4",
+            "_type": "comparisonItem",
+            "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+            "number": "04",
+            "title": "Efficiency Impact → ROI Opportunity Analysis"
+          },
+          {
+            "_key": "h5",
+            "_type": "comparisonItem",
+            "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+            "number": "05",
+            "title": "Change Readiness → Adoption & Training Strategies"
+          }
+        ],
+        "label": "How We Can Help"
+      }
+    ],
+    "country": "India",
+    "faqHeading": "Frequently asked questions",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-india-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-india-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-india-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-india-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-india-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "featureBlocks": [
+      {
+        "_key": "fb-0",
+        "_type": "featureBlock",
+        "body": "Give directors a general overview of the team's progress with calendars, Gantt charts, and dashboards. So, even if you have 10+ boards, senior management can see what someone is working on, how projects are doing, and why tasks are delayed–all with just a few clicks.",
+        "ctaLabel": "📊 Our Project Management Solutions",
+        "ctaUrl": "/monday-consulting-solutions/monday-project-management",
+        "image": "/images/au-rollup.avif",
+        "title": "Build a high-level roll-up of all your boards"
+      },
+      {
+        "_key": "fb-1",
+        "_type": "featureBlock",
+        "body": "Have a monday.com consultation partner build a system designed to support the way you want your business to run. That means you start with the \"meat and potatoes\" of your platform in place. So later, if you need to adapt to new requirements, you can easily piggyback off of the original set-up.",
+        "ctaLabel": "📈 Our CRM Solutions",
+        "ctaUrl": "/monday-crm-consulting",
+        "image": "/images/au-create-crm.avif",
+        "title": "Create a CRM or project management tool that fits you"
+      },
+      {
+        "_key": "fb-2",
+        "_type": "featureBlock",
+        "body": "Get the entire team monday.com training. Make sure all of your team members get the onboarding they need to feel comfortable using the platform day in and day out. So when you actually start using the platform, it becomes your single source of truth.",
+        "ctaLabel": "👩🏽‍💼👨🏻‍💼 Our Training Services",
+        "ctaUrl": "/monday-training",
+        "image": "/images/au-training.avif",
+        "title": "Training & managed services"
+      },
+      {
+        "_key": "fb-3",
+        "_type": "featureBlock",
+        "body": "Eliminate manual work with automation. Seamlessly integrate Gmail, Outlook, Sharepoint, Teams, accounting software, ChatGPT, and dozens of other tools with the software's open API.",
+        "ctaLabel": "⚡️ See Our Solutions",
+        "ctaUrl": "/monday-consulting-solutions",
+        "image": "/images/au-integrate.avif",
+        "title": "Integrate your email and all external tools"
+      }
+    ],
+    "heroHeading": "monday.com Partner Consultants & Implementation Experts India",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6ca22c27a5e594433bc14118866d765be14ac15a-3000x932-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Get certified monday.com partner consultants and implementation experts to build robust infrastructure and architecture for your business. Our expert services get your team operational immediately, eliminating the time and resources spent on trial-and-error setup.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in India",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-india-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-india-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-india-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-india-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform behind 500+ businesses choosing monday.com.",
+    "methodologyHeading": "Fruition's consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-india-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-india-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-india-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-india-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-india-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "APAC",
+    "roiStats": [
+      {
+        "_key": "roi-0",
+        "_type": "roiStat",
+        "label": "ROI",
+        "value": "288%"
+      },
+      {
+        "_key": "roi-1",
+        "_type": "roiStat",
+        "label": "Hours Saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "roi-2",
+        "_type": "roiStat",
+        "label": "Meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "roi-3",
+        "_type": "roiStat",
+        "label": "Net Value",
+        "value": "489,794"
+      }
+    ],
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/lang/en-au/crm",
+    "seoDescription": "Certified monday.com consulting partner in India. Expert implementation and training across major cities.",
+    "seoTitle": "monday.com Partner India | Fruition Services",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-india"
+    },
+    "teamGridCtaLabel": "Learn More About Us",
+    "teamGridCtaUrl": "/fruition-team",
+    "teamGridHeading": "Meet the Fruition India team",
+    "teamGridSubheading": "Our monday.com consultants have expertise across various industries. As a certified monday.com partner, we guarantee the delivery of the right solution and training to optimise your team's efficiency.",
+    "teamMemberNames": [
+      "Prakriti Chaubey",
+      "Aquib Zafar",
+      "Nikhil Tiwari",
+      "Yuzia Haque",
+      "Tejas Singh"
+    ],
+    "testimonialsGridCtaLabel": "🚀  Start Your Transformation",
+    "testimonialsGridHeading": "What our customers say about us 🙌",
+    "testimonialsGridStatCtaLabel": "Read our case studies",
+    "testimonialsGridStatCtaUrl": "/customer-testimonials",
+    "testimonialsGridStatSubtitle": "have maximised their workflows with our monday.com expert support",
+    "testimonialsGridStatValue": "500+",
+    "title": "monday.com Partner India"
+  },
+  {
+    "_createdAt": "2026-06-03T08:50:52Z",
+    "_id": "locationPage-monday-partner-philippines",
+    "_rev": "7wWYYRe4HGRItegPjwa3VW",
+    "_system": {
+      "base": {
+        "id": "locationPage-monday-partner-philippines",
+        "rev": "05OFSWoh1BoG8flppLF30V"
+      }
+    },
+    "_type": "locationPage",
+    "_updatedAt": "2026-09-01T05:23:17Z",
+    "calendlyHeading": "Book a 30-min consultation with a monday.com expert",
+    "calendlySubheading": "Schedule a personalised monday.com demo with our certified consultants to discover how the platform can be customised for your specific business needs.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-philippines-0",
+        "_type": "capabilityCard",
+        "description": "Coordinate large, shift-based and outsourced teams across Manila, Cebu and Davao while maintaining visibility, accountability and service-level targets.",
+        "emoji": "🌐",
+        "title": "Distributed & BPO Workforce"
+      },
+      {
+        "_key": "cap-monday-partner-philippines-1",
+        "_type": "capabilityCard",
+        "description": "Accelerate technology adoption with expert-led training that minimises productivity disruption and builds lasting in-house capability.",
+        "emoji": "🎓",
+        "title": "Digital Upskilling for Filipino Teams"
+      },
+      {
+        "_key": "cap-monday-partner-philippines-2",
+        "_type": "capabilityCard",
+        "description": "Implement AI and automation to remove repetitive manual work, reduce errors and free your team to focus on higher-value client outcomes.",
+        "emoji": "🤖",
+        "title": "AI & Automation"
+      },
+      {
+        "_key": "cap-monday-partner-philippines-3",
+        "_type": "capabilityCard",
+        "description": "Improve reporting visibility into business performance to make better decisions and quickly correct course on strategic initiatives.",
+        "emoji": "💰",
+        "title": "Cost Efficiency & Reporting Visibility"
+      },
+      {
+        "_key": "cap-monday-partner-philippines-4",
+        "_type": "capabilityCard",
+        "description": "Keep onshore and offshore teams aligned across Philippine business hubs and global client time zones through one unified platform.",
+        "emoji": "🇵🇭",
+        "title": "Cross-Site & Client Time-Zone Collaboration"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across Philippine businesses",
+    "comparisonHeading": "monday.com features built for Philippine teams",
+    "comparisonSubheading": "How monday.com transforms work for Philippine businesses across Metro Manila, Cebu, Davao and beyond.",
+    "comparisonTabs": [
+      {
+        "_key": "ct-monday-partner-philippines-0",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "ct0-i-monday-partner-philippines-0",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com act as your dedicated process manager, continuously running in the background to keep initiatives moving seamlessly and productively.",
+            "number": "01",
+            "title": "⚡ Save Time with Automations"
+          },
+          {
+            "_key": "ct0-i-monday-partner-philippines-1",
+            "_type": "comparisonItem",
+            "description": "Create rich documents directly within monday and embed real-time project information from any of your boards within those docs.",
+            "number": "02",
+            "title": "📄 Centralised Documentation"
+          },
+          {
+            "_key": "ct0-i-monday-partner-philippines-2",
+            "_type": "comparisonItem",
+            "description": "Turn project data into visually engaging, easily digestible information, simplifying analysis and improving decision-making with clear, actionable views.",
+            "number": "03",
+            "title": "📊 Visualise with Dashboards & Charts"
+          },
+          {
+            "_key": "ct0-i-monday-partner-philippines-3",
+            "_type": "comparisonItem",
+            "description": "Organise projects using Agile or traditional methodologies: adaptable to startup, enterprise, BPO and services-team workflows alike.",
+            "number": "04",
+            "title": "🧩 Flexible Organisation"
+          },
+          {
+            "_key": "ct0-i-monday-partner-philippines-4",
+            "_type": "comparisonItem",
+            "description": "Keep all your data in monday.com and integrate with your accounting, CRM and communication tools: Aircall, Gmail, Outlook, Slack, Teams and more.",
+            "number": "05",
+            "title": "🔌 Integrate with Other Tools"
+          }
+        ],
+        "label": "monday.com Features"
+      }
+    ],
+    "country": "Philippines",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-philippines-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-philippines-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-philippines-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-philippines-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-philippines-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "heroHeading": "monday.com Partner Consultants & Implementation Experts Philippines",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6ca22c27a5e594433bc14118866d765be14ac15a-3000x932-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Get certified monday.com partner consultants and implementation experts to build robust infrastructure and architecture for your business. Our Philippines-based specialists serve teams across Metro Manila, Cebu and Davao (from fast-scaling startups to BPO and outsourcing operations) getting you operational in days, not months.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in the Philippines",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-philippines-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-philippines-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-philippines-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-philippines-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform behind 500+ businesses choosing monday.com.",
+    "methodologyHeading": "Fruition's consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-philippines-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-philippines-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-philippines-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-philippines-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-philippines-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "APAC",
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/lang/en-au/crm",
+    "seoDescription": "Fruition is a certified monday.com partner in the Philippines delivering CRM and work management implementations with Philippines-based consultants across Manila, Cebu and Davao.",
+    "seoTitle": "monday.com Partner Philippines | Certified Implementation Consultants | Fruition",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-philippines"
+    },
+    "teamMemberNames": [
+      "Suzzane Castro",
+      "Annica Galang",
+      "Pierre Santos",
+      "Ronelyn Tabuena",
+      "Benjie Belotindos",
+      "Julia Maningas",
+      "Prince Ericson Posadas",
+      "Nikki Glucksman",
+      "Thana Witchawut"
+    ],
+    "title": "monday.com Partner Philippines"
+  },
+  {
+    "_createdAt": "2026-03-27T03:22:14Z",
+    "_id": "locationPage-monday-partner-singapore",
+    "_rev": "rral33DaC726OcYjRVctVJ",
+    "_type": "locationPage",
+    "_updatedAt": "2026-08-16T11:59:26Z",
+    "calendlyHeading": "Schedule a 30-min call with one of our monday.com consultants today",
+    "calendlySubheading": "From initial process discovery to full system adoption, our proven methodology ensures seamless digital transformation that empowers your team and drives sustainable operational efficiency.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-singapore-0",
+        "_type": "capabilityCard",
+        "description": "Navigate diverse Southeast Asian employment regulations and hybrid work policies across Singapore, Malaysia, Thailand, Indonesia, Philippines and Vietnam.",
+        "emoji": "🏢",
+        "title": "Hybrid Work & ASEAN Compliance"
+      },
+      {
+        "_key": "cap-monday-partner-singapore-1",
+        "_type": "capabilityCard",
+        "description": "Accelerate digital adoption with training programs designed for Southeast Asian businesses, minimising productivity disruption.",
+        "emoji": "🎓",
+        "title": "Digital Transformation Training for ASEAN Teams"
+      },
+      {
+        "_key": "cap-monday-partner-singapore-2",
+        "_type": "capabilityCard",
+        "description": "Enhance work-life integration through intelligent automation that supports Southeast Asian workplace wellness standards and cultural expectations.",
+        "emoji": "⚖️",
+        "title": "Work-Life Balance & Regional Wellness"
+      },
+      {
+        "_key": "cap-monday-partner-singapore-3",
+        "_type": "capabilityCard",
+        "description": "Empower ASEAN teams with process optimisation skills that drive continuous improvement across diverse cultural contexts.",
+        "emoji": "📈",
+        "title": "Professional Development & Skills Enhancement"
+      },
+      {
+        "_key": "cap-monday-partner-singapore-4",
+        "_type": "capabilityCard",
+        "description": "Strengthen collaboration across ASEAN time zones and cultural backgrounds, from Singapore to Manila to Bangkok.",
+        "emoji": "🌏",
+        "title": "Multi-Country Team Coordination"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across ASEAN businesses",
+    "comparisonHeading": "monday.com features built for ASEAN teams",
+    "comparisonSubheading": "How monday.com powers work across Singapore, KL, Bangkok, Jakarta, Manila and Ho Chi Minh City.",
+    "comparisonTabs": [
+      {
+        "_key": "leadership",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "l1",
+            "_type": "comparisonItem",
+            "description": "Navigate diverse Southeast Asian employment regulations and hybrid work policies across Singapore, Malaysia, Thailand, Indonesia, Philippines, and Vietnam. Seamlessly integrate remote and office workflows while ensuring compliance with local labor laws and data localisation requirements.",
+            "number": "01",
+            "title": "Hybrid Work & ASEAN Compliance"
+          },
+          {
+            "_key": "l2",
+            "_type": "comparisonItem",
+            "description": "Accelerate digital adoption with comprehensive training programs designed for Southeast Asian businesses. Our regional experts minimise productivity disruptions while ensuring teams master new technologies, while maintaining a competitive advantage in the workplace.",
+            "number": "02",
+            "title": "Digital Transformation Training for ASEAN Teams"
+          },
+          {
+            "_key": "l3",
+            "_type": "comparisonItem",
+            "description": "Enhance work-life integration through intelligent automation that supports Southeast Asian workplace wellness standards and cultural expectations. Automate routine administrative tasks, enabling focus on high-value strategic work while respecting regional work-life balance traditions.",
+            "number": "03",
+            "title": "Work-Life Balance & Regional Wellness"
+          },
+          {
+            "_key": "l4",
+            "_type": "comparisonItem",
+            "description": "Empower ASEAN teams with process optimisation skills that drive continuous improvement. Support regional upskilling initiatives by enabling employees to identify operational inefficiencies and implement enhanced systems that boost productivity across diverse cultural contexts.",
+            "number": "04",
+            "title": "Professional Development & Skills Enhancement"
+          },
+          {
+            "_key": "l5",
+            "_type": "comparisonItem",
+            "description": "Strengthen collaboration across ASEAN time zones and diverse cultural backgrounds from Singapore to Manila to Bangkok. Maintain transparency and foster strong connections regardless of location, supporting seamless operations across Southeast Asian markets.",
+            "number": "05",
+            "title": "Multi-Country Team Coordination"
+          }
+        ],
+        "label": "Top Leadership Challenges"
+      },
+      {
+        "_key": "features",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "f1",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com function as your dedicated process manager, continuously operating behind the scenes to guarantee that your initiatives progress seamlessly and productively.",
+            "number": "01",
+            "title": "Save Time with Automations"
+          },
+          {
+            "_key": "f2",
+            "_type": "comparisonItem",
+            "description": "You can create rich documents directly within monday and embed real-time project information from any of your boards within those docs.",
+            "number": "02",
+            "title": "Centralised Documentation"
+          },
+          {
+            "_key": "f3",
+            "_type": "comparisonItem",
+            "description": "Transform operational data into actionable insights for Southeast Asian businesses. Present KPIs aligned with local accounting standards (Singapore FRS, Malaysian MFRS, Thai TFRS) and regional reporting requirements.",
+            "number": "03",
+            "title": "Business Intelligence for ASEAN Markets"
+          },
+          {
+            "_key": "f4",
+            "_type": "comparisonItem",
+            "description": "Organise projects using methodologies popular across ASEAN innovation hubs including Singapore's fintech sector, Kuala Lumpur's digital economy, Bangkok's startup ecosystem, and Jakarta's e-commerce corridor.",
+            "number": "04",
+            "title": "Agile Project Organisation"
+          },
+          {
+            "_key": "f5",
+            "_type": "comparisonItem",
+            "description": "Consolidate all your information within monday to boost team synchronisation and enhance organisational efficiency. Eliminate switching between isolated applications and ensure nothing gets overlooked.",
+            "number": "05",
+            "title": "Integrate with Other Tools"
+          }
+        ],
+        "label": "monday.com Features"
+      },
+      {
+        "_key": "how-help",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "h1",
+            "_type": "comparisonItem",
+            "description": "Our SEA-based certified consultants meticulously map existing workflows against Southeast Asian industry benchmarks. Analyse operational bottlenecks specific to ASEAN regulatory requirements and competitive pressures in Asia-Pacific markets.",
+            "number": "01",
+            "title": "Process Discovery → Business Process Audit"
+          },
+          {
+            "_key": "h2",
+            "_type": "comparisonItem",
+            "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+            "number": "02",
+            "title": "Technical Architecture → System Integration Scope"
+          },
+          {
+            "_key": "h3",
+            "_type": "comparisonItem",
+            "description": "Implement balanced automation systems optimised for Southeast Asian business practices and multicultural user adoption. Our solutions scale with your team's expertise while respecting diverse regional workplace cultures and communication styles.",
+            "number": "03",
+            "title": "Solution Design → Implementation"
+          },
+          {
+            "_key": "h4",
+            "_type": "comparisonItem",
+            "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+            "number": "04",
+            "title": "Efficiency Impact → ROI Opportunity Analysis"
+          },
+          {
+            "_key": "h5",
+            "_type": "comparisonItem",
+            "description": "Our proven framework measures organisational readiness within diverse ASEAN workplace cultures. Craft adoption strategies that work across different cultural contexts, transforming resistance into enthusiastic system adoption while respecting local business practices.",
+            "number": "05",
+            "title": "Change Readiness → Adoption & Training Strategies"
+          }
+        ],
+        "label": "How We Can Help"
+      }
+    ],
+    "country": "Singapore",
+    "faqHeading": "Frequently asked questions",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-singapore-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-singapore-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-singapore-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-singapore-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-singapore-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "featureBlocks": [
+      {
+        "_key": "fb-0",
+        "_type": "featureBlock",
+        "body": "Give directors a general overview of the team's progress with calendars, Gantt charts, and dashboards. So, even if you have 10+ boards, senior management can see what someone is working on, how projects are doing, and why tasks are delayed–all with just a few clicks.",
+        "ctaLabel": "📊 Our Project Management Solutions",
+        "ctaUrl": "/monday-consulting-solutions/monday-project-management",
+        "image": "/images/au-rollup.avif",
+        "title": "Build a high-level roll-up of all your boards"
+      },
+      {
+        "_key": "fb-1",
+        "_type": "featureBlock",
+        "body": "Have a monday.com partner build a system designed to support the way you want your business to run. That means you start with the \"meat and potatoes\" of your platform in place. So later, if you need to adapt to new requirements, you can easily piggyback off of the original set-up.",
+        "ctaLabel": "📈 Our CRM Solutions",
+        "ctaUrl": "/monday-crm-consulting",
+        "image": "/images/au-create-crm.avif",
+        "title": "Create a CRM or project management tool that fits you"
+      },
+      {
+        "_key": "fb-2",
+        "_type": "featureBlock",
+        "body": "Get the entire team monday.com training. Make sure all of your team members get the onboarding they need to feel comfortable using the platform day in and day out. So when you actually start using the platform, it becomes your single source of truth.",
+        "ctaLabel": "👩🏽‍💼👨🏻‍💼 Our Training Services",
+        "ctaUrl": "/monday-training",
+        "image": "/images/au-training.avif",
+        "title": "Training & managed services"
+      },
+      {
+        "_key": "fb-3",
+        "_type": "featureBlock",
+        "body": "Eliminate manual work with automation. Seamlessly integrate Gmail, Outlook, Sharepoint, Teams, accounting software, ChatGPT, and dozens of other tools with the software's open API.",
+        "ctaLabel": "⚡️ See Our Solutions",
+        "ctaUrl": "/monday-consulting-solutions",
+        "image": "/images/au-integrate.avif",
+        "title": "Integrate your email and all external tools"
+      }
+    ],
+    "heroHeading": "monday.com Partner Singapore",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6ca22c27a5e594433bc14118866d765be14ac15a-3000x932-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Work with an accredited monday.com consultant to develop the essential systems and operational blueprint for your business. Based in Singapore, our specialists serve companies across Southeast Asia: Singapore, the Philippines, Thailand, Malaysia, Indonesia and Vietnam.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in ASEAN",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-singapore-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-singapore-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-singapore-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-singapore-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform powering teams across Southeast Asia.",
+    "methodologyHeading": "Our SEA-based consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-singapore-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-singapore-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-singapore-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-singapore-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-singapore-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "ASEAN",
+    "roiStats": [
+      {
+        "_key": "roi-0",
+        "_type": "roiStat",
+        "label": "ROI",
+        "value": "288%"
+      },
+      {
+        "_key": "roi-1",
+        "_type": "roiStat",
+        "label": "Hours Saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "roi-2",
+        "_type": "roiStat",
+        "label": "Meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "roi-3",
+        "_type": "roiStat",
+        "label": "Net Value",
+        "value": "489,794"
+      }
+    ],
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/lang/en-au/crm",
+    "seoDescription": "Certified monday.com consulting partner in Singapore. Expert implementation and support for local businesses.",
+    "seoTitle": "monday.com Partner Singapore | Fruition Services",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-singapore"
+    },
+    "teamGridCtaLabel": "Learn More About Us",
+    "teamGridCtaUrl": "/fruition-team",
+    "teamGridHeading": "Meet the Fruition Singapore team",
+    "testimonialsGridCtaLabel": "🚀  Start Your Transformation",
+    "testimonialsGridHeading": "What our customers say about us 🙌",
+    "testimonialsGridStatCtaLabel": "Read our case studies",
+    "testimonialsGridStatCtaUrl": "/customer-testimonials",
+    "testimonialsGridStatSubtitle": "have maximised their workflows with our monday.com expert support",
+    "testimonialsGridStatValue": "500+",
+    "title": "monday.com Partner Singapore"
+  },
+  {
+    "_createdAt": "2026-03-27T03:22:08Z",
+    "_id": "locationPage-monday-partner-uk",
+    "_rev": "7sb8yDvUL23jsjqCX5utoX",
+    "_system": {
+      "base": {
+        "id": "locationPage-monday-partner-uk",
+        "rev": "rral33DaC726OcYjRVctVJ"
+      }
+    },
+    "_type": "locationPage",
+    "_updatedAt": "2026-09-03T18:01:48Z",
+    "calendlyHeading": "Book a 30-min consultation with a monday.com expert",
+    "calendlySubheading": "Schedule a personalised monday.com demo with our certified consultants to discover how the platform can be customised for your specific business needs.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-uk-0",
+        "_type": "capabilityCard",
+        "description": "Navigate UK Employment Rights Act and hybrid working legislation across London, Manchester, Birmingham and regional UK offices.",
+        "emoji": "🏢",
+        "title": "Hybrid Working Rights Compliance"
+      },
+      {
+        "_key": "cap-monday-partner-uk-1",
+        "_type": "capabilityCard",
+        "description": "Accelerate digital transformation with comprehensive training programmes for UK businesses.",
+        "emoji": "🎓",
+        "title": "Digital Skills Training for UK Teams"
+      },
+      {
+        "_key": "cap-monday-partner-uk-2",
+        "_type": "capabilityCard",
+        "description": "Enhance work-life integration through intelligent automation supporting UK workplace wellness regulations.",
+        "emoji": "⚖️",
+        "title": "Work-Life Balance & Right to Disconnect"
+      },
+      {
+        "_key": "cap-monday-partner-uk-3",
+        "_type": "capabilityCard",
+        "description": "Support the government's Lifetime Skills Guarantee by enabling staff to identify inefficiencies and implement enhanced systems.",
+        "emoji": "📈",
+        "title": "Professional Development & Upskilling"
+      },
+      {
+        "_key": "cap-monday-partner-uk-4",
+        "_type": "capabilityCard",
+        "description": "Strengthen collaboration across England, Scotland, Wales, and Northern Ireland through unified platforms.",
+        "emoji": "🇬🇧",
+        "title": "Cross-Regional Team Cohesion"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across UK businesses",
+    "comparisonHeading": "monday.com features built for UK teams",
+    "comparisonSubheading": "How monday.com powers work for businesses from the City of London to regional UK hubs.",
+    "comparisonTabs": [
+      {
+        "_key": "leadership",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "l1",
+            "_type": "comparisonItem",
+            "description": "Navigate UK Employment Rights Act and hybrid working legislation with strategic technology solutions. Seamlessly integrate remote and office workflows while ensuring compliance with statutory flexible working rights across London, Manchester, Birmingham, and regional UK offices.",
+            "number": "01",
+            "title": "Hybrid Working Rights Compliance"
+          },
+          {
+            "_key": "l2",
+            "_type": "comparisonItem",
+            "description": "Accelerate digital transformation with comprehensive training programmes for UK businesses. Our local experts minimise productivity disruptions while ensuring teams master new technologies, supporting your digital strategy objectives.",
+            "number": "02",
+            "title": "Digital Skills Training for UK Teams"
+          },
+          {
+            "_key": "l3",
+            "_type": "comparisonItem",
+            "description": "Enhance work-life integration through intelligent automation supporting UK workplace wellness regulations. Automate routine administrative tasks, enabling focus on high-value work while maintaining healthy boundaries.",
+            "number": "03",
+            "title": "Work-Life Balance & Right to Disconnect"
+          },
+          {
+            "_key": "l4",
+            "_type": "comparisonItem",
+            "description": "Empower UK teams with process optimisation skills that drive continuous improvement. Support the government's Lifetime Skills Guarantee by enabling staff to identify inefficiencies and implement enhanced systems.",
+            "number": "04",
+            "title": "Professional Development & Upskilling"
+          },
+          {
+            "_key": "l5",
+            "_type": "comparisonItem",
+            "description": "Strengthen collaboration across England, Scotland, Wales, and Northern Ireland through unified communication platforms, maintaining transparency regardless of location.",
+            "number": "05",
+            "title": "Cross-Regional Team Cohesion"
+          }
+        ],
+        "label": "Top Leadership Challenges"
+      },
+      {
+        "_key": "features",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "f1",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com function as your dedicated process manager, continuously operating behind the scenes to guarantee that your initiatives progress seamlessly and productively.",
+            "number": "01",
+            "title": "Save Time with Automations"
+          },
+          {
+            "_key": "f2",
+            "_type": "comparisonItem",
+            "description": "Create comprehensive business documents with real-time project data integration. Maintain UK data residency requirements and support Companies House filing obligations with organised digital documentation.",
+            "number": "02",
+            "title": "Document Management & Data Sovereignty"
+          },
+          {
+            "_key": "f3",
+            "_type": "comparisonItem",
+            "description": "Transform operational data into insights that support strategic decision-making for UK businesses. Present KPIs aligned with UK GAAP accounting standards and regulatory reporting requirements.",
+            "number": "03",
+            "title": "Business Intelligence Dashboards"
+          },
+          {
+            "_key": "f4",
+            "_type": "comparisonItem",
+            "description": "Organise projects using methodologies popular across UK tech hubs including London's Silicon Roundabout, Manchester's digital corridor, and Edinburgh's fintech sector. Customise views according to preferred UK business frameworks.",
+            "number": "04",
+            "title": "Agile Project Organisation"
+          },
+          {
+            "_key": "f5",
+            "_type": "comparisonItem",
+            "description": "Integrate seamlessly with popular UK business tools including Sage and Xero. Connect with UK accounting software to maintain centralised workflows that support your business operations.",
+            "number": "05",
+            "title": "UK Software Integration"
+          }
+        ],
+        "label": "monday.com Features"
+      },
+      {
+        "_key": "how-help",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "h1",
+            "_type": "comparisonItem",
+            "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+            "number": "01",
+            "title": "Process Discovery → Business Process Audit"
+          },
+          {
+            "_key": "h2",
+            "_type": "comparisonItem",
+            "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+            "number": "02",
+            "title": "Technical Architecture → System Integration Scope"
+          },
+          {
+            "_key": "h3",
+            "_type": "comparisonItem",
+            "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+            "number": "03",
+            "title": "Solution Design → Implementation"
+          },
+          {
+            "_key": "h4",
+            "_type": "comparisonItem",
+            "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+            "number": "04",
+            "title": "Efficiency Impact → ROI Opportunity Analysis"
+          },
+          {
+            "_key": "h5",
+            "_type": "comparisonItem",
+            "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+            "number": "05",
+            "title": "Change Readiness → Adoption & Training Strategies"
+          }
+        ],
+        "label": "How We Can Help"
+      }
+    ],
+    "country": "United Kingdom",
+    "croSections": {
+      "beforeAfter": {
+        "afterLabel": "After",
+        "beforeLabel": "Before",
+        "heading": "Spreadsheet & legacy tool migration",
+        "rows": [
+          {
+            "_key": "modcPV4jfphaCCi2os86uX",
+            "after": "Dynamic, automated monday boards",
+            "before": "Excel & SharePoint trackers scattered across teams"
+          },
+          {
+            "_key": "modcPV4jfphaCCi2os86xA",
+            "after": "Consolidated single Work OS",
+            "before": "Legacy Asana / Jira / ClickUp workspaces"
+          },
+          {
+            "_key": "modcPV4jfphaCCi2os86zn",
+            "after": "Custom integrations with one source of truth",
+            "before": "Disconnected UK ERPs and Xero data"
+          }
+        ]
+      },
+      "leadForm": {
+        "enabled": true,
+        "fields": [
+          {
+            "_key": "modcPV4jfphaCCi2os86k1",
+            "label": "Primary operational bottleneck",
+            "options": [
+              "Spreadsheet migration",
+              "Legacy tool consolidation",
+              "Integrations",
+              "Training",
+              "Other"
+            ],
+            "required": false,
+            "type": "select"
+          }
+        ],
+        "heading": "Book a 30-minute technical scope call with a UK-based solutions consultant",
+        "source": "monday-partner-uk",
+        "subheading": "London-time support · UK GDPR compliant · No high-pressure sales, just a clear roadmap.",
+        "submitLabel": "Book a UK Scope Call",
+        "successMessage": "Thanks, a UK-based solutions consultant will reach out within one business day."
+      },
+      "statBanner": {
+        "metrics": [
+          {
+            "_key": "modcPV4jfphaCCi2os87AJ",
+            "text": "less manual status tracking",
+            "value": "85%"
+          },
+          {
+            "_key": "modcPV4jfphaCCi2os87Cw",
+            "text": "London-time consultants",
+            "value": "GMT"
+          }
+        ],
+        "statement": "Stop losing billable hours to administrative drag. Our bespoke automation architectures reduce manual status tracking by up to 85%, freeing your delivery teams to focus on client outcomes.",
+        "theme": "dark"
+      },
+      "stickyCtaLabel": "Book a UK Consultation",
+      "stickyCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+      "threeStep": {
+        "heading": "Our 3-stage local engagement",
+        "steps": [
+          {
+            "_key": "modcPV4jfphaCCi2os872Q",
+            "description": "Requirements gathering and gap analysis with London-time consultants.",
+            "number": "01",
+            "title": "Discovery & UK Process Audit"
+          },
+          {
+            "_key": "modcPV4jfphaCCi2os8753",
+            "description": "Building custom templates and deep integrations.",
+            "number": "02",
+            "title": "Bespoke Architecture Design"
+          },
+          {
+            "_key": "modcPV4jfphaCCi2os877g",
+            "description": "Hands-on training to guarantee high internal team adoption.",
+            "number": "03",
+            "title": "Change Management & Adoption"
+          }
+        ]
+      },
+      "trustBadges": [
+        {
+          "_key": "modcPV4jfphaCCi2os86me",
+          "detail": "ICO Registered",
+          "label": "UK GDPR Compliant"
+        },
+        {
+          "_key": "modcPV4jfphaCCi2os86pH",
+          "label": "monday.com Certified Platinum Partner"
+        },
+        {
+          "_key": "modcPV4jfphaCCi2os86ru",
+          "label": "Advanced Delivery Accredited Agency"
+        }
+      ],
+      "trustBadgesTheme": "light"
+    },
+    "faqHeading": "Frequently asked questions",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-uk-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-uk-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-uk-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-uk-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-uk-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "featureBlocks": [
+      {
+        "_key": "fb-0",
+        "_type": "featureBlock",
+        "body": "Give directors a general overview of the team's progress with calendars, Gantt charts, and dashboards. So, even if you have 10+ boards, senior management can see what someone is working on, how projects are doing, and why tasks are delayed–all with just a few clicks.",
+        "ctaLabel": "📊 Our Project Management Solutions",
+        "ctaUrl": "/monday-consulting-solutions/monday-project-management",
+        "image": "/images/au-rollup.avif",
+        "title": "Build a high-level roll-up of all your boards"
+      },
+      {
+        "_key": "fb-1",
+        "_type": "featureBlock",
+        "body": "Have a monday.com partner build a system designed to support the way you want your business to run. That means you start with the \"meat and potatoes\" of your platform in place. So later, if you need to adapt to new requirements, you can easily piggyback off of the original set-up.",
+        "ctaLabel": "📈 Our CRM Solutions",
+        "ctaUrl": "/monday-crm-consulting",
+        "image": "/images/au-create-crm.avif",
+        "title": "Create a CRM or project management tool that fits you"
+      },
+      {
+        "_key": "fb-2",
+        "_type": "featureBlock",
+        "body": "Get the entire team monday.com training. Make sure all of your team members get the onboarding they need to feel comfortable using the platform day in and day out. So when you actually start using the platform, it becomes your single source of truth.",
+        "ctaLabel": "👩🏽‍💼👨🏻‍💼 Our Training Services",
+        "ctaUrl": "/monday-training",
+        "image": "/images/au-training.avif",
+        "title": "Training & managed services"
+      },
+      {
+        "_key": "fb-3",
+        "_type": "featureBlock",
+        "body": "Eliminate manual work with automation. Seamlessly integrate Gmail, Outlook, Sharepoint, Teams, accounting software, ChatGPT, and dozens of other tools with the software's open API.",
+        "ctaLabel": "⚡️ See Our Solutions",
+        "ctaUrl": "/monday-consulting-solutions",
+        "image": "/images/au-integrate.avif",
+        "title": "Integrate your email and all external tools"
+      }
+    ],
+    "heroHeading": "Drive Peak Operational Performance with an Elite monday.com Partner UK.",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-7fb7832d53ed3a7d7391f913fcb3eee681e72483-4976x1780-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Partner with certified monday.com consultants to build robust infrastructure and architecture for your business account. Our expert implementation services get your team operational immediately, eliminating the time and resources typically spent on trial-and-error setup.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in the UK",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-uk-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-uk-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-uk-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-uk-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform behind UK teams choosing monday.com.",
+    "methodologyHeading": "Our expert consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-uk-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-uk-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-uk-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-uk-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-uk-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "EMEA",
+    "roiStats": [
+      {
+        "_key": "roi-0",
+        "_type": "roiStat",
+        "label": "ROI",
+        "value": "288%"
+      },
+      {
+        "_key": "roi-1",
+        "_type": "roiStat",
+        "label": "Hours Saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "roi-2",
+        "_type": "roiStat",
+        "label": "Meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "roi-3",
+        "_type": "roiStat",
+        "label": "Net Value",
+        "value": "489,794"
+      }
+    ],
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/?utm_source=Partner&utm_campaign=fruitionuk&utm_banner=fruition_-_work_management_7",
+    "seoDescription": "Scale your business with monday.com platinum partner in the UK. Our expert consultants build high-performing workflows with implementation and automation.",
+    "seoTitle": "monday.com Platinum Consulting Partner in the UK | Fruition Services",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-uk"
+    },
+    "teamGridCtaLabel": "Learn More About Us",
+    "teamGridCtaUrl": "/fruition-team",
+    "teamGridHeading": "Meet the Fruition UK team",
+    "testimonialsGridCtaLabel": "🚀  Start Your Transformation",
+    "testimonialsGridHeading": "What our customers say about us 🙌",
+    "testimonialsGridStatCtaLabel": "Read our case studies",
+    "testimonialsGridStatCtaUrl": "/customer-testimonials",
+    "testimonialsGridStatSubtitle": "have maximised their workflows with our monday.com expert support",
+    "testimonialsGridStatValue": "500+",
+    "title": "monday.com Partner UK"
+  },
+  {
+    "_createdAt": "2026-03-27T03:22:11Z",
+    "_id": "locationPage-monday-partner-us",
+    "_rev": "uN0o69mFd7BlWduash3v56",
+    "_system": {
+      "base": {
+        "id": "locationPage-monday-partner-us",
+        "rev": "rral33DaC726OcYjRVctVJ"
+      }
+    },
+    "_type": "locationPage",
+    "_updatedAt": "2026-08-31T18:39:11Z",
+    "calendlyHeading": "Book a 30-min consultation with a monday.com expert",
+    "calendlySubheading": "Schedule a personalised monday.com demo with our certified consultants. Unlock monday.com's complete potential with our exclusive 4-week extended free trial period.",
+    "capabilitiesCards": [
+      {
+        "_key": "cap-monday-partner-us-0",
+        "_type": "capabilityCard",
+        "description": "Navigate evolving US remote work legislation and state-specific employment laws. Integrate remote and office workflows while ensuring FLSA compliance across all 50 states.",
+        "emoji": "🏢",
+        "title": "Remote Work & Hybrid Compliance"
+      },
+      {
+        "_key": "cap-monday-partner-us-1",
+        "_type": "capabilityCard",
+        "description": "Accelerate digital adoption with comprehensive training programs designed for American businesses, minimising productivity disruption.",
+        "emoji": "🎓",
+        "title": "Digital Transformation Training for US Teams"
+      },
+      {
+        "_key": "cap-monday-partner-us-2",
+        "_type": "capabilityCard",
+        "description": "Enhance work-life integration through intelligent automation that supports US workplace wellness initiatives and the emerging \"right to disconnect\" discussion.",
+        "emoji": "⚖️",
+        "title": "Work-Life Balance & Employee Wellness"
+      },
+      {
+        "_key": "cap-monday-partner-us-3",
+        "_type": "capabilityCard",
+        "description": "Empower US teams with process optimisation skills that drive continuous improvement and support workforce development initiatives.",
+        "emoji": "📈",
+        "title": "Professional Development & Skills Training"
+      },
+      {
+        "_key": "cap-monday-partner-us-4",
+        "_type": "capabilityCard",
+        "description": "Strengthen collaboration across US time zones (Pacific to Eastern, plus Hawaii and Alaska) from Silicon Valley to New York City.",
+        "emoji": "🇺🇸",
+        "title": "Cross-Timezone Team Collaboration"
+      }
+    ],
+    "capabilitiesHeading": "Top leadership challenges across US businesses",
+    "comparisonHeading": "monday.com features built for US teams",
+    "comparisonSubheading": "How monday.com powers work for US teams in tech, finance, healthcare and beyond.",
+    "comparisonTabs": [
+      {
+        "_key": "leadership",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "l1",
+            "_type": "comparisonItem",
+            "description": "Navigate evolving US remote work legislation and state-specific employment laws with strategic technology solutions. Seamlessly integrate remote and office workflows while ensuring compliance with FLSA requirements, state labor laws, and emerging hybrid work regulations across all 50 states.",
+            "number": "01",
+            "title": "Remote Work & Hybrid Compliance"
+          },
+          {
+            "_key": "l2",
+            "_type": "comparisonItem",
+            "description": "Accelerate digital adoption with comprehensive training programs designed for American businesses. Our US-based experts minimize productivity disruptions while ensuring teams master new technologies and maintain a competitive advantage in global markets.",
+            "number": "02",
+            "title": "Digital Transformation Training for US Teams"
+          },
+          {
+            "_key": "l3",
+            "_type": "comparisonItem",
+            "description": "Enhance work-life integration through intelligent automation that supports US workplace wellness initiatives and emerging \"right to disconnect\" discussions. Automate routine administrative tasks, enabling focus on high-value strategic work.",
+            "number": "03",
+            "title": "Work-Life Balance & Employee Wellness"
+          },
+          {
+            "_key": "l4",
+            "_type": "comparisonItem",
+            "description": "Empower US teams with process optimization skills that drive continuous improvement. Support workforce development initiatives by enabling employees to identify operational inefficiencies and implement enhanced systems that boost productivity and career advancement.",
+            "number": "04",
+            "title": "Professional Development & Skills Training"
+          },
+          {
+            "_key": "l5",
+            "_type": "comparisonItem",
+            "description": "Strengthen collaboration across US time zones from Pacific to Eastern, including remote teams in Hawaii and Alaska. Maintain transparency and foster strong connections regardless of location, from Silicon Valley to New York City.",
+            "number": "05",
+            "title": "Cross-Timezone Team Collaboration"
+          }
+        ],
+        "label": "Top Leadership Challenges"
+      },
+      {
+        "_key": "features",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "f1",
+            "_type": "comparisonItem",
+            "description": "Automated workflows on monday.com function as your dedicated process manager, continuously operating behind the scenes to guarantee that your initiatives progress seamlessly and productively.",
+            "number": "01",
+            "title": "Save Time with Automations"
+          },
+          {
+            "_key": "f2",
+            "_type": "comparisonItem",
+            "description": "Create comprehensive business documents with real-time project data integration from any board in your monday.com workspace.",
+            "number": "02",
+            "title": "Centralized Document Management"
+          },
+          {
+            "_key": "f3",
+            "_type": "comparisonItem",
+            "description": "Transform operational data into actionable insights that support strategic decision-making. Present KPIs aligned with your accounting standards and reporting requirements.",
+            "number": "03",
+            "title": "Business Intelligence & Analytics"
+          },
+          {
+            "_key": "f4",
+            "_type": "comparisonItem",
+            "description": "Organize projects using methodologies popular across US innovation hubs including Silicon Valley, Austin's tech corridor, Boston's biotech sector, and New York's fintech industry. Customize views according to preferred business frameworks.",
+            "number": "04",
+            "title": "Agile Project Organization"
+          },
+          {
+            "_key": "f5",
+            "_type": "comparisonItem",
+            "description": "Integrate seamlessly with popular American business tools including QuickBooks US, Salesforce, Microsoft 365, and enterprise CRM systems.",
+            "number": "05",
+            "title": "US Software Integration"
+          }
+        ],
+        "label": "monday.com Features"
+      },
+      {
+        "_key": "how-help",
+        "_type": "comparisonTab",
+        "items": [
+          {
+            "_key": "h1",
+            "_type": "comparisonItem",
+            "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+            "number": "01",
+            "title": "Process Discovery → Business Process Audit"
+          },
+          {
+            "_key": "h2",
+            "_type": "comparisonItem",
+            "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+            "number": "02",
+            "title": "Technical Architecture → System Integration Scope"
+          },
+          {
+            "_key": "h3",
+            "_type": "comparisonItem",
+            "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+            "number": "03",
+            "title": "Solution Design → Implementation"
+          },
+          {
+            "_key": "h4",
+            "_type": "comparisonItem",
+            "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+            "number": "04",
+            "title": "Efficiency Impact → ROI Opportunity Analysis"
+          },
+          {
+            "_key": "h5",
+            "_type": "comparisonItem",
+            "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+            "number": "05",
+            "title": "Change Readiness → Adoption & Training Strategies"
+          }
+        ],
+        "label": "How We Can Help"
+      }
+    ],
+    "country": "United States",
+    "croSections": {
+      "leadForm": {
+        "enabled": true,
+        "fields": [
+          {
+            "_key": "2L5iqaQa3UmcCheddpFfso",
+            "label": "Primary project type",
+            "options": [
+              "Construction Project Management",
+              "Manufacturing Workflows",
+              "Professional Services CRM",
+              "Other"
+            ],
+            "required": false,
+            "type": "select"
+          }
+        ],
+        "heading": "Schedule a 30-minute scope assessment with a US solutions architect",
+        "source": "monday-partner-us",
+        "subheading": "Localized support in your time zone. No high-pressure sales, just a clear roadmap.",
+        "submitLabel": "Schedule a Scope Assessment",
+        "successMessage": "Thanks, a US-based solutions architect will reach out within one business day."
+      },
+      "statBanner": {
+        "metrics": [
+          {
+            "_key": "2L5iqaQa3UmcCheddpFgMc",
+            "text": "saved per year",
+            "value": "500+ hrs"
+          },
+          {
+            "_key": "2L5iqaQa3UmcCheddpFgQL",
+            "text": "average ROI",
+            "value": "10x"
+          }
+        ],
+        "statement": "Our clients achieve over 10x ROI and save an average of 500+ hours of manual data tracking yearly through custom automations.",
+        "theme": "dark"
+      },
+      "stickyCtaLabel": "Book a US Consultation",
+      "stickyCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+      "threeStep": {
+        "heading": "Our 3-step implementation framework",
+        "steps": [
+          {
+            "_key": "2L5iqaQa3UmcCheddpFgBR",
+            "description": "Audit current workflows and identify the highest-leverage opportunities.",
+            "number": "01",
+            "title": "Discovery & Process Mapping"
+          },
+          {
+            "_key": "2L5iqaQa3UmcCheddpFgFA",
+            "description": "Build bespoke boards, automations, and integrations tailored to your stack.",
+            "number": "02",
+            "title": "Architecture & Solution Design"
+          },
+          {
+            "_key": "2L5iqaQa3UmcCheddpFgIt",
+            "description": "Hands-on, role-based onboarding to guarantee day-one adoption.",
+            "number": "03",
+            "title": "Change Management & Team Adoption"
+          }
+        ]
+      },
+      "trustBadges": [
+        {
+          "_key": "2L5iqaQa3UmcCheddpFfwX",
+          "label": "monday.com Platinum Partner"
+        },
+        {
+          "_key": "2L5iqaQa3UmcCheddpFg0G",
+          "label": "Advanced Delivery Accredited Agency"
+        },
+        {
+          "_key": "2L5iqaQa3UmcCheddpFg3z",
+          "label": "Founded by ex-monday.com experts"
+        },
+        {
+          "_key": "2L5iqaQa3UmcCheddpFg7i",
+          "label": "US-based solutions architects"
+        }
+      ],
+      "trustBadgesTheme": "light"
+    },
+    "faqHeading": "Frequently asked questions",
+    "faqTabs": [
+      {
+        "_key": "faq-monday-partner-us-0",
+        "_type": "faqTab",
+        "items": [
+          {
+            "_key": "faq0-q-monday-partner-us-0",
+            "_type": "faqPair",
+            "answer": "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+            "question": "Does monday.com have a CRM?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-us-1",
+            "_type": "faqPair",
+            "answer": "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+            "question": "Does monday.com have task management?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-us-2",
+            "_type": "faqPair",
+            "answer": "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+            "question": "Why is monday.com so successful?"
+          },
+          {
+            "_key": "faq0-q-monday-partner-us-3",
+            "_type": "faqPair",
+            "answer": "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+            "question": "What exactly does monday.com do?"
+          }
+        ],
+        "label": "monday.com FAQs"
+      }
+    ],
+    "featureBlocks": [
+      {
+        "_key": "fb-0",
+        "_type": "featureBlock",
+        "body": "Give directors a general overview of the team's progress with calendars, Gantt charts, and dashboards. So, even if you have 10+ boards, senior management can see what someone is working on, how projects are doing, and why tasks are delayed–all with just a few clicks.",
+        "ctaLabel": "📊 Our Project Management Solutions",
+        "ctaUrl": "/monday-consulting-solutions/monday-project-management",
+        "image": "/images/au-rollup.avif",
+        "title": "Build a high-level roll-up of all your boards"
+      },
+      {
+        "_key": "fb-1",
+        "_type": "featureBlock",
+        "body": "Have a monday.com partner build a system designed to support the way you want your business to run. That means you start with the \"meat and potatoes\" of your platform in place. So later, if you need to adapt to new requirements, you can easily piggyback off of the original set-up.",
+        "ctaLabel": "📈 Our CRM Solutions",
+        "ctaUrl": "/monday-crm-consulting",
+        "image": "/images/au-create-crm.avif",
+        "title": "Create a CRM or project management tool that fits you"
+      },
+      {
+        "_key": "fb-2",
+        "_type": "featureBlock",
+        "body": "Get the entire team monday.com training. Make sure all of your team members get the onboarding they need to feel comfortable using the platform day in and day out. So when you actually start using the platform, it becomes your single source of truth.",
+        "ctaLabel": "👩🏽‍💼👨🏻‍💼 Our Training Services",
+        "ctaUrl": "/monday-training",
+        "image": "/images/au-training.avif",
+        "title": "Training & managed services"
+      },
+      {
+        "_key": "fb-3",
+        "_type": "featureBlock",
+        "body": "Eliminate manual work with automation. Seamlessly integrate Gmail, Outlook, Sharepoint, Teams, accounting software, ChatGPT, and dozens of other tools with the software's open API.",
+        "ctaLabel": "⚡️ See Our Solutions",
+        "ctaUrl": "/monday-consulting-solutions",
+        "image": "/images/au-integrate.avif",
+        "title": "Integrate your email and all external tools"
+      }
+    ],
+    "heroHeading": "Drive Localized Growth with an Elite monday.com Partner USA.",
+    "heroImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6ca22c27a5e594433bc14118866d765be14ac15a-3000x932-png",
+        "_type": "reference"
+      }
+    },
+    "heroSubheading": "Get a certified monday.com expert consultant to build the essential infrastructure and architecture for your account. Get up and running right away, without spending valuable resources figuring it out yourself.",
+    "joinFootnote": "Source: Forrester TEI study of monday.com.",
+    "joinHeadingAccent": "monday.com in the US",
+    "joinHeadingPart1": "The economic impact of ",
+    "joinHeadingPart2": "",
+    "joinStats": [
+      {
+        "_key": "stat-monday-partner-us-0",
+        "_type": "stat",
+        "label": "ROI (Forrester)",
+        "value": "288%"
+      },
+      {
+        "_key": "stat-monday-partner-us-1",
+        "_type": "stat",
+        "label": "hours saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "stat-monday-partner-us-2",
+        "_type": "stat",
+        "label": "meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "stat-monday-partner-us-3",
+        "_type": "stat",
+        "label": "net value",
+        "value": "$489,794"
+      }
+    ],
+    "joinSubheading": "Independent Forrester research on the platform powering teams from coast to coast.",
+    "methodologyHeading": "Our expert consulting methodology",
+    "methodologySteps": [
+      {
+        "_key": "meth-monday-partner-us-0",
+        "_type": "methodologyStep",
+        "description": "We meticulously map your existing workflows against industry benchmarks, analysing bottlenecks and efficiency gaps that hold your team back from scaling.",
+        "number": "01",
+        "title": "Process Discovery → Business Process Audit"
+      },
+      {
+        "_key": "meth-monday-partner-us-1",
+        "_type": "methodologyStep",
+        "description": "Our technical assessment reveals the hidden potential in your current tech stack, identifying precise automated solution design to visualise where monday.com can transform fragmented processes into seamless workflows.",
+        "number": "02",
+        "title": "Technical Architecture → System Integration Scope"
+      },
+      {
+        "_key": "meth-monday-partner-us-2",
+        "_type": "methodologyStep",
+        "description": "Through in-depth process analysis, we build your system with perfect balance between automated sophistication and user adoption, ensuring you see faster set up and team usage.",
+        "number": "03",
+        "title": "Solution Design → Implementation"
+      },
+      {
+        "_key": "meth-monday-partner-us-3",
+        "_type": "methodologyStep",
+        "description": "By quantifying potential efficiency gains across your operations, we pinpoint exactly where automation and optimisation will deliver the highest return on your investment.",
+        "number": "04",
+        "title": "Efficiency Impact → ROI Opportunity Analysis"
+      },
+      {
+        "_key": "meth-monday-partner-us-4",
+        "_type": "methodologyStep",
+        "description": "Our proven change impact framework measures organisational readiness and crafts a tailored adoption and training strategy, turning potential resistance into enthusiastic system adoption.",
+        "number": "05",
+        "title": "Change Readiness → Adoption & Training Strategies"
+      }
+    ],
+    "primaryCtaLabel": "🚀 Book a Consultation",
+    "primaryCtaUrl": "https://calendly.com/global-calendar-fruitionservices",
+    "region": "North America",
+    "roiStats": [
+      {
+        "_key": "roi-0",
+        "_type": "roiStat",
+        "label": "ROI",
+        "value": "288%"
+      },
+      {
+        "_key": "roi-1",
+        "_type": "roiStat",
+        "label": "Hours Saved",
+        "value": "15,600"
+      },
+      {
+        "_key": "roi-2",
+        "_type": "roiStat",
+        "label": "Meeting reduction",
+        "value": "50%"
+      },
+      {
+        "_key": "roi-3",
+        "_type": "roiStat",
+        "label": "Net Value",
+        "value": "489,794"
+      }
+    ],
+    "secondaryCtaLabel": "▶️ Get Started with monday.com",
+    "secondaryCtaUrl": "https://monday.com/lang/en-au/crm",
+    "seoDescription": "Scale your business with a certified monday.com partner in the USA. Our expert consultants build high-performing workflows with implementation and automation.",
+    "seoTitle": "monday.com Platinum Consulting Partner in the US | Fruition Services",
+    "slug": {
+      "_type": "slug",
+      "current": "monday-partner-us"
+    },
+    "teamGridCtaLabel": "Learn More About Us",
+    "teamGridCtaUrl": "/fruition-team",
+    "teamGridHeading": "Meet the Fruition US team",
+    "testimonialsGridCtaLabel": "🚀  Start Your Transformation",
+    "testimonialsGridHeading": "What our customers say about us 🙌",
+    "testimonialsGridStatCtaLabel": "Read our case studies",
+    "testimonialsGridStatCtaUrl": "/customer-testimonials",
+    "testimonialsGridStatSubtitle": "have maximised their workflows with our monday.com expert support",
+    "testimonialsGridStatValue": "500+",
+    "title": "monday.com Partner US"
+  }
+]
