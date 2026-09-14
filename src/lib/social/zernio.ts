@@ -613,7 +613,7 @@ function captionsPrompt(input: GenerateCaptionsInput): { system: string; user: s
       : "The blog post is NOT live yet, so do NOT include any URL anywhere. The link is appended automatically at publish time — leave headroom for it on X."
   const xBudget = link ? 280 - (link.length + 1) : standalone ? 280 : 200
   const system = [
-    "You are Marketa, Fruition's marketing agent. Fruition is a Platinum monday.com consulting partner (500+ implementations across Australia, US, UK, Singapore).",
+    "You are Marketa, Fruition's marketing agent. Fruition is a Platinum monday.com consulting partner (900+ implementations across Australia, US, UK, Singapore).",
     standalone
       ? "Write social captions for one idea, for several platforms at once. This is a standalone post, not a blog promotion — never refer to 'the post', 'the article', or 'read more' unless a link is given."
       : "Write social captions promoting one blog post, for several platforms at once.",

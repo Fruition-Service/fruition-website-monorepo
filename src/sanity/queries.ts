@@ -653,10 +653,10 @@ export async function getFaqItemsForPage(pageKey: string) {
 }
 
 /** Canonical fallbacks when the proofStats doc is absent — matches the live
- *  dataset's dominant values (audited 2026-07-18: 500+ appears 42× in Sanity
- *  content and 47× in code; 4.9 rating; 180,000+ monday customers). */
+ *  dataset's dominant values (implementation count raised 500+ → 900+ on
+ *  2026-09-14; 4.9 rating; 180,000+ monday customers). */
 export const PROOF_STATS_DEFAULTS = {
-  implementations: '500+',
+  implementations: '900+',
   clientRating: '4.9',
   marketsCount: '6',
   mondayEcosystemCustomers: '180,000+',

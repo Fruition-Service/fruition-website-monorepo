@@ -78,9 +78,9 @@ export const PRACTICE_LEADER = {
   name: 'Josh Jebathilak',
   title: 'Managing Director',
   heading: 'Led by practitioners, not account managers.',
-  bio: 'Josh Jebathilak, Managing Director, spent six years at monday.com before founding Fruition and has led over 500 implementations across work platforms and AI systems in financial services, healthcare, construction, professional services, and government.',
+  bio: 'Josh Jebathilak, Managing Director, spent six years at monday.com before founding Fruition and has led over 900 implementations across work platforms and AI systems in financial services, healthcare, construction, professional services, and government.',
   pull: 'The consultant who scopes your engagement is the consultant who delivers it.',
-  badges: ['monday.com Platinum Partner', 'Rising Star 2026', '500+ implementations', 'AU · UK · US'],
+  badges: ['monday.com Platinum Partner', 'Rising Star 2026', '900+ implementations', 'AU · UK · US'],
 } as const
 
 export function practiceMetadata(page: PracticePage): Metadata {
