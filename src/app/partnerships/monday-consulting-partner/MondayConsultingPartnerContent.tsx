@@ -426,7 +426,7 @@ export default function MondayConsultingPartnerContent({ page, siteSettings, cas
         heading="What our customers say about us"
         ctaLabel="Start Your Transformation"
         ctaUrl={calendlyUrl}
-        statCardValue="500+"
+        statCardValue="900+"
         statCardSubtitle="have maximised their workflows with our monday.com expert support"
         statCardCtaLabel="Read our case studies"
         statCardCtaUrl="/customer-testimonials"

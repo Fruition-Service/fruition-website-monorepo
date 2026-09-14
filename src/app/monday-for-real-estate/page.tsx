@@ -246,7 +246,7 @@ export default async function Page() {
         </section>
       )}
 
-      {/* 8. Join 500+ CTA */}
+      {/* 8. Join 900+ CTA */}
       <TestimonialCtaBanner
         primaryCtaLabel={page.testimonialBannerPrimaryCtaLabel}
         primaryCtaUrl={calendlyUrl}

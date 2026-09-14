@@ -104,7 +104,7 @@ const MS_CALENDLY_HEADING = "Schedule A 30-Min Consultation"
 const MS_CALENDLY_SUBHEADING =
   "Ready to transform your service management process?\n\nOur certified monday.com consultants offer complimentary consultations to help you assess your current IT service management challenges, design custom monday.com workflows, develop an implementation roadmap and identify integration opportunities with existing tools."
 const MS_TB_HEADING_PART1 = "Join "
-const MS_TB_HEADING_ACCENT = "500+ organisations"
+const MS_TB_HEADING_ACCENT = "900+ organisations"
 const MS_TB_HEADING_PART2 =
   " that have maximised their workflows with our monday.com expert support"
 
@@ -278,7 +278,7 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
         />
       )}
 
-      {/* 8. Join 500+ Stats */}
+      {/* 8. Join 900+ Stats */}
       <JoinStatsSection
         headingPart1={page?.joinHeadingPart1}
         headingAccent={page?.joinHeadingAccent}
@@ -290,7 +290,7 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
         siteSettings={siteSettings || undefined}
       />
 
-      {/* 9. Testimonial CTA banner — Join 500+ organisations */}
+      {/* 9. Testimonial CTA banner — Join 900+ organisations */}
       <TestimonialCtaBanner
         headingPart1={page?.testimonialBannerHeadingPart1 || MS_TB_HEADING_PART1}
         headingAccent={page?.testimonialBannerHeadingAccent || MS_TB_HEADING_ACCENT}

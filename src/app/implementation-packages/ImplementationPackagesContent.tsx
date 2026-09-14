@@ -539,7 +539,7 @@ export default function ImplementationPackagesContent({
                             <p>
                               {(Array.isArray(children) ? children : [children]).map((child, i) => {
                                 if (typeof child !== "string") return child
-                                const highlight = "500+ small-medium sized enterprises"
+                                const highlight = "900+ small-medium sized enterprises"
                                 const idx = child.indexOf(highlight)
                                 if (idx === -1) return child
                                 return (

@@ -175,9 +175,9 @@ export default defineType({
     defineField({ name: 'discoverSecondaryCtaLabel', title: 'Discover Secondary CTA Label', type: 'string' }),
     defineField({ name: 'discoverSecondaryCtaUrl', title: 'Discover Secondary CTA URL', type: 'string' }),
 
-    // Join 500+ stats section (Forrester data)
+    // Join 900+ stats section (Forrester data)
     defineField({ name: 'joinSectionHeadingPart1', title: 'Join Section — "Join" prefix', type: 'string' }),
-    defineField({ name: 'joinSectionHeadingAccent', title: 'Join Section — "500+ businesses" accent', type: 'string' }),
+    defineField({ name: 'joinSectionHeadingAccent', title: 'Join Section — "900+ businesses" accent', type: 'string' }),
     defineField({ name: 'joinSectionHeadingPart2', title: 'Join Section — suffix', type: 'string' }),
     defineField({ name: 'joinSectionSubheading', title: 'Join Section Subheading (e.g. "The economic impact of")', type: 'string' }),
     defineField({

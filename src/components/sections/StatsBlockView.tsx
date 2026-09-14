@@ -38,7 +38,7 @@ const fallbackIcons = [
 ]
 
 function renderHeadingWithAccent(heading: string, accent?: string) {
-  const target = accent || '500+ businesses'
+  const target = accent || '900+ businesses'
   const idx = heading.indexOf(target)
   if (idx >= 0) {
     return (

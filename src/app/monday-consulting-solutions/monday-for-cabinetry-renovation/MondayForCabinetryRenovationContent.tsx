@@ -248,13 +248,13 @@ export default function MondayForCabinetryRenovationContent({ page, siteSettings
       {/* Trusted-by caption */}
       <section className="bg-surface px-4 pt-0 pb-6">
         <p className="text-center text-sm font-semibold text-body">
-          {page.trustedByCaption || "Trusted by 500+ businesses worldwide"}
+          {page.trustedByCaption || "Trusted by 900+ businesses worldwide"}
         </p>
       </section>
 
       {/* 2. Logo cloud */}
       <ClientLogoSection
-        headingPart1={page.logoCloudHeadingPart1 || "500+ clients globally use Fruition's "}
+        headingPart1={page.logoCloudHeadingPart1 || "900+ clients globally use Fruition's "}
         headingAccent={page.logoCloudHeadingAccent ?? "monday.com consultants"}
         description={page.logoCloudDescription}
         logos={siteSettings?.carouselLogos || []}
@@ -305,7 +305,7 @@ export default function MondayForCabinetryRenovationContent({ page, siteSettings
         heading={page.returnsBannerHeading || "We bring real returns on investment."}
         subheading={
           page.returnsBannerSubheading ||
-          "Join 500+ organisations that have implemented with us."
+          "Join 900+ organisations that have implemented with us."
         }
         testimonials={inlineTestimonials}
         primaryLabel={page.returnsBannerPrimaryLabel || "Book a Consultation"}

@@ -737,7 +737,7 @@ export default function MondayTrainingContent({
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 11c -- Join 500+ Stats (shared StatsBlockView)       */}
+      {/* SECTION 11c -- Join 900+ Stats (shared StatsBlockView)       */}
       {/* ============================================================ */}
       <StatsBlockView
         heading={`${joinSectionHeadingPart1 ?? ""}${joinSectionHeadingAccent ?? ""}${joinSectionHeadingPart2 ?? ""}`}
