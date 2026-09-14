@@ -669,7 +669,7 @@ export default function MondayImplementationConsultantsContent({
       {/* Discover CTA removed from this page */}
 
       {/* ============================================================ */}
-      {/* SECTION 11 — Join 500+ stats (shared StatsBlockView)         */}
+      {/* SECTION 11 — Join 900+ stats (shared StatsBlockView)         */}
       {/* ============================================================ */}
       <StatsBlockView
         heading={`${joinPart1 ?? ""}${joinAccent ?? ""}${joinPart2 ?? ""}`}

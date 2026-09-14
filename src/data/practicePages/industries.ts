@@ -108,7 +108,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     faqs: [
       {
         q: 'Does Fruition specialise in specific industries?',
-        a: 'Yes: construction, financial services, healthcare, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 500+ delivered projects.',
+        a: 'Yes: construction, financial services, healthcare, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 900+ delivered projects.',
       },
       {
         q: 'How much does industry consulting cost with Fruition?',

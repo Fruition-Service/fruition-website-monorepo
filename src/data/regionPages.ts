@@ -58,7 +58,7 @@ const STATS: RegionStat[] = [
     label: 'of team time recovered from "work about work" and manual re-keying',
   },
   { value: "2–4 wks", label: "typical time from kickoff to a live, working system" },
-  { value: "500+", label: "monday.com implementations delivered across six offices" },
+  { value: "900+", label: "monday.com implementations delivered across six offices" },
 ]
 
 const STATS_FOOTNOTE =
@@ -197,7 +197,7 @@ const australia: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -325,7 +325,7 @@ const unitedKingdom: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -453,7 +453,7 @@ const unitedStates: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -581,7 +581,7 @@ const singapore: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -710,7 +710,7 @@ const india: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -838,7 +838,7 @@ const philippines: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 500+ delivered systems.",
+    lead: "A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.",
     steps: PROCESS_STEPS,
   },
   numbers: {

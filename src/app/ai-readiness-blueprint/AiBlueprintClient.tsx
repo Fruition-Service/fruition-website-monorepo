@@ -319,7 +319,7 @@ export default function AiBlueprintClient() {
               <CtaButton href={PAID_ASSESSMENT} label="Or book the full 4-week assessment" variant="outline" />
             </div>
             <dl className="mt-9 flex flex-wrap gap-x-8 gap-y-4">
-              {[["8", "dimensions scored"], ["500+", "orgs benchmarked"], ["~3 min", "to complete"], ["$0", "obligation"]].map(([n, l]) => (
+              {[["8", "dimensions scored"], ["900+", "orgs benchmarked"], ["~3 min", "to complete"], ["$0", "obligation"]].map(([n, l]) => (
                 <div key={l}>
                   <dt className="sr-only">{l}</dt>
                   <dd>
@@ -344,7 +344,7 @@ export default function AiBlueprintClient() {
         <div className="mx-auto grid w-full max-w-[1280px] gap-6 px-4 py-9 md:grid-cols-3 md:gap-0 md:px-8 lg:px-10">
           {[
             ["01: ANSWER", "12 questions, no jargon", "Size, systems, data, ambition. If you run the business, you can answer them."],
-            ["02: SCORE", "Readiness across 8 dimensions", "Benchmarked against 500+ organisations we've assessed across APAC, UK and US."],
+            ["02: SCORE", "Readiness across 8 dimensions", "Benchmarked against 900+ organisations we've assessed across APAC, UK and US."],
             ["03: BLUEPRINT", "Products, phases, quote", "A recommended stack, a phased build plan, and an indicative investment: instantly."],
           ].map(([num, h, p], i) => (
             <div key={num} className={`md:px-7 ${i > 0 ? "md:border-l md:border-ui" : "md:pl-0"}`}>

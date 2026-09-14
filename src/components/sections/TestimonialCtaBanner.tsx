@@ -25,7 +25,7 @@ function safeImageUrl(ref?: SanityImageRef): string | null {
 
 export default function TestimonialCtaBanner({
   headingPart1 = "Join ",
-  headingAccent = "500+ organisations",
+  headingAccent = "900+ organisations",
   headingPart2 = " that have maximised their workflows with our monday.com expert support",
   primaryCtaLabel,
   primaryCtaUrl,

@@ -202,7 +202,7 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* 9. Join 500+ CTA + testimonial */}
+      {/* 9. Join 900+ CTA + testimonial */}
       <TestimonialCtaBanner
         headingPart1={page.joinHeadingPart1}
         headingAccent={page.joinHeadingAccent}

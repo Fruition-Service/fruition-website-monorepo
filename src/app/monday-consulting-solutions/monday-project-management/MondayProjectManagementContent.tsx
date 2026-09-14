@@ -32,7 +32,7 @@ interface Props {
 const PM_LOGO_CLOUD_PART1 = "Clients who have used our "
 const PM_LOGO_CLOUD_ACCENT = "monday.com consulting services"
 const PM_TB_HEADING_PART1 = "Join "
-const PM_TB_HEADING_ACCENT = "500+ organisations"
+const PM_TB_HEADING_ACCENT = "900+ organisations"
 const PM_TB_HEADING_PART2 =
   " that have maximised their workflows with our monday.com expert support"
 

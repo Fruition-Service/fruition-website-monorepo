@@ -14,7 +14,7 @@ export default {
       name: 'implementations',
       title: 'Implementations completed',
       type: 'string',
-      description: 'e.g. "500+" — the number cited in FAQ answers, stat cards and hero copy.',
+      description: 'e.g. "900+" — the number cited in FAQ answers, stat cards and hero copy.',
     },
     { name: 'clientRating', title: 'Client rating', type: 'string', description: 'e.g. "4.9"' },
     { name: 'marketsCount', title: 'Markets served', type: 'string', description: 'e.g. "6" (Australia, UK, US, Singapore, India, Philippines)' },

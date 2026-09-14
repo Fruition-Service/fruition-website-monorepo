@@ -170,7 +170,7 @@ export default async function Page() {
         </section>
       )}
 
-      {/* 10. Join 500+ banner (replaces removed "What our customers say" grid) */}
+      {/* 10. Join 900+ banner (replaces removed "What our customers say" grid) */}
       <TestimonialCtaBanner
         headingPart1={page.joinHeadingPart1}
         headingAccent={page.joinHeadingAccent}

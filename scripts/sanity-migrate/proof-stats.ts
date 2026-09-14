@@ -1,6 +1,6 @@
 /**
  * Seed the proofStats singleton with the canonical entity-signal values
- * (audited from the live dataset 2026-07-18 — 500+ implementations is the
+ * (audited from the live dataset 2026-07-18 — 900+ implementations is the
  * dominant, consistent figure). CREATE-ONLY: rerunning never overwrites
  * editor changes.
  *
@@ -12,7 +12,7 @@ async function main() {
   await writeClient.createIfNotExists({
     _id: 'proofStats',
     _type: 'proofStats',
-    implementations: '500+',
+    implementations: '900+',
     clientRating: '4.9',
     marketsCount: '6',
     mondayEcosystemCustomers: '180,000+',

@@ -190,7 +190,7 @@ export default function MondayForFinanceContent({
         videoTitle={page.bottomVideoTitle}
       />
 
-      {/* 8. Join 500+ CTA */}
+      {/* 8. Join 900+ CTA */}
       <TestimonialCtaBanner
         testimonial={caseStudies?.[0]}
         testimonials={caseStudies}

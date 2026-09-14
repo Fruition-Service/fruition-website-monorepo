@@ -44,7 +44,7 @@ export default {
         type: 'object',
         name: 'heroStat',
         fields: [
-          { name: 'value', title: 'Value (e.g. "500+")', type: 'string' },
+          { name: 'value', title: 'Value (e.g. "900+")', type: 'string' },
           { name: 'label', title: 'Label', type: 'string' },
         ],
       }],
@@ -457,7 +457,7 @@ export default {
     { name: 'applicationFormHeading', title: 'Application Form Heading', type: 'string' },
     { name: 'applicationFormEmbedUrl', title: 'Application Form Embed URL', type: 'url' },
 
-    // Join 500+ stats section
+    // Join 900+ stats section
     { name: 'joinHeadingPart1', title: 'Join Heading Part 1', type: 'string' },
     { name: 'joinHeadingAccent', title: 'Join Heading Accent', type: 'string' },
     { name: 'joinHeadingPart2', title: 'Join Heading Part 2', type: 'string' },

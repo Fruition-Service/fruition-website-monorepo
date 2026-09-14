@@ -15,7 +15,7 @@ interface JoinStatsSectionProps {
 
 export default function JoinStatsSection({
   headingPart1 = "Join ",
-  headingAccent = "500+ businesses",
+  headingAccent = "900+ businesses",
   headingPart2 = " that have leveraged our monday.com expert consultants.",
   subheading,
   stats = [],
