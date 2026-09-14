@@ -1,5 +1,5 @@
 import { bookingHref } from "@/lib/bookingLink"
-import { faqTabsToPairs } from "@/lib/faqSchema"
+import { mergeRegionContent, type RegionSanityContent } from "@/lib/mergeRegionContent"
 import { urlFor } from "@/sanity/image"
 import {
   CalendlySection,
@@ -8,7 +8,6 @@ import {
 } from "@/components/sections"
 import type {
   CaseStudy,
-  FaqTab,
   SanityImageRef,
   SiteSettingsData,
 } from "@/components/sections/types"
@@ -25,7 +24,7 @@ import {
   type RegionContent,
 } from "@/components/region"
 
-interface RegionSanityPage {
+type RegionSanityPage = RegionSanityContent & {
   primaryCtaLabel?: string
   primaryCtaUrl?: string
   /** The wide monday.com product banner shown under the hero copy. */
@@ -33,17 +32,13 @@ interface RegionSanityPage {
 }
 
 interface Props {
+  /** Shipped copy from `src/data/regionPages.ts` — the fallback, not the source of truth. */
   content: RegionContent
   page: RegionSanityPage | null
   siteSettings?: SiteSettingsData | null
   caseStudies?: CaseStudy[]
-  /** Sanity-resolved FAQ tabs — appended after the region's own questions. */
-  faqTabs?: FaqTab[]
   teamMembers: TeamMember[]
 }
-
-/** The marketing video every region page shares. */
-const VIDEO_ID = "eoOCR6OjJhI"
 
 function heroImageUrl(ref?: SanityImageRef | null): string | null {
   if (!ref?.asset?._ref) return null
@@ -57,47 +52,38 @@ function heroImageUrl(ref?: SanityImageRef | null): string | null {
 /**
  * One template behind all six /monday-partner-* pages.
  *
- * Section copy comes from `src/data/regionPages.ts` (see region/types.ts for
- * why it isn't in Sanity). Sanity supplies SEO title/description, the primary
- * CTA label/URL, the hero banner image, the case studies, the team roster and
- * any extra FAQ entries.
- *
- * The redesigned sections deliberately do NOT fall back to the pre-redesign
- * Sanity headings (`heroHeading`, `testimonialsGridHeading`, `calendlyHeading`
- * and friends). Those were written for the old page and would override the new
- * copy on every region — and the new H1 splits into a plain half plus a purple
- * accent half, which a single stored string cannot express.
+ * Every word here is editable on the page's `locationPage` document in Sanity;
+ * `mergeRegionContent` lays that document over the shipped copy in
+ * `src/data/regionPages.ts`, so a blank field renders the shipped wording
+ * instead of an empty section. Sanity also supplies the hero banner, the case
+ * studies behind the testimonials, the team roster and the Calendly link.
  */
 export default function RegionPageTemplate({
   content,
   page,
   siteSettings,
   caseStudies = [],
-  faqTabs,
   teamMembers,
 }: Props) {
+  const region = mergeRegionContent(content, page)
   const rawCalendly = siteSettings?.calendlyLink ?? ""
   const bookingUrl = bookingHref(page?.primaryCtaUrl || rawCalendly)
-
-  // Region questions first, then anything editors added in Sanity. The FAQ
-  // component dedupes by question and builds its JSON-LD from what it renders.
-  const faqItems = [...content.faq.items, ...faqTabsToPairs(faqTabs ?? [])]
 
   return (
     <div>
       <StickyCtaConfig label="Book a Free Consultation" href={bookingUrl} />
 
       <RegionHero
-        hero={content.hero}
-        flag={content.flag}
+        hero={region.hero}
+        flag={region.flag}
         heroImageUrl={heroImageUrl(page?.heroImage)}
         primaryCtaLabel={page?.primaryCtaLabel || "Book a Free Consultation →"}
         primaryCtaUrl={bookingUrl}
       />
 
-      <RegionServicesSection services={content.services} />
+      <RegionServicesSection services={region.services} />
 
-      <AnswerBlockSection answerBlock={content.answerBlock} />
+      <AnswerBlockSection answerBlock={region.answerBlock} />
 
       {/*
         The contact + booking band sits third, straight under the "who is the
@@ -110,44 +96,52 @@ export default function RegionPageTemplate({
         and the sticky CTA bar stays available the whole way down.
       */}
       <CalendlySection
-        heading={content.closingCta.heading}
-        subheading={content.closingCta.lead}
+        heading={region.closingCta.heading}
+        subheading={region.closingCta.lead}
         calendlyUrl={rawCalendly}
-        bookingRegion={content.bookingRegion}
+        bookingRegion={region.bookingRegion}
       />
 
       <TestimonialsGrid
-        heading={content.testimonials.heading}
+        heading={region.testimonials.heading}
         ctaLabel="Book a call"
         ctaUrl={bookingUrl}
         caseStudies={caseStudies}
       />
 
-      <ProcessStepsSection process={content.process} />
+      <ProcessStepsSection process={region.process} />
 
       <RegionVideoSection
-        heading="Watch: how Fruition builds monday.com systems"
-        lead={`A walkthrough of a real ${content.country} implementation — from messy spreadsheets to a working system.`}
-        caption="Fruition · monday.com implementation walkthrough"
-        videoId={VIDEO_ID}
-        videoTitle="How Fruition builds monday.com systems"
+        eyebrow={region.video.eyebrow}
+        heading={region.video.heading}
+        lead={region.video.lead}
+        caption={region.video.caption}
+        videoId={region.video.videoId}
+        videoTitle={region.video.videoTitle}
       />
 
-      <RegionNumbersSection numbers={content.numbers} />
+      <RegionNumbersSection numbers={region.numbers} />
 
       <TeamGridSection
-        heading={content.team.heading}
-        subheading={content.team.lead}
+        heading={region.team.heading}
+        subheading={region.team.lead}
         members={teamMembers}
-        region={content.teamRegion}
+        region={region.teamRegion}
       />
 
-      <RegionCoverageSection coverage={content.coverage} />
+      <RegionCoverageSection coverage={region.coverage} />
 
+      {/*
+        The page's only FAQ, and the source of its FAQPage structured data —
+        the accordion builds the JSON-LD from what it renders. The old
+        `faqTabs` array and the central `faqItem` fallback were dropped from
+        these six pages when the questions moved onto the region document:
+        three sources feeding one accordion is how edits went missing before.
+      */}
       <RegionFaqSection
-        heading={content.faq.heading}
-        contactLead={content.faq.contactLead}
-        items={faqItems}
+        heading={region.faq.heading}
+        contactLead={region.faq.contactLead}
+        items={region.faq.items}
       />
     </div>
   )

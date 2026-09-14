@@ -1,5 +1,6 @@
 import type {
   RegionContent,
+  RegionFaq,
   RegionProcessStep,
   RegionServiceLink,
   RegionStat,
@@ -111,6 +112,49 @@ function baseServiceCards(opts: {
   ]
 }
 
+/**
+ * Four platform-level questions that ran on all six region pages via the
+ * Sanity `faqTabs` array before the FAQ consolidated onto one list. Kept here,
+ * after each region's own questions, so the rendered order is unchanged.
+ */
+const MONDAY_PLATFORM_FAQS: RegionFaq[] = [
+  {
+    question: "Does monday.com have a CRM?",
+    answer:
+      "Yes, monday.com CRM is a flexible and highly customisable cloud-based CRM platform suitable for businesses of all sizes.",
+  },
+  {
+    question: "Does monday.com have task management?",
+    answer:
+      "Yes. Trial monday Work Management and discover how efficiently you can manage your teams' to-do list, deadlines and dependencies.",
+  },
+  {
+    question: "Why is monday.com so successful?",
+    answer:
+      "Highly customisable workflows and automations, an extremely user-friendly interface, a visual/agile/scalable design, and versatility: projects, CRM, ad campaigns, bug tracking and video production all in one tool.",
+  },
+  {
+    question: "What exactly does monday.com do?",
+    answer:
+      "monday.com is one of the most versatile work platforms on the market. Use it to manage projects, run a CRM, manage ad campaigns, track bugs, and manage video production: all on a single platform.",
+  },
+]
+
+/**
+ * The same walkthrough plays on every region page — only the lead names the
+ * country. Seeded into Sanity per region, so each page's copy can diverge.
+ */
+function videoBlock(country: string): RegionContent["video"] {
+  return {
+    eyebrow: "See it in action",
+    heading: "Watch: how Fruition builds monday.com systems",
+    lead: `A walkthrough of a real ${country} implementation — from messy spreadsheets to a working system.`,
+    caption: "Fruition · monday.com implementation walkthrough",
+    videoId: "eoOCR6OjJhI",
+    videoTitle: "How Fruition builds monday.com systems",
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /*  Regions                                                            */
 /* ------------------------------------------------------------------ */
@@ -149,6 +193,7 @@ const australia: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders across Sydney, Melbourne, Brisbane, Adelaide and Perth on what changed after go-live.",
   },
+  video: videoBlock("Australia"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -233,6 +278,7 @@ const australia: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team can run the system. Beyond that, optimisation retainers cover ongoing changes, new automations, additional boards and monday AI enablement — used by clients who would rather keep improving the system than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
@@ -275,6 +321,7 @@ const unitedKingdom: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders across London, Manchester, Birmingham, Leeds and Edinburgh on what changed after go-live.",
   },
+  video: videoBlock("the United Kingdom"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -359,6 +406,7 @@ const unitedKingdom: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team owns the system. Optimisation retainers then cover ongoing changes, new automations, extra boards and monday AI enablement for clients who want to keep developing the platform rather than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
@@ -401,6 +449,7 @@ const unitedStates: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders from New York to San Francisco on what changed after go-live.",
   },
+  video: videoBlock("the United States"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -485,6 +534,7 @@ const unitedStates: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team owns the system. Optimization retainers then cover ongoing changes, new automations, extra boards and monday AI enablement for clients who want to keep developing the platform rather than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
@@ -527,6 +577,7 @@ const singapore: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders across Singapore and Southeast Asia on what changed after go-live.",
   },
+  video: videoBlock("Singapore"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -612,6 +663,7 @@ const singapore: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team owns the system. Optimisation retainers then cover ongoing changes, new automations, extra boards and monday AI enablement for clients who want to keep developing the platform rather than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
@@ -654,6 +706,7 @@ const india: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders across Delhi NCR, Mumbai, Bengaluru and Hyderabad on what changed after go-live.",
   },
+  video: videoBlock("India"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -738,6 +791,7 @@ const india: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team owns the system. Optimisation retainers then cover ongoing changes, new automations, extra boards and monday AI enablement for clients who want to keep developing the platform rather than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
@@ -780,6 +834,7 @@ const philippines: RegionContent = {
     heading: "What clients say about Fruition's monday.com consultants",
     lead: "Operations and IT leaders across Metro Manila, Cebu and Davao on what changed after go-live.",
   },
+  video: videoBlock("the Philippines"),
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
@@ -865,6 +920,7 @@ const philippines: RegionContent = {
         answer:
           "Every build includes handover documentation and admin training so your team owns the system. Optimisation retainers then cover ongoing changes, new automations, extra boards and monday AI enablement for clients who want to keep developing the platform rather than freeze it.",
       },
+      ...MONDAY_PLATFORM_FAQS,
     ],
   },
   closingCta: {
