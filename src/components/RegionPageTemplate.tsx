@@ -17,6 +17,7 @@ import {
   RegionCoverageSection,
   RegionFaqSection,
   RegionHero,
+  RegionLocalBusinessSchema,
   RegionNumbersSection,
   RegionServicesSection,
   RegionVideoSection,
@@ -48,6 +49,9 @@ const VIDEO_ID = "eoOCR6OjJhI"
  * why it isn't in Sanity). Sanity supplies SEO title/description, the primary
  * CTA label/URL, the case studies, the team roster and any extra FAQ entries.
  *
+ * The hero illustration is NOT read from Sanity: all six regions share the one
+ * asset in /public (see RegionHero), so `locationPage.heroImage` is ignored.
+ *
  * The redesigned sections deliberately do NOT fall back to the pre-redesign
  * Sanity headings (`heroHeading`, `testimonialsGridHeading`, `calendlyHeading`
  * and friends). Those were written for the old page and would override the new
@@ -72,6 +76,8 @@ export default function RegionPageTemplate({
   return (
     <div>
       <StickyCtaConfig label="Book a Free Consultation" href={bookingUrl} />
+
+      <RegionLocalBusinessSchema content={content} />
 
       <RegionHero
         hero={content.hero}
@@ -103,11 +109,21 @@ export default function RegionPageTemplate({
 
       <RegionNumbersSection numbers={content.numbers} />
 
+      {/*
+        Regions show a shortened roster — leadership and implementation
+        consultants with a real photo and bio — then link through to the full
+        team page for everyone else.
+      */}
       <TeamGridSection
         heading={content.team.heading}
         subheading={content.team.lead}
         members={teamMembers}
         region={content.teamRegion}
+        deliveryRosterOnly
+        footerLink={{
+          label: "Meet the full Fruition delivery team",
+          href: "/fruition-team",
+        }}
       />
 
       <RegionCoverageSection coverage={content.coverage} />

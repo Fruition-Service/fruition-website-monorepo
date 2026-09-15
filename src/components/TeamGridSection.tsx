@@ -25,6 +25,13 @@ interface Props {
   ctaUrl?: string
   members: TeamMember[]
   region?: string
+  /**
+   * Narrow the grid to leadership plus implementation consultants, and drop
+   * anyone still missing a photo or a bio. See `isDeliveryRoster`.
+   */
+  deliveryRosterOnly?: boolean
+  /** Link rendered under the grid, e.g. through to the full team page. */
+  footerLink?: { label: string; href: string }
 }
 
 function safeImageUrl(ref: SanityImageRef): string | null {
@@ -56,6 +63,45 @@ function roleRank(role?: string): number {
   return 4
 }
 
+/**
+ * Roles that belong on a region page's shortened roster: the people who lead
+ * the business or deliver the implementation.
+ *
+ * Kept — founder/CEO, directors, regional and delivery managers, implementation
+ * leads and managers, principal consultants, and implementation consultants at
+ * every level.
+ *
+ * Dropped — support functions that do not scope or deliver an engagement
+ * (content, SEO, web/AI engineering, pre-sales engineering) and vague or empty
+ * titles. Those people still appear on /fruition-team, which the footer link
+ * under the grid points at.
+ */
+function isDeliveryRoster(member: TeamMember): boolean {
+  const role = (member.role ?? "").toLowerCase().trim()
+  if (!role) return false
+
+  // Non-delivery specialists are excluded even when their title says "manager"
+  // or "lead" — checked first so "Sales Engineer & Project Manager" is dropped.
+  if (/\b(content|seo|marketing|design|web developer|ai engineer|sales engineer)\b/.test(role)) {
+    return false
+  }
+
+  const isLeadership =
+    /\b(founder|ceo|chief|director|head of|vp)\b/.test(role) ||
+    /\b(lead|manager|principal)\b/.test(role)
+
+  const isImplementationConsultant =
+    role.includes("consultant") && !role.startsWith("associate")
+
+  return isLeadership || isImplementationConsultant
+}
+
+/** A card with no photo or no bio renders as an empty shell — drop it. */
+function hasCardContent(member: TeamMember): boolean {
+  const hasPhoto = Boolean(member.photo?.asset?._ref || member.photoUrl)
+  return hasPhoto && Boolean(member.bio?.trim())
+}
+
 export default function TeamGridSection({
   heading,
   subheading,
@@ -63,10 +109,15 @@ export default function TeamGridSection({
   ctaUrl,
   members,
   region,
+  deliveryRosterOnly = false,
+  footerLink,
 }: Props) {
-  const filtered = region
+  const inRegion = region
     ? members.filter((m) => Array.isArray(m.regions) && m.regions.includes(region))
     : members
+  const filtered = deliveryRosterOnly
+    ? inRegion.filter((m) => isDeliveryRoster(m) && hasCardContent(m))
+    : inRegion
   if (filtered.length === 0) return null
   const ordered = [...filtered].sort((a, b) => {
     if (a.name === "Josh Jebathilak") return -1
@@ -144,6 +195,18 @@ export default function TeamGridSection({
             )
           })}
         </div>
+
+        {footerLink && (
+          <div className="flex justify-center" style={{ marginTop: 40 }}>
+            <Link
+              href={footerLink.href}
+              className="inline-flex items-center font-semibold"
+              style={{ color: "#8015e8", fontSize: 15, gap: 8 }}
+            >
+              {footerLink.label} <span aria-hidden>→</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )
