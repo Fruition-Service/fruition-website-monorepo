@@ -47,6 +47,28 @@ export interface RegionFaq {
   answer: string
 }
 
+/** Structured office details for the page's ProfessionalService JSON-LD. */
+export interface RegionLocalBusiness {
+  /** `name` on the ProfessionalService node. */
+  name: string
+  description: string
+  /** E.164-ish display form, e.g. "+61 483 955 931". */
+  telephone: string
+  address: {
+    streetAddress: string
+    addressLocality: string
+    /** State / province. Omitted for city-states such as Singapore. */
+    addressRegion?: string
+    postalCode: string
+    /** ISO 3166-1 alpha-2 — "GB" for the UK, not "UK". */
+    addressCountry: string
+  }
+  /** Cities the office serves, emitted as schema.org City nodes. */
+  areaServedCities: string[]
+  /** Countries the office serves, emitted as schema.org Country nodes. */
+  areaServedCountries: string[]
+}
+
 export interface RegionContent {
   /** Sanity `locationPage` slug this content belongs to. */
   slug: string
@@ -151,4 +173,7 @@ export interface RegionContent {
     heading: string
     lead: string
   }
+
+  /** Feeds the per-region ProfessionalService JSON-LD block. */
+  localBusiness: RegionLocalBusiness
 }
