@@ -1,0 +1,6 @@
+Square country flags from flag-icons (https://github.com/lipis/flag-icons)
+Copyright (c) 2013 Panayiotis Lipiridis — MIT License.
+
+Vendored (six files, ~6KB total) rather than added as a dependency: the region
+pages need six of the ~260 flags, and emoji flags were not an option — Windows
+ships no flag emoji font and renders them as bare letter pairs.

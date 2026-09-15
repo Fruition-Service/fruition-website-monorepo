@@ -8,6 +8,10 @@ interface Props {
   partnerBadgeSrc?: string | null
   /** Defaults to the shared region hero illustration in /public. */
   heroImageSrc?: string | null
+  /** ISO 3166-1 alpha-2, lowercased, for the flag medallion (e.g. "au"). */
+  flagCode?: string | null
+  /** Country for the flag's alt text — a leading "the" is trimmed. */
+  countryName?: string
   primaryCtaLabel?: string
   primaryCtaUrl: string
   secondaryCtaLabel?: string
@@ -21,10 +25,16 @@ interface Props {
  * keeps a comfortable measure without leaving a dead zone beside it.
  *
  * All six regions share one illustration (`/images/region-hero.webp`) — a
- * transparent-background composite with its own rounded corners and drop
- * shadow baked in. It is therefore rendered whole at its natural aspect ratio
- * with no crop, card, ring or FramedMedia wrapper: cropping it or putting it
- * on a panel would clip the shadow and the floating notetaker tile.
+ * transparent-background composite of two monday.com boards, with its own
+ * rounded corners and drop shadow baked in. It is therefore rendered whole at
+ * its natural aspect ratio with no crop, card, ring or FramedMedia wrapper:
+ * cropping it or putting it on a panel would clip the shadow.
+ *
+ * What differs per region is the flag medallion sitting in the illustration's
+ * empty bottom-left corner — otherwise a visible hole in the composition. It
+ * is a real SVG rather than an emoji flag: Windows ships no flag emoji font
+ * and renders those as bare letter pairs ("AU"), which at this size would
+ * read as a broken image.
  *
  * Below `md` the illustration is hidden entirely: at phone widths its inner
  * text is unreadable and it only pushes the CTAs below the fold.
@@ -34,6 +44,8 @@ export default function RegionHero({
   flag,
   partnerBadgeSrc = "/images/partner-platinum.png",
   heroImageSrc = "/images/region-hero.webp",
+  flagCode,
+  countryName,
   primaryCtaLabel = "Book a Free Consultation",
   primaryCtaUrl,
   secondaryCtaLabel = "Explore Services",
@@ -101,16 +113,30 @@ export default function RegionHero({
           </div>
 
           {heroImageSrc && (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={heroImageSrc}
-              alt=""
-              width={1311}
-              height={924}
-              className="hidden h-auto w-full md:block"
-              // Above the fold on every region page — never lazy-load it.
-              fetchPriority="high"
-            />
+            <div className="relative hidden w-full md:block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={heroImageSrc}
+                alt=""
+                width={1200}
+                height={1204}
+                className="h-auto w-full"
+                // Above the fold on every region page — never lazy-load it.
+                fetchPriority="high"
+              />
+
+              {flagCode && (
+                <span className="absolute bottom-[3%] left-0 block w-[21%] overflow-hidden rounded-full bg-surface shadow-card ring-[6px] ring-surface">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/images/flags/${flagCode}.svg`}
+                    alt={countryName ? `${countryName.replace(/^the /, "")} flag` : ""}
+                    className="block aspect-square w-full rounded-full object-cover"
+                    fetchPriority="high"
+                  />
+                </span>
+              )}
+            </div>
           )}
         </div>
       </div>

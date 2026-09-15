@@ -69,6 +69,10 @@ export default function RegionPageTemplate({
       <RegionHero
         hero={region.hero}
         flag={region.flag}
+        // The office country doubles as the hero flag — one source, so the
+        // medallion can never drift from the address in the page's schema.
+        flagCode={region.localBusiness.address.addressCountry.toLowerCase()}
+        countryName={region.country}
         primaryCtaLabel={page?.primaryCtaLabel || "Book a Free Consultation →"}
         primaryCtaUrl={bookingUrl}
       />
