@@ -1,5 +1,4 @@
 import Link from "next/link"
-import FramedMedia from "@/components/common/FramedMedia"
 import type { RegionContent } from "./types"
 
 interface Props {
@@ -7,8 +6,8 @@ interface Props {
   flag: string
   /** Defaults to the monday.com Platinum Partner lockup in /public. */
   partnerBadgeSrc?: string | null
-  /** Wide product banner from Sanity (`locationPage.heroImage`). */
-  heroImageUrl?: string | null
+  /** Defaults to the shared region hero illustration in /public. */
+  heroImageSrc?: string | null
   primaryCtaLabel?: string
   primaryCtaUrl: string
   secondaryCtaLabel?: string
@@ -18,22 +17,23 @@ interface Props {
 /**
  * Region hero — positioning and CTAs beside the region's product banner.
  *
- * Copy sits in a narrower left column so the headline keeps a comfortable
- * measure, and the banner fills the right column from `lg` up — a full-width
- * letterboxed strip underneath left a large dead zone beside the copy.
+ * Copy takes 55% of the row and the banner 45% from `lg` up, so the headline
+ * keeps a comfortable measure without leaving a dead zone beside it.
  *
- * The Sanity assets are ~2.8:1 and ~3.2:1 board collages, so they are cropped
- * with `object-cover` inside a fixed-aspect frame rather than stretched. The
- * 7:4 frame keeps roughly the middle 60% of the source, which is the widest
- * crop that still clears the centre board card's left edge — squarer frames
- * slice that card mid-column and read as a mistake. `md` stacks the banner
- * under the copy across the full container, so it takes a wider 5:2 crop.
+ * All six regions share one illustration (`/images/region-hero.webp`) — a
+ * transparent-background composite with its own rounded corners and drop
+ * shadow baked in. It is therefore rendered whole at its natural aspect ratio
+ * with no crop, card, ring or FramedMedia wrapper: cropping it or putting it
+ * on a panel would clip the shadow and the floating notetaker tile.
+ *
+ * Below `md` the illustration is hidden entirely: at phone widths its inner
+ * text is unreadable and it only pushes the CTAs below the fold.
  */
 export default function RegionHero({
   hero,
   flag,
   partnerBadgeSrc = "/images/partner-platinum.png",
-  heroImageUrl,
+  heroImageSrc = "/images/region-hero.webp",
   primaryCtaLabel = "Book a Free Consultation",
   primaryCtaUrl,
   secondaryCtaLabel = "Explore Services",
@@ -54,9 +54,9 @@ export default function RegionHero({
       <div className="relative mx-auto w-full max-w-[1200px] px-4 pt-10 pb-14 md:pt-14 md:pb-20">
         <div
           className={`grid grid-cols-1 items-center gap-10 ${
-            // A region without a Sanity banner keeps the single-column hero
+            // A region without an illustration keeps the single-column hero
             // rather than leaving an empty right-hand column.
-            heroImageUrl ? "lg:grid-cols-[1.02fr_0.98fr] lg:gap-14" : ""
+            heroImageSrc ? "lg:grid-cols-[55fr_45fr] lg:gap-14" : ""
           }`}
         >
           <div className="flex flex-col items-start">
@@ -100,19 +100,17 @@ export default function RegionHero({
             </div>
           </div>
 
-          {heroImageUrl && (
-            <FramedMedia className="w-full">
-              <div className="aspect-[7/4] w-full overflow-hidden rounded-card bg-surface ring-1 ring-ui md:aspect-[5/2] lg:aspect-[7/4]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={heroImageUrl}
-                  alt=""
-                  className="h-full w-full object-cover object-center"
-                  // Above the fold on every region page — never lazy-load it.
-                  fetchPriority="high"
-                />
-              </div>
-            </FramedMedia>
+          {heroImageSrc && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={heroImageSrc}
+              alt=""
+              width={1311}
+              height={924}
+              className="hidden h-auto w-full md:block"
+              // Above the fold on every region page — never lazy-load it.
+              fetchPriority="high"
+            />
           )}
         </div>
       </div>

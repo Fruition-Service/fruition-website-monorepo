@@ -1,6 +1,5 @@
 import { bookingHref } from "@/lib/bookingLink"
 import { mergeRegionContent, type RegionSanityContent } from "@/lib/mergeRegionContent"
-import { urlFor } from "@/sanity/image"
 import {
   CalendlySection,
   StickyCtaConfig,
@@ -8,7 +7,6 @@ import {
 } from "@/components/sections"
 import type {
   CaseStudy,
-  SanityImageRef,
   SiteSettingsData,
 } from "@/components/sections/types"
 import TeamGridSection, { type TeamMember } from "@/components/TeamGridSection"
@@ -18,6 +16,7 @@ import {
   RegionCoverageSection,
   RegionFaqSection,
   RegionHero,
+  RegionLocalBusinessSchema,
   RegionNumbersSection,
   RegionServicesSection,
   RegionVideoSection,
@@ -27,8 +26,6 @@ import {
 type RegionSanityPage = RegionSanityContent & {
   primaryCtaLabel?: string
   primaryCtaUrl?: string
-  /** The wide monday.com product banner shown under the hero copy. */
-  heroImage?: SanityImageRef
 }
 
 interface Props {
@@ -40,23 +37,17 @@ interface Props {
   teamMembers: TeamMember[]
 }
 
-function heroImageUrl(ref?: SanityImageRef | null): string | null {
-  if (!ref?.asset?._ref) return null
-  try {
-    return urlFor(ref).width(2000).fit("max").auto("format").url()
-  } catch {
-    return null
-  }
-}
-
 /**
  * One template behind all six /monday-partner-* pages.
  *
  * Every word here is editable on the page's `locationPage` document in Sanity;
  * `mergeRegionContent` lays that document over the shipped copy in
  * `src/data/regionPages.ts`, so a blank field renders the shipped wording
- * instead of an empty section. Sanity also supplies the hero banner, the case
- * studies behind the testimonials, the team roster and the Calendly link.
+ * instead of an empty section. Sanity also supplies the case studies behind
+ * the testimonials, the team roster and the Calendly link.
+ *
+ * The hero illustration is the exception: all six regions share the one asset
+ * in /public (see RegionHero), so `locationPage.heroImage` is not read.
  */
 export default function RegionPageTemplate({
   content,
@@ -73,10 +64,11 @@ export default function RegionPageTemplate({
     <div>
       <StickyCtaConfig label="Book a Free Consultation" href={bookingUrl} />
 
+      <RegionLocalBusinessSchema content={region} />
+
       <RegionHero
         hero={region.hero}
         flag={region.flag}
-        heroImageUrl={heroImageUrl(page?.heroImage)}
         primaryCtaLabel={page?.primaryCtaLabel || "Book a Free Consultation →"}
         primaryCtaUrl={bookingUrl}
       />
@@ -122,11 +114,21 @@ export default function RegionPageTemplate({
 
       <RegionNumbersSection numbers={region.numbers} />
 
+      {/*
+        Regions show a shortened roster — leadership and implementation
+        consultants with a real photo and bio — then link through to the full
+        team page for everyone else.
+      */}
       <TeamGridSection
         heading={region.team.heading}
         subheading={region.team.lead}
         members={teamMembers}
         region={region.teamRegion}
+        deliveryRosterOnly
+        footerLink={{
+          label: "Meet the full Fruition delivery team",
+          href: "/fruition-team",
+        }}
       />
 
       <RegionCoverageSection coverage={region.coverage} />
