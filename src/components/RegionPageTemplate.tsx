@@ -116,8 +116,8 @@ export default function RegionPageTemplate({
 
       {/*
         Regions show a shortened roster — leadership and implementation
-        consultants with a real photo and bio — then link through to the full
-        team page for everyone else.
+        consultants with a real photo and bio, capped at three rows of three —
+        then link through to the full team page for everyone else.
       */}
       <TeamGridSection
         heading={region.team.heading}
@@ -125,6 +125,7 @@ export default function RegionPageTemplate({
         members={teamMembers}
         region={region.teamRegion}
         deliveryRosterOnly
+        limit={9}
         footerLink={{
           label: "Meet the full Fruition delivery team",
           href: "/fruition-team",

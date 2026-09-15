@@ -41,6 +41,8 @@ interface Props {
    * anyone still missing a photo or a bio. See `isDeliveryRoster`.
    */
   deliveryRosterOnly?: boolean
+  /** Cap the grid at this many cards, most senior first. Omit to show all. */
+  limit?: number
   /** Link rendered under the grid, e.g. through to the full team page. */
   footerLink?: { label: string; href: string }
 }
@@ -121,6 +123,7 @@ export default function TeamGridSection({
   members,
   region,
   deliveryRosterOnly = false,
+  limit,
   footerLink,
 }: Props) {
   const inRegion = region
@@ -130,13 +133,15 @@ export default function TeamGridSection({
     ? inRegion.filter((m) => isDeliveryRoster(m) && hasCardContent(m))
     : inRegion
   if (filtered.length === 0) return null
-  const ordered = [...filtered].sort((a, b) => {
+  const sorted = [...filtered].sort((a, b) => {
     if (a.name === "Josh Jebathilak") return -1
     if (b.name === "Josh Jebathilak") return 1
     if (a.name === "Edward Zehua Zhang") return 1
     if (b.name === "Edward Zehua Zhang") return -1
     return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
   })
+  // Sorted most senior first, so a cap keeps leadership and trims the tail.
+  const ordered = limit ? sorted.slice(0, limit) : sorted
   return (
     <section className="bg-surface px-4" style={{ paddingTop: 80, paddingBottom: 80 }}>
       <div className="mx-auto" style={{ maxWidth: 1200 }}>
