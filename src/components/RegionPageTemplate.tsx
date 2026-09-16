@@ -12,6 +12,7 @@ import type {
   SiteSettingsData,
 } from "@/components/sections/types"
 import TeamGridSection, { type TeamMember } from "@/components/TeamGridSection"
+import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
 import {
   AnswerBlockSection,
   ProcessStepsSection,
@@ -154,11 +155,19 @@ export default function RegionPageTemplate({
         Sanity overlay, so a Studio edit can't reroute it — and the grid drops
         pinned people when it's missing, so losing this line hides them rather
         than putting them back on all six pages.
+
+        The same filter runs HERE too, and that is not redundant. This is a
+        server component and the grid is a client one, so whatever is handed
+        across that boundary is serialised into the page's flight payload —
+        rendered or not. Filtering only inside the grid left a pinned person's
+        name, bio and photo in the HTML source of all five other region pages,
+        where crawlers and answer engines still read them. Drop them before the
+        boundary; the grid re-checks after it.
       */}
       <TeamGridSection
         heading={region.team.heading}
         subheading={region.team.lead}
-        members={teamMembers}
+        members={filterTeamForRegionPage(teamMembers, content.slug)}
         region={region.teamRegion}
         regionPageSlug={content.slug}
         deliveryRosterOnly

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs"
+import { join } from "node:path"
 import { describe, expect, it } from "vitest"
 import type { TeamMember } from "@/components/TeamGridSection"
 import { REGION_PAGES } from "@/data/regionPages"
@@ -98,5 +100,29 @@ describe("filterTeamForRegionPage", () => {
       expect(slugs.length).toBeGreaterThan(0)
       for (const slug of slugs) expect(REGION_SLUGS).toContain(slug)
     }
+  })
+})
+
+/**
+ * Guards the server/client boundary, not the render.
+ *
+ * `RegionPageTemplate` is a server component and `TeamGridSection` is a client
+ * one, so every member handed across is serialised into the page's flight
+ * payload whether or not a card is drawn for them. Filtering only inside the
+ * grid left Josh's name, bio and photo in the HTML source of the five other
+ * region pages — invisible on screen, fully readable to crawlers and answer
+ * engines. The template must filter BEFORE the boundary.
+ */
+describe("region page flight payload", () => {
+  it("filters pinned members before they cross into the client component", () => {
+    const source = readFileSync(
+      join(process.cwd(), "src/components/RegionPageTemplate.tsx"),
+      "utf8",
+    )
+    // Whatever else changes, `members` must be a filtered list, never the raw
+    // roster — that's what decides whether a pinned person reaches the HTML.
+    const membersProp = source.match(/members=\{([^}]*)\}/)?.[1]
+    expect(membersProp).toBeDefined()
+    expect(membersProp).toContain("filterTeamForRegionPage")
   })
 })
