@@ -13,8 +13,10 @@ interface ClientLogoSectionProps {
 /**
  * Heading + client logo wall, used on every industry and partnership page.
  *
- * Replaced a scrolling marquee: the logos are proof, and proof should sit still
- * long enough to read. The homepage uses the same `ClientLogoWall` at 5×5.
+ * Replaced a scrolling marquee from md up: the logos are proof, and proof should
+ * sit still long enough to read. Below md the wall scrolls itself again, because
+ * a still grid there is nine rows of thumb-work — see `ClientLogoWall`. The
+ * homepage uses the same component at 5×5.
  */
 const DEFAULT_PART1 = "Clients who have used our "
 const DEFAULT_ACCENT = "monday.com consulting services"
