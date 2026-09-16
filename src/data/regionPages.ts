@@ -9,10 +9,10 @@ import type {
 /**
  * Content for the six /monday-partner-* region pages.
  *
- * Written against the redesigned structure (hero credentials → services →
- * answer block → proof → process → numbers → team → coverage → FAQ → booking).
- * See `src/components/region/types.ts` for why this lives in code rather than
- * in the `locationPage` Sanity schema.
+ * Written against the redesigned structure (hero credentials → client wall →
+ * testimonials → services → booking → process → video → numbers → team →
+ * answer block → coverage → FAQ). See `src/components/region/types.ts` for why
+ * this lives in code rather than in the `locationPage` Sanity schema.
  *
  * Copy rules followed here:
  *  - Claims are limited to ones the site already makes (Platinum Partner,
@@ -184,6 +184,11 @@ const australia: RegionContent = {
     alsoLabel: "Also delivered by our Australian team:",
     alsoLinks: ALSO_LINKS,
   },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "From ASX-listed groups and state agencies to family-run contractors — a sample of the Australian teams now running on systems we built.",
+  },
   answerBlock: {
     question: "Who is the best monday.com partner in Australia?",
     answer:
@@ -328,6 +333,11 @@ const unitedKingdom: RegionContent = {
     alsoLabel: "Also delivered by our UK team:",
     alsoLinks: ALSO_LINKS,
   },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "From county councils to national manufacturers and consumer brands — a sample of the UK teams now running on systems we built.",
+  },
   answerBlock: {
     question: "Who is the best monday.com partner in the UK?",
     answer:
@@ -462,7 +472,7 @@ const unitedStates: RegionContent = {
   flag: "🇺🇸",
   hero: {
     eyebrow: "monday.com Platinum Partner · New York · Chicago · Austin · San Francisco",
-    heading: "Drive localized growth with an elite",
+    heading: "Drive localized growth with the best",
     headingAccent: "monday.com partner in the USA.",
     subheading:
       "Get certified monday.com consultants to build the infrastructure and architecture your business runs on. Our US team gets you up and running right away, without burning internal resources figuring it out yourselves.",
@@ -478,6 +488,11 @@ const unitedStates: RegionContent = {
     }),
     alsoLabel: "Also delivered by our US team:",
     alsoLinks: ALSO_LINKS,
+  },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "From credit unions to housing authorities and national franchises — a sample of the US teams now running on systems we built.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in the United States?",
@@ -628,6 +643,11 @@ const singapore: RegionContent = {
     }),
     alsoLabel: "Also delivered by our Singapore team:",
     alsoLinks: ALSO_LINKS,
+  },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "A sample of the teams now running on systems we built, led by the Singapore organisations our APAC consultants support.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in Singapore?",
@@ -780,6 +800,11 @@ const india: RegionContent = {
     alsoLabel: "Also delivered by our India team:",
     alsoLinks: ALSO_LINKS,
   },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "A sample of the teams now running on systems we built, led by the Indian organisations our APAC consultants support.",
+  },
   answerBlock: {
     question: "Who is the best monday.com partner in India?",
     answer:
@@ -930,6 +955,11 @@ const philippines: RegionContent = {
     }),
     alsoLabel: "Also delivered by our Philippines team:",
     alsoLinks: ALSO_LINKS,
+  },
+  clients: {
+    eyebrow: "Our clients",
+    heading: "Trusted by teams across 900+ implementations.",
+    lead: "A sample of the teams now running on systems we built, led by the Philippine organisations our APAC consultants support.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in the Philippines?",
