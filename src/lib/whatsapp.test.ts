@@ -35,6 +35,12 @@ describe("whatsappBaseHref", () => {
     ).toBe("https://api.whatsapp.com/send/?phone=123")
   })
 
+  // The number itself, not just "some fallback": this is the line the launcher
+  // dials whenever Sanity is unreachable, so a typo here is a dead channel.
+  it("falls back to the published WhatsApp number", () => {
+    expect(WHATSAPP_FALLBACK_HREF).toBe("https://wa.me/61435520959")
+  })
+
   it("falls back when the CMS has no WhatsApp entry", () => {
     expect(whatsappBaseHref([{ label: "LinkedIn", href: "https://x.test/" }])).toBe(
       WHATSAPP_FALLBACK_HREF,

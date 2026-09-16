@@ -9,7 +9,7 @@
  */
 
 /** Single fallback, used only when the CMS entry is missing or unusable. */
-export const WHATSAPP_FALLBACK_HREF = "https://wa.me/61483955931"
+export const WHATSAPP_FALLBACK_HREF = "https://wa.me/61435520959"
 
 /** Prefilled first message, so the chat opens with context, not a blank thread. */
 export const WHATSAPP_DEFAULT_MESSAGE =
