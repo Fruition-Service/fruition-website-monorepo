@@ -12,7 +12,6 @@ import type {
   SiteSettingsData,
 } from "@/components/sections/types"
 import TeamGridSection, { type TeamMember } from "@/components/TeamGridSection"
-import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
 import {
   AnswerBlockSection,
   ProcessStepsSection,
@@ -150,16 +149,18 @@ export default function RegionPageTemplate({
         consultants with a real photo and bio, capped at three rows of three —
         then link through to the full team page for everyone else.
 
-        `filterTeamForRegionPage` is applied here rather than in the six
-        page.tsx files so that a page rebuild can't drop it: see
-        REGION_PAGE_ONLY. The slug comes from the shipped content, not the
-        Sanity overlay, so a Studio edit can't reroute the rule either.
+        `regionPageSlug` is what lets TeamGridSection apply the per-page pins
+        (see REGION_PAGES_ONLY). It comes from the shipped content, not the
+        Sanity overlay, so a Studio edit can't reroute it — and the grid drops
+        pinned people when it's missing, so losing this line hides them rather
+        than putting them back on all six pages.
       */}
       <TeamGridSection
         heading={region.team.heading}
         subheading={region.team.lead}
-        members={filterTeamForRegionPage(teamMembers, content.slug)}
+        members={teamMembers}
         region={region.teamRegion}
+        regionPageSlug={content.slug}
         deliveryRosterOnly
         limit={9}
         footerLink={{

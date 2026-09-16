@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
 import type { SanityImageRef } from "@/components/sections/types"
+import type { RegionSlug } from "@/data/regionPages"
+import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
 
 export interface TeamMember {
   _id: string
@@ -15,6 +17,11 @@ export interface TeamMember {
   bio?: string
   linkedinUrl?: string
   regions?: string[]
+  /**
+   * Region page slugs this person may appear on. Empty or absent means no
+   * restriction. See `allowedRegionPages` — the code-level map there wins.
+   */
+  regionPagesOnly?: string[]
   order?: number
 }
 
@@ -29,13 +36,31 @@ export interface TeamMember {
  */
 export type TeamRegion = "APAC" | "SG" | "IN" | "PH" | "UK" | "US" | "AU"
 
-interface Props {
+/**
+ * A regional grid must name the page it is rendering on.
+ *
+ * `region` narrows the roster by region code; `regionPageSlug` says which of
+ * the six region pages this is. They are paired deliberately, so that dropping
+ * the slug is a COMPILE error rather than a silent behaviour change — the
+ * per-page pins in `REGION_PAGES_ONLY` need the page identity, and region codes
+ * can't supply it (Australia, Singapore and the Philippines all read "APAC").
+ *
+ * This shape is the fix for a bug that shipped twice: the pin lived at the call
+ * site in #160, the six region pages were rebuilt in #215, and it was dropped
+ * without anything failing. Now the type system objects, and if a non-typed
+ * caller still gets through, `filterTeamForRegionPage` fails closed and hides
+ * the pinned person rather than putting them back on every page.
+ */
+type RegionScope =
+  | { region: TeamRegion; regionPageSlug: RegionSlug }
+  | { region?: never; regionPageSlug?: never }
+
+type Props = RegionScope & {
   heading?: string
   subheading?: string
   ctaLabel?: string
   ctaUrl?: string
   members: TeamMember[]
-  region?: TeamRegion
   /**
    * Narrow the grid to leadership plus implementation consultants, and drop
    * anyone still missing a photo or a bio. See `isDeliveryRoster`.
@@ -122,13 +147,18 @@ export default function TeamGridSection({
   ctaUrl,
   members,
   region,
+  regionPageSlug,
   deliveryRosterOnly = false,
   limit,
   footerLink,
 }: Props) {
+  // A `region` means this is a regional roster, so the per-page pin applies.
+  // Enforced here, not at the call site, so EVERY regional grid is gated —
+  // including one added later by a page that doesn't use RegionPageTemplate.
+  const visible = region ? filterTeamForRegionPage(members, regionPageSlug) : members
   const inRegion = region
-    ? members.filter((m) => Array.isArray(m.regions) && m.regions.includes(region))
-    : members
+    ? visible.filter((m) => Array.isArray(m.regions) && m.regions.includes(region))
+    : visible
   const filtered = deliveryRosterOnly
     ? inRegion.filter((m) => isDeliveryRoster(m) && hasCardContent(m))
     : inRegion

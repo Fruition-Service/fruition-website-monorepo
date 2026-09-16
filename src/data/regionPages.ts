@@ -1,5 +1,6 @@
 import type {
   RegionContent,
+  RegionSlug,
   RegionFaq,
   RegionProcessStep,
   RegionServiceLink,
@@ -1090,6 +1091,6 @@ export const REGION_PAGES = {
   "monday-partner-singapore": singapore,
   "monday-partner-india": india,
   "monday-partner-philippines": philippines,
-} as const satisfies Record<string, RegionContent>
+} as const satisfies Record<RegionSlug, RegionContent>
 
-export type RegionSlug = keyof typeof REGION_PAGES
+export type { RegionSlug }

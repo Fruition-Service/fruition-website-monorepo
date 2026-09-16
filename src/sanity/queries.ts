@@ -600,7 +600,7 @@ export const getSiteSettings = cache(async () => {
 
 export async function getTeamMembers() {
   return client.fetch(
-    `*[_type == "teamMember"] | order(order asc) [0...200] { _id, name, role, emoji, photo, bio, linkedinUrl, regions, order, certifications }`
+    `*[_type == "teamMember"] | order(order asc) [0...200] { _id, name, role, emoji, photo, bio, linkedinUrl, regions, regionPagesOnly, order, certifications }`
   )
 }
 

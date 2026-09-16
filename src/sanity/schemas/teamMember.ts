@@ -42,6 +42,24 @@ export default {
         ],
       },
     },
+    {
+      name: 'regionPagesOnly',
+      title: 'Show on these region pages only',
+      description:
+        'Leave empty for everyone normal — the Regions field above decides where they appear. Set it only to pin someone to specific /monday-partner-* pages, which Regions cannot do on its own (Australia, Singapore and the Philippines all share the APAC code). Anyone listed here appears on the chosen pages and no other region page.',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Australia 🇦🇺', value: 'monday-partner-australia' },
+          { title: 'Singapore 🇸🇬', value: 'monday-partner-singapore' },
+          { title: 'India 🇮🇳', value: 'monday-partner-india' },
+          { title: 'Philippines 🇵🇭', value: 'monday-partner-philippines' },
+          { title: 'United Kingdom 🇬🇧', value: 'monday-partner-uk' },
+          { title: 'United States 🇺🇸', value: 'monday-partner-us' },
+        ],
+      },
+    },
     { name: 'order', title: 'Order', type: 'number' },
   ],
 }
