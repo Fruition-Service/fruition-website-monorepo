@@ -12,6 +12,7 @@ import type {
   SiteSettingsData,
 } from "@/components/sections/types"
 import TeamGridSection, { type TeamMember } from "@/components/TeamGridSection"
+import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
 import {
   AnswerBlockSection,
   ProcessStepsSection,
@@ -148,11 +149,16 @@ export default function RegionPageTemplate({
         Regions show a shortened roster — leadership and implementation
         consultants with a real photo and bio, capped at three rows of three —
         then link through to the full team page for everyone else.
+
+        `filterTeamForRegionPage` is applied here rather than in the six
+        page.tsx files so that a page rebuild can't drop it: see
+        REGION_PAGE_ONLY. The slug comes from the shipped content, not the
+        Sanity overlay, so a Studio edit can't reroute the rule either.
       */}
       <TeamGridSection
         heading={region.team.heading}
         subheading={region.team.lead}
-        members={teamMembers}
+        members={filterTeamForRegionPage(teamMembers, content.slug)}
         region={region.teamRegion}
         deliveryRosterOnly
         limit={9}
