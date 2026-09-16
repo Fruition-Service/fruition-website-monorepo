@@ -225,7 +225,7 @@ function MakeFeatureTabsSection({ tabs }: { tabs: MakeFeatureTab[] }) {
             <button
               key={tab.key}
               onClick={() => setActiveIdx(i)}
-              className={`cursor-pointer transition-all whitespace-nowrap rounded-pill px-[26px] py-2.5 text-sm font-semibold ${
+              className={`min-h-[44px] max-w-full cursor-pointer rounded-pill px-4 py-2.5 text-[13px] font-semibold transition-all md:px-[26px] md:text-sm md:whitespace-nowrap ${
                 i === activeIdx
                   ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-[0_10px_22px_-12px_rgba(128,21,232,0.55)]"
                   : "bg-surface-raised text-body ring-1 ring-ui"

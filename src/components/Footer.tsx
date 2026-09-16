@@ -216,7 +216,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               <Link
                 key={`${link.href}-${i}`}
                 href={link.href || '#'}
-                className="text-white text-[12px] hover:opacity-80 transition-opacity"
+                className="text-white text-[13px] md:text-[12px] hover:opacity-80 transition-opacity"
               >
                 {link.label}
               </Link>
@@ -226,7 +226,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
 
         {/* Copyright */}
         {siteSettings?.footerCopyrightText && (
-          <p className="text-white text-[11px] tracking-[0.55px]">
+          <p className="text-white text-[12px] md:text-[11px] tracking-[0.55px]">
             {siteSettings.footerCopyrightText}
           </p>
         )}
@@ -248,7 +248,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 <Link
                   key={`${link.href}-${i}`}
                   href={link.href || '#'}
-                  className="text-white text-[12px] leading-[17px] py-[5.5px] hover:opacity-80 transition-opacity"
+                  className="text-white text-[14px] leading-[20px] py-2 md:text-[12px] md:leading-[17px] md:py-[5.5px] hover:opacity-80 transition-opacity"
                 >
                   {link.label}
                 </Link>
@@ -266,7 +266,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 <Link
                   key={`${link.href}-${i}`}
                   href={link.href || '#'}
-                  className="text-white text-[12px] leading-[17px] py-[5.5px] hover:opacity-80 transition-opacity"
+                  className="text-white text-[14px] leading-[20px] py-2 md:text-[12px] md:leading-[17px] md:py-[5.5px] hover:opacity-80 transition-opacity"
                 >
                   {link.label}
                 </Link>
@@ -284,7 +284,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 <Link
                   key={`${link.href}-${i}`}
                   href={link.href || '#'}
-                  className="text-white text-[12px] leading-[17px] py-[5.5px] hover:opacity-80 transition-opacity"
+                  className="text-white text-[14px] leading-[20px] py-2 md:text-[12px] md:leading-[17px] md:py-[5.5px] hover:opacity-80 transition-opacity"
                 >
                   {link.label}
                 </Link>
@@ -305,28 +305,28 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                   <span className="text-[18px] leading-none">{loc.flag}</span>
                   <Link
                     href={loc.href || '#'}
-                    className="text-[#d2acf7] text-[12px] font-medium hover:opacity-80 transition-opacity"
+                    className="text-[#d2acf7] text-[13px] md:text-[12px] font-medium hover:opacity-80 transition-opacity"
                   >
                     {loc.city}
                   </Link>
                 </div>
-                <p className="text-white/70 text-[11px] mb-0.5">({loc.label})</p>
+                <p className="text-white/70 text-[12px] md:text-[11px] mb-0.5">({loc.label})</p>
                 {loc.addressUrl ? (
                   <a
                     href={loc.addressUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white text-[12px] leading-[18px] hover:opacity-80 transition-opacity block mb-1"
+                    className="text-white text-[13px] leading-[19px] md:text-[12px] md:leading-[18px] hover:opacity-80 transition-opacity block mb-1"
                   >
                     {loc.address}
                   </a>
                 ) : (
-                  <p className="text-white text-[12px] leading-[18px] mb-1">{loc.address}</p>
+                  <p className="text-white text-[13px] leading-[19px] md:text-[12px] md:leading-[18px] mb-1">{loc.address}</p>
                 )}
                 {isRealPhone(loc.phone) && (
                   <a
                     href={`tel:${loc.phoneTel || (loc.phone || '').replace(/\s/g, '')}`}
-                    className="text-white text-[12px] hover:opacity-80 transition-opacity"
+                    className="text-white text-[13px] md:text-[12px] hover:opacity-80 transition-opacity"
                   >
                     {loc.phone}
                   </a>

@@ -82,14 +82,14 @@ export default function IndustriesHub() {
                   </span>
                   <span className="text-[15px] font-semibold break-words text-white md:text-xl">{card.title}</span>
                 </div>
-                <p className="mt-3 text-[12.5px] text-white/60 md:mt-3.5 md:text-[13.5px]">{card.tagline}</p>
+                <p className="mt-3 text-[13px] text-white/60 md:mt-3.5 md:text-[13.5px]">{card.tagline}</p>
                 <div className="mt-4 flex flex-col items-start gap-2">
                   {card.chips.map((chip, j) => {
                     const chipActive = isActive && j === activeChip
                     return (
                       <span
                         key={chip}
-                        className={`inline-flex max-w-full items-center gap-2 rounded-pill px-2.5 py-[6px] text-[12px] transition-all duration-400 md:px-3.5 md:py-[7px] md:text-[13px] md:whitespace-nowrap ${
+                        className={`inline-flex max-w-full items-center gap-2 rounded-pill px-2.5 py-[6px] text-[13px] transition-all duration-400 md:px-3.5 md:py-[7px] md:text-[13px] md:whitespace-nowrap ${
                           chipActive
                             ? "border border-[rgba(186,131,240,0.9)] bg-brand text-white shadow-[0_6px_18px_-6px_rgba(128,21,232,0.8)]"
                             : "border border-white/10 bg-white/5 text-white/75"
