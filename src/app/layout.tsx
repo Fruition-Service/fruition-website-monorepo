@@ -13,6 +13,7 @@ import AwardBanner from "@/components/home/AwardBanner"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import { getSiteSettings } from "@/sanity/queries"
 import { bookingHref } from "@/lib/bookingLink"
+import { whatsappHref } from "@/lib/whatsapp"
 import { officeStrap } from "@/data/offices"
 import { urlFor } from "@/sanity/image"
 import { buildOgMetadata, defaultOgImage } from "@/lib/metadata"
@@ -352,6 +353,7 @@ export default async function RootLayout({
                   siteSettings?.stickyCtaUrl || siteSettings?.calendlyLink,
                 ),
               }}
+              whatsappHref={whatsappHref(siteSettings?.socialLinks)}
             >
               {children}
             </SiteFrame>

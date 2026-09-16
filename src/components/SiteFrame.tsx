@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import Breadcrumbs from "./Breadcrumbs"
 import SiteStickyCta from "./SiteStickyCta"
+import WhatsAppChatLauncher from "./WhatsAppChatLauncher"
 import { StickyCtaProvider } from "./sections/StickyCtaContext"
 import type { StickyCtaValue } from "./sections/StickyCtaContext"
 
@@ -15,6 +16,10 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
  * it without opting in. Pages that want their own copy declare it with
  * <StickyCtaConfig>; <SiteStickyCta> merges that over the Site Settings
  * default and owns the remaining route exclusions.
+ *
+ * The WhatsApp launcher is rendered here for the same reason, and inside the
+ * same provider: it reads the sticky CTA bar's measured height from there so
+ * the two floating elements never overlap.
  */
 export default function SiteFrame({
   header,
@@ -22,6 +27,7 @@ export default function SiteFrame({
   cookie,
   stickyCtaHeading,
   stickyCtaDefaults,
+  whatsappHref,
   children,
 }: {
   header: React.ReactNode
@@ -29,6 +35,8 @@ export default function SiteFrame({
   cookie: React.ReactNode
   stickyCtaHeading?: string
   stickyCtaDefaults: StickyCtaValue
+  /** Resolved by the root layout from Site Settings via `src/lib/whatsapp.ts`. */
+  whatsappHref: string
   children: React.ReactNode
 }) {
   const pathname = usePathname()
@@ -45,6 +53,7 @@ export default function SiteFrame({
       {footer}
       {cookie}
       <SiteStickyCta heading={stickyCtaHeading} defaults={stickyCtaDefaults} />
+      <WhatsAppChatLauncher href={whatsappHref} />
     </StickyCtaProvider>
   )
 }
