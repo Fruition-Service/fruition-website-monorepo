@@ -1384,3 +1384,54 @@ body {
     animation: none;
   }
 }
+
+/* ============================================================ */
+/* Swipe rail: a horizontal, snapping row of cards for phones.   */
+/* Sections whose cards carry too much text to sit two-up (a     */
+/* testimonial, a case study) become one screen tall instead of  */
+/* six, and the reader pages through them with a thumb. Unlike   */
+/* the logo band this never moves on its own: text a reader is   */
+/* halfway through must not slide away from them.                */
+/* The trailing spacer element gives the last card the same left */
+/* alignment as the first when it snaps into place.              */
+/* ============================================================ */
+.fr-swipe-rail {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* Bleed to the screen edges so a card can sit flush while the page keeps
+     its gutter; the padding puts the first card back on the gutter line. */
+  margin-inline: calc(var(--fr-rail-gutter, 1.25rem) * -1);
+  padding-inline: var(--fr-rail-gutter, 1.25rem);
+}
+
+.fr-swipe-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.fr-swipe-rail > * {
+  flex: 0 0 86%;
+  scroll-snap-align: start;
+}
+
+/* Keeps the final card from snapping flush against the right edge. */
+.fr-swipe-rail::after {
+  content: "";
+  flex: 0 0 calc(var(--fr-rail-gutter, 1.25rem) - 0.75rem);
+}
+
+@media (min-width: 768px) {
+  .fr-swipe-rail {
+    display: grid;
+    overflow-x: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+  .fr-swipe-rail::after {
+    content: none;
+  }
+}

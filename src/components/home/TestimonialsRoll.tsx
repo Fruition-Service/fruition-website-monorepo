@@ -118,10 +118,12 @@ export default function TestimonialsRoll({
           </div>
         </div>
 
-        {/* Stacked fallback below lg — first six quotes, no motion. */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:hidden">
+        {/* Below lg, no rolling. On a phone the six quotes are a swipe rail:
+            stacked they ran to six screens, and a quote is too long to read
+            two-up. From md it goes back to a plain two-column grid. */}
+        <div className="fr-swipe-rail gap-5 md:grid-cols-2 lg:hidden">
           {usable.slice(0, 6).map((t, i) => (
-            <QuoteCard key={t._key ?? i} testimonial={t} index={i} />
+            <QuoteCard key={t._key ?? i} testimonial={t} index={i} railItem />
           ))}
         </div>
       </Reveal>
@@ -133,16 +135,21 @@ function QuoteCard({
   testimonial,
   index,
   duplicate = false,
+  railItem = false,
 }: {
   testimonial: HomeTestimonial
   index: number
   duplicate?: boolean
+  /** In the phone swipe rail: no bottom margin, and equal-height cards. */
+  railItem?: boolean
 }) {
   const photoRef = testimonial.profilePhoto?.asset?._ref
   return (
     <figure
       aria-hidden={duplicate || undefined}
-      className="ui-hover-card mb-5 rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper"
+      className={`ui-hover-card rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper ${
+        railItem ? "flex h-auto flex-col md:mb-5" : "mb-5"
+      }`}
     >
       {testimonial.company && (
         <div className="flex items-center gap-[9px]">

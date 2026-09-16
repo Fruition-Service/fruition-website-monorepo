@@ -197,7 +197,7 @@ export default function TeamGridSection({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: 28 }}>
+        <div className="grid grid-cols-2 gap-3 md:gap-7 lg:grid-cols-3">
           {ordered.map((m) => {
             const photo = safeImageUrl(m.photo) || m.photoUrl
             return (
@@ -205,33 +205,32 @@ export default function TeamGridSection({
                 key={m._id}
                 className="bg-surface-raised rounded-card border border-ui overflow-hidden flex flex-col shadow-whisper dark:shadow-none"
               >
-                <div style={{ aspectRatio: "1 / 1", backgroundColor: "#f5f0ff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div className="flex aspect-square items-center justify-center bg-brand-soft">
                   {photo ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={photo} alt={m.name} className="w-full h-full object-cover" />
                   ) : (
-                    <span style={{ fontSize: 80 }}>{m.emoji || "🍎"}</span>
+                    <span className="text-[40px] md:text-[80px]">{m.emoji || "🍎"}</span>
                   )}
                 </div>
-                <div className="flex flex-col" style={{ padding: 24, flex: 1 }}>
+                <div className="flex flex-1 flex-col p-4 md:p-6">
                   {m.role && (
-                    <p className="font-semibold" style={{ fontSize: 13, color: "#8015e8", letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                    <p className="text-[11px] font-semibold tracking-[0.04em] break-words text-brand uppercase md:text-[13px]">
                       {m.role}
                     </p>
                   )}
-                  <h3 className="font-bold" style={{ fontSize: 22, lineHeight: "28px", color: "var(--text-body)", marginTop: 8 }}>
+                  <h3 className="mt-2 text-[16px] leading-[21px] font-bold break-words text-body md:text-[22px] md:leading-[28px]">
                     {m.name} {m.emoji && <span>{m.emoji}</span>}
                   </h3>
                   {m.bio && (
-                    <p style={{ fontSize: 14, lineHeight: "22px", color: "var(--text-muted-fg)", marginTop: 14, flex: 1 }}>{m.bio}</p>
+                    <p className="mt-3 flex-1 text-[13px] leading-[20px] text-muted md:mt-3.5 md:text-[14px] md:leading-[22px]">{m.bio}</p>
                   )}
                   {m.linkedinUrl && (
                     <Link
                       href={m.linkedinUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold"
-                      style={{ marginTop: 16, color: "#8015e8", fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6 }}
+                      className="mt-4 inline-flex min-h-[40px] items-center gap-1.5 text-[14px] font-semibold text-brand"
                     >
                       LinkedIn ↗
                     </Link>

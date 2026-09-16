@@ -190,7 +190,10 @@ export default function ComparisonTabsSection({
                 <button
                   key={tab._key || tab.label || i}
                   onClick={() => setActiveIndex(i)}
-                  className={`relative inline-flex items-center justify-center rounded-[99px] px-[31px] py-[7px] text-[16px] leading-[1.2] transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  // whitespace-nowrap only from md: a label like "Why monday.com
+                  // for Project Management" is wider than a phone screen, and
+                  // nowrap pushed it past the right edge on six pages.
+                  className={`relative inline-flex min-h-[44px] max-w-full shrink items-center justify-center rounded-[99px] px-5 py-2 text-[14px] leading-[1.2] transition-all cursor-pointer md:shrink-0 md:whitespace-nowrap md:px-[31px] md:py-[7px] md:text-[16px] ${
                     isActive
                       ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-[2.83px_2.83px_15px_3px_rgba(0,0,0,0.24)]"
                       : inactiveClass
