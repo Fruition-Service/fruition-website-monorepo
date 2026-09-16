@@ -40,8 +40,8 @@ export default function RegionServicesSection({
                 <span className="flex size-10 items-center justify-center rounded-chip bg-tint md:size-12">
                   <Icon className="size-5 text-brand md:size-6" aria-hidden />
                 </span>
-                <h3 className="text-card-title text-[17px] text-foreground md:text-[20px] lg:text-[22px]">{card.title}</h3>
-                <p className="text-body-sm text-[14px] text-muted md:text-[15px]">{card.body}</p>
+                <h3 className="text-card-title hyphens-auto text-[16px] break-words text-foreground md:text-[20px] lg:text-[22px]">{card.title}</h3>
+                <p className="text-body-sm text-[14px] break-words text-muted md:text-[15px]">{card.body}</p>
               </div>
             )
           })}

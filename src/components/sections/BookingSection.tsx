@@ -955,8 +955,11 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             </span>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        {/* On a phone these two pills are wider than the card, and `flex:none`
+            meant the timezone one was simply clipped by the card's overflow.
+            The mobile rule below lets each take half the row and shrink. */}
+        <div className="fr-booking-pickers" style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
+        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
           <select
             value={activeRegion ?? ""}
@@ -970,7 +973,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             ))}
           </select>
         </label>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
           <select value={tz} onChange={(e) => setTz(e.target.value)} style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}>
             {(TZS.some((x) => x[0] === tz) ? TZS : ([[tz, `${tzLabel(tz)} · detected`] as [string, string], ...TZS])).map(([v, l]) => (
@@ -1126,6 +1129,11 @@ export default function BookingSection({
         @media (min-width: 961px) {
           .fr-booking-grid {
             grid-template-columns: 1fr 1fr;
+            /* auto 1fr, not auto auto: the card spans both rows and is much
+               taller than the copy, and a pair of auto rows would share that
+               excess out — pushing the sub-heading a screen away from the
+               heading. The 1fr row absorbs all of it instead. */
+            grid-template-rows: auto 1fr;
             column-gap: 80px;
             row-gap: 18px;
           }
@@ -1136,6 +1144,9 @@ export default function BookingSection({
         @media (max-width: 560px) {
           .fr-booking-pad { padding: 20px !important; }
           .fr-booking-card-grid { grid-template-columns: 1fr !important; }
+          .fr-booking-pickers { width: 100%; gap: 8px; }
+          .fr-booking-picker { flex: 1 1 0 !important; min-width: 0; }
+          .fr-booking-picker select { min-width: 0; width: 100%; }
           .fr-booking-times {
             padding-left: 0 !important;
             border-left: none !important;
