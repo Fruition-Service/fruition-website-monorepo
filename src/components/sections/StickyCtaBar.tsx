@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import CtaButton from "@/components/CtaButton"
+import { useReportStickyCtaBar } from "@/components/sections/StickyCtaContext"
 
 interface StickyCtaBarProps {
   /** Site-wide headline. Falls back to the copy the design ships with. */
@@ -41,6 +42,9 @@ export default function StickyCtaBar({
 }: StickyCtaBarProps) {
   const [visible, setVisible] = useState(false)
   const [dismissed, setDismissed] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const reportBar = useReportStickyCtaBar()
+  const showing = Boolean(label) && Boolean(href) && visible && !dismissed
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > showAfter)
@@ -48,6 +52,27 @@ export default function StickyCtaBar({
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [showAfter])
+
+  // Publish how much of the viewport floor this bar occupies, so the WhatsApp
+  // launcher can ride above it rather than under it. The fixed wrapper is
+  // measured, not assumed: it includes the bar's own bottom padding, and its
+  // height moves with the heading's wrap and with the breakpoint.
+  useEffect(() => {
+    const wrapper = wrapperRef.current
+    if (!showing || !wrapper) {
+      reportBar({ visible: false, height: 0 })
+      return
+    }
+    const measure = () =>
+      reportBar({ visible: true, height: wrapper.offsetHeight })
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(wrapper)
+    return () => {
+      observer.disconnect()
+      reportBar({ visible: false, height: 0 })
+    }
+  }, [reportBar, showing])
 
   if (!label || !href || dismissed) return null
 
@@ -77,6 +102,7 @@ export default function StickyCtaBar({
 
   return (
     <div
+      ref={wrapperRef}
       className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] transition-all duration-300 md:px-6 lg:px-8"
       style={{
         transform: visible ? "translateY(0)" : "translateY(120%)",
