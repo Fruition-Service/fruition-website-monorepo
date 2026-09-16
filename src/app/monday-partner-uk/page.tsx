@@ -4,6 +4,7 @@ import {
   getCaseStudies,
   getTeamMembers,
 } from "@/sanity/queries"
+import { getRegionLogos, resolveRegionLogos } from "@/sanity/regionLogos"
 import { mergeTeamMembers } from "@/lib/mergeTeamMembers"
 import RegionPageTemplate from "@/components/RegionPageTemplate"
 import { REGION_PAGES } from "@/data/regionPages"
@@ -29,11 +30,12 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const [page, siteSettings, caseStudies, teamMembers] = await Promise.all([
+  const [page, siteSettings, caseStudies, teamMembers, regionLogos] = await Promise.all([
     getLocationPageBySlug(SLUG),
     getSiteSettings(),
     getCaseStudies(),
     getTeamMembers(),
+    getRegionLogos(SLUG),
   ])
   return (
     <RegionPageTemplate
@@ -42,6 +44,8 @@ export default async function Page() {
       siteSettings={siteSettings}
       caseStudies={caseStudies || []}
       teamMembers={mergeTeamMembers(teamMembers || [], siteSettings?.excludedTeamMemberNames || [])}
+      clientLogos={resolveRegionLogos(regionLogos?.logos, siteSettings?.carouselLogos)}
+      clientLogosLead={regionLogos?.lead}
     />
   )
 }

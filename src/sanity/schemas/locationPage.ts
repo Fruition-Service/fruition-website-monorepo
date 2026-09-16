@@ -38,6 +38,7 @@ export default {
   groups: [
     { name: 'seo', title: 'SEO & meta', default: true },
     { name: 'hero', title: 'Hero' },
+    { name: 'clients', title: 'Client wall' },
     { name: 'services', title: 'Services' },
     { name: 'answer', title: 'Answer block' },
     { name: 'proof', title: 'Proof & video' },
@@ -209,6 +210,22 @@ export default {
             },
           ],
         },
+      ],
+    },
+
+    /* ── Client wall ────────────────────────────────────────────── */
+    {
+      name: 'clients',
+      title: 'Client wall',
+      type: 'object',
+      group: 'clients',
+      description:
+        'Copy for the proof band under the hero. The logos themselves live on the matching Region Logo Set document, not here.',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+        { name: 'heading', title: 'Heading', type: 'string' },
+        { name: 'lead', title: 'Lead paragraph', type: 'text', rows: 3 },
       ],
     },
 

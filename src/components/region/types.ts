@@ -107,6 +107,17 @@ export interface RegionContent {
     alsoLinks: RegionServiceLink[]
   }
 
+  /**
+   * The client proof band under the hero. The logos themselves are a
+   * `regionLogoSet` document (see `src/sanity/regionLogos.ts`); only the copy
+   * around them lives here.
+   */
+  clients: {
+    eyebrow: string
+    heading: string
+    lead: string
+  }
+
   /** Answer-engine block: one question, one self-contained answer. */
   answerBlock: {
     question: string

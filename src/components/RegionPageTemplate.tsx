@@ -2,10 +2,12 @@ import { bookingHref } from "@/lib/bookingLink"
 import { mergeRegionContent, type RegionSanityContent } from "@/lib/mergeRegionContent"
 import {
   CalendlySection,
+  ClientProofSection,
   StickyCtaConfig,
   TestimonialsGrid,
 } from "@/components/sections"
 import type {
+  CarouselLogo,
   CaseStudy,
   SiteSettingsData,
 } from "@/components/sections/types"
@@ -35,7 +37,18 @@ interface Props {
   siteSettings?: SiteSettingsData | null
   caseStudies?: CaseStudy[]
   teamMembers: TeamMember[]
+  /**
+   * The client wall under the hero — this region's own `regionLogoSet`, or the
+   * global carousel where no set has been curated yet. See
+   * `src/sanity/regionLogos.ts`.
+   */
+  clientLogos?: CarouselLogo[]
+  /** Studio override for the client-wall lead, from the same document. */
+  clientLogosLead?: string
 }
+
+/** Nine tiles plus the counter cell — two full rows of five. */
+const CLIENT_TILES = 9
 
 /**
  * One template behind all six /monday-partner-* pages.
@@ -55,6 +68,8 @@ export default function RegionPageTemplate({
   siteSettings,
   caseStudies = [],
   teamMembers,
+  clientLogos = [],
+  clientLogosLead,
 }: Props) {
   const region = mergeRegionContent(content, page)
   const rawCalendly = siteSettings?.calendlyLink ?? ""
@@ -77,14 +92,32 @@ export default function RegionPageTemplate({
         primaryCtaUrl={bookingUrl}
       />
 
+      {/*
+        Proof before pitch: the client wall and the quotes that back it run
+        straight off the hero, so the first thing under the H1 is who already
+        trusts us in this market rather than another list of services.
+      */}
+      <ClientProofSection
+        eyebrow={region.clients.eyebrow}
+        heading={region.clients.heading}
+        lead={clientLogosLead?.trim() || region.clients.lead}
+        logos={clientLogos}
+        maxTiles={CLIENT_TILES}
+        counterLabel="900+ more"
+      />
+
+      <TestimonialsGrid
+        heading={region.testimonials.heading}
+        ctaLabel="Book a call"
+        ctaUrl={bookingUrl}
+        caseStudies={caseStudies}
+      />
+
       <RegionServicesSection services={region.services} />
 
-      <AnswerBlockSection answerBlock={region.answerBlock} />
-
       {/*
-        The contact + booking band sits third, straight under the "who is the
-        best partner" answer block: the page has just made its case, so the way
-        to act on it is right there rather than ten sections down.
+        The contact + booking band stays high on the page: proof, then the
+        offer, then the way to act on it — rather than ten sections down.
 
         It used to close the page — BookingSection is the purple→midnight
         gradient the design ends on — so nothing follows the FAQ now. The FAQ's
@@ -96,13 +129,6 @@ export default function RegionPageTemplate({
         subheading={region.closingCta.lead}
         calendlyUrl={rawCalendly}
         bookingRegion={region.bookingRegion}
-      />
-
-      <TestimonialsGrid
-        heading={region.testimonials.heading}
-        ctaLabel="Book a call"
-        ctaUrl={bookingUrl}
-        caseStudies={caseStudies}
       />
 
       <ProcessStepsSection process={region.process} />
@@ -135,6 +161,15 @@ export default function RegionPageTemplate({
           href: "/fruition-team",
         }}
       />
+
+      {/*
+        "Who is the best monday.com partner in X?" — the answer-engine block.
+        It sits after the team grid rather than near the top: the claim reads
+        as a summing-up once the page has shown the clients, the quotes, the
+        method and the people, and an AI crawler quotes it just as happily
+        from here.
+      */}
+      <AnswerBlockSection answerBlock={region.answerBlock} />
 
       <RegionCoverageSection coverage={region.coverage} />
 

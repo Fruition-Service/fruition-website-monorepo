@@ -7,6 +7,7 @@ import aiPartnerPage from './aiPartnerPage'
 import locationPage from './locationPage'
 import industryPage from './industryPage'
 import industryLogoSet from './industryLogoSet'
+import regionLogoSet from './regionLogoSet'
 import servicePage from './servicePage'
 import teamMember from './teamMember'
 import caseStudy from './caseStudy'
@@ -49,6 +50,7 @@ export const schemaTypes = [
   locationPage,
   industryPage,
   industryLogoSet,
+  regionLogoSet,
   servicePage,
   teamMember,
   caseStudy,
