@@ -190,6 +190,9 @@ const cell = (sel: boolean, dis: boolean): CSSProperties => ({
   color: sel ? "#fff" : dis ? "#c8c8d4" : "var(--text-dark)",
   boxShadow: sel ? "0 6px 18px -8px rgba(30,64,175,.5)" : "none", transition: "all .16s ease",
 })
+/* 30px is a comfortable desktop target and a poor thumb one; the mobile rule
+   in the stylesheet below takes these to 40px, which is where a finger starts
+   hitting the month it meant to. */
 const navBtn = (dis: boolean): CSSProperties => ({
   width: 30, height: 30, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff",
   color: dis ? "#c8c8d4" : "var(--text-dark)", fontSize: 16, lineHeight: 1,
@@ -992,8 +995,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               {MONTH_FULL[monthBase.getMonth()]} {monthBase.getFullYear()}
             </span>
             <div style={{ display: "flex", gap: 6 }}>
-              <button type="button" disabled={monthOffset <= firstAvailableOffset} onClick={() => setMonthOffsetOverride(Math.max(firstAvailableOffset, monthOffset - 1))} style={navBtn(monthOffset <= firstAvailableOffset)} aria-label="Previous month">‹</button>
-              <button type="button" onClick={() => setMonthOffsetOverride(monthOffset + 1)} style={navBtn(false)} aria-label="Next month">›</button>
+              <button type="button" disabled={monthOffset <= firstAvailableOffset} onClick={() => setMonthOffsetOverride(Math.max(firstAvailableOffset, monthOffset - 1))} className="fr-booking-nav" style={navBtn(monthOffset <= firstAvailableOffset)} aria-label="Previous month">‹</button>
+              <button type="button" onClick={() => setMonthOffsetOverride(monthOffset + 1)} className="fr-booking-nav" style={navBtn(false)} aria-label="Next month">›</button>
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 5 }}>
@@ -1002,8 +1005,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             ))}
             {cells.map((c) =>
               c.blank
-                ? <span key={c.id} style={{ height: 40 }} />
-                : <button key={c.id} type="button" disabled={c.disabled} onClick={() => { setDayKey(c.key); setSlot(null) }} style={cell(c.key === dayKey, c.disabled)}>{c.label}</button>
+                ? <span key={c.id} className="fr-booking-day" style={{ height: 40 }} />
+                : <button key={c.id} type="button" className="fr-booking-day" disabled={c.disabled} onClick={() => { setDayKey(c.key); setSlot(null) }} style={cell(c.key === dayKey, c.disabled)}>{c.label}</button>
             )}
           </div>
         </div>
@@ -1140,6 +1143,10 @@ export default function BookingSection({
           .fr-booking-head { grid-column: 1; grid-row: 1; }
           .fr-booking-body { grid-column: 1; grid-row: 2; }
           .fr-booking-card { grid-column: 2; grid-row: 1 / span 2; }
+        }
+        @media (max-width: 767px) {
+          .fr-booking-nav { width: 40px !important; height: 40px !important; }
+          .fr-booking-day { height: 44px !important; }
         }
         @media (max-width: 560px) {
           .fr-booking-pad { padding: 20px !important; }

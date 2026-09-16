@@ -132,12 +132,14 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
     <div>
       {/* 1. Hero */}
       <section className="bg-surface">
+        {/* The side padding used to be a flat 273px, which on a 390px phone
+            left the hero with no room to lay out in and pushed the whole
+            block off-screen. It now scales with the breakpoint. */}
         <div
-          className="mx-auto flex flex-col items-center"
-          style={{ paddingLeft: 273, paddingRight: 273, paddingTop: 80, paddingBottom: 80 }}
+          className="mx-auto flex max-w-[1476px] flex-col items-center px-5 py-14 md:px-16 md:py-20 lg:px-[273px] lg:py-20"
         >
           {partnerBadges.length > 0 && (
-            <div className="flex items-center" style={{ gap: 22 }}>
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-[22px]">
               {partnerBadges.map((badge, i) => {
                 const src = i === 2 ? "/images/monday-svc-logo.avif" : safeImageUrl(badge.image)
                 if (!src) return null
@@ -182,13 +184,13 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
           )}
 
           {(page?.primaryCtaLabel || page?.secondaryCtaLabel) && (
-            <div className="flex items-center justify-center" style={{ gap: 20, marginTop: 40, width: 680 }}>
+            <div className="mt-10 flex w-full max-w-[680px] flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-center md:gap-5">
               {page?.primaryCtaLabel && (
                 <CtaButton
                   href={primaryCtaUrl}
                   label={page.primaryCtaLabel}
                   variant="outline"
-                  style={{ width: 330 }}
+                  className="w-full justify-center md:w-[330px]"
                 />
               )}
               {page?.secondaryCtaLabel && (
@@ -196,7 +198,7 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
                   href={secondaryCtaUrl}
                   label={page.secondaryCtaLabel}
                   variant="primary"
-                  style={{ width: 330 }}
+                  className="w-full justify-center md:w-[330px]"
                 />
               )}
             </div>

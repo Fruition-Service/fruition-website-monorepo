@@ -239,7 +239,7 @@ function FinanceTabsSection({
             <button
               key={tab.label}
               onClick={() => setActiveTab(i)}
-              className={`cursor-pointer transition-all whitespace-nowrap shrink-0 rounded-pill px-8 py-2.5 text-base font-semibold ${
+              className={`min-h-[44px] max-w-full shrink cursor-pointer rounded-pill px-5 py-2.5 text-[14px] font-semibold transition-all md:shrink-0 md:px-8 md:text-base md:whitespace-nowrap ${
                 i === activeTab
                   ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-card border-0"
                   : "bg-surface-raised text-surface-dark-2 border border-ui"
