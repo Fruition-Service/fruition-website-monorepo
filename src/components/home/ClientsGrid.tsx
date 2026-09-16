@@ -10,7 +10,7 @@ interface Props {
 
 /**
  * Homepage client wall — the first 24 usable entries in
- * `siteSettings.carouselLogos` as a 5×5 grid, with the "800+ more" counter as
+ * `siteSettings.carouselLogos` as a 5×5 grid, with the "900+ more" counter as
  * the last cell. Reorder them in Studio to change which clients lead.
  *
  * The grid itself is `ClientLogoWall`, shared with every industry page.
@@ -24,7 +24,7 @@ export default function ClientsGrid({ logos }: Props) {
         <Reveal className="mx-auto max-w-[660px] text-center">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">Our clients</p>
           <h2 className="text-section-h2 mt-3.5 text-foreground lg:text-[42px]" style={{ textWrap: "pretty" }}>
-            Trusted by teams across 800+ implementations.
+            Trusted by teams across 900+ implementations.
           </h2>
           <p className="text-body mx-auto mt-4 max-w-[560px] text-muted lg:text-[17px]" style={{ textWrap: "pretty" }}>
             From national services groups to public-sector agencies in six markets — we stay on
@@ -34,7 +34,7 @@ export default function ClientsGrid({ logos }: Props) {
         </Reveal>
 
         <Reveal className="mt-10 lg:mt-12">
-          <ClientLogoWall logos={logos} maxTiles={MAX_TILES} counterLabel="800+ more" />
+          <ClientLogoWall logos={logos} maxTiles={MAX_TILES} counterLabel="900+ more" />
         </Reveal>
       </div>
     </section>
