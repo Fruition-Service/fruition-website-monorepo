@@ -569,7 +569,7 @@ export default function MondayTrainingContent({
         {data?.empowerCtaLabel && data?.empowerCtaUrl && (
           <Link
             href={data.empowerCtaUrl}
-            className="group flex items-center justify-center gap-2 h-[53px] w-full max-w-[326px] rounded-pill bg-gradient-to-r from-brand to-brand-light hover:bg-brand-dark hover:bg-none text-white text-base font-bold tracking-[0.32px] transition-colors"
+            className="group flex items-center justify-center gap-2 h-[53px] w-full max-w-[326px] rounded-pill bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white text-base font-bold tracking-[0.32px] transition-colors"
           >
             <PaperPlaneIcon />
             <CtaLabel label={data.empowerCtaLabel} />

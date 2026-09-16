@@ -173,22 +173,22 @@ const pill = (sel: boolean, wide?: boolean): CSSProperties => ({
   display: "flex", alignItems: "center", justifyContent: "center", height: 38, flex: "none", padding: "0 16px",
   width: wide ? "100%" : undefined, borderRadius: 9999, fontFamily: "var(--font-sans)", fontSize: 14,
   fontWeight: 600, cursor: "pointer", border: `1px solid ${sel ? "transparent" : "var(--color-border)"}`,
-  background: sel ? "var(--purple-primary)" : "#fff", color: sel ? "#fff" : "var(--text-dark)",
-  boxShadow: sel ? "0 6px 18px -8px rgba(128,21,232,.55)" : "none", transition: "all .16s ease",
+  background: sel ? "var(--cta-blue)" : "#fff", color: sel ? "#fff" : "var(--text-dark)",
+  boxShadow: sel ? "0 6px 18px -8px rgba(30,64,175,.5)" : "none", transition: "all .16s ease",
 })
 const chip = (sel: boolean): CSSProperties => ({
   display: "inline-flex", alignItems: "center", gap: 7,
   height: 36, padding: "0 15px", borderRadius: 9999, fontFamily: "var(--font-sans)", fontSize: 13.5,
-  fontWeight: 500, cursor: "pointer", border: `1px solid ${sel ? "var(--purple-primary)" : "var(--color-border)"}`,
-  background: sel ? "var(--color-brand-soft)" : "#fff", color: sel ? "var(--purple-primary)" : "var(--text-dark)",
+  fontWeight: 500, cursor: "pointer", border: `1px solid ${sel ? "var(--cta-blue)" : "var(--color-border)"}`,
+  background: sel ? "var(--cta-blue-soft)" : "#fff", color: sel ? "var(--cta-blue)" : "var(--text-dark)",
   transition: "all .16s ease",
 })
 const cell = (sel: boolean, dis: boolean): CSSProperties => ({
   height: 40, borderRadius: 10, border: "1px solid transparent", fontFamily: "var(--font-sans)",
   fontSize: 13.5, fontWeight: 600, cursor: dis ? "default" : "pointer",
-  background: sel ? "var(--purple-primary)" : dis ? "transparent" : "var(--color-brand-soft)",
+  background: sel ? "var(--cta-blue)" : dis ? "transparent" : "var(--cta-blue-soft)",
   color: sel ? "#fff" : dis ? "#c8c8d4" : "var(--text-dark)",
-  boxShadow: sel ? "0 6px 18px -8px rgba(128,21,232,.55)" : "none", transition: "all .16s ease",
+  boxShadow: sel ? "0 6px 18px -8px rgba(30,64,175,.5)" : "none", transition: "all .16s ease",
 })
 const navBtn = (dis: boolean): CSSProperties => ({
   width: 30, height: 30, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff",
@@ -202,14 +202,15 @@ const field: CSSProperties = {
   outline: "none", transition: "border-color .16s ease, box-shadow .16s ease",
 }
 
-/* Pill CTA — gradient at rest, solid brand-dark on hover (.cta-btn-primary:hover) */
+/* Pill CTA — blue gradient at rest, solid cta-blue-dark on hover; mirrors
+   .cta-btn-primary so the card's button matches every other CTA on the site. */
 const ctaStyle = (hover: boolean, disabled?: boolean): CSSProperties => ({
   display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: 53,
   padding: "0 28px", borderRadius: 9999, border: "1px solid transparent", fontFamily: "var(--font-sans)",
   fontSize: 16, fontWeight: 700, letterSpacing: ".32px", color: "#fff", cursor: disabled ? "not-allowed" : "pointer",
   opacity: disabled ? 0.5 : 1,
-  backgroundImage: hover && !disabled ? "none" : "linear-gradient(to right, var(--purple-primary), var(--purple-light))",
-  backgroundColor: hover && !disabled ? "var(--purple-dark)" : undefined,
+  backgroundImage: hover && !disabled ? "none" : "linear-gradient(to right, var(--cta-blue), var(--cta-blue-light))",
+  backgroundColor: hover && !disabled ? "var(--cta-blue-dark)" : undefined,
   transition: "background-color .18s ease, background-image .18s ease",
 })
 
@@ -354,7 +355,7 @@ function RegionFlag({ region }: { region: BookingRegion | null }) {
       {flag ? (
         <svg width={38} height={38} viewBox="0 0 60 60">{flag}</svg>
       ) : (
-        <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="var(--purple-primary)" strokeWidth="2" strokeLinecap="round">
+        <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="var(--cta-blue)" strokeWidth="2" strokeLinecap="round">
           <circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" />
           <path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" />
         </svg>
@@ -423,7 +424,7 @@ function Field({ label: l, name, type = "text", placeholder, value, onChange, er
         onBlur={() => setFocus(false)}
         style={{
           ...field,
-          borderColor: show ? ERROR_COLOR : focus ? "var(--purple-primary)" : "var(--color-border)",
+          borderColor: show ? ERROR_COLOR : focus ? "var(--cta-blue)" : "var(--color-border)",
           boxShadow: focus ? `0 0 0 3px ${show ? "rgba(226,68,92,.22)" : "rgba(186,131,240,.25)"}` : "none",
         }}
       />
@@ -827,7 +828,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 13, padding: "13px 15px", borderRadius: 14, background: "var(--color-brand-soft)", border: "1px solid var(--border-ui)" }}>
           <div style={{ width: 40, height: 42, borderRadius: 10, background: "#fff", border: "1px solid var(--border-ui)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: "none" }}>
-            <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: ".07em", color: "var(--purple-primary)" }}>{MON[dd.m - 1].toUpperCase()}</span>
+            <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: ".07em", color: "var(--cta-blue)" }}>{MON[dd.m - 1].toUpperCase()}</span>
             <span style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.1 }}>{dd.d}</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, minWidth: 0 }}>
@@ -836,7 +837,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             </span>
             <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>{duration} min · Google Meet · {tzLabel(tz)}</span>
           </div>
-          <button type="button" onClick={() => setStep(1)} style={{ flex: "none", height: 32, padding: "0 14px", borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 600, color: "var(--purple-primary)", cursor: "pointer" }}>
+          <button type="button" onClick={() => setStep(1)} style={{ flex: "none", height: 32, padding: "0 14px", borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 600, color: "var(--cta-blue)", cursor: "pointer" }}>
             Change
           </button>
         </div>
@@ -897,7 +898,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             </div>
           )}
 
-          <button type="button" onClick={() => setShowOptional((v) => !v)} style={{ alignSelf: "flex-start", background: "none", border: "none", padding: "2px 0", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, color: "var(--purple-primary)", cursor: "pointer" }}>
+          <button type="button" onClick={() => setShowOptional((v) => !v)} style={{ alignSelf: "flex-start", background: "none", border: "none", padding: "2px 0", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, color: "var(--cta-blue)", cursor: "pointer" }}>
             {showOptional
               ? "− Hide extra details"
               : askTeamSize ? "+ Add title, phone or team size (optional)" : "+ Add title or phone (optional)"}
@@ -918,7 +919,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               <button
                 type="button"
                 onClick={() => { setStep(1); setSlot(null); setSubmitError("") }}
-                style={{ background: "none", border: "none", padding: 0, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, color: "var(--purple-primary)", cursor: "pointer", textDecoration: "underline" }}
+                style={{ background: "none", border: "none", padding: 0, fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 600, color: "var(--cta-blue)", cursor: "pointer", textDecoration: "underline" }}
               >
                 Pick another time
               </button>
@@ -954,8 +955,11 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             </span>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        {/* On a phone these two pills are wider than the card, and `flex:none`
+            meant the timezone one was simply clipped by the card's overflow.
+            The mobile rule below lets each take half the row and shrink. */}
+        <div className="fr-booking-pickers" style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
+        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
           <select
             value={activeRegion ?? ""}
@@ -969,7 +973,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             ))}
           </select>
         </label>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
           <select value={tz} onChange={(e) => setTz(e.target.value)} style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}>
             {(TZS.some((x) => x[0] === tz) ? TZS : ([[tz, `${tzLabel(tz)} · detected`] as [string, string], ...TZS])).map(([v, l]) => (
@@ -1051,23 +1055,31 @@ export default function BookingSection({
   // adding or renaming an office is a single edit in Sanity.
   const officeStrapText = useOfficeStrap()
   return (
-    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,#8015e8 0%,#4b0d8f 42%,#10003a 100%)", padding: "84px 72px", overflow: "hidden" }}>
+    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 72px", overflow: "hidden" }}>
       {/* brand glow motif */}
       <div aria-hidden="true" style={{ position: "absolute", top: -160, right: -120, width: 620, height: 620, borderRadius: "50%", opacity: 0.5, mixBlendMode: "screen", pointerEvents: "none", background: "radial-gradient(circle, rgba(255,255,255,0.28), rgba(255,255,255,0))" }} />
 
-      <div style={{ position: "relative", maxWidth: 1276, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="fr-booking-grid">
-        <div>
-          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--purple-light)" }}>{eyebrow}</span>
-          <h2 style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 18px", textWrap: "pretty" }}>{heading}</h2>
+      {/* Three grid items, not two: on a phone the calendar slots between the
+          heading and the supporting copy, so someone who came here to book
+          reaches the first open slot without scrolling past the pitch. The
+          placement lives in the stylesheet below — desktop puts head and body
+          back in one column with the card alongside. */}
+      <div style={{ position: "relative", maxWidth: 1276, margin: "0 auto", alignItems: "start" }} className="fr-booking-grid">
+        <div className="fr-booking-head">
+          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow}</span>
+          <h2 style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading}</h2>
+        </div>
+
+        <div className="fr-booking-body">
           <p style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.78)", margin: 0, maxWidth: 460, textWrap: "pretty" }}>{sub}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 38 }}>
             <a href={`mailto:${email}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", color: "#fff", fontSize: 15, fontWeight: 500 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta-blue-pale)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
               {email}
             </a>
             <span style={{ display: "flex", alignItems: "center", gap: 12, color: "#fff", fontSize: 15, fontWeight: 500 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta-blue-pale)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z" /></svg>
               {offices ?? officeStrapText}
             </span>
           </div>
@@ -1086,7 +1098,7 @@ export default function BookingSection({
         {/* No padding here — each step sets its own, because the Calendly
             step is flush to the card edge while the picker and form are inset.
             overflow:hidden keeps the flush iframe inside the rounded corners. */}
-        <div style={{ background: "#fff", borderRadius: 24, boxShadow: "0 34px 70px -26px rgba(8,0,32,.65)", overflow: "hidden", minHeight: 474 }}>
+        <div className="fr-booking-card" style={{ background: "#fff", borderRadius: 24, boxShadow: "0 34px 70px -26px rgba(4,12,40,.6)", overflow: "hidden", minHeight: 474 }}>
           {mode === "consultant" ? (
             <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} forceRegion={forceRegion} />
           ) : (
@@ -1098,16 +1110,43 @@ export default function BookingSection({
         </div>
       </div>
 
-      {/* stack on mobile */}
+      {/* Layout: one column with the card between heading and copy by default,
+          two columns with the card alongside from 961px up. */}
       <style>{`
+        .fr-booking-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .fr-booking-head { order: 1; }
+        .fr-booking-card { order: 2; }
+        .fr-booking-body { order: 3; }
+
         @media (max-width: 960px) {
           .fr-booking-section { padding: 64px 20px !important; }
-          .fr-booking-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .fr-booking-grid h2 { font-size: 34px !important; }
+        }
+        @media (min-width: 961px) {
+          .fr-booking-grid {
+            grid-template-columns: 1fr 1fr;
+            /* auto 1fr, not auto auto: the card spans both rows and is much
+               taller than the copy, and a pair of auto rows would share that
+               excess out — pushing the sub-heading a screen away from the
+               heading. The 1fr row absorbs all of it instead. */
+            grid-template-rows: auto 1fr;
+            column-gap: 80px;
+            row-gap: 18px;
+          }
+          .fr-booking-head { grid-column: 1; grid-row: 1; }
+          .fr-booking-body { grid-column: 1; grid-row: 2; }
+          .fr-booking-card { grid-column: 2; grid-row: 1 / span 2; }
         }
         @media (max-width: 560px) {
           .fr-booking-pad { padding: 20px !important; }
           .fr-booking-card-grid { grid-template-columns: 1fr !important; }
+          .fr-booking-pickers { width: 100%; gap: 8px; }
+          .fr-booking-picker { flex: 1 1 0 !important; min-width: 0; }
+          .fr-booking-picker select { min-width: 0; width: 100%; }
           .fr-booking-times {
             padding-left: 0 !important;
             border-left: none !important;

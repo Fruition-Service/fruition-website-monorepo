@@ -22,15 +22,22 @@
   --text-dark: #242323;
   --blue-press: #4674fb;
 
-  /* Booking CTA blue: the nav "Book a Time" consult pill only. Anchored on
-     #1E40AF at the left stop, per Josh Jebathilak's 2026-08-29 brief (blue
-     CTAs convert better). Deliberately kept off the brand ramp so the rest of
-     the voltage-purple system is untouched. Both stops clear 4.5:1 against
-     white text (8.7:1 and 5.2:1), where the purple ramp it replaces fell to
-     2.8:1 at the lilac stop. */
+  /* CTA blue. Started as the nav "Book a Time" pill only, anchored on #1E40AF
+     per Josh Jebathilak's 2026-08-29 brief (blue CTAs convert better); since
+     2026-09-16 it carries every call-to-action button site-wide and the whole
+     booking band. Deliberately off the brand ramp, so the voltage-purple system
+     still owns headings, links and section washes — blue means "act here".
+     Both button stops clear 4.5:1 against white text (8.7:1 and 5.2:1), where
+     the purple ramp they replaced fell to 2.8:1 at the lilac stop. */
   --cta-blue: #1e40af;
   --cta-blue-light: #2563eb;
   --cta-blue-dark: #142b75;
+  /* Tint behind a selected day or time chip in the booking card. */
+  --cta-blue-soft: #eef3fe;
+  /* On the dark band: eyebrow text and icon strokes — 7.1:1 on --cta-blue-deep. */
+  --cta-blue-pale: #93b4fd;
+  /* Far end of the booking band's gradient, the navy the purple one landed on. */
+  --cta-blue-deep: #0a1638;
 
   /* New primitives */
   --color-text-secondary: #686b82;
@@ -85,10 +92,13 @@
   --color-brand-dark: var(--purple-dark);
   --color-brand-soft: var(--purple-soft);
 
-  /* Booking CTA blue → from-cta-blue, to-cta-blue-light, bg-cta-blue-dark */
+  /* CTA blue → from-cta-blue, to-cta-blue-light, bg-cta-blue-dark */
   --color-cta-blue: var(--cta-blue);
   --color-cta-blue-light: var(--cta-blue-light);
   --color-cta-blue-dark: var(--cta-blue-dark);
+  --color-cta-blue-soft: var(--cta-blue-soft);
+  --color-cta-blue-pale: var(--cta-blue-pale);
+  --color-cta-blue-deep: var(--cta-blue-deep);
 
   --color-surface-dark: var(--dark-bg);
   --color-surface-dark-2: var(--dark-bg-secondary);
@@ -362,23 +372,23 @@
   }
 
   .ui-cta-btn-primary {
-    color: var(--purple-primary);
+    color: var(--cta-blue);
     background: #fff;
   }
 
   .ui-cta-btn-primary:hover {
     color: #fff;
-    background: var(--purple-dark);
+    background: var(--cta-blue-dark);
   }
 
   .ui-cta-btn-secondary {
     color: #fff;
-    background: linear-gradient(to right, #8015e8, #ba83f0);
+    background: linear-gradient(to right, var(--cta-blue), var(--cta-blue-light));
   }
 
   .ui-cta-btn-secondary:hover {
     color: #fff;
-    background: var(--purple-dark);
+    background: var(--cta-blue-dark);
   }
 
   @media (max-width: 767px) {
@@ -556,7 +566,10 @@ body {
 
 /* ============================================================ */
 /* CTA Button — unified outline + primary variants               */
-/* Auto-prepended icon, vertical-center label, blue hover state. */
+/* Auto-prepended icon, vertical-center label. Every variant is  */
+/* on the --cta-blue ramp: a call to action is the one thing on  */
+/* a Fruition page that is not purple, which is what makes it    */
+/* read as the button rather than as more brand.                 */
 /* ============================================================ */
 @layer components {
   .cta-btn {
@@ -595,20 +608,20 @@ body {
 
   .cta-btn-outline {
     background-color: #ffffff;
-    color: var(--purple-primary);
-    border: 1px solid var(--purple-primary);
+    color: var(--cta-blue);
+    border: 1px solid var(--cta-blue);
   }
 
   .cta-btn-primary {
-    background-image: linear-gradient(to right, var(--purple-primary), var(--purple-light));
+    background-image: linear-gradient(to right, var(--cta-blue), var(--cta-blue-light));
     color: #ffffff;
     border: 1px solid transparent;
   }
 
-  /* On dark backgrounds — primary CTA: white pill, purple text */
+  /* On dark backgrounds — primary CTA: white pill, blue text */
   .cta-btn-on-dark-primary {
     background-color: #ffffff;
-    color: var(--purple-primary);
+    color: var(--cta-blue);
     border: 1px solid transparent;
   }
 
@@ -619,25 +632,25 @@ body {
     border: 1px solid #ffffff;
   }
 
-  /* Hover stays in the purple family (DESIGN.md); slight lift for feedback */
+  /* Hover deepens within the blue ramp; slight lift for feedback */
   .cta-btn:hover {
     transform: translateY(-1px);
   }
 
   .cta-btn-primary:hover {
     background-image: none;
-    background-color: var(--purple-dark);
+    background-color: var(--cta-blue-dark);
   }
 
   .cta-btn-outline:hover {
-    background-color: var(--purple-primary);
+    background-color: var(--cta-blue);
     color: #ffffff;
-    border-color: var(--purple-primary);
+    border-color: var(--cta-blue);
   }
 
   .cta-btn-on-dark-primary:hover {
-    color: var(--purple-dark);
-    box-shadow: 0 6px 20px rgba(16, 0, 58, 0.25);
+    color: var(--cta-blue-dark);
+    box-shadow: 0 6px 20px rgba(10, 22, 56, 0.25);
   }
 
   .cta-btn-on-dark-outline:hover {
@@ -1312,5 +1325,62 @@ body {
   [class*="home-anim"],
   .home-quote-track > * {
     animation: none !important;
+  }
+}
+
+/* ============================================================ */
+/* Client logo band (sections/ClientLogoWall, below md).         */
+/* The wall is a grid from md up. On a phone three tiles across  */
+/* turns 25 logos into nine rows of thumb-work, so the same set  */
+/* runs as one self-scrolling band instead. The track holds two  */
+/* copies of the run and slides by exactly half its width, so    */
+/* the loop is seamless; the band stays swipeable, holds still   */
+/* under a finger, and does not animate at all when the reader   */
+/* has asked for reduced motion.                                 */
+/* ============================================================ */
+.fr-logo-band {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* Feather both ends so tiles enter and leave rather than being cut off. */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent
+  );
+}
+
+.fr-logo-band::-webkit-scrollbar {
+  display: none;
+}
+
+.fr-logo-band-track {
+  display: flex;
+  width: max-content;
+  animation: fr-logo-band-slide 38s linear infinite;
+}
+
+.fr-logo-band-run {
+  display: flex;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.fr-logo-band:hover .fr-logo-band-track,
+.fr-logo-band:focus-within .fr-logo-band-track {
+  animation-play-state: paused;
+}
+
+@keyframes fr-logo-band-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-logo-band-track {
+    animation: none;
   }
 }
