@@ -45,7 +45,7 @@ export default function PlatformsCertified() {
             <span className="h-10 w-px bg-[#e4dcf8]" />
             <span className="flex flex-col">
               <span className="text-3xl leading-[1.15] font-semibold tracking-[-0.02em] text-brand">
-                800+
+                900+
               </span>
               <span className="text-[13px] text-muted">implementations</span>
             </span>

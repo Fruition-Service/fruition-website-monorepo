@@ -58,7 +58,7 @@ export interface StatCard {
 }
 
 export const STATS: StatCard[] = [
-  { icon: "check", value: "800+", label: "implementations delivered" },
+  { icon: "check", value: "900+", label: "implementations delivered" },
   { icon: "globe", value: "6", label: "markets · 3 entities" },
   { icon: "clock", value: "<24m", label: "Authorised → Platinum" },
   { icon: "trophy", value: "2026", label: "Rising Star winner" },

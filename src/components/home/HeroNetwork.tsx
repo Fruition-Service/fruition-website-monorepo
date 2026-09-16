@@ -83,7 +83,7 @@ export default function HeroNetwork({ bookingHref }: Props) {
               className="h-[42px] w-auto"
             />
             <span className="h-[30px] w-px bg-ui" />
-            <span className="text-caption text-muted">800+ implementations · 6 markets</span>
+            <span className="text-caption text-muted">900+ implementations · 6 markets</span>
           </div>
         </div>
 

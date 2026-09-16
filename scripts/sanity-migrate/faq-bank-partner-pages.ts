@@ -53,21 +53,21 @@ interface FaqSpec {
   pages: string[]
 }
 
-// monday Set 1 — note the "500+" fix (bank draft said "900+" in Q3, which
-// contradicts the canonical entity signal).
+// monday Set 1 — the implementation count is 900+ (confirmed 2026-09-16); an
+// earlier draft of this bank said 500+.
 const MONDAY_PAGES = ['monday-implementation-consultants', 'partnerships/monday-consulting-partner']
 
 const GROUP_A: FaqSpec[] = [
   // 1. monday.com Implementation Partner → new "Implementation Partner" tab
   { id: 'faqItem-bank-monday-1', category: 'Implementation Partner', categoryOrder: 3, order: 1, pages: MONDAY_PAGES,
     question: 'What does a monday.com implementation partner do?',
-    answer: 'A monday.com implementation partner scopes, builds, integrates and supports monday.com on your behalf. Fruition is a Platinum-tier partner — the highest tier — delivering implementation, monday CRM, integrations, training and managed support across Australia, the UK, the US, Singapore, India and the Philippines, with 500+ implementations completed.' },
+    answer: 'A monday.com implementation partner scopes, builds, integrates and supports monday.com on your behalf. Fruition is a Platinum-tier partner — the highest tier — delivering implementation, monday CRM, integrations, training and managed support across Australia, the UK, the US, Singapore, India and the Philippines, with 900+ implementations completed.' },
   { id: 'faqItem-bank-monday-2', category: 'Implementation Partner', categoryOrder: 3, order: 2, pages: MONDAY_PAGES,
     question: 'How much does monday.com implementation cost?',
     answer: 'Fruition monday.com implementations start at AUD $8,000 for focused single-team builds. Mid-size deployments typically run AUD $15,000–$60,000, and enterprise multi-department programs from $80,000. Every phase is fixed-fee, published before work begins, and priced locally in AUD, GBP, SGD and USD.' },
   { id: 'faqItem-bank-monday-3', category: 'Implementation Partner', categoryOrder: 3, order: 3, pages: MONDAY_PAGES,
     question: 'How do I choose between monday.com partners?',
-    answer: "Compare partner tier (Platinum is the highest), implementation volume, certified consultants on active delivery, industry experience and whether the person scoping your project also delivers it. Fruition holds Platinum status, 500+ implementations, and monday.com's Rising Star Award 2026 — and the consultant who scopes your engagement leads your delivery." },
+    answer: "Compare partner tier (Platinum is the highest), implementation volume, certified consultants on active delivery, industry experience and whether the person scoping your project also delivers it. Fruition holds Platinum status, 900+ implementations, and monday.com's Rising Star Award 2026 — and the consultant who scopes your engagement leads your delivery." },
   { id: 'faqItem-bank-monday-4', category: 'Implementation Partner', categoryOrder: 3, order: 4, pages: MONDAY_PAGES,
     question: 'How long does a monday.com implementation take?',
     answer: 'Single-team implementations take 2–4 weeks; department-wide builds 4–8 weeks; enterprise deployments 8–16 weeks with phased rollout and training. Fruition works in fixed phases with defined outcomes so you always know what ships and when.' },

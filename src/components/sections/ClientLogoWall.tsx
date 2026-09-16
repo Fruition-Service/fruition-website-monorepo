@@ -8,7 +8,7 @@ interface ClientLogoWallProps {
   /** How many tiles to draw. The counter cell, when set, is extra. */
   maxTiles?: number
   /**
-   * Fills the cell after the last logo — the homepage uses it for "800+ more".
+   * Fills the cell after the last logo — the homepage uses it for "900+ more".
    * Omitted on the industry walls, which are a sample rather than a tally.
    */
   counterLabel?: string
@@ -18,7 +18,7 @@ interface ClientLogoWallProps {
 /**
  * The client logo wall: a dense grid of tiles on the site's mist surface.
  *
- * Shared by the homepage (5×5 with the "800+ more" counter) and every industry
+ * Shared by the homepage (5×5 with the "900+ more" counter) and every industry
  * page (2×5, drawn from that industry's own set). A tile whose entry carries a
  * `clientSlug` links into the solutions catalog, which expands its builds index
  * and highlights that client.
