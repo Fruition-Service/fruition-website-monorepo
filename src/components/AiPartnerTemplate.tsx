@@ -470,8 +470,10 @@ const CSS = `
   padding: 14px 26px; font-size: 14px; font-weight: 600;
   text-decoration: none; border-radius: 9999px; transition: all .2s; cursor: pointer;
 }
-.aipartner .btn-primary { background: linear-gradient(to right, var(--purple), var(--purple-light)); color: #fff; box-shadow: 0 6px 20px rgba(128,21,232,0.25); }
-.aipartner .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(128,21,232,0.35); }
+/* On the site-wide CTA blue, like .cta-btn-primary — these pages carry their
+   own button classes and were the last purple CTAs left. */
+.aipartner .btn-primary { background: linear-gradient(to right, var(--cta-blue), var(--cta-blue-light)); color: #fff; box-shadow: 0 6px 20px rgba(30,64,175,0.25); }
+.aipartner .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(30,64,175,0.35); }
 .aipartner .btn-secondary { border: 1px solid var(--rule); color: var(--ink); background: var(--surface-raised); }
 .aipartner .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -630,6 +632,23 @@ const CSS = `
 @media (max-width: 767px) {
   .aipartner .hero-grid, .aipartner .cap-grid, .aipartner .showcase-grid, .aipartner .process-grid,
   .aipartner .case-grid, .aipartner .geo-grid, .aipartner .operator { grid-template-columns: 1fr; }
+
+  /* A grid item's default min-width is auto, so the monospace log panel —
+     whose lines never wrap — set a min-content width well over 390px and
+     stretched the single column with it. The heading, lead and CTA row are
+     siblings in that column, so all three were silently clipped by the page's
+     overflow: the hero read as half a sentence on every one of these pages.
+     Letting the items shrink, and giving the log its own scroller, keeps the
+     copy inside the screen. */
+  .aipartner .hero-grid > *,
+  .aipartner .cap-grid > *,
+  .aipartner .showcase-grid > *,
+  .aipartner .process-grid > *,
+  .aipartner .case-grid > *,
+  .aipartner .geo-grid > * { min-width: 0; }
+  .aipartner .hero-log, .aipartner .hero-code { overflow-x: auto; }
+  .aipartner .hero-h1, .aipartner .hero-lead { overflow-wrap: break-word; }
+  .aipartner .cta-row .btn { flex: 1 1 100%; justify-content: center; }
   .aipartner .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .aipartner .stat { border-right: none; padding: 28px 0; }
   .aipartner .compare-row { grid-template-columns: 1fr; }
