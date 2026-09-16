@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest"
 import type { TeamMember } from "@/components/TeamGridSection"
 import { REGION_PAGES } from "@/data/regionPages"
 import {
-  REGION_PAGE_ONLY,
+  REGION_PAGES_ONLY,
+  allowedRegionPages,
   filterTeamForRegionPage,
   mergeTeamMembers,
 } from "@/lib/mergeTeamMembers"
@@ -38,11 +39,38 @@ describe("mergeTeamMembers", () => {
   })
 })
 
+describe("allowedRegionPages", () => {
+  it("returns null for anyone unpinned", () => {
+    expect(allowedRegionPages(member("Nikki Glucksman", { regions: ["APAC"] }))).toBeNull()
+  })
+
+  it("reads the Sanity property when there is no code-level pin", () => {
+    const pinned = member("Ada Lovelace", {
+      regionPagesOnly: ["monday-partner-uk"],
+    })
+    expect(allowedRegionPages(pinned)).toEqual(["monday-partner-uk"])
+  })
+
+  it("treats an empty Sanity property as no restriction", () => {
+    expect(allowedRegionPages(member("Ada Lovelace", { regionPagesOnly: [] }))).toBeNull()
+  })
+
+  // The code-level pin is the backstop. Clearing the field in Studio, reseeding
+  // the doc from monday, or restoring a backup must not widen it.
+  it("ignores the Sanity property when a code-level pin exists", () => {
+    const widened = { ...JOSH, regionPagesOnly: REGION_SLUGS }
+    expect(allowedRegionPages(widened)).toEqual(["monday-partner-australia"])
+    expect(allowedRegionPages({ ...JOSH, regionPagesOnly: [] })).toEqual([
+      "monday-partner-australia",
+    ])
+  })
+})
+
 describe("filterTeamForRegionPage", () => {
-  // The regression this file exists for: Josh was restricted to the Australia
-  // page in #160, the six region pages were rebuilt in #215, and the rule went
-  // with them. Driving the assertion off REGION_PAGES covers any region page
-  // added later without touching this test.
+  // The regression this file exists for: Josh was pinned to Australia in #160,
+  // the six region pages were rebuilt in #215, and the pin went with them.
+  // Driving the assertion off REGION_PAGES covers any region page added later
+  // without touching this test.
   it("shows Josh on the Australia region page only", () => {
     const shownOn = REGION_SLUGS.filter(
       (slug) => filterTeamForRegionPage([JOSH], slug).length > 0,
@@ -50,18 +78,25 @@ describe("filterTeamForRegionPage", () => {
     expect(shownOn).toEqual(["monday-partner-australia"])
   })
 
-  it("leaves unrestricted members on every region page", () => {
+  // The safety direction that matters: a grid wired up without a slug must
+  // under-show, never put a pinned person back on every region page.
+  it("fails closed when the page slug is missing", () => {
+    expect(filterTeamForRegionPage([JOSH], undefined)).toEqual([])
+  })
+
+  it("leaves unrestricted members on every region page, and with no slug", () => {
     const nikki = member("Nikki Glucksman", { regions: ["APAC", "UK"] })
-    for (const slug of REGION_SLUGS) {
+    for (const slug of [...REGION_SLUGS, undefined]) {
       expect(filterTeamForRegionPage([nikki], slug).map((m) => m.name)).toEqual([
         "Nikki Glucksman",
       ])
     }
   })
 
-  it("points every restriction at a region page that actually exists", () => {
-    for (const slug of Object.values(REGION_PAGE_ONLY)) {
-      expect(REGION_SLUGS).toContain(slug)
+  it("points every code-level pin at region pages that actually exist", () => {
+    for (const slugs of Object.values(REGION_PAGES_ONLY)) {
+      expect(slugs.length).toBeGreaterThan(0)
+      for (const slug of slugs) expect(REGION_SLUGS).toContain(slug)
     }
   })
 })

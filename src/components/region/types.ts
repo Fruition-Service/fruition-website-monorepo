@@ -69,9 +69,24 @@ export interface RegionLocalBusiness {
   areaServedCountries: string[]
 }
 
+/**
+ * The six region pages, as a closed set.
+ *
+ * Canonical here rather than derived from REGION_PAGES so that `RegionContent`
+ * can type its own slug, and so anything keyed by region page (team-grid pins,
+ * for one) is a compile error when it names a page that doesn't exist.
+ */
+export type RegionSlug =
+  | "monday-partner-australia"
+  | "monday-partner-uk"
+  | "monday-partner-us"
+  | "monday-partner-singapore"
+  | "monday-partner-india"
+  | "monday-partner-philippines"
+
 export interface RegionContent {
   /** Sanity `locationPage` slug this content belongs to. */
-  slug: string
+  slug: RegionSlug
   country: string
   /**
    * Which team members the grid shows — the Sanity teamMember tag vocabulary.

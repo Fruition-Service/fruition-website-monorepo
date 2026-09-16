@@ -1,4 +1,5 @@
 import type { TeamMember } from "@/components/TeamGridSection"
+import type { RegionSlug } from "@/components/region/types"
 
 function normName(s?: string): string {
   return (s ?? "")
@@ -34,46 +35,78 @@ export function mergeTeamMembers(
   return sanityMembers.filter((m) => !excluded.has(normName(m.name)))
 }
 
+/* ------------------------------------------------------------------ */
+/*  Region-page visibility                                             */
+/* ------------------------------------------------------------------ */
+
 /**
- * People who belong on exactly ONE region page, even though their Sanity
- * `regions` legitimately cover more.
+ * Which region pages a person may appear on.
  *
- * Josh's teamMember doc carries every region (APAC, UK, US, IN, SG, PH)
- * because he leads delivery globally and belongs on /fruition-team — but the
- * /monday-partner-* pages are meant to introduce the local team, so he shows
- * on Australia only. Region codes can't express that on their own: Australia,
- * Singapore and the Philippines all read the same "APAC" code, so narrowing
- * his regions in Studio would take him off Australia too.
+ * This is a PROPERTY of the team member, not a per-page exception. It is read
+ * from their Sanity `regionPagesOnly` field, with the code-level map below as a
+ * backstop that Studio cannot override.
  *
- * This rule lives here and is applied inside `RegionPageTemplate` — the one
- * component all six region pages render through. An earlier version of it was
- * written into three individual page.tsx files (#160) and was silently lost
- * when those pages were rebuilt (#215), putting Josh back on all six. Keeping
- * it on the shared path is what stops that recurring, and
- * `mergeTeamMembers.test.ts` fails the CI test job if the rule goes missing.
+ * It exists because `regions` cannot express it. Australia, Singapore and the
+ * Philippines all read the same "APAC" code, so narrowing someone's regions to
+ * keep them off Singapore takes them off Australia too.
  *
- * Map: team member name -> the single region page slug they may appear on.
+ * Semantics:
+ *   undefined / empty  -> no restriction; the `regions` codes decide, as before
+ *   ["slug", ...]      -> this person appears on those region pages and nowhere
+ *                         else, whatever their `regions` say
+ *
+ * Josh is the standing case: his doc carries every region (APAC, UK, US, IN,
+ * SG, PH) because he leads delivery globally and belongs on /fruition-team,
+ * but the /monday-partner-* pages introduce the local team, so he is Australia
+ * only.
+ *
+ * The history is why this is hardcoded as well as stored. #160 excluded him by
+ * name inside three individual page.tsx files; #215 rebuilt those pages and the
+ * rule vanished silently, putting him back on all six. #222 moved it onto the
+ * shared render path. This keeps a copy in code so that clearing the Sanity
+ * field, reseeding the doc from monday, or restoring a backup cannot put him
+ * back either.
  */
-export const REGION_PAGE_ONLY: Record<string, string> = {
-  "Josh Jebathilak": "monday-partner-australia",
+export const REGION_PAGES_ONLY: Record<string, RegionSlug[]> = {
+  "Josh Jebathilak": ["monday-partner-australia"],
 }
 
-const REGION_PAGE_ONLY_BY_NORM_NAME = new Map(
-  Object.entries(REGION_PAGE_ONLY).map(([name, slug]) => [normName(name), slug]),
+const REGION_PAGES_ONLY_BY_NORM_NAME = new Map(
+  Object.entries(REGION_PAGES_ONLY).map(([name, slugs]) => [normName(name), slugs]),
 )
+
+/**
+ * The region pages this member is allowed on, or `null` when unrestricted.
+ *
+ * The code map wins over the Sanity field: a restriction here cannot be
+ * loosened or widened from Studio, only added to by editors for other people.
+ */
+export function allowedRegionPages(member: TeamMember): readonly string[] | null {
+  const hardcoded = REGION_PAGES_ONLY_BY_NORM_NAME.get(normName(member.name))
+  if (hardcoded) return hardcoded
+  const fromSanity = member.regionPagesOnly
+  if (Array.isArray(fromSanity) && fromSanity.length > 0) return fromSanity
+  return null
+}
 
 /**
  * Drop anyone restricted to a region page other than the one rendering.
  *
- * `pageSlug` is the region page's own slug, e.g. "monday-partner-singapore".
+ * FAILS CLOSED. `pageSlug` is the region page's own slug, e.g.
+ * "monday-partner-singapore"; pass `undefined` and every restricted member is
+ * dropped. That direction is deliberate — a grid wired up without a slug hides
+ * a restricted person rather than exposing them, so the accident that keeps
+ * happening (a page rebuild losing the wiring) can only ever under-show.
+ *
  * Members with no restriction pass through untouched.
  */
 export function filterTeamForRegionPage(
   members: TeamMember[],
-  pageSlug: string,
+  pageSlug: string | undefined,
 ): TeamMember[] {
   return members.filter((m) => {
-    const onlyOn = REGION_PAGE_ONLY_BY_NORM_NAME.get(normName(m.name))
-    return onlyOn === undefined || onlyOn === pageSlug
+    const allowed = allowedRegionPages(m)
+    if (allowed === null) return true
+    return pageSlug !== undefined && allowed.includes(pageSlug)
   })
 }
