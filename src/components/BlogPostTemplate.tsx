@@ -6,7 +6,7 @@ import { PortableText } from "@portabletext/react"
 import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { urlFor } from "@/sanity/image"
+import { articleImageProps, urlFor } from "@/sanity/image"
 import { authorSlug } from "@/sanity/authorSlug"
 import { parseInlineMarkdown } from "@/lib/inlineMarkdown"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
@@ -240,18 +240,18 @@ const blogPortableTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset?._ref) return null
-      const src = urlFor(value).auto("format").quality(90).url()
+      const img = articleImageProps(value)
       return (
         <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
           <div className="relative w-full overflow-hidden">
             <Image
-              src={src}
+              src={img.src}
               alt={value.alt || ""}
-              width={740}
-              height={416}
+              width={img.width}
+              height={img.height}
               quality={90}
-              className="w-full h-auto"
-              sizes="(max-width: 924px) 100vw, 740px"
+              className={img.fillsColumn ? "w-full h-auto" : "h-auto max-w-full"}
+              sizes={img.sizes}
             />
           </div>
           {value.caption && (
@@ -474,19 +474,19 @@ function CoverFigure({
   alt: string
 }) {
   if (!image?.asset?._ref) return null
-  const src = urlFor(image).auto("format").quality(90).url()
+  const img = articleImageProps(image)
   return (
     <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
       <div className="relative w-full overflow-hidden">
         <Image
-          src={src}
+          src={img.src}
           alt={alt}
-          width={740}
-          height={416}
+          width={img.width}
+          height={img.height}
           priority
           quality={90}
-          className="w-full h-auto"
-          sizes="(max-width: 924px) 100vw, 740px"
+          className={img.fillsColumn ? "w-full h-auto" : "h-auto max-w-full"}
+          sizes={img.sizes}
         />
       </div>
     </figure>

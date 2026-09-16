@@ -276,6 +276,10 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // Next 16 defaults this to [75] and silently coerces anything else to the
+    // nearest allowed value — so the blog's `quality={90}` was being served at
+    // 75. 90 is what the article images ask for; 75 stays for everything else.
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: "https",
