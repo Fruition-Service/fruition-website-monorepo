@@ -11,6 +11,7 @@ import { PlatformNameIcon } from "@/components/internal/SocialIcons"
 import { Button } from "@/components/ui/button"
 import PageHeader from "@/components/internal/PageHeader"
 import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
@@ -32,6 +33,14 @@ const PLATFORM_FILTERS = [
   { key: "pinterest", label: "Pinterest" },
   { key: "reddit", label: "Reddit" },
 ] as const
+
+type Tab = "queue" | "posts" | "performance"
+
+const TABS: { key: Tab; label: string }[] = [
+  { key: "queue", label: "Queue" },
+  { key: "posts", label: "All posts" },
+  { key: "performance", label: "Performance" },
+]
 
 const STATUS_FILTERS = ["all", "published", "draft", "scheduled", "publishing", "failed", "cancelled"] as const
 type StatusFilter = (typeof STATUS_FILTERS)[number]
@@ -121,7 +130,7 @@ function metricLine(m: PostAnalytics): string | null {
 }
 
 export default function SocialDashboard() {
-  const [tab, setTab] = useState<"posts" | "performance">("posts")
+  const [tab, setTab] = useState<Tab>("queue")
   const [rows, setRows] = useState<SocialRow[] | null>(null)
   const [compositions, setCompositions] = useState<Composition[]>([])
   const [analytics, setAnalytics] = useState<{ overview: AnalyticsOverview; rows: AnalyticsRow[] } | null>(null)
@@ -237,6 +246,38 @@ export default function SocialDashboard() {
       })
       .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
   }, [rows, compositions, metricsByPost, search, platform, status, source])
+
+  /**
+   * The queue: what is genuinely still waiting, what only looks like it, and
+   * what was generated and then abandoned.
+   *
+   * A composition caches a status per row and only refreshes it when someone
+   * opens the composer, so a post Zernio published days ago can still read
+   * "scheduled" here. Those are separated out rather than counted as waiting.
+   */
+  const queue = useMemo(() => {
+    const now = Date.now()
+    const scheduled = compositions.filter((c) => c.scheduledFor)
+    const upcoming = scheduled
+      .filter((c) => Date.parse(c.scheduledFor as string) >= now)
+      .sort((a, b) => (a.scheduledFor ?? "").localeCompare(b.scheduledFor ?? ""))
+    const overdue = scheduled.filter(
+      (c) => Date.parse(c.scheduledFor as string) < now && c.status === "scheduled"
+    )
+
+    const neverSent = (rows ?? []).filter((r) => r.status === "draft")
+    const byPlatform = new Map<string, number>()
+    for (const r of neverSent) {
+      for (const p of r.platforms) {
+        byPlatform.set(p.platform, (byPlatform.get(p.platform) ?? 0) + 1)
+      }
+    }
+    const backlog = [...byPlatform.entries()]
+      .map(([platform, count]) => ({ platform, count }))
+      .sort((a, b) => b.count - a.count)
+
+    return { upcoming, overdue, neverSent: neverSent.length, backlog }
+  }, [compositions, rows])
 
   const performance = useMemo(() => {
     const list = [...(analytics?.rows ?? [])]
@@ -361,32 +402,31 @@ export default function SocialDashboard() {
         }
       />
 
-      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-border">
-        {(["posts", "performance"] as const).map((t) => (
-          <button
-            key={t}
-            type="button"
-            onClick={() => setTab(t)}
-            aria-current={tab === t}
-            className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition ${
-              tab === t
-                ? "border-primary text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {t === "posts" ? "Posts" : "Performance"}
-          </button>
-        ))}
-      </div>
+      <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)} className="mb-4">
+        <TabsList>
+          {TABS.map((t) => (
+            <TabsTrigger key={t.key} value={t.key}>
+              {t.label}
+              {t.key === "queue" && queue.upcoming.length > 0 ? (
+                <Badge variant="secondary" className="ml-1.5">
+                  {queue.upcoming.length}
+                </Badge>
+              ) : null}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder={tab === "posts" ? "Search captions, titles, blogs, accounts…" : "Search published captions…"}
-        className={`${inputClass} mb-3`}
-      />
+      {tab !== "queue" && (
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={tab === "posts" ? "Search captions, titles, blogs, accounts…" : "Search published captions…"}
+          className={`${inputClass} mb-3`}
+        />
+      )}
 
-      <div className="mb-5 flex flex-wrap items-center gap-2">
+      <div className={tab === "queue" ? "hidden" : "mb-5 flex flex-wrap items-center gap-2"}>
         {PLATFORM_FILTERS.map((p) => {
           const on = platform === p.key
           return (
@@ -442,7 +482,9 @@ export default function SocialDashboard() {
       )}
       {notice && <p className="mb-4 rounded-md bg-primary/10 px-3 py-2 text-sm text-primary">{notice}</p>}
 
-      {tab === "posts" ? (
+      {tab === "queue" ? (
+        <QueueList queue={queue} loaded={rows !== null} />
+      ) : tab === "posts" ? (
         <PostsList
           loaded={rows !== null}
           feed={feed}
@@ -459,6 +501,157 @@ export default function SocialDashboard() {
       )}
     </div>
   )
+}
+
+/** What is going out, what is stuck, and what was generated and forgotten. */
+function QueueList({
+  queue,
+  loaded,
+}: {
+  queue: {
+    upcoming: Composition[]
+    overdue: Composition[]
+    neverSent: number
+    backlog: { platform: string; count: number }[]
+  }
+  loaded: boolean
+}) {
+  if (!loaded) {
+    return (
+      <ul className="space-y-3">
+        {[0, 1, 2].map((i) => (
+          <li key={i} className="h-24 animate-pulse rounded-lg border border-border bg-muted/50" />
+        ))}
+      </ul>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {queue.overdue.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-muted/40 p-4">
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-foreground">
+              {queue.overdue.length} sent post{queue.overdue.length === 1 ? " is" : "s are"} still
+              listed here as scheduled
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Zernio published them. Each row caches its own status and only refreshes when the
+              composer is opened, so the send time has passed but the label has not caught up.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <section>
+        <h2 className="mb-2 text-sm font-semibold text-foreground">Going out next</h2>
+        {queue.upcoming.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-border p-10 text-center">
+            <p className="text-sm font-medium text-foreground">Nothing is scheduled</p>
+            <p className="mx-auto mt-1 max-w-md text-xs text-muted-foreground">
+              Write one with <span className="font-medium text-foreground">New post</span>, or
+              generate them from a blog on its Social tab.
+            </p>
+          </div>
+        ) : (
+          <ul className="space-y-3">
+            {queue.upcoming.map((c) => {
+              const channels = Object.keys(c.platforms ?? {})
+              return (
+                <li
+                  key={c.id}
+                  className="relative flex min-w-0 gap-4 rounded-lg border border-border p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-within:border-primary/40"
+                >
+                  <div className="w-28 shrink-0">
+                    <p className="font-mono text-xs font-medium text-primary tabular-nums">
+                      {c.scheduledFor ? whenLabel(c.scheduledFor) : "Unscheduled"}
+                    </p>
+                    <p className="mt-0.5 font-mono text-[11px] text-muted-foreground tabular-nums">
+                      {c.scheduledFor
+                        ? new Date(c.scheduledFor).toLocaleDateString(undefined, {
+                            day: "numeric",
+                            month: "short",
+                          })
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <Link
+                      href={`/internal/social/${c.id}`}
+                      className="text-sm font-semibold text-foreground underline-offset-2 after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:underline"
+                    >
+                      {c.title}
+                    </Link>
+                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                      {/* A composition written per channel has no master copy,
+                          so fall back to the first channel that has any. */}
+                      {(
+                        c.masterContent ||
+                        Object.values(c.platforms ?? {}).find((p) => p?.content)?.content ||
+                        "No copy yet"
+                      ).replace(/\n+/g, " ")}
+                    </p>
+                    <ul className="mt-2 flex flex-wrap gap-1.5">
+                      {channels.map((key) => (
+                        <li
+                          key={key}
+                          className="flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-[11px] text-muted-foreground"
+                        >
+                          <PlatformNameIcon name={zernioPlatformOf(key)} size={12} />
+                          {PLATFORM_LABELS[zernioPlatformOf(key)] ?? key}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </section>
+
+      {queue.neverSent > 0 && (
+        <section className="rounded-lg border border-border p-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground">
+                {nf.format(queue.neverSent)} platform drafts have never been sent
+              </p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Generated from blog posts, one per channel, then left behind. They are the bulk of
+                the All posts list.
+              </p>
+            </div>
+            <dl className="ml-auto flex flex-wrap items-center gap-4">
+              {queue.backlog.slice(0, 6).map((b) => (
+                <div key={b.platform} className="text-center">
+                  <dt className="sr-only">{PLATFORM_LABELS[b.platform] ?? b.platform}</dt>
+                  <dd className="font-mono text-base font-semibold text-foreground tabular-nums">
+                    {b.count}
+                  </dd>
+                  <p className="text-[11px] text-muted-foreground">
+                    {PLATFORM_LABELS[b.platform] ?? b.platform}
+                  </p>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
+    </div>
+  )
+}
+
+/** "Today 19:30" / "Wed 11:30" — a send time reads better than a full date. */
+function whenLabel(iso: string): string {
+  const at = new Date(iso)
+  const now = new Date()
+  const sameDay =
+    at.getFullYear() === now.getFullYear() &&
+    at.getMonth() === now.getMonth() &&
+    at.getDate() === now.getDate()
+  const time = at.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })
+  return sameDay ? `Today ${time}` : `${at.toLocaleDateString(undefined, { weekday: "short" })} ${time}`
 }
 
 function PostsList({
