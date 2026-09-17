@@ -583,7 +583,13 @@ function QueueList({
                       {c.title}
                     </Link>
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                      {(c.masterContent || "No copy yet").replace(/\n+/g, " ")}
+                      {/* A composition written per channel has no master copy,
+                          so fall back to the first channel that has any. */}
+                      {(
+                        c.masterContent ||
+                        Object.values(c.platforms ?? {}).find((p) => p?.content)?.content ||
+                        "No copy yet"
+                      ).replace(/\n+/g, " ")}
                     </p>
                     <ul className="mt-2 flex flex-wrap gap-1.5">
                       {channels.map((key) => (
