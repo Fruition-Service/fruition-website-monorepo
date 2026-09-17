@@ -54,6 +54,9 @@
   --border-lilac: #ece7fb;
   --border-lilac-strong: #e5d8fa;
   --border-lilac-quiet: #e4dcf7;
+  /* Dot-grid maps. Deep enough that a country still reads as a shape at hero
+     size, where the lilac hairline stops resolving into one. */
+  --map-dot: #d6cbf0;
   --text-faint: #8f92a6;
   --text-label: #9a9ab0;
   --accent-amber: #fdab3d;
@@ -122,6 +125,7 @@
   --color-lilac: var(--border-lilac);
   --color-lilac-strong: var(--border-lilac-strong);
   --color-lilac-quiet: var(--border-lilac-quiet);
+  --color-map-dot: var(--map-dot);
   --color-faint: var(--text-faint);
   --color-label: var(--text-label);
   --color-amber: var(--accent-amber);

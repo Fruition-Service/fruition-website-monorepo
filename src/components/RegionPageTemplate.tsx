@@ -60,8 +60,10 @@ const CLIENT_TILES = 9
  * instead of an empty section. Sanity also supplies the case studies behind
  * the testimonials, the team roster and the Calendly link.
  *
- * The hero illustration is the exception: all six regions share the one asset
- * in /public (see RegionHero), so `locationPage.heroImage` is not read.
+ * The hero graphic is the exception: it is a generated map of the region's own
+ * country (see RegionMap), not an image, so `locationPage.heroImage` is not
+ * read. To change which cities it marks, edit `src/data/regionMaps.ts` and
+ * re-run `node scripts/build-region-maps.mjs`.
  */
 export default function RegionPageTemplate({
   content,
@@ -85,6 +87,7 @@ export default function RegionPageTemplate({
       <RegionHero
         hero={region.hero}
         flag={region.flag}
+        slug={region.slug}
         // The office country doubles as the hero flag — one source, so the
         // medallion can never drift from the address in the page's schema.
         flagCode={region.localBusiness.address.addressCountry.toLowerCase()}

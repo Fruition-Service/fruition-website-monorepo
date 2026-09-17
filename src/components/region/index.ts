@@ -1,4 +1,5 @@
 export { default as RegionHero } from "./RegionHero"
+export { default as RegionMap } from "./RegionMap"
 export { default as RegionServicesSection } from "./RegionServicesSection"
 export { default as AnswerBlockSection } from "./AnswerBlockSection"
 export { default as ProcessStepsSection } from "./ProcessStepsSection"
