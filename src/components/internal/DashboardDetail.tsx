@@ -117,7 +117,7 @@ export default function DashboardDetail({
                     </ul>
                   )}
                   <Link
-                    href="/internal/insights"
+                    href="/internal/insights?tab=ai"
                     className="text-sm font-medium text-[var(--purple-primary)]"
                   >
                     Every prompt, model by model →

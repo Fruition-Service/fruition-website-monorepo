@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export type InsightsTab = "blog" | "social" | "traffic"
+export type InsightsTab = "blog" | "social" | "ai" | "traffic"
 
 const RANGES = [7, 28, 90]
 
@@ -27,6 +27,7 @@ export default function InsightsToolbar({
   const tabs: { key: InsightsTab; label: string }[] = [
     { key: "blog", label: "Blog" },
     { key: "social", label: "Social posts" },
+    { key: "ai", label: "AI visibility" },
     ...(showTraffic ? ([{ key: "traffic", label: "Traffic" }] as const) : []),
   ]
 
