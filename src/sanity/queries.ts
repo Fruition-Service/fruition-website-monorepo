@@ -127,8 +127,11 @@ export async function getBlogCategories() {
 
 /** Every published post, in the shape the internal portal's blog table needs. */
 export async function getAllBlogPostsForPortal() {
+  // No slice: a cap here silently hides the oldest posts from the portal, which
+  // cannot then be found or edited by anyone. It sat at 200 while Sanity held
+  // 228, so 28 live posts were unreachable.
   return client.fetch(
-    `*[_type == "blogPost"] | order(coalesce(publishedAt, _updatedAt) desc) [0...200] {
+    `*[_type == "blogPost"] | order(coalesce(publishedAt, _updatedAt) desc) {
       _id, title, "slug": slug.current, publishedAt, _updatedAt, author, industry, excerpt
     }`
   )

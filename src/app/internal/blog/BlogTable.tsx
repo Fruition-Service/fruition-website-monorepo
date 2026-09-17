@@ -32,10 +32,21 @@ export interface PostRow {
   linkedinCopyReady: boolean
   /** ISO timestamp used for sorting; rendered as a local date. */
   updated: string
+  /** GA4 views over the reporting window; null when the post has no traffic row. */
+  views: number | null
+  /** Search Console clicks over the same window. */
+  clicks: number | null
+  /** Days since the last edit — drives the stale treatment. */
+  ageDays: number
+  /** True when another row carries the same normalised title. */
+  duplicate: boolean
   slug: string | null
   draftId: string | null
   sanityId: string | null
 }
+
+/** Matches the dashboard: past this, a draft is a decision rather than work in progress. */
+const STALE_DAYS = 30
 
 const STATUS_LABEL: Record<PostRow["status"], string> = {
   drafted: "Draft",
@@ -143,7 +154,12 @@ export default function BlogTable({
                   {row.original.title}
                 </span>
               )}
-              {row.original.excerpt && (
+              {row.original.duplicate && (
+                <div className="mt-0.5 text-xs text-[var(--warning-strong)]">
+                  Another draft carries the same title
+                </div>
+              )}
+              {!row.original.duplicate && row.original.excerpt && (
                 <div className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
                   {row.original.excerpt}
                 </div>
@@ -204,10 +220,38 @@ export default function BlogTable({
         },
       },
       {
+        accessorKey: "views",
+        header: ({ column }) => <SortHeader label="Views" column={column} />,
+        cell: ({ row }) => (
+          <span className="block text-right font-mono text-xs tabular-nums text-ink-heading">
+            {row.original.views == null ? "—" : row.original.views.toLocaleString()}
+          </span>
+        ),
+        sortUndefined: "last",
+      },
+      {
+        accessorKey: "clicks",
+        header: ({ column }) => <SortHeader label="Clicks" column={column} />,
+        cell: ({ row }) => (
+          <span className="block text-right font-mono text-xs tabular-nums text-muted-foreground">
+            {row.original.clicks == null ? "—" : row.original.clicks.toLocaleString()}
+          </span>
+        ),
+        sortUndefined: "last",
+      },
+      {
         accessorKey: "updated",
         header: ({ column }) => <SortHeader label="Updated" column={column} />,
         cell: ({ row }) => (
-          <span className="text-xs text-muted-foreground">{fmtDate(row.original.updated)}</span>
+          <span
+            className={
+              row.original.ageDays > STALE_DAYS && row.original.status !== "published"
+                ? "text-xs text-[var(--warning-strong)]"
+                : "text-xs text-muted-foreground"
+            }
+          >
+            {fmtDate(row.original.updated)}
+          </span>
         ),
       },
       {
