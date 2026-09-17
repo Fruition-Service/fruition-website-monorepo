@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import CtaButton from "@/components/CtaButton"
 import { useReportStickyCtaBar } from "@/components/sections/StickyCtaContext"
+import { BOOKING_SECTION_ID } from "@/lib/inPageBooking"
 
 interface StickyCtaBarProps {
   /** Site-wide headline. Falls back to the copy the design ships with. */
@@ -14,6 +15,29 @@ interface StickyCtaBarProps {
   href?: string
   /** px scrolled before the bar appears */
   showAfter?: number
+}
+
+/** Height of the band at the bottom of the viewport the bar occupies. */
+const BAR_BAND = 220
+
+/**
+ * Whether the booking section is under the bar right now.
+ *
+ * On a page that renders <BookingSection>, the CTAs scroll to it in place
+ * (see `lib/inPageBooking.ts`) rather than leaving for /contact-us — so the bar
+ * would end up floating over the form it just sent the visitor to. Same reason
+ * <SiteStickyCta> drops the bar on /contact-us entirely; here the destination
+ * is only part of the page, so the bar steps aside while it is on screen and
+ * comes back once it scrolls past.
+ *
+ * Looked up per call rather than cached: the bar outlives client-side
+ * navigations, so the element it should watch changes under it.
+ */
+function bookingInView(): boolean {
+  const section = document.getElementById(BOOKING_SECTION_ID)
+  if (!section) return false
+  const rect = section.getBoundingClientRect()
+  return rect.top < window.innerHeight && rect.bottom > window.innerHeight - BAR_BAND
 }
 
 /**
@@ -47,10 +71,14 @@ export default function StickyCtaBar({
   const showing = Boolean(label) && Boolean(href) && visible && !dismissed
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > showAfter)
+    const onScroll = () => setVisible(window.scrollY > showAfter && !bookingInView())
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    window.addEventListener("resize", onScroll, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
   }, [showAfter])
 
   // Publish how much of the viewport floor this bar occupies, so the WhatsApp
