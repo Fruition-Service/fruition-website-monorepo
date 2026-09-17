@@ -1079,6 +1079,12 @@ body {
   --text-muted-fg: oklch(0.97 0 0);
   --danger-surface: color-mix(in oklch, var(--destructive) 12%, white);
   --danger-strong: var(--destructive);
+  /* Warning. --accent-amber is a decorative dot colour and fails contrast as
+     text (1.9:1 on white), so status copy gets its own readable step. */
+  --warning-strong: oklch(0.55 0.13 62);
+  --warning-surface: color-mix(in oklch, var(--warning-strong) 10%, white);
+  --success-strong: oklch(0.52 0.13 152);
+  --success-surface: color-mix(in oklch, var(--success-strong) 10%, white);
 }
 
 /* Neutral default border inside the portal (shadcn convention): bare
