@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import type { Redirect } from "next/dist/lib/load-custom-routes";
 import { wixRedirects } from "./src/redirects";
+import { tagPostRedirects } from "./src/tagRedirects";
 
 // Redirects added after the Wix migration (e.g. from SEO/technical audits).
 // src/redirects.ts is auto-generated from the migration import — add new
@@ -212,7 +213,9 @@ const auditRedirects: Redirect[] = [
   // so any tag the export missed still 404s — /tags/monday-ai-pricing-model and
   // /tags/ai-pricing are two that were reported live. These rules replace the
   // enumeration with a pattern, so a slug missing from the export can no longer
-  // 404. `:slug*` matches zero or more segments, which also covers the bare
+  // 404. This is only the fallback — a tag that names a real article is sent
+  // to that article by tagPostRedirects, which runs first.
+  // `:slug*` matches zero or more segments, which also covers the bare
   // /consulting-blog/tags and /consulting-blog/hashtags index URLs.
   //
   // These sit in auditRedirects (before wixRedirects) deliberately: they now
@@ -236,7 +239,51 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return [...auditRedirects, ...wixRedirects];
+    // The 690 /consulting-blog/tags/* and 12 /consulting-blog/hashtags/*
+    // entries in the generated wixRedirects are now unreachable: every tag URL
+    // is handled either by tagPostRedirects or by the catch-all in
+    // auditRedirects, both of which run first. Dropping them here keeps the
+    // total route count down — Next warns past 1000, and carrying both the
+    // enumeration and the replacement pushed it to 1221. src/redirects.ts is
+    // generated, so the filter lives here rather than in that file.
+    const supersededTagRedirect = (r: Redirect) =>
+      r.source.startsWith("/consulting-blog/tags/") ||
+      r.source.startsWith("/consulting-blog/hashtags/");
+
+    const laterRedirects = [
+      ...auditRedirects,
+      ...wixRedirects.filter((r) => !supersededTagRedirect(r)),
+    ];
+
+    // Some posts a tag names were themselves consolidated into another page by
+    // the blog-audit rules above, which would make the tag a two-hop chain
+    // (tag → old post → canonical post). Follow the chain here so each tag
+    // redirects straight to where it actually ends up. Exact sources only —
+    // pattern sources (":" / "*") are not a lookup key — and capped at a few
+    // hops so a redirect cycle can't hang the build.
+    const exactDestinations = new Map(
+      laterRedirects
+        .filter((r) => !r.source.includes(":") && !r.source.includes("*"))
+        .map((r) => [r.source, r.destination] as const)
+    );
+    const resolveFinal = (destination: string) => {
+      let current = destination;
+      for (let hop = 0; hop < 5; hop++) {
+        const next = exactDestinations.get(current);
+        if (!next || next === current) break;
+        current = next;
+      }
+      return current;
+    };
+
+    // Order matters: tagPostRedirects sends a legacy tag URL to the article
+    // that tag names, so it must win over the /consulting-blog/tags/:slug*
+    // catch-all in auditRedirects, which is the fallback for tags that name
+    // no article.
+    return [
+      ...tagPostRedirects.map((r) => ({ ...r, destination: resolveFinal(r.destination) })),
+      ...laterRedirects,
+    ];
   },
   // RFC 8288 Link headers. Agents that fetch a page can see the sitemap and the
   // markdown twin of that page without parsing the HTML first. Only advertise
