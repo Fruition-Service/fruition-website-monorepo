@@ -122,14 +122,6 @@ export default async function EditDraftPage({
 
   const editorPane = (
     <div>
-      <h1 className="mb-1 text-xl font-semibold tracking-tight text-foreground">
-        {liveDocId ? "Edit published post" : "Edit draft"}
-      </h1>
-      <p className="mb-6 text-sm text-muted-foreground">
-        {liveDocId
-          ? "This post is live. \u201cUpdate post\u201d writes your changes to Sanity and refreshes the page on the site."
-          : "Not on the site yet — \u201cPublish\u201d puts it live."}
-      </p>
       <BlogEditor
         categories={categories}
         authors={authors}

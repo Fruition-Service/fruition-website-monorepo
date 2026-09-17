@@ -71,11 +71,8 @@ export default async function EditPublishedPostPage({
 
   const editorPane = (
     <div>
-      <h1 className="mb-1 text-xl font-semibold tracking-tight text-foreground">Edit published post</h1>
-      <p className="mb-6 text-sm text-muted-foreground">
-        This post is live. “Update post” edits it in place; “Unpublish” takes it off the site and
-        keeps a copy in portal drafts.
-      </p>
+      {/* State and actions live in the editor's own header now, so repeating
+          them here just pushed the writing surface further down. */}
       <BlogEditor
         categories={categories}
         authors={authors}
