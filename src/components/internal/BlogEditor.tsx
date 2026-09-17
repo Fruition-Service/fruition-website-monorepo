@@ -2,6 +2,8 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import RichTextEditor from "@/components/internal/RichTextEditor"
 
 export interface CategoryOption {
@@ -411,130 +413,115 @@ export default function BlogEditor({
     })
   }
 
-  return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-      {/* Main column: title + markdown body */}
-      <div className="space-y-4">
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Post title"
-          className={`${inputClass} text-lg font-semibold`}
-        />
-        <RichTextEditor value={body} onChange={setBody} />
-      </div>
+  // Cheap, honest checks — each one is something the editor can actually see.
+  const keywordLower = seoKeyword.trim().toLowerCase()
+  const seoChecks = [
+    {
+      label: keywordLower
+        ? `Target keyword ${
+            title.toLowerCase().includes(keywordLower) ? "is in" : "is missing from"
+          } the title`
+        : "No target keyword set yet",
+      ok: Boolean(keywordLower) && title.toLowerCase().includes(keywordLower),
+    },
+    {
+      label: `SEO title ${seoTitle.length}/60 characters`,
+      ok: seoTitle.length > 0 && seoTitle.length <= 60,
+    },
+    {
+      label: `Meta description ${seoDescription.length}/160 characters`,
+      ok: seoDescription.length > 0 && seoDescription.length <= 160,
+    },
+    {
+      label: cover || isPublished ? "Cover image set" : "No cover image — social cards fall back",
+      ok: Boolean(cover) || isPublished,
+    },
+  ]
 
-      {/* Sidebar: metadata */}
-      <aside className="space-y-4">
-        <Field label="Slug">
-          <input
-            value={slugTouched ? slug : effectiveSlug}
-            onChange={(e) => {
-              setSlug(e.target.value)
-              setSlugTouched(true)
-            }}
-            className={inputClass}
-          />
-          <p className="mt-1 text-xs text-[var(--color-text-secondary)]">/post/{effectiveSlug || "…"}</p>
-        </Field>
-        <Field label="Excerpt">
-          <textarea
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            rows={3}
-            className={`${inputClass} resize-y`}
-          />
-        </Field>
-        <Field label="Cover image" hint="Max 8 MB">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setCover(e.target.files?.[0] ?? null)}
-            className="block w-full text-sm"
-          />
-        </Field>
-        <Field label="Author" hint="From the team page">
-          <Select value={author || AUTHOR_DEFAULT} onValueChange={(v) => setAuthor(v === AUTHOR_DEFAULT || !v ? "" : v)}>
-            <SelectTrigger className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={AUTHOR_DEFAULT}>{currentAuthorName || "You (default)"}</SelectItem>
-              {authors
-                .filter((name) => name !== currentAuthorName)
-                .map((name) => (
-                  <SelectItem key={name} value={name}>
-                    {name}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
-        </Field>
-        <Field label="Industry">
-          <Select value={industry || INDUSTRIES[0]?.value} onValueChange={(v) => setIndustry(v ?? "")}>
-            <SelectTrigger className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {INDUSTRIES.map((o) => (
-                <SelectItem key={o.value} value={o.value}>
-                  {o.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </Field>
-        {categories.length > 0 && (
-          <Field label="Categories">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((c) => {
-                const on = categoryIds.includes(c._id)
-                return (
-                  <button
-                    key={c._id}
-                    type="button"
-                    onClick={() => toggleCategory(c._id)}
-                    className="rounded-pill border px-3 py-1 text-xs transition"
-                    style={{
-                      borderColor: on ? "var(--purple-primary)" : "var(--color-border)",
-                      backgroundColor: on ? "rgba(128,21,232,0.10)" : "var(--surface)",
-                      color: on ? "var(--purple-primary)" : "var(--ink-heading)",
-                    }}
-                  >
-                    {c.title}
-                  </button>
-                )
-              })}
-            </div>
-          </Field>
-        )}
-        <Field label="SEO keyword" hint="Primary keyword this post targets">
-          <input
-            value={seoKeyword}
-            onChange={(e) => setSeoKeyword(e.target.value)}
-            placeholder="e.g. monday.com automations"
-            className={inputClass}
-          />
-        </Field>
-        <Field label="SEO title" hint={`${seoTitle.length}/60`}>
-          <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} className={inputClass} />
-        </Field>
-        <Field label="Meta description" hint={`${seoDescription.length}/160`}>
-          <textarea
-            value={seoDescription}
-            onChange={(e) => setSeoDescription(e.target.value)}
-            rows={3}
-            className={`${inputClass} resize-y`}
-          />
-        </Field>
-        <Field label="Publish date" hint="Defaults to now">
-          <input
-            type="date"
-            value={publishedAt}
-            onChange={(e) => setPublishedAt(e.target.value)}
-            className={inputClass}
-          />
-        </Field>
+  return (
+    <div className="flex flex-col gap-5">
+      {/* Actions first. They used to sit under ten metadata fields, which put
+          Publish below the fold on every screen shorter than the sidebar. */}
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            {isPublished ? (
+              <Badge
+                variant="outline"
+                className="border-[var(--success-strong)]/30 bg-[var(--success-surface)] text-[var(--success-strong)]"
+              >
+                Live
+              </Badge>
+            ) : (
+              <Badge variant="outline">Draft</Badge>
+            )}
+            <p className="text-xs text-muted-foreground">
+              {isPublished
+                ? dirty
+                  ? "Edits here are not on the site yet."
+                  : "This editor matches the live post."
+                : "Not on the site yet — Publish puts it live."}
+            </p>
+          </div>
+          {isPublished && (published.slug || effectiveSlug) ? (
+            <a
+              href={`/post/${published.slug || effectiveSlug}`}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1 inline-block font-mono text-xs text-[var(--purple-primary)] underline-offset-2 hover:underline"
+            >
+              /post/{published.slug || effectiveSlug}
+            </a>
+          ) : null}
+        </div>
+
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <div className="flex gap-3 pt-1">
+            <button
+              type="button"
+              onClick={onSaveDraft}
+              disabled={savingDraft || unpublishing}
+              className="flex-1 rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
+              style={{ borderColor: "var(--color-border)", color: "var(--ink-heading)" }}
+            >
+              {savingDraft ? "Saving…" : "Save draft"}
+            </button>
+            <button
+              type="button"
+              onClick={onPublish}
+              // On a live post there is nothing to do until something changes;
+              // the label switches to "Update post" the moment there is.
+              disabled={publishing || unpublishing || (isPublished && !dirty)}
+              title={
+                isPublished && !dirty ? "Edit something first — the live post is already up to date." : undefined
+              }
+              className="flex-1 rounded-pill px-4 py-3 text-sm font-semibold text-white transition disabled:opacity-60"
+              style={{ backgroundColor: "var(--purple-primary)" }}
+            >
+              {publishing
+                ? isPublished
+                  ? "Updating…"
+                  : "Publishing…"
+                : isPublished
+                  ? dirty
+                    ? "Update post"
+                    : "No changes"
+                  : "Publish"}
+            </button>
+          </div>
+          {isPublished && (
+            <button
+              type="button"
+              onClick={onUnpublish}
+              disabled={publishing || unpublishing || savingDraft}
+              className="w-full rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
+              style={{ borderColor: "var(--danger-strong)", color: "var(--danger-strong)" }}
+            >
+              {unpublishing ? "Unpublishing…" : "Unpublish"}
+            </button>
+          )}
+        </div>
+      </div>
 
         {error && (
           <div
@@ -596,51 +583,175 @@ export default function BlogEditor({
           </p>
         )}
 
-        <div className="flex gap-3 pt-1">
-          <button
-            type="button"
-            onClick={onSaveDraft}
-            disabled={savingDraft || unpublishing}
-            className="flex-1 rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
-            style={{ borderColor: "var(--color-border)", color: "var(--ink-heading)" }}
-          >
-            {savingDraft ? "Saving…" : "Save draft"}
-          </button>
-          <button
-            type="button"
-            onClick={onPublish}
-            // On a live post there is nothing to do until something changes;
-            // the label switches to "Update post" the moment there is.
-            disabled={publishing || unpublishing || (isPublished && !dirty)}
-            title={
-              isPublished && !dirty ? "Edit something first — the live post is already up to date." : undefined
-            }
-            className="flex-1 rounded-pill px-4 py-3 text-sm font-semibold text-white transition disabled:opacity-60"
-            style={{ backgroundColor: "var(--purple-primary)" }}
-          >
-            {publishing
-              ? isPublished
-                ? "Updating…"
-                : "Publishing…"
-              : isPublished
-                ? dirty
-                  ? "Update post"
-                  : "No changes"
-                : "Publish"}
-          </button>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+        {/* Main column: title + markdown body */}
+        <div className="space-y-4">
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Post title"
+            className={`${inputClass} text-lg font-semibold`}
+          />
+          <RichTextEditor value={body} onChange={setBody} />
         </div>
-        {isPublished && (
-          <button
-            type="button"
-            onClick={onUnpublish}
-            disabled={publishing || unpublishing || savingDraft}
-            className="w-full rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
-            style={{ borderColor: "var(--danger-strong)", color: "var(--danger-strong)" }}
-          >
-            {unpublishing ? "Unpublishing…" : "Unpublish"}
-          </button>
-        )}
-      </aside>
+
+        {/* Sidebar: metadata, split so the search fields stop burying the rest */}
+        <aside>
+          <Tabs defaultValue="post">
+            <TabsList className="w-full">
+              <TabsTrigger value="post" className="flex-1">
+                Post
+              </TabsTrigger>
+              <TabsTrigger value="search" className="flex-1">
+                Search
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="post" className="space-y-4">
+              <Field label="Slug">
+                <input
+                  value={slugTouched ? slug : effectiveSlug}
+                  onChange={(e) => {
+                    setSlug(e.target.value)
+                    setSlugTouched(true)
+                  }}
+                  className={inputClass}
+                />
+                <p className="mt-1 text-xs text-[var(--color-text-secondary)]">/post/{effectiveSlug || "…"}</p>
+              </Field>
+              <Field label="Excerpt">
+                <textarea
+                  value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  rows={3}
+                  className={`${inputClass} resize-y`}
+                />
+              </Field>
+              <Field label="Cover image" hint="Max 8 MB">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setCover(e.target.files?.[0] ?? null)}
+                  className="block w-full text-sm"
+                />
+              </Field>
+              <Field label="Author" hint="From the team page">
+                <Select value={author || AUTHOR_DEFAULT} onValueChange={(v) => setAuthor(v === AUTHOR_DEFAULT || !v ? "" : v)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={AUTHOR_DEFAULT}>{currentAuthorName || "You (default)"}</SelectItem>
+                    {authors
+                      .filter((name) => name !== currentAuthorName)
+                      .map((name) => (
+                        <SelectItem key={name} value={name}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field label="Industry">
+                <Select value={industry || INDUSTRIES[0]?.value} onValueChange={(v) => setIndustry(v ?? "")}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {INDUSTRIES.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {o.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+              {categories.length > 0 && (
+                <Field label="Categories">
+                  <div className="flex flex-wrap gap-2">
+                    {categories.map((c) => {
+                      const on = categoryIds.includes(c._id)
+                      return (
+                        <button
+                          key={c._id}
+                          type="button"
+                          onClick={() => toggleCategory(c._id)}
+                          className="rounded-pill border px-3 py-1 text-xs transition"
+                          style={{
+                            borderColor: on ? "var(--purple-primary)" : "var(--color-border)",
+                            backgroundColor: on ? "rgba(128,21,232,0.10)" : "var(--surface)",
+                            color: on ? "var(--purple-primary)" : "var(--ink-heading)",
+                          }}
+                        >
+                          {c.title}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </Field>
+              )}
+            </TabsContent>
+
+            <TabsContent value="search" className="space-y-4">
+            <Field label="SEO keyword" hint="Primary keyword this post targets">
+              <input
+                value={seoKeyword}
+                onChange={(e) => setSeoKeyword(e.target.value)}
+                placeholder="e.g. monday.com automations"
+                className={inputClass}
+              />
+            </Field>
+            <Field label="SEO title" hint={`${seoTitle.length}/60`}>
+              <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} className={inputClass} />
+            </Field>
+            <Field label="Meta description" hint={`${seoDescription.length}/160`}>
+              <textarea
+                value={seoDescription}
+                onChange={(e) => setSeoDescription(e.target.value)}
+                rows={3}
+                className={`${inputClass} resize-y`}
+              />
+            </Field>
+            <Field label="Publish date" hint="Defaults to now">
+              <input
+                type="date"
+                value={publishedAt}
+                onChange={(e) => setPublishedAt(e.target.value)}
+                className={inputClass}
+              />
+            </Field>
+
+              <div className="rounded-chip border border-[var(--color-border)] p-3">
+                <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.09em] text-muted-foreground">
+                  How it will look in search
+                </p>
+                <p className="truncate text-xs text-muted-foreground">
+                  fruitionservices.io › post › {effectiveSlug || "…"}
+                </p>
+                <p className="mt-0.5 line-clamp-2 text-sm text-[#1a0dab]">
+                  {seoTitle || title || "Untitled post"}
+                </p>
+                <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
+                  {seoDescription || excerpt || "No meta description yet."}
+                </p>
+              </div>
+
+              <ul className="space-y-2">
+                {seoChecks.map((c) => (
+                  <li key={c.label} className="flex items-start gap-2">
+                    <span
+                      className={`mt-1.5 size-2 shrink-0 rounded-full ${
+                        c.ok ? "bg-[var(--success-strong)]" : "bg-[var(--warning-strong)]"
+                      }`}
+                    />
+                    <span className="text-xs text-muted-foreground">{c.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+          </Tabs>
+        </aside>
+      </div>
     </div>
   )
 }
