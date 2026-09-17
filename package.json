@@ -41,7 +41,8 @@
     "marketa:revise": "tsx scripts/marketa-harness/revise.ts",
     "marketa:listen": "tsx scripts/marketa-harness/server.ts",
     "marketa:eval": "tsx scripts/marketa-harness/eval.ts",
-    "brain:backfill": "tsx scripts/brain-backfill.ts"
+    "brain:backfill": "tsx scripts/brain-backfill.ts",
+    "build:region-maps": "node scripts/build-region-maps.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.97.0",

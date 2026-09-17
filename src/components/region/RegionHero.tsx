@@ -1,17 +1,18 @@
 import Link from "next/link"
-import type { RegionContent } from "./types"
+import RegionMap from "./RegionMap"
+import type { RegionContent, RegionSlug } from "./types"
 
 interface Props {
   hero: RegionContent["hero"]
   flag: string
+  /** Picks the country's map out of REGION_MAP_DATA. */
+  slug: RegionSlug
   /** Defaults to the monday.com Platinum Partner lockup in /public. */
   partnerBadgeSrc?: string | null
-  /** Defaults to the shared region hero illustration in /public. */
-  heroImageSrc?: string | null
   /** ISO 3166-1 alpha-2, lowercased, for the flag medallion (e.g. "au"). */
   flagCode?: string | null
-  /** Country for the flag's alt text — a leading "the" is trimmed. */
-  countryName?: string
+  /** Country name, for the map's and the flag's accessible labels. */
+  countryName: string
   primaryCtaLabel?: string
   primaryCtaUrl: string
   secondaryCtaLabel?: string
@@ -19,31 +20,31 @@ interface Props {
 }
 
 /**
- * Region hero — positioning and CTAs beside the region's product banner.
+ * Region hero — positioning and CTAs beside a map of the region itself.
  *
- * Copy takes 55% of the row and the banner 45% from `lg` up, so the headline
+ * Copy takes 55% of the row and the map 45% from `lg` up, so the headline
  * keeps a comfortable measure without leaving a dead zone beside it.
  *
- * All six regions share one illustration (`/images/region-hero.webp`) — a
- * transparent-background composite of two monday.com boards, with its own
- * rounded corners and drop shadow baked in. It is therefore rendered whole at
- * its natural aspect ratio with no crop, card, ring or FramedMedia wrapper:
- * cropping it or putting it on a panel would clip the shadow.
+ * The map is per country (see RegionMap): the six pages used to share one
+ * monday.com product illustration, which made six markets look like one page
+ * with the nouns swapped. The country's own outline, with a Fruition mark on
+ * each city the page's coverage section lists, is the one piece of the hero
+ * that could not belong to any other region.
  *
- * What differs per region is the flag medallion sitting in the illustration's
- * empty bottom-left corner — otherwise a visible hole in the composition. It
- * is a real SVG rather than an emoji flag: Windows ships no flag emoji font
- * and renders those as bare letter pairs ("AU"), which at this size would
- * read as a broken image.
+ * The flag medallion sits under the map rather than over it. On the old
+ * illustration it filled an empty corner; over a map it would cover territory.
+ * It is a real SVG rather than an emoji flag: Windows ships no flag emoji font
+ * and renders those as bare letter pairs ("AU"), which at this size would read
+ * as a broken image.
  *
- * Below `md` the illustration is hidden entirely: at phone widths its inner
- * text is unreadable and it only pushes the CTAs below the fold.
+ * Below `md` the map is hidden, as the illustration was — the column is narrow
+ * enough there that the city labels would sit on top of one another.
  */
 export default function RegionHero({
   hero,
   flag,
+  slug,
   partnerBadgeSrc = "/images/partner-platinum.png",
-  heroImageSrc = "/images/region-hero.webp",
   flagCode,
   countryName,
   primaryCtaLabel = "Book a Free Consultation",
@@ -64,13 +65,7 @@ export default function RegionHero({
       />
 
       <div className="relative mx-auto w-full max-w-[1200px] px-4 pt-10 pb-14 md:pt-14 md:pb-20">
-        <div
-          className={`grid grid-cols-1 items-center gap-10 ${
-            // A region without an illustration keeps the single-column hero
-            // rather than leaving an empty right-hand column.
-            heroImageSrc ? "lg:grid-cols-[55fr_45fr] lg:gap-14" : ""
-          }`}
-        >
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[55fr_45fr] lg:gap-14">
           <div className="flex flex-col items-start">
             <p className="mb-6 inline-flex items-center gap-2.5 rounded-pill border border-lilac-strong bg-tint px-4 py-[7px] pr-[18px] text-[13px] font-semibold text-brand">
               <span aria-hidden className="text-[15px] leading-none">
@@ -112,32 +107,24 @@ export default function RegionHero({
             </div>
           </div>
 
-          {heroImageSrc && (
-            <div className="relative hidden w-full md:block">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={heroImageSrc}
-                alt=""
-                width={1200}
-                height={1204}
-                className="h-auto w-full"
-                // Above the fold on every region page — never lazy-load it.
-                fetchPriority="high"
-              />
+          <div className="hidden w-full flex-col items-center gap-5 md:flex">
+            <RegionMap slug={slug} countryName={countryName} />
 
-              {flagCode && (
-                <span className="absolute bottom-[3%] left-0 block w-[21%] overflow-hidden rounded-full bg-surface shadow-card ring-[6px] ring-surface">
+            {flagCode && (
+              <p className="flex items-center gap-2.5 text-caption text-muted">
+                <span className="block h-7 w-7 overflow-hidden rounded-full shadow-card ring-2 ring-surface">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={`/images/flags/${flagCode}.svg`}
-                    alt={countryName ? `${countryName.replace(/^the /, "")} flag` : ""}
-                    className="block aspect-square w-full rounded-full object-cover"
+                    alt={`${countryName.replace(/^the /, "")} flag`}
+                    className="block aspect-square w-full object-cover"
                     fetchPriority="high"
                   />
                 </span>
-              )}
-            </div>
-          )}
+                Delivering across {countryName}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>
