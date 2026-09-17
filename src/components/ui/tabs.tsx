@@ -13,6 +13,11 @@ function Tabs({
     <TabsPrimitive.Root
       data-slot="tabs"
       data-orientation={orientation}
+      // The registry's styles key off bare `data-horizontal` / `data-vertical`
+      // attributes (`data-horizontal:flex-col`, `group-data-vertical/tabs:…`),
+      // while Base UI only sets `data-orientation`. Without these the root
+      // never becomes a column and the tab list renders beside its panel.
+      {...(orientation === "vertical" ? { "data-vertical": "" } : { "data-horizontal": "" })}
       className={cn(
         "group/tabs flex gap-2 data-horizontal:flex-col",
         className
