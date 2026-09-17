@@ -30,7 +30,8 @@ function parseParams(params: Record<string, string | string[] | undefined>): {
   const rawTab = Array.isArray(params.tab) ? params.tab[0] : params.tab
   const rawDays = Array.isArray(params.days) ? params.days[0] : params.days
   const days = Number(rawDays)
-  const tab: InsightsTab = rawTab === "social" || rawTab === "traffic" ? rawTab : "blog"
+  const tab: InsightsTab =
+    rawTab === "social" || rawTab === "traffic" || rawTab === "ai" ? rawTab : "blog"
   return { tab, days: ALLOWED_RANGES.includes(days) ? days : 28 }
 }
 
@@ -66,6 +67,48 @@ export default async function InsightsPage({
     )
   }
 
+  if (tab === "ai") {
+    // The AEO scan is weekly and its own 90-day window; the range control does
+    // not apply to it, so it is not passed one.
+    const [aeo, competitors] = await Promise.all([getAeoVisibility(90), getCompetitorActivity(90)])
+    return (
+      <PortalShell email={user.email} active="insights">
+        <PageHeader
+          title="AI answer visibility"
+          description="How often AI answer engines cite Fruition, which prompts earn it, and what the firms named beside us have been publishing. Sampled over the last 90 days."
+        />
+        <InsightsToolbar tab={tab} days={days} showTraffic={showTraffic} />
+
+        <Card>
+          <CardContent>
+            {aeo ? (
+              <AeoVisibilityPanel data={aeo} />
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Could not reach the Marketa brain for AEO data.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base text-ink-heading">Competitors</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {competitors ? (
+              <CompetitorActivityPanel competitors={competitors} />
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Could not reach the Marketa brain for competitor snapshots.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      </PortalShell>
+    )
+  }
+
   if (tab === "social") {
     const view = await getSocialInsights(days)
     return (
@@ -80,12 +123,10 @@ export default async function InsightsPage({
     )
   }
 
-  const [view, performance, posts, aeo, competitors] = await Promise.all([
+  const [view, performance, posts] = await Promise.all([
     getBlogInsights(days),
     getBlogPerformance(days).catch(() => null),
     getAllBlogPostsForPortal().catch(() => [] as SanityPost[]),
-    getAeoVisibility(90),
-    getCompetitorActivity(90),
   ])
 
   const titles = new Map<string, string>()
@@ -96,8 +137,8 @@ export default async function InsightsPage({
   return (
     <PortalShell email={user.email} active="insights">
       <PageHeader
-        title="Content performance"
-        description="Traffic, search and CTA clicks for the blog, plus AI visibility and competitor activity."
+        title="Blog performance"
+        description="Traffic, search position and CTA clicks, post by post. AI visibility and competitors have their own tab."
       />
       <InsightsToolbar tab={tab} days={days} showTraffic={showTraffic} />
 
@@ -118,35 +159,6 @@ export default async function InsightsPage({
         ) : null}
       </InsightsPanel>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base text-ink-heading">AI answer visibility</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {aeo ? (
-            <AeoVisibilityPanel data={aeo} />
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              Could not reach the Marketa brain for AEO data.
-            </p>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base text-ink-heading">Competitors</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {competitors ? (
-            <CompetitorActivityPanel competitors={competitors} />
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              Could not reach the Marketa brain for competitor snapshots.
-            </p>
-          )}
-        </CardContent>
-      </Card>
     </PortalShell>
   )
 }
