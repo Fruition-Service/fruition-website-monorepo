@@ -4,8 +4,9 @@ import { getGa4Overview, getGscClicksByPage, getBlogPerformance } from "@/lib/go
 import { getAeoVisibility } from "@/lib/marketaInsights"
 import { getAllBlogPostsForPortal } from "@/sanity/queries"
 import PortalShell from "@/components/internal/PortalShell"
-import BlogPerformanceTable from "@/components/internal/BlogPerformanceTable"
-import { SectionCards } from "@/components/section-cards"
+import NeedsYou, { type NeedsYouItem } from "@/components/internal/NeedsYou"
+import DashboardDetail from "@/components/internal/DashboardDetail"
+import { SectionCards, type SectionMetric } from "@/components/section-cards"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive-dynamic"
 import { Button } from "@/components/ui/button"
 import {
@@ -23,14 +24,25 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
-import { FileText } from "lucide-react"
+import { FileText, PenSquare, Share2 } from "lucide-react"
 
 export const dynamic = "force-dynamic"
+
+const WINDOW_DAYS = 28
+/** A draft nobody has touched in this long is a decision, not a work in progress. */
+const STALE_DAYS = 30
 
 interface DraftRow {
   id: string
   title: string | null
+  metadata: Record<string, unknown> | null
   updated_at: string
+}
+
+interface CompositionRow {
+  id: string
+  title: string | null
+  scheduled_for: string | null
 }
 
 function fmt(d?: string): string {
@@ -42,28 +54,65 @@ function fmt(d?: string): string {
   }
 }
 
+/** "Today 19:30" / "Wed 11:30" — a send time reads better than a date. */
+function whenLabel(iso: string): string {
+  const at = new Date(iso)
+  const today = new Date()
+  const sameDay =
+    at.getFullYear() === today.getFullYear() &&
+    at.getMonth() === today.getMonth() &&
+    at.getDate() === today.getDate()
+  const time = at.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })
+  return sameDay ? `Today ${time}` : `${at.toLocaleDateString(undefined, { weekday: "short" })} ${time}`
+}
+
 export default async function DashboardPage() {
   const user = await requirePortalUser({ next: "/internal" })
+  const admin = getPortalAdmin()
 
-  let drafts: DraftRow[] = []
-  try {
-    // Shared team workspace — surface everyone's drafts, not just your own.
-    const { data } = await getPortalAdmin()
-      .from("portal_drafts")
-      .select("id, title, updated_at")
-      .order("updated_at", { ascending: false })
-      .limit(25)
-    drafts = (data as DraftRow[] | null) ?? []
-  } catch {
-    // Portal DB not reachable — show an empty drafts state rather than 500.
-  }
+  // Shared team workspace — surface everyone's drafts, not just your own. Each
+  // read is independent so one outage cannot blank the dashboard.
+  const [draftRes, queueRes] = await Promise.all([
+    (async () => {
+      try {
+        const { data } = await admin
+          .from("portal_drafts")
+          .select("id, title, metadata, updated_at")
+          .order("updated_at", { ascending: false })
+          .limit(500)
+        return (data as DraftRow[] | null) ?? []
+      } catch {
+        return []
+      }
+    })(),
+    (async () => {
+      try {
+        const { data } = await admin
+          .from("social_compositions")
+          .select("id, title, scheduled_for")
+          .not("scheduled_for", "is", null)
+          .gte("scheduled_for", new Date().toISOString())
+          .order("scheduled_for", { ascending: true })
+          .limit(3)
+        return (data as CompositionRow[] | null) ?? []
+      } catch {
+        return []
+      }
+    })(),
+  ])
 
-  // Analytics (null until the Google service-account secret is set). Each source
-  // is independent so one outage cannot blank the dashboard.
+  const allDrafts: DraftRow[] = draftRes
+  const unpublished = allDrafts.filter(
+    (d) => ((d.metadata ?? {}) as Record<string, unknown>).status !== "published"
+  )
+  const staleCutoff = new Date().getTime() - STALE_DAYS * 86_400_000
+  const stale = unpublished.filter((d) => Date.parse(d.updated_at) < staleCutoff)
+  const drafts = allDrafts.slice(0, 8)
+
   const [ga4, gsc, performance, aeo, posts] = await Promise.all([
-    getGa4Overview(28).catch(() => null),
-    getGscClicksByPage(28).catch(() => null),
-    getBlogPerformance(28).catch(() => null),
+    getGa4Overview(WINDOW_DAYS).catch(() => null),
+    getGscClicksByPage(WINDOW_DAYS).catch(() => null),
+    getBlogPerformance(WINDOW_DAYS).catch(() => null),
     getAeoVisibility(90),
     // Titles only — analytics reports paths, and a slug reads badly in a table.
     getAllBlogPostsForPortal().catch(() => [] as { slug?: string; title?: string }[]),
@@ -82,95 +131,159 @@ export default async function DashboardPage() {
   }
   const nf = (n: number) => n.toLocaleString()
 
+  // A feed that is wired up but structurally cannot report is named, not zeroed.
+  const ctaIdle = performance?.ctaTrackingIdle ?? false
+  const conversionsIdle = Boolean(ga4) && ga4?.conversions === 0
+  const deadFeeds: { label: string; detail: string }[] = []
+  if (ctaIdle) deadFeeds.push({ label: "CTA clicks", detail: "no cta_click trigger in GTM" })
+  if (conversionsIdle) {
+    deadFeeds.push({ label: "Conversions", detail: "no key event set on the GA4 property" })
+  }
+
+  const metrics: SectionMetric[] = [
+    {
+      label: "Visitors",
+      value: ga4 ? nf(ga4.totalUsers) : undefined,
+      caption: ga4
+        ? `GA4 · ${nf(ga4.sessions)} sessions, last ${WINDOW_DAYS} days`
+        : "Connect GA4 to populate",
+    },
+    {
+      label: "Page views",
+      value: ga4 ? nf(ga4.pageViews) : undefined,
+      caption: ga4
+        ? `GA4 · ${(ga4.pageViews / Math.max(ga4.sessions, 1)).toFixed(1)} a session`
+        : "Connect GA4 to populate",
+    },
+    {
+      label: "Search clicks",
+      value: gsc ? nf(gsc.totalClicks) : undefined,
+      caption: gsc
+        ? `Search Console · from ${nf(gsc.totalImpressions)} impressions`
+        : "Connect Search Console to populate",
+    },
+    {
+      label: "Blog views",
+      value: performance ? nf(performance.totals.views) : undefined,
+      caption:
+        performance && ga4 && ga4.pageViews > 0
+          ? `${Math.round((performance.totals.views / ga4.pageViews) * 100)}% of all page views`
+          : "GA4 · posts only",
+    },
+  ]
+
+  const needsYou: NeedsYouItem[] = []
+  if (queueRes.length > 0) {
+    needsYou.push({
+      kind: "schedule",
+      title: `${queueRes.length} social post${queueRes.length === 1 ? "" : "s"} still to go out`,
+      lines: queueRes.map((c) => ({
+        label: c.scheduled_for ? whenLabel(c.scheduled_for) : "Unscheduled",
+        detail: c.title ?? "Untitled post",
+      })),
+      href: "/internal/social",
+      action: "Open the queue",
+    })
+  }
+  if (stale.length > 0) {
+    needsYou.push({
+      kind: "backlog",
+      title: `${unpublished.length} drafts waiting on a decision`,
+      lines: [
+        {
+          label: `${stale.length} untouched`,
+          detail: `for more than ${STALE_DAYS} days`,
+        },
+        {
+          label: "Oldest",
+          detail: fmt(stale[stale.length - 1]?.updated_at),
+        },
+      ],
+      href: "/internal/blog",
+      action: "Review the stale drafts",
+    })
+  }
+  if (deadFeeds.length > 0) {
+    needsYou.push({
+      kind: "broken",
+      title: `${deadFeeds.length} feed${deadFeeds.length === 1 ? " is" : "s are"} reporting nothing`,
+      lines: deadFeeds,
+      href: "/internal/insights",
+      action: "See what is missing",
+    })
+  }
+
   return (
     <PortalShell email={user.email} active="dashboard">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-foreground">
             Welcome{user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ""}
           </h1>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-            Write and publish blog posts. No Sanity account needed.
+            {needsYou.length > 0
+              ? "A few things want you today, then the numbers."
+              : "Nothing is waiting on you. Here are the numbers."}
           </p>
         </div>
-        <Button
-          render={<Link href="/internal/blog/new" />}
-          className="bg-[var(--purple-primary)] text-white hover:bg-[var(--purple-primary)]/90"
-        >
-          New blog post
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" render={<Link href="/internal/social/new" />}>
+            <Share2 />
+            New social post
+          </Button>
+          <Button
+            render={<Link href="/internal/blog/new" />}
+            className="bg-[var(--purple-primary)] text-white hover:bg-[var(--purple-primary)]/90"
+          >
+            <PenSquare />
+            New blog post
+          </Button>
+        </div>
       </div>
 
-      <SectionCards
-        connected={Boolean(ga4)}
-        totalVisitors={ga4 ? nf(ga4.totalUsers) : undefined}
-        pageViews={ga4 ? nf(ga4.pageViews) : undefined}
-        conversions={ga4 ? nf(ga4.conversions) : undefined}
-        searchClicks={gsc ? nf(gsc.totalClicks) : undefined}
-      />
+      <NeedsYou items={needsYou} />
 
-      <div className="px-1">
-        <ChartAreaInteractive data={trafficSeries} />
-      </div>
+      <SectionCards metrics={metrics} />
+
+      <ChartAreaInteractive data={trafficSeries} />
 
       {performance && performance.posts.length > 0 ? (
-        <Card>
-          <CardHeader>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <CardTitle>Top posts</CardTitle>
-                <CardDescription>
-                  Views, search performance and CTA clicks over the last 28 days.
-                </CardDescription>
-              </div>
-              <Link
-                href="/internal/insights"
-                className="text-sm font-medium text-[var(--purple-primary)]"
-              >
-                All performance →
-              </Link>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <BlogPerformanceTable
-              posts={performance.posts}
-              titles={postTitles}
-              limit={5}
-              ctaTrackingIdle={performance.ctaTrackingIdle}
-            />
-          </CardContent>
-        </Card>
-      ) : null}
-
-      {aeo && aeo.totalRuns > 0 ? (
-        <Card>
-          <CardHeader>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <CardTitle>AI answer visibility</CardTitle>
-                <CardDescription>
-                  {aeo.citationRate.toFixed(0)}% of sampled AI answers cite Fruition
-                  {aeo.topCompetitors.length > 0
-                    ? ` — most-cited rival: ${aeo.topCompetitors[0].name}`
-                    : ""}
-                  .
-                </CardDescription>
-              </div>
-              <Link
-                href="/internal/insights"
-                className="text-sm font-medium text-[var(--purple-primary)]"
-              >
-                Details →
-              </Link>
-            </div>
-          </CardHeader>
-        </Card>
+        <DashboardDetail
+          posts={performance.posts}
+          titles={postTitles}
+          ctaTrackingIdle={ctaIdle}
+          aeo={
+            aeo && aeo.totalRuns > 0
+              ? {
+                  citationRate: aeo.citationRate,
+                  totalRuns: aeo.totalRuns,
+                  totalCitations: aeo.totalCitations,
+                  competitors: aeo.topCompetitors.slice(0, 4),
+                }
+              : null
+          }
+          countries={(ga4?.topCountries ?? []).slice(0, 5)}
+        />
       ) : null}
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent drafts</CardTitle>
-          <CardDescription>The team&rsquo;s latest unpublished posts.</CardDescription>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <CardTitle>Recent drafts</CardTitle>
+              <CardDescription>
+                Everyone&rsquo;s, newest first — the whole team writes into one workspace.
+              </CardDescription>
+            </div>
+            {unpublished.length > 0 ? (
+              <Link
+                href="/internal/blog"
+                className="text-sm font-medium text-[var(--purple-primary)]"
+              >
+                All {unpublished.length} drafts →
+              </Link>
+            ) : null}
+          </div>
         </CardHeader>
         <CardContent>
           {drafts.length === 0 ? (
@@ -191,13 +304,13 @@ export default async function DashboardPage() {
               </EmptyContent>
             </Empty>
           ) : (
-            <ul className="divide-y" style={{ borderColor: "var(--color-border)" }}>
+            <ul className="divide-y divide-[var(--color-border)]">
               {drafts.map((d) => (
                 <li key={d.id} className="flex items-center justify-between gap-4 py-3">
-                  <span className="text-sm font-medium text-ink-heading">
+                  <span className="min-w-0 truncate text-sm font-medium text-ink-heading">
                     {d.title || "Untitled draft"}
                   </span>
-                  <span className="flex items-center gap-4 text-xs text-[var(--color-text-secondary)]">
+                  <span className="flex shrink-0 items-center gap-4 text-xs text-[var(--color-text-secondary)]">
                     <span>edited {fmt(d.updated_at)}</span>
                     <Link
                       href={`/internal/blog/${d.id}/edit`}

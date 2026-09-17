@@ -6,44 +6,49 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export interface SectionCardsProps {
-  totalVisitors?: string
-  pageViews?: string
-  conversions?: string
-  searchClicks?: string
-  /** True once GA4/GSC are connected — flips the caption from a hint to the range. */
-  connected?: boolean
-  rangeLabel?: string
+/**
+ * The dashboard's headline numbers.
+ *
+ * A metric with no working source is never rendered as a zero — a zero reads as
+ * "a bad month" when the truth is "nothing is reporting". Pass `idle` and the
+ * tile shows an em dash and says what would have to be fixed.
+ */
+export interface SectionMetric {
+  label: string
+  /** Formatted value. Ignored when `idle` is set. */
+  value?: string
+  /** Where the number comes from, or what is wrong when `idle`. */
+  caption: string
+  /** True when the feed exists but structurally cannot report. */
+  idle?: boolean
 }
 
-export function SectionCards({
-  totalVisitors = ", ",
-  pageViews = ", ",
-  conversions = ", ",
-  searchClicks = ", ",
-  connected = false,
-  rangeLabel = "Last 28 days",
-}: SectionCardsProps) {
-  const metrics = [
-    { label: "Total visitors", value: totalVisitors, source: "GA4" },
-    { label: "Page views", value: pageViews, source: "GA4" },
-    { label: "Conversions", value: conversions, source: "GA4" },
-    { label: "Search clicks", value: searchClicks, source: "Search Console" },
-  ]
-
+export function SectionCards({ metrics }: { metrics: SectionMetric[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {metrics.map((m) => (
         <Card key={m.label}>
           <CardHeader>
             <CardDescription>{m.label}</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums text-ink-heading">
-              {m.value}
+            <CardTitle
+              className={
+                m.idle || !m.value
+                  ? "text-2xl font-semibold tabular-nums text-muted-foreground"
+                  : "text-2xl font-semibold tabular-nums text-ink-heading"
+              }
+            >
+              {m.idle || !m.value ? "—" : m.value}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xs text-muted-foreground">
-              {connected ? `${rangeLabel} · ${m.source}` : `Connect ${m.source} to populate`}
+            <p
+              className={
+                m.idle
+                  ? "text-xs text-[var(--warning-strong)]"
+                  : "text-xs text-muted-foreground"
+              }
+            >
+              {m.caption}
             </p>
           </CardContent>
         </Card>
