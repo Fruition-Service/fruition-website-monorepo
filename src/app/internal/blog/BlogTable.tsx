@@ -156,7 +156,7 @@ export default function BlogTable({
               )}
               {row.original.duplicate && (
                 <div className="mt-0.5 text-xs text-[var(--warning-strong)]">
-                  Another draft carries the same title
+                  Another row carries this title
                 </div>
               )}
               {!row.original.duplicate && row.original.excerpt && (

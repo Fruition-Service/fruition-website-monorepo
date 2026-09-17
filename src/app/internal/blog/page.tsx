@@ -176,7 +176,7 @@ export default async function BlogIndexPage() {
         description={[
           `${published} published on the site, ${rows.length - published} in drafts.`,
           stale > 0 ? `${stale} untouched for over 30 days.` : null,
-          duplicates > 0 ? `${duplicates} filed more than once.` : null,
+          duplicates > 0 ? `${duplicates} share a title with another row.` : null,
           "Marketa files one every weekday at 9am SGT.",
         ]
           .filter(Boolean)
