@@ -93,10 +93,12 @@ export default function RegionPageTemplate({
         primaryCtaUrl={bookingUrl}
       />
 
+      <RegionServicesSection services={region.services} />
+
       {/*
-        Proof before pitch: the client wall and the quotes that back it run
-        straight off the hero, so the first thing under the H1 is who already
-        trusts us in this market rather than another list of services.
+        The offer first, then the proof that backs it: the client wall and the
+        quotes stay together as one unit and now follow the services list
+        rather than running straight off the hero.
       */}
       <ClientProofSection
         eyebrow={region.clients.eyebrow}
@@ -114,11 +116,9 @@ export default function RegionPageTemplate({
         caseStudies={caseStudies}
       />
 
-      <RegionServicesSection services={region.services} />
-
       {/*
-        The contact + booking band stays high on the page: proof, then the
-        offer, then the way to act on it — rather than ten sections down.
+        The contact + booking band stays high on the page: the offer, then the
+        proof, then the way to act on it — rather than ten sections down.
 
         It used to close the page — BookingSection is the purple→midnight
         gradient the design ends on — so nothing follows the FAQ now. The FAQ's
@@ -132,8 +132,6 @@ export default function RegionPageTemplate({
         bookingRegion={region.bookingRegion}
       />
 
-      <ProcessStepsSection process={region.process} />
-
       <RegionVideoSection
         eyebrow={region.video.eyebrow}
         heading={region.video.heading}
@@ -142,6 +140,8 @@ export default function RegionPageTemplate({
         videoId={region.video.videoId}
         videoTitle={region.video.videoTitle}
       />
+
+      <ProcessStepsSection process={region.process} />
 
       <RegionNumbersSection numbers={region.numbers} />
 
