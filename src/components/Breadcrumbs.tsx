@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { pageShell } from '@/lib/pageShell'
 
 /**
  * Site-wide breadcrumb bar, rendered by SiteFrame directly under the navbar so
@@ -160,9 +161,10 @@ export default function Breadcrumbs() {
   return (
     <div className="bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      {/* max-w-[1148px] px-4 matches the practice-page content container so the
-          trail left-aligns with page copy rather than the wider navbar chrome */}
-      <nav aria-label="Breadcrumb" className="max-w-[1148px] mx-auto px-4 pt-5">
+      {/* The trail runs in the same container as the page below it — see
+          pageShell.ts. A single hardcoded width left it 26-66px adrift of the
+          copy on every page that is not a 1148px practice page. */}
+      <nav aria-label="Breadcrumb" className={`${pageShell(pathname)} mx-auto pt-5`}>
         <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
           <li>
             <Link href="/" className="hover:text-[#8015e8] transition-colors">Home</Link>
@@ -171,7 +173,9 @@ export default function Breadcrumbs() {
             <li key={`${c.label}-${c.href ?? 'virtual'}`} className="flex items-center gap-1.5">
               <span aria-hidden>/</span>
               {c.isLast ? (
-                <span className="text-body font-medium">{c.label}</span>
+                /* The current page reads as part of the trail, not as a heading:
+                   same muted grey and weight as every other crumb. */
+                <span aria-current="page">{c.label}</span>
               ) : c.linkable && c.href ? (
                 <Link href={c.href} className="hover:text-[#8015e8] transition-colors">{c.label}</Link>
               ) : (
