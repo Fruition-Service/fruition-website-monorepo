@@ -1328,110 +1328,112 @@ body {
   }
 }
 
-/* ============================================================ */
-/* Client logo band (sections/ClientLogoWall, below md).         */
-/* The wall is a grid from md up. On a phone three tiles across  */
-/* turns 25 logos into nine rows of thumb-work, so the same set  */
-/* runs as one self-scrolling band instead. The track holds two  */
-/* copies of the run and slides by exactly half its width, so    */
-/* the loop is seamless; the band stays swipeable, holds still   */
-/* under a finger, and does not animate at all when the reader   */
-/* has asked for reduced motion.                                 */
-/* ============================================================ */
-.fr-logo-band {
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  /* Feather both ends so tiles enter and leave rather than being cut off. */
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 28px,
-    #000 calc(100% - 28px),
-    transparent
-  );
-}
-
-.fr-logo-band::-webkit-scrollbar {
-  display: none;
-}
-
-.fr-logo-band-track {
-  display: flex;
-  width: max-content;
-  animation: fr-logo-band-slide 38s linear infinite;
-}
-
-.fr-logo-band-run {
-  display: flex;
-  gap: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.fr-logo-band:hover .fr-logo-band-track,
-.fr-logo-band:focus-within .fr-logo-band-track {
-  animation-play-state: paused;
-}
-
-@keyframes fr-logo-band-slide {
-  to {
-    transform: translateX(-50%);
+@layer components {
+  /* ============================================================ */
+  /* Client logo band (sections/ClientLogoWall, below md).         */
+  /* The wall is a grid from md up. On a phone three tiles across  */
+  /* turns 25 logos into nine rows of thumb-work, so the same set  */
+  /* runs as one self-scrolling band instead. The track holds two  */
+  /* copies of the run and slides by exactly half its width, so    */
+  /* the loop is seamless; the band stays swipeable, holds still   */
+  /* under a finger, and does not animate at all when the reader   */
+  /* has asked for reduced motion.                                 */
+  /* ============================================================ */
+  .fr-logo-band {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    /* Feather both ends so tiles enter and leave rather than being cut off. */
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 28px,
+      #000 calc(100% - 28px),
+      transparent
+    );
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
+  .fr-logo-band::-webkit-scrollbar {
+    display: none;
+  }
+
   .fr-logo-band-track {
-    animation: none;
+    display: flex;
+    width: max-content;
+    animation: fr-logo-band-slide 38s linear infinite;
   }
-}
 
-/* ============================================================ */
-/* Swipe rail: a horizontal, snapping row of cards for phones.   */
-/* Sections whose cards carry too much text to sit two-up (a     */
-/* testimonial, a case study) become one screen tall instead of  */
-/* six, and the reader pages through them with a thumb. Unlike   */
-/* the logo band this never moves on its own: text a reader is   */
-/* halfway through must not slide away from them.                */
-/* The trailing spacer element gives the last card the same left */
-/* alignment as the first when it snaps into place.              */
-/* ============================================================ */
-.fr-swipe-rail {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  /* Bleed to the screen edges so a card can sit flush while the page keeps
-     its gutter; the padding puts the first card back on the gutter line. */
-  margin-inline: calc(var(--fr-rail-gutter, 1.25rem) * -1);
-  padding-inline: var(--fr-rail-gutter, 1.25rem);
-}
+  .fr-logo-band-run {
+    display: flex;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
 
-.fr-swipe-rail::-webkit-scrollbar {
-  display: none;
-}
+  .fr-logo-band:hover .fr-logo-band-track,
+  .fr-logo-band:focus-within .fr-logo-band-track {
+    animation-play-state: paused;
+  }
 
-.fr-swipe-rail > * {
-  flex: 0 0 86%;
-  scroll-snap-align: start;
-}
+  @keyframes fr-logo-band-slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 
-/* Keeps the final card from snapping flush against the right edge. */
-.fr-swipe-rail::after {
-  content: "";
-  flex: 0 0 calc(var(--fr-rail-gutter, 1.25rem) - 0.75rem);
-}
+  @media (prefers-reduced-motion: reduce) {
+    .fr-logo-band-track {
+      animation: none;
+    }
+  }
 
-@media (min-width: 768px) {
+  /* ============================================================ */
+  /* Swipe rail: a horizontal, snapping row of cards for phones.   */
+  /* Sections whose cards carry too much text to sit two-up (a     */
+  /* testimonial, a case study) become one screen tall instead of  */
+  /* six, and the reader pages through them with a thumb. Unlike   */
+  /* the logo band this never moves on its own: text a reader is   */
+  /* halfway through must not slide away from them.                */
+  /* The trailing spacer element gives the last card the same left */
+  /* alignment as the first when it snaps into place.              */
+  /* ============================================================ */
   .fr-swipe-rail {
-    display: grid;
-    overflow-x: visible;
-    margin-inline: 0;
-    padding-inline: 0;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    /* Bleed to the screen edges so a card can sit flush while the page keeps
+       its gutter; the padding puts the first card back on the gutter line. */
+    margin-inline: calc(var(--fr-rail-gutter, 1.25rem) * -1);
+    padding-inline: var(--fr-rail-gutter, 1.25rem);
   }
+
+  .fr-swipe-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fr-swipe-rail > * {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+
+  /* Keeps the final card from snapping flush against the right edge. */
   .fr-swipe-rail::after {
-    content: none;
+    content: "";
+    flex: 0 0 calc(var(--fr-rail-gutter, 1.25rem) - 0.75rem);
+  }
+
+  @media (min-width: 768px) {
+    .fr-swipe-rail {
+      display: grid;
+      overflow-x: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+    .fr-swipe-rail::after {
+      content: none;
+    }
   }
 }
