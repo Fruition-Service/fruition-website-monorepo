@@ -38,6 +38,22 @@ const MAX_MAP_HEIGHT = 440
  */
 const LABEL_GUTTER = 64
 
+/**
+ * Per-region gutter, where the shared 64px reserves more room than that map's
+ * labels can use.
+ *
+ * It only matters on a map the column sizes rather than the height budget, and
+ * the lower 48 is the only one of those wide enough to care: at 1.87:1 every
+ * pixel the gutter takes costs nearly two of width, so the United States hero
+ * drew 199px tall against 348-440px for the other five. Its widest overhang is
+ * "New York" running east off a mark that already sits 13% in from the edge,
+ * which needs 34px at the narrowest `lg` column and less at every width above
+ * it — so the map keeps the 30px the labels were never going to reach.
+ */
+const LABEL_GUTTER_OVERRIDE: Partial<Record<RegionSlug, number>> = {
+  "monday-partner-us": 34,
+}
+
 const LABEL_POSITION: Record<RegionMapMarkerData["labelSide"], string> = {
   right: "left-full top-1/2 -translate-y-1/2 ml-2 text-left",
   left: "right-full top-1/2 -translate-y-1/2 mr-2 text-right",
@@ -66,6 +82,7 @@ interface Props {
 export default function RegionMap({ slug, countryName }: Props) {
   const map = REGION_MAP_DATA[slug]
   const country = countryName.replace(/^the /, "")
+  const gutter = LABEL_GUTTER_OVERRIDE[slug] ?? LABEL_GUTTER
 
   return (
     <div
@@ -73,8 +90,8 @@ export default function RegionMap({ slug, countryName }: Props) {
       style={{
         // The gutter is padding, so the map inside is never taller than the
         // budget and never wider than the column minus its label room.
-        width: `min(100%, ${Math.round(MAX_MAP_HEIGHT * map.aspectRatio) + LABEL_GUTTER * 2}px)`,
-        paddingInline: `${LABEL_GUTTER}px`,
+        width: `min(100%, ${Math.round(MAX_MAP_HEIGHT * map.aspectRatio) + gutter * 2}px)`,
+        paddingInline: `${gutter}px`,
       }}
       role="group"
       aria-label={`Where Fruition delivers in ${country}: ${map.markers
