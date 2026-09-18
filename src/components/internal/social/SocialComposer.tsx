@@ -192,6 +192,36 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
   }
 
   /**
+   * Select or clear every channel at once. A published channel is left alone —
+   * removing it here would not unpublish it, and toggle() refuses for that
+   * reason, so the bulk control has to respect it too.
+   */
+  function toggleAll() {
+    setError(null)
+    const everything = selectedKeys.length === specs.length
+    patch((prev) => {
+      if (everything) {
+        const next: typeof prev.platforms = {}
+        for (const spec of specs) {
+          if (liveOf(spec.key)?.status === "published" && prev.platforms[spec.key]) {
+            next[spec.key] = prev.platforms[spec.key]
+          }
+        }
+        return { platforms: next }
+      }
+      const next = { ...prev.platforms }
+      for (const spec of specs) {
+        if (next[spec.key]) continue
+        next[spec.key] = {
+          content: prev.masterContent,
+          ...(spec.titleRequired || spec.titleLimit ? { title: prev.title } : {}),
+        }
+      }
+      return { platforms: next }
+    })
+  }
+
+  /**
    * "Customised" means the wording has been pulled away from the shared post,
    * so only a change to the words counts. Picking an image, attaching a PDF or
    * naming a subreddit shouldn't quietly stop the shared caption flowing into
@@ -576,10 +606,24 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
 
       {/* ---------- 1. pick the channels ---------- */}
       <section className="rounded-xl border border-border bg-card p-5">
-        <h2 className="text-sm font-semibold text-foreground">Channels</h2>
-        <p className="mt-0.5 text-xs text-muted-foreground">
-          Pick one to write a single post. Pick several and you can write once, then adapt each.
-        </p>
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <div>
+            <h2 className="text-sm font-semibold text-foreground">Channels</h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {selectedKeys.length === 0
+                ? "Pick one to write a single post. Pick several and you can write once, then adapt each."
+                : `${selectedKeys.length} of ${specs.length} selected · ${specs.length} connected in Zernio`}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => toggleAll()}
+            disabled={working}
+            className="text-xs font-medium text-primary underline-offset-2 hover:underline disabled:opacity-50"
+          >
+            {selectedKeys.length === specs.length ? "Clear all" : `Select all ${specs.length}`}
+          </button>
+        </div>
         <div className="mt-3 flex flex-wrap gap-2">
           {specs.map((spec) => {
             const on = Boolean(edit.platforms[spec.key])
@@ -693,232 +737,243 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
         </section>
       )}
 
-      {/* ---------- 3. the shared post — only worth having for several channels ---------- */}
-      {multi && (
-        <section className="rounded-xl border border-border bg-card p-5">
-          <div className="flex flex-wrap items-start justify-between gap-2">
-            <div>
-              <h2 className="text-sm font-semibold text-foreground">The post</h2>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                Flows into every channel below that you haven&apos;t edited separately.
-              </p>
+      {/* The post and when it goes, beside the channels it goes to. Replaces a
+          fixed bottom bar, which hid the schedule under the channel list. */}
+      <div className="grid items-start gap-5 lg:grid-cols-2">
+        <div className="flex min-w-0 flex-col gap-5">
+        {/* ---------- 3. the shared post — only worth having for several channels ---------- */}
+        {multi && (
+          <section className="rounded-xl border border-border bg-card p-5">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <h2 className="text-sm font-semibold text-foreground">The post</h2>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Flows into every channel below that you haven&apos;t edited separately.
+                </p>
+              </div>
+              {/* No tag picker here: a tag is per-channel markup, and LinkedIn's
+                  would arrive on X as literal brackets. */}
+              <EmojiPicker onPick={masterCaret.insert} onClose={masterCaret.restore} disabled={working} />
             </div>
-            {/* No tag picker here: a tag is per-channel markup, and LinkedIn's
-                would arrive on X as literal brackets. */}
-            <EmojiPicker onPick={masterCaret.insert} onClose={masterCaret.restore} disabled={working} />
-          </div>
 
-          <textarea
-            ref={masterBox}
-            value={edit.masterContent}
-            onChange={(e) => setMaster(e.target.value)}
-            onSelect={masterCaret.remember}
-            onKeyUp={masterCaret.remember}
-            onClick={masterCaret.remember}
-            rows={4}
-            placeholder="Write it once here, then adjust any channel that needs different wording."
-            className="mt-3 w-full resize-y rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
-          />
+            <textarea
+              ref={masterBox}
+              value={edit.masterContent}
+              onChange={(e) => setMaster(e.target.value)}
+              onSelect={masterCaret.remember}
+              onKeyUp={masterCaret.remember}
+              onClick={masterCaret.remember}
+              rows={4}
+              placeholder="Write it once here, then adjust any channel that needs different wording."
+              className="mt-3 w-full resize-y rounded-md border border-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
+            />
 
-          {edit.mediaUrls.length > 0 && (
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              {edit.mediaUrls.map((url) => (
-                <span key={url} className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={url} alt="" className="size-12 rounded-md border border-border object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(url)}
-                    disabled={working}
-                    aria-label="Delete this image from the post"
-                    title="Delete from the post"
-                    className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition hover:border-destructive hover:text-destructive disabled:opacity-50"
-                  >
-                    <X className="size-3" />
-                  </button>
+            {edit.mediaUrls.length > 0 && (
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {edit.mediaUrls.map((url) => (
+                  <span key={url} className="relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={url} alt="" className="size-12 rounded-md border border-border object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(url)}
+                      disabled={working}
+                      aria-label="Delete this image from the post"
+                      title="Delete from the post"
+                      className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition hover:border-destructive hover:text-destructive disabled:opacity-50"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </span>
+                ))}
+                <span className="text-xs text-muted-foreground">
+                  Uploaded to this post — each channel picks its own from here. Delete one and it goes
+                  from every channel.
                 </span>
-              ))}
-              <span className="text-xs text-muted-foreground">
-                Uploaded to this post — each channel picks its own from here. Delete one and it goes
-                from every channel.
-              </span>
+              </div>
+            )}
+          </section>
+        )}
+
+          <section className="rounded-xl border border-border bg-card p-5">
+            <h2 className="text-sm font-semibold text-foreground">When</h2>
+            <div className="mt-3 flex flex-col gap-3">
+
+                      <div className="min-w-0 flex-1">
+                        {error && (
+                          <p role="alert" className="truncate text-xs text-destructive" title={error}>
+                            {error}
+                          </p>
+                        )}
+                        {!error && notice && <p className="truncate text-xs text-primary">{notice}</p>}
+                        {!error && !notice && blockers.length > 0 && (
+                          <p className="truncate text-xs text-muted-foreground" title={blockers.join(" · ")}>
+                            {blockers[0]}
+                            {blockers.length > 1 ? ` (+${blockers.length - 1} more)` : ""}
+                          </p>
+                        )}
+                        {!error && !notice && blockers.length === 0 && scheduled && (
+                          <p className="truncate text-xs text-muted-foreground">
+                            Scheduled for {new Date(scheduled).toLocaleString()}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2">
+                        {scheduled ? (
+                          <Button variant="outline" size="sm" onClick={() => void send("cancel")} disabled={working}>
+                            {busy === "cancel" ? <Loader2 className="animate-spin" /> : null}
+                            Cancel schedule
+                          </Button>
+                        ) : (
+                          <>
+                            <ScheduleField value={scheduleAt} onChange={setScheduleAt} disabled={working} />
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => void send("schedule")}
+                              disabled={working || !canSend || !scheduleAt}
+                            >
+                              {busy === "schedule" ? <Loader2 className="animate-spin" /> : null}
+                              Schedule
+                            </Button>
+                          </>
+                        )}
+                        <Button size="sm" onClick={() => void send("now")} disabled={working || !canSend}>
+                          {busy === "now" ? <Loader2 className="animate-spin" /> : null}
+                          Post now
+                          {sendableKeys.length > 0 ? ` (${sendableKeys.length})` : ""}
+                        </Button>
+                      </div>
+        
             </div>
-          )}
-        </section>
-      )}
+          </section>
+        </div>
 
-      {/* ---------- per channel ---------- */}
-      {selectedKeys.length === 0 ? (
-        <section className="rounded-xl border border-dashed border-border p-10 text-center">
-          <p className="text-sm font-medium text-foreground">Pick a channel to start writing</p>
-          <p className="mx-auto mt-1 max-w-md text-xs text-muted-foreground">
-            Every channel gets its own post and its own limits. X caps at 280 characters including the link, Instagram
-            and Pinterest need an image, Reddit needs a title.
-          </p>
-        </section>
-      ) : (
-        <div className={`grid gap-4 ${multi ? "lg:grid-cols-2" : ""}`}>
-          {specs
-            .filter((spec) => edit.platforms[spec.key])
-            .map((spec) => {
-              const draft = edit.platforms[spec.key]!
-              const live = liveOf(spec.key)
-              const published = live?.status === "published"
-              const badge = statusBadge(live?.status)
-              return (
-                <article key={spec.key} className="flex flex-col rounded-xl border border-border bg-card p-4">
-                  <header className="mb-3 flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <PlatformIcon platform={spec.key} size={16} />
-                      </span>
-                      <span>
-                        <span className="block text-sm font-semibold text-foreground">{spec.label}</span>
-                        <span className="block text-xs text-muted-foreground">@{spec.account.replace(/^@/, "")}</span>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {live?.platformUrl && (
-                        <a
-                          href={live.platformUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-xs font-medium text-primary underline-offset-2 hover:underline"
-                        >
-                          View post
-                        </a>
-                      )}
-                      {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
-                    </div>
-                  </header>
-
-                  <PlatformEditor
-                    spec={spec}
-                    value={draft}
-                    images={edit.mediaUrls}
-                    disabled={published}
-                    uploading={busy === `upload:${spec.key}`}
-                    uploadingDocument={busy === `doc:${spec.key}`}
-                    shortenLinks={edit.shortenLinks}
-                    onChange={(p) => patchPlatform(spec.key, p)}
-                    onUpload={(file) => void upload(file, spec.key)}
-                    onUploadDocument={
-                      spec.supportsDocument ? (file) => void uploadDocument(file, spec.key) : undefined
-                    }
-                    onRemoveImage={removeImage}
-                  />
-
-                  {(linksByPlatform.get(spec.key)?.length ?? 0) > 0 && (
-                    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-3">
-                      <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                        Short link
-                      </span>
-                      {linksByPlatform.get(spec.key)!.map((link) => (
-                        <span key={link.code} className="flex items-center gap-1.5 text-xs">
+        <div className="flex min-w-0 flex-col gap-3">
+        {/* ---------- per channel ---------- */}
+        {selectedKeys.length === 0 ? (
+          <section className="rounded-xl border border-dashed border-border p-10 text-center">
+            <p className="text-sm font-medium text-foreground">Pick a channel to start writing</p>
+            <p className="mx-auto mt-1 max-w-md text-xs text-muted-foreground">
+              Every channel gets its own post and its own limits. X caps at 280 characters including the link, Instagram
+              and Pinterest need an image, Reddit needs a title.
+            </p>
+          </section>
+        ) : (
+          <div className={`grid gap-4 ${multi ? "lg:grid-cols-2" : ""}`}>
+            {specs
+              .filter((spec) => edit.platforms[spec.key])
+              .map((spec) => {
+                const draft = edit.platforms[spec.key]!
+                const live = liveOf(spec.key)
+                const published = live?.status === "published"
+                const badge = statusBadge(live?.status)
+                return (
+                  <article key={spec.key} className="flex flex-col rounded-xl border border-border bg-card p-4">
+                    <header className="mb-3 flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                          <PlatformIcon platform={spec.key} size={16} />
+                        </span>
+                        <span>
+                          <span className="block text-sm font-semibold text-foreground">{spec.label}</span>
+                          <span className="block text-xs text-muted-foreground">@{spec.account.replace(/^@/, "")}</span>
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {live?.platformUrl && (
                           <a
-                            href={link.url}
+                            href={live.platformUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="font-mono text-primary underline-offset-2 hover:underline"
-                            title={link.targetUrl}
+                            className="text-xs font-medium text-primary underline-offset-2 hover:underline"
                           >
-                            /s/{link.code}
+                            View post
                           </a>
-                          <span className="tabular-nums text-muted-foreground">
-                            {link.clicks} click{link.clicks === 1 ? "" : "s"}
-                          </span>
+                        )}
+                        {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
+                      </div>
+                    </header>
+
+                    <PlatformEditor
+                      spec={spec}
+                      value={draft}
+                      images={edit.mediaUrls}
+                      disabled={published}
+                      uploading={busy === `upload:${spec.key}`}
+                      uploadingDocument={busy === `doc:${spec.key}`}
+                      shortenLinks={edit.shortenLinks}
+                      onChange={(p) => patchPlatform(spec.key, p)}
+                      onUpload={(file) => void upload(file, spec.key)}
+                      onUploadDocument={
+                        spec.supportsDocument ? (file) => void uploadDocument(file, spec.key) : undefined
+                      }
+                      onRemoveImage={removeImage}
+                    />
+
+                    {(linksByPlatform.get(spec.key)?.length ?? 0) > 0 && (
+                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-3">
+                        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                          Short link
                         </span>
-                      ))}
-                    </div>
-                  )}
+                        {linksByPlatform.get(spec.key)!.map((link) => (
+                          <span key={link.code} className="flex items-center gap-1.5 text-xs">
+                            <a
+                              href={link.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-mono text-primary underline-offset-2 hover:underline"
+                              title={link.targetUrl}
+                            >
+                              /s/{link.code}
+                            </a>
+                            <span className="tabular-nums text-muted-foreground">
+                              {link.clicks} click{link.clicks === 1 ? "" : "s"}
+                            </span>
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
-                  <footer className="mt-3 flex items-center justify-between gap-2 border-t border-border pt-3">
-                    <span className="text-xs text-muted-foreground">
-                      {!multi ? "" : draft.customised ? "Edited for this channel" : "Following the shared post"}
-                    </span>
-                    <div className="flex gap-2">
-                      {multi && draft.customised && !published && (
-                        <Button variant="ghost" size="xs" onClick={() => resetToMaster(spec.key)} disabled={working}>
-                          Reset
-                        </Button>
-                      )}
-                      {published && spec.key !== "instagram" && (
-                        <Button
-                          variant="destructive"
-                          size="xs"
-                          onClick={() => void unpublish(spec)}
-                          disabled={working}
-                        >
-                          {busy === `unpublish:${spec.key}` ? <Loader2 className="animate-spin" /> : null}
-                          Unpublish
-                        </Button>
-                      )}
-                      {published && spec.key === "instagram" && (
-                        <span className="text-xs text-muted-foreground">Delete in the Instagram app</span>
-                      )}
-                    </div>
-                  </footer>
+                    <footer className="mt-3 flex items-center justify-between gap-2 border-t border-border pt-3">
+                      <span className="text-xs text-muted-foreground">
+                        {!multi ? "" : draft.customised ? "Edited for this channel" : "Following the shared post"}
+                      </span>
+                      <div className="flex gap-2">
+                        {multi && draft.customised && !published && (
+                          <Button variant="ghost" size="xs" onClick={() => resetToMaster(spec.key)} disabled={working}>
+                            Reset
+                          </Button>
+                        )}
+                        {published && spec.key !== "instagram" && (
+                          <Button
+                            variant="destructive"
+                            size="xs"
+                            onClick={() => void unpublish(spec)}
+                            disabled={working}
+                          >
+                            {busy === `unpublish:${spec.key}` ? <Loader2 className="animate-spin" /> : null}
+                            Unpublish
+                          </Button>
+                        )}
+                        {published && spec.key === "instagram" && (
+                          <span className="text-xs text-muted-foreground">Delete in the Instagram app</span>
+                        )}
+                      </div>
+                    </footer>
 
-                  {live?.status === "failed" && live.error && (
-                    <p className="mt-2 text-xs text-destructive">{live.error}</p>
-                  )}
-                </article>
-              )
-            })}
-        </div>
-      )}
-
-      {/* ---------- send ---------- */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 backdrop-blur md:left-[var(--sidebar-width,0px)]">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <div className="min-w-0 flex-1">
-            {error && (
-              <p role="alert" className="truncate text-xs text-destructive" title={error}>
-                {error}
-              </p>
-            )}
-            {!error && notice && <p className="truncate text-xs text-primary">{notice}</p>}
-            {!error && !notice && blockers.length > 0 && (
-              <p className="truncate text-xs text-muted-foreground" title={blockers.join(" · ")}>
-                {blockers[0]}
-                {blockers.length > 1 ? ` (+${blockers.length - 1} more)` : ""}
-              </p>
-            )}
-            {!error && !notice && blockers.length === 0 && scheduled && (
-              <p className="truncate text-xs text-muted-foreground">
-                Scheduled for {new Date(scheduled).toLocaleString()}
-              </p>
-            )}
+                    {live?.status === "failed" && live.error && (
+                      <p className="mt-2 text-xs text-destructive">{live.error}</p>
+                    )}
+                  </article>
+                )
+              })}
           </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            {scheduled ? (
-              <Button variant="outline" size="sm" onClick={() => void send("cancel")} disabled={working}>
-                {busy === "cancel" ? <Loader2 className="animate-spin" /> : null}
-                Cancel schedule
-              </Button>
-            ) : (
-              <>
-                <ScheduleField value={scheduleAt} onChange={setScheduleAt} disabled={working} />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => void send("schedule")}
-                  disabled={working || !canSend || !scheduleAt}
-                >
-                  {busy === "schedule" ? <Loader2 className="animate-spin" /> : null}
-                  Schedule
-                </Button>
-              </>
-            )}
-            <Button size="sm" onClick={() => void send("now")} disabled={working || !canSend}>
-              {busy === "now" ? <Loader2 className="animate-spin" /> : null}
-              Post now
-              {sendableKeys.length > 0 ? ` (${sendableKeys.length})` : ""}
-            </Button>
-          </div>
+        )}
         </div>
       </div>
+
     </div>
   )
 }
