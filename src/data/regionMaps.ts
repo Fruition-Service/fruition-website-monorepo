@@ -78,8 +78,11 @@ export const REGION_MAPS: Record<RegionSlug, RegionMapDefinition> = {
     countries: ["USA"],
     region: { lat: { min: 24.5, max: 49.4 }, lng: { min: -125, max: -66.9 } },
     // Lower than the rest because this is the one map wide enough to be sized
-    // by the column rather than the height budget, so it draws smaller.
-    height: 24,
+    // by the column rather than the height budget, so it draws smaller. Tuned
+    // to the pitch the other five draw at — about 9px between dot rows on
+    // screen — rather than to a row count, so widening the map (see
+    // LABEL_GUTTER_OVERRIDE in RegionMap) has to raise this with it.
+    height: 26,
     markers: [
       { city: "New York", lat: 40.71, lng: -74.01, headquarters: true, labelSide: "right" },
       { city: "Chicago", lat: 41.88, lng: -87.63, labelSide: "top" },
