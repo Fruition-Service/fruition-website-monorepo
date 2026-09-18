@@ -656,7 +656,11 @@ export default function BlogEditor({
               <Field label="Industry">
                 <Select value={industry || INDUSTRIES[0]?.value} onValueChange={(v) => setIndustry(v ?? "")}>
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue>
+                      {(value: string) =>
+                        INDUSTRIES.find((o) => o.value === value)?.label ?? INDUSTRIES[0].label
+                      }
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {INDUSTRIES.map((o) => (
