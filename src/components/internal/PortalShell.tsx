@@ -4,11 +4,11 @@ import { Separator } from "@/components/ui/separator"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
 const TITLES: Record<string, string> = {
-  dashboard: "Blog Management",
+  dashboard: "Dashboard",
   new: "New post",
   profile: "My profile",
-  team: "Team Management",
-  blog: "Blog drafts",
+  team: "Team",
+  blog: "Blog posts",
   social: "Social posts",
   insights: "Content Performance",
   qr: "QR Code Generator",

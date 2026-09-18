@@ -90,6 +90,26 @@ export default function QrCodeGenerator() {
   const [size, setSize] = React.useState<(typeof SIZES)[number]>("1024")
   const [withLogo, setWithLogo] = React.useState(true)
   const [error, setError] = React.useState<string | null>(null)
+  // Real contrast, not advice. A scanner needs roughly 3:1 between the modules
+  // and the background; a pretty pairing that drops under it fails silently on
+  // a printed sheet, where there is no way to tell why.
+  const contrast = React.useMemo(() => {
+    const lum = (hex: string) => {
+      const clean = hex.replace("#", "")
+      if (clean.length !== 6) return null
+      const ch = [0, 2, 4].map((i) => {
+        const v = parseInt(clean.slice(i, i + 2), 16) / 255
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+      })
+      if (ch.some((c) => Number.isNaN(c))) return null
+      return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2]
+    }
+    const a = lum(fg)
+    const b = lum(bg)
+    if (a === null || b === null) return { ratio: 0, ok: true }
+    const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+    return { ratio, ok: ratio >= 3 }
+  }, [fg, bg])
   const [ready, setReady] = React.useState(false)
   const [swatches, setSwatches] = React.useState<{ label: string; hex: string }[]>([])
 
@@ -296,8 +316,17 @@ export default function QrCodeGenerator() {
                   className="font-mono uppercase"
                 />
               </div>
-              <p className="text-xs text-muted-foreground">
-                Keep a strong contrast against the code colour, or scanners give up.
+              <p
+                className={
+                  contrast.ok
+                    ? "text-xs text-muted-foreground"
+                    : "text-xs text-[var(--warning-strong)]"
+                }
+              >
+                {contrast.ratio.toFixed(1)}:1 against the code colour.{" "}
+                {contrast.ok
+                  ? "Well clear of the 3:1 a scanner needs."
+                  : "Under the 3:1 a scanner needs — phones will struggle or give up."}
               </p>
             </div>
           </div>
