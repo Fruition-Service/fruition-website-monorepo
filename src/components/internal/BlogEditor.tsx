@@ -633,7 +633,13 @@ export default function BlogEditor({
               <Field label="Author" hint="From the team page">
                 <Select value={author || AUTHOR_DEFAULT} onValueChange={(v) => setAuthor(v === AUTHOR_DEFAULT || !v ? "" : v)}>
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue>
+                      {(value: string) =>
+                        value === AUTHOR_DEFAULT || !value
+                          ? currentAuthorName || "You (default)"
+                          : value
+                      }
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={AUTHOR_DEFAULT}>{currentAuthorName || "You (default)"}</SelectItem>
