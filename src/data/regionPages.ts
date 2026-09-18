@@ -6,6 +6,7 @@ import type {
   RegionServiceLink,
   RegionStat,
 } from "@/components/region/types"
+import { REGION_LOCAL_BUSINESS } from "@/data/regionLocalBusiness"
 
 /**
  * Content for the six /monday-partner-* region pages.
@@ -292,21 +293,7 @@ const australia: RegionContent = {
     lead: "Book a free consultation with Fruition's Australian team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in Australia",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimisation services across Australia.",
-    telephone: "+61 483 955 931",
-    address: {
-      streetAddress: "Level 12, 64 York Street",
-      addressLocality: "Sydney",
-      addressRegion: "NSW",
-      postalCode: "2000",
-      addressCountry: "AU",
-    },
-    areaServedCities: ["Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth"],
-    areaServedCountries: ["Australia", "New Zealand"],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-australia"],
 }
 
 const unitedKingdom: RegionContent = {
@@ -441,28 +428,7 @@ const unitedKingdom: RegionContent = {
     lead: "Book a free consultation with Fruition's UK team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in the United Kingdom",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimisation services across the United Kingdom.",
-    telephone: "+44 7822 019548",
-    address: {
-      streetAddress: "423 Linen Hall, 162-168 Regent Street",
-      addressLocality: "London",
-      addressRegion: "England",
-      postalCode: "W1B 5TE",
-      addressCountry: "GB",
-    },
-    areaServedCities: [
-      "London",
-      "Manchester",
-      "Birmingham",
-      "Leeds",
-      "Edinburgh",
-      "Glasgow",
-    ],
-    areaServedCountries: ["United Kingdom"],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-uk"],
 }
 
 const unitedStates: RegionContent = {
@@ -597,27 +563,7 @@ const unitedStates: RegionContent = {
     lead: "Book a free consultation with Fruition's US team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in the United States",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimization services across the United States.",
-    telephone: "+1 302 330 2496",
-    address: {
-      streetAddress: "205 W 37th St",
-      addressLocality: "New York",
-      addressRegion: "NY",
-      postalCode: "10018",
-      addressCountry: "US",
-    },
-    areaServedCities: [
-      "New York",
-      "Chicago",
-      "Austin",
-      "San Francisco",
-      "Los Angeles",
-    ],
-    areaServedCountries: ["United States", "Canada"],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-us"],
 }
 
 const singapore: RegionContent = {
@@ -753,27 +699,7 @@ const singapore: RegionContent = {
     lead: "Book a free consultation with Fruition's Singapore team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in Singapore",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimisation services across Singapore and Southeast Asia.",
-    telephone: "+65 3158 6808",
-    address: {
-      // Goldhill Plaza is a city-state address with no state or province.
-      streetAddress: "Goldhill Plaza #07-07",
-      addressLocality: "Singapore",
-      postalCode: "308900",
-      addressCountry: "SG",
-    },
-    areaServedCities: ["Singapore", "Kuala Lumpur", "Jakarta", "Bangkok", "Ho Chi Minh City"],
-    areaServedCountries: [
-      "Singapore",
-      "Malaysia",
-      "Indonesia",
-      "Thailand",
-      "Vietnam",
-    ],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-singapore"],
 }
 
 const india: RegionContent = {
@@ -908,28 +834,7 @@ const india: RegionContent = {
     lead: "Book a free consultation with Fruition's India team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in India",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimisation services across India.",
-    telephone: "+91 7503735930",
-    address: {
-      streetAddress: "WeWork Eldeco Centre, Block A, Malviya Nagar",
-      addressLocality: "New Delhi",
-      addressRegion: "Delhi",
-      postalCode: "110017",
-      addressCountry: "IN",
-    },
-    areaServedCities: [
-      "New Delhi",
-      "Mumbai",
-      "Bengaluru",
-      "Hyderabad",
-      "Pune",
-      "Chennai",
-    ],
-    areaServedCountries: ["India"],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-india"],
 }
 
 const philippines: RegionContent = {
@@ -1065,21 +970,7 @@ const philippines: RegionContent = {
     lead: "Book a free consultation with Fruition's Philippines team — a frank read on scope, fit and cost from a certified Platinum Partner.",
   },
 
-  localBusiness: {
-    name: "monday.com Platinum Consulting Partner in the Philippines",
-    description:
-      "Fruition Services is a monday.com Platinum Partner providing monday.com consulting, implementation, CRM, automation, integrations, data migration, training and ongoing optimisation services across the Philippines.",
-    telephone: "+63 947 230 4274",
-    address: {
-      streetAddress: "Menarco Tower, 32nd St, Bonifacio Global City",
-      addressLocality: "Taguig",
-      addressRegion: "Metro Manila",
-      postalCode: "1634",
-      addressCountry: "PH",
-    },
-    areaServedCities: ["Manila", "Taguig", "Cebu", "Davao", "Angeles"],
-    areaServedCountries: ["Philippines"],
-  },
+  localBusiness: REGION_LOCAL_BUSINESS["monday-partner-philippines"],
 }
 
 /* ------------------------------------------------------------------ */

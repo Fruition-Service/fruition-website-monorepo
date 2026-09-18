@@ -12,6 +12,7 @@ import CtaClickTracker from "@/components/CtaClickTracker"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
 import AwardBanner from "@/components/home/AwardBanner"
 import { ThemeProvider } from "@/components/ThemeProvider"
+import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
 import { getSiteSettings } from "@/sanity/queries"
 import { bookingHref } from "@/lib/bookingLink"
 import { whatsappHref } from "@/lib/whatsapp"
@@ -321,6 +322,11 @@ export default async function RootLayout({
         ) : null}
         <script dangerouslySetInnerHTML={{ __html: REB2B_LOADER }} />
         <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
+        {/* Per-region ProfessionalService JSON-LD. Renders only on the six
+            /monday-partner-* routes; null everywhere else. It lives here
+            because <head> is unreachable from a page in the App Router — see
+            the component for the mechanics. */}
+        <RegionLocalBusinessSchema />
       </head>
       <body className={`${poppins.variable} ${jetbrainsMono.variable} antialiased`}>
         <CtaClickTracker />

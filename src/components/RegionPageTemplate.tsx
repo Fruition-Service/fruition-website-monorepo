@@ -19,7 +19,6 @@ import {
   RegionCoverageSection,
   RegionFaqSection,
   RegionHero,
-  RegionLocalBusinessSchema,
   RegionNumbersSection,
   RegionServicesSection,
   RegionVideoSection,
@@ -81,8 +80,6 @@ export default function RegionPageTemplate({
   return (
     <div>
       <StickyCtaConfig label="Book a Free Consultation" href={bookingUrl} />
-
-      <RegionLocalBusinessSchema content={region} />
 
       <RegionHero
         hero={region.hero}
