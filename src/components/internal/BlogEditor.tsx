@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState, useTransition } from "react"
+import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -476,49 +477,43 @@ export default function BlogEditor({
         </div>
 
         <div className="flex shrink-0 flex-wrap items-center gap-2">
-          <div className="flex gap-3 pt-1">
-            <button
-              type="button"
-              onClick={onSaveDraft}
-              disabled={savingDraft || unpublishing}
-              className="flex-1 rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
-              style={{ borderColor: "var(--color-border)", color: "var(--ink-heading)" }}
-            >
-              {savingDraft ? "Saving…" : "Save draft"}
-            </button>
-            <button
-              type="button"
-              onClick={onPublish}
-              // On a live post there is nothing to do until something changes;
-              // the label switches to "Update post" the moment there is.
-              disabled={publishing || unpublishing || (isPublished && !dirty)}
-              title={
-                isPublished && !dirty ? "Edit something first — the live post is already up to date." : undefined
-              }
-              className="flex-1 rounded-pill px-4 py-3 text-sm font-semibold text-white transition disabled:opacity-60"
-              style={{ backgroundColor: "var(--purple-primary)" }}
-            >
-              {publishing
-                ? isPublished
-                  ? "Updating…"
-                  : "Publishing…"
-                : isPublished
-                  ? dirty
-                    ? "Update post"
-                    : "No changes"
-                  : "Publish"}
-            </button>
-          </div>
+          <Button
+            variant="outline"
+            onClick={onSaveDraft}
+            disabled={savingDraft || unpublishing}
+          >
+            {savingDraft ? "Saving…" : "Save draft"}
+          </Button>
+          <Button
+            variant="brand"
+            onClick={onPublish}
+            // On a live post there is nothing to do until something changes;
+            // the label switches to "Update post" the moment there is.
+            disabled={publishing || unpublishing || (isPublished && !dirty)}
+            title={
+              isPublished && !dirty
+                ? "Edit something first — the live post is already up to date."
+                : undefined
+            }
+          >
+            {publishing
+              ? isPublished
+                ? "Updating…"
+                : "Publishing…"
+              : isPublished
+                ? dirty
+                  ? "Update post"
+                  : "No changes"
+                : "Publish"}
+          </Button>
           {isPublished && (
-            <button
-              type="button"
+            <Button
+              variant="destructive-outline"
               onClick={onUnpublish}
               disabled={publishing || unpublishing || savingDraft}
-              className="w-full rounded-pill border px-4 py-3 text-sm font-semibold transition disabled:opacity-60"
-              style={{ borderColor: "var(--danger-strong)", color: "var(--danger-strong)" }}
             >
               {unpublishing ? "Unpublishing…" : "Unpublish"}
-            </button>
+            </Button>
           )}
         </div>
       </div>

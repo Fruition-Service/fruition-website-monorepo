@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, type ReactNode } from "react"
+import { Button } from "@/components/ui/button"
 
 /**
  * Two-tab shell for the blog edit pages: the blog editor and the social
@@ -10,25 +11,18 @@ import { useState, type ReactNode } from "react"
 export default function BlogEditTabs({ blog, social }: { blog: ReactNode; social: ReactNode }) {
   const [tab, setTab] = useState<"blog" | "social">("blog")
 
-  const tabButton = (key: "blog" | "social", label: string) => {
-    const active = tab === key
-    return (
-      <button
-        type="button"
-        role="tab"
-        aria-selected={active}
-        onClick={() => setTab(key)}
-        className="rounded-pill px-5 py-2.5 text-sm font-semibold transition"
-        style={
-          active
-            ? { backgroundColor: "var(--purple-primary)", color: "#fff" }
-            : { backgroundColor: "var(--surface)", color: "var(--ink-heading)", border: "1px solid var(--color-border)" }
-        }
-      >
-        {label}
-      </button>
-    )
-  }
+  const tabButton = (key: "blog" | "social", label: string) => (
+    <Button
+      key={key}
+      role="tab"
+      aria-selected={tab === key}
+      variant={tab === key ? "brand" : "outline"}
+      size="lg"
+      onClick={() => setTab(key)}
+    >
+      {label}
+    </Button>
+  )
 
   return (
     <div>

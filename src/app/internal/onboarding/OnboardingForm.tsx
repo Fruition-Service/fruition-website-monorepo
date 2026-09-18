@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useRef, useState, useTransition } from "react"
 import { Camera, Hand } from "lucide-react"
 
@@ -315,14 +317,9 @@ export default function OnboardingForm({ regionOptions }: Props) {
           {error}
         </div>
       )}
-      <button
-        type="submit"
-        disabled={pending}
-        className="block w-full rounded-pill px-4 py-3 text-sm font-semibold text-white transition disabled:opacity-60"
-        style={{ backgroundColor: "var(--purple-primary)" }}
-      >
+      <Button type="submit" variant="brand" size="lg" disabled={pending} className="w-full">
         {pending ? "Adding you to the team…" : "Add me to the team"}
-      </button>
+      </Button>
     </form>
   )
 }

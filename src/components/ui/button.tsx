@@ -18,6 +18,15 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        // Portal brand actions. The purple primary lived as a copy-pasted
+        // className on every page that needed it, so it drifted; this is the
+        // one definition. Use it for the single main action on a screen.
+        brand:
+          "bg-[var(--purple-primary)] text-white hover:bg-[var(--purple-primary)]/90 focus-visible:ring-[var(--purple-primary)]/30",
+        // A destructive action that is not the main one: outlined, not filled,
+        // so "Unpublish" never outweighs "Publish".
+        "destructive-outline":
+          "border-[var(--danger-strong)]/40 text-[var(--danger-strong)] hover:bg-[var(--danger-surface)] hover:text-[var(--danger-strong)] focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
       },
       size: {
         default:
