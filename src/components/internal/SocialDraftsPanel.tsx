@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useCallback, useEffect, useMemo, useState } from "react"
 import type { PanelPlatform, PanelState } from "@/lib/social/panelState"
 import type { PlatformKey } from "@/lib/social/zernio"
@@ -412,38 +414,35 @@ export default function SocialDraftsPanel({
         </div>
         <div className="flex flex-wrap gap-2">
           {withPosts.length > 0 && (
-            <button
-              type="button"
-              onClick={saveCaptions}
-              disabled={busy !== null}
-              className="rounded-pill border px-4 py-2 text-sm font-semibold transition disabled:opacity-60"
-              style={{ borderColor: "var(--color-border)", color: "var(--ink-heading)" }}
-            >
+            <Button variant="outline" size="lg" onClick={saveCaptions} disabled={busy !== null}>
               {busy === "save" ? "Saving…" : "Save changes"}
-            </button>
+            </Button>
           )}
           {missing.length > 0 && (
-            <button
-              type="button"
+            <Button
+              variant="outline"
+              size="lg"
               onClick={() => generate()}
               disabled={busy !== null}
-              className="rounded-pill border px-4 py-2 text-sm font-semibold transition disabled:opacity-60"
-              style={{ borderColor: "var(--purple-primary)", color: "var(--purple-primary)" }}
+              className="border-[var(--purple-primary)]/40 text-[var(--purple-primary)]"
             >
-              {busy === "generate" ? "Generating…" : withPosts.length ? `Generate missing (${missing.length})` : "Generate drafts"}
-            </button>
+              {busy === "generate"
+                ? "Generating…"
+                : withPosts.length
+                  ? `Generate missing (${missing.length})`
+                  : "Generate drafts"}
+            </Button>
           )}
           {withPosts.length > 0 && (
-            <button
-              type="button"
+            <Button
+              variant="brand"
+              size="lg"
               onClick={() => publish(publishableKeys)}
               disabled={busy !== null || !blogLive || publishableKeys.length === 0}
               title={!blogLive ? "Publish the blog post first — social posts link to it." : undefined}
-              className="rounded-pill px-4 py-2 text-sm font-semibold text-white transition disabled:opacity-60"
-              style={{ backgroundColor: "var(--purple-primary)" }}
             >
               {busy === "publish" ? "Publishing…" : `Publish selected (${publishableKeys.length})`}
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -639,16 +638,21 @@ function PlatformCard({
                 </button>
               )}
               {!published && (
-                <button
-                  type="button"
+                <Button
+                  variant="brand"
+                  size="xs"
                   onClick={onPublish}
                   disabled={busy !== null || !canPublish}
-                  title={!blogLive ? "Publish the blog post first." : mediaBlocked ? "This platform needs an image." : undefined}
-                  className="rounded-pill px-3 py-1.5 text-xs font-semibold text-white transition disabled:opacity-60"
-                  style={{ backgroundColor: "var(--purple-primary)" }}
+                  title={
+                    !blogLive
+                      ? "Publish the blog post first."
+                      : mediaBlocked
+                        ? "This platform needs an image."
+                        : undefined
+                  }
                 >
                   {busy === `publish:${p.key}` ? "Publishing…" : cancelled ? "Republish" : "Publish"}
-                </button>
+                </Button>
               )}
             </div>
           </div>

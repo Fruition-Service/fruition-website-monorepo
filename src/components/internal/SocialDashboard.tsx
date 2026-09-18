@@ -450,7 +450,11 @@ export default function SocialDashboard({ insights }: { insights?: React.ReactNo
             <span className="mx-1 h-4 w-px bg-border" />
             <Select value={source} onValueChange={(v) => setSource(v as SourceFilter)}>
               <SelectTrigger size="sm" className="w-[10.5rem] rounded-full" aria-label="Filter by source">
-                <SelectValue />
+                <SelectValue>
+                  {(value: string) =>
+                    SOURCE_FILTERS.find((s) => s.key === value)?.label ?? "All sources"
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {SOURCE_FILTERS.map((s) => (
@@ -462,7 +466,11 @@ export default function SocialDashboard({ insights }: { insights?: React.ReactNo
             </Select>
             <Select value={status} onValueChange={(v) => setStatus(v as StatusFilter)}>
               <SelectTrigger size="sm" className="w-[9.5rem] rounded-full" aria-label="Filter by status">
-                <SelectValue />
+                <SelectValue>
+                  {(value: string) =>
+                    value === "all" ? "All statuses" : value === "cancelled" ? "unpublished" : value
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {STATUS_FILTERS.map((s) => (

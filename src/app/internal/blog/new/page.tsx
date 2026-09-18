@@ -16,10 +16,10 @@ export default async function NewPostPage() {
 
   return (
     <PortalShell email={user.email} active="new">
-      <div>
-        <h1 className="mb-6 text-xl font-semibold tracking-tight text-foreground">New blog post</h1>
-        <BlogEditor categories={categories} authors={authors} currentAuthorName={currentAuthorName} />
-      </div>
+      {/* The shell header already says "New post", and the editor carries the
+          post's state in its own header row. A third title just pushed the
+          writing surface down the page. */}
+      <BlogEditor categories={categories} authors={authors} currentAuthorName={currentAuthorName} />
     </PortalShell>
   )
 }

@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import * as React from "react"
 
 interface Props {
@@ -54,15 +56,9 @@ export default function DesignDocCodeEditor({ value, onChange, onSave, dirty, sa
         </span>
         <div className="flex items-center gap-2">
           {dirty && <span className="text-[11px] text-amber-300">Unsaved changes</span>}
-          <button
-            type="button"
-            onClick={onSave}
-            disabled={!dirty || saving}
-            className="rounded-pill px-3 py-1 text-xs font-semibold transition disabled:opacity-40"
-            style={{ backgroundColor: "var(--purple-primary)", color: "#fff" }}
-          >
+          <Button variant="brand" size="xs" onClick={onSave} disabled={!dirty || saving}>
             {saving ? "Saving…" : "Save"}
-          </button>
+          </Button>
         </div>
       </div>
 

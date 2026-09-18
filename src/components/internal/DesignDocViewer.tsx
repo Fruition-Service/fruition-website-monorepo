@@ -259,12 +259,9 @@ export default function DesignDocViewer({
         aria-selected={active}
         onClick={() => setMode(key)}
         title={label}
-        className="flex items-center gap-1.5 rounded-pill px-3 py-1.5 text-xs font-semibold transition"
-        style={
-          active
-            ? { backgroundColor: "var(--purple-primary)", color: "#fff" }
-            : { color: "var(--ink-heading)" }
-        }
+        className={`flex items-center gap-1.5 rounded-pill px-3 py-1.5 text-xs font-semibold transition ${
+          active ? "bg-[var(--purple-primary)] text-white" : "text-ink-heading"
+        }`}
       >
         <Icon className="size-3.5" />
         {label}

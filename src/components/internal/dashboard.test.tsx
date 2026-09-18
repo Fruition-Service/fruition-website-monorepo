@@ -115,3 +115,21 @@ describe("DashboardDetail", () => {
     expect(html).toContain("5 AI Adoption Frameworks")
   })
 })
+
+describe("Portal buttons", () => {
+  it("has one definition of the brand action", async () => {
+    const { Button } = await import("@/components/ui/button")
+    const brand = renderToStaticMarkup(<Button variant="brand">Publish</Button>)
+    expect(brand).toContain("--purple-primary")
+    // Every brand button must come from the variant, never a copied className.
+    const plain = renderToStaticMarkup(<Button>Publish</Button>)
+    expect(plain).not.toContain("--purple-primary")
+  })
+
+  it("keeps a destructive secondary action outlined, not filled", async () => {
+    const { Button } = await import("@/components/ui/button")
+    const html = renderToStaticMarkup(<Button variant="destructive-outline">Unpublish</Button>)
+    expect(html).toContain("--danger-strong")
+    expect(html).not.toContain("bg-destructive")
+  })
+})

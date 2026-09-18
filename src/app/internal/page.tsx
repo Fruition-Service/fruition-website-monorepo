@@ -256,10 +256,7 @@ export default async function DashboardPage() {
             <Share2 />
             New social post
           </Button>
-          <Button
-            render={<Link href="/internal/blog/new" />}
-            className="bg-[var(--purple-primary)] text-white hover:bg-[var(--purple-primary)]/90"
-          >
+          <Button variant="brand" render={<Link href="/internal/blog/new" />}>
             <PenSquare />
             New blog post
           </Button>
