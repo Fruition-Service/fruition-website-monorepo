@@ -1,7 +1,8 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, type SidebarCounts } from "@/components/app-sidebar"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { getPortalAdmin } from "@/lib/portalAuth"
 
 const TITLES: Record<string, string> = {
   dashboard: "Dashboard",
@@ -22,13 +23,45 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function PortalShell({ email, active, title, children }: Props) {
+/**
+ * Counts for the sidebar badges. Head-only counts, run together, each failing
+ * on its own — a badge is worth a few milliseconds, never a page.
+ */
+async function sidebarCounts(): Promise<SidebarCounts> {
+  const admin = getPortalAdmin()
+  const safe = async (run: () => PromiseLike<{ count: number | null }>): Promise<number | undefined> => {
+    try {
+      const { count } = await run()
+      return count ?? undefined
+    } catch {
+      return undefined
+    }
+  }
+
+  const [drafts, queued, designDocs, invoices] = await Promise.all([
+    safe(() => admin.from("portal_drafts").select("*", { count: "exact", head: true })),
+    safe(() =>
+      admin
+        .from("social_compositions")
+        .select("*", { count: "exact", head: true })
+        .not("scheduled_for", "is", null)
+        .gte("scheduled_for", new Date().toISOString())
+    ),
+    safe(() => admin.from("design_docs").select("*", { count: "exact", head: true })),
+    safe(() => admin.from("fruition_invoices").select("*", { count: "exact", head: true })),
+  ])
+
+  return { drafts, queued, designDocs, invoices }
+}
+
+export default async function PortalShell({ email, active, title, children }: Props) {
   const heading = title ?? (active ? TITLES[active] : "Fruition Internal")
+  const counts = await sidebarCounts()
 
   return (
     <TooltipProvider>
       <SidebarProvider className="portal-theme">
-        <AppSidebar email={email} />
+        <AppSidebar email={email} counts={counts} />
         <SidebarInset className="min-w-0 overflow-x-hidden">
           <header className="flex h-16 shrink-0 items-center gap-2 border-b border-[var(--color-border)] px-4">
             <SidebarTrigger className="-ml-1" />

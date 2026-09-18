@@ -35,12 +35,18 @@ export default function DashboardDetail({
   titles,
   ctaTrackingIdle,
   aeo,
+  aeoDetail,
+  traffic,
   countries,
 }: {
   posts: PostPerformance[]
   titles: Map<string, string>
   ctaTrackingIdle: boolean
   aeo: AeoSummary | null
+  /** The full per-prompt table and competitor summaries, rendered upstream. */
+  aeoDetail?: React.ReactNode
+  /** The Umami traffic view, when that source is connected. */
+  traffic?: React.ReactNode
   countries: CountryRow[]
 }) {
   const topCountry = countries[0]?.users ?? 1
@@ -51,6 +57,7 @@ export default function DashboardDetail({
         <TabsList>
           <TabsTrigger value="posts">Top posts</TabsTrigger>
           {aeo ? <TabsTrigger value="aeo">AI answer visibility</TabsTrigger> : null}
+          {traffic ? <TabsTrigger value="traffic">Traffic</TabsTrigger> : null}
           {countries.length > 0 ? <TabsTrigger value="geo">Where readers are</TabsTrigger> : null}
         </TabsList>
       </div>
@@ -116,15 +123,19 @@ export default function DashboardDetail({
                       ))}
                     </ul>
                   )}
-                  <Link
-                    href="/internal/insights?tab=ai"
-                    className="text-sm font-medium text-[var(--purple-primary)]"
-                  >
-                    Every prompt, model by model →
-                  </Link>
+
                 </div>
               </div>
+              {aeoDetail ? <div className="mt-6 border-t pt-6">{aeoDetail}</div> : null}
             </CardContent>
+          </Card>
+        </TabsContent>
+      ) : null}
+
+      {traffic ? (
+        <TabsContent value="traffic">
+          <Card>
+            <CardContent>{traffic}</CardContent>
           </Card>
         </TabsContent>
       ) : null}

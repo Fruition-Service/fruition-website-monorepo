@@ -1,7 +1,11 @@
 import Link from "next/link"
 import { requirePortalUser, getPortalAdmin } from "@/lib/portalAuth"
 import { getGa4Overview, getGscClicksByPage, getBlogPerformance } from "@/lib/googleAnalytics"
-import { getAeoVisibility } from "@/lib/marketaInsights"
+import { getAeoVisibility, getCompetitorActivity } from "@/lib/marketaInsights"
+import { getUmamiInsights, isUmamiConfigured } from "@/lib/insights/umami"
+import AeoVisibilityPanel from "@/components/internal/AeoVisibilityPanel"
+import CompetitorActivityPanel from "@/components/internal/CompetitorActivityPanel"
+import InsightsPanel from "@/components/internal/insights/InsightsPanel"
 import { getAllBlogPostsForPortal } from "@/sanity/queries"
 import PortalShell from "@/components/internal/PortalShell"
 import NeedsYou, { type NeedsYouItem } from "@/components/internal/NeedsYou"
@@ -109,13 +113,18 @@ export default async function DashboardPage() {
   const stale = unpublished.filter((d) => Date.parse(d.updated_at) < staleCutoff)
   const drafts = allDrafts.slice(0, 8)
 
-  const [ga4, gsc, performance, aeo, posts] = await Promise.all([
+  const showTraffic = isUmamiConfigured()
+  const [ga4, gsc, performance, aeo, posts, competitors, umami] = await Promise.all([
     getGa4Overview(WINDOW_DAYS).catch(() => null),
     getGscClicksByPage(WINDOW_DAYS).catch(() => null),
     getBlogPerformance(WINDOW_DAYS).catch(() => null),
     getAeoVisibility(90),
     // Titles only — analytics reports paths, and a slug reads badly in a table.
     getAllBlogPostsForPortal().catch(() => [] as { slug?: string; title?: string }[]),
+    // The two views that used to live on /internal/insights, now that the
+    // dashboard is where visibility questions get asked.
+    getCompetitorActivity(90),
+    showTraffic ? getUmamiInsights(WINDOW_DAYS).catch(() => null) : Promise.resolve(null),
   ])
 
   // Today is a partial day and would render as a cliff at the right edge of the
@@ -208,7 +217,7 @@ export default async function DashboardPage() {
       kind: "broken",
       title: `${deadFeeds.length} feed${deadFeeds.length === 1 ? " is" : "s are"} reporting nothing`,
       lines: deadFeeds,
-      href: "/internal/insights",
+      href: "/internal/blog?view=performance",
       action: "See what is missing",
     })
   }
@@ -261,6 +270,17 @@ export default async function DashboardPage() {
                   competitors: aeo.topCompetitors.slice(0, 4),
                 }
               : null
+          }
+          aeoDetail={
+            aeo && aeo.totalRuns > 0 ? (
+              <div className="flex flex-col gap-6">
+                <AeoVisibilityPanel data={aeo} />
+                {competitors ? <CompetitorActivityPanel competitors={competitors} /> : null}
+              </div>
+            ) : null
+          }
+          traffic={
+            umami ? <InsightsPanel view={umami} rangeLabel={`last ${WINDOW_DAYS} days`} /> : null
           }
           countries={(ga4?.topCountries ?? []).slice(0, 5)}
         />

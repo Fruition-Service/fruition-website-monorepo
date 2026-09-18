@@ -1,5 +1,6 @@
 "use client"
 
+import type * as React from "react"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { PenSquare } from "lucide-react"
@@ -129,7 +130,7 @@ function metricLine(m: PostAnalytics): string | null {
   return parts.length ? parts.join(" · ") : null
 }
 
-export default function SocialDashboard() {
+export default function SocialDashboard({ insights }: { insights?: React.ReactNode }) {
   const [tab, setTab] = useState<Tab>("queue")
   const [rows, setRows] = useState<SocialRow[] | null>(null)
   const [compositions, setCompositions] = useState<Composition[]>([])
@@ -497,7 +498,10 @@ export default function SocialDashboard() {
           onDeleteComposition={deleteComposition}
         />
       ) : (
-        <PerformanceList rows={performance} loaded={analytics !== null} overview={analytics?.overview} />
+        <div className="space-y-6">
+          {insights}
+          <PerformanceList rows={performance} loaded={analytics !== null} overview={analytics?.overview} />
+        </div>
       )}
     </div>
   )
