@@ -144,13 +144,13 @@ export default function BlogTable({
         cell: ({ row }) => {
           const href = editHref(row.original)
           return (
-            <div className="max-w-xs">
+            <div className="w-[26rem] max-w-full">
               {href ? (
                 <Link href={href} className="font-medium text-ink-heading hover:underline">
-                  <span className="line-clamp-1">{row.original.title}</span>
+                  <span className="block truncate">{row.original.title}</span>
                 </Link>
               ) : (
-                <span className="line-clamp-1 font-medium text-ink-heading">
+                <span className="block truncate font-medium text-ink-heading">
                   {row.original.title}
                 </span>
               )}
@@ -160,7 +160,7 @@ export default function BlogTable({
                 </div>
               )}
               {!row.original.duplicate && row.original.excerpt && (
-                <div className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
+                <div className="mt-0.5 truncate text-xs text-muted-foreground">
                   {row.original.excerpt}
                 </div>
               )}
