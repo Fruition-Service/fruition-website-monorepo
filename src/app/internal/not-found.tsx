@@ -34,6 +34,22 @@ export default async function InternalNotFound() {
       <Link href="/internal" className={cn(buttonVariants({ variant: "default" }), "mt-2")}>
         Back to the portal
       </Link>
+
+      {/* A dead link usually means someone was heading somewhere specific.
+          These are the three places they were most likely going. */}
+      <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+        {[
+          { href: "/internal/blog", label: "Blog posts" },
+          { href: "/internal/social", label: "Social posts" },
+          { href: "/internal/insights", label: "Performance" },
+        ].map((l) => (
+          <li key={l.href}>
+            <Link href={l.href} className="font-medium text-[var(--purple-primary)] hover:underline">
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
