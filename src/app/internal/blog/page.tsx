@@ -7,6 +7,10 @@ import BlogPerformanceTable from "@/components/internal/BlogPerformanceTable"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getBlogPerformance } from "@/lib/googleAnalytics"
+import { getBlogInsights } from "@/lib/insights/blog"
+import InsightsPanel from "@/components/internal/insights/InsightsPanel"
+import RangeTabs, { parseRange } from "@/components/internal/insights/RangeTabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import BlogTable, { type PostRow } from "./BlogTable"
 
 export const dynamic = "force-dynamic"
@@ -137,8 +141,17 @@ function buildRows(
   return rows
 }
 
-export default async function BlogIndexPage() {
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const user = await requirePortalUser({ next: "/internal/blog" })
+  const params = await searchParams
+  const view = (Array.isArray(params.view) ? params.view[0] : params.view) === "performance"
+    ? "performance"
+    : "posts"
+  const days = parseRange(params.days)
   const admin = getPortalAdmin()
 
   // Drafts are a shared team workspace — fetch everyone's. Sanity holds every
@@ -151,7 +164,7 @@ export default async function BlogIndexPage() {
       .limit(500),
     getAllBlogPostsForPortal().catch(() => []) as Promise<SanityPost[]>,
     // Traffic sits on the row it belongs to, never a reason the page fails.
-    getBlogPerformance(WINDOW_DAYS).catch(() => null),
+    getBlogPerformance(view === "performance" ? days : WINDOW_DAYS).catch(() => null),
   ])
 
   const traffic = new Map<string, { views: number; clicks: number }>()
@@ -160,6 +173,7 @@ export default async function BlogIndexPage() {
   }
 
   const rows = buildRows((drafts ?? []) as DraftRow[], posts, traffic)
+  const insights = view === "performance" ? await getBlogInsights(days) : null
   const industries = [...new Set(rows.map((r) => r.industry).filter((i): i is string => Boolean(i)))].sort()
   const published = rows.filter((r) => r.status === "published").length
   const stale = rows.filter((r) => r.status !== "published" && r.ageDays > 30).length
@@ -183,7 +197,52 @@ export default async function BlogIndexPage() {
           .join(" ")}
         actions={<Button render={<Link href="/internal/blog/new" />}>New post</Button>}
       />
-      <BlogTable rows={rows} industries={industries} />
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Tabs value={view}>
+          <TabsList>
+            <TabsTrigger value="posts" render={<Link href="/internal/blog" />}>
+              Posts
+            </TabsTrigger>
+            <TabsTrigger
+              value="performance"
+              render={<Link href={`/internal/blog?view=performance&days=${days}`} />}
+            >
+              Performance
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+        {view === "performance" ? (
+          <RangeTabs
+            days={days}
+            hrefFor={(d) => `/internal/blog?view=performance&days=${d}`}
+          />
+        ) : null}
+      </div>
+
+      {view === "posts" ? (
+        <BlogTable rows={rows} industries={industries} />
+      ) : (
+        <>
+          {insights ? <InsightsPanel view={insights} rangeLabel={`last ${days} days`} /> : null}
+          {performance && performance.posts.length > 0 ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base text-ink-heading">Every post</CardTitle>
+                <CardDescription>
+                  Traffic, search position and CTA clicks over the last {days} days.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BlogPerformanceTable
+                  posts={performance.posts}
+                  titles={titles}
+                  ctaTrackingIdle={performance.ctaTrackingIdle}
+                />
+              </CardContent>
+            </Card>
+          ) : null}
+        </>
+      )}
 
     </PortalShell>
   )

@@ -3,16 +3,29 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, PenSquare, Users, UserPlus, FileText, Newspaper, Palette, Sparkles, Receipt, PlusCircle, Share2, Radar, QrCode, Wand2 } from "lucide-react"
+import {
+  FileText,
+  LayoutDashboard,
+  Newspaper,
+  Palette,
+  Plus,
+  QrCode,
+  Receipt,
+  Share2,
+  Users,
+  Wand2,
+} from "lucide-react"
 
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
@@ -25,62 +38,66 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>
   /** How to compute the active state against the current path. */
   match: "exact" | "prefix"
+  /** Which count from `counts` to show, if any. */
+  badge?: keyof SidebarCounts
 }
 
-const MODULES: { label: string; items: NavItem[] }[] = [
+interface NavGroup {
+  label: string
+  /** The group's "new" action — replaces a second row per destination. */
+  create?: { href: string; label: string }
+  items: NavItem[]
+}
+
+export interface SidebarCounts {
+  /** Unpublished blog drafts. */
+  drafts?: number
+  /** Social posts scheduled and still to go out. */
+  queued?: number
+  designDocs?: number
+  invoices?: number
+  team?: number
+}
+
+/**
+ * Three groups, not seven. Each destination appears once, with its own count,
+ * and the "New …" row that used to double every entry is the group's + button.
+ */
+const MODULES: NavGroup[] = [
   {
     label: "Overview",
+    items: [{ title: "Dashboard", href: "/internal", icon: LayoutDashboard, match: "exact" }],
+  },
+  {
+    label: "Content",
+    create: { href: "/internal/blog/new", label: "New blog post" },
     items: [
-      { title: "Dashboard", href: "/internal", icon: LayoutDashboard, match: "exact" },
-      { title: "Insights", href: "/internal/insights", icon: Radar, match: "prefix" },
+      { title: "Blog", href: "/internal/blog", icon: Newspaper, match: "prefix", badge: "drafts" },
+      { title: "Social", href: "/internal/social", icon: Share2, match: "prefix", badge: "queued" },
     ],
   },
   {
-    label: "Blog Management",
+    label: "Studio",
+    create: { href: "/internal/design/new", label: "New design document" },
     items: [
-      { title: "Blog posts", href: "/internal/blog", icon: Newspaper, match: "exact" },
-      { title: "New post", href: "/internal/blog/new", icon: PenSquare, match: "prefix" },
-    ],
-  },
-  {
-    label: "Social",
-    items: [
-      { title: "Social posts", href: "/internal/social", icon: Share2, match: "exact" },
-      { title: "New post", href: "/internal/social/new", icon: PenSquare, match: "prefix" },
-    ],
-  },
-  {
-    label: "Design",
-    items: [
-      { title: "Documents", href: "/internal/design", icon: Palette, match: "exact" },
-      { title: "New document", href: "/internal/design/new", icon: Sparkles, match: "prefix" },
+      { title: "Design docs", href: "/internal/design", icon: Palette, match: "exact", badge: "designDocs" },
       { title: "Design studio", href: "/internal/design/studio", icon: Wand2, match: "prefix" },
+      { title: "Invoices", href: "/internal/invoices", icon: Receipt, match: "prefix", badge: "invoices" },
+      { title: "QR codes", href: "/internal/qr", icon: QrCode, match: "prefix" },
     ],
   },
   {
-    label: "Invoicing",
-    items: [
-      { title: "Invoices", href: "/internal/invoices", icon: Receipt, match: "exact" },
-      { title: "New Invoice", href: "/internal/invoices/new", icon: PlusCircle, match: "prefix" },
-    ],
-  },
-  {
-    label: "Tools",
-    items: [{ title: "QR codes", href: "/internal/qr", icon: QrCode, match: "prefix" }],
-  },
-  {
-    label: "Team Management",
-    items: [
-      { title: "Team", href: "/internal/team", icon: Users, match: "prefix" },
-      { title: "Add member", href: "/internal/onboarding", icon: UserPlus, match: "prefix" },
-    ],
+    label: "Admin",
+    create: { href: "/internal/onboarding", label: "Add a team member" },
+    items: [{ title: "Team", href: "/internal/team", icon: Users, match: "prefix", badge: "team" }],
   },
 ]
 
 export function AppSidebar({
   email,
+  counts,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { email?: string | null }) {
+}: React.ComponentProps<typeof Sidebar> & { email?: string | null; counts?: SidebarCounts }) {
   const pathname = usePathname() ?? ""
 
   const isActive = (item: NavItem) =>
@@ -104,19 +121,33 @@ export function AppSidebar({
         {MODULES.map((mod) => (
           <SidebarGroup key={mod.label}>
             <SidebarGroupLabel>{mod.label}</SidebarGroupLabel>
+            {mod.create && (
+              <SidebarGroupAction
+                title={mod.create.label}
+                render={<Link href={mod.create.href} aria-label={mod.create.label} />}
+              >
+                <Plus />
+              </SidebarGroupAction>
+            )}
             <SidebarMenu>
-              {mod.items.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    render={<Link href={item.href} />}
-                    isActive={isActive(item)}
-                    tooltip={item.title}
-                  >
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {mod.items.map((item) => {
+                const count = item.badge ? counts?.[item.badge] : undefined
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      render={<Link href={item.href} />}
+                      isActive={isActive(item)}
+                      tooltip={item.title}
+                    >
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </SidebarMenuButton>
+                    {typeof count === "number" && count > 0 && (
+                      <SidebarMenuBadge>{count}</SidebarMenuBadge>
+                    )}
+                  </SidebarMenuItem>
+                )
+              })}
             </SidebarMenu>
           </SidebarGroup>
         ))}

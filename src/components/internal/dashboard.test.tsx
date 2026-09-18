@@ -72,7 +72,7 @@ describe("NeedsYou", () => {
       kind: "broken",
       title: "2 feeds are reporting nothing",
       lines: [{ label: "CTA clicks", detail: "no cta_click trigger in GTM" }],
-      href: "/internal/insights",
+      href: "/internal/blog?view=performance",
       action: "See what is missing",
     }
     const html = renderToStaticMarkup(<NeedsYou items={[broken]} />)

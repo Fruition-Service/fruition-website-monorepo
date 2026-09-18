@@ -41,7 +41,7 @@ export default async function InternalNotFound() {
         {[
           { href: "/internal/blog", label: "Blog posts" },
           { href: "/internal/social", label: "Social posts" },
-          { href: "/internal/insights", label: "Performance" },
+          { href: "/internal/blog?view=performance", label: "Performance" },
         ].map((l) => (
           <li key={l.href}>
             <Link href={l.href} className="font-medium text-[var(--purple-primary)] hover:underline">
