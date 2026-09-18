@@ -16,7 +16,7 @@ export default async function InvoicesPage() {
       <>
         <PageHeader
           title="Invoices"
-          description="Manage your invoices. Data is stored securely in Supabase."
+          description="Your Clockify hours, turned into an invoice you can send. Only you can see yours."
           actions={
             <Button render={<Link href="/internal/invoices/new" />}>
               <Plus className="mr-2 size-4" />

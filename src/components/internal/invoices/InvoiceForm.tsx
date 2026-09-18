@@ -216,15 +216,31 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="flex flex-col gap-6">
         {/* Clockify upload — the default way in; everything below is editable
-            afterwards, and stays usable if you'd rather key an invoice by hand. */}
+            afterwards, and stays usable if you'd rather key an invoice by hand.
+            Numbered, because an invoice really does start with the report. */}
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--purple-primary)] font-mono text-xs font-semibold text-white">
+            1
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-foreground">Drop in the Clockify report</p>
+            <p className="text-xs text-muted-foreground">Every line item, the hours and the billing period are read from it</p>
+          </div>
+        </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium">
-            Upload Clockify report
-          </label>
           <ClockifyDropzone onParsed={applyParsedReport} />
         </div>
 
         {/* Consultant & Region */}
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--purple-primary)] font-mono text-xs font-semibold text-white">
+            2
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-foreground">Who is billing</p>
+            <p className="text-xs text-muted-foreground">Your Wise details come from your profile — the name never does</p>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-medium">
@@ -275,6 +291,15 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
         </div>
 
         {/* Invoice meta */}
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--purple-primary)] font-mono text-xs font-semibold text-white">
+            3
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-foreground">What it comes to</p>
+            <p className="text-xs text-muted-foreground">Number, dates, rate and every line on the invoice</p>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-medium">

@@ -7,14 +7,7 @@ import { Loader2, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { DEFAULT_TEMPLATE_ID, TEMPLATES, getTemplate, type TemplateId } from "@/lib/design/templates"
+import { DEFAULT_TEMPLATE_ID, TEMPLATES, type TemplateId } from "@/lib/design/templates"
 import { withTheme } from "@/lib/design/theme"
 import type { DesignSource } from "@/lib/design/extract/types"
 
@@ -51,7 +44,6 @@ export default function DesignGenerator() {
 
   React.useEffect(() => () => abortRef.current?.abort(), [])
 
-  const template = getTemplate(templateId)
   const busy = phase === "generating" || phase === "saving"
 
   /** The form body the generate route expects. */
@@ -149,38 +141,50 @@ export default function DesignGenerator() {
         </p>
 
         <div className="mt-6 grid gap-5 sm:max-w-xl">
+          {/* Cards, not a closed select: the choice decides the shape of the
+              output, and you cannot compare five templates one at a time. */}
           <div className="grid gap-2">
-            <Label htmlFor="design-template">Template</Label>
-            <Select
-              value={templateId}
-              onValueChange={(v) => setTemplateId(v as TemplateId)}
-              disabled={busy}
-            >
-              <SelectTrigger id="design-template">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {TEMPLATES.map((t) => (
-                  <SelectItem key={t.id} value={t.id}>
-                    {t.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground">{template.description}</p>
+            <Label>1 · What kind of document</Label>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {TEMPLATES.map((t) => {
+                const on = t.id === templateId
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setTemplateId(t.id as TemplateId)}
+                    disabled={busy}
+                    aria-pressed={on}
+                    className={`flex flex-col gap-1 rounded-chip border p-3 text-left transition disabled:opacity-60 ${
+                      on
+                        ? "border-[var(--purple-primary)] bg-[var(--purple-primary)]/5"
+                        : "border-[var(--color-border)] hover:border-[var(--purple-primary)]/40"
+                    }`}
+                  >
+                    <span className="text-sm font-medium text-ink-heading">{t.label}</span>
+                    <span className="text-xs leading-snug text-muted-foreground">
+                      {t.description}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
           <div className="grid gap-2">
-            <Label>Source</Label>
+            <Label>2 · Where the content comes from</Label>
             <DesignSourcePicker disabled={busy} onChange={setSource} />
           </div>
 
-          <Input
-            placeholder="Document title (optional — derived from the source if empty)"
-            value={title}
-            disabled={busy}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <div className="grid gap-2">
+            <Label>3 · Name it</Label>
+            <Input
+              placeholder="Optional — taken from the source if you leave it blank"
+              value={title}
+              disabled={busy}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 
