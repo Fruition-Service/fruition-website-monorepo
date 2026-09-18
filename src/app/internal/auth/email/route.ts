@@ -42,5 +42,5 @@ export async function POST(req: Request) {
     return back({ error: error.message })
   }
 
-  return back({ notice: "Check your email for a sign-in link." })
+  return back({ sent: email })
 }

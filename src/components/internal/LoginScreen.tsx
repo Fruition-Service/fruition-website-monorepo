@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
@@ -29,11 +30,14 @@ export default function LoginScreen({
   next: requested,
   error,
   notice,
+  sent,
 }: {
   /** Where to land after signing in. Ignored unless it's a local path. */
   next?: string
   error?: string
   notice?: string
+  /** The address a link was just sent to — swaps the form for the wait state. */
+  sent?: string
 }) {
   const next = requested && requested.startsWith("/") ? requested : "/internal"
   const startHref = `/internal/auth/start?next=${encodeURIComponent(next)}`
@@ -132,6 +136,47 @@ export default function LoginScreen({
             </div>
           )}
 
+          {sent ? (
+            <div className="grid gap-5">
+              <div className="flex size-11 items-center justify-center rounded-chip bg-[var(--purple-primary)]/10">
+                <Mail className="size-5 text-[var(--purple-primary)]" />
+              </div>
+              <div className="grid gap-1.5">
+                <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                  Check your inbox
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  A sign-in link is on its way to{" "}
+                  <span className="font-medium text-foreground">{sent}</span>. It works once.
+                </p>
+              </div>
+              <div className="grid gap-1.5 rounded-chip bg-muted px-3 py-2.5">
+                <p className="text-xs font-medium text-foreground">Nothing arrived?</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  Check spam, then send another. A link older than an hour stops working and drops
+                  you back here without saying why.
+                </p>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <a
+                  href={`/internal/login?next=${encodeURIComponent(next)}`}
+                  className={cn(buttonVariants({ variant: "outline" }), "h-11 text-sm")}
+                >
+                  Use a different address
+                </a>
+                <form action="/internal/auth/email" method="post">
+                  <input type="hidden" name="next" value={next} />
+                  <input type="hidden" name="email" value={sent} />
+                  <button
+                    type="submit"
+                    className={cn(buttonVariants({ variant: "default" }), "h-11 w-full text-sm")}
+                  >
+                    Send another
+                  </button>
+                </form>
+              </div>
+            </div>
+          ) : (
           <div className="grid gap-6">
             {/* Email magic-link */}
             <form action="/internal/auth/email" method="post" className="grid gap-2">
@@ -186,6 +231,7 @@ export default function LoginScreen({
               Google
             </a>
           </div>
+          )}
 
           <p className="px-4 text-center text-xs text-muted-foreground">
             By continuing, you agree to our{" "}
