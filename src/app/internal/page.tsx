@@ -3,6 +3,7 @@ import { requirePortalUser, getPortalAdmin } from "@/lib/portalAuth"
 import { getGa4Overview, getGscClicksByPage, getBlogPerformance } from "@/lib/googleAnalytics"
 import { getAeoVisibility, getCompetitorActivity } from "@/lib/marketaInsights"
 import { getUmamiInsights, isUmamiConfigured } from "@/lib/insights/umami"
+import type { InsightsView as InsightsViewLike } from "@/lib/insights/types"
 import AeoVisibilityPanel from "@/components/internal/AeoVisibilityPanel"
 import CompetitorActivityPanel from "@/components/internal/CompetitorActivityPanel"
 import InsightsPanel from "@/components/internal/insights/InsightsPanel"
@@ -124,7 +125,22 @@ export default async function DashboardPage() {
     // The two views that used to live on /internal/insights, now that the
     // dashboard is where visibility questions get asked.
     getCompetitorActivity(90),
-    showTraffic ? getUmamiInsights(WINDOW_DAYS).catch(() => null) : Promise.resolve(null),
+    // getUmamiInsights reports its own unavailability, so a throw here is a
+    // genuine outage. Swallowing it to null hid the tab entirely, which reads
+    // as "we do not measure this" rather than "this source is down".
+    showTraffic
+      ? getUmamiInsights(WINDOW_DAYS).catch(
+          (err: unknown): InsightsViewLike => ({
+            metrics: [],
+            sections: [],
+            notes: [],
+            available: false,
+            unavailableReason: `Umami is connected but did not answer: ${
+              err instanceof Error ? err.message : String(err)
+            }`,
+          })
+        )
+      : Promise.resolve(null),
   ])
 
   // Today is a partial day and would render as a cliff at the right edge of the
