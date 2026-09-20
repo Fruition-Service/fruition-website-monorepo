@@ -47,25 +47,37 @@ export const REGION_BOOKING: Record<LeadRegion, RegionBooking> = {
     prefill: { company: 1, phone: 2, message: 3, service: 4 },
     companyRequired: false,
   },
-  // [South-East Asia] — Company, Mobile, industry/use case (req), service (req)
+  /*
+   * [South-East Asia] — Nikki's own link, not the shared account's.
+   *
+   * The shared account's event types are all hosted by the global-calendar
+   * placeholder, so the consultant was never a host and never got the calendar
+   * invite: a booking on 21 Sep reached the CRM and nobody's diary. This one
+   * has Nikki as the host, so the meeting lands on her real calendar and the
+   * slots offered are her real free time.
+   *
+   * Questions differ from the shared account's: Mobile then industry/use case,
+   * with no Company and no service picker, hence the shorter prefill map.
+   */
   SEA: {
-    eventTypeUuid: "b46e38ae-b292-47f1-a348-45274bb7e64d",
-    calendlyUrl: `${BASE}/30min`,
-    availabilityTimezone: "Australia/Sydney",
-    prefill: { company: 1, phone: 2, message: 3, service: 4 },
+    eventTypeUuid: "d1e11e61-73f7-44a2-a6a3-0370fd9341cf",
+    calendlyUrl: "https://calendly.com/d/d2br-mqx-p6n/south-east-asia-30-minute-consultation",
+    availabilityTimezone: "Asia/Bangkok",
+    prefill: { phone: 1, message: 2 },
     companyRequired: false,
   },
   /*
-   * [India & UAE] — created 2026-09-02 so IND stops riding on South-East Asia.
-   * The API can't set custom questions, so this one still has only Calendly's
-   * default free-text box; add Company / Mobile / service in the UI to match
-   * the others and the prefill map below needs updating with it.
+   * [India & UAE] — Nikhil's own link. Same reasoning as SEA above, and this
+   * is the region where the missed booking actually happened.
+   *
+   * Replaces the solo event type created on 2026-09-02, which was hosted by
+   * the placeholder and is now unused by the site.
    */
   IND: {
-    eventTypeUuid: "f348d4a5-8334-482d-bf6e-96d96ec97f4e",
-    calendlyUrl: `${BASE}/india-uae-30-minute-consultation`,
-    availabilityTimezone: "Australia/Sydney",
-    prefill: { message: 1 },
+    eventTypeUuid: "4e0670e8-e9ba-4b07-833d-9230a6820082",
+    calendlyUrl: "https://calendly.com/d/dtrs-m4y-hpc/india-uae-30-minute-consultation",
+    availabilityTimezone: "Asia/Calcutta",
+    prefill: { phone: 1, message: 2 },
     companyRequired: false,
   },
   /*
@@ -97,3 +109,15 @@ export const REGION_BOOKING: Record<LeadRegion, RegionBooking> = {
  * one of its own choices.
  */
 export const SERVICE_CHOICES = new Set(["monday.com", "HubSpot", "ClickUp", "Make", "n8n", "Aircall"])
+
+/**
+ * Where a visitor goes when everything else fails: live availability is down,
+ * or the region never resolved.
+ *
+ * Deliberately the Australia desk rather than the shared account's root page.
+ * That root lists every event type at once and makes the visitor pick a region
+ * themselves, which is both a worse experience and the thing that sent a US
+ * lead to the ANZ desk. Region detection already defaults to APAC, so this
+ * keeps the fallback link consistent with the fallback region.
+ */
+export const FALLBACK_BOOKING_URL = REGION_BOOKING.APAC.calendlyUrl

@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import Link from "next/link"
 import { useState } from "react"
 import { Rocket, Check } from "lucide-react"
@@ -273,7 +274,7 @@ function AIConversationsSection({ calendlyUrl, features }: { calendlyUrl: string
 export default function AircallPartnerContent({ page, siteSettings, faqTabs }: Props) {
   if (!page) return null
   const rawCalendly =
-    siteSettings?.calendlyLink || "https://calendly.com/global-calendar-fruitionservices"
+    siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
   const calendlyUrl = bookingHref(rawCalendly)
 
   const resolvedFaqTabs = faqTabs ?? []
