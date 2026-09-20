@@ -103,8 +103,6 @@ interface LeadBoard {
     /** Status column — gets the detected APAC/NA/UK region label */
     region?: string
     utmSource?: string
-    /** Link column — the source page as a clickable absolute URL */
-    pageLink?: string
     creationDate?: string
     /** Country-type column — gets {countryCode, countryName} */
     country?: string
@@ -134,7 +132,6 @@ const ILE_BOARD: LeadBoard = {
     source: "color_mm2wasnj",
     region: "region",
     utmSource: "short_textqfwxowxd",
-    pageLink: "link_mm43mwnz",
     creationDate: "mirror4",
     country: "country_mm345qer",
     serviceInterest: "dropdown_mm5qr1ha",
@@ -158,8 +155,6 @@ export const ILE_BOOKING_GROUP = "new_group__1"
  */
 export const CALENDLY_DIRECT_SOURCE = "calendly"
 
-/** Absolute base for the Link column — monday needs a full URL, not a path. */
-const SITE_ORIGIN = "https://fruitionservices.io"
 
 /**
  * Website Enquiries board (5030270944) — where non-lead submissions land,
@@ -461,22 +456,6 @@ async function pushToBoard(
   const fromSite = p.source !== CALENDLY_DIRECT_SOURCE
   if (c.source) cols[c.source] = { label: fromSite ? "Website" : "Calendly (direct)" }
   if (p.source && c.utmSource) cols[c.utmSource] = p.source
-  /*
-   * The same page, as something you can actually click. utm_source holds a bare
-   * path ("/monday-partner-australia"), which monday renders as inert text, so
-   * nobody could get from a lead to the page that produced it. Older rows have
-   * the path without its leading slash, hence the normalising.
-   *
-   * Only a real site path becomes a link: "scheduler" and "calendly" are
-   * markers, not pages.
-   */
-  const pagePath = p.source?.trim()
-  if (pagePath && c.pageLink && pagePath !== CALENDLY_DIRECT_SOURCE && pagePath !== "scheduler") {
-    const path = pagePath.startsWith("/") ? pagePath : `/${pagePath}`
-    if (!path.startsWith("//")) {
-      cols[c.pageLink] = { url: `${SITE_ORIGIN}${path}`, text: path }
-    }
-  }
   if (c.creationDate) cols[c.creationDate] = { date: new Date().toISOString().slice(0, 10) }
   const region = p.region ?? detectRegion(p)
   if (c.region) cols[c.region] = { label: REGION_LABELS[region] }
@@ -629,6 +608,36 @@ export async function promoteLeadToBooked(
   // normalisation as pushToBoard — spaces fail the whole write.
   const phone = p.fields?.["Phone"]?.replace(/[^\d+]/g, "")
   if (phone && c.phone) cols[c.phone] = { phone }
+
+  /*
+   * Carry across whatever the visitor typed on Calendly.
+   *
+   * Our own notes box is optional; the regional event types make theirs
+   * required, so the substance is frequently written there and nowhere else.
+   * The webhook already parses those answers into `fields`, but this function
+   * wrote only status, logistics and phone, so the message was collected and
+   * then dropped: a lead whose entire brief lived on Calendly reached the board
+   * showing just "Booking with: <consultant>".
+   *
+   * Appended, not overwritten, so anything our own form captured survives, and
+   * skipped when the text is already present so a replayed webhook cannot
+   * duplicate it. Question labels are kept as prefixes except for the free-text
+   * "tell us about it" box, whose label reads as noise above the answer.
+   */
+  const handled = new Set(["Phone", "Company", "Title", "Event"])
+  const isFreeText = /prepare|share|anything|use case|industry|context/i
+  const answers = Object.entries(p.fields ?? {})
+    .filter(([k, v]) => !handled.has(k) && String(v ?? "").trim())
+    .map(([k, v]) => (isFreeText.test(k) ? String(v).trim() : `${k}: ${String(v).trim()}`))
+  if (answers.length > 0 && c.notes) {
+    const current = (c.notes ? existing.columns[c.notes]?.text : "")?.trim() ?? ""
+    const fresh = answers.filter((a) => !current.includes(a))
+    if (fresh.length > 0) {
+      let merged = [current, fresh.join("\n\n")].filter(Boolean).join("\n\n")
+      if (merged.length > 1900) merged = `${merged.slice(0, 1900)}…`
+      cols[c.notes] = { text: merged }
+    }
+  }
 
   const wrote = await writeColumnsDroppingRejects(ILE_BOARD.boardId, existing.id, cols, "ILE:promote")
   if (!wrote) console.warn("[leads] monday ILE:promote wrote no columns")
