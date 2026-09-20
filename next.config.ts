@@ -302,6 +302,7 @@ const nextConfig: NextConfig = {
             value: [
               '</sitemap.xml>; rel="sitemap"',
               '</llms.txt>; rel="alternate"; type="text/plain"',
+              '</.well-known/ard.json>; rel="service-desc"; type="application/json"',
               markdownAlternate("/index.md"),
             ].join(", "),
           },

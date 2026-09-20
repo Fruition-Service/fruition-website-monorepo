@@ -155,11 +155,21 @@ export default async function RootLayout({
 
   const BASE =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fruitionservices.io"
-  const socials = Array.isArray(siteSettings?.socialLinks)
-    ? (siteSettings.socialLinks as Array<{ href?: string }>)
-        .map((l) => l?.href)
-        .filter((h): h is string => Boolean(h))
-    : []
+  // Authority profiles that are not social accounts, so they are not in the
+  // CMS social list, but that entity-resolution reads as corroborating links.
+  // Keep this to profiles that actually exist and stay reachable: a sameAs
+  // pointing at a 404 is worse for disambiguation than one fewer link.
+  const AUTHORITY_PROFILES = ["https://github.com/Fruition-Service"]
+  const socials = Array.from(
+    new Set([
+      ...(Array.isArray(siteSettings?.socialLinks)
+        ? (siteSettings.socialLinks as Array<{ href?: string }>)
+            .map((l) => l?.href)
+            .filter((h): h is string => Boolean(h))
+        : []),
+      ...AUTHORITY_PROFILES,
+    ]),
+  )
   // Contact and address for the Organization block. The office list is owned by
   // the CMS (see src/data/offices.ts), so read the head office out of it rather
   // than restating the address in code. Head office is matched by label, with

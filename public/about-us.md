@@ -1,3 +1,10 @@
+---
+title: "About Fruition Services"
+description: "Who Fruition is, the operating model behind its engagements, and the partner tiers it holds."
+canonical: "https://www.fruitionservices.io/about-us"
+last-updated: "2026-09-20"
+---
+
 # About Fruition Services
 
 The vision behind a leading global monday.com consulting company.
