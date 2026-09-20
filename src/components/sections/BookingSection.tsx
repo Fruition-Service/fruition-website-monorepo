@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { ChangeEvent, CSSProperties, ReactNode } from "react"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
@@ -1050,7 +1051,7 @@ export default function BookingSection({
   proof = "Platinum monday.com partner · 900+ implementations",
   duration = 30,
   askTeamSize = true,
-  calendlyUrl = "https://calendly.com/global-calendar-fruitionservices",
+  calendlyUrl = FALLBACK_BOOKING_URL,
   mode = BOOKING_MODE,
   forceRegion,
 }: BookingSectionProps) {

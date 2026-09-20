@@ -103,6 +103,8 @@ interface LeadBoard {
     /** Status column — gets the detected APAC/NA/UK region label */
     region?: string
     utmSource?: string
+    /** Link column — the source page as a clickable absolute URL */
+    pageLink?: string
     creationDate?: string
     /** Country-type column — gets {countryCode, countryName} */
     country?: string
@@ -132,6 +134,7 @@ const ILE_BOARD: LeadBoard = {
     source: "color_mm2wasnj",
     region: "region",
     utmSource: "short_textqfwxowxd",
+    pageLink: "link_mm43mwnz",
     creationDate: "mirror4",
     country: "country_mm345qer",
     serviceInterest: "dropdown_mm5qr1ha",
@@ -154,6 +157,9 @@ export const ILE_BOOKING_GROUP = "new_group__1"
  * so these never count as website-driven.
  */
 export const CALENDLY_DIRECT_SOURCE = "calendly"
+
+/** Absolute base for the Link column — monday needs a full URL, not a path. */
+const SITE_ORIGIN = "https://fruitionservices.io"
 
 /**
  * Website Enquiries board (5030270944) — where non-lead submissions land,
@@ -455,6 +461,22 @@ async function pushToBoard(
   const fromSite = p.source !== CALENDLY_DIRECT_SOURCE
   if (c.source) cols[c.source] = { label: fromSite ? "Website" : "Calendly (direct)" }
   if (p.source && c.utmSource) cols[c.utmSource] = p.source
+  /*
+   * The same page, as something you can actually click. utm_source holds a bare
+   * path ("/monday-partner-australia"), which monday renders as inert text, so
+   * nobody could get from a lead to the page that produced it. Older rows have
+   * the path without its leading slash, hence the normalising.
+   *
+   * Only a real site path becomes a link: "scheduler" and "calendly" are
+   * markers, not pages.
+   */
+  const pagePath = p.source?.trim()
+  if (pagePath && c.pageLink && pagePath !== CALENDLY_DIRECT_SOURCE && pagePath !== "scheduler") {
+    const path = pagePath.startsWith("/") ? pagePath : `/${pagePath}`
+    if (!path.startsWith("//")) {
+      cols[c.pageLink] = { url: `${SITE_ORIGIN}${path}`, text: path }
+    }
+  }
   if (c.creationDate) cols[c.creationDate] = { date: new Date().toISOString().slice(0, 10) }
   const region = p.region ?? detectRegion(p)
   if (c.region) cols[c.region] = { label: REGION_LABELS[region] }

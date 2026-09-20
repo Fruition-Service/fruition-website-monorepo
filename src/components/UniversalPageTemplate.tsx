@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import type { ReactNode } from "react"
 import {
   HeroBanner,
@@ -95,7 +96,7 @@ export default function UniversalPageTemplate({
   if (!page) return null
 
   const rawCalendly =
-    siteSettings?.calendlyLink || "https://calendly.com/global-calendar-fruitionservices"
+    siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
   const calendlyUrl = bookingHref(rawCalendly)
 
   const comparisonTabs = page.comparisonTabs ?? []

@@ -1,4 +1,5 @@
 import { bookingHref } from "@/lib/bookingLink"
+import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import {
   getIndustryPageBySlug,
   getSiteSettings,
@@ -52,7 +53,7 @@ export default async function Page() {
   if (!page) return null
 
   const rawCalendly =
-    siteSettings?.calendlyLink || "https://calendly.com/global-calendar-fruitionservices"
+    siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
   const calendlyUrl = bookingHref(rawCalendly)
 
   const effectiveFaqTabs = resolveFaqTabs(page.faqTabs, centralFaqs)

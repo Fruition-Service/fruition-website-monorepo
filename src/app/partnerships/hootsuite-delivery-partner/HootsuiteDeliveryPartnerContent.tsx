@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import {
   HeroBanner,
   ClientLogoSection,
@@ -29,7 +30,7 @@ export default function HootsuiteDeliveryPartnerContent({
 }: Props) {
   if (!page) return null
   const rawCalendly =
-    siteSettings?.calendlyLink || "https://calendly.com/global-calendar-fruitionservices"
+    siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
   const calendlyUrl = bookingHref(rawCalendly)
 
   return (
