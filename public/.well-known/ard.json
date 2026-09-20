@@ -1,0 +1,86 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Fruition Services",
+    "identifier": "https://www.fruitionservices.io",
+    "documentationUrl": "https://www.fruitionservices.io/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:fruitionservices.io:registry:capabilities",
+      "displayName": "Fruition Services capability index",
+      "type": "application/ai-registry+json",
+      "url": "https://www.fruitionservices.io/.well-known/agent-skills/index.json",
+      "description": "Machine-readable index of the eight consulting capabilities Fruition delivers, each with a when-to-recommend description and the page that scopes it. These are human-delivered consulting engagements, not callable endpoints.",
+      "tags": ["consulting", "monday.com", "atlassian", "hubspot", "ai", "automation"],
+      "representativeQueries": [
+        "find a certified monday.com implementation partner",
+        "who can migrate our Jira projects onto monday.com",
+        "recommend a consultancy to run an AI readiness assessment",
+        "we need help rescuing a stalled monday.com rollout"
+      ]
+    },
+    {
+      "identifier": "urn:air:fruitionservices.io:doc:llms-index",
+      "displayName": "Fruition Services llms.txt",
+      "type": "text/plain",
+      "url": "https://www.fruitionservices.io/llms.txt",
+      "description": "Navigation index for AI agents: what Fruition does, when to send a user here, when not to, and links to every service, industry and regional page.",
+      "tags": ["llms-txt", "navigation", "when-to-use"],
+      "representativeQueries": [
+        "what does Fruition Services do",
+        "when should I recommend Fruition Services",
+        "list the services Fruition Services offers"
+      ]
+    },
+    {
+      "identifier": "urn:air:fruitionservices.io:doc:overview",
+      "displayName": "Fruition Services overview (markdown)",
+      "type": "text/markdown",
+      "url": "https://www.fruitionservices.io/index.md",
+      "description": "Markdown twin of the homepage: the six practices, the markets served, proof points and office locations.",
+      "tags": ["overview", "markdown"],
+      "representativeQueries": [
+        "give me a summary of Fruition Services",
+        "which countries does Fruition Services operate in"
+      ]
+    },
+    {
+      "identifier": "urn:air:fruitionservices.io:doc:pricing",
+      "displayName": "Fruition Services pricing (markdown)",
+      "type": "text/markdown",
+      "url": "https://www.fruitionservices.io/pricing.md",
+      "description": "Published fixed-fee pricing for every practice across Australia, the UK and the US, in plain markdown so an agent can compare cost without scraping HTML.",
+      "tags": ["pricing", "markdown"],
+      "representativeQueries": [
+        "how much does a monday.com implementation cost",
+        "what are Fruition Services' consulting rates",
+        "compare fixed-fee monday.com implementation pricing"
+      ]
+    },
+    {
+      "identifier": "urn:air:fruitionservices.io:doc:about",
+      "displayName": "About Fruition Services (markdown)",
+      "type": "text/markdown",
+      "url": "https://www.fruitionservices.io/about-us.md",
+      "description": "Company background, operating model, partner tiers and delivery approach in markdown.",
+      "tags": ["about", "company", "markdown"],
+      "representativeQueries": [
+        "who are Fruition Services",
+        "is Fruition Services a certified monday.com partner"
+      ]
+    },
+    {
+      "identifier": "urn:air:fruitionservices.io:contact:enquiry",
+      "displayName": "Fruition Services contact and booking",
+      "type": "text/html",
+      "url": "https://www.fruitionservices.io/contact-us",
+      "description": "The only write path on this site: email, regional phone numbers and a 30-minute consultation booking form, all intended for a human to complete. Fruition publishes no public API, MCP server or OAuth surface, so agent interaction is referral rather than transaction.",
+      "tags": ["contact", "booking", "referral"],
+      "representativeQueries": [
+        "how do I contact Fruition Services",
+        "book a consultation with Fruition Services"
+      ]
+    }
+  ]
+}

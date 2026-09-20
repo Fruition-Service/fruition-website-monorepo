@@ -1,8 +1,15 @@
+---
+title: "Fruition Services"
+description: "Implementation, integration and AI advisory for monday.com, Atlassian and HubSpot, delivered as fixed-fee phases across Australia, the UK and the US."
+canonical: "https://www.fruitionservices.io/"
+last-updated: "2026-09-20"
+---
+
 # Fruition Services
 
 Implementation, integration and AI advisory for monday.com, Atlassian and HubSpot.
 
-Fruition is a monday.com Platinum Partner helping small businesses, mid-market and enterprise teams across Australia, India, the Philippines, Singapore, the UK and the US. We design the way work should run, build it, and help you maintain it. Over 800 implementations delivered across 6 markets and 3 entities, Authorised to Platinum tier in under two years, and the 2026 monday.com Rising Star winner.
+Fruition is a monday.com Platinum Partner helping small businesses, mid-market and enterprise teams across Australia, India, the Philippines, Singapore, the UK and the US. We design the way work should run, build it, and help you maintain it. Over 900 implementations delivered across 6 markets and 3 entities, Authorised to Platinum tier in under two years, and the 2026 monday.com Rising Star winner.
 
 Homepage: https://www.fruitionservices.io/
 

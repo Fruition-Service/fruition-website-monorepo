@@ -1,3 +1,10 @@
+---
+title: "Fruition Services pricing"
+description: "Published fixed-fee pricing for every Fruition practice across Australia, the UK and the US."
+canonical: "https://www.fruitionservices.io/pricing"
+last-updated: "2026-09-20"
+---
+
 # Fruition Services pricing
 
 Published prices. Zero surprises.

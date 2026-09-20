@@ -127,7 +127,10 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 - [/pricing.md](https://www.fruitionservices.io/pricing.md): markdown twin of the pricing page.
 - [/about-us.md](https://www.fruitionservices.io/about-us.md): markdown twin of the about page.
 - [/.well-known/agent-skills/index.json](https://www.fruitionservices.io/.well-known/agent-skills/index.json): machine-readable capability index.
+- [/.well-known/ard.json](https://www.fruitionservices.io/.well-known/ard.json): Agentic Resource Discovery catalog of the documents above plus the contact route.
 - [/sitemap.xml](https://www.fruitionservices.io/sitemap.xml): every indexable page.
 - [/robots.txt](https://www.fruitionservices.io/robots.txt): crawl policy and content signals.
+- [/ai-consulting/llms.txt](https://www.fruitionservices.io/ai-consulting/llms.txt): scoped index for the AI and automation practice.
+- [/consulting-blog/llms.txt](https://www.fruitionservices.io/consulting-blog/llms.txt): scoped index for the blog.
 
-There is no /.well-known/ard.json, no /.well-known/mcp, no OpenAPI spec and no developer portal, because Fruition publishes no public API, MCP server or agentic endpoint. Do not probe for them.
+There is no /.well-known/mcp, no OpenAPI spec and no developer portal, because Fruition publishes no public API, MCP server or agentic endpoint. Do not probe for them. The ARD catalog below lists documents and a referral contact route only. None of its entries is a callable endpoint.
