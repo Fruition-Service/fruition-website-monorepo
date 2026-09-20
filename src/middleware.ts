@@ -42,12 +42,18 @@ const LEGACY_HOSTS = new Set([
 // no browser can ever land on this path: every browser sends text/html, and an
 // Accept listing both still gets HTML.
 //
-// The markdown response carries `Vary: Accept`. The HTML one does not, and
-// cannot: Next owns that header on a page response for its RSC router and
-// replaces both the next.config.ts entry and anything middleware appends. It
-// is safe here because this negotiation runs in middleware, ahead of any cache
-// lookup, so the variant is chosen per request rather than served from
-// whichever one was cached at this path first.
+// This has to be a redirect, not a rewrite. On Cloudflare the static assets in
+// public/ are served ahead of the Worker, so a rewrite to /index.md never
+// reaches them: it falls through to the Next router, which has no such route,
+// and the agent gets the 404 page. A rewrite does work under `next dev`, which
+// is how that shipped in the first place, so test this one against a deploy.
+//
+// The redirect carries `Vary: Accept`. The HTML response does not, and cannot:
+// Next owns that header on a page response for its RSC router and replaces
+// both the next.config.ts entry and anything middleware appends. It is safe
+// because this runs in middleware, ahead of any cache lookup, so the variant
+// is chosen per request rather than served from whichever one was cached
+// at this path first.
 const MARKDOWN_TWINS: Record<string, string> = {
   "/": "/index.md",
   "/pricing": "/pricing.md",
@@ -73,7 +79,7 @@ export function middleware(request: NextRequest) {
   if (twin && wantsMarkdown(request.headers.get("accept"))) {
     const url = request.nextUrl.clone()
     url.pathname = twin
-    const response = NextResponse.rewrite(url)
+    const response = NextResponse.redirect(url, 307)
     response.headers.set("Vary", "Accept")
     return response
   }
