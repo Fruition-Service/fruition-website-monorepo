@@ -36,7 +36,7 @@ async function main() {
       heroHeadingPart2: 'transformations.',
       heroPartnerBadgesLabel: 'Certified partners',
       heroCalloutBadgeLabel: 'Platinum partner',
-      heroCalloutBadgeText: 'monday.com · since 2015',
+      heroCalloutBadgeText: 'monday.com · since 2025',
       heroCalloutOfficesText: '5 offices · 5 timezones',
 
       // Story section

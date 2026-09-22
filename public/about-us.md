@@ -18,7 +18,7 @@ Source page: https://www.fruitionservices.io/about-us
 - 10+ years experience
 - 1,050+ projects completed
 - 500+ satisfied clients
-- Platinum partner, working with monday.com since 2015
+- Platinum partner, working with monday.com since 2025
 - 5 offices across 5 timezones
 
 ## Our story
