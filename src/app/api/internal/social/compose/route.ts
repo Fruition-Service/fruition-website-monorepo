@@ -177,6 +177,7 @@ export async function PUT(req: Request) {
               imageUrls: mediaUrlsOf(p.draft),
               documentUrl: p.supportsDocument ? p.draft.documentUrl : undefined,
               documentName: p.draft.documentName,
+              videoUrl: p.supportsVideo ? p.draft.videoUrl : undefined,
               subreddit: p.draft.subreddit,
               boardId: p.draft.boardId,
             })

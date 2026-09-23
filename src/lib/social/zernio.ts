@@ -2,10 +2,16 @@
  * Zernio social-posting integration for the Marketa blog pipeline.
  *
  * One Zernio DRAFT post is created PER PLATFORM (X, Google Business AU + SG +
- * UK + US, Instagram, LinkedIn, Pinterest, Reddit — YouTube deliberately
- * excluded) so each platform's caption can be edited and published
- * independently, either from the Zernio dashboard or from the portal's social
- * drafts panel (/internal/blog/... on the website).
+ * UK + US, Instagram, LinkedIn, Pinterest, Reddit, YouTube) so each platform's
+ * caption can be edited and published independently, either from the Zernio
+ * dashboard or from the portal's social drafts panel (/internal/blog/... on
+ * the website).
+ *
+ * YouTube is the odd one: every YouTube post is exactly one video, so it takes
+ * no part in the blog fan-out (an article has no video to upload) and is
+ * offered only in the standalone composer. `BLOG_PLATFORMS` is the set a blog
+ * actually fans out to. YouTube Community posts are not possible at all —
+ * Google's API does not expose them to anyone.
  *
  * Posts come from two places: a blog (captions promote an article) or a
  * standalone composition written straight in the portal (/internal/social/new).
@@ -44,6 +50,7 @@ export type PlatformKey =
   | "linkedin"
   | "pinterest"
   | "reddit"
+  | "youtube"
 
 export interface PlatformSpec {
   key: PlatformKey
@@ -61,8 +68,19 @@ export interface PlatformSpec {
   supportsMedia: boolean
   /** Platform accepts a PDF/slide document instead of an image (LinkedIn only). */
   supportsDocument?: boolean
+  /** Platform publishes a video file (YouTube only). */
+  supportsVideo?: boolean
+  /** Platform publishes NOTHING but a video — no text-only or image post. */
+  needsVideo?: boolean
   /** Which generated caption this platform uses (gbp-au + gbp-sg share one). */
-  captionKey: "twitter" | "googlebusiness" | "instagram" | "linkedin" | "pinterest" | "reddit"
+  captionKey:
+    | "twitter"
+    | "googlebusiness"
+    | "instagram"
+    | "linkedin"
+    | "pinterest"
+    | "reddit"
+    | "youtube"
 
   /* --- constraints, surfaced in the composer UI and enforced before publish --- */
 
@@ -263,7 +281,39 @@ export const PLATFORMS: PlatformSpec[] = [
       "Text post only.",
     ],
   },
+  {
+    key: "youtube",
+    platform: "youtube",
+    accountId: process.env.ZERNIO_YOUTUBE_ACCOUNT_ID || "6a606d2a542d8bc5a6a2cc49",
+    label: "YouTube",
+    limit: 5000,
+    // The channel takes a video and only a video: no image post, no text post.
+    needsMedia: false,
+    supportsMedia: false,
+    supportsVideo: true,
+    needsVideo: true,
+    captionKey: "youtube",
+    titleLimit: 100,
+    titleRequired: true,
+    maxMedia: 0,
+    linkInBody: true,
+    countsRawChars: true,
+    notes: [
+      "Every post is one video — there is no text-only or image post on YouTube.",
+      "A title is required (100 characters); the caption is the video description (5,000).",
+      "Vertical and 3 minutes or under publishes as a Short; anything else as a normal video. YouTube decides, there is no flag.",
+      "Community posts are not possible — Google's API doesn't expose them to any tool.",
+      "It publishes public and not made-for-kids.",
+    ],
+  },
 ]
+
+/**
+ * The platforms a BLOG fans out to. A blog post has no video, so a YouTube
+ * draft made from one could never publish; it would just sit in the panel as a
+ * permanent blocker. Standalone compositions use the full PLATFORMS list.
+ */
+export const BLOG_PLATFORMS: PlatformSpec[] = PLATFORMS.filter((p) => !p.needsVideo)
 
 export function platformSpec(key: PlatformKey): PlatformSpec {
   const spec = PLATFORMS.find((p) => p.key === key)
@@ -573,6 +623,8 @@ export interface SocialCaptions {
   pinterest: { title: string; description: string }
   /** Reddit: separate title (≤300) + body. */
   reddit: { title: string; body: string }
+  /** YouTube: video title (≤100) + description (≤5000). */
+  youtube: { title: string; description: string }
 }
 
 export interface GenerateCaptionsInput {
@@ -637,7 +689,10 @@ function captionsPrompt(input: GenerateCaptionsInput): { system: string; user: s
     '  "pinterest": {"title": "keyword-aware pin title, max 90 characters", "description": "2-3 sentences of value ending with 3-5 lowercase hashtags, max 450 characters"},',
     '  "reddit": {"title": "a plain, non-clickbait title a human would post, max 280 characters", "body": "2-4 conversational paragraphs sharing the core insight like a practitioner, not an ad. No hashtags' +
       (link ? ", link it once, plainly." : '."') +
-      '"}',
+      '"},',
+    '  "youtube": {"title": "a searchable video title, max 90 characters, front-loaded with what the viewer gets", "description": "a video description: one paragraph on what the video covers, then 2-4 bullet lines' +
+      (link ? ", then the link on its own line." : '."') +
+      ' Max 3000 characters, at most 3 hashtags at the end."}',
     "}",
     "",
     VOICE_RULES,
@@ -714,6 +769,7 @@ export async function generateSocialCaptions(input: GenerateCaptionsInput): Prom
   const str = (v: unknown): string => (typeof v === "string" ? v.trim() : "")
   const pin = (j.pinterest ?? {}) as Record<string, unknown>
   const red = (j.reddit ?? {}) as Record<string, unknown>
+  const yt = (j.youtube ?? {}) as Record<string, unknown>
 
   return {
     twitter: clampTwitter(str(j.twitter)),
@@ -727,6 +783,10 @@ export async function generateSocialCaptions(input: GenerateCaptionsInput): Prom
     reddit: {
       title: clampText(str(red.title) || input.title, 300),
       body: str(red.body),
+    },
+    youtube: {
+      title: clampText(str(yt.title) || input.title, 100),
+      description: clampText(str(yt.description), 5000),
     },
   }
 }
@@ -759,6 +819,14 @@ function platformEntry(
     if (args.title) psd.title = clampText(args.title, 100)
     if (args.link) psd.link = args.link
   }
+  if (spec.key === "youtube") {
+    // YouTube has no untitled video, and Zernio passes these straight to the
+    // upload: public, and not made for kids (COPPA — declaring it kids content
+    // would strip comments and personalisation off every one of our videos).
+    if (args.title) psd.title = clampText(args.title, 100)
+    psd.visibility = "public"
+    psd.madeForKids = false
+  }
   if (spec.key === "reddit") {
     if (args.title) psd.title = clampText(args.title, 300)
     const subreddit = (args.subreddit ?? REDDIT_SUBREDDIT).trim().replace(/^\/?r\//, "")
@@ -777,7 +845,7 @@ export interface SocialDraftResult {
   error?: string
 }
 
-/** Images, a document, or nothing: what one post attaches. */
+/** Images, a video, a document, or nothing: what one post attaches. */
 export interface MediaChoice {
   /**
    * Ordered images. Channels whose `maxMedia` is above 1 publish the whole
@@ -789,13 +857,16 @@ export interface MediaChoice {
   documentUrl?: string
   /** Shown on the LinkedIn carousel; falls back to the post name. */
   documentName?: string
+  /** Publicly reachable video file. YouTube only, and it IS the post. */
+  videoUrl?: string
 }
 
 /**
  * Build `mediaItems` for one platform.
  *
- * A LinkedIn document and an image can't coexist on the same post, and the
- * document wins: someone who attached a PDF meant to post the PDF. Returns
+ * A video, a LinkedIn document and an image can't coexist on the same post.
+ * The video wins, then the document: someone who attached one meant to post
+ * it, and YouTube publishes nothing else. Returns
  * undefined when there's nothing to attach, so callers can leave the field off
  * the request entirely rather than sending an empty array.
  */
@@ -804,6 +875,11 @@ export function mediaItemsFor(
   media: MediaChoice,
   imageTitle?: string,
 ): Array<{ type: string; url: string; title?: string }> | undefined {
+  // The video comes first because on the one channel that takes one it is the
+  // whole post — there is nothing for an image to be beside.
+  if (media.videoUrl && spec.supportsVideo) {
+    return [{ type: "video", url: media.videoUrl, ...(imageTitle ? { title: imageTitle } : {}) }]
+  }
   if (media.documentUrl && spec.supportsDocument) {
     return [
       {
@@ -844,6 +920,7 @@ export async function createDraftPost(args: {
   imageUrls?: string[]
   documentUrl?: string
   documentName?: string
+  videoUrl?: string
   link?: string
   subreddit?: string
   boardId?: string
@@ -867,7 +944,7 @@ export async function createDraftPost(args: {
   }
   const mediaItems = mediaItemsFor(
     spec,
-    { imageUrls: args.imageUrls, documentUrl: args.documentUrl, documentName },
+    { imageUrls: args.imageUrls, documentUrl: args.documentUrl, documentName, videoUrl: args.videoUrl },
     args.name.slice(0, 90),
   )
   if (mediaItems) body.mediaItems = mediaItems
@@ -895,7 +972,9 @@ export async function createSocialDrafts(args: {
   keys?: PlatformKey[]
   existing?: Partial<Record<PlatformKey, ZernioPost>>
 }): Promise<SocialDraftResult[]> {
-  const targets = PLATFORMS.filter((p) => !args.keys || args.keys.includes(p.key))
+  // BLOG_PLATFORMS, not PLATFORMS: a blog has no video, so YouTube is not part
+  // of a fan-out. Asking for it by key doesn't conjure one either.
+  const targets = BLOG_PLATFORMS.filter((p) => !args.keys || args.keys.includes(p.key))
   const results: SocialDraftResult[] = []
 
   for (const spec of targets) {
@@ -937,6 +1016,8 @@ export function captionFor(spec: PlatformSpec, captions: SocialCaptions): { cont
       return { content: captions.pinterest.description, title: captions.pinterest.title }
     case "reddit":
       return { content: captions.reddit.body, title: captions.reddit.title }
+    case "youtube":
+      return { content: captions.youtube.description, title: captions.youtube.title }
   }
 }
 
@@ -950,6 +1031,7 @@ export async function updateSocialDraft(args: {
   imageUrls?: string[]
   documentUrl?: string
   documentName?: string
+  videoUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<void> {
@@ -970,12 +1052,13 @@ export async function updateSocialDraft(args: {
   // imageUrls / documentUrl semantics: undefined = leave media as-is,
   // [] or "" = remove, values = set. Either one being present rebuilds the
   // whole list, because a document and images can't both be attached.
-  if (args.imageUrls !== undefined || args.documentUrl !== undefined) {
+  if (args.imageUrls !== undefined || args.documentUrl !== undefined || args.videoUrl !== undefined) {
     body.mediaItems =
       mediaItemsFor(spec, {
         imageUrls: args.imageUrls,
         documentUrl: args.documentUrl || undefined,
         documentName,
+        videoUrl: args.videoUrl || undefined,
       }) ?? []
   }
   await zernioJson(`/posts/${args.postId}`, { method: "PUT", body: JSON.stringify(body) })
@@ -1020,12 +1103,16 @@ export async function publishSocialDraft(args: {
   imageUrls?: string[]
   documentUrl?: string
   documentName?: string
+  videoUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string }> {
   const spec = platformSpec(args.key)
   if (spec.needsMedia && !args.imageUrls?.length) {
     throw new Error(`${spec.label} requires an image — publish the blog with a cover image first`)
+  }
+  if (spec.needsVideo && !args.videoUrl) {
+    throw new Error(`${spec.label} requires a video — every YouTube post is a video`)
   }
 
   let content = args.content.trim()
@@ -1054,6 +1141,7 @@ export async function publishSocialDraft(args: {
     imageUrls: args.imageUrls,
     documentUrl: args.documentUrl,
     documentName: args.documentName,
+    videoUrl: args.videoUrl,
   })
   if (mediaItems) body.mediaItems = mediaItems
   const data = await zernioJson<{ post?: { status?: string } }>(`/posts/${args.postId}`, {
@@ -1078,6 +1166,7 @@ export async function republishCancelledPost(args: {
   imageUrls?: string[]
   documentUrl?: string
   documentName?: string
+  videoUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string; postId: string }> {
@@ -1127,6 +1216,7 @@ export async function scheduleSocialPost(args: {
   imageUrls?: string[]
   documentUrl?: string
   documentName?: string
+  videoUrl?: string
   subreddit?: string
   boardId?: string
   /** ISO timestamp; must be in the future. */
@@ -1137,6 +1227,9 @@ export async function scheduleSocialPost(args: {
   const spec = platformSpec(args.key)
   if (spec.needsMedia && !args.imageUrls?.length) {
     throw new Error(`${spec.label} requires an image`)
+  }
+  if (spec.needsVideo && !args.videoUrl) {
+    throw new Error(`${spec.label} requires a video`)
   }
   const body: Record<string, unknown> = {
     content: clampText(args.key === "twitter" ? clampTwitter(args.content) : args.content, spec.limit),
@@ -1157,6 +1250,7 @@ export async function scheduleSocialPost(args: {
     imageUrls: args.imageUrls,
     documentUrl: args.documentUrl,
     documentName: args.documentName,
+    videoUrl: args.videoUrl,
   })
   if (mediaItems) body.mediaItems = mediaItems
   const data = await zernioJson<{ post?: { status?: string; scheduledFor?: string } }>(`/posts/${args.postId}`, {

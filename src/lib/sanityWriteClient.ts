@@ -76,6 +76,43 @@ export async function uploadFileAsset(
   return { id, url: assetUrl }
 }
 
+/**
+ * Upload a large asset by STREAMING the request body straight through to
+ * Sanity, without ever holding it in memory.
+ *
+ * The portal runs as a single Cloudflare Worker with 128 MB of memory, and the
+ * buffered path costs roughly twice the file: once to read it, once to copy it
+ * into a Buffer. That is fine for a 5 MB image and hopeless for a video, so a
+ * video goes through here instead — the body arrives as a stream and leaves as
+ * one, which is why this takes a ReadableStream rather than bytes.
+ *
+ * `duplex: "half"` is required by the fetch spec for any streaming request
+ * body; omitting it throws before a single byte moves.
+ */
+export async function uploadFileStream(
+  body: ReadableStream<Uint8Array>,
+  mime: string,
+  filename: string,
+): Promise<{ id: string; url: string }> {
+  const url = `${base()}/assets/files/${DATASET}?filename=${encodeURIComponent(filename)}`
+  const r = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": mime,
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body,
+    // Not in the DOM lib's RequestInit yet, but required at runtime.
+    duplex: "half",
+  } as RequestInit & { duplex: "half" })
+  if (!r.ok) throw new Error(`sanity file upload ${r.status} ${await r.text()}`)
+  const j = (await r.json()) as { document?: { _id?: string; url?: string } }
+  const id = j.document?._id
+  const assetUrl = j.document?.url
+  if (!id || !assetUrl) throw new Error("sanity file upload returned no url")
+  return { id, url: assetUrl }
+}
+
 export interface CreateTeamMemberInput {
   docId: string
   name: string

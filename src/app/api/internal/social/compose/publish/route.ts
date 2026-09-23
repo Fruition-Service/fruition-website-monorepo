@@ -55,8 +55,9 @@ interface PublishResult {
 /**
  * What one channel actually attaches. A channel publishes ONLY the images it
  * was given: the post's `mediaUrls` is a library of uploads, not a default, or
- * an image meant for one channel goes out on all of them. A PDF displaces them
- * entirely, because LinkedIn carries one or the other.
+ * an image meant for one channel goes out on all of them. A video or a PDF
+ * displaces them entirely — YouTube publishes nothing but the video, and
+ * LinkedIn carries a document or images, never both.
  *
  * Deriving it once keeps validation and publishing looking at the same post.
  * They used to compute the image separately, which is how a rule can pass on
@@ -70,7 +71,9 @@ function attachments(
   spec: PlatformSpec,
   draft: CompositionPlatform,
   live?: ComposerLive,
-): { imageUrls?: string[]; documentUrl?: string } {
+): { imageUrls?: string[]; documentUrl?: string; videoUrl?: string } {
+  const videoUrl = spec.supportsVideo ? draft.videoUrl ?? live?.videoUrl : undefined
+  if (videoUrl) return { videoUrl }
   const documentUrl = spec.supportsDocument ? draft.documentUrl || undefined : undefined
   if (documentUrl) return { documentUrl }
   if (!spec.supportsMedia) return {}
@@ -130,7 +133,12 @@ export async function POST(req: Request) {
   const unresolved: Partial<Record<PlatformKey, string>> = {}
   for (const key of keys) {
     const draft = composition.platforms[key] as CompositionPlatform
-    if (draft.zernioPostId && mediaUrlsOf(draft) === undefined) unresolved[key] = draft.zernioPostId
+    if (!draft.zernioPostId) continue
+    // A channel that never recorded a choice publishes whatever is on its
+    // Zernio draft, so that draft has to be read before anything is decided.
+    const spec = platformSpec(key)
+    const noVideoChoice = Boolean(spec.supportsVideo) && draft.videoUrl === undefined
+    if (mediaUrlsOf(draft) === undefined || noVideoChoice) unresolved[key] = draft.zernioPostId
   }
   const livePosts: Partial<Record<PlatformKey, ZernioPost>> = Object.keys(unresolved).length
     ? await fetchPostsById(unresolved).catch(() => ({}))
@@ -146,12 +154,13 @@ export async function POST(req: Request) {
   const problems = keys.flatMap((key) => {
     const draft = composition.platforms[key] as CompositionPlatform
     const spec = platformSpec(key)
-    const { imageUrls, documentUrl } = attachments(spec, draft, live[key])
+    const { imageUrls, documentUrl, videoUrl } = attachments(spec, draft, live[key])
     return problemsFor(constraintsOf(spec), {
       content: draft.content,
       title: draft.title,
       mediaUrls: imageUrls,
       documentUrl,
+      videoUrl,
       shortenLinks: composition.shortenLinks,
     })
   })
@@ -162,7 +171,7 @@ export async function POST(req: Request) {
 
   for (const key of keys) {
     const draft = platforms[key] as CompositionPlatform
-    const { imageUrls, documentUrl } = attachments(platformSpec(key), draft, live[key])
+    const { imageUrls, documentUrl, videoUrl } = attachments(platformSpec(key), draft, live[key])
     const documentName = draft.documentName
     try {
       const { content, link } = await shortenForChannel({
@@ -184,6 +193,7 @@ export async function POST(req: Request) {
           imageUrls,
           documentUrl,
           documentName,
+          videoUrl,
           link,
           subreddit: draft.subreddit,
           boardId: draft.boardId,
@@ -199,6 +209,7 @@ export async function POST(req: Request) {
         imageUrls,
         documentUrl,
         documentName,
+        videoUrl,
         subreddit: draft.subreddit,
         boardId: draft.boardId,
       }

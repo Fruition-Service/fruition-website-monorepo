@@ -21,6 +21,10 @@ export interface PlatformConstraints {
   supportsMedia: boolean
   /** Accepts a PDF/slide document in place of an image (LinkedIn only). */
   supportsDocument?: boolean
+  /** Publishes a video file (YouTube only). */
+  supportsVideo?: boolean
+  /** Publishes nothing BUT a video — no text-only or image post. */
+  needsVideo?: boolean
   /** How many images the channel will carry. Above 1 they post as a carousel. */
   maxMedia?: number
 }
@@ -32,6 +36,8 @@ export interface DraftValues {
   mediaUrls?: string[]
   /** "" or undefined = no document attached. */
   documentUrl?: string
+  /** "" or undefined = no video attached. */
+  videoUrl?: string
   /**
    * Links get swapped for short ones at send time, so the caption travels
    * shorter than it's written. Off means measure it as typed.
@@ -78,7 +84,15 @@ export function problemsFor(spec: PlatformConstraints, values: DraftValues): str
   if (spec.needsMedia && !images.length) {
     problems.push(`${spec.label}: an image is required.`)
   }
-  if (images.length && !spec.supportsMedia && !values.documentUrl) {
+  // A video channel publishes the video and nothing else, so an empty one is
+  // an empty post — the caption alone can't stand in for it.
+  if (spec.needsVideo && !values.videoUrl) {
+    problems.push(`${spec.label}: a video is required — every post here is a video.`)
+  }
+  if (values.videoUrl && !spec.supportsVideo) {
+    problems.push(`${spec.label}: this channel can't post a video — YouTube is the only one that can.`)
+  }
+  if (images.length && !spec.supportsMedia && !values.documentUrl && !spec.supportsVideo) {
     problems.push(`${spec.label}: this channel is text-only.`)
   }
   // Caught here rather than silently trimmed at publish, so nobody arranges a

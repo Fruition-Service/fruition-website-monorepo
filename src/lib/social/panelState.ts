@@ -7,7 +7,7 @@
  */
 
 import {
-  PLATFORMS,
+  BLOG_PLATFORMS,
   findSocialPosts,
   listZernioAccounts,
   type PlatformKey,
@@ -167,7 +167,8 @@ export async function buildPanelState(source: SocialSource): Promise<PanelState>
     coverImageUrl: blog.coverImageUrl,
     availableImages,
     dashboardUrl: DASHBOARD_URL,
-    platforms: PLATFORMS.map((spec) => {
+    // BLOG_PLATFORMS: YouTube takes a video, and a blog has none to give it.
+    platforms: BLOG_PLATFORMS.map((spec) => {
       const account = accountById.get(spec.accountId)
       return {
         key: spec.key,

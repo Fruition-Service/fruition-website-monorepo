@@ -35,6 +35,13 @@ source through the Zernio post's `metadata` object. Platforms: X, Google Busines
 AU, Google Business SG, Instagram, LinkedIn, Pinterest, Reddit. YouTube deliberately
 excluded.
 
+> **2026-09-23:** YouTube is no longer excluded from the composer. Google Business
+> UK and US were added in August, and YouTube joined on this date as a video-only
+> channel: one video per post, a required 100-character title, and a 5,000-character
+> description. It stays out of the *blog* fan-out (`BLOG_PLATFORMS`), because an
+> article has no video to give it. YouTube **Community posts remain impossible** —
+> Google's API does not expose them to any tool, Zernio included.
+
 The gap is only the *entry point and the source*: everything assumes a blog
 (`slug` is required on every route, captions are generated from blog title/body,
 images come from the blog's cover + body, publish is blocked until the blog is
