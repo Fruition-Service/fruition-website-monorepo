@@ -1,7 +1,7 @@
 "use client"
 
 import { useId, useRef, useState } from "react"
-import { FileText, Loader2, Upload, X } from "lucide-react"
+import { FileText, Loader2, Upload, Video, X } from "lucide-react"
 import { useCaretInsert } from "@/lib/social/caret"
 import {
   parseMentions,
@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button"
 
 /**
  * The editing surface for one platform's post: title, subreddit, caption,
- * emoji, tags, image choice, an optional PDF, live character count, and the
- * platform's own limitations.
+ * emoji, tags, image choice, an optional PDF or video, live character count,
+ * and the platform's own limitations.
  *
  * Deliberately presentational — value in, patch out. Both surfaces that write
  * social posts (the blog's Social tab and the standalone composer) render this
@@ -40,6 +40,10 @@ export interface PlatformEditorSpec {
   supportsMedia: boolean
   /** LinkedIn: a PDF posts as a swipeable carousel, in place of an image. */
   supportsDocument?: boolean
+  /** YouTube: the post IS a video, and there is no other kind of post. */
+  supportsVideo?: boolean
+  /** The channel publishes nothing without a video. */
+  needsVideo?: boolean
   /** How many images this channel carries. Above 1 they post as a carousel. */
   maxMedia?: number
   notes: string[]
@@ -54,6 +58,9 @@ export interface PlatformEditorValue {
   /** "" = deliberately no PDF. */
   documentUrl?: string
   documentName?: string
+  /** "" = deliberately no video. */
+  videoUrl?: string
+  videoName?: string
 }
 
 export default function PlatformEditor({
@@ -63,10 +70,12 @@ export default function PlatformEditor({
   disabled = false,
   uploading = false,
   uploadingDocument = false,
+  uploadingVideo = false,
   shortenLinks = false,
   onChange,
   onUpload,
   onUploadDocument,
+  onUploadVideo,
   onRemoveImage,
 }: {
   spec: PlatformEditorSpec
@@ -77,6 +86,7 @@ export default function PlatformEditor({
   /** An upload for THIS channel is in flight. */
   uploading?: boolean
   uploadingDocument?: boolean
+  uploadingVideo?: boolean
   /** Links will be swapped for short ones at send time — affects the count. */
   shortenLinks?: boolean
   onChange: (patch: Partial<PlatformEditorValue>) => void
@@ -84,6 +94,8 @@ export default function PlatformEditor({
   onUpload?: (file: File) => void
   /** Attach a PDF to this channel. Omitted where the caller has no store. */
   onUploadDocument?: (file: File) => void
+  /** Attach a video to this channel. Omitted where the caller has no store. */
+  onUploadVideo?: (file: File) => void
   /** Drop an image from the post entirely, not just from this channel. */
   onRemoveImage?: (url: string) => void
 }) {
@@ -92,6 +104,7 @@ export default function PlatformEditor({
   const mentionListId = useId()
   const fileInput = useRef<HTMLInputElement>(null)
   const docInput = useRef<HTMLInputElement>(null)
+  const videoInput = useRef<HTMLInputElement>(null)
   const body = useRef<HTMLTextAreaElement>(null)
 
   const content = value.content ?? ""
@@ -100,6 +113,7 @@ export default function PlatformEditor({
   // Callers that never had carousels (the blog panel) leave it unset.
   const maxMedia = Math.max(1, spec.maxMedia ?? 1)
   const documentUrl = value.documentUrl ?? ""
+  const videoUrl = value.videoUrl ?? ""
   const titleOver = spec.titleLimit ? title.length - spec.titleLimit : 0
   const hasTitle = Boolean(spec.titleLimit)
   const isReddit = spec.key === "reddit"
@@ -320,6 +334,80 @@ export default function PlatformEditor({
               )}
             </span>
           ))}
+        </div>
+      )}
+
+      {spec.supportsVideo && (
+        <div>
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              Video{spec.needsVideo ? " · required" : ""}
+            </span>
+            {onUploadVideo && (
+              <>
+                <input
+                  ref={videoInput}
+                  type="file"
+                  accept="video/mp4,video/quicktime,video/webm,video/x-msvideo,video/x-ms-wmv,video/3gpp,video/*"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) onUploadVideo(file)
+                    e.target.value = ""
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="xs"
+                  disabled={disabled || uploadingVideo}
+                  onClick={() => videoInput.current?.click()}
+                >
+                  {uploadingVideo ? <Loader2 className="animate-spin" /> : <Video />}
+                  Upload video
+                </Button>
+              </>
+            )}
+          </div>
+          {/* The box holds whatever will publish, whether it was uploaded here
+              or pasted from somewhere public — so there is one place to look. */}
+          <input
+            value={videoUrl}
+            onChange={(e) => onChange({ videoUrl: e.target.value.trim(), videoName: "" })}
+            placeholder="Upload a file, or paste a public video URL"
+            inputMode="url"
+            aria-label={`${spec.label} video URL`}
+            disabled={disabled}
+            className="h-9 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20 disabled:opacity-60"
+          />
+          {videoUrl ? (
+            <div className="mt-2 flex items-start gap-2 rounded-md border border-border bg-muted p-2">
+              {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+              <video src={videoUrl} controls preload="metadata" className="h-24 w-auto rounded-[4px] bg-black" />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-medium text-foreground">
+                  {value.videoName || "Attached video"}
+                </p>
+                {!disabled && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="xs"
+                    className="mt-1"
+                    onClick={() => onChange({ videoUrl: "", videoName: "" })}
+                  >
+                    <X />
+                    Remove
+                  </Button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <p className="mt-1 text-xs text-muted-foreground">
+              Uploads go up to 100 MB. Anything longer needs a public link — YouTube fetches the file
+              itself.
+            </p>
+          )}
         </div>
       )}
 

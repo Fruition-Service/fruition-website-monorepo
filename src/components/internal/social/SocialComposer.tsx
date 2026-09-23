@@ -140,8 +140,9 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
         continue
       }
       if (liveOf(spec.key)?.status === "published") continue
-      // A PDF displaces the image, so don't hand the validator both.
+      // A video or a PDF displaces the image, so don't hand the validator both.
       const documentUrl = draft.documentUrl || undefined
+      const videoUrl = spec.supportsVideo ? draft.videoUrl || undefined : undefined
       out.push(
         ...problemsFor(spec, {
           content: draft.content,
@@ -150,6 +151,7 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
           // a default (see effectiveMedia).
           mediaUrls: spec.supportsMedia && !documentUrl ? (draft.mediaUrls ?? []) : [],
           documentUrl,
+          videoUrl,
           shortenLinks: edit.shortenLinks,
         }),
       )
@@ -192,13 +194,18 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
   }
 
   /**
-   * Select or clear every channel at once. A published channel is left alone —
-   * removing it here would not unpublish it, and toggle() refuses for that
-   * reason, so the bulk control has to respect it too.
+   * Select or clear every channel at once. Two exceptions. A published channel
+   * is left alone — removing it here would not unpublish it, and toggle()
+   * refuses for that reason. And a video-only channel (YouTube) is left out of
+   * "select all": it can't publish without a video, so switching it on in bulk
+   * would only arm a blocker nobody asked for. Clearing still clears it.
    */
+  const bulkSpecs = useMemo(() => specs.filter((p) => !p.needsVideo), [specs])
+  const allSelected = bulkSpecs.length > 0 && bulkSpecs.every((p) => edit.platforms[p.key])
+
   function toggleAll() {
     setError(null)
-    const everything = selectedKeys.length === specs.length
+    const everything = allSelected
     patch((prev) => {
       if (everything) {
         const next: typeof prev.platforms = {}
@@ -210,7 +217,7 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
         return { platforms: next }
       }
       const next = { ...prev.platforms }
-      for (const spec of specs) {
+      for (const spec of bulkSpecs) {
         if (next[spec.key]) continue
         next[spec.key] = {
           content: prev.masterContent,
@@ -466,6 +473,34 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
     }
   }
 
+  /**
+   * Attach a video to one channel (YouTube, today). It is the post rather than
+   * a decoration on it, so it is never shared across channels.
+   *
+   * The file goes up as the raw request body rather than as form data: a video
+   * is big enough that buffering it for a multipart parse is what falls over
+   * first, inside a Worker with 128 MB to its name.
+   */
+  async function uploadVideo(file: File, key: PlatformKey) {
+    setBusy(`video:${key}`)
+    setError(null)
+    try {
+      const r = await fetch(`/api/internal/social/video?filename=${encodeURIComponent(file.name)}`, {
+        method: "POST",
+        headers: { "Content-Type": file.type || "video/mp4" },
+        body: file,
+      })
+      const data = (await r.json().catch(() => ({}))) as { url?: string; name?: string; error?: string }
+      if (!r.ok || !data.url) {
+        setError(data.error ?? "Video upload failed.")
+        return
+      }
+      patchPlatform(key, { videoUrl: data.url, videoName: data.name })
+    } finally {
+      setBusy(null)
+    }
+  }
+
   async function send(mode: "now" | "schedule" | "cancel") {
     const labels = specs.filter((p) => sendableKeys.includes(p.key)).map((p) => p.label)
     if (mode !== "cancel") {
@@ -621,7 +656,7 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
             disabled={working}
             className="text-xs font-medium text-primary underline-offset-2 hover:underline disabled:opacity-50"
           >
-            {selectedKeys.length === specs.length ? "Clear all" : `Select all ${specs.length}`}
+            {allSelected ? "Clear all" : `Select all ${bulkSpecs.length}`}
           </button>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -903,11 +938,15 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
                       disabled={published}
                       uploading={busy === `upload:${spec.key}`}
                       uploadingDocument={busy === `doc:${spec.key}`}
+                      uploadingVideo={busy === `video:${spec.key}`}
                       shortenLinks={edit.shortenLinks}
                       onChange={(p) => patchPlatform(spec.key, p)}
                       onUpload={(file) => void upload(file, spec.key)}
                       onUploadDocument={
                         spec.supportsDocument ? (file) => void uploadDocument(file, spec.key) : undefined
+                      }
+                      onUploadVideo={
+                        spec.supportsVideo ? (file) => void uploadVideo(file, spec.key) : undefined
                       }
                       onRemoveImage={removeImage}
                     />

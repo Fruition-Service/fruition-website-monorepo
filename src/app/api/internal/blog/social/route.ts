@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getPortalApiUser } from "@/lib/portalAuth"
 import {
-  PLATFORMS,
+  BLOG_PLATFORMS,
   createSocialDrafts,
   findSocialPosts,
   generateSocialCaptions,
@@ -18,8 +18,9 @@ export const maxDuration = 120
 
 /**
  * Social drafts for a blog post — one Zernio draft per platform (X, Google
- * Business AU + SG + UK + US, Instagram, LinkedIn, Pinterest, Reddit; YouTube
- * excluded).
+ * Business AU + SG + UK + US, Instagram, LinkedIn, Pinterest, Reddit). YouTube
+ * is excluded here and only here: every YouTube post is a video, and an
+ * article has none, so it belongs to the standalone composer.
  *
  * GET    ?slug=&draftId=&docId=      → panel state (accounts, drafts, blog facts)
  * POST   {source, blog, keys?}       → generate captions + create/regenerate drafts
@@ -99,7 +100,7 @@ export async function POST(req: Request) {
 
   const keys =
     Array.isArray(body.keys) && body.keys.length
-      ? body.keys.filter((k): k is PlatformKey => PLATFORMS.some((p) => p.key === k))
+      ? body.keys.filter((k): k is PlatformKey => BLOG_PLATFORMS.some((p) => p.key === k))
       : undefined
 
   try {

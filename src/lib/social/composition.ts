@@ -57,6 +57,10 @@ export interface CompositionPlatform {
   documentUrl?: string
   /** Filename / carousel title for the attached PDF. */
   documentName?: string
+  /** Attached video (YouTube); "" means deliberately none. */
+  videoUrl?: string
+  /** Filename of the attached video, shown in the editor. */
+  videoName?: string
   /** Set once the copy is edited away from the master caption. */
   customised?: boolean
 }
@@ -178,6 +182,8 @@ function cleanPlatforms(
       ...(mediaUrlsOf(value) !== undefined ? { mediaUrls: mediaUrlsOf(value) } : {}),
       ...(value.documentUrl !== undefined ? { documentUrl: value.documentUrl } : {}),
       ...(value.documentName ? { documentName: value.documentName } : {}),
+      ...(value.videoUrl !== undefined ? { videoUrl: value.videoUrl } : {}),
+      ...(value.videoName ? { videoName: value.videoName } : {}),
       ...(value.customised ? { customised: true } : {}),
     }
   }
@@ -232,6 +238,8 @@ export function platformsFromInput(
       mediaUrl: typeof raw.mediaUrl === "string" ? raw.mediaUrl : undefined,
       documentUrl: typeof raw.documentUrl === "string" ? raw.documentUrl : undefined,
       documentName: typeof raw.documentName === "string" ? raw.documentName : undefined,
+      videoUrl: typeof raw.videoUrl === "string" ? raw.videoUrl : undefined,
+      videoName: typeof raw.videoName === "string" ? raw.videoName : undefined,
       customised: Boolean(raw.customised),
     }
   }
@@ -344,6 +352,8 @@ export interface ComposerLive {
   mediaUrls: string[]
   /** Document currently attached to the Zernio draft. */
   documentUrl?: string
+  /** Video currently attached to the Zernio draft. */
+  videoUrl?: string
   scheduledFor?: string
 }
 
@@ -357,6 +367,8 @@ export interface ComposerPlatform {
   needsMedia: boolean
   supportsMedia: boolean
   supportsDocument?: boolean
+  supportsVideo?: boolean
+  needsVideo?: boolean
   maxMedia: number
   aspect?: { min: number; max: number }
   linkInBody: boolean
@@ -394,6 +406,7 @@ export function liveOf(post: ZernioPost | undefined): ComposerLive | undefined {
     error: entry?.error,
     mediaUrls: (post.mediaItems ?? []).filter((m) => m.type === "image").map((m) => m.url),
     documentUrl: post.mediaItems?.find((m) => m.type === "document")?.url,
+    videoUrl: post.mediaItems?.find((m) => m.type === "video")?.url,
     scheduledFor: post.scheduledFor,
   }
 }
@@ -408,6 +421,8 @@ export function constraintsOf(spec: PlatformSpec): PlatformConstraints {
     needsMedia: spec.needsMedia,
     supportsMedia: spec.supportsMedia,
     supportsDocument: spec.supportsDocument,
+    supportsVideo: spec.supportsVideo,
+    needsVideo: spec.needsVideo,
     maxMedia: spec.maxMedia,
   }
 }
@@ -421,6 +436,23 @@ export function effectiveDocument(
   if (!spec.supportsDocument) return ""
   if (draft?.documentUrl !== undefined) return draft.documentUrl
   return live?.documentUrl ?? ""
+}
+
+/**
+ * The video a platform would publish with right now. "" = none.
+ *
+ * Same rule as the document: a local choice wins, and with none recorded the
+ * Zernio draft is the truth — a video attached in the Zernio dashboard has to
+ * survive a save from here.
+ */
+export function effectiveVideo(
+  draft: CompositionPlatform | undefined,
+  live: ComposerLive | undefined,
+  spec: PlatformSpec,
+): string {
+  if (!spec.supportsVideo) return ""
+  if (draft?.videoUrl !== undefined) return draft.videoUrl
+  return live?.videoUrl ?? ""
 }
 
 /**
@@ -478,6 +510,7 @@ export async function buildComposerState(composition: Composition): Promise<Comp
     const selected = Boolean(draft)
     const media = effectiveMedia(draft, live, spec)
     const document = effectiveDocument(draft, live, spec)
+    const video = effectiveVideo(draft, live, spec)
     return {
       key: spec.key,
       label: spec.label,
@@ -487,6 +520,8 @@ export async function buildComposerState(composition: Composition): Promise<Comp
       needsMedia: spec.needsMedia,
       supportsMedia: spec.supportsMedia,
       supportsDocument: spec.supportsDocument,
+      supportsVideo: spec.supportsVideo,
+      needsVideo: spec.needsVideo,
       maxMedia: spec.maxMedia,
       aspect: spec.aspect,
       linkInBody: spec.linkInBody,
@@ -502,6 +537,7 @@ export async function buildComposerState(composition: Composition): Promise<Comp
             title: draft?.title,
             mediaUrls: media,
             documentUrl: document || undefined,
+            videoUrl: video || undefined,
             shortenLinks: composition.shortenLinks,
           })
         : [],
