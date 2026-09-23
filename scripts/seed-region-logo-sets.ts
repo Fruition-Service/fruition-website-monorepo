@@ -8,10 +8,10 @@
  * DEPLOY ORDER: merge and deploy the schema change BEFORE running --apply, or
  * the Studio will not know the `regionLogoSet` type or the `clients` field.
  *
- * Where the logos come from: every mark below already lives in Sanity, either
- * on `siteSettings.carouselLogos` or on an `industryLogoSet`. This script
- * copies the existing asset reference rather than re-uploading, so a client's
- * logo stays one asset no matter how many walls it appears on.
+ * Where the logos come from: every mark below already lives in Sanity, on
+ * `siteSettings.carouselLogos`, an `industryLogoSet`, or a `regionLogoSet`.
+ * This script copies the existing asset reference rather than re-uploading, so
+ * a client's logo stays one asset no matter how many walls it appears on.
  *
  * Where the regions come from: the "Region" column (ANZ/UK/US/SEA/IND) on
  * monday board 5025525962, cross-checked by eye — that column has real
@@ -54,7 +54,7 @@ const SETS: Record<RegionSlug, string[]> = {
   'monday-partner-uk': [
     'Surrey County Council',
     'Deckers UK',
-    'Paladone Products',
+    'Avanti West Coast',
     'Joloda Hydraroll',
     'Equip Outdoor Technologies',
     'Curtis Furniture',
@@ -119,16 +119,23 @@ const LABELS: Record<RegionSlug, string> = {
 
 /** Every logo already in Sanity, keyed by alt text. First source wins. */
 async function loadPool(): Promise<Map<string, PoolLogo>> {
-  const [carousel, sets] = await Promise.all([
+  const [carousel, sets, regions] = await Promise.all([
     writeClient.fetch<PoolLogo[]>(
       `*[_type == "siteSettings"][0].carouselLogos[]{ alt, clientSlug, image }`,
     ),
     writeClient.fetch<Array<{ logos?: PoolLogo[] }>>(
       `*[_type == "industryLogoSet"]{ logos[]{ alt, clientSlug, image } }`,
     ),
+    writeClient.fetch<Array<{ logos?: PoolLogo[] }>>(
+      `*[_type == "regionLogoSet"]{ logos[]{ alt, clientSlug, image } }`,
+    ),
   ])
   const pool = new Map<string, PoolLogo>()
-  for (const logo of [...(carousel ?? []), ...(sets ?? []).flatMap((s) => s.logos ?? [])]) {
+  for (const logo of [
+    ...(carousel ?? []),
+    ...(sets ?? []).flatMap((s) => s.logos ?? []),
+    ...(regions ?? []).flatMap((s) => s.logos ?? []),
+  ]) {
     if (!logo?.alt || !logo.image?.asset?._ref || pool.has(logo.alt)) continue
     pool.set(logo.alt, logo)
   }
