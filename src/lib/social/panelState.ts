@@ -131,11 +131,24 @@ export async function draftBodyImages(draftId: string | undefined): Promise<stri
   try {
     const { data } = await getPortalAdmin()
       .from("portal_drafts")
-      .select("body_markdown")
+      .select("body_markdown, metadata")
       .eq("id", draftId)
       .maybeSingle()
-    const md = (data as { body_markdown?: string } | null)?.body_markdown ?? ""
+    const row = data as { body_markdown?: string; metadata?: Record<string, unknown> } | null
+    const md = row?.body_markdown ?? ""
     const urls: string[] = []
+
+    /* The cover first, because it is the cover.
+     *
+     * The generator lifts a lead image from the source story and records it on
+     * the draft's metadata, where nothing here used to look — so a draft that
+     * had a perfectly good picture showed an empty image picker, and Instagram
+     * and Pinterest, which refuse a post without media, could not be sent at
+     * all. The body scan below only ever found images the model had written
+     * into the markdown, which for a news post is usually none. */
+    const cover = row?.metadata?.cover_image_url
+    if (typeof cover === "string" && /^https?:\/\//.test(cover)) urls.push(cover)
+
     for (const m of md.matchAll(/!\[[^\]]*\]\((https?:\/\/[^)\s]+)/g)) {
       if (!urls.includes(m[1])) urls.push(m[1])
     }

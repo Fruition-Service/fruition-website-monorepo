@@ -93,8 +93,20 @@ export async function POST(req: Request) {
 
   const slug = slugInput ? slugify(slugInput) : slugify(title)
 
-  // Optional cover image.
+  /* Optional cover image.
+   *
+   * Two sources, and a file always wins. The second one matters for a
+   * generated draft: the pipeline lifts a lead image from the source story and
+   * uploads it to Sanity at draft time, so by the time anybody opens the
+   * editor the cover already exists as an asset and there is no file to
+   * re-upload. Without this, publishing a generated post from the portal
+   * dropped its cover on the floor — the Slack approve path kept it, so the
+   * same post published two ways came out differently. */
   let coverImageAssetId: string | undefined
+  const existingAssetId = String(form.get("coverImageAssetId") ?? "").trim()
+  if (/^image-[A-Za-z0-9]+-\d+x\d+-[a-z0-9]+$/.test(existingAssetId)) {
+    coverImageAssetId = existingAssetId
+  }
   if (cover instanceof File && cover.size > 0) {
     if (!cover.type.startsWith("image/")) {
       return NextResponse.json({ error: "Cover image must be an image." }, { status: 400 })
