@@ -1,7 +1,8 @@
 "use client"
 
-import { useMemo, useState, useTransition } from "react"
+import { useEffect, useMemo, useRef, useState, useTransition } from "react"
 import { Button } from "@/components/ui/button"
+import { Upload, X } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -141,6 +142,7 @@ export default function BlogEditor({
   const [body, setBody] = useState(initial?.body ?? "")
   const [author, setAuthor] = useState(initial?.author ?? "")
   const [cover, setCover] = useState<File | null>(null)
+  const coverInput = useRef<HTMLInputElement>(null)
 
   /* The cover the pipeline already lifted from the source story.
    *
@@ -155,6 +157,22 @@ export default function BlogEditor({
       : ""
   const pipelineCoverUrl =
     typeof initial?.metadata?.cover_image_url === "string" ? initial.metadata.cover_image_url : ""
+
+  /* What the thumbnail shows: a freshly chosen file if there is one, else the
+     cover the pipeline already uploaded. The object URL is revoked when the
+     selection changes, or every re-pick leaks one. */
+  const coverObjectUrl = useMemo(() => (cover ? URL.createObjectURL(cover) : ""), [cover])
+  useEffect(() => {
+    return () => {
+      if (coverObjectUrl) URL.revokeObjectURL(coverObjectUrl)
+    }
+  }, [coverObjectUrl])
+  const coverPreviewUrl = coverObjectUrl || pipelineCoverUrl
+  const coverHint = cover
+    ? cover.name
+    : pipelineCoverUrl
+      ? "Taken from the source story."
+      : "No cover image — social cards fall back to the site default."
 
   const [status, setStatus] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -727,26 +745,59 @@ export default function BlogEditor({
                 />
               </Field>
               <Field label="Cover image" hint="Max 8 MB">
-                {pipelineCoverUrl && !cover ? (
-                  <div className="mb-2 flex items-center gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={pipelineCoverUrl}
-                      alt="Current cover"
-                      className="h-16 w-28 rounded object-cover"
-                      style={{ border: "1px solid var(--color-border)" }}
-                    />
-                    <span className="text-xs" style={{ color: "var(--ink-muted)" }}>
-                      Taken from the source story. Choose a file to replace it.
-                    </span>
-                  </div>
-                ) : null}
+                {/* The native file input renders the browser's own "Choose
+                    File" control, which is the one piece of unstyled chrome in
+                    a panel of design-system components. Hidden and driven by a
+                    Button instead, the same way the social editor does it. */}
                 <input
+                  ref={coverInput}
                   type="file"
                   accept="image/*"
+                  className="sr-only"
                   onChange={(e) => setCover(e.target.files?.[0] ?? null)}
-                  className="block w-full text-sm"
                 />
+                <div className="flex items-center gap-3">
+                  {coverPreviewUrl ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={coverPreviewUrl}
+                      alt="Cover"
+                      className="h-16 w-28 shrink-0 rounded border border-border object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-28 shrink-0 items-center justify-center rounded border border-dashed border-border text-xs text-muted-foreground">
+                      None
+                    </div>
+                  )}
+                  <div className="flex min-w-0 flex-col items-start gap-1.5">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="xs"
+                        onClick={() => coverInput.current?.click()}
+                      >
+                        <Upload />
+                        {coverPreviewUrl ? "Replace" : "Upload"}
+                      </Button>
+                      {cover ? (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="xs"
+                          onClick={() => {
+                            setCover(null)
+                            if (coverInput.current) coverInput.current.value = ""
+                          }}
+                        >
+                          <X />
+                          Clear
+                        </Button>
+                      ) : null}
+                    </div>
+                    <p className="truncate text-xs text-muted-foreground">{coverHint}</p>
+                  </div>
+                </div>
               </Field>
               <Field label="Author" hint="From the team page">
                 <Select value={author || AUTHOR_DEFAULT} onValueChange={(v) => setAuthor(v === AUTHOR_DEFAULT || !v ? "" : v)}>
