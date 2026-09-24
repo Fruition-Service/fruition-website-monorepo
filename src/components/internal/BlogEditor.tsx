@@ -146,6 +146,12 @@ export default function BlogEditor({
   const [error, setError] = useState<string | null>(null)
   const [publishedSlug, setPublishedSlug] = useState<string | null>(null)
   const [savingDraft, startDraft] = useTransition()
+  /* Send the social drafts as soon as the page is live.
+   *
+   * Default on for an unpublished draft and off for a live post: the first
+   * publish is the moment the captions were written for, and a later edit is
+   * usually a typo fix that should not re-announce the post. */
+  const [alsoSendSocial, setAlsoSendSocial] = useState(!initial?.docId)
   const [publishing, startPublish] = useTransition()
   const [unpublishing, startUnpublish] = useTransition()
 
@@ -269,6 +275,59 @@ export default function BlogEditor({
     })
   }
 
+  /* Send every social draft attached to this post, once it is live.
+   *
+   * Goes through the same two endpoints the Social tab uses rather than a new
+   * one, so a caption sent from here is identical to one sent from there.
+   * Only drafts are sent: anything Zernio already reports as scheduled or
+   * published is skipped, which is what makes pressing publish twice safe.
+   *
+   * Never throws into the publish flow. By the time this runs the post is
+   * already public, so a Zernio outage has to leave a message, not undo a
+   * publish that succeeded. */
+  async function sendSocialDrafts(slug: string, liveDraftId: string | null): Promise<string> {
+    try {
+      const q = new URLSearchParams({ slug })
+      if (liveDraftId) q.set("draftId", liveDraftId)
+      if (docId) q.set("docId", docId)
+      const r = await fetch(`/api/internal/blog/social?${q.toString()}`)
+      const state = (await r.json().catch(() => ({}))) as {
+        platforms?: Array<{
+          key: string
+          label: string
+          post?: { id: string; content: string; title?: string; status: string }
+        }>
+        error?: string
+      }
+      if (!r.ok) return ` Social not sent: ${state.error ?? "could not read the drafts"}.`
+
+      const items = (state.platforms ?? [])
+        .filter((pl) => pl.post && /draft/i.test(pl.post.status) && pl.post.content.trim())
+        .map((pl) => ({ key: pl.key, postId: pl.post!.id, content: pl.post!.content, title: pl.post!.title }))
+      if (items.length === 0) return " No social drafts were waiting."
+
+      const pr = await fetch("/api/internal/blog/social/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, draftId: liveDraftId ?? undefined, docId: docId ?? undefined, items }),
+      })
+      const pd = (await pr.json().catch(() => ({}))) as {
+        results?: Array<{ key: string; ok: boolean; error?: string }>
+        error?: string
+      }
+      if (!pr.ok) return ` Social not sent: ${pd.error ?? "publish failed"}.`
+      const results = pd.results ?? []
+      const failed = results.filter((x) => !x.ok)
+      if (failed.length === 0) return ` All ${results.length} social posts went out.`
+      return (
+        ` ${results.length - failed.length} of ${results.length} social posts went out. ` +
+        `Failed: ${failed.map((f) => `${f.key} (${f.error ?? "unknown"})`).join(", ")} — retry them in the Social tab.`
+      )
+    } catch (err) {
+      return ` Social not sent: ${err instanceof Error ? err.message : String(err)}.`
+    }
+  }
+
   function onPublish() {
     setError(null)
     setStatus(null)
@@ -364,9 +423,17 @@ export default function BlogEditor({
       setPublishedSlug(data.slug)
       const warnings = [...(data.imageWarnings ?? []), data.cacheWarning].filter(Boolean)
       if (warnings.length) setError(warnings.join(" "))
-      setStatus(
-        wasPublished ? "Updated — the live post now matches this." : "Published to Sanity.",
-      )
+      const base = wasPublished ? "Updated — the live post now matches this." : "Published to Sanity."
+      if (alsoSendSocial && data.slug) {
+        setStatus(`${base} Sending social posts…`)
+        const note = await sendSocialDrafts(data.slug, draftId ?? null)
+        /* Sent once. Leaving it armed would re-announce the post on the next
+           save, and a social post cannot be recalled. */
+        setAlsoSendSocial(false)
+        setStatus(base + note)
+      } else {
+        setStatus(base)
+      }
     })
   }
 
@@ -477,6 +544,21 @@ export default function BlogEditor({
         </div>
 
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          {/* The same choice the Slack approval card offers, in the same
+              words, so somebody who has used one already knows the other. */}
+          <label
+            className="flex items-center gap-2 text-sm"
+            title="Sends the Zernio drafts for this post once the page is live. They cannot be recalled."
+            style={{ color: "var(--ink-body)" }}
+          >
+            <input
+              type="checkbox"
+              checked={alsoSendSocial}
+              onChange={(e) => setAlsoSendSocial(e.target.checked)}
+              disabled={publishing || unpublishing}
+            />
+            <span>Send social</span>
+          </label>
           <Button
             variant="outline"
             onClick={onSaveDraft}
@@ -504,7 +586,9 @@ export default function BlogEditor({
                 ? dirty
                   ? "Update post"
                   : "No changes"
-                : "Publish"}
+                : alsoSendSocial
+                  ? "Approve and publish"
+                  : "Publish"}
           </Button>
           {isPublished && (
             <Button
