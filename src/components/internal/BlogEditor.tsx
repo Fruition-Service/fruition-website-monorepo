@@ -142,6 +142,20 @@ export default function BlogEditor({
   const [author, setAuthor] = useState(initial?.author ?? "")
   const [cover, setCover] = useState<File | null>(null)
 
+  /* The cover the pipeline already lifted from the source story.
+   *
+   * A generated draft arrives with its picture uploaded to Sanity and recorded
+   * on the draft's metadata, so there is no File here to show — the editor
+   * used to render an empty file input and a "No cover image" warning over a
+   * post that had one. Both forms are kept: the asset id is what publishing
+   * needs, the URL is what a preview needs. */
+  const pipelineCoverAssetId =
+    typeof initial?.metadata?.cover_image_asset_id === "string"
+      ? initial.metadata.cover_image_asset_id
+      : ""
+  const pipelineCoverUrl =
+    typeof initial?.metadata?.cover_image_url === "string" ? initial.metadata.cover_image_url : ""
+
   const [status, setStatus] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [publishedSlug, setPublishedSlug] = useState<string | null>(null)
@@ -356,6 +370,9 @@ export default function BlogEditor({
     if (docId) fd.set("docId", docId)
     categoryIds.forEach((id) => fd.append("categoryIds", id))
     if (cover) fd.set("coverImage", cover)
+    // A newly chosen file wins; otherwise keep the pipeline's cover rather
+    // than publishing the post without one.
+    else if (pipelineCoverAssetId) fd.set("coverImageAssetId", pipelineCoverAssetId)
 
     // What the site will hold once this write lands.
     const justPublished: BlogEditorFields = {
@@ -501,8 +518,11 @@ export default function BlogEditor({
       ok: seoDescription.length > 0 && seoDescription.length <= 160,
     },
     {
-      label: cover || isPublished ? "Cover image set" : "No cover image — social cards fall back",
-      ok: Boolean(cover) || isPublished,
+      label:
+        cover || pipelineCoverUrl || isPublished
+          ? "Cover image set"
+          : "No cover image — social cards fall back",
+      ok: Boolean(cover) || Boolean(pipelineCoverUrl) || isPublished,
     },
   ]
 
@@ -707,6 +727,20 @@ export default function BlogEditor({
                 />
               </Field>
               <Field label="Cover image" hint="Max 8 MB">
+                {pipelineCoverUrl && !cover ? (
+                  <div className="mb-2 flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={pipelineCoverUrl}
+                      alt="Current cover"
+                      className="h-16 w-28 rounded object-cover"
+                      style={{ border: "1px solid var(--color-border)" }}
+                    />
+                    <span className="text-xs" style={{ color: "var(--ink-muted)" }}>
+                      Taken from the source story. Choose a file to replace it.
+                    </span>
+                  </div>
+                ) : null}
                 <input
                   type="file"
                   accept="image/*"
