@@ -51,6 +51,8 @@ export interface ChannelPage {
 
   heroEyebrow: string
   heroHeading: string
+  /** Trailing half of the H1, rendered in voltage purple. */
+  heroHeadingAccent: string
   heroSubheading: string
   primaryCtaLabel: string
   secondaryCtaLabel: string

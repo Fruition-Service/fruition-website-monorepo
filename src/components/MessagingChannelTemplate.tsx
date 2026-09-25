@@ -62,14 +62,19 @@ export default async function MessagingChannelTemplate({ page }: { page: Channel
       <HeroBanner
         eyebrow={cms.heroEyebrow || page.heroEyebrow}
         headingPart1={cms.heroHeading || page.heroHeading}
+        headingAccent={cms.heroHeadingAccent ?? page.heroHeadingAccent}
         subheading={cms.heroSubheading || page.heroSubheading}
         heroImage={cms.heroImage}
         certificationBadge={siteSettings?.badgeCertifications}
         partnerBadges={siteSettings?.navbarPartnerBadges || []}
-        primaryCtaLabel={cms.primaryCtaLabel || page.primaryCtaLabel}
-        primaryCtaUrl={BOOKING_ANCHOR}
-        secondaryCtaLabel={cms.secondaryCtaLabel || page.secondaryCtaLabel}
-        secondaryCtaUrl="#faq"
+        /* HeroBanner demotes its `primary` slot to an outline button whenever a
+           secondary is present, and renders the secondary as the filled pill.
+           So the booking CTA goes in the secondary slot: the filled button is
+           the one we want people to press. */
+        primaryCtaLabel={cms.secondaryCtaLabel || page.secondaryCtaLabel}
+        primaryCtaUrl="#faq"
+        secondaryCtaLabel={cms.primaryCtaLabel || page.primaryCtaLabel}
+        secondaryCtaUrl={BOOKING_ANCHOR}
       />
 
       {/* Positioning — what we are actually claiming, before any feature talk. */}

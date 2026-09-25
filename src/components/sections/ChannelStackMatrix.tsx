@@ -1,7 +1,7 @@
 import SectionIntro from "./SectionIntro"
 
 /** How well a CRM/ERP supports a messaging channel out of the box. */
-export type NativeSupport = "native" | "partial" | "none"
+export type NativeSupport = "native" | "partial" | "deprecated" | "none"
 
 export interface ChannelStackRow {
   /** Platform name, e.g. "monday.com" or "HubSpot". */
@@ -26,6 +26,9 @@ interface Props {
 const SUPPORT_LABEL: Record<NativeSupport, string> = {
   native: "Native",
   partial: "Partial",
+  // A channel the vendor has announced it is withdrawing. Worth its own state:
+  // "partial" would read as a smaller job than migrating off it before removal.
+  deprecated: "Deprecated",
   none: "Not native",
 }
 
@@ -80,9 +83,11 @@ export default function ChannelStackMatrix({
                     className={`inline-flex items-center rounded-badge px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] ${
                       row.support === "native"
                         ? "bg-brand-soft text-brand"
-                        : row.support === "partial"
-                          ? "bg-surface-subtle text-body ring-1 ring-ui"
-                          : "bg-surface-subtle text-muted ring-1 ring-ui"
+                        : row.support === "deprecated"
+                          ? "bg-surface-raised text-body ring-1 ring-brand/40"
+                          : row.support === "partial"
+                            ? "bg-surface-subtle text-body ring-1 ring-ui"
+                            : "bg-surface-subtle text-muted ring-1 ring-ui"
                     }`}
                   >
                     {SUPPORT_LABEL[row.support]}
