@@ -999,3 +999,41 @@ export async function getHomePage() {
     title, seoTitle, seoDescription, contentBlocks[]{..., heroLocalVideoSrc}
   }`)
 }
+/**
+ * Licensing & procurement page (/pricing).
+ *
+ * Every field is optional: the route merges this over the code copy in
+ * src/data/practicePages/licensing.ts, so a document that has never been
+ * opened returns null and the page renders exactly as shipped.
+ */
+export interface LicensingPageDoc {
+  seoTitle?: string
+  seoDescription?: string
+  eyebrow?: string
+  heading?: string
+  lead?: string
+  approachEyebrow?: string
+  approachHeading?: string
+  approach?: { title?: string; body?: string }[]
+  servicesEyebrow?: string
+  servicesHeading?: string
+  services?: { title?: string; body?: string }[]
+  childrenEyebrow?: string
+  childrenHeading?: string
+  childLinks?: { label?: string; description?: string; href?: string }[]
+  faqs?: { q?: string; a?: string }[]
+}
+
+export async function getLicensingPage(): Promise<LicensingPageDoc | null> {
+  return client.fetch(`*[_type == "licensingPage"][0]{
+    seoTitle, seoDescription,
+    eyebrow, heading, lead,
+    approachEyebrow, approachHeading,
+    approach[]{ title, body },
+    servicesEyebrow, servicesHeading,
+    services[]{ title, body },
+    childrenEyebrow, childrenHeading,
+    childLinks[]{ label, description, href },
+    faqs[]{ q, a }
+  }`)
+}

@@ -1,11 +1,16 @@
 import PracticePageTemplate from '@/components/PracticePageTemplate'
-import { PRICING_N8N_PAGES } from '@/data/practicePages/pricingN8n'
+import { getLicensingPageContent } from '@/features/content/licensingPage'
 import { practiceMetadata } from '@/data/practicePages/types'
 
-const page = PRICING_N8N_PAGES['pricing']
+/**
+ * /pricing — licence procurement. Copy lives in
+ * src/data/practicePages/licensing.ts and is overridden field by field by the
+ * `licensingPage` document in the Studio.
+ */
+export async function generateMetadata() {
+  return practiceMetadata(await getLicensingPageContent())
+}
 
-export const metadata = practiceMetadata(page)
-
-export default function Page() {
-  return <PracticePageTemplate page={page} />
+export default async function Page() {
+  return <PracticePageTemplate page={await getLicensingPageContent()} />
 }

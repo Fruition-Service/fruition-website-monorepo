@@ -18,13 +18,13 @@ import { INDUSTRIES_PAGES } from '../../src/data/practicePages/industries'
 import { INTEGRATIONS_PAGES } from '../../src/data/practicePages/integrations'
 import { MONDAY_PRODUCTS_PAGES } from '../../src/data/practicePages/mondayProducts'
 import { PROOF_PAGES } from '../../src/data/practicePages/proof'
-import { PRICING_N8N_PAGES } from '../../src/data/practicePages/pricingN8n'
+import { LICENSING_PAGES } from '../../src/data/practicePages/licensing'
 import { DISCOVERY_CALL_URL, type PracticePage } from '../../src/data/practicePages/types'
 
 async function main() {
   const maps: Record<string, PracticePage>[] = [
     AI_CONSULTING_PAGES, ATLASSIAN_PAGES, HUBSPOT_PAGES, INDUSTRIES_PAGES,
-    INTEGRATIONS_PAGES, MONDAY_PRODUCTS_PAGES, PROOF_PAGES, PRICING_N8N_PAGES,
+    INTEGRATIONS_PAGES, MONDAY_PRODUCTS_PAGES, PROOF_PAGES, LICENSING_PAGES,
   ]
   const pages = [...new Set(maps.flatMap((m) => Object.values(m).map((p) => p.path.replace(/^\//, ''))))].sort()
 

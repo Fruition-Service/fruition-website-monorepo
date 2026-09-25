@@ -101,11 +101,11 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 - [India](https://www.fruitionservices.io/monday-partner-india)
 - [Philippines](https://www.fruitionservices.io/monday-partner-philippines)
 
-## Pricing and packages
+## Licensing, pricing and packages
 
-- [Pricing](https://www.fruitionservices.io/pricing): how fixed-fee pricing works, with indicative starting points per practice.
+- [Licensing and procurement](https://www.fruitionservices.io/pricing): buying monday.com, Atlassian and HubSpot licences through a certified partner, plus indicative implementation fees.
 - [Implementation packages](https://www.fruitionservices.io/implementation-packages): the packaged delivery phases.
-- [pricing.md](https://www.fruitionservices.io/pricing.md): the same pricing page as plain markdown.
+- [pricing.md](https://www.fruitionservices.io/pricing.md): the same licensing page as plain markdown.
 
 ## Blog
 
@@ -124,7 +124,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 ## Files for agents
 
 - [/index.md](https://www.fruitionservices.io/index.md): markdown twin of the homepage.
-- [/pricing.md](https://www.fruitionservices.io/pricing.md): markdown twin of the pricing page.
+- [/pricing.md](https://www.fruitionservices.io/pricing.md): markdown twin of the licensing and procurement page.
 - [/about-us.md](https://www.fruitionservices.io/about-us.md): markdown twin of the about page.
 - [/.well-known/agent-skills/index.json](https://www.fruitionservices.io/.well-known/agent-skills/index.json): machine-readable capability index.
 - [/.well-known/ard.json](https://www.fruitionservices.io/.well-known/ard.json): Agentic Resource Discovery catalog of the documents above plus the contact route.

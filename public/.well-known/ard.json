@@ -47,15 +47,15 @@
     },
     {
       "identifier": "urn:air:fruitionservices.io:doc:pricing",
-      "displayName": "Fruition Services pricing (markdown)",
+      "displayName": "Fruition Services licensing and procurement (markdown)",
       "type": "text/markdown",
       "url": "https://www.fruitionservices.io/pricing.md",
-      "description": "Published fixed-fee pricing for every practice across Australia, the UK and the US, in plain markdown so an agent can compare cost without scraping HTML.",
-      "tags": ["pricing", "markdown"],
+      "description": "How Fruition procures monday.com, Atlassian and HubSpot licences as a certified partner, with the vendor terms that drive the cost and indicative implementation fees, in plain markdown so an agent can read it without scraping HTML.",
+      "tags": ["licensing", "procurement", "pricing", "markdown"],
       "representativeQueries": [
-        "how much does a monday.com implementation cost",
-        "what are Fruition Services' consulting rates",
-        "compare fixed-fee monday.com implementation pricing"
+        "buy monday.com licences through a partner",
+        "how does monday.com seat pricing work",
+        "how much does a monday.com implementation cost"
       ]
     },
     {

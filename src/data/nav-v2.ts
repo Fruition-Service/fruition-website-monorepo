@@ -122,10 +122,10 @@ export const NAV_V2: NavV2Item[] = [
             description: 'Certified consultants, end to end',
           },
           {
-            label: 'Pricing',
+            label: 'Licensing',
             href: '/pricing',
             icon: 'dollar',
-            description: 'Indicative fixed-fee engagement pricing',
+            description: 'Licences, renewals and seat right-sizing',
           },
         ],
       },
