@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, type CSSProperties } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import { usePathname } from "next/navigation"
 import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
 
@@ -16,7 +16,7 @@ import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
  */
 const EXCLUDED_PREFIXES = ["/internal", "/studio"]
 
-/** Clearance in px between the top edge of the sticky CTA bar and the launcher. */
+/** Clearance in px between the sticky CTA bar and the launcher, either way. */
 const CLEARANCE = 12
 
 /**
@@ -43,18 +43,25 @@ const WHATSAPP_PATH =
  * the launcher fading in a beat late is a far cheaper failure than showing an
  * unanswered channel to Sydney, London and New York.
  *
- * Overlap with the sticky CTA bar. That bar is `fixed inset-x-0 bottom-0`, so
- * at every breakpoint it owns the full width of the viewport floor and there is
- * no column to the side of it to hide in. Instead the launcher reads the bar's
- * measured height out of <StickyCtaProvider> and lifts itself clear of it while
- * the bar is up, then settles back onto the same floor when the visitor scrolls
- * back to the hero or dismisses the bar. The launcher also sits a layer below
- * the bar (z-40 against z-50), so even mid-transition it cannot cover it.
+ * Overlap with the sticky CTA bar. The bar's wrapper is `fixed inset-x-0
+ * bottom-0`, but the card inside it is capped at 1200px and centred, so how
+ * much of the viewport floor it really reaches depends on the window: on a
+ * narrow screen it runs gutter to gutter and there is nowhere beside it to
+ * stand, while on a wide desktop it stops short of the right edge and leaves a
+ * column the launcher fits in. So the launcher compares its own left edge with
+ * the card's measured right edge, published through <StickyCtaProvider>, and
+ * lifts by the bar's height only when the two would actually meet. Where they
+ * do not, it stays put on the floor beside the bar — which is the common case
+ * on desktop, and stops the button hopping up the screen the moment a visitor
+ * scrolls past the hero. The launcher also sits a layer below the bar (z-40
+ * against z-50), so even mid-transition it cannot cover it.
  */
 export default function WhatsAppChatLauncher({ href }: { href: string }) {
   const pathname = usePathname()
   const bar = useStickyCtaBar()
   const [inRegion, setInRegion] = useState(false)
+  const [left, setLeft] = useState<number | null>(null)
+  const anchorRef = useRef<HTMLDivElement | null>(null)
 
   const excluded = EXCLUDED_PREFIXES.some(
     (p) => pathname === p || pathname?.startsWith(`${p}/`),
@@ -80,7 +87,32 @@ export default function WhatsAppChatLauncher({ href }: { href: string }) {
     }
   }, [excluded, inRegion])
 
+  // Where the launcher sits horizontally. Only its `bottom` ever changes, so
+  // this measurement survives the lift and cannot feed back into it; the
+  // document is observed rather than the window listened to because a
+  // ResizeObserver delivers its first observation too, which is the initial
+  // read, and both arrive asynchronously rather than during the effect.
+  useEffect(() => {
+    if (excluded || !inRegion) return
+    const el = anchorRef.current
+    if (!el) return
+    const observer = new ResizeObserver(() =>
+      setLeft(el.getBoundingClientRect().left),
+    )
+    observer.observe(document.documentElement)
+    return () => observer.disconnect()
+  }, [excluded, inRegion])
+
   if (excluded || !inRegion) return null
+
+  // Only a bar whose card actually reaches this far across the window is in the
+  // way; on a wide desktop it stops short and the launcher keeps the floor.
+  // `left === null` means the first measurement has not landed yet, which is
+  // also the first frame the bar can be up, so assume a collision until it has:
+  // starting high and dropping is a harmless correction, starting low and
+  // having to jump would be the overlap this is here to avoid.
+  const collides =
+    bar.visible && (left === null || bar.right + CLEARANCE > left)
 
   // The reported height already includes the bar's own bottom padding, so
   // lifting by it plus the clearance lands the launcher a clean 12px above the
@@ -88,12 +120,13 @@ export default function WhatsAppChatLauncher({ href }: { href: string }) {
   // inline style; when the bar is down the property is simply absent and the
   // `var()` fallback in the class takes over, which keeps the resting offset,
   // the safe-area allowance and every other dimension in utilities.
-  const lift = bar.visible
+  const lift = collides
     ? ({ "--whatsapp-lift": `${bar.height + CLEARANCE}px` } as CSSProperties)
     : undefined
 
   return (
     <div
+      ref={anchorRef}
       className="fixed right-4 bottom-[var(--whatsapp-lift,max(1rem,env(safe-area-inset-bottom,0px)))] z-40 transition-[bottom] duration-300 motion-reduce:transition-none md:right-6 lg:right-8"
       style={lift}
     >
@@ -106,7 +139,7 @@ export default function WhatsAppChatLauncher({ href }: { href: string }) {
         // WhatsApp's own green on a plain circle, glyph only. The mark is the
         // label here: it is one of the most recognisable icons on a phone
         // screen, and in its own colour it reads as the channel rather than as
-        // another of our purple CTAs competing with the sticky bar below it.
+        // another of our blue CTAs competing with the sticky bar below it.
         className="flex h-14 w-14 items-center justify-center rounded-pill bg-[#25D366] text-white shadow-[0_6px_20px_rgba(37,211,102,0.35)] transition duration-150 hover:-translate-y-px hover:bg-[#1DA851] hover:shadow-[0_8px_26px_rgba(37,211,102,0.45)] focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:h-[60px] md:w-[60px]"
       >
         <svg

@@ -56,6 +56,11 @@ function bookingInView(): boolean {
  * Scaled to ~0.88 of the design's desktop figures so the card lines up with the
  * 1200px content column the pages actually use rather than the design's 1348px
  * canvas, which read oversized floating above real page content.
+ *
+ * Painted in the CTA blue ramp, not the design's purple one, for the same
+ * reason every button and the booking band moved to it: blue means "act here"
+ * across the site, and a purple bar floating over a page whose CTAs are all
+ * blue read as a different system.
  */
 export default function StickyCtaBar({
   heading = "Ready to scale your workflows?",
@@ -67,6 +72,7 @@ export default function StickyCtaBar({
   const [visible, setVisible] = useState(false)
   const [dismissed, setDismissed] = useState(false)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const cardRef = useRef<HTMLDivElement | null>(null)
   const reportBar = useReportStickyCtaBar()
   const showing = Boolean(label) && Boolean(href) && visible && !dismissed
 
@@ -81,24 +87,34 @@ export default function StickyCtaBar({
     }
   }, [showAfter])
 
-  // Publish how much of the viewport floor this bar occupies, so the WhatsApp
-  // launcher can ride above it rather than under it. The fixed wrapper is
-  // measured, not assumed: it includes the bar's own bottom padding, and its
-  // height moves with the heading's wrap and with the breakpoint.
+  // Publish the slice of the viewport floor this bar occupies, so the WhatsApp
+  // launcher can stay clear of it. Both numbers are measured, not assumed: the
+  // fixed wrapper's height includes the bar's own bottom padding and moves with
+  // the heading's wrap and the breakpoint, and the card's right edge moves with
+  // the 1200px cap, the page gutter and the width of the window.
   useEffect(() => {
     const wrapper = wrapperRef.current
-    if (!showing || !wrapper) {
-      reportBar({ visible: false, height: 0 })
+    const card = cardRef.current
+    if (!showing || !wrapper || !card) {
+      reportBar({ visible: false, height: 0, right: 0 })
       return
     }
     const measure = () =>
-      reportBar({ visible: true, height: wrapper.offsetHeight })
+      reportBar({
+        visible: true,
+        height: wrapper.offsetHeight,
+        right: card.getBoundingClientRect().right,
+      })
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(wrapper)
+    // The card's width tracks the window even when its height does not, so the
+    // ResizeObserver alone would miss a horizontal-only resize.
+    window.addEventListener("resize", measure, { passive: true })
     return () => {
       observer.disconnect()
-      reportBar({ visible: false, height: 0 })
+      window.removeEventListener("resize", measure)
+      reportBar({ visible: false, height: 0, right: 0 })
     }
   }, [reportBar, showing])
 
@@ -110,7 +126,7 @@ export default function StickyCtaBar({
       type="button"
       aria-label="Dismiss banner"
       onClick={() => setDismissed(true)}
-      className={`flex h-10 w-10 flex-none items-center justify-center rounded-pill border-[1.5px] border-white/40 bg-transparent p-0 text-white transition-colors duration-150 hover:border-[color:var(--blue-press)] hover:bg-[color:var(--blue-press)] ${extraClass}`}
+      className={`flex h-10 w-10 flex-none items-center justify-center rounded-pill border-[1.5px] border-white/40 bg-transparent p-0 text-white transition-colors duration-150 hover:border-white/70 hover:bg-white/15 ${extraClass}`}
     >
       <svg
         width={iconSize}
@@ -139,15 +155,16 @@ export default function StickyCtaBar({
       }}
     >
       <div
+        ref={cardRef}
         role="region"
         aria-label="Consultation banner"
         data-cta-location="sticky"
-        className="relative mx-auto flex max-w-[1200px] flex-col gap-4 overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_48%,var(--purple-primary)_110%)] p-[20px_16px_16px_20px] shadow-[0_12px_32px_-14px_rgba(16,0,58,0.4)] md:gap-[18px] md:rounded-3xl md:bg-[linear-gradient(120deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_46%,var(--purple-primary)_105%)] md:p-[24px_24px_24px_28px] md:shadow-[0_16px_40px_-16px_rgba(16,0,58,0.4)] lg:flex-row lg:items-center lg:gap-6 lg:bg-[linear-gradient(99deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_44%,var(--purple-primary)_100%)] lg:rounded-[20px] lg:p-[24px_24px_24px_34px]"
+        className="relative mx-auto flex max-w-[1200px] flex-col gap-4 overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,var(--cta-blue-deep)_0%,var(--cta-blue)_48%,var(--cta-blue-light)_110%)] p-[20px_16px_16px_20px] shadow-[0_12px_32px_-14px_rgba(10,22,56,0.4)] md:gap-[18px] md:rounded-3xl md:bg-[linear-gradient(120deg,var(--cta-blue-deep)_0%,var(--cta-blue)_46%,var(--cta-blue-light)_105%)] md:p-[24px_24px_24px_28px] md:shadow-[0_16px_40px_-16px_rgba(10,22,56,0.4)] lg:flex-row lg:items-center lg:gap-6 lg:bg-[linear-gradient(99deg,var(--cta-blue-deep)_0%,var(--cta-blue)_44%,var(--cta-blue-light)_100%)] lg:rounded-[20px] lg:p-[24px_24px_24px_34px]"
       >
-        {/* Lilac glow — bottom-right on phones, top-right from md up. */}
+        {/* Pale-blue glow — bottom-right on phones, top-right from md up. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-[100px] -bottom-[140px] h-[320px] w-[320px] rounded-full bg-[radial-gradient(closest-side,rgba(186,131,240,0.5),transparent_70%)] mix-blend-screen md:top-[-150px] md:right-[-110px] md:bottom-auto md:h-[380px] md:w-[380px] lg:top-[-160px] lg:right-[-120px] lg:h-[420px] lg:w-[420px]"
+          className="pointer-events-none absolute -right-[100px] -bottom-[140px] h-[320px] w-[320px] rounded-full bg-[radial-gradient(closest-side,rgba(147,180,253,0.5),transparent_70%)] mix-blend-screen md:top-[-150px] md:right-[-110px] md:bottom-auto md:h-[380px] md:w-[380px] lg:top-[-160px] lg:right-[-120px] lg:h-[420px] lg:w-[420px]"
         />
 
         {/* Heading row — carries the close button until lg, where it moves
