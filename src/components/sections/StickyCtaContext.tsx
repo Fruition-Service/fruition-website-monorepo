@@ -44,9 +44,17 @@ export interface StickyCtaBarState {
    * differs at all three breakpoints.
    */
   height: number
+  /**
+   * Viewport x of the right edge of the bar's visible card, which is capped at
+   * 1200px and centred, so on a wide desktop it stops well short of the right
+   * edge of the screen. Anything else floating down there needs this, not just
+   * the height: if it clears the card horizontally it can stay on the floor
+   * instead of being shoved upwards for a bar it never touches.
+   */
+  right: number
 }
 
-const HIDDEN_BAR: StickyCtaBarState = { visible: false, height: 0 }
+const HIDDEN_BAR: StickyCtaBarState = { visible: false, height: 0, right: 0 }
 
 const noop = () => {}
 
@@ -73,7 +81,11 @@ export function StickyCtaProvider({ children }: { children: React.ReactNode }) {
     // The ResizeObserver behind this fires on layout changes that often leave
     // the numbers identical; only a real change may re-render the consumers.
     setBar((prev) =>
-      prev.visible === next.visible && prev.height === next.height ? prev : next,
+      prev.visible === next.visible &&
+      prev.height === next.height &&
+      prev.right === next.right
+        ? prev
+        : next,
     )
   }, [])
 
