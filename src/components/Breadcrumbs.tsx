@@ -67,6 +67,11 @@ const LABELS: Record<string, string> = {
   'terms-and-conditions': 'Terms & Conditions',
   'monday-for-cabinetry-renovation': 'Installation & Renovation',
   'solar-crm-solution': 'Solar CRM Solution',
+  // Messaging channels — the prettifier would title-case these into
+  // "Whatsapp" and "Line", which are both wrong as brand names.
+  whatsapp: 'WhatsApp',
+  line: 'LINE',
+  viber: 'Viber',
 }
 
 /** Whole words that need casing the title-case fallback can't produce. */

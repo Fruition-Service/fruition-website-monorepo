@@ -77,6 +77,11 @@ const EXACT: Record<string, PageShell> = {
   "/faqs": "faq",
   "/fruition-team": "team",
   "/industries": "standard",
+  // The three messaging-channel pages open with sections/HeroBanner; the rest of
+  // /integrations/ is PracticePageTemplate and keeps the default shell.
+  "/integrations/line": "banner",
+  "/integrations/viber": "banner",
+  "/integrations/whatsapp": "banner",
   "/monday-consulting-solutions": "solutionsIndex",
   "/monday-consulting-solutions/catalog": "catalog",
   "/monday-consulting-solutions/monday-for-cabinetry-renovation": "banner",

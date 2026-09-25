@@ -247,6 +247,9 @@ export default {
     { name: 'heroVideoUrl', title: 'Hero Video URL', type: 'url' },
     { name: 'heroVideoTitle', title: 'Hero Video Title', type: 'string' },
     { name: 'logoCloudDescription', title: 'Logo Cloud Description', type: 'text' },
+    // Positioning paragraph below the hero — used by the messaging-channel
+    // integration pages (/integrations/whatsapp | line | viber).
+    { name: 'introStripBody', title: 'Intro Strip Body (under hero)', type: 'text' },
     { name: 'comparisonTheme', title: 'Comparison Section Theme', type: 'string',
       options: { list: [{ title: 'Light', value: 'light' }, { title: 'Dark', value: 'dark' }] } },
     { name: 'hideFaqSection', title: 'Hide FAQ Section', type: 'boolean', initialValue: false },

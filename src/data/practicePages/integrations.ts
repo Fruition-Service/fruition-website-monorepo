@@ -60,6 +60,10 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
         title: 'Zapier',
         body: 'Quick-connect automation where speed beats sophistication, plus migrations off it when you outgrow it.',
       },
+      {
+        title: 'WhatsApp, LINE and Viber',
+        body: 'The messaging apps your customers already use, wired into the CRM, ERP or lead workflow that runs the business.',
+      },
     ],
     childrenEyebrow: 'Integration pages',
     childrenHeading: 'By tool.',
@@ -88,6 +92,21 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
         label: 'Zapier',
         description: 'Fast connections and structured migrations off them',
         href: '/integrations/zapier',
+      },
+      {
+        label: 'WhatsApp',
+        description: 'WhatsApp Business Platform into your CRM and ERP',
+        href: '/integrations/whatsapp',
+      },
+      {
+        label: 'LINE',
+        description: 'LINE Official Accounts into your CRM and ERP',
+        href: '/integrations/line',
+      },
+      {
+        label: 'Viber',
+        description: 'Viber Business Messages into your CRM and ERP',
+        href: '/integrations/viber',
       },
     ],
     faqs: [

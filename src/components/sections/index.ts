@@ -51,4 +51,8 @@ export { default as SolutionSelector } from "./SolutionSelector"
 export { default as TrainingRecommender } from "./TrainingRecommender"
 export { default as EcosystemGrid } from "./EcosystemGrid"
 
+/* Messaging-channel integration pages (/integrations/whatsapp | line | viber) */
+export { default as ChannelStackMatrix } from "./ChannelStackMatrix"
+export { default as ChannelSpecPanel } from "./ChannelSpecPanel"
+
 export type * from "./types"
