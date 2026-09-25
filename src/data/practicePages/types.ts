@@ -46,6 +46,14 @@ export interface PracticePage {
   childrenHeading?: string
   children?: PracticeLink[]
   faqs: PracticeFaq[]
+  /**
+   * Treat `faqs` as the authoritative list for this route, ahead of the central
+   * `faqItem` collection. Set it when the page's questions have been rewritten
+   * and the central docs still hold the previous page's copy: FAQPage JSON-LD
+   * has to match what the page renders, so the stale central set must not win.
+   * See /sanity-content, "The FAQ two-source trap".
+   */
+  preferPageFaqs?: boolean
 }
 
 /** Same Calendly link the navbar CTA uses (siteSettings.calendlyLink). */

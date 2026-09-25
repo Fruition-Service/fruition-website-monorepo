@@ -22,7 +22,7 @@ import { INDUSTRIES_PAGES } from '../../src/data/practicePages/industries'
 import { INTEGRATIONS_PAGES } from '../../src/data/practicePages/integrations'
 import { MONDAY_PRODUCTS_PAGES } from '../../src/data/practicePages/mondayProducts'
 import { PROOF_PAGES } from '../../src/data/practicePages/proof'
-import { PRICING_N8N_PAGES } from '../../src/data/practicePages/pricingN8n'
+import { LICENSING_PAGES } from '../../src/data/practicePages/licensing'
 import type { PracticePage } from '../../src/data/practicePages/types'
 
 /* Plain text (with \n\n paragraph breaks) → Portable Text blocks */
@@ -66,11 +66,15 @@ async function main() {
   /* ---- 1. Practice pages (hardcoded TSX data) ---- */
   const maps: Record<string, PracticePage>[] = [
     AI_CONSULTING_PAGES, ATLASSIAN_PAGES, HUBSPOT_PAGES, INDUSTRIES_PAGES,
-    INTEGRATIONS_PAGES, MONDAY_PRODUCTS_PAGES, PROOF_PAGES, PRICING_N8N_PAGES,
+    INTEGRATIONS_PAGES, MONDAY_PRODUCTS_PAGES, PROOF_PAGES, LICENSING_PAGES,
   ]
   for (const map of maps) {
     for (const page of Object.values(map)) {
       if (!page?.path || !page.faqs?.length) continue
+      // Pages that own their FAQs render them from the page document, not from
+      // this collection. Seeding them here would only create records nobody's
+      // edits reach.
+      if (page.preferPageFaqs) continue
       const pageKey = page.path.replace(/^\//, '')
       const lastCrumb = page.breadcrumb?.[page.breadcrumb.length - 1]?.label
       const category = lastCrumb || humanize(pageKey.split('/').pop() || pageKey)

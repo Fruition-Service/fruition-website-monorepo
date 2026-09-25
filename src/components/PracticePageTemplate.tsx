@@ -63,9 +63,14 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
     getClosingCtaForPage(pageKey),
     industryKey ? getIndustryLogos(industryKey) : Promise.resolve(null),
   ])
-  const faqTabs = centralFaqs?.length
-    ? groupFaqsIntoTabs(centralFaqs)
-    : [{ label: 'General Questions', items: page.faqs.map((f) => ({ question: f.q, answer: f.a })) }]
+  // Central Sanity FAQs win by default. A page that sets `preferPageFaqs` keeps
+  // its own list in front of them, so a rewritten page never renders (and never
+  // emits JSON-LD for) questions left behind by the copy it replaced.
+  const pageFaqTab = [
+    { label: 'General Questions', items: page.faqs.map((f) => ({ question: f.q, answer: f.a })) },
+  ]
+  const faqTabs =
+    !page.preferPageFaqs && centralFaqs?.length ? groupFaqsIntoTabs(centralFaqs) : pageFaqTab
   return (
     // <div>, not <main> — SiteFrame already wraps marketing pages in <main>
     <div className="bg-surface text-body">

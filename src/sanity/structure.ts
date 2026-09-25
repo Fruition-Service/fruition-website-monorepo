@@ -17,6 +17,7 @@ import {
   Users,
   Star,
   HelpCircle,
+  ReceiptText,
 } from 'lucide-react'
 
 export const deskStructure = (S: StructureBuilder) =>
@@ -88,6 +89,15 @@ export const deskStructure = (S: StructureBuilder) =>
                     .id('makePartnersPage')
                     .schemaType('makePartnersPage')
                     .documentId('makePartnersPage')
+                ),
+              S.listItem()
+                .title('Licensing & Procurement (/pricing)')
+                .icon(ReceiptText)
+                .child(
+                  S.editor()
+                    .id('licensingPage')
+                    .schemaType('licensingPage')
+                    .documentId('licensingPage')
                 ),
               S.divider(),
               S.listItem()
