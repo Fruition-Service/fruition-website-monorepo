@@ -330,6 +330,13 @@ export default async function RootLayout({
             data-website-id={UMAMI_WEBSITE_ID}
           />
         ) : null}
+        {/* Renders the placeholder SiteFrame drops on marketing pages as
+            Google's "add as a preferred source" button. */}
+        <Script
+          id="google-preferred-source"
+          strategy="afterInteractive"
+          src="https://news.google.com/swg/js/v1/publisher.js"
+        />
         <script dangerouslySetInnerHTML={{ __html: REB2B_LOADER }} />
         <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
         {/* Per-region ProfessionalService JSON-LD. Renders only on the six
