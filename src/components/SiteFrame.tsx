@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import Breadcrumbs from "./Breadcrumbs"
+import GooglePreferredSourceButton from "./GooglePreferredSourceButton"
 import SiteStickyCta from "./SiteStickyCta"
 import WhatsAppChatLauncher from "./WhatsAppChatLauncher"
 import { StickyCtaProvider } from "./sections/StickyCtaContext"
@@ -20,7 +21,15 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
  * The WhatsApp launcher is rendered here for the same reason, and inside the
  * same provider: it reads the sticky CTA bar's measured height from there so
  * the two floating elements never overlap.
+ *
+ * Google's preferred-source button sits above the footer on every content page
+ * (blog and informational routes alike). The homepage is a sales page rather
+ * than content, so it is left out, as is Sanity Studio.
  */
+
+/** Path prefixes that never get Google's preferred-source button. */
+const EXCLUDED_PREFIXES = ["/internal", "/studio"]
+
 export default function SiteFrame({
   header,
   footer,
@@ -45,11 +54,21 @@ export default function SiteFrame({
     return <>{children}</>
   }
 
+  const showPreferredSource =
+    Boolean(pathname) &&
+    pathname !== "/" &&
+    !EXCLUDED_PREFIXES.some((p) => pathname === p || pathname?.startsWith(`${p}/`))
+
   return (
     <StickyCtaProvider>
       {header}
       <Breadcrumbs />
       <main>{children}</main>
+      {showPreferredSource ? (
+        <div className="mx-auto flex max-w-[1348px] justify-center px-5 py-8 md:px-8">
+          <GooglePreferredSourceButton />
+        </div>
+      ) : null}
       {footer}
       {cookie}
       <SiteStickyCta heading={stickyCtaHeading} defaults={stickyCtaDefaults} />
