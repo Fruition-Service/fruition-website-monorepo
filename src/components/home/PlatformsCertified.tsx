@@ -12,7 +12,7 @@ const MONDAY_POINTS = [
 
 const ALSO_CERTIFIED = [
   { src: "/images/home/partner-claude.png", alt: "Claude Select Services Partner", h: 44 },
-  { src: "/images/home/partner-openai.svg", alt: "OpenAI Select Partner", h: 44 },
+  { src: "/images/home/partner-openai.png", alt: "OpenAI Select Partner", h: 50 },
   { src: "/images/home/partner-make.png", alt: "Make Partner", h: 36 },
   { src: "/images/home/partner-aws.png", alt: "AWS Partner", h: 58 },
   { src: "/images/home/partner-googlecloud.png", alt: "Google Cloud Partner", h: 34 },
