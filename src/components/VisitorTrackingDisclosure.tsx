@@ -137,8 +137,8 @@ export default function VisitorTrackingDisclosure() {
         </li>
       </ul>
       <p className={p}>
-        Choosing <strong className={strong}>Decline</strong> on our visitor
-        notice stops RB2B, Microsoft Clarity and the OpenAI pixel from loading
+        Choosing <strong className={strong}>Decline</strong>{" "}
+        on our visitor notice stops RB2B, Microsoft Clarity and the OpenAI pixel from loading
         from your next page view onwards. To opt out of Google Analytics, use
         Google&apos;s{" "}
         <a
