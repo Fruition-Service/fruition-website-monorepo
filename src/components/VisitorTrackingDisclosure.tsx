@@ -1,4 +1,6 @@
-// Static disclosure for B2B visitor identification (RB2B). Embedded on
+// Static disclosure for B2B visitor identification (RB2B) and the analytics /
+// ad tags loaded in src/app/layout.tsx (GTM, Clarity, OpenAI). Keep the tool
+// list in sync with the loaders there. Embedded on
 // /data-privacy so we can update wording in code without an editor having to
 // touch Sanity. Move to CMS later if marketing needs to edit this without a
 // deploy.
@@ -106,6 +108,49 @@ export default function VisitorTrackingDisclosure() {
       <p className={p}>
         We do not sell your data, and we do not transfer it outside the purposes
         described here.
+      </p>
+
+      <h3 className={h3}>Analytics and advertising tools</h3>
+      <p className={p}>
+        We also use the following tools to measure how the site is used and
+        whether our advertising works. They set cookies or similar identifiers
+        in your browser.
+      </p>
+      <ul className={ul}>
+        <li className="leading-relaxed">
+          <strong className={strong}>Google Analytics and Google Ads</strong>{" "}
+          (Google LLC), loaded through Google Tag Manager: pages viewed, how you
+          arrived, device and approximate location, and whether you booked a
+          meeting after clicking one of our ads.
+        </li>
+        <li className="leading-relaxed">
+          <strong className={strong}>Microsoft Clarity</strong> (Microsoft
+          Corporation): heatmaps and session recordings of how visitors scroll,
+          click and move through our public pages, so we can find and fix parts
+          of the site that are confusing. Clarity does not run in our client
+          portal or content management areas.
+        </li>
+        <li className="leading-relaxed">
+          <strong className={strong}>OpenAI Ads</strong> (OpenAI): a
+          measurement pixel that tells us whether visits from our ads on
+          ChatGPT lead to an enquiry or booking.
+        </li>
+      </ul>
+      <p className={p}>
+        Choosing <strong className={strong}>Decline</strong> on our visitor
+        notice stops RB2B, Microsoft Clarity and the OpenAI pixel from loading
+        from your next page view onwards. To opt out of Google Analytics, use
+        Google&apos;s{" "}
+        <a
+          href="https://tools.google.com/dlpage/gaoptout"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={link}
+        >
+          browser opt-out add-on
+        </a>
+        . You can also block or clear cookies in your browser settings at any
+        time.
       </p>
 
       <h3 className={h3}>Your rights and how to opt out</h3>
