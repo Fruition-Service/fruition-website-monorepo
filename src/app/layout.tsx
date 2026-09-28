@@ -66,6 +66,17 @@ const OAIQ_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-vi
 !(function(o,a,i,q){if(o.oaiq)return;var n=o.oaiq=function(){n.queue.push(arguments)};n.queue=[];var s=a.createElement(i);s.async=!0;s.src=q;var e=a.getElementsByTagName(i)[0];e.parentNode.insertBefore(s,e)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js"));
 oaiq("init", { pixelId: "RNJ1b2hooXBRHiYSWb3K6h" });
 })();`
+
+// Microsoft Clarity (project "Fruition Website2", owned by Josh): heatmaps and
+// session recordings. Honours the same fruition-visitor-consent gate as REB2B,
+// keep in sync with src/components/CookieNotice.tsx. Never loads on the portal,
+// the embedded Studio or the /contactustest sandbox, so recordings can't
+// capture client names, invoices or draft content.
+const CLARITY_PROJECT_ID = "yp5rx7pre1"
+const CLARITY_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-visitor-consent")==="declined")return;}catch(e){}
+if(/^\\/(internal|studio|contactustest)(\\/|$)/.test(window.location.pathname))return;
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_PROJECT_ID}");
+})();`
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -339,6 +350,7 @@ export default async function RootLayout({
         />
         <script dangerouslySetInnerHTML={{ __html: REB2B_LOADER }} />
         <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
+        <script dangerouslySetInnerHTML={{ __html: CLARITY_LOADER }} />
         {/* Per-region ProfessionalService JSON-LD. Renders only on the six
             /monday-partner-* routes; null everywhere else. It lives here
             because <head> is unreachable from a page in the App Router — see
