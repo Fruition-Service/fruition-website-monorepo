@@ -33,6 +33,8 @@ interface PackageTier {
   hours?: string
   basePrice?: number
   pricePrefix?: string
+  priceLabel?: string
+  ctaLabel?: string
   featured?: boolean
   features?: string[]
 }
@@ -260,21 +262,32 @@ export default function ImplementationPackagesContent({
   type PricingTier = {
     name: string
     hours: string
-    basePrice: number
+    // No basePrice = a scoped tier: the card shows priceLabel and sends the
+    // visitor to sales instead of publishing a figure.
+    basePrice?: number
     pricePrefix?: string
+    priceLabel?: string
+    ctaLabel?: string
     features: string[]
     featured?: boolean
   }
   const PRICING_TIERS: PricingTier[] = (data?.packageTiers ?? [])
-    .filter((t): t is PackageTier => !!t && typeof t.name === "string" && typeof t.basePrice === "number")
+    .filter((t): t is PackageTier => !!t && typeof t.name === "string")
     .map((t) => ({
       name: t.name as string,
       hours: t.hours ?? "",
-      basePrice: t.basePrice as number,
+      basePrice: typeof t.basePrice === "number" ? t.basePrice : undefined,
       pricePrefix: t.pricePrefix,
+      priceLabel: t.priceLabel,
+      ctaLabel: t.ctaLabel,
       features: (t.features ?? []).filter((f): f is string => typeof f === "string"),
       featured: !!t.featured,
     }))
+  const hasPricedTier = PRICING_TIERS.some((t) => t.basePrice !== undefined)
+  // In the 4-up row a long name wraps to two lines; reserve that height on
+  // every card so the price rows stay level.
+  const reserveTwoLineName = PRICING_TIERS.length === 4 && PRICING_TIERS.some((t) => t.name.length > 16)
+  const tierCtaHref = bookingHref(heroPrimaryCtaUrl || data?.calendlyUrl)
   const [currency, setCurrency] = useState<CurrencyCode>("USD")
   const [region, setRegion] = useState<RegionCode>("US")
   const [currencyOpen, setCurrencyOpen] = useState(false)
@@ -590,7 +603,8 @@ export default function ImplementationPackagesContent({
               </p>
             </div>
 
-            {/* Toggles */}
+            {/* Toggles: only meaningful while at least one card shows a figure */}
+            {hasPricedTier && (
             <div className="flex flex-wrap items-center gap-4">
               {/* Currency dropdown */}
               <div ref={currencyRef} className="relative">
@@ -698,10 +712,15 @@ export default function ImplementationPackagesContent({
                 )}
               </div>
             </div>
+            )}
           </div>
 
             {/* Cards */}
-            <div className="mt-11 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+            <div
+              className={`mt-11 grid w-full grid-cols-1 gap-6 ${
+                PRICING_TIERS.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"
+              }`}
+            >
               {PRICING_TIERS.map((tier) => {
                 const featured = !!tier.featured
                 const hovered = hoveredTier === tier.name
@@ -728,7 +747,11 @@ export default function ImplementationPackagesContent({
                     }}
                   >
                     {/* Name */}
-                    <h3 className={`text-card-title ${featured ? "text-white" : "text-body"}`}>
+                    <h3
+                      className={`text-card-title ${featured ? "text-white" : "text-body"} ${
+                        reserveTwoLineName ? "lg:min-h-[2lh]" : ""
+                      }`}
+                    >
                       {tier.name}
                     </h3>
 
@@ -738,29 +761,49 @@ export default function ImplementationPackagesContent({
                     </p>
 
                     {/* Price */}
-                    <div className="mt-[18px] flex flex-wrap items-baseline gap-1.5">
-                      {tier.pricePrefix && (
-                        <span className={`text-lg font-medium ${featured ? "text-white/[0.85]" : "text-muted"}`}>
-                          {tier.pricePrefix}
-                        </span>
-                      )}
-                      <span
-                        className={`text-[32px] font-semibold leading-none tracking-[-0.02em] md:text-[40px] ${
-                          featured ? "text-white" : "text-body"
-                        }`}
-                      >
-                        {formatPrice(tier.basePrice)}
-                      </span>
-                    </div>
-                    <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
-                      {CURRENCIES[currency].label} · {REGIONS[region].label} team rate
-                    </p>
+                    {tier.basePrice !== undefined ? (
+                      <>
+                        <div className="mt-[18px] flex flex-wrap items-baseline gap-1.5">
+                          {tier.pricePrefix && (
+                            <span className={`text-lg font-medium ${featured ? "text-white/[0.85]" : "text-muted"}`}>
+                              {tier.pricePrefix}
+                            </span>
+                          )}
+                          <span
+                            className={`text-[32px] font-semibold leading-none tracking-[-0.02em] md:text-[40px] ${
+                              featured ? "text-white" : "text-body"
+                            }`}
+                          >
+                            {formatPrice(tier.basePrice)}
+                          </span>
+                        </div>
+                        <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
+                          {CURRENCIES[currency].label} · {REGIONS[region].label} team rate
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        {/* Same box height as a priced card so the rows line up */}
+                        <div className="mt-[18px] flex min-h-8 items-end md:min-h-10">
+                          <span
+                            className={`text-[26px] font-semibold leading-none tracking-[-0.02em] md:text-[28px] ${
+                              featured ? "text-white" : "text-body"
+                            }`}
+                          >
+                            {tier.priceLabel || "Custom quote"}
+                          </span>
+                        </div>
+                        <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
+                          Scoped to your requirements
+                        </p>
+                      </>
+                    )}
 
                     {/* Divider */}
                     <div className={`mb-5 mt-6 h-px ${featured ? "bg-white/[0.18]" : "bg-ui"}`} />
 
                     {/* Features */}
-                    <ul className="flex flex-col gap-3">
+                    <ul className="mb-7 flex flex-col gap-3">
                       {tier.features.map((f) => (
                         <li key={f} className="flex items-start gap-2.5 text-sm leading-normal">
                           <svg
@@ -785,14 +828,14 @@ export default function ImplementationPackagesContent({
 
                     {/* CTA */}
                     <Link
-                      href={heroPrimaryCtaUrl || "#"}
-                      className={`mt-7 flex h-12 items-center justify-center rounded-pill text-sm font-bold ${
+                      href={tierCtaHref}
+                      className={`mt-auto flex h-12 items-center justify-center rounded-pill text-sm font-bold ${
                         featured
                           ? "bg-white text-brand"
                           : "bg-gradient-to-r from-brand to-brand-light text-white"
                       }`}
                     >
-                      Get started
+                      {tier.ctaLabel || (tier.basePrice !== undefined ? "Get started" : "Contact sales")}
                     </Link>
                   </div>
                 )
@@ -801,7 +844,7 @@ export default function ImplementationPackagesContent({
 
             {/* Footnote */}
             <p className="mt-7 text-center text-xs italic text-muted">
-              {data?.pricingFootnote || "*Please note: you must purchase one package per product. Prices shown are estimates and may vary by scope."}
+              {data?.pricingFootnote || "*Please note: you must purchase one package per product. Scoped packages are quoted by our team after a short discovery call."}
             </p>
           </div>
 

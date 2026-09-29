@@ -104,8 +104,23 @@ export default defineType({
           fields: [
             { name: 'name', title: 'Name', type: 'string' },
             { name: 'hours', title: 'Hours (e.g. "20 hrs", "40+ hrs")', type: 'string' },
-            { name: 'basePrice', title: 'Base Price (USD, integer)', type: 'number' },
+            {
+              name: 'basePrice',
+              title: 'Base Price (USD, integer)',
+              description: 'Leave blank to hide the price: the card shows the Price Label and a Contact sales button.',
+              type: 'number',
+            },
             { name: 'pricePrefix', title: 'Price Prefix (e.g. "From ")', type: 'string' },
+            {
+              name: 'priceLabel',
+              title: 'Price Label (shown when Base Price is blank, default "Custom quote")',
+              type: 'string',
+            },
+            {
+              name: 'ctaLabel',
+              title: 'Button Label (default "Get started", or "Contact sales" when unpriced)',
+              type: 'string',
+            },
             { name: 'featured', title: 'Featured (highlighted card)', type: 'boolean' },
             {
               name: 'features',
