@@ -11,6 +11,7 @@ import { rollupStatus } from "@/lib/social/status"
 import { PlatformNameIcon } from "@/components/internal/SocialIcons"
 import { Button } from "@/components/ui/button"
 import PageHeader from "@/components/internal/PageHeader"
+import RangeTabs from "@/components/internal/insights/RangeTabs"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -130,8 +131,23 @@ function metricLine(m: PostAnalytics): string | null {
   return parts.length ? parts.join(" · ") : null
 }
 
-export default function SocialDashboard({ insights }: { insights?: React.ReactNode }) {
-  const [tab, setTab] = useState<Tab>("queue")
+/** First day (inclusive) and last day (exclusive) of a `days`-long window ending yesterday. */
+function publishWindow(days: number): { from: string; to: string } {
+  const day = (ago: number) => new Date(Date.now() - ago * 86_400_000).toISOString().slice(0, 10)
+  return { from: day(days), to: day(0) }
+}
+
+export default function SocialDashboard({
+  insights,
+  initialTab = "queue",
+  days = 28,
+}: {
+  insights?: React.ReactNode
+  initialTab?: Tab
+  /** Performance range, from `?days=`. Changing it is a navigation, so the server-rendered insights follow. */
+  days?: number
+}) {
+  const [tab, setTab] = useState<Tab>(initialTab)
   const [rows, setRows] = useState<SocialRow[] | null>(null)
   const [compositions, setCompositions] = useState<Composition[]>([])
   const [analytics, setAnalytics] = useState<{ overview: AnalyticsOverview; rows: AnalyticsRow[] } | null>(null)
@@ -283,11 +299,18 @@ export default function SocialDashboard({ insights }: { insights?: React.ReactNo
   const performance = useMemo(() => {
     const list = [...(analytics?.rows ?? [])]
     const q = search.trim().toLowerCase()
+    // Same window as getSocialInsights: published in the last `days` days,
+    // ending yesterday, so these totals agree with the tiles above them.
+    const { from, to } = publishWindow(days)
     return list
+      .filter((r) => {
+        const day = r.publishedAt?.slice(0, 10)
+        return Boolean(day && day >= from && day < to)
+      })
       .filter((r) => (platform ? r.platform === platform : true))
       .filter((r) => (q ? r.content.toLowerCase().includes(q) : true))
       .sort((a, b) => b.metrics.impressions - a.metrics.impressions)
-  }, [analytics, platform, search])
+  }, [analytics, platform, search, days])
 
   async function unpublish(row: SocialRow) {
     const label = row.platforms.map((p) => p.account).join(", ")
@@ -403,20 +426,35 @@ export default function SocialDashboard({ insights }: { insights?: React.ReactNo
         }
       />
 
-      <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)} className="mb-4">
-        <TabsList>
-          {TABS.map((t) => (
-            <TabsTrigger key={t.key} value={t.key}>
-              {t.label}
-              {t.key === "queue" && queue.upcoming.length > 0 ? (
-                <Badge variant="secondary" className="ml-1.5">
-                  {queue.upcoming.length}
-                </Badge>
-              ) : null}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <Tabs
+          value={tab}
+          onValueChange={(v) => {
+            const next = v as Tab
+            setTab(next)
+            // Keep the URL on the open tab so a reload or a shared link lands there.
+            const query =
+              next === "performance" ? `?view=performance&days=${days}` : next === "posts" ? "?view=posts" : ""
+            window.history.replaceState(null, "", `/internal/social${query}`)
+          }}
+        >
+          <TabsList>
+            {TABS.map((t) => (
+              <TabsTrigger key={t.key} value={t.key}>
+                {t.label}
+                {t.key === "queue" && queue.upcoming.length > 0 ? (
+                  <Badge variant="secondary" className="ml-1.5">
+                    {queue.upcoming.length}
+                  </Badge>
+                ) : null}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+        {tab === "performance" ? (
+          <RangeTabs days={days} hrefFor={(d) => `/internal/social?view=performance&days=${d}`} />
+        ) : null}
+      </div>
 
       {tab !== "queue" && (
         <input
@@ -508,7 +546,7 @@ export default function SocialDashboard({ insights }: { insights?: React.ReactNo
       ) : (
         <div className="space-y-6">
           {insights}
-          <PerformanceList rows={performance} loaded={analytics !== null} overview={analytics?.overview} />
+          <PerformanceList rows={performance} loaded={analytics !== null} overview={analytics?.overview} days={days} />
         </div>
       )}
     </div>
@@ -966,10 +1004,12 @@ function PerformanceList({
   rows,
   loaded,
   overview,
+  days,
 }: {
   rows: AnalyticsRow[]
   loaded: boolean
   overview?: AnalyticsOverview
+  days: number
 }) {
   if (!loaded) {
     return (
@@ -983,8 +1023,10 @@ function PerformanceList({
   if (!rows.length) {
     return (
       <div className="rounded-lg border border-dashed border-border p-10 text-center">
-        <p className="text-sm font-medium text-foreground">No published posts to measure yet</p>
-        <p className="mt-1 text-xs text-muted-foreground">Numbers appear once a post has been live long enough to sync.</p>
+        <p className="text-sm font-medium text-foreground">No posts published in the last {days} days</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Try a longer range. Numbers appear once a post has been live long enough to sync.
+        </p>
       </div>
     )
   }
@@ -1026,7 +1068,6 @@ function PerformanceList({
   )
     .map(([day, impressions]) => ({ day, impressions }))
     .sort((a, b) => a.day.localeCompare(b.day))
-    .slice(-30)
 
   const top = [...rows].sort((a, b) => b.metrics.impressions - a.metrics.impressions)
 
@@ -1042,7 +1083,9 @@ function PerformanceList({
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="min-w-0 rounded-xl border border-border p-4">
           <h2 className="text-sm font-semibold text-foreground">Impressions by channel</h2>
-          <p className="mt-0.5 text-xs text-muted-foreground">Across {rows.length} published posts.</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            Across {rows.length} posts published in the last {days} days.
+          </p>
           <ChartContainer config={CHART_CONFIG} className="mt-3 h-56 w-full">
             <BarChart accessibilityLayer data={byPlatform} margin={{ left: 4, right: 4 }}>
               <CartesianGrid vertical={false} />
@@ -1064,7 +1107,7 @@ function PerformanceList({
         <section className="min-w-0 rounded-xl border border-border p-4">
           <h2 className="text-sm font-semibold text-foreground">Impressions over time</h2>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            {overTime.length ? `Last ${overTime.length} days with a post.` : "No publish dates recorded yet."}
+            By publish date, {overTime.length} of the last {days} days had a post.
           </p>
           <ChartContainer config={CHART_CONFIG} className="mt-3 h-56 w-full">
             <LineChart accessibilityLayer data={overTime} margin={{ left: 4, right: 8 }}>
@@ -1093,7 +1136,7 @@ function PerformanceList({
 
       <section>
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="text-sm font-semibold text-foreground">Every published post</h2>
+          <h2 className="text-sm font-semibold text-foreground">Posts published in the last {days} days</h2>
           {overview?.lastSync && (
             <p className="text-xs text-muted-foreground">synced {new Date(overview.lastSync).toLocaleString()}</p>
           )}
