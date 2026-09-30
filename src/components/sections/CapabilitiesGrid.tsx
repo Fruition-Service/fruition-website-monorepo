@@ -60,6 +60,8 @@ export default function CapabilitiesGrid({
             }`}
           >
             {heading}
+            {/* Copy (and Sanity, which trims) often omits the trailing space. */}
+            {heading && headingAccent && !/\s$/.test(heading) && " "}
             {headingAccent && (
               <span className="text-brand">{headingAccent}</span>
             )}

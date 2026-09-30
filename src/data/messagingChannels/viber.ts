@@ -32,11 +32,10 @@ export const VIBER: ChannelPage = {
   primaryCtaLabel: 'Book a Viber integration call',
   secondaryCtaLabel: 'Common questions',
 
+  introTitle: 'Where customers are, and no connector exists.',
   intro:
     'In the Philippines, Greece, Bulgaria, Serbia and Ukraine, Viber is where customers actually are. It is also the least served channel in enterprise software: no first-party CRM app anywhere, no Make app, no Zapier app, no n8n node.\n\nThere are good technical reasons for that, and they are the reason this work is worth doing properly rather than improvising it.',
 
-  logoCloudHeadingPart1: 'Clients who have used our ',
-  logoCloudHeadingAccent: 'messaging integration services',
 
   reachEyebrow: 'Where it matters',
   reachHeading: 'A small number of markets',
@@ -243,10 +242,10 @@ export const VIBER: ChannelPage = {
       description:
         'Metrobank in the Philippines runs Viber marketing journeys through Salesforce Marketing Cloud and reports 30–50% cost savings against the same messages by SMS. PrivatBank in Ukraine reports a 10% lift in banking service usage.',
       benefits: [
-        { text: 'Journey integration into Marketing Cloud or your CRM of record' },
-        { text: 'Transactional templates approved and version-controlled' },
-        { text: 'SMS fallback with cost attribution across both channels' },
-        { text: 'Consent state auditable per customer, not per campaign' },
+        { emoji: '🔗', text: 'Journey integration into Marketing Cloud or your CRM of record' },
+        { emoji: '✅', text: 'Transactional templates approved and version-controlled' },
+        { emoji: '📲', text: 'SMS fallback with cost attribution across both channels' },
+        { emoji: '🔒', text: 'Consent state auditable per customer, not per campaign' },
       ],
     },
     {
@@ -255,10 +254,10 @@ export const VIBER: ChannelPage = {
       description:
         'Primer Group ran a Viber blast with a redeem code valid only for Viber recipients, and published 53% redemption. The mechanic works because attribution is unambiguous — which only holds if the code, the send and the CRM record are joined up.',
       benefits: [
-        { text: 'Channel-exclusive codes issued and reconciled against the CRM' },
-        { text: 'Cart-recovery flows that respect session and opt-out state' },
-        { text: 'Order and delivery updates as approved templates' },
-        { text: 'Reporting that survives a change of aggregator' },
+        { emoji: '🎟️', text: 'Channel-exclusive codes issued and reconciled against the CRM' },
+        { emoji: '🛒', text: 'Cart-recovery flows that respect session and opt-out state' },
+        { emoji: '📦', text: 'Order and delivery updates as approved templates' },
+        { emoji: '📊', text: 'Reporting that survives a change of aggregator' },
       ],
     },
     {
@@ -267,10 +266,10 @@ export const VIBER: ChannelPage = {
       description:
         'A1 Serbia deployed Viber inside Salesforce Marketing Cloud at specific renewal touchpoints alongside SMS, push and email, and published 68% delivery with 72% open rates on delivered messages and a 20% Viber share of each journey.',
       benefits: [
-        { text: 'Touchpoint-level channel selection rather than blanket sends' },
-        { text: 'Delivery and open telemetry written back to the customer record' },
-        { text: 'Fallback ordering tuned per journey stage' },
-        { text: 'Cost per delivered message tracked against the journey outcome' },
+        { emoji: '🎯', text: 'Touchpoint-level channel selection rather than blanket sends' },
+        { emoji: '📡', text: 'Delivery and open telemetry written back to the customer record' },
+        { emoji: '🔀', text: 'Fallback ordering tuned per journey stage' },
+        { emoji: '💰', text: 'Cost per delivered message tracked against the journey outcome' },
       ],
     },
     {
@@ -279,10 +278,10 @@ export const VIBER: ChannelPage = {
       description:
         'Cebu Pacific runs Viber as the primary channel with SMS failover, carrying both seat sales and operational notices such as delays and gate changes, and reports a 75% NPS increase year on year.',
       benefits: [
-        { text: 'Operational alerts fired from the operations system, not marketing' },
-        { text: 'Primary-plus-fallback routing with a defined validity window' },
-        { text: 'Ancillary offers triggered from booking behaviour' },
-        { text: 'One thread per passenger, visible to service teams' },
+        { emoji: '🚨', text: 'Operational alerts fired from the operations system, not marketing' },
+        { emoji: '⏱️', text: 'Primary-plus-fallback routing with a defined validity window' },
+        { emoji: '🎁', text: 'Ancillary offers triggered from booking behaviour' },
+        { emoji: '🧳', text: 'One thread per passenger, visible to service teams' },
       ],
     },
   ],

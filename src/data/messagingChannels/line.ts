@@ -29,11 +29,10 @@ export const LINE: ChannelPage = {
   primaryCtaLabel: 'Book a LINE integration call',
   secondaryCtaLabel: 'Common questions',
 
+  introTitle: 'LINE keeps nothing for you.',
   intro:
     'LINE gives you a display name, an icon, a status message and a language. It will not give you a phone number, an email address or a way to re-read a message you failed to store. Everything a CRM needs, you have to capture yourself.\n\nThat is the whole engineering problem, and it is why LINE projects that start as "just connect the chat tool" end up rebuilt. We design the persistence and consent layer first, because LINE keeps no logs for you and will not hand the data back.',
 
-  logoCloudHeadingPart1: 'Clients who have used our ',
-  logoCloudHeadingAccent: 'messaging integration services',
 
   reachEyebrow: 'Where it matters',
   reachHeading: 'Three markets where LINE',
@@ -239,10 +238,10 @@ export const LINE: ChannelPage = {
       description:
         'Friend-add from a QR code in store, a rich menu that exposes ordering and order status, and every interaction keyed to a CRM record. Central Chat & Shop in Thailand runs this pattern at over a thousand customer conversations a day.',
       benefits: [
-        { text: 'In-store QR capture straight into the CRM with consent' },
-        { text: 'Rich menu wired to ordering, pickup and order status' },
-        { text: 'Loyalty state read from the CRM and reflected per user' },
-        { text: 'Narrowcast segments built from CRM data, not guesswork' },
+        { emoji: '📱', text: 'In-store QR capture straight into the CRM with consent' },
+        { emoji: '🛍️', text: 'Rich menu wired to ordering, pickup and order status' },
+        { emoji: '⭐', text: 'Loyalty state read from the CRM and reflected per user' },
+        { emoji: '🎯', text: 'Narrowcast segments built from CRM data, not guesswork' },
       ],
     },
     {
@@ -251,10 +250,10 @@ export const LINE: ChannelPage = {
       description:
         'In Thailand, LINE Official Notifications reach customers by phone number even where they have not added the Official Account. Yuanta published a 91.04% delivery rate against SMS at up to 80% lower cost.',
       benefits: [
-        { text: 'Transactional alerts fired from the core system' },
-        { text: 'Official Notifications assessed against your verification status' },
-        { text: 'Consent and wording version stored per customer' },
-        { text: 'Sensitive content filtered before anything reaches the CRM' },
+        { emoji: '🔔', text: 'Transactional alerts fired from the core system' },
+        { emoji: '✅', text: 'Official Notifications assessed against your verification status' },
+        { emoji: '🔒', text: 'Consent and wording version stored per customer' },
+        { emoji: '🛡️', text: 'Sensitive content filtered before anything reaches the CRM' },
       ],
     },
     {
@@ -263,10 +262,10 @@ export const LINE: ChannelPage = {
       description:
         'Multi-brand groups end up with an Official Account per brand and no shared view of the customer. Food Passion consolidated five brands into a single CRM on LINE. The architecture decision that makes that possible is the provider layout, and it has to be right first time.',
       benefits: [
-        { text: 'Provider architecture that keeps user IDs consistent across brands' },
-        { text: 'Bookings and waitlists written back to the venue system' },
-        { text: 'Membership binding across brands without breaking LINE’s linking rules' },
-        { text: 'Campaign reporting that attributes to a brand, not just an account' },
+        { emoji: '🏗️', text: 'Provider architecture that keeps user IDs consistent across brands' },
+        { emoji: '🍽️', text: 'Bookings and waitlists written back to the venue system' },
+        { emoji: '🔗', text: 'Membership binding across brands without breaking LINE’s linking rules' },
+        { emoji: '📊', text: 'Campaign reporting that attributes to a brand, not just an account' },
       ],
     },
     {
@@ -275,10 +274,10 @@ export const LINE: ChannelPage = {
       description:
         'Clients in Japan, Taiwan and Thailand will answer on LINE and ignore email. Enquiry capture, document chase and scheduling run against the matter or engagement record, with the whole thread visible to whoever picks it up.',
       benefits: [
-        { text: 'Enquiry capture into the CRM with source and consent attached' },
-        { text: 'Scheduling wired to the consultant who owns the relationship' },
-        { text: 'Document chase as scheduled push messages' },
-        { text: 'Thread history retained where your regulator can see it' },
+        { emoji: '📥', text: 'Enquiry capture into the CRM with source and consent attached' },
+        { emoji: '📅', text: 'Scheduling wired to the consultant who owns the relationship' },
+        { emoji: '📄', text: 'Document chase as scheduled push messages' },
+        { emoji: '🗂️', text: 'Thread history retained where your regulator can see it' },
       ],
     },
   ],

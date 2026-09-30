@@ -54,5 +54,6 @@ export { default as EcosystemGrid } from "./EcosystemGrid"
 /* Messaging-channel integration pages (/integrations/whatsapp | line | viber) */
 export { default as ChannelStackMatrix } from "./ChannelStackMatrix"
 export { default as ChannelSpecPanel } from "./ChannelSpecPanel"
+export { default as ChannelProblemCallout } from "./ChannelProblemCallout"
 
 export type * from "./types"

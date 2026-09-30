@@ -45,6 +45,8 @@ export default function FeatureNumberList({
             className={`text-section-h2 text-center ${headingClass} ${subheading ? "mb-3.5" : "mb-10"}`}
           >
             {heading}
+            {/* Copy (and Sanity, which trims) often omits the trailing space. */}
+            {heading && headingAccent && !accentBlock && !/\s$/.test(heading) && " "}
             {headingAccent && (
               <span className={`text-brand-light ${accentBlock ? "block" : ""}`.trim()}>
                 {headingAccent}

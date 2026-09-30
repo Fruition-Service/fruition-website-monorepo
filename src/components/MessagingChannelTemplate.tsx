@@ -1,3 +1,4 @@
+import { MessageCircleQuestion } from "lucide-react"
 import { BOOKING_ANCHOR } from "@/lib/bookingLink"
 import {
   getServicePageBySlug,
@@ -8,7 +9,7 @@ import {
 import { resolveFaqTabs } from "@/sanity/groupFaqs"
 import {
   HeroBanner,
-  ClientLogoSection,
+  ChannelProblemCallout,
   WorkflowConnector,
   ChannelStackMatrix,
   ChannelSpecPanel,
@@ -65,33 +66,28 @@ export default async function MessagingChannelTemplate({ page }: { page: Channel
         headingAccent={cms.heroHeadingAccent ?? page.heroHeadingAccent}
         subheading={cms.heroSubheading || page.heroSubheading}
         heroImage={cms.heroImage}
-        certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={siteSettings?.navbarPartnerBadges || []}
+        /* No partner badges: these are platform-neutral integrations we
+           deliver for monday.com, HubSpot, Salesforce and the rest, so the
+           monday.com partner row would misstate who the page is for. */
+        hidePartnerBadges
         /* HeroBanner demotes its `primary` slot to an outline button whenever a
            secondary is present, and renders the secondary as the filled pill.
            So the booking CTA goes in the secondary slot: the filled button is
            the one we want people to press. */
         primaryCtaLabel={cms.secondaryCtaLabel || page.secondaryCtaLabel}
         primaryCtaUrl="#faq"
+        primaryCtaIcon={<MessageCircleQuestion size={18} aria-hidden />}
         secondaryCtaLabel={cms.primaryCtaLabel || page.primaryCtaLabel}
         secondaryCtaUrl={BOOKING_ANCHOR}
       />
 
-      {/* Positioning — what we are actually claiming, before any feature talk. */}
-      <section className="bg-surface px-4 pt-12 pb-2 md:pt-16">
-        <div className="mx-auto w-full max-w-[860px] text-center">
-          {(cms.introStripBody || page.intro).split("\n\n").map((paragraph: string) => (
-            <p key={paragraph.slice(0, 40)} className="text-body-lead text-muted mb-4 last:mb-0">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </section>
-
-      <ClientLogoSection
-        headingPart1={cms.logoCloudHeadingPart1 || page.logoCloudHeadingPart1}
-        headingAccent={cms.logoCloudHeadingAccent ?? page.logoCloudHeadingAccent}
-        logos={siteSettings?.carouselLogos || []}
+      {/* Positioning — what we are actually claiming, before any feature talk.
+          No client logo wall after it: none of the site's logo clients have
+          bought messaging-channel work, so showing them here would imply they had. */}
+      <ChannelProblemCallout
+        eyebrow="The engineering problem"
+        title={page.introTitle}
+        body={cms.introStripBody || page.intro}
       />
 
       {/* Where the channel actually is — the reason this page exists per market. */}
