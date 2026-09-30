@@ -1,6 +1,6 @@
 import { writeClient } from './sanity-client'
 
-const FAQ_TABS = [
+export const FAQ_TABS = [
   {
     _key: 'tab-ps',
     _type: 'faqTab',
@@ -230,4 +230,9 @@ async function main() {
   console.log('Done!')
 }
 
-main().catch((err) => { console.error(err); process.exit(1) })
+// Only run the write when this file is executed directly, so other scripts can
+// safely `import { FAQ_TABS }` as a clean authored source without triggering a
+// Sanity write.
+if (process.argv[1] && process.argv[1].endsWith('migrate-faq.ts')) {
+  main().catch((err) => { console.error(err); process.exit(1) })
+}
