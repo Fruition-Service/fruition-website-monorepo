@@ -47,7 +47,8 @@ function heroImgFromRef(ref: SanityImageRef): string | null {
 
 /** Override specific partner badges with local dark variants */
 const DARK_LOGO_OVERRIDES: Record<string, string> = {
-  n8n: '/images/partner-n8n-dark.avif',
+  // n8n is served from Sanity (heroPartnerBadges) — the local partner-n8n-dark.avif
+  // is mislabelled and holds an Atlassian badge, so it must not override the CMS image.
   aircall: '/images/partner-aircall-dark.avif',
 }
 
