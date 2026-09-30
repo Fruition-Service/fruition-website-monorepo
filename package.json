@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "postinstall": "node scripts/copy-pdf-worker.mjs",
+    "predev": "tsx scripts/build-ask-fruit-knowledge.ts",
     "dev": "next dev",
     "dev:nav-v2": "NAV_V2_PREVIEW=1 next dev -p 3005",
+    "prebuild": "tsx scripts/build-ask-fruit-knowledge.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

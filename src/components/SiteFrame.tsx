@@ -30,6 +30,13 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
 /** Path prefixes that never get Google's preferred-source button. */
 const EXCLUDED_PREFIXES = ["/internal", "/studio"]
 
+/**
+ * Full-screen app surfaces that render their own header: the portal and the
+ * Ask Fruit workspace (which also serves printable briefs). The marketing
+ * /ask-fruit page keeps the normal chrome.
+ */
+const CHROMELESS_PREFIXES = ["/internal", "/ask-fruit/workspace"]
+
 export default function SiteFrame({
   header,
   footer,
@@ -50,7 +57,7 @@ export default function SiteFrame({
 }) {
   const pathname = usePathname()
 
-  if (pathname?.startsWith("/internal")) {
+  if (CHROMELESS_PREFIXES.some((p) => pathname === p || pathname?.startsWith(`${p}/`))) {
     return <>{children}</>
   }
 

@@ -69,6 +69,7 @@ const EXACT: Record<string, PageShell> = {
   "/ai-capability-assessment": "aiPartner",
   "/ai-readiness-blueprint": "blueprint",
   "/ai-strategy-and-execution": "banner",
+  "/ask-fruit": "wide",
   "/careers": "wide",
   "/consulting-blog": "blog",
   "/contact-us": "contact",
