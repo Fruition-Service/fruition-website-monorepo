@@ -49,8 +49,8 @@ describe("the YouTube platform", () => {
   })
 
   it("never hands a video to a channel that can't take one", () => {
-    expect(mediaItemsFor(platformSpec("linkedin"), { videoUrl: VIDEO })).toBeUndefined()
-    expect(mediaItemsFor(platformSpec("twitter"), { videoUrl: VIDEO, imageUrls: [IMAGE] })).toEqual([
+    expect(mediaItemsFor(platformSpec("reddit"), { videoUrl: VIDEO })).toBeUndefined()
+    expect(mediaItemsFor(platformSpec("gbp-au"), { videoUrl: VIDEO, imageUrls: [IMAGE] })).toEqual([
       { type: "image", url: IMAGE },
     ])
   })
@@ -73,9 +73,9 @@ describe("what blocks a YouTube post", () => {
   })
 
   it("says so plainly when a video lands on a channel that can't post one", () => {
-    const linkedin = { label: "LinkedIn", limit: 3000, needsMedia: false, supportsMedia: true }
-    expect(problemsFor(linkedin, { content: "hi", videoUrl: VIDEO })).toEqual([
-      "LinkedIn: this channel can't post a video — YouTube is the only one that can.",
+    const gbp = { label: "Google Business", limit: 1500, needsMedia: false, supportsMedia: true }
+    expect(problemsFor(gbp, { content: "hi", videoUrl: VIDEO })).toEqual([
+      "Google Business: this channel can't post a video (Google Business Profile and Reddit take none).",
     ])
   })
 
@@ -105,6 +105,23 @@ describe("the video survives a save", () => {
 
   it("is ignored on channels that don't take video", () => {
     const live = { postId: "1", status: "draft", mediaUrls: [], videoUrl: VIDEO }
-    expect(effectiveVideo({ content: "", videoUrl: VIDEO }, live, platformSpec("linkedin"))).toBe("")
+    expect(effectiveVideo({ content: "", videoUrl: VIDEO }, live, platformSpec("gbp-au"))).toBe("")
+  })
+})
+
+describe("the blog video on feed channels", () => {
+  it("replaces the image on X, Instagram, LinkedIn and Pinterest", () => {
+    for (const key of ["twitter", "instagram", "linkedin", "pinterest"] as const) {
+      expect(mediaItemsFor(platformSpec(key), { videoUrl: VIDEO, imageUrls: [IMAGE] })).toEqual([{ type: "video", url: VIDEO }])
+    }
+  })
+
+  it("leaves Google Business Profile on its photo", () => {
+    expect(mediaItemsFor(platformSpec("gbp-au"), { videoUrl: VIDEO, imageUrls: [IMAGE] })?.[0]?.type).toBe("image")
+  })
+
+  it("lets a video satisfy Instagram's media requirement", () => {
+    const ig = { label: "Instagram", limit: 2200, needsMedia: true, supportsMedia: true, supportsVideo: true }
+    expect(problemsFor(ig, { content: "hi", videoUrl: VIDEO })).toEqual([])
   })
 })
