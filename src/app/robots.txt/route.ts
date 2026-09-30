@@ -20,7 +20,7 @@ const CONTENT_SIGNAL = 'search=yes, ai-train=yes, ai-input=yes, use=reference'
 // - /faqs?category=... — consolidated onto /faqs via its canonical URL.
 // /s/ are short links that redirect to pages Google already has — indexing
 // them would only create duplicates of the destinations.
-const DISALLOW = ['/internal/', '/studio/', '/s/']
+const DISALLOW = ['/internal/', '/studio/', '/s/', '/api/ask-fruit/']
 
 // Answer-engine and model crawlers, named explicitly.
 //

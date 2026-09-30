@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import {
   FileText,
   LayoutDashboard,
+  MessagesSquare,
   Newspaper,
   Palette,
   Plus,
@@ -74,6 +75,7 @@ const MODULES: NavGroup[] = [
     items: [
       { title: "Blog", href: "/internal/blog", icon: Newspaper, match: "prefix", badge: "drafts" },
       { title: "Social", href: "/internal/social", icon: Share2, match: "prefix", badge: "queued" },
+      { title: "Ask Fruit", href: "/internal/ask-fruit", icon: MessagesSquare, match: "prefix" },
     ],
   },
   {
