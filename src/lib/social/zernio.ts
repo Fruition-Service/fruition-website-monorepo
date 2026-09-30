@@ -68,7 +68,10 @@ export interface PlatformSpec {
   supportsMedia: boolean
   /** Platform accepts a PDF/slide document instead of an image (LinkedIn only). */
   supportsDocument?: boolean
-  /** Platform publishes a video file (YouTube only). */
+  /* Platform publishes a video file: YouTube (where the video is the whole
+     post), plus X, Instagram (as a Reel, 9:16 only), LinkedIn and Pinterest
+     (a video pin), where it replaces the image. Google Business Profile posts
+     take photos only. */
   supportsVideo?: boolean
   /** Platform publishes NOTHING but a video — no text-only or image post. */
   needsVideo?: boolean
@@ -115,6 +118,7 @@ export const PLATFORMS: PlatformSpec[] = [
     limit: 280,
     needsMedia: false,
     supportsMedia: true,
+    supportsVideo: true,
     captionKey: "twitter",
     maxMedia: 4,
     linkInBody: true,
@@ -208,6 +212,7 @@ export const PLATFORMS: PlatformSpec[] = [
     limit: 2200,
     needsMedia: true,
     supportsMedia: true,
+    supportsVideo: true,
     captionKey: "instagram",
     maxMedia: 10,
     aspect: { min: 0.8, max: 1.91 },
@@ -229,6 +234,7 @@ export const PLATFORMS: PlatformSpec[] = [
     limit: 3000,
     needsMedia: false,
     supportsMedia: true,
+    supportsVideo: true,
     supportsDocument: true,
     captionKey: "linkedin",
     maxMedia: 1,
@@ -249,6 +255,7 @@ export const PLATFORMS: PlatformSpec[] = [
     limit: 500,
     needsMedia: true,
     supportsMedia: true,
+    supportsVideo: true,
     captionKey: "pinterest",
     titleLimit: 100,
     maxMedia: 1,
@@ -805,9 +812,13 @@ export interface PlatformDraftInput {
 
 function platformEntry(
   spec: PlatformSpec,
-  args: { title?: string; link?: string; subreddit?: string; boardId?: string; documentName?: string },
+  args: { title?: string; link?: string; subreddit?: string; boardId?: string; documentName?: string; videoCoverUrl?: string },
 ): ZernioPlatformEntry {
   const psd: Record<string, unknown> = {}
+  /* A video post's cover frame. Without it Instagram and Pinterest use the
+     first frame, which on the blog videos is an empty background. */
+  if (args.videoCoverUrl && spec.key === "instagram") psd.instagramThumbnail = args.videoCoverUrl
+  if (args.videoCoverUrl && spec.key === "pinterest") psd.coverImageUrl = args.videoCoverUrl
   if (spec.key === "linkedin" && args.documentName) {
     // LinkedIn refuses a document post without a title, and shows this one on
     // the carousel — so it's the filename unless the writer named it.
@@ -857,7 +868,7 @@ export interface MediaChoice {
   documentUrl?: string
   /** Shown on the LinkedIn carousel; falls back to the post name. */
   documentName?: string
-  /** Publicly reachable video file. YouTube only, and it IS the post. */
+  /** Publicly reachable video file. On YouTube it IS the post; elsewhere it replaces the image. */
   videoUrl?: string
 }
 
@@ -1032,6 +1043,7 @@ export async function updateSocialDraft(args: {
   documentUrl?: string
   documentName?: string
   videoUrl?: string
+  videoCoverUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<void> {
@@ -1046,6 +1058,7 @@ export async function updateSocialDraft(args: {
         subreddit: args.subreddit,
         boardId: args.boardId,
         documentName,
+        videoCoverUrl: args.videoUrl ? args.videoCoverUrl : undefined,
       }),
     ],
   }
@@ -1104,11 +1117,13 @@ export async function publishSocialDraft(args: {
   documentUrl?: string
   documentName?: string
   videoUrl?: string
+  videoCoverUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string }> {
   const spec = platformSpec(args.key)
-  if (spec.needsMedia && !args.imageUrls?.length) {
+  const hasVideo = Boolean(args.videoUrl && spec.supportsVideo)
+  if (spec.needsMedia && !args.imageUrls?.length && !hasVideo) {
     throw new Error(`${spec.label} requires an image — publish the blog with a cover image first`)
   }
   if (spec.needsVideo && !args.videoUrl) {
@@ -1132,6 +1147,7 @@ export async function publishSocialDraft(args: {
         subreddit: args.subreddit,
         boardId: args.boardId,
         documentName: args.documentName,
+        videoCoverUrl: hasVideo ? args.videoCoverUrl : undefined,
       }),
     ],
     isDraft: false,
@@ -1167,6 +1183,7 @@ export async function republishCancelledPost(args: {
   documentUrl?: string
   documentName?: string
   videoUrl?: string
+  videoCoverUrl?: string
   subreddit?: string
   boardId?: string
 }): Promise<{ status: string; postId: string }> {
@@ -1225,8 +1242,8 @@ export async function scheduleSocialPost(args: {
   timezone?: string
 }): Promise<{ status: string; scheduledFor?: string }> {
   const spec = platformSpec(args.key)
-  if (spec.needsMedia && !args.imageUrls?.length) {
-    throw new Error(`${spec.label} requires an image`)
+  if (spec.needsMedia && !args.imageUrls?.length && !(args.videoUrl && spec.supportsVideo)) {
+    throw new Error(`${spec.label} requires an image or a video`)
   }
   if (spec.needsVideo && !args.videoUrl) {
     throw new Error(`${spec.label} requires a video`)

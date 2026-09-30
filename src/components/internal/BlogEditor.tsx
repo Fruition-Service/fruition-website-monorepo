@@ -158,6 +158,13 @@ export default function BlogEditor({
   const pipelineCoverUrl =
     typeof initial?.metadata?.cover_image_url === "string" ? initial.metadata.cover_image_url : ""
 
+  /* The short social video Marketa renders from the post, with its poster
+     frame. Read-only here: re-rendering happens in Marketa's workflow. */
+  const pipelineVideoUrl =
+    typeof initial?.metadata?.video_url === "string" ? initial.metadata.video_url : ""
+  const pipelineVideoPosterUrl =
+    typeof initial?.metadata?.video_poster_url === "string" ? initial.metadata.video_poster_url : ""
+
   /* What the thumbnail shows: a freshly chosen file if there is one, else the
      cover the pipeline already uploaded. The object URL is revoked when the
      selection changes, or every re-pick leaks one. */
@@ -799,6 +806,36 @@ export default function BlogEditor({
                   </div>
                 </div>
               </Field>
+              {pipelineVideoUrl ? (
+                <Field
+                  label="Social video"
+                  hint="Rendered from this post by Marketa. X, Instagram, LinkedIn and Pinterest post it in place of an image."
+                >
+                  <div className="flex items-start gap-3">
+                    <video
+                      src={pipelineVideoUrl}
+                      poster={pipelineVideoPosterUrl || undefined}
+                      controls
+                      preload="metadata"
+                      className="h-48 w-auto shrink-0 rounded border border-border bg-black"
+                    />
+                    <div className="flex min-w-0 flex-col items-start gap-1.5">
+                      <a
+                        href={pipelineVideoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs font-medium underline"
+                        style={{ color: "var(--purple-primary)" }}
+                      >
+                        Open the MP4
+                      </a>
+                      <p className="text-xs text-muted-foreground">
+                        Google Business Profile uses the poster frame as its photo; Reddit stays text.
+                      </p>
+                    </div>
+                  </div>
+                </Field>
+              ) : null}
               <Field label="Author" hint="From the team page">
                 <Select value={author || AUTHOR_DEFAULT} onValueChange={(v) => setAuthor(v === AUTHOR_DEFAULT || !v ? "" : v)}>
                   <SelectTrigger className="w-full">

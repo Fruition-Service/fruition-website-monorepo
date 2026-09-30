@@ -81,8 +81,8 @@ export function problemsFor(spec: PlatformConstraints, values: DraftValues): str
     problems.push(`${spec.label}: the title is ${over} character${over === 1 ? "" : "s"} over the ${spec.titleLimit} limit.`)
   }
   const images = values.mediaUrls?.filter(Boolean) ?? []
-  if (spec.needsMedia && !images.length) {
-    problems.push(`${spec.label}: an image is required.`)
+  if (spec.needsMedia && !images.length && !(values.videoUrl && spec.supportsVideo)) {
+    problems.push(`${spec.label}: an image or a video is required.`)
   }
   // A video channel publishes the video and nothing else, so an empty one is
   // an empty post — the caption alone can't stand in for it.
@@ -90,7 +90,7 @@ export function problemsFor(spec: PlatformConstraints, values: DraftValues): str
     problems.push(`${spec.label}: a video is required — every post here is a video.`)
   }
   if (values.videoUrl && !spec.supportsVideo) {
-    problems.push(`${spec.label}: this channel can't post a video — YouTube is the only one that can.`)
+    problems.push(`${spec.label}: this channel can't post a video (Google Business Profile and Reddit take none).`)
   }
   if (images.length && !spec.supportsMedia && !values.documentUrl && !spec.supportsVideo) {
     problems.push(`${spec.label}: this channel is text-only.`)

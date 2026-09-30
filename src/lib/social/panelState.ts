@@ -26,6 +26,8 @@ export interface PanelPost {
   title?: string
   /** Image currently attached to the Zernio draft. */
   mediaUrl?: string
+  /** Video currently attached. Where it is set, it publishes instead of the image. */
+  videoUrl?: string
   /** Reddit target subreddit (without r/). */
   subreddit?: string
   status: string
@@ -42,6 +44,8 @@ export interface PanelPlatform {
   titleRequired?: boolean
   needsMedia: boolean
   supportsMedia: boolean
+  /** X, Instagram, LinkedIn, Pinterest: the blog's video can replace the image. */
+  supportsVideo?: boolean
   /** Plain-English limitations, shown next to the editor. */
   notes: string[]
   /** Account handle/name shown under the label. */
@@ -60,6 +64,10 @@ export interface PanelState {
    * session is only recorded there.
    */
   availableImages: string[]
+  /* The draft's social video and its poster frame, rendered by Marketa
+     (portal_drafts.metadata.video_url / video_poster_url). */
+  videoUrl?: string
+  videoPosterUrl?: string
   dashboardUrl: string
   platforms: PanelPlatform[]
 }
@@ -76,6 +84,7 @@ function panelPost(post: ZernioPost | undefined): PanelPost | undefined {
     content: post.content ?? "",
     title: typeof psd.title === "string" ? psd.title : undefined,
     mediaUrl: post.mediaItems?.find((m) => m.type === "image")?.url,
+    videoUrl: post.mediaItems?.find((m) => m.type === "video")?.url,
     subreddit: typeof psd.subreddit === "string" ? psd.subreddit : undefined,
     status: entry?.status === "failed" ? "failed" : post.status,
     platformUrl: entry?.platformPostUrl,
@@ -158,13 +167,27 @@ export async function draftBodyImages(draftId: string | undefined): Promise<stri
   }
 }
 
+/** The draft's rendered social video, if Marketa has made one. */
+export async function draftVideo(draftId: string | undefined): Promise<{ videoUrl?: string; videoPosterUrl?: string }> {
+  if (!draftId) return {}
+  try {
+    const { data } = await getPortalAdmin().from("portal_drafts").select("metadata").eq("id", draftId).maybeSingle()
+    const m = ((data as { metadata?: Record<string, unknown> } | null)?.metadata ?? {}) as Record<string, unknown>
+    const url = (k: string) => (typeof m[k] === "string" && /^https?:\/\//.test(m[k] as string) ? (m[k] as string) : undefined)
+    return { videoUrl: url("video_url"), videoPosterUrl: url("video_poster_url") }
+  } catch {
+    return {}
+  }
+}
+
 /** Assemble the full panel state for a blog (draft or published). */
 export async function buildPanelState(source: SocialSource): Promise<PanelState> {
-  const [accounts, posts, blog, mdImages] = await Promise.all([
+  const [accounts, posts, blog, mdImages, video] = await Promise.all([
     listZernioAccounts(),
     findSocialPosts(source).catch(() => ({}) as Partial<Record<PlatformKey, ZernioPost>>),
     publishedBlogFacts(source.slug),
     draftBodyImages(source.draftId),
+    draftVideo(source.draftId),
   ])
   const accountById = new Map(accounts.map((a) => [a._id, a]))
   // Images already on the drafts are part of the library too: an image
@@ -179,6 +202,8 @@ export async function buildPanelState(source: SocialSource): Promise<PanelState>
     blogUrl: blog.blogUrl,
     coverImageUrl: blog.coverImageUrl,
     availableImages,
+    videoUrl: video.videoUrl,
+    videoPosterUrl: video.videoPosterUrl,
     dashboardUrl: DASHBOARD_URL,
     // BLOG_PLATFORMS: YouTube takes a video, and a blog has none to give it.
     platforms: BLOG_PLATFORMS.map((spec) => {
@@ -191,6 +216,7 @@ export async function buildPanelState(source: SocialSource): Promise<PanelState>
         titleRequired: spec.titleRequired,
         needsMedia: spec.needsMedia,
         supportsMedia: spec.supportsMedia,
+        supportsVideo: spec.supportsVideo,
         notes: spec.notes,
         account: account?.username || account?.displayName || spec.label,
         connected: Boolean(account && account.isActive !== false && account.enabled !== false),

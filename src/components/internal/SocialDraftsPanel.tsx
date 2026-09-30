@@ -41,6 +41,8 @@ interface DraftEdit {
   title?: string
   /** Chosen image: url = set, "" = none, undefined = keep the draft's. */
   mediaUrl?: string
+  /** Chosen video, same semantics. Where set, it publishes instead of the image. */
+  videoUrl?: string
   subreddit?: string
   dirty: boolean
 }
@@ -86,7 +88,15 @@ function toPanelPatch(patch: Partial<PlatformEditorValue>): Partial<Omit<DraftEd
   if (patch.title !== undefined) out.title = patch.title
   if (patch.subreddit !== undefined) out.subreddit = patch.subreddit
   if (patch.mediaUrls !== undefined) out.mediaUrl = patch.mediaUrls[0] ?? ""
+  if (patch.videoUrl !== undefined) out.videoUrl = patch.videoUrl
   return out
+}
+
+/** The video a card would publish with right now. "" = none. */
+function effectiveVideo(p: PanelPlatform, edit: DraftEdit | undefined): string {
+  if (!p.supportsVideo) return ""
+  if (edit?.videoUrl !== undefined) return edit.videoUrl
+  return p.post?.videoUrl ?? ""
 }
 
 /** The image a card would publish with right now. "" = none. */
@@ -258,6 +268,10 @@ export default function SocialDraftsPanel({
         // undefined = leave the draft's media untouched (server falls back to
         // the cover at publish time); "" = explicitly no image.
         mediaUrl: edit?.mediaUrl,
+        // Sent whenever media changes at all: Zernio rebuilds the media list
+        // whole, so an image change with no video in it would drop the video.
+        videoUrl:
+          edit?.videoUrl !== undefined || edit?.mediaUrl !== undefined ? effectiveVideo(p, edit) : undefined,
         subreddit: edit?.subreddit ?? p.post!.subreddit,
       }
     },
@@ -310,7 +324,7 @@ export default function SocialDraftsPanel({
       const r = await fetch("/api/internal/blog/social", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: source.slug, items }),
+        body: JSON.stringify({ slug: source.slug, draftId: source.draftId, items }),
       })
       const data = (await r.json()) as { ok?: boolean; error?: string }
       if (!r.ok) {
@@ -475,6 +489,7 @@ export default function SocialDraftsPanel({
               availableImages={state.availableImages}
               uploads={uploads}
               coverImageUrl={state.coverImageUrl}
+              blogVideoUrl={state.videoUrl}
               busy={busy}
               onToggle={() =>
                 setSelected((prev) => {
@@ -518,6 +533,7 @@ function PlatformCard({
   availableImages,
   uploads,
   coverImageUrl,
+  blogVideoUrl,
   busy,
   onToggle,
   onPatch,
@@ -534,6 +550,8 @@ function PlatformCard({
   /** Uploaded this session, offered alongside the article's own images. */
   uploads: string[]
   coverImageUrl?: string
+  /** The blog's rendered social video, offered to channels that take video. */
+  blogVideoUrl?: string
   busy: string | null
   onToggle: () => void
   onPatch: (partial: Partial<Omit<DraftEdit, "dirty">>) => void
@@ -546,11 +564,12 @@ function PlatformCard({
   const title = edit?.title ?? p.post?.title ?? ""
   const subreddit = edit?.subreddit ?? p.post?.subreddit ?? ""
   const media = effectiveMedia(p, edit, coverImageUrl)
+  const video = effectiveVideo(p, edit)
   const over = content.length > p.limit
   const published = p.post?.status === "published"
   const cancelled = p.post?.status === "cancelled"
   const canUnpublish = published && p.key !== "instagram"
-  const mediaBlocked = p.needsMedia && !media
+  const mediaBlocked = p.needsMedia && !media && !video
   const canPublish = Boolean(p.post) && p.connected && blogLive && !over && !mediaBlocked && !published
 
   // Every selectable image: the blog's, this session's uploads, plus whatever
@@ -596,13 +615,29 @@ function PlatformCard({
         <>
           <PlatformEditor
             spec={p}
-            value={{ content, title, subreddit, mediaUrls: media ? [media] : [] }}
+            value={{ content, title, subreddit, mediaUrls: media ? [media] : [], videoUrl: video, videoName: video && video === blogVideoUrl ? "Blog video" : undefined }}
             images={imageChoices}
             disabled={published}
             uploading={busy === `upload:${p.key}`}
             onChange={(patch) => onPatch(toPanelPatch(patch))}
             onUpload={onUpload}
           />
+
+          {p.supportsVideo && blogVideoUrl && video !== blogVideoUrl && !published && (
+            <button
+              type="button"
+              onClick={() => onPatch({ videoUrl: blogVideoUrl })}
+              className="mt-2 rounded-pill border px-3 py-1.5 text-xs font-semibold transition"
+              style={{ borderColor: "var(--purple-primary)", color: "var(--purple-primary)" }}
+            >
+              Use the blog video
+            </button>
+          )}
+          {video && media && (
+            <p className="mt-2 text-xs" style={{ color: "var(--color-text-secondary)" }}>
+              The video publishes in place of the image. Remove it to post the image instead.
+            </p>
+          )}
 
           <div className="mt-2 flex items-center justify-between gap-3">
             <span className="text-xs" style={{ color: "var(--color-text-secondary)" }}>

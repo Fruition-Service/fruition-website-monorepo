@@ -67,7 +67,7 @@ describe("problemsFor, carousel rules", () => {
 
   it("still blocks Instagram with no image", () => {
     expect(problemsFor(instagram, { content: "hi", mediaUrls: [] })).toEqual([
-      "Instagram: an image is required.",
+      "Instagram: an image or a video is required.",
     ])
   })
 

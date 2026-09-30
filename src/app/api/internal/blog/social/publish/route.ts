@@ -6,7 +6,7 @@ import {
   republishCancelledPost,
   type PlatformKey,
 } from "@/lib/social/zernio"
-import { buildPanelState, publishedBlogFacts } from "@/lib/social/panelState"
+import { buildPanelState, draftVideo, publishedBlogFacts } from "@/lib/social/panelState"
 
 export const runtime = "nodejs"
 export const maxDuration = 120
@@ -39,6 +39,8 @@ export async function POST(req: Request) {
       title?: string
       /** Image chosen in the panel; "" = publish without media. */
       mediaUrl?: string
+      /** Video chosen in the panel; "" = none, undefined = whatever the draft carries. */
+      videoUrl?: string
       subreddit?: string
     }>
   }
@@ -53,7 +55,10 @@ export async function POST(req: Request) {
   if (!slug) return NextResponse.json({ error: "Missing slug." }, { status: 400 })
   if (!items.length) return NextResponse.json({ error: "No platforms selected." }, { status: 400 })
 
-  const { blogUrl, coverImageUrl } = await publishedBlogFacts(slug)
+  const [{ blogUrl, coverImageUrl }, { videoPosterUrl }] = await Promise.all([
+    publishedBlogFacts(slug),
+    draftVideo(body.draftId || undefined),
+  ])
   if (!blogUrl) {
     return NextResponse.json(
       { error: "The blog post isn't live yet — publish it first so social posts can link to it." },
@@ -64,8 +69,20 @@ export async function POST(req: Request) {
   const results: Array<{ key: PlatformKey; status?: string; error?: string }> = []
   for (const item of items) {
     try {
-      // Panel-chosen image wins; fall back to the blog cover. "" = no media.
-      const imageUrl = item.mediaUrl !== undefined ? item.mediaUrl || undefined : coverImageUrl
+      const current = await getZernioPost(item.postId!)
+      // Panel-chosen image wins, then the image already on the draft (the
+      // video's poster frame on Google Business Profile), then the blog
+      // cover. "" = no media.
+      const imageUrl =
+        item.mediaUrl !== undefined
+          ? item.mediaUrl || undefined
+          : current.mediaItems?.find((m) => m.type === "image")?.url ?? coverImageUrl
+      /* Publishing rebuilds the post's media from these args, so the video
+         the draft already carries has to be passed back or it is dropped. */
+      const videoUrl =
+        item.videoUrl !== undefined
+          ? item.videoUrl || undefined
+          : current.mediaItems?.find((m) => m.type === "video")?.url
       const args = {
         postId: item.postId!,
         key: item.key!,
@@ -73,9 +90,10 @@ export async function POST(req: Request) {
         title: item.title,
         blogUrl,
         imageUrls: imageUrl ? [imageUrl] : undefined,
+        videoUrl,
+        videoCoverUrl: videoUrl ? videoPosterUrl : undefined,
         subreddit: item.subreddit,
       }
-      const current = await getZernioPost(item.postId!)
       if (current.status === "published") {
         results.push({ key: item.key!, error: "Already live — unpublish it first to repost." })
         continue

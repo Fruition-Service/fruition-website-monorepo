@@ -11,7 +11,7 @@ import {
   type PlatformKey,
   type SocialSource,
 } from "@/lib/social/zernio"
-import { buildPanelState, publishedBlogFacts, draftBodyImages } from "@/lib/social/panelState"
+import { buildPanelState, publishedBlogFacts, draftBodyImages, draftVideo } from "@/lib/social/panelState"
 
 export const runtime = "nodejs"
 export const maxDuration = 120
@@ -185,8 +185,11 @@ export async function PUT(req: Request) {
       title?: string
       /** "" removes the image; undefined leaves it untouched. */
       mediaUrl?: string
+      /** Same semantics for the video, which publishes in place of the image. */
+      videoUrl?: string
       subreddit?: string
     }>
+    draftId?: string
   }
   try {
     body = (await req.json()) as typeof body
@@ -196,7 +199,10 @@ export async function PUT(req: Request) {
   const items = (body.items ?? []).filter((i) => i.key && i.postId && typeof i.content === "string")
   if (!items.length) return NextResponse.json({ error: "Nothing to save." }, { status: 400 })
 
-  const { blogUrl } = await publishedBlogFacts((body.slug ?? "").trim())
+  const [{ blogUrl }, { videoPosterUrl }] = await Promise.all([
+    publishedBlogFacts((body.slug ?? "").trim()),
+    draftVideo(body.draftId || undefined),
+  ])
   const errors: string[] = []
   for (const item of items) {
     try {
@@ -207,6 +213,8 @@ export async function PUT(req: Request) {
         title: item.title,
         blogUrl,
         imageUrls: item.mediaUrl === undefined ? undefined : item.mediaUrl ? [item.mediaUrl] : [],
+        videoUrl: item.videoUrl,
+        videoCoverUrl: videoPosterUrl,
         subreddit: item.subreddit,
       })
     } catch (err) {
