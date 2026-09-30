@@ -27,7 +27,7 @@ export interface ChannelIndustry {
   label: string
   title: string
   description: string
-  benefits: { text: string }[]
+  benefits: { emoji: string; text: string }[]
 }
 
 /** Where the channel actually has reach, with the number that proves it. */
@@ -57,11 +57,10 @@ export interface ChannelPage {
   primaryCtaLabel: string
   secondaryCtaLabel: string
 
-  /** Positioning paragraph under the hero. Blank lines split paragraphs. */
+  /** Left-rail statement on the positioning callout under the hero. */
+  introTitle: string
+  /** Positioning paragraphs under the hero. Blank lines split paragraphs. */
   intro: string
-
-  logoCloudHeadingPart1: string
-  logoCloudHeadingAccent: string
 
   /** Reach strip — the markets where this channel is the default inbox. */
   reachEyebrow: string

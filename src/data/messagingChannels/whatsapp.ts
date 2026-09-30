@@ -20,23 +20,22 @@ export const WHATSAPP: ChannelPage = {
   channel: 'WhatsApp',
 
   seoTitle:
-    'WhatsApp CRM & ERP Integration | Fruition: WhatsApp Business Platform into monday.com, HubSpot & Salesforce',
+    'WhatsApp CRM & ERP Integration | Fruition: WhatsApp Business Platform into monday.com, HubSpot & your ERP',
   seoDescription:
-    'Fruition connects the WhatsApp Business Platform to monday.com, HubSpot, Salesforce, Zoho and your ERP, so enquiries become tracked records with an owner and an SLA. Australia, the UK, the US and APAC.',
+    'Fruition connects the WhatsApp Business Platform to monday.com, HubSpot and your ERP, so enquiries become tracked records with an owner and an SLA. Australia, the UK, the US and APAC.',
 
   heroEyebrow: 'Integrations · WhatsApp',
   heroHeading: 'Your customers already message you. ',
   heroHeadingAccent: 'Make it reach the CRM.',
   heroSubheading:
-    'We connect the WhatsApp Business Platform to monday.com, HubSpot, Salesforce and your ERP, so an enquiry becomes a tracked record with an owner, a stage and an SLA — instead of a thread on one salesperson’s phone.',
+    'We connect the WhatsApp Business Platform to monday.com, HubSpot and your ERP, so an enquiry becomes a tracked record with an owner, a stage and an SLA — instead of a thread on one salesperson’s phone.',
   primaryCtaLabel: 'Book a WhatsApp integration call',
   secondaryCtaLabel: 'Common questions',
 
+  introTitle: 'Conversations your CRM cannot see.',
   intro:
     'WhatsApp is not a CRM. It has no pipeline, no reporting and no handover, and every conversation that stays inside it is revenue your system of record cannot see.\n\nThe work is the plumbing between the two, and the platform rules that constrain it: a 24-hour messaging window, template categories that are priced and policed differently, and consent you have to be able to evidence to a regulator rather than to Meta.',
 
-  logoCloudHeadingPart1: 'Clients who have used our ',
-  logoCloudHeadingAccent: 'messaging integration services',
 
   reachEyebrow: 'Where it matters',
   reachHeading: 'For most of the world, WhatsApp',
@@ -87,7 +86,7 @@ export const WHATSAPP: ChannelPage = {
   matrixHeading: 'What your CRM does on its own,',
   matrixHeadingAccent: 'and what we build.',
   matrixLead:
-    'Nobody sells you an honest version of this table. Three of these five shipped or withdrew something in the last twelve months.',
+    'Nobody sells you an honest version of this table. Microsoft has just deprecated its channel, and monday.com never had one.',
   matrix: [
     {
       platform: 'HubSpot',
@@ -96,22 +95,6 @@ export const WHATSAPP: ChannelPage = {
         'A first-party WhatsApp channel in the Conversations inbox, connected direct to Meta. Needs Marketing Hub or Service Hub Professional.',
       weBuild:
         'Broadcast, which HubSpot has no native tool for, and headroom past the 1,000 template messages a month shared across every connected WhatsApp account.',
-    },
-    {
-      platform: 'Salesforce',
-      support: 'native',
-      outOfTheBox:
-        'The enhanced Messaging channel connects straight to Meta. The legacy one routes through Twilio and needs the Digital Engagement add-on.',
-      weBuild:
-        'Migration off the legacy Twilio channel, the lead and opportunity flows the service product does not cover, and consent as a field you can audit.',
-    },
-    {
-      platform: 'Zoho CRM',
-      support: 'native',
-      outOfTheBox:
-        'Supported on the trial and every paid edition against your own WhatsApp account — the most permissive gate of the five.',
-      weBuild:
-        'Everything outside Zoho. The moment WhatsApp has to reach an ERP, a warehouse or a finance system, the native channel stops.',
     },
     {
       platform: 'Microsoft Dynamics 365',
@@ -250,10 +233,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'A buyer messages about a listing. The listing reference is parsed out of the message, the enquiry lands on the agent who owns that property, and the inspection booking writes straight back to the CRM — while the buyer stays in the app they started in.',
       benefits: [
-        { text: 'Listing reference parsed from the first inbound message' },
-        { text: 'Routed to the agent who owns the property, not a shared queue' },
-        { text: 'Inspection reminders as approved utility templates' },
-        { text: 'Full thread on the contact record for whoever picks it up next' },
+        { emoji: '🏠', text: 'Listing reference parsed from the first inbound message' },
+        { emoji: '🧭', text: 'Routed to the agent who owns the property, not a shared queue' },
+        { emoji: '📅', text: 'Inspection reminders as approved utility templates' },
+        { emoji: '💬', text: 'Full thread on the contact record for whoever picks it up next' },
       ],
     },
     {
@@ -262,10 +245,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'Appointment confirmations, reminders and check-in links as utility templates, with the conversation itself deliberately kept thin. Clinical content stays in the clinical system, because chat transcripts piped into a CRM turn into sensitive-data problems under PDPA and DPDP.',
       benefits: [
-        { text: 'Confirmations, reminders and rescheduling as approved templates' },
-        { text: 'Self-service check-in links that write back to the practice system' },
-        { text: 'Transcript filtering, so clinical detail never lands in the CRM' },
-        { text: 'Escalation to a human within the messaging window, as Meta requires' },
+        { emoji: '📅', text: 'Confirmations, reminders and rescheduling as approved templates' },
+        { emoji: '✅', text: 'Self-service check-in links that write back to the practice system' },
+        { emoji: '🩺', text: 'Transcript filtering, so clinical detail never lands in the CRM' },
+        { emoji: '🙋', text: 'Escalation to a human within the messaging window, as Meta requires' },
       ],
     },
     {
@@ -274,10 +257,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'The ERP fires a delivery-window template the day before. The customer confirms or corrects the address by quick reply, and the reply carries the ID of the template that prompted it — which is how the correction gets back to the right consignment automatically.',
       benefits: [
-        { text: 'Delivery-window and dispatch templates fired from ERP status changes' },
-        { text: 'Quick-reply address corrections correlated back to the consignment' },
-        { text: 'Failed-delivery retries scheduled instead of phoned' },
-        { text: 'Proof-of-delivery images received and filed against the order' },
+        { emoji: '🚚', text: 'Delivery-window and dispatch templates fired from ERP status changes' },
+        { emoji: '📍', text: 'Quick-reply address corrections correlated back to the consignment' },
+        { emoji: '🔁', text: 'Failed-delivery retries scheduled instead of phoned' },
+        { emoji: '📸', text: 'Proof-of-delivery images received and filed against the order' },
       ],
     },
     {
@@ -286,10 +269,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'Confirmation, dispatch and delivery updates sent as utility templates off the order record, with the reply landing in the same inbox your team already works from. Click-to-WhatsApp ads open a free 72-hour window, which is the economic reason they outperform.',
       benefits: [
-        { text: 'Order lifecycle templates driven from the commerce platform' },
-        { text: 'Click-to-WhatsApp ad traffic captured into the CRM with its campaign' },
-        { text: 'Cart-recovery flows that respect the window and the opt-in state' },
-        { text: 'Returns and exchanges handled in-thread with an audit trail' },
+        { emoji: '📦', text: 'Order lifecycle templates driven from the commerce platform' },
+        { emoji: '📣', text: 'Click-to-WhatsApp ad traffic captured into the CRM with its campaign' },
+        { emoji: '🛒', text: 'Cart-recovery flows that respect the window and the opt-in state' },
+        { emoji: '↩️', text: 'Returns and exchanges handled in-thread with an audit trail' },
       ],
     },
     {
@@ -298,10 +281,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'Authentication and servicing notifications as templates, with residency pinned and consent evidenced. Note the hard limit: Meta prohibits several financial verticals outright, including payday loans and debt collection, whatever licences you hold.',
       benefits: [
-        { text: 'Data residency pinned to a single country at rest' },
-        { text: 'Consent captured with wording version and timestamp' },
-        { text: 'Authentication templates with one-tap or copy-code buttons' },
-        { text: 'An honest read on whether your vertical is permitted at all' },
+        { emoji: '🌏', text: 'Data residency pinned to a single country at rest' },
+        { emoji: '🔒', text: 'Consent captured with wording version and timestamp' },
+        { emoji: '🔑', text: 'Authentication templates with one-tap or copy-code buttons' },
+        { emoji: '⚖️', text: 'An honest read on whether your vertical is permitted at all' },
       ],
     },
     {
@@ -310,10 +293,10 @@ export const WHATSAPP: ChannelPage = {
       description:
         'Prospective students answer on WhatsApp when they will not answer email. Enquiry, document chase and enrolment reminders run as templates against the student record, with the whole thread visible to whoever handles the application next.',
       benefits: [
-        { text: 'Enquiry capture straight into the student or applicant record' },
-        { text: 'Document-chase reminders as scheduled utility templates' },
-        { text: 'Routing by campus, programme or language' },
-        { text: 'Term-date and payment reminders off the student system' },
+        { emoji: '🎓', text: 'Enquiry capture straight into the student or applicant record' },
+        { emoji: '📄', text: 'Document-chase reminders as scheduled utility templates' },
+        { emoji: '🧭', text: 'Routing by campus, programme or language' },
+        { emoji: '📅', text: 'Term-date and payment reminders off the student system' },
       ],
     },
   ],

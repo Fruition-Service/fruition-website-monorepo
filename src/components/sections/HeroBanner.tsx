@@ -1,6 +1,7 @@
 "use client"
 
 import { urlFor } from "@/sanity/image"
+import type { ReactNode } from "react"
 import CtaButton from "@/components/CtaButton"
 import FramedMedia from "@/components/common/FramedMedia"
 import type { SanityImageRef, PartnerBadge } from "./types"
@@ -27,6 +28,8 @@ interface HeroBannerProps {
   partnerImageSrc?: SanityImageRef | string
   primaryCtaLabel?: string
   primaryCtaUrl?: string
+  /** Overrides the icon CtaButton infers from the primary label. */
+  primaryCtaIcon?: ReactNode
   secondaryCtaLabel?: string
   secondaryCtaUrl?: string
   /** When true, render text on the left and the hero image on the right (single row). */
@@ -76,6 +79,7 @@ export default function HeroBanner({
   partnerImageSrc,
   primaryCtaLabel,
   primaryCtaUrl,
+  primaryCtaIcon,
   secondaryCtaLabel,
   secondaryCtaUrl,
   splitLayout = false,
@@ -141,6 +145,7 @@ export default function HeroBanner({
                   <CtaButton
                     href={primaryCtaUrl}
                     label={primaryCtaLabel}
+                    icon={primaryCtaIcon}
                     variant={secondaryCtaLabel ? "outline" : "primary"}
                     className="w-full"
                   />
@@ -261,6 +266,7 @@ export default function HeroBanner({
             <CtaButton
               href={primaryCtaUrl}
               label={primaryCtaLabel}
+              icon={primaryCtaIcon}
               variant={secondaryCtaLabel ? "outline" : "primary"}
               className="w-full md:flex-1 md:max-w-[330px]"
             />

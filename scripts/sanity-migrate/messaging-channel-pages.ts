@@ -38,9 +38,6 @@ function toServicePage(key: keyof typeof CHANNEL_PAGES) {
 
     introStripBody: p.intro,
 
-    logoCloudHeadingPart1: p.logoCloudHeadingPart1,
-    logoCloudHeadingAccent: p.logoCloudHeadingAccent,
-
     capabilitiesEyebrow: p.capabilitiesEyebrow,
     capabilitiesHeading: p.capabilitiesHeading,
     capabilitiesHeadingAccent: p.capabilitiesHeadingAccent,
@@ -64,7 +61,9 @@ function toServicePage(key: keyof typeof CHANNEL_PAGES) {
         label: t.label,
         title: t.title,
         description: t.description,
-        benefits: withKeys(t.benefits.map((b) => ({ _type: 'benefit', text: b.text }))),
+        benefits: withKeys(
+          t.benefits.map((b) => ({ _type: 'benefit', emoji: b.emoji, text: b.text })),
+        ),
       })),
     ),
 
