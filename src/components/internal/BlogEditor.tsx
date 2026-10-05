@@ -193,6 +193,7 @@ export default function BlogEditor({
   const [alsoSendSocial, setAlsoSendSocial] = useState(!initial?.docId)
   const [publishing, startPublish] = useTransition()
   const [unpublishing, startUnpublish] = useTransition()
+  const [completing, startComplete] = useTransition()
 
   // Editing a live Sanity doc: the primary action updates it in place, and
   // Unpublish becomes available. Set once the post exists in Sanity — either
@@ -210,6 +211,11 @@ export default function BlogEditor({
   const [pipelineMeta, setPipelineMeta] = useState<Record<string, unknown>>(
     () => initial?.metadata ?? {},
   )
+
+  /* Review runs in two hands: the content editor marks the draft content
+     complete, which tags the SEO reviewer in the draft's Slack thread, and the
+     SEO reviewer publishes. */
+  const contentComplete = pipelineMeta.review_stage === "content_complete"
 
   const effectiveSlug = useMemo(
     () => (slugTouched && slug ? slugify(slug) : slugify(title)),
@@ -311,6 +317,53 @@ export default function BlogEditor({
       }
       setDraftId(data.id)
       setStatus("Draft saved.")
+    })
+  }
+
+  /* Save, then mark content complete. Saving first means the SEO reviewer
+     opens the text the editor just signed off, not the last autosave. */
+  function onMarkContentComplete() {
+    setError(null)
+    setStatus(null)
+    if (!title.trim()) {
+      setError("Add a title before marking it content complete.")
+      return
+    }
+    startComplete(async () => {
+      const r = await fetch("/api/internal/blog/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: draftId, title, body_markdown: body, metadata: metadata() }),
+      })
+      const saved = (await r.json().catch(() => ({}))) as { id?: string; error?: string }
+      if (!r.ok || !saved.id) {
+        setError(saved.error ?? "Could not save the draft, so it was not marked content complete.")
+        return
+      }
+      setDraftId(saved.id)
+
+      const cr = await fetch("/api/internal/blog/content-complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: saved.id }),
+      })
+      const done = (await cr.json().catch(() => ({}))) as {
+        metadata?: Record<string, unknown>
+        slackError?: string | null
+        error?: string
+      }
+      if (!cr.ok) {
+        setError(done.error ?? "Could not mark it content complete.")
+        return
+      }
+      // The route returns the stored metadata; adopting it keeps the next
+      // "Save draft" from erasing the review keys it just wrote.
+      if (done.metadata) setPipelineMeta(done.metadata)
+      if (done.slackError) {
+        setError(`Marked content complete, but the Slack handoff failed (${done.slackError}). Press the button again to retry.`)
+        return
+      }
+      setStatus("Marked content complete. The SEO reviewer has been tagged in Slack.")
     })
   }
 
@@ -568,6 +621,19 @@ export default function BlogEditor({
             ) : (
               <Badge variant="outline">Draft</Badge>
             )}
+            {!isPublished && contentComplete && (
+              <Badge
+                variant="outline"
+                className="border-[var(--purple-primary)]/30 text-[var(--purple-primary)]"
+                title={
+                  typeof pipelineMeta.content_completed_by === "string"
+                    ? `Marked by ${pipelineMeta.content_completed_by}`
+                    : undefined
+                }
+              >
+                Content complete · SEO review
+              </Badge>
+            )}
             <p className="text-xs text-muted-foreground">
               {isPublished
                 ? dirty
@@ -604,6 +670,22 @@ export default function BlogEditor({
             />
             <span>Send social</span>
           </label>
+          {/* Shown until the handoff has landed in Slack, so a failed post
+              can be retried from the same place. */}
+          {!isPublished && !(contentComplete && pipelineMeta.seo_review_ts) && (
+            <Button
+              variant="outline"
+              onClick={onMarkContentComplete}
+              disabled={completing || savingDraft || publishing}
+              title="Saves the draft and tags the SEO reviewer in the draft's Slack thread."
+            >
+              {completing
+                ? "Marking…"
+                : contentComplete
+                  ? "Retry Slack handoff"
+                  : "Mark content complete"}
+            </Button>
+          )}
           <Button
             variant="outline"
             onClick={onSaveDraft}
