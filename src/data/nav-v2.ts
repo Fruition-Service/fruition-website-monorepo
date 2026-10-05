@@ -317,6 +317,8 @@ export const NAV_V2: NavV2Item[] = [
           { label: 'Solar & Renewables', href: '/industries/solar-renewables', icon: 'sun', description: 'Solar CRM & work management' },
           { label: 'Financial Services', href: '/industries/financial-services', icon: 'dollar', description: 'APRA/FCA-aligned platforms & AI' },
           { label: 'Healthcare', href: '/industries/healthcare', icon: 'heart', description: 'HIPAA-configured platforms & AI' },
+          { label: 'Education', href: '/industries/education', icon: 'graduation', description: 'Admissions, student services & staff ops' },
+          { label: 'Nonprofits', href: '/industries/nonprofits', icon: 'handshake', description: 'Donor, grant & program systems' },
         ],
       },
     ],

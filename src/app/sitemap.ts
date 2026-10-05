@@ -49,6 +49,8 @@ const STATIC_PATHS: string[] = [
   "/industries/financial-services",
   "/industries/healthcare",
   "/industries/solar-renewables",
+  "/industries/education",
+  "/industries/nonprofits",
   "/consulting-blog",
   "/contact-us",
   "/customer-testimonials",

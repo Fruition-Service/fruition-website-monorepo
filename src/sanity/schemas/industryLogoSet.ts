@@ -32,6 +32,8 @@ const industryLogoSet = {
           { title: 'Financial Services', value: 'financial-services' },
           { title: 'Healthcare', value: 'healthcare' },
           { title: 'Solar & Renewables', value: 'solar-renewables' },
+          { title: 'Education', value: 'education' },
+          { title: 'Nonprofits', value: 'nonprofits' },
         ],
       },
       validation: (Rule: { required: () => unknown }) => Rule.required(),

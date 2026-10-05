@@ -5,8 +5,9 @@ import type { PracticePage } from './types'
  * from the v2.1 mockups (industries.html + financial-services / healthcare /
  * solar-renewables leaves), surname corrected to Jebathilak.
  *
- * The hub's sector cards link to the three leaves plus the existing
- * monday-for-* industry pages, which keep their current URLs.
+ * The hub's sector cards link to the leaves (financial services, healthcare,
+ * solar and renewables, education, nonprofits) plus the existing monday-for-*
+ * industry pages, which keep their current URLs.
  */
 
 const HUB = { label: 'Industries', href: '/industries' }
@@ -43,26 +44,32 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     services: [
       {
         title: 'Construction & Trades',
+        href: '/monday-for-construction',
         body: 'Job tracking, variations, safety workflows, and field-to-office visibility.',
       },
       {
         title: 'Financial Services',
+        href: '/industries/financial-services',
         body: 'APRA-aligned platforms, client onboarding, and compliance-heavy AI deployments.',
       },
       {
         title: 'Healthcare',
+        href: '/industries/healthcare',
         body: 'HIPAA-configured systems, patient workflow automation, and governed AI.',
       },
       {
         title: 'Manufacturing',
+        href: '/monday-for-manufacturing',
         body: 'Production scheduling, quality workflows, and supply-chain visibility.',
       },
       {
         title: 'Professional Services',
+        href: '/monday-for-professional-services',
         body: 'Client delivery, resource management, and utilisation intelligence.',
       },
       {
         title: 'Solar & Renewables',
+        href: '/industries/solar-renewables',
         body: 'Install pipeline CRM, job scheduling, and rebate workflow automation.',
       },
     ],
@@ -83,6 +90,16 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
         label: 'Healthcare',
         description: 'HIPAA-configured systems and patient workflows',
         href: '/industries/healthcare',
+      },
+      {
+        label: 'Education',
+        description: 'Admissions, student services, and staff operations',
+        href: '/industries/education',
+      },
+      {
+        label: 'Nonprofits',
+        description: 'Donors, grants, and program delivery',
+        href: '/industries/nonprofits',
       },
       {
         label: 'Manufacturing',
@@ -108,7 +125,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     faqs: [
       {
         q: 'Does Fruition specialise in specific industries?',
-        a: 'Yes: construction, financial services, healthcare, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 900+ delivered projects.',
+        a: 'Yes: construction, financial services, healthcare, education, nonprofits, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 900+ delivered projects.',
       },
       {
         q: 'How much does industry consulting cost with Fruition?',
@@ -340,6 +357,152 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       {
         q: 'How long does a typical solar business systems engagement take?',
         a: 'Most solar business systems engagements run 4 to 12 weeks from kickoff to delivery depending on scope. Fruition works in fixed phases with defined outcomes, so you always know what is being delivered, by when, and at what cost.',
+      },
+      {
+        q: 'Why choose Fruition over a Big-4 consulting firm?',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+      },
+      {
+        q: 'Can Fruition deliver this remotely?',
+        a: 'Yes. All Fruition services are delivered remotely as standard across Australia, the UK, and the US, with optional on-site workshop weeks in Sydney, London, and New York.',
+      },
+    ],
+  },
+
+  education: {
+    path: '/industries/education',
+    seoTitle: 'Education Workflow & AI Solutions | Fruition: Platforms for Schools & Universities',
+    seoDescription:
+      'Fruition implements platforms and governed AI for schools, universities, and training providers across Australia, the UK, and the US: admissions, student services, staff operations, and compliance workflows with privacy built in.',
+    breadcrumb: [HUB, { label: 'Education', href: '/industries/education' }],
+    eyebrow: 'Industries · Education',
+    heading: 'More time for teaching, less for the paperwork around it',
+    lead:
+      'Fruition implements platforms and governed AI for schools, universities, and training providers across Australia, the UK, and the US: admissions, student services, staff operations, and compliance workflows with privacy built in.',
+    approachHeading: 'Student data handled like it matters.',
+    approach: [
+      {
+        title: 'Privacy-mapped configuration',
+        body: 'FERPA, UK GDPR, and the Australian Privacy Principles mapped to permissions, retention, and audit logging before the first board is built.',
+      },
+      {
+        title: 'Operations, not the classroom',
+        body: 'We automate the work around teaching (enquiries, enrolments, timetabling inputs, staff onboarding), where administrative load actually builds up.',
+      },
+      {
+        title: 'Governed AI only',
+        body: 'Enquiry triage and document processing AI with human review gates and no student records used to train third-party models.',
+      },
+    ],
+    servicesEyebrow: 'What we build',
+    servicesHeading: 'Education systems.',
+    services: [
+      {
+        title: 'Admissions & enrolment',
+        body: 'Enquiry-to-enrolment pipelines with document collection, offer tracking, and conversion reporting per intake.',
+      },
+      {
+        title: 'Student services workflows',
+        body: 'Case management for support requests, special consideration, and wellbeing referrals with SLA visibility.',
+      },
+      {
+        title: 'Staff & compliance operations',
+        body: 'Onboarding, credential and clearance tracking, policy attestations, and accreditation evidence registers.',
+      },
+      {
+        title: 'Projects & grants',
+        body: 'Capital works, research grant, and program delivery tracking with milestone and budget reporting for leadership.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can monday.com be used by schools and universities with student data?',
+        a: 'Yes, with the right configuration: role-based permissions, SSO, audit logging, and data-retention rules set to your privacy obligations under FERPA, UK GDPR, or the Australian Privacy Principles. Fruition scopes which data belongs on the platform and which stays in your student information system.',
+      },
+      {
+        q: 'How much does education technology consulting cost with Fruition?',
+        a: 'Fruition education technology engagements start at AUD $12,000 for a structured initial phase, with fixed-fee pricing published per phase. Mid-scope projects are quoted after a scoping call. We serve Australia (AUD), the UK (GBP), and the US (USD) with local pricing in each region.',
+      },
+      {
+        q: 'Which regions does Fruition deliver education technology services in?',
+        a: 'Fruition delivers from Sydney (headquarters, serving APAC including Singapore and India), London (UK and Europe), and New York (US and Canada). Engagements are delivered remotely as standard, with optional on-site workshops in each region.',
+      },
+      {
+        q: 'How long does a typical education technology engagement take?',
+        a: 'Most education technology engagements run 4 to 12 weeks from kickoff to delivery depending on scope. Fruition works in fixed phases with defined outcomes, so you always know what is being delivered, by when, and at what cost.',
+      },
+      {
+        q: 'Why choose Fruition over a Big-4 consulting firm?',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+      },
+      {
+        q: 'Can Fruition deliver this remotely?',
+        a: 'Yes. All Fruition services are delivered remotely as standard across Australia, the UK, and the US, with optional on-site workshop weeks in Sydney, London, and New York.',
+      },
+    ],
+  },
+
+  nonprofits: {
+    path: '/industries/nonprofits',
+    seoTitle: 'Nonprofit CRM & Workflow Systems | Fruition: Donors, Grants & Programs',
+    seoDescription:
+      'Fruition implements platforms and governed AI for nonprofits and charities across Australia, the UK, and the US: donor and grant management, program delivery, volunteer coordination, and regulator-ready reporting.',
+    breadcrumb: [HUB, { label: 'Nonprofits', href: '/industries/nonprofits' }],
+    eyebrow: 'Industries · Nonprofits',
+    heading: 'More of every dollar reaching the mission',
+    lead:
+      'Fruition implements platforms and governed AI for nonprofits and charities across Australia, the UK, and the US: donor and grant management, program delivery, volunteer coordination, and regulator-ready reporting.',
+    approachHeading: 'Built for lean teams and accountable funding.',
+    approach: [
+      {
+        title: 'Reporting designed in',
+        body: 'ACNC, Charity Commission, and IRS Form 990 reporting needs mapped to the data model, so year-end figures come from the system, not a spreadsheet hunt.',
+      },
+      {
+        title: 'Every grant traceable',
+        body: 'Funding tracked from application to acquittal, with restricted funds, milestones, and outcome evidence tied to each grant.',
+      },
+      {
+        title: 'Sized to the team',
+        body: 'Systems a small operations team can run without a developer, using vendor nonprofit licensing where the organisation is eligible.',
+      },
+    ],
+    servicesEyebrow: 'What we build',
+    servicesHeading: 'Nonprofit systems.',
+    services: [
+      {
+        title: 'Donor & supporter CRM',
+        body: 'Supporter records, giving history, campaign tracking, and stewardship workflows in one view.',
+      },
+      {
+        title: 'Grant management',
+        body: 'Application pipelines, funder deadlines, acquittal reporting, and restricted-fund tracking per grant.',
+      },
+      {
+        title: 'Program delivery',
+        body: 'Client and participant case workflows, service delivery tracking, and outcome measurement for funders and boards.',
+      },
+      {
+        title: 'Volunteer coordination',
+        body: 'Recruitment, screening checks, rostering, and hours tracking with reminders handled automatically.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can monday.com or HubSpot work as a nonprofit CRM?',
+        a: 'Yes. Both platforms run nonprofit programmes with discounted licensing for eligible organisations, and both can model donors, grants, and programs. Fruition recommends the platform that fits your fundraising motion and team size, then configures it around your reporting obligations.',
+      },
+      {
+        q: 'How much does nonprofit technology consulting cost with Fruition?',
+        a: 'Fruition nonprofit technology engagements start at AUD $12,000 for a structured initial phase, with fixed-fee pricing published per phase. Mid-scope projects are quoted after a scoping call. We serve Australia (AUD), the UK (GBP), and the US (USD) with local pricing in each region.',
+      },
+      {
+        q: 'Which regions does Fruition deliver nonprofit technology services in?',
+        a: 'Fruition delivers from Sydney (headquarters, serving APAC including Singapore and India), London (UK and Europe), and New York (US and Canada). Engagements are delivered remotely as standard, with optional on-site workshops in each region.',
+      },
+      {
+        q: 'How long does a typical nonprofit technology engagement take?',
+        a: 'Most nonprofit technology engagements run 4 to 12 weeks from kickoff to delivery depending on scope. Fruition works in fixed phases with defined outcomes, so you always know what is being delivered, by when, and at what cost.',
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',

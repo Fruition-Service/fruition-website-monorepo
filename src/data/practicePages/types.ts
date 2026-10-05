@@ -41,7 +41,8 @@ export interface PracticePage {
   approach: { title: string; body: string }[]
   servicesEyebrow?: string
   servicesHeading: string
-  services: { title: string; body: string }[]
+  /** `href` turns the card into a link (e.g. the industries hub sector grid) */
+  services: { title: string; body: string; href?: string }[]
   childrenEyebrow?: string
   childrenHeading?: string
   children?: PracticeLink[]
