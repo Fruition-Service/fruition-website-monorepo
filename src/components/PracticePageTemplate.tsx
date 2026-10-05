@@ -118,12 +118,28 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
           <Eyebrow>{page.servicesEyebrow ?? 'Services'}</Eyebrow>
           <h2 className="text-section-h2 mb-10">{page.servicesHeading}</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {page.services.map((s) => (
-              <div key={s.title} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
-                <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{s.body}</p>
-              </div>
-            ))}
+            {page.services.map((s) =>
+              s.href ? (
+                <Link
+                  key={s.title}
+                  href={s.href}
+                  className="group rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 flex items-start justify-between gap-4 hover:ring-brand transition-colors"
+                >
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-brand transition-colors">
+                      {s.title}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed">{s.body}</p>
+                  </div>
+                  <span aria-hidden className="text-brand text-xl shrink-0 mt-0.5">→</span>
+                </Link>
+              ) : (
+                <div key={s.title} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
+                  <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{s.body}</p>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </section>

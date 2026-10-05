@@ -17,6 +17,8 @@ export const INDUSTRY_LOGO_KEYS = {
   '/industries/financial-services': 'financial-services',
   '/industries/healthcare': 'healthcare',
   '/industries/solar-renewables': 'solar-renewables',
+  '/industries/education': 'education',
+  '/industries/nonprofits': 'nonprofits',
 } as const
 
 export type IndustryLogoKey = (typeof INDUSTRY_LOGO_KEYS)[keyof typeof INDUSTRY_LOGO_KEYS]
