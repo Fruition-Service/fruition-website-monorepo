@@ -124,27 +124,95 @@ export async function upsertDocBySlug(
 }
 
 /**
- * Convenience helper: turn a plain text into Sanity Portable Text blocks.
- * Splits on double newlines for paragraphs, single newlines become soft breaks.
+ * Convenience helper: turn plain text into Sanity Portable Text blocks,
+ * recovering bullet and numbered lists (see answerToPortableText).
  */
 export function textToPortableText(text: string) {
-  return text
+  return answerToPortableText(text)
+}
+
+type PtBlock = {
+  _type: 'block'
+  _key: string
+  style: 'normal'
+  markDefs: []
+  children: { _type: 'span'; _key: string; text: string; marks: [] }[]
+  listItem?: 'bullet' | 'number'
+  level?: number
+}
+
+const rand = () => Math.random().toString(36).slice(2)
+
+function ptSpan(text: string) {
+  return { _type: 'span' as const, _key: rand(), text: text.trim(), marks: [] as [] }
+}
+
+function ptBlock(text: string, list?: { listItem: 'bullet' | 'number'; level: number }): PtBlock {
+  const block: PtBlock = {
+    _type: 'block',
+    _key: rand(),
+    style: 'normal',
+    markDefs: [],
+    children: [ptSpan(text)],
+  }
+  if (list) {
+    block.listItem = list.listItem
+    block.level = list.level
+  }
+  return block
+}
+
+// A concluding segment (not a list item) typically opens with one of these.
+const CONCLUDING_OPENERS =
+  /^(This|These|With|Whether|Overall|In summary|In short|As a result|Together|Ultimately|Additionally)\b/
+
+/** A short, single-clause segment reads as a list item; a multi-sentence or
+ *  concluding-opener segment reads as a paragraph. */
+function looksLikeListItem(seg: string): boolean {
+  if (CONCLUDING_OPENERS.test(seg)) return false
+  // More than one sentence (a sentence-ender followed by more text) → paragraph.
+  if (/[.!?]\s+\S/.test(seg.replace(/[.!?]\s*$/, ''))) return false
+  return true
+}
+
+/**
+ * Convert an authored answer string into Portable Text, recovering bullet and
+ * numbered lists. Segments are separated by blank lines. A segment ending in
+ * ":" introduces a list; the short single-clause segments that follow become
+ * bullet items until a concluding paragraph. Segments beginning "N." become
+ * numbered items, with any indented follow-on lines as nested bullets.
+ */
+export function answerToPortableText(text: string): PtBlock[] {
+  const segments = text
     .split(/\n\s*\n/)
-    .filter((p) => p.trim().length > 0)
-    .map((paragraph) => ({
-      _type: 'block',
-      _key: Math.random().toString(36).slice(2),
-      style: 'normal',
-      markDefs: [],
-      children: [
-        {
-          _type: 'span',
-          _key: Math.random().toString(36).slice(2),
-          text: paragraph.trim(),
-          marks: [],
-        },
-      ],
-    }))
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0)
+
+  const blocks: PtBlock[] = []
+  let expectingList = false
+
+  for (const seg of segments) {
+    const numbered = seg.match(/^(\d+)\.\s+/)
+    if (numbered) {
+      const lines = seg.split(/\n/).map((l) => l.trim()).filter(Boolean)
+      blocks.push(ptBlock(lines[0].replace(/^\d+\.\s+/, ''), { listItem: 'number', level: 1 }))
+      for (const line of lines.slice(1)) {
+        blocks.push(ptBlock(line, { listItem: 'bullet', level: 2 }))
+      }
+      expectingList = false
+      continue
+    }
+
+    if (expectingList && looksLikeListItem(seg)) {
+      blocks.push(ptBlock(seg, { listItem: 'bullet', level: 1 }))
+      continue
+    }
+
+    blocks.push(ptBlock(seg))
+    expectingList = seg.endsWith(':')
+  }
+
+  return blocks
 }
 
 /** Add stable _key fields to every element of an object array (required by Sanity). */
