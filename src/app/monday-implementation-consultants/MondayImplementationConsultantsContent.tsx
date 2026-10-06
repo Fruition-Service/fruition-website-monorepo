@@ -191,7 +191,9 @@ interface Props {
 function imageUrl(ref: SanityImageRef): string | null {
   if (!ref || !ref.asset?._ref) return null
   try {
-    return urlFor(ref).width(800).height(600).fit("crop").auto("format").url()
+    // Badges, logos and screenshots all come through here, so never crop to a fixed
+    // aspect ratio: fit("max") only scales down, keeping each image whole.
+    return urlFor(ref).width(1600).fit("max").auto("format").url()
   } catch {
     return null
   }
