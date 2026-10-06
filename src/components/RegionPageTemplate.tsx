@@ -93,12 +93,25 @@ export default function RegionPageTemplate({
         primaryCtaUrl={bookingUrl}
       />
 
+      {/*
+        The booking band runs directly under the hero on all six partner
+        pages, so the CTA is reachable without scrolling. Josh's 2026-10-06
+        page report found these pages engaged but barely scrolling, so the way
+        to book should no longer sit behind the services, the client wall and
+        the quotes.
+      */}
+      <CalendlySection
+        heading={region.closingCta.heading}
+        subheading={region.closingCta.lead}
+        calendlyUrl={rawCalendly}
+        bookingRegion={region.bookingRegion}
+      />
+
       <RegionServicesSection services={region.services} />
 
       {/*
         The offer first, then the proof that backs it: the client wall and the
-        quotes stay together as one unit and now follow the services list
-        rather than running straight off the hero.
+        quotes stay together as one unit and follow the services list.
       */}
       <ClientProofSection
         eyebrow={region.clients.eyebrow}
@@ -114,22 +127,6 @@ export default function RegionPageTemplate({
         ctaLabel="Book a call"
         ctaUrl={bookingUrl}
         caseStudies={caseStudies}
-      />
-
-      {/*
-        The contact + booking band stays high on the page: the offer, then the
-        proof, then the way to act on it — rather than ten sections down.
-
-        It used to close the page — BookingSection is the purple→midnight
-        gradient the design ends on — so nothing follows the FAQ now. The FAQ's
-        own contact aside (a consultant + mailto) carries the bottom instead,
-        and the sticky CTA bar stays available the whole way down.
-      */}
-      <CalendlySection
-        heading={region.closingCta.heading}
-        subheading={region.closingCta.lead}
-        calendlyUrl={rawCalendly}
-        bookingRegion={region.bookingRegion}
       />
 
       <RegionVideoSection
