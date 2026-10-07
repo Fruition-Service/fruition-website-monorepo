@@ -13,6 +13,14 @@
     { "pattern": "fruitionmonday.com/*", "zone_name": "fruitionmonday.com" },
     { "pattern": "www.fruitionmonday.com/*", "zone_name": "fruitionmonday.com" }
   ],
+  // wrangler bundles with esbuild `keepNames` by default, which injects
+  // `__name(fn, "fn")` calls. Libraries that serialise a function into an
+  // inline <script> via `.toString()` (next-themes' theme bootstrap, rendered
+  // on every page) then ship that call to the browser, where `__name` does not
+  // exist: an uncaught "__name is not defined" on every load and a theme class
+  // that is never applied before hydration. Nothing in the app reads minified
+  // function/class `.name`s, so turning it off is safe.
+  "keep_names": false,
   "compatibility_date": "2025-03-25",
   "compatibility_flags": [
     "nodejs_compat",
