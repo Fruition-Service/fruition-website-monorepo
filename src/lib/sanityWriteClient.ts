@@ -568,7 +568,7 @@ function buildBlogPostDoc(input: UpsertBlogPostInput): Record<string, unknown> {
   if (input.seoTitle) doc.seoTitle = input.seoTitle
   if (input.seoDescription) doc.seoDescription = input.seoDescription
   if (input.categoryIds && input.categoryIds.length > 0) {
-    doc.categories = input.categoryIds.map((id) => ({
+    doc.categories = [...new Set(input.categoryIds)].map((id) => ({
       _type: "reference",
       _key: nextKey(),
       _ref: id,
@@ -668,7 +668,7 @@ export async function upsertBlogPost(
     if (input.seoDescription) set.seoDescription = input.seoDescription
     if (input.mondayItemId) set.mondayItemId = input.mondayItemId
     if (input.categoryIds && input.categoryIds.length > 0) {
-      set.categories = input.categoryIds.map((id) => ({
+      set.categories = [...new Set(input.categoryIds)].map((id) => ({
         _type: "reference",
         _key: nextKey(),
         _ref: id,

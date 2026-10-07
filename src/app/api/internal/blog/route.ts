@@ -74,12 +74,17 @@ export async function POST(req: Request) {
   // Editing an existing post: pass its docId so the write updates in place.
   const docIdInput = String(form.get("docId") ?? "").trim()
   // categoryIds may arrive as repeated fields or a comma-separated string.
+  // getAll() already includes the value get() returns, so dedupe: without it a
+  // single category was written to Sanity twice and rendered as two tags.
   const categoryIds = [
-    ...form.getAll("categoryIds").map((v) => String(v)),
-    ...String(form.get("categoryIds") ?? "").split(","),
+    ...new Set(
+      form
+        .getAll("categoryIds")
+        .flatMap((v) => String(v).split(","))
+        .map((s) => s.trim())
+        .filter(Boolean),
+    ),
   ]
-    .map((s) => s.trim())
-    .filter(Boolean)
   const cover = form.get("coverImage")
 
   if (!title) return NextResponse.json({ error: "Title is required." }, { status: 400 })

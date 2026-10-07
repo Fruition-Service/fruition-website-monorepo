@@ -10,7 +10,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params
   const [post, relatedPosts] = await Promise.all([
     getBlogPostBySlug(slug),
-    getRelatedBlogPosts(slug, 2),
+    getRelatedBlogPosts(slug, 3),
   ])
   if (!post) notFound()
 
