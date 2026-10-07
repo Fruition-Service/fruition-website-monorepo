@@ -10,6 +10,8 @@ import { urlFor } from "@/sanity/image"
 import { authorSlug } from "@/sanity/authorSlug"
 import { parseInlineMarkdown } from "@/lib/inlineMarkdown"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
+import BlogCard from "@/components/BlogCard"
+import BlogShareBar from "@/components/BlogShareBar"
 import { parseVideoUrl, videoEmbedSrc } from "@/lib/videoEmbed"
 
 // Hosts allowed to embed players (Twitch rejects unknown `parent`s). Derived
@@ -53,7 +55,11 @@ export interface RelatedBlogPost {
   title: string
   slug: string
   publishedAt?: string
+  author?: string
+  excerpt?: string
+  charCount?: number
   coverImage?: SanityImage
+  categories?: BlogCategoryRef[]
 }
 
 interface BlogPostTemplateProps {
@@ -520,103 +526,24 @@ function VideoEmbeds({ urls }: { urls: string[] }) {
 }
 
 function TagsRow({ categories }: { categories: BlogCategoryRef[] }) {
-  if (!categories?.length) return null
+  // Older posts reference the same category more than once; show each tag once.
+  const unique = categories.filter(
+    (cat, i) => cat?.slug && categories.findIndex((c) => c?.slug === cat.slug) === i,
+  )
+  if (!unique.length) return null
   return (
-    <div className="flex flex-wrap items-start gap-x-[12px] gap-y-[10px] w-full">
-      {categories.map((cat) => (
+    <div className="flex flex-wrap items-center gap-[10px] w-full">
+      {unique.map((cat) => (
         <Link
           key={cat.slug}
           href={`/consulting-blog/categories/${cat.slug}`}
-          className="inline-flex items-start px-[13px] py-[7px] bg-surface-raised border border-ui hover:border-brand-dark transition-colors"
+          className="inline-flex items-center rounded-pill px-[14px] py-[6px] bg-brand-soft border border-transparent hover:border-brand-dark transition-colors"
         >
-          <span className="font-mono text-xs font-semibold uppercase tracking-[0.14em] leading-[17px] text-brand">
+          <span className="font-mono text-xs font-semibold uppercase tracking-[0.12em] leading-[18px] text-brand-dark">
             {cat.title}
           </span>
         </Link>
       ))}
-    </div>
-  )
-}
-
-function EngagementBar() {
-  return (
-    <div className="flex flex-col items-start w-full">
-      {/* Share icons row — divider top, 66px min-h, pt-24 pb-23 */}
-      <div className="relative flex items-center min-h-[66px] pt-[24px] pb-[23px] w-full border-t border-ui">
-        <div className="flex gap-[30px] items-center">
-          {/* Facebook */}
-          <button
-            aria-label="Share on Facebook"
-            className="size-[19px] flex items-center justify-center hover:opacity-70 transition-opacity"
-          >
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11.83 6.08V4.66c0-.69.46-.86.78-.86h1.98V1.02L11.85 1c-3.02 0-3.71 2.27-3.71 3.72v1.36H6.39v2.97h1.78v7.95h3.43V9.05h2.54l.12-1.17.19-1.8h-2.62Z"
-                fill="var(--text-body)"
-              />
-            </svg>
-          </button>
-          {/* LinkedIn */}
-          <button
-            aria-label="Share on LinkedIn"
-            className="size-[19px] flex items-center justify-center hover:opacity-70 transition-opacity"
-          >
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M4.3 6.43H1.22v9.92H4.3V6.43ZM2.76 1.08c-1.06 0-1.76.7-1.76 1.6 0 .89.68 1.6 1.72 1.6h.02c1.08 0 1.76-.71 1.76-1.6-.02-.9-.68-1.6-1.74-1.6ZM12.31 6.21c-1.63 0-2.36.9-2.77 1.53V6.43H6.46c.04.87 0 9.92 0 9.92h3.08v-5.54c0-.28.02-.55.1-.75.22-.55.73-1.13 1.59-1.13 1.12 0 1.57.85 1.57 2.1v5.32H15.9v-5.68c0-2.85-1.52-4.17-3.55-4.17l-.04-.29Z"
-                fill="var(--text-body)"
-              />
-            </svg>
-          </button>
-          {/* Link */}
-          <button
-            aria-label="Copy link"
-            className="size-[19px] flex items-center justify-center hover:opacity-70 transition-opacity"
-          >
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M8 11.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5l-1 1M11 7.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5l1-1"
-                stroke="var(--text-body)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          {/* Send */}
-          <button
-            aria-label="Share"
-            className="size-[19px] flex items-center justify-center hover:opacity-70 transition-opacity"
-          >
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M17 2 9.5 9.5M17 2l-5 15-2.5-7.5L2 7l15-5Z"
-                stroke="var(--text-body)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      {/* Like row — divider top, pt-19 */}
-      <div className="relative flex items-center justify-end pt-[19px] w-full border-t border-ui">
-        <button
-          aria-label="Like post"
-          className="flex items-center justify-center size-[19px] hover:opacity-70 transition-opacity"
-        >
-          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M9.5 16.5s-6-3.63-6-8.25A3.75 3.75 0 0 1 9.5 5.25 3.75 3.75 0 0 1 15.5 8.25c0 4.62-6 8.25-6 8.25Z"
-              stroke="#E84A43"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
     </div>
   )
 }
@@ -652,98 +579,37 @@ function ArticleToc({ entries }: { entries: TocEntry[] }) {
   )
 }
 
-function RelatedPostCard({ post }: { post: RelatedBlogPost }) {
-  const imgSrc = post.coverImage?.asset?._ref
-    ? urlFor(post.coverImage).width(580).height(324).url()
-    : null
-  return (
-    <Link
-      href={`/post/${post.slug}`}
-      className="group bg-surface-raised relative flex-1 min-w-0 max-w-[290.67px] self-stretch rounded-card shadow-whisper ring-1 ring-ui hover:ring-brand-dark dark:shadow-none transition-colors overflow-hidden"
-    >
-      <div className="flex flex-col items-start h-full">
-        {/* Image — 162px tall, full card width */}
-        <div className="relative w-full h-[162.36px] overflow-hidden">
-          {imgSrc ? (
-            <Image
-              src={imgSrc}
-              alt={post.title}
-              fill
-              sizes="290px"
-              className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
-            />
-          ) : (
-            <div className="size-full bg-gradient-to-br from-brand to-brand-light" />
-          )}
-        </div>
-        {/* Body */}
-        <div className="flex flex-col items-start flex-1 w-full pt-[24px] px-[24px] pb-[24px]">
-          <div className="flex flex-col items-start w-full overflow-hidden">
-            <p className="font-bold text-[18px] leading-[normal] text-body w-full line-clamp-2 group-hover:text-brand-dark transition-colors">
-              {post.title}
-            </p>
-          </div>
-          {/* Footer — divider top, pt-16, h-34 */}
-          <div className="mt-auto w-full pt-[16px] flex items-start justify-between h-[34px] border-t border-ui">
-            <div className="flex items-center h-full">
-              <div className="flex items-center gap-[6px]">
-                <svg
-                  width="19"
-                  height="19"
-                  viewBox="0 0 19 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.5 2C5.5 2 2.17 4.44 1 6c1.17 1.56 4.5 4 8.5 4s7.33-2.44 8.5-4c-1.17-1.56-4.5-4-8.5-4Zm0 6.67A2.67 2.67 0 1 1 9.5 3.33a2.67 2.67 0 0 1 0 5.34Z"
-                    fill="var(--text-body)"
-                  />
-                </svg>
-                <span className="font-normal text-[12px] leading-[18px] text-body">
-                  0
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center h-full">
-              <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M9.5 16.5s-6-3.63-6-8.25A3.75 3.75 0 0 1 9.5 5.25 3.75 3.75 0 0 1 15.5 8.25c0 4.62-6 8.25-6 8.25Z"
-                  stroke="#E84A43"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
-  )
-}
-
 function RelatedPostsSection({ posts }: { posts: RelatedBlogPost[] }) {
   if (!posts?.length) return null
   return (
-    <section className="flex flex-col items-start gap-[20px] w-full">
-      {/* Header */}
-      <header className="flex items-start justify-between w-full h-[27px]">
-        <div className="flex flex-col items-start self-stretch">
-          <h2 className="font-normal text-[18px] leading-[27px] text-body whitespace-nowrap">
-            Recent Posts
-          </h2>
-        </div>
+    <section className="flex flex-col gap-[24px] w-full pt-[8px]">
+      <header className="flex items-end justify-between gap-4 w-full">
+        <h2 className="font-semibold text-[22px] leading-[30px] md:text-[24px] md:leading-[32px] text-body">
+          Recent posts
+        </h2>
         <Link
           href="/consulting-blog"
-          className="flex flex-col items-start self-stretch font-normal text-[14px] leading-[21px] text-body whitespace-nowrap hover:text-brand-dark transition-colors"
+          className="inline-flex items-center gap-[6px] text-[14px] leading-[21px] font-semibold text-brand-dark hover:underline whitespace-nowrap"
         >
-          See All
+          See all
+          <span aria-hidden>&rarr;</span>
         </Link>
       </header>
-      {/* Cards row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-[34px] items-start w-full">
-        {posts.slice(0, 2).map((p) => (
-          <RelatedPostCard key={p._id} post={p} />
+      {/* Same card as the /consulting-blog listing, so the two read as one system. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[24px] gap-y-[40px] w-full">
+        {posts.slice(0, 3).map((p, i) => (
+          <div key={p._id} className={i === 2 ? "md:hidden lg:block" : undefined}>
+            <BlogCard
+              title={p.title}
+              slug={p.slug}
+              excerpt={p.excerpt}
+              publishedAt={p.publishedAt}
+              author={p.author}
+              coverImage={p.coverImage}
+              charCount={p.charCount}
+              categories={p.categories}
+            />
+          </div>
         ))}
       </div>
     </section>
@@ -819,16 +685,15 @@ export default function BlogPostTemplate({
             )}
           </div>
 
-          {/* Bottom-of-article conversion CTA */}
-          <AuditCtaBanner bookingUrl={calendlyUrl} contained={false} />
-
-          {/* Tags (from categories) */}
+          {/* Tags (from categories) close out the article itself */}
           {post.categories && post.categories.length > 0 && (
             <TagsRow categories={post.categories} />
           )}
 
-          {/* Engagement bar */}
-          <EngagementBar />
+          <BlogShareBar title={post.title} />
+
+          {/* Bottom-of-article conversion CTA */}
+          <AuditCtaBanner bookingUrl={calendlyUrl} contained={false} />
 
           {/* Related posts */}
           <RelatedPostsSection posts={relatedPosts} />

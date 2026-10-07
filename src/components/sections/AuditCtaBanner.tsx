@@ -11,6 +11,9 @@ import { bookingHref } from "@/lib/bookingLink"
  * `containerClassName` to match the host page's own grid.
  * Pass `contained={false}` when the banner already sits inside a content
  * column — e.g. the blog article body.
+ *
+ * The card runs on the CTA-blue ramp (the same gradient as the booking band
+ * and sticky bar): blue means "act here", purple stays with content.
  */
 
 const DEFAULT_HEADING = "Ready to build systems that scale with your team?"
@@ -47,13 +50,13 @@ export default function AuditCtaBanner({
 }: AuditCtaBannerProps) {
   const card = (
     <aside
-      className={`relative w-full overflow-hidden rounded-card p-[28px] md:p-[40px] lg:p-[52px] bg-gradient-to-br from-surface-dark-2 to-surface-dark${
+      className={`relative w-full overflow-hidden rounded-card p-[28px] md:p-[40px] lg:p-[52px] bg-[linear-gradient(160deg,var(--cta-blue-deep)_0%,var(--cta-blue)_55%,var(--cta-blue-light)_115%)] md:bg-[linear-gradient(110deg,var(--cta-blue-deep)_0%,var(--cta-blue)_50%,var(--cta-blue-light)_105%)]${
         contained ? "" : ` ${className}`
       }`}
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute -top-[140px] -right-[110px] size-[360px] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-brand)_40%,transparent)_0%,transparent_70%)]"
+        className="pointer-events-none absolute -top-[140px] -right-[110px] size-[360px] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--cta-blue-pale)_35%,transparent)_0%,transparent_70%)]"
       />
       <div className="relative flex flex-col gap-[20px] md:gap-7 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
         <div className="max-w-[560px] lg:max-w-[720px]">

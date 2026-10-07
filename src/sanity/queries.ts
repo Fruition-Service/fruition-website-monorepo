@@ -51,7 +51,11 @@ export async function getRelatedBlogPosts(excludeSlug: string, limit = 2) {
       title,
       "slug": slug.current,
       publishedAt,
-      "coverImage": coalesce(coverImage, mainImage, featuredImage, heroImage, body[_type == "image"][0])
+      author,
+      excerpt,
+      "coverImage": coalesce(coverImage, mainImage, featuredImage, heroImage, body[_type == "image"][0]),
+      "charCount": length(pt::text(body)),
+      categories[]->{ _id, title, "slug": slug.current }
     }`,
     { excludeSlug, limit }
   )
