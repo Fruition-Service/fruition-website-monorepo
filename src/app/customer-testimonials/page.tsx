@@ -53,10 +53,47 @@ function badgeImageUrl(ref: SanityImageRef): string | null {
 }
 
 /**
- * Case-study cards render the image full-bleed inside a 1200px-max card, so it
- * needs the full asset width — not a thumbnail. `fit=max` keeps the source
- * aspect ratio and caps at the original resolution rather than upscaling.
+ * The Sanity card images are only 797x421, but the card renders them full-bleed
+ * at up to ~1088 CSS px (~2176 device px at 2x), so small in-image text was
+ * upscaled and pixelated. Known cards are served from local high-res AVIFs
+ * (generated from the original captures in public/images), keyed by the Sanity
+ * card `_key`. Cards without an entry fall back to their Sanity image.
  */
+const HIGH_RES_CASE_STUDY_IMAGES: Record<string, { src: string; srcSet: string }> = {
+  "cs-bl-air": {
+    src: "/case-studies/bl-air.avif",
+    srcSet: "/case-studies/bl-air-1200.avif 1200w, /case-studies/bl-air.avif 2400w",
+  },
+  "cs-clsq": {
+    src: "/case-studies/clsq.avif",
+    srcSet: "/case-studies/clsq-1200.avif 1200w, /case-studies/clsq.avif 2400w",
+  },
+  "cs-givergy": {
+    src: "/case-studies/givergy.avif",
+    srcSet: "/case-studies/givergy-1200.avif 1200w, /case-studies/givergy.avif 2400w",
+  },
+  "cs-hvac": {
+    src: "/case-studies/hvac.avif",
+    srcSet: "/case-studies/hvac-1200.avif 1200w, /case-studies/hvac.avif 2400w",
+  },
+  "cs-popology": {
+    src: "/case-studies/popology.avif",
+    srcSet: "/case-studies/popology-1200.avif 1200w, /case-studies/popology.avif 2400w",
+  },
+  "cs-promotify": {
+    src: "/case-studies/promotify.avif",
+    srcSet: "/case-studies/promotify-1200.avif 1200w, /case-studies/promotify.avif 2400w",
+  },
+  "cs-r2s": {
+    src: "/case-studies/r2s.avif",
+    srcSet: "/case-studies/r2s-1200.avif 1200w, /case-studies/r2s.avif 2400w",
+  },
+  "cs-tourism-nt": {
+    src: "/case-studies/tourism-nt.avif",
+    srcSet: "/case-studies/tourism-nt-1200.avif 1200w, /case-studies/tourism-nt.avif 2400w",
+  },
+}
+
 function cardImageUrl(ref: SanityImageRef): string | null {
   if (!ref?.asset?._ref) return null
   try {
@@ -226,16 +263,20 @@ export default async function CustomerTestimonialsPage() {
       {/* Case studies — filterable by industry & solution */}
       <TestimonialFilterGrid
         heading={page?.caseStudySectionHeading}
-        cards={caseStudyCards.map((s) => ({
-          _key: s._key,
-          title: s.title,
-          product: s.product,
-          industry: s.industry,
-          services: s.services,
-          timeline: s.timeline,
-          verifiedSource: s.verifiedSource,
-          imageUrl: getCaseStudyImageSrc(s.image),
-        }))}
+        cards={caseStudyCards.map((s) => {
+          const highRes = s._key ? HIGH_RES_CASE_STUDY_IMAGES[s._key] : undefined
+          return {
+            _key: s._key,
+            title: s.title,
+            product: s.product,
+            industry: s.industry,
+            services: s.services,
+            timeline: s.timeline,
+            verifiedSource: s.verifiedSource,
+            imageUrl: highRes ? highRes.src : getCaseStudyImageSrc(s.image),
+            imageSrcSet: highRes?.srcSet,
+          }
+        })}
       />
 
       {/* Mid-page conversion banner — shared site-wide */}
