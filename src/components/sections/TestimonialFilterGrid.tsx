@@ -8,6 +8,7 @@ export interface CaseStudyCard {
   title?: string
   /** Pre-resolved on the server (RSC can't pass a resolver function across the boundary). */
   imageUrl?: string | null
+  imageSrcSet?: string
   product?: string
   industry?: string
   services?: string
@@ -230,7 +231,13 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
                     {imgSrc && (
                       <FramedMedia className="mt-10">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={imgSrc} alt={study.title || "Case study"} className="w-full h-auto block rounded-[20px]" />
+                        <img
+                          src={imgSrc}
+                          srcSet={study.imageSrcSet}
+                          sizes={study.imageSrcSet ? "(max-width: 768px) 100vw, 1088px" : undefined}
+                          alt={study.title || "Case study"}
+                          className="w-full h-auto block rounded-[20px]"
+                        />
                       </FramedMedia>
                     )}
                   </div>
