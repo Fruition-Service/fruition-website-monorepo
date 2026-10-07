@@ -1,5 +1,8 @@
 /* AdWords landing page document (source: monday item asset au-ai-business-consulting-services.html).
-   Self-contained by design: own styles/fonts, no site chrome, noindex. */
+   Self-contained by design: no site chrome, noindex. Styles come from the shared
+   site theme in landingPageTheme.ts. */
+import { LP_FONTS, LP_CONSULTING_CSS } from "@/lib/landingPageTheme"
+
 export const html = `<!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -14,132 +17,17 @@ export const html = `<!DOCTYPE html>
 <meta property="og:description" content="Supercharge operations, eliminate manual bottlenecks, and scale with Australia's premier AI strategy consultants. Custom LLMs, intelligent workflows, agentic automation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.fruitionservices.io/au/ai-business-consulting-services">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+${LP_FONTS}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Fruition Services: AI Consulting Services Australia","description":"AI strategy consultants delivering AI management consulting, business process automation, custom LLM deployment and agentic systems for Australian businesses.","url":"https://www.fruitionservices.io/au/ai-business-consulting-services","provider":{"@type":"Organization","name":"Fruition Services Pty Ltd","identifier":"ABN 12 667 454 006","address":{"@type":"PostalAddress","streetAddress":"12/64 York Street","addressLocality":"Sydney","addressRegion":"NSW","postalCode":"2000","addressCountry":"AU"}},"areaServed":[{"@type":"Country","name":"Australia"},{"@type":"Country","name":"New Zealand"}],"serviceType":"AI consulting and business process automation"}
 </script>
-<style>
-:root{--p9:#2D1450;--p7:#5B2A86;--p5:#7C3FB0;--p3:#B68FD9;--p1:#EFE5F7;--p05:#F7F2FB;
---ink:#15121F;--soft:#4A4458;--light:#6B6479;--lighter:#9990A5;--cream:#FAF8FC;
---line:#E8E0F0;--green:#2E9E5F;--gold:#E8B33D}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter Tight',sans-serif;background:#fff;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
-
-/* Topbar: logo only + sticky CTA (top-right desktop) */
-.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.topbar-in{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;max-width:1120px;margin:0 auto}
-.logo{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--p7)}
-.logo span{color:var(--ink)}
-.sticky-cta{background:var(--p7);color:#fff;padding:11px 20px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 4px 14px rgba(91,42,134,.3)}
-.sticky-cta:hover{background:var(--p9)}
-/* Mobile: sticky bottom bar per spec */
-.mob-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding:12px 16px;background:rgba(255,255,255,.97);border-top:1px solid var(--line)}
-.mob-cta a{display:block;text-align:center;background:var(--p7);color:#fff;padding:14px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none}
-
-/* Hero */
-.hero{padding:52px 0 48px;background:linear-gradient(180deg,#fff 0%,var(--p05) 100%)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.badge{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:600}
-.badge-dark{background:var(--p9);color:#fff}
-.badge-lite{background:var(--p1);color:var(--p7)}
-.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
-h1{font-family:'Fraunces',serif;font-weight:500;font-size:42px;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px}
-h1 em{font-style:italic;color:var(--p7)}
-.sub{font-size:16.5px;color:var(--soft);line-height:1.6;margin-bottom:24px;max-width:540px}
-/* Hero inline form */
-.hero-form{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 10px 30px rgba(45,20,80,.08);max-width:480px}
-.hf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.hero-form input{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:9px;font-family:inherit;font-size:14px;color:var(--ink)}
-.hero-form input:focus{outline:none;border-color:var(--p7)}
-.hf-btn{width:100%;background:var(--p7);color:#fff;border:none;padding:15px;border-radius:10px;font-family:inherit;font-weight:700;font-size:15.5px;cursor:pointer}
-.hf-btn:hover{background:var(--p9)}
-.hf-note{font-size:11.5px;color:var(--light);text-align:center;margin-top:9px}
-
-/* AI pipeline graphic — pure CSS */
-.pipe{background:var(--p9);border-radius:16px;padding:28px;box-shadow:0 24px 60px rgba(45,20,80,.25);position:relative;overflow:hidden}
-.pipe::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(124,63,176,.4),transparent 55%)}
-.pipe-title{color:var(--p3);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;position:relative}
-.node-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative}
-.node{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:11px 14px;color:#fff;font-size:12.5px;font-weight:600;flex:1}
-.node small{display:block;color:rgba(255,255,255,.55);font-weight:400;font-size:10.5px;margin-top:2px}
-.node.hot{background:rgba(232,179,61,.14);border-color:rgba(232,179,61,.45)}
-.arrow{color:var(--p3);font-size:15px;flex-shrink:0}
-.pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 8px var(--green)}
-
-/* Trust strip */
-.trust{padding:26px 0;border-bottom:1px solid var(--line)}
-.trust-txt{text-align:center;font-size:13px;color:var(--light);margin-bottom:14px}
-.trust-logos{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;align-items:center}
-.tlogo{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:#A9A2B5}
-
-section{padding:62px 0}
-.eyebrow{font-size:12px;color:var(--p7);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;text-align:center}
-h2{font-family:'Fraunces',serif;font-weight:500;font-size:32px;letter-spacing:-.015em;line-height:1.15;margin-bottom:14px;text-align:center}
-.lede{font-size:15.5px;color:var(--soft);max-width:640px;margin:0 auto 38px;text-align:center;line-height:1.6}
-.alt{background:var(--p05)}
-
-.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.cap{background:#fff;border:1px solid var(--line);border-radius:13px;padding:28px 24px;border-top:4px solid var(--p7)}
-.cap h3{font-family:'Fraunces',serif;font-size:18.5px;font-weight:600;margin-bottom:9px;line-height:1.25}
-.cap p{font-size:14px;color:var(--soft);line-height:1.6}
-
-.why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.why-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:26px 24px}
-.why-num{font-size:26px;font-weight:700;color:var(--p7);font-family:'Fraunces',serif;margin-bottom:8px}
-.why-card h3{font-size:16.5px;font-weight:700;margin-bottom:8px}
-.why-card p{font-size:13.5px;color:var(--soft);line-height:1.6}
-
-.team{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.tm{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden}
-.tm-img{aspect-ratio:4/3;background:linear-gradient(135deg,var(--p7),var(--p9));display:flex;align-items:flex-end;padding:14px;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:15px}
-.tm-body{padding:18px 20px}
-.tm-role{font-size:11.5px;color:var(--p7);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.tm-body p{font-size:13.5px;color:var(--soft);line-height:1.55}
-
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.step{background:#fff;border:1px solid var(--line);border-radius:13px;padding:24px 20px}
-.step-n{width:30px;height:30px;border-radius:50%;background:var(--p7);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:12px}
-.step h3{font-size:15px;font-weight:700;margin-bottom:7px}
-.step p{font-size:13px;color:var(--soft);line-height:1.55}
-
-.close-band{background:linear-gradient(135deg,var(--p7),var(--p9));color:#fff}
-.close-band h2,.close-band .lede{color:#fff}
-.close-band .lede{color:rgba(255,255,255,.85)}
-.form-card{background:#fff;border-radius:16px;padding:34px;max-width:560px;margin:0 auto;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-.ff{margin-bottom:14px}
-.ff label{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
-.ff input,.ff textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:9px;font-family:inherit;font-size:14.5px;color:var(--ink)}
-.ff input:focus,.ff textarea:focus{outline:none;border-color:var(--p7)}
-.ff textarea{min-height:88px;resize:vertical}
-.form-btn{width:100%;background:var(--p7);color:#fff;border:none;padding:16px;border-radius:10px;font-family:inherit;font-weight:700;font-size:16px;cursor:pointer}
-.form-btn:hover{background:var(--p9)}
-.form-trust{text-align:center;font-size:12px;color:var(--light);margin-top:12px}
-
-.foot{padding:28px 0 90px;text-align:center;font-size:12px;color:var(--lighter);border-top:1px solid var(--line)}
-
-@media(max-width:900px){
-h1{font-size:31px}h2{font-size:25px}
-.hero-grid,.caps,.why,.team,.steps{grid-template-columns:1fr}
-.hero{padding:32px 0}
-.pipe{display:none}
-section{padding:44px 0}
-.topbar .sticky-cta{display:none}
-.mob-cta{display:block}
-.hf-row{grid-template-columns:1fr}
-}
-@media(min-width:901px){.foot{padding-bottom:28px}}
-</style>
+<style>${LP_CONSULTING_CSS}</style>
 </head>
 <body>
 
 <!-- Topbar: non-clickable logo + sticky CTA (desktop top-right) -->
 <div class="topbar"><div class="topbar-in">
-<div class="logo">Fruition<span>.</span></div>
+<div class="logo"><img src="https://www.fruitionservices.io/images/logo-fruition-black.svg" alt="Fruition Services"></div>
 <a href="#book" class="sticky-cta">Book Free Consultation</a>
 </div></div>
 <!-- Mobile sticky bottom CTA -->
