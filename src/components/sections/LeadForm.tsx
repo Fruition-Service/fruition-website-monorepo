@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { trackLead } from "@/lib/leadTracking"
 import { stashThankYouMessage, THANK_YOU_PATH } from "@/lib/thankYou"
 
 export interface LeadFormField {
@@ -76,6 +77,7 @@ export default function LeadForm({
       const body = (await r.json().catch(() => ({}))) as { ok?: boolean; error?: string }
       if (r.ok && body.ok) {
         setStatus("done")
+        trackLead(source)
         stashThankYouMessage(successMessage)
         router.push(THANK_YOU_PATH)
       } else {

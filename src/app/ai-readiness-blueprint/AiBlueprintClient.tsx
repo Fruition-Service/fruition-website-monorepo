@@ -1,6 +1,7 @@
 "use client"
 
 import { BOOKING_ANCHOR } from "@/lib/bookingLink"
+import { trackLead } from "@/lib/leadTracking"
 import { useEffect, useState } from "react"
 import CtaButton from "@/components/CtaButton"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
@@ -293,6 +294,7 @@ export default function AiBlueprintClient() {
       })
       const j = (await r.json()) as { ok?: boolean }
       if (!j.ok) throw new Error("lead failed")
+      trackLead("ai-readiness-blueprint")
       setLeadState("done")
     } catch {
       setLeadState("error")
