@@ -1,12 +1,8 @@
+import { landingPageResponse } from "@/lib/landingPage"
 import { html } from "./content"
 
-// Google Ads landing page: served verbatim (own design system, no site chrome).
-// noindex (meta + header): paid-traffic page, must stay out of organic search.
+// Google Ads landing page: served verbatim (own design system, no site chrome),
+// with GTM, the lead-form wiring and the booking calendar added at serve time.
 export function GET() {
-  return new Response(html, {
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "X-Robots-Tag": "noindex",
-    },
-  })
+  return landingPageResponse(html, { source: "adwords-lp-au-monday-partner", region: "APAC" })
 }
