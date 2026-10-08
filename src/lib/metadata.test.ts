@@ -11,6 +11,10 @@ describe("ogCardTitle", () => {
       "monday.com Platinum Consulting Partner in the UK",
     )
     expect(ogCardTitle("Ishani Dhar Chowdhury: Fruition Blog")).toBe("Ishani Dhar Chowdhury")
+    expect(ogCardTitle("monday.com Platinum Partner UK \u2014 Fixed-Fee Implementation | Fruition")).toBe(
+      "monday.com Platinum Partner UK",
+    )
+    expect(ogCardTitle("Fixed-Fee Implementation")).toBe("Fixed-Fee Implementation")
     expect(ogCardTitle("Fruition | monday.com Consulting, Automation & Transformation")).toBe(
       "monday.com Consulting, Automation & Transformation",
     )
