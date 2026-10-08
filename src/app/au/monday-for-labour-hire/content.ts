@@ -99,17 +99,34 @@ ${LP_FONTS}
 <div class="clients">
 <div class="wrap">
 <p>Australian teams running on systems Fruition built</p>
-<!-- CLIENT-CHIPS: Edward &mdash; swap to grayscale logos only where permission is signed off -->
-<div class="chip-row">
-<span class="chip">Tourism Northern Territory</span>
-<span class="chip">CSIRO</span>
-<span class="chip">Specsavers</span>
-<span class="chip">G8 Education</span>
-<span class="chip">Clean Power Australia</span>
-<span class="chip">HVAC Australia</span>
+<div class="logo-row">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/cb5de1aa82b86f22541c7028689450bcde7b5aa2-444x168.png?w=260&fit=max&auto=format" alt="Tourism NT" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/81985272b636b9b5ea67500e58ba32665bfd027e-900x207.png?w=260&fit=max&auto=format" alt="CSIRO" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/9435fce8d10d7491b53c702de6cbf0d50e5e508f-899x344.png?w=260&fit=max&auto=format" alt="Specsavers" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/034c0b291272f680c860dc42ac88d17776d2f356-900x248.png?w=260&fit=max&auto=format" alt="Telstra" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/a14a489bf6daf919159631dffd558601b81b9e9f-2224x500.png?w=260&fit=max&auto=format" alt="Clean Power" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/8b93b38eaf62687bcb0983c7bbaf7bfdb4e6c9e3-425x119.png?w=260&fit=max&auto=format" alt="HVAC Australia" loading="lazy">
 </div>
 </div>
 </div>
+
+<section class="final" id="book">
+<div class="wrap">
+<div class="inner">
+<div>
+<p class="k">Book a time</p>
+<h2>Ready to get running in days, not months?</h2>
+<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
+</div>
+<div class="calendly-box">
+<!-- CALENDLY: Edward &mdash; AU/NZ round-robin inline embed. Australia &amp; New Zealand team ONLY. -->
+Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes here
+</div>
+</div>
+</div>
+</section>
 
 <section>
 <div class="wrap">
@@ -179,24 +196,6 @@ ${LP_FONTS}
 <details><summary>How is compliance handled?</summary><div class="a">Tickets, licences and medicals are stored against each candidate with automated expiry alerts and site-requirement matching, so no one is placed without current documentation.</div></details>
 <details><summary>Does it connect to payroll?</summary><div class="a">We hand off structured timesheet and placement data to payroll platforms via integrations or exports &mdash; no re-keying between systems.</div></details>
 <details><summary>What does it cost?</summary><div class="a">Fixed fee quoted after a scoping call, agreed before any build starts. monday.com licences are billed separately and we'll tell you which plan tier you actually need.</div></details>
-</div>
-</section>
-
-<section class="final" id="book">
-<div class="wrap">
-<div class="inner">
-<div>
-<p class="k">Book a time</p>
-<h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
-</div>
-<div class="calendly-box">
-<!-- CALENDLY: Edward &mdash; AU/NZ round-robin inline embed. Australia &amp; New Zealand team ONLY. -->
-Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes here
-</div>
-</div>
 </div>
 </section>
 

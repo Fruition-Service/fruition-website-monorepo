@@ -100,17 +100,34 @@ ${LP_FONTS}
 <div class="clients">
 <div class="wrap">
 <p>Australian contractors running tender workflows on Fruition builds</p>
-<!-- CLIENT-CHIPS: Edward &mdash; swap to grayscale logos only where permission is signed off -->
-<div class="chip-row">
-<span class="chip">Acciona</span>
-<span class="chip">Bielby</span>
-<span class="chip">Qanstruct</span>
-<span class="chip">Sekisui House</span>
-<span class="chip">DCOH</span>
-<span class="chip">Evolve Construction</span>
+<div class="logo-row">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/09ca61a758adbb476278fde27d53182a18ed95f1-269x114.png?w=260&fit=max&auto=format" alt="Evolve Constructions" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/47f46119cde1e03ae657ef7e33b12dd5259de72f-167x56.png?w=260&fit=max&auto=format" alt="Bielby" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/759b67ae90b27b98db708a19aa0d7f97b6a80e59-900x701.png?w=260&fit=max&auto=format" alt="Qanstruct" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/f2217ec4d8bf40fe9d4f6678c5f419a83a0f7f38-822x660.png?w=260&fit=max&auto=format" alt="North Australian Contracting" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/f7e4751bdc4d00994e1cfaf06bfb8051f39a5429-899x435.png?w=260&fit=max&auto=format" alt="Roofclad Systems" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/79fd8ce19259142c0e0df9dc996771aed44629f9-900x374.png?w=260&fit=max&auto=format" alt="High Voltage Distribution Contracting" loading="lazy">
 </div>
 </div>
 </div>
+
+<section class="final" id="book">
+<div class="wrap">
+<div class="inner">
+<div>
+<p class="k">Book a time</p>
+<h2>Ready to get running in days, not months?</h2>
+<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
+</div>
+<div class="calendly-box">
+<!-- CALENDLY: Edward &mdash; AU/NZ round-robin inline embed. Australia &amp; New Zealand team ONLY. -->
+Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes here
+</div>
+</div>
+</div>
+</section>
 
 <section>
 <div class="wrap">
@@ -180,24 +197,6 @@ ${LP_FONTS}
 <details><summary>Can it handle our go/no-go process?</summary><div class="a">Yes &mdash; structured scoring gates with required sign-offs before estimating hours are committed, including capacity and margin checks.</div></details>
 <details><summary>How do deadlines stay visible?</summary><div class="a">Every bid carries countdowns, owner assignments and automated escalations, with a portfolio view showing every live submission across the business.</div></details>
 <details><summary>How fast can we be running?</summary><div class="a">Most tender teams are live inside two to three weeks &mdash; it's one connected workflow, not a company-wide rollout. Fixed fee agreed up front.</div></details>
-</div>
-</section>
-
-<section class="final" id="book">
-<div class="wrap">
-<div class="inner">
-<div>
-<p class="k">Book a time</p>
-<h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
-</div>
-<div class="calendly-box">
-<!-- CALENDLY: Edward &mdash; AU/NZ round-robin inline embed. Australia &amp; New Zealand team ONLY. -->
-Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes here
-</div>
-</div>
 </div>
 </section>
 

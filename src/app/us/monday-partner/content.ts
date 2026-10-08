@@ -96,17 +96,34 @@ ${LP_FONTS}
 <div class="clients">
 <div class="wrap">
 <p>US organizations running on systems Fruition built</p>
-<!-- CLIENT-LOGOS: Edward &mdash; swap chips for grayscale Sanity logos (US set) -->
-<div class="chip-row">
-<span class="chip">Honor Credit Union</span>
-<span class="chip">Craters &amp; Freighters</span>
-<span class="chip">Housing Authority of San Antonio</span>
-<span class="chip">Stout Risius Ross</span>
-<span class="chip">Kitchen Tune-Up</span>
-<span class="chip">Windfall Bio</span>
+<div class="logo-row">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/d2e6dc4334e1606e67425bc053a37448256f4064-245x65.png?w=260&fit=max&auto=format" alt="Honor Credit Union" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/0d3d62e77fc7cf22ef21c98c635f556b88d4a248-598x139.png?w=260&fit=max&auto=format" alt="Craters &amp; Freighters" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/1382e1e8f4f564a9edc0b735d4f5be714dec4631-493x267.png?w=260&fit=max&auto=format" alt="Housing Authority of San Antonio" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/eea7f2e6894c62b89b2826a9e7b8c3ffdb4867b6-899x323.png?w=260&fit=max&auto=format" alt="Stout Risius Ross" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/15611f5d8faef6072dbba71919d2e6b529afda96-900x205.png?w=260&fit=max&auto=format" alt="Kitchen Tune-Up" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/083ae3ffd4c52231b16644e20579e67af884326e-3675x500.png?w=260&fit=max&auto=format" alt="Windfall Bio" loading="lazy">
 </div>
 </div>
 </div>
+
+<section class="final" id="book">
+<div class="wrap">
+<div class="inner">
+<div>
+<p class="k">Book a time</p>
+<h2>Ready to get running in days, not months?</h2>
+<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET–PT business hours</p>
+</div>
+<div class="calendly-box">
+<!-- CALENDLY: Edward &mdash; US/North America round-robin &mdash; North America team ONLY -->
+Calendly embed &mdash; US/North America round-robin &mdash; North America team ONLY
+</div>
+</div>
+</div>
+</section>
 
 <section>
 <div class="wrap">
@@ -192,24 +209,6 @@ ${LP_FONTS}
 <details><summary>How long does a rollout take?</summary><div class="a">Most US engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; company-wide rollouts with migration and finance integrations run longer. The schedule is agreed on during scoping, not discovered halfway through.</div></details>
 <details><summary>Can you migrate us from Salesforce, HubSpot or Asana?</summary><div class="a">Yes &mdash; structured migrations with contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell, and a parallel-run cutover so work never stops.</div></details>
 <details><summary>Are your consultants actually in the US?</summary><div class="a">Yes &mdash; US engagements are scoped and delivered by consultants working US hours, led from New York with coverage across every time zone. Our global team is available for follow-the-sun coverage as an option, not the default.</div></details>
-</div>
-</section>
-
-<section class="final" id="book">
-<div class="wrap">
-<div class="inner">
-<div>
-<p class="k">Book a time</p>
-<h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET–PT business hours</p>
-</div>
-<div class="calendly-box">
-<!-- CALENDLY: Edward &mdash; US/North America round-robin &mdash; North America team ONLY -->
-Calendly embed &mdash; US/North America round-robin &mdash; North America team ONLY
-</div>
-</div>
 </div>
 </section>
 

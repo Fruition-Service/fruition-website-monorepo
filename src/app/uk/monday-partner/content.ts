@@ -107,6 +107,24 @@ ${LP_FONTS}
 </div>
 </div>
 
+<section class="final" id="book">
+<div class="wrap">
+<div class="inner">
+<div>
+<p class="k">Book a time</p>
+<h2>Ready to get running in days, not months?</h2>
+<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> · GMT/BST business hours</p>
+</div>
+<div class="calendly-box">
+<!-- CALENDLY: Edward &mdash; UK/EMEA round-robin &mdash; UK team ONLY -->
+Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
+</div>
+</div>
+</div>
+</section>
+
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
@@ -191,24 +209,6 @@ ${LP_FONTS}
 <details><summary>How long does a rollout take?</summary><div class="a">Most UK engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; group-wide rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
 <details><summary>How is UK GDPR handled?</summary><div class="a">monday.com publishes UK and EU data-residency options, a sub-processor list, DPA and security certifications. We design boards and permissions so personal data sits only where your policy allows, and help your team map the platform commitments against your DPIA.</div></details>
 <details><summary>Do you work with UK public sector organisations?</summary><div class="a">Yes &mdash; councils, housing associations, universities and charities, including procurement, security questionnaires and supplier onboarding. Insurance certificates and referee details available for tender responses.</div></details>
-</div>
-</section>
-
-<section class="final" id="book">
-<div class="wrap">
-<div class="inner">
-<div>
-<p class="k">Book a time</p>
-<h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> · GMT/BST business hours</p>
-</div>
-<div class="calendly-box">
-<!-- CALENDLY: Edward &mdash; UK/EMEA round-robin &mdash; UK team ONLY -->
-Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
-</div>
-</div>
 </div>
 </section>
 

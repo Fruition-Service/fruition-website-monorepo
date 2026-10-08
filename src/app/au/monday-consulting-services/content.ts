@@ -64,9 +64,9 @@ ${LP_FONTS}
 <div class="trust"><div class="wrap">
 <div class="trust-txt">Trusted by leading Australian and global organisations</div>
 <div class="trust-logos">
-<span class="tlogo">Specsavers</span>
-<span class="tlogo">CSIRO</span>
-<span class="tlogo">HVAC Australia</span>
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/9435fce8d10d7491b53c702de6cbf0d50e5e508f-899x344.png?w=260&fit=max&auto=format" alt="Specsavers" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/81985272b636b9b5ea67500e58ba32665bfd027e-900x207.png?w=260&fit=max&auto=format" alt="CSIRO" loading="lazy">
+<img src="https://cdn.sanity.io/images/bt6nb58h/production/8b93b38eaf62687bcb0983c7bbaf7bfdb4e6c9e3-425x119.png?w=260&fit=max&auto=format" alt="HVAC Australia" loading="lazy">
 </div>
 </div></div>
 
