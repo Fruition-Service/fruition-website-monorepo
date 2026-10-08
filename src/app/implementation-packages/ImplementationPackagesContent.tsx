@@ -490,91 +490,6 @@ export default function ImplementationPackagesContent({
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 4 -- Services Content (bg-[#f0ecfe])                 */}
-      {/* ============================================================ */}
-      <section className="bg-surface-subtle">
-        <div className="mx-auto flex flex-col items-center px-4 py-14 md:py-24">
-          {/* 4a: Intro heading */}
-          <div className="text-section-h2 max-w-[924px] text-center">
-            <p>
-              <span className="text-body">{servicesIntroHeadingPart1}</span>
-              <span className="text-brand">{servicesIntroHeadingAccent}</span>
-              <span className="text-body">{servicesIntroHeadingPart2}</span>
-            </p>
-          </div>
-
-          {/* 4b: Two feature cards */}
-          {featureCards.length > 0 && (
-          <div className="mt-10 md:mt-14 grid w-full max-w-[1200px] grid-cols-1 gap-6 md:grid-cols-2 md:gap-7">
-            {featureCards.map((card, i) => (
-              <div
-                key={card._key ?? i}
-                className="dark:shadow-none rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 md:p-7"
-              >
-                <div className="flex items-start gap-5 md:gap-7">
-                  <span className="text-5xl leading-none md:text-6xl">{card.emoji}</span>
-                  <h3 className="text-card-title text-body font-medium">
-                    {card.title}
-                  </h3>
-                </div>
-                <p className="mt-5 text-body">
-                  {card.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          )}
-
-          {/* 4c: Social proof banner */}
-          {(socialProofBannerHtml || socialProofCtaUrl) && (
-            <div className="mt-10 md:mt-14 flex w-full max-w-[1200px] flex-col items-start gap-6 rounded-card bg-gradient-to-r from-surface-dark to-brand px-6 py-7 md:flex-row md:items-center md:pl-7 md:pr-11">
-              {socialProofBannerHtml && (
-                <div className="flex-1 text-lg font-medium text-white md:text-xl">
-                  <PortableText
-                    value={socialProofBannerHtml}
-                    components={{
-                      block: {
-                        normal: ({ children }) => {
-                          return (
-                            <p>
-                              {(Array.isArray(children) ? children : [children]).map((child, i) => {
-                                if (typeof child !== "string") return child
-                                const highlight = "900+ small-medium sized enterprises"
-                                const idx = child.indexOf(highlight)
-                                if (idx === -1) return child
-                                return (
-                                  <span key={i}>
-                                    {child.slice(0, idx)}
-                                    <span className="text-brand-light">
-                                      {highlight}
-                                    </span>
-                                    {child.slice(idx + highlight.length)}
-                                  </span>
-                                )
-                              })}
-                            </p>
-                          )
-                        },
-                      },
-                    }}
-                  />
-                </div>
-              )}
-              {socialProofCtaUrl && (
-                <Link
-                  href={socialProofCtaUrl}
-                  className="cta-btn cta-btn-on-dark-outline w-full shrink-0 md:w-auto md:min-w-[216px]"
-                >
-                  <CtaLabel label={socialProofCtaLabel} />
-                </Link>
-              )}
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      {/* ============================================================ */}
       {/* SECTION 4.5 -- Pricing Packages                              */}
       {/* ============================================================ */}
       <section className="bg-surface">
@@ -835,6 +750,91 @@ export default function ImplementationPackagesContent({
             </p>
           </div>
 
+      </section>
+
+      {/* ============================================================ */}
+      {/* SECTION 4 -- Services Content (bg-[#f0ecfe])                 */}
+      {/* ============================================================ */}
+      <section className="bg-surface-subtle">
+        <div className="mx-auto flex flex-col items-center px-4 py-14 md:py-24">
+          {/* 4a: Intro heading */}
+          <div className="text-section-h2 max-w-[924px] text-center">
+            <p>
+              <span className="text-body">{servicesIntroHeadingPart1}</span>
+              <span className="text-brand">{servicesIntroHeadingAccent}</span>
+              <span className="text-body">{servicesIntroHeadingPart2}</span>
+            </p>
+          </div>
+
+          {/* 4b: Two feature cards */}
+          {featureCards.length > 0 && (
+          <div className="mt-10 md:mt-14 grid w-full max-w-[1200px] grid-cols-1 gap-6 md:grid-cols-2 md:gap-7">
+            {featureCards.map((card, i) => (
+              <div
+                key={card._key ?? i}
+                className="dark:shadow-none rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 md:p-7"
+              >
+                <div className="flex items-start gap-5 md:gap-7">
+                  <span className="text-5xl leading-none md:text-6xl">{card.emoji}</span>
+                  <h3 className="text-card-title text-body font-medium">
+                    {card.title}
+                  </h3>
+                </div>
+                <p className="mt-5 text-body">
+                  {card.description}
+                </p>
+              </div>
+            ))}
+          </div>
+          )}
+
+          {/* 4c: Social proof banner */}
+          {(socialProofBannerHtml || socialProofCtaUrl) && (
+            <div className="mt-10 md:mt-14 flex w-full max-w-[1200px] flex-col items-start gap-6 rounded-card bg-gradient-to-r from-surface-dark to-brand px-6 py-7 md:flex-row md:items-center md:pl-7 md:pr-11">
+              {socialProofBannerHtml && (
+                <div className="flex-1 text-lg font-medium text-white md:text-xl">
+                  <PortableText
+                    value={socialProofBannerHtml}
+                    components={{
+                      block: {
+                        normal: ({ children }) => {
+                          return (
+                            <p>
+                              {(Array.isArray(children) ? children : [children]).map((child, i) => {
+                                if (typeof child !== "string") return child
+                                const highlight = "900+ small-medium sized enterprises"
+                                const idx = child.indexOf(highlight)
+                                if (idx === -1) return child
+                                return (
+                                  <span key={i}>
+                                    {child.slice(0, idx)}
+                                    <span className="text-brand-light">
+                                      {highlight}
+                                    </span>
+                                    {child.slice(idx + highlight.length)}
+                                  </span>
+                                )
+                              })}
+                            </p>
+                          )
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              {socialProofCtaUrl && (
+                <Link
+                  href={socialProofCtaUrl}
+                  className="cta-btn cta-btn-on-dark-outline w-full shrink-0 md:w-auto md:min-w-[216px]"
+                >
+                  <CtaLabel label={socialProofCtaLabel} />
+                </Link>
+              )}
+            </div>
+          )}
+
+        </div>
       </section>
 
       {/* Mid-page conversion banner — shared site-wide */}
