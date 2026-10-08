@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     "dist/**",
     ".wrangler/**",
     ".vercel/**",
+    // Standalone Cloudflare Workers with their own package.json and tsconfig.
+    "workers/**",
     // Vendored pdfjs worker, copied verbatim from node_modules on postinstall.
     "public/pdf.worker.min.mjs",
     // One-off operational/migration utilities — not shipped code. They predate

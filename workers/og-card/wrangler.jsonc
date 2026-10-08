@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Social preview cards for fruitionservices.io. A separate Worker because the
+  // renderer (satori + resvg wasm) does not fit in the main site Worker's 10 MiB
+  // budget. This route is more specific than the site's `www.fruitionservices.io/*`,
+  // so Cloudflare sends /og-card here and everything else to fruition-landing.
+  "name": "fruition-og-card",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "account_id": "f1b68ef3302095898d5eb4ed4a07062d",
+  "routes": [{ "pattern": "www.fruitionservices.io/og-card*", "zone_name": "fruitionservices.io" }],
+  "rules": [
+    { "type": "Data", "globs": ["**/*.ttf"], "fallthrough": true },
+    { "type": "Text", "globs": ["**/*.svg"], "fallthrough": true }
+  ],
+  "observability": { "enabled": true }
+}

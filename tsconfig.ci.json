@@ -6,5 +6,5 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "scripts", "n8n", "qa", "backups", "dist", "supabase", ".open-next"]
+  "exclude": ["node_modules", "scripts", "n8n", "qa", "backups", "dist", "supabase", ".open-next", "workers"]
 }

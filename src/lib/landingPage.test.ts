@@ -33,4 +33,16 @@ describe("withLandingPageTracking", () => {
     expect(out.match(/generate_lead/g)).toHaveLength(1)
     expect(out).toContain("GTM-PF6XWTL6")
   })
+
+  it("adds social preview tags built from the page's own title", () => {
+    const out = withLandingPageTracking(legal, opts)
+    const image = out.match(/<meta property="og:image" content="([^"]+)">/)?.[1]
+    expect(image).toBeDefined()
+    const url = new URL(image!.replace(/&amp;/g, "&"))
+    expect(url.pathname).toBe("/og-card")
+    expect(url.searchParams.get("eyebrow")).toBe("monday.com Partner · Australia")
+    expect(url.searchParams.get("title")).not.toMatch(/Fruition$/)
+    expect(out).toContain('<meta name="twitter:card" content="summary_large_image">')
+    expect(out.indexOf('property="og:title"')).toBeLessThan(out.indexOf("</head>"))
+  })
 })
