@@ -58,3 +58,24 @@ The internal portal (`/internal`) uses **shadcn/ui components only** — never h
 | Sanity schemas, GROQ, cache revalidation | `/sanity-content` |
 | Deploying, Workers runtime, KV bindings | `/cloudflare-deploy` |
 | monday.com, Slack, RB2B, Supabase, Calendly | `/integrations` |
+
+## Google Ads (MCP server)
+
+Fruition's Google Ads account **845-729-9561** (customer ID `8457299561`, AUD) is reachable
+from Claude Code through the user-scope MCP server **`google-ads-fruition`** (tools
+`search_search`, `metadata_get_resource_metadata`, `customers_list_accessible_customers`,
+plus the write tools `mutate_mutate`, `mutate_set_status`, `mutate_set_campaign_daily_budget`).
+It lives on Edward's machine, not in this repo. Setup, credentials and rebuild steps:
+[docs/google-ads-mcp.md](docs/google-ads-mcp.md).
+
+- **Use `google-ads-fruition`, not `google-ads`.** The plain `google-ads` server is the Kelin
+  Studio one and cannot see Fruition's account.
+- **Writes are dry runs by default** (`validate_only=true`). Show Edward exactly what will
+  change, get a yes for that specific change, then repeat the call with `validate_only=false`.
+  Live spend is roughly A$350/day across the AU, UK and US Search campaigns.
+- Look up IDs with `search_search` first and check fields with
+  `metadata_get_resource_metadata`. Never guess resource names.
+- Experiment (trial) campaigns reject status, budget and date changes. Change the base
+  campaign or end the experiment instead.
+- Site conversion tags live in GTM container **GTM-PF6XWTL6**, not in this repo. The Google
+  Ads conversion ID is `AW-1003400430`.
