@@ -113,13 +113,14 @@ function ogEyebrow(path: string): string {
 }
 
 /**
- * The headline for the card: the leading part of the SEO title, without the
- * "| Fruition …" / ": Fruition Blog" brand tails (the card already carries the logo).
+ * The headline for the card: the leading part of the SEO title, cut at the first
+ * " | " or spaced dash, without the "| Fruition …" / ": Fruition Blog" brand tails
+ * (the card already carries the logo).
  */
 export function ogCardTitle(title: string): string {
   const parts = title
     .replace(/:\s*Fruition Blog$/i, "")
-    .split(/\s+\|\s+/)
+    .split(/\s+[|\u2014\u2013]\s+/)
     .map((p) => p.trim())
     .filter((p) => p && !/^Fruition( Services)?$/i.test(p))
   return parts[0] ?? title
