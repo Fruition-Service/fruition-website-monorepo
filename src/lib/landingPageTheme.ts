@@ -100,9 +100,8 @@ h1 em{font-style:normal;color:var(--brand)}
 /* Client strip */
 .clients{padding:56px 0;background:var(--surface);border-top:1px solid var(--lilac);border-bottom:1px solid var(--lilac)}
 .clients p{text-align:center;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:24px}
-.chip-row,.logo-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
-.chip{background:var(--mist);border:1px solid var(--lilac);border-radius:16px;padding:16px 24px;font-size:15px;font-weight:600;color:var(--fg)}
-.logo-row img{height:72px;width:168px;object-fit:contain;padding:18px 24px;background:var(--mist);border:1px solid var(--lilac);border-radius:16px}
+.logo-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+.logo-row img{height:80px;width:168px;object-fit:contain;padding:14px 20px;background:var(--mist);border:1px solid var(--lilac);border-radius:16px}
 
 /* Section heads */
 .alt{background:var(--tint-bg)}
@@ -217,8 +216,7 @@ body{padding-bottom:68px}
 .stats .grid4>div:nth-child(odd){border-left:0;padding-left:0}
 .stats .l{font-size:13px}
 .clients{padding:40px 0}
-.chip{padding:12px 16px;font-size:14px}
-.logo-row img{width:140px;height:60px;padding:14px 18px}
+.logo-row img{width:140px;height:64px;padding:10px 14px}
 details .a{padding:0 0 20px 40px}
 .lede{margin-bottom:32px}
 footer .wrap{flex-direction:column;align-items:flex-start}
@@ -290,7 +288,7 @@ h1 em{font-style:normal;color:var(--brand)}
 .trust{padding:56px 0;border-top:1px solid var(--lilac);border-bottom:1px solid var(--lilac)}
 .trust-txt{text-align:center;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:24px}
 .trust-logos{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;align-items:center}
-.tlogo{background:var(--mist);border:1px solid var(--lilac);border-radius:16px;padding:16px 28px;font-size:16px;font-weight:600;color:var(--fg)}
+.trust-logos img{height:80px;width:168px;object-fit:contain;padding:14px 20px;background:var(--mist);border:1px solid var(--lilac);border-radius:16px}
 
 /* Section heads */
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:16px;text-align:center}
@@ -362,6 +360,6 @@ body{padding-bottom:68px}
 .stat{padding:22px}
 .form-card{padding:28px 20px;border-radius:20px}
 .trust{padding:40px 0}
-.tlogo{padding:12px 18px;font-size:14px}
+.trust-logos img{width:140px;height:64px;padding:10px 14px}
 }
 `

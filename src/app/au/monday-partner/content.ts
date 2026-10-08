@@ -107,6 +107,24 @@ ${LP_FONTS}
 </div>
 </div>
 
+<section class="final" id="book">
+<div class="wrap">
+<div class="inner">
+<div>
+<p class="k">Book a time</p>
+<h2>Ready to get running in days, not months?</h2>
+<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
+</div>
+<div class="calendly-box">
+<!-- CALENDLY: Edward &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand team ONLY -->
+Calendly embed &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand team ONLY
+</div>
+</div>
+</div>
+</section>
+
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
@@ -191,24 +209,6 @@ ${LP_FONTS}
 <details><summary>How long does a rollout take?</summary><div class="a">Most Australian engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; group-wide rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
 <details><summary>Can our data stay in Australia?</summary><div class="a">monday.com offers regional data residency options and publishes its security certifications. We design boards and permissions so data sits where your policy requires, and help you map platform commitments against your compliance needs.</div></details>
 <details><summary>Do you work with Australian government organisations?</summary><div class="a">Yes. Fruition is an approved Advanced-level supplier on the NSW Government ICT Services Scheme (SCM0020) and has delivered through government procurement including QITC frameworks. Insurance certificates and referee details available for tender responses.</div></details>
-</div>
-</section>
-
-<section class="final" id="book">
-<div class="wrap">
-<div class="inner">
-<div>
-<p class="k">Book a time</p>
-<h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
-</div>
-<div class="calendly-box">
-<!-- CALENDLY: Edward &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand team ONLY -->
-Calendly embed &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand team ONLY
-</div>
-</div>
 </div>
 </section>
 
