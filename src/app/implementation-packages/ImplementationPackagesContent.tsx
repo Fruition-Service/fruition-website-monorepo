@@ -219,7 +219,6 @@ export default function ImplementationPackagesContent({
           return { _key: `nav-badge-${i}`, src, alt: b.name ?? `Partner badge ${i + 1}` }
         })
         .filter((x): x is ResolvedPartnerBadge => x !== null)
-  const heroMondayPartnersImageSrc = imgSrc(data?.heroMondayPartnersImage)
   const heroPrimaryCtaLabel = data?.heroPrimaryCtaLabel
   const heroPrimaryCtaUrl = data?.heroPrimaryCtaUrl
   const heroSecondaryCtaLabel = data?.heroSecondaryCtaLabel
@@ -392,18 +391,6 @@ export default function ImplementationPackagesContent({
             <span className="text-brand">{heroHeadingAccent}</span>
             <span className="text-body">{heroHeadingPart2}</span>
           </h1>
-
-          {/* Monday Partners image */}
-          <FramedMedia className="mt-10 w-full max-w-[924px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/monday-partners.avif"
-              alt="Monday.com Partners"
-              width={924}
-              height={0}
-              className="w-full max-w-[924px] h-auto object-contain"
-            />
-          </FramedMedia>
 
           {/* Certification banner (hidden) */}
           {/* <div style={{ marginTop: 40 }}>
