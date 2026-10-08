@@ -94,24 +94,8 @@ export default function RegionPageTemplate({
       />
 
       {/*
-        The booking band runs directly under the hero on all six partner
-        pages, so the CTA is reachable without scrolling. Josh's 2026-10-06
-        page report found these pages engaged but barely scrolling, so the way
-        to book should no longer sit behind the services, the client wall and
-        the quotes.
-      */}
-      <CalendlySection
-        heading={region.closingCta.heading}
-        subheading={region.closingCta.lead}
-        calendlyUrl={rawCalendly}
-        bookingRegion={region.bookingRegion}
-      />
-
-      <RegionServicesSection services={region.services} />
-
-      {/*
-        The offer first, then the proof that backs it: the client wall and the
-        quotes stay together as one unit and follow the services list.
+        Proof leads: the client wall and the quotes run as one unit directly
+        under the hero, so the first scroll shows who already works with us.
       */}
       <ClientProofSection
         eyebrow={region.clients.eyebrow}
@@ -128,6 +112,21 @@ export default function RegionPageTemplate({
         ctaUrl={bookingUrl}
         caseStudies={caseStudies}
       />
+
+      {/*
+        The booking band follows the client proof on all six partner pages,
+        still ahead of the services list. Josh's 2026-10-06 page report found
+        these pages engaged but barely scrolling, so the way to book stays high
+        on the page.
+      */}
+      <CalendlySection
+        heading={region.closingCta.heading}
+        subheading={region.closingCta.lead}
+        calendlyUrl={rawCalendly}
+        bookingRegion={region.bookingRegion}
+      />
+
+      <RegionServicesSection services={region.services} />
 
       <RegionVideoSection
         eyebrow={region.video.eyebrow}
