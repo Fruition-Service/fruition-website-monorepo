@@ -891,6 +891,8 @@ export async function getImplementationPackagesPage() {
       hours,
       basePrice,
       pricePrefix,
+      priceLabel,
+      ctaLabel,
       featured,
       features
     },
