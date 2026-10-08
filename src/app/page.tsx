@@ -61,9 +61,22 @@ export default async function Home() {
   return (
     <>
       <HeroNetwork bookingHref={bookingHref} />
-      <ServicesGrid />
-      <ByTheNumbers />
+
+      {/* Same opening as the six regional partner pages: who we work with,
+          then the way to book, then what we do and what clients say. The
+          booking band sits high because visitors engage but rarely scroll. */}
       <ClientsGrid logos={settings.carouselLogos ?? []} />
+      {/* The site's single contact/scheduling surface, shared with every
+          other page via CalendlySection → BookingSection. */}
+      <CalendlySection
+        heading="Let's design the way your business should run."
+        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
+        calendlyUrl={calendlyUrl || undefined}
+      />
+      <ServicesGrid />
+      <TestimonialsRoll testimonials={data.testimonials ?? []} bookingHref={bookingHref} />
+
+      <ByTheNumbers />
       <MethodTimeline />
       <WhereWeWork offices={offices} />
 
@@ -72,19 +85,11 @@ export default async function Home() {
           component's 1200px default suits the narrower inner pages. */}
       <AuditCtaBanner containerClassName="max-w-[1348px] px-5 md:px-8" />
 
-      <TestimonialsRoll testimonials={data.testimonials ?? []} bookingHref={bookingHref} />
       <IndustriesHub />
       <PlatformsCertified />
       <AiCapability bookingHref={bookingHref} />
       <InsightsGrid posts={data.posts ?? []} />
       <FaqSplit contactEmail={contactEmail} />
-      {/* The site's single contact/scheduling surface, shared with every
-          other page via CalendlySection → BookingSection. */}
-      <CalendlySection
-        heading="Let's design the way your business should run."
-        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
-        calendlyUrl={calendlyUrl || undefined}
-      />
     </>
   )
 }

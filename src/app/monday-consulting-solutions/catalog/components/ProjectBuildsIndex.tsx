@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import { CLIENTS, clientSlug, type Region } from "../data/clients"
 
 const REGIONS: { key: Region; label: string; flag: string; emoji: string }[] = [
@@ -47,7 +47,6 @@ export default function ProjectBuildsIndex() {
   // Arriving with ?client= expands the folder; the toggle still works on top of that.
   const [toggled, setToggled] = useState<boolean | null>(null)
   const open = toggled ?? Boolean(requested)
-  const scrolledFor = useRef<string | null>(null)
 
   const grouped = useMemo(() => {
     return REGIONS.map((r) => ({
@@ -59,19 +58,35 @@ export default function ProjectBuildsIndex() {
   const total = CLIENTS.length
 
   useEffect(() => {
-    if (!requested || !open || scrolledFor.current === requested) return
+    if (!requested || !open) return
     const el = document.getElementById(`client-${requested}`)
     if (!el) return
-    scrolledFor.current = requested
 
-    // Deferred a frame so the freshly-expanded folder has been laid out, and
-    // scrolled by absolute offset rather than scrollIntoView — the router can
-    // restore scroll to 0 right after mount, and this survives that.
-    const raf = requestAnimationFrame(() => {
+    // One smooth scroll on a single frame was not enough: the card sits ~6000px
+    // down, and the advisor, grid and fonts above it are still settling, so the
+    // scroll was interrupted or landed short and the visitor was left at the top
+    // with no sign of the client they clicked. Re-align a few times while the
+    // layout settles, and stop the moment the visitor scrolls for themselves.
+    // Timers rather than requestAnimationFrame so a tab opened in the background
+    // is already in place when it is brought forward.
+    let userMoved = false
+    const stop = () => {
+      userMoved = true
+    }
+    const events = ["wheel", "touchstart", "keydown", "pointerdown"] as const
+    events.forEach((e) => window.addEventListener(e, stop, { passive: true }))
+
+    const align = () => {
+      if (userMoved) return
       const top = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2
-      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" })
-    })
-    return () => cancelAnimationFrame(raf)
+      window.scrollTo({ top: Math.max(0, top), behavior: "instant" })
+    }
+    const timers = [0, 150, 400, 800, 1500, 2500].map((ms) => window.setTimeout(align, ms))
+
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t))
+      events.forEach((e) => window.removeEventListener(e, stop))
+    }
   }, [requested, open])
 
   return (
