@@ -94,8 +94,8 @@ export default function RegionPageTemplate({
       />
 
       {/*
-        Proof leads: the client wall and the quotes run as one unit directly
-        under the hero, so the first scroll shows who already works with us.
+        Fixed opening on all six partner pages (and the home page): hero,
+        client wall, booking band, services, then what clients say.
       */}
       <ClientProofSection
         eyebrow={region.clients.eyebrow}
@@ -106,18 +106,10 @@ export default function RegionPageTemplate({
         counterLabel="900+ more"
       />
 
-      <TestimonialsGrid
-        heading={region.testimonials.heading}
-        ctaLabel="Book a call"
-        ctaUrl={bookingUrl}
-        caseStudies={caseStudies}
-      />
-
       {/*
-        The booking band follows the client proof on all six partner pages,
-        still ahead of the services list. Josh's 2026-10-06 page report found
-        these pages engaged but barely scrolling, so the way to book stays high
-        on the page.
+        The booking band follows the client wall, ahead of the services list.
+        Josh's 2026-10-06 page report found these pages engaged but barely
+        scrolling, so the way to book stays high on the page.
       */}
       <CalendlySection
         heading={region.closingCta.heading}
@@ -127,6 +119,13 @@ export default function RegionPageTemplate({
       />
 
       <RegionServicesSection services={region.services} />
+
+      <TestimonialsGrid
+        heading={region.testimonials.heading}
+        ctaLabel="Book a call"
+        ctaUrl={bookingUrl}
+        caseStudies={caseStudies}
+      />
 
       <RegionVideoSection
         eyebrow={region.video.eyebrow}
