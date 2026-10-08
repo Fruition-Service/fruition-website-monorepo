@@ -1,4 +1,5 @@
 import type { LeadRegion } from "@/lib/leadNotify"
+import { ogCardUrl } from "@/lib/metadata"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 
 /**
@@ -18,7 +19,9 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
  * - replaces the `.calendly-box` placeholder with the region's booking calendar
  *   (GTM's Calendly listener then records the booking conversion);
  * - wires any form still posting to `#` to /api/leads, and pushes the same
- *   `generate_lead` dataLayer event as `trackLead()` once the lead is accepted.
+ *   `generate_lead` dataLayer event as `trackLead()` once the lead is accepted;
+ * - adds Open Graph / Twitter tags (built from the page's own title and
+ *   description) so a shared link shows a proper preview card.
  *
  * Pages that already post to /api/leads keep their own handler; they push
  * `generate_lead` themselves.
@@ -92,6 +95,45 @@ function leadFormScript(source: string): string {
 </script>`
 }
 
+const REGION_LABEL: Record<LeadRegion, string> = {
+  APAC: "Australia",
+  SEA: "Singapore",
+  IND: "India",
+  NA: "US",
+  UK: "UK",
+}
+
+function escapeAttr(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
+}
+
+/** Social preview tags for pages that were authored without any. */
+function socialTags(html: string, region: LeadRegion): string {
+  const decode = (v: string) =>
+    v.replace(/&amp;/g, "&").replace(/&mdash;/g, "\u2014").replace(/&ndash;/g, "\u2013").replace(/&#39;|&rsquo;/g, "'").replace(/&quot;/g, '"')
+  const title = decode(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim() ?? "")
+  const description = decode(html.match(/<meta\s+name="description"\s+content="([^"]*)"/i)?.[1] ?? "")
+  if (!title) return ""
+  const image = ogCardUrl(title, "", `monday.com Partner · ${REGION_LABEL[region]}`)
+  const tags = [
+    ["property", "og:type", "website"],
+    ["property", "og:site_name", "Fruition"],
+    ["property", "og:title", title],
+    ["property", "og:description", description],
+    ["property", "og:image", image],
+    ["property", "og:image:width", "1200"],
+    ["property", "og:image:height", "630"],
+    ["name", "twitter:card", "summary_large_image"],
+    ["name", "twitter:title", title],
+    ["name", "twitter:description", description],
+    ["name", "twitter:image", image],
+  ]
+  return tags
+    .filter(([, , v]) => v)
+    .map(([attr, key, v]) => `<meta ${attr}="${key}" content="${escapeAttr(v)}">`)
+    .join("\n")
+}
+
 /** Pure transform, exported for tests. */
 export function withLandingPageTracking(
   html: string,
@@ -99,6 +141,10 @@ export function withLandingPageTracking(
 ): string {
   let out = html
   out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}`)
+  if (!/property="og:image"/i.test(out)) {
+    const tags = socialTags(out, region)
+    if (tags) out = out.replace(/<\/head>/i, `${tags}\n</head>`)
+  }
   out = out.replace(/<body([^>]*)>/i, (m) => `${m}\n${GTM_BODY}`)
   out = out.replace(CALENDLY_PLACEHOLDER, calendlyEmbed(REGION_BOOKING[region].calendlyUrl))
   if (!out.includes("/api/leads")) {
