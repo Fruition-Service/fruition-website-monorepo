@@ -8,6 +8,7 @@ import type { SocialRow } from "@/app/api/internal/social/posts/route"
 import type { Composition } from "@/lib/social/composition"
 import type { AnalyticsOverview, AnalyticsRow, PostAnalytics } from "@/lib/social/zernio"
 import { rollupStatus } from "@/lib/social/status"
+import { DEFAULT_SCHEDULE_TIMEZONE, formatScheduled, isSameDayIn } from "@/lib/social/scheduleTimezone"
 import { PlatformNameIcon } from "@/components/internal/SocialIcons"
 import { Button } from "@/components/ui/button"
 import PageHeader from "@/components/internal/PageHeader"
@@ -614,13 +615,14 @@ function QueueList({
                 >
                   <div className="w-28 shrink-0">
                     <p className="font-mono text-xs font-medium text-primary tabular-nums">
-                      {c.scheduledFor ? whenLabel(c.scheduledFor) : "Unscheduled"}
+                      {c.scheduledFor ? whenLabel(c.scheduledFor, c.timezone) : "Unscheduled"}
                     </p>
                     <p className="mt-0.5 font-mono text-[11px] text-muted-foreground tabular-nums">
                       {c.scheduledFor
-                        ? new Date(c.scheduledFor).toLocaleDateString(undefined, {
+                        ? new Date(c.scheduledFor).toLocaleDateString("en-AU", {
                             day: "numeric",
                             month: "short",
+                            timeZone: c.timezone || DEFAULT_SCHEDULE_TIMEZONE,
                           })
                         : ""}
                     </p>
@@ -693,15 +695,14 @@ function QueueList({
 }
 
 /** "Today 19:30" / "Wed 11:30" — a send time reads better than a full date. */
-function whenLabel(iso: string): string {
+/** "Today 09:00" / "Fri 09:00", on the post's own scheduling clock (Sydney by default). */
+function whenLabel(iso: string, timezone?: string): string {
+  const tz = timezone || DEFAULT_SCHEDULE_TIMEZONE
   const at = new Date(iso)
-  const now = new Date()
-  const sameDay =
-    at.getFullYear() === now.getFullYear() &&
-    at.getMonth() === now.getMonth() &&
-    at.getDate() === now.getDate()
-  const time = at.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })
-  return sameDay ? `Today ${time}` : `${at.toLocaleDateString(undefined, { weekday: "short" })} ${time}`
+  const time = at.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit", timeZone: tz })
+  return isSameDayIn(at, new Date(), tz)
+    ? `Today ${time}`
+    : `${at.toLocaleDateString("en-AU", { weekday: "short", timeZone: tz })} ${time}`
 }
 
 function PostsList({
@@ -819,7 +820,7 @@ function CompositionRow({
             <Badge variant={s.variant}>{s.label}</Badge>
             {c.scheduledFor && (
               <span className="text-[11px] text-muted-foreground">
-                for {new Date(c.scheduledFor).toLocaleString()}
+                for {formatScheduled(c.scheduledFor, c.timezone || DEFAULT_SCHEDULE_TIMEZONE)}
               </span>
             )}
             {c.createdAt && !c.scheduledFor && (

@@ -12,6 +12,7 @@ import PlatformIcon from "@/components/internal/SocialIcons"
 import PlatformEditor from "@/components/internal/social/PlatformEditor"
 import EmojiPicker from "@/components/internal/social/EmojiPicker"
 import ScheduleField from "@/components/internal/social/ScheduleField"
+import { DEFAULT_SCHEDULE_TIMEZONE, formatScheduled, wallClockToUtc } from "@/lib/social/scheduleTimezone"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -85,6 +86,7 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
   const [error, setError] = useState<string | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
   const [scheduleAt, setScheduleAt] = useState("")
+  const [scheduleTz, setScheduleTz] = useState(DEFAULT_SCHEDULE_TIMEZONE)
   const [aiOpen, setAiOpen] = useState(false)
 
   const id = state?.composition.id
@@ -503,8 +505,13 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
 
   async function send(mode: "now" | "schedule" | "cancel") {
     const labels = specs.filter((p) => sendableKeys.includes(p.key)).map((p) => p.label)
+    const scheduleInstant = mode === "schedule" ? wallClockToUtc(scheduleAt, scheduleTz) : null
+    if (mode === "schedule" && !scheduleInstant) {
+      setError("Pick a date and time to schedule.")
+      return
+    }
     if (mode !== "cancel") {
-      const when = mode === "now" ? "right now" : `on ${new Date(scheduleAt).toLocaleString()}`
+      const when = mode === "now" ? "right now" : `on ${formatScheduled(scheduleInstant as Date, scheduleTz)}`
       if (!window.confirm(`Post to ${labels.join(", ")} ${when}?`)) return
     }
 
@@ -523,8 +530,8 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
           mode,
           ...(mode === "schedule"
             ? {
-                scheduledFor: new Date(scheduleAt).toISOString(),
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                scheduledFor: (scheduleInstant as Date).toISOString(),
+                timezone: scheduleTz,
               }
             : {}),
         },
@@ -849,7 +856,8 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
                         )}
                         {!error && !notice && blockers.length === 0 && scheduled && (
                           <p className="truncate text-xs text-muted-foreground">
-                            Scheduled for {new Date(scheduled).toLocaleString()}
+                            Scheduled for{" "}
+                            {formatScheduled(scheduled, state?.composition.timezone || DEFAULT_SCHEDULE_TIMEZONE)}
                           </p>
                         )}
                       </div>
@@ -862,7 +870,13 @@ export default function SocialComposer({ initial }: { initial: ComposerState | n
                           </Button>
                         ) : (
                           <>
-                            <ScheduleField value={scheduleAt} onChange={setScheduleAt} disabled={working} />
+                            <ScheduleField
+                              value={scheduleAt}
+                              onChange={setScheduleAt}
+                              timezone={scheduleTz}
+                              onTimezoneChange={setScheduleTz}
+                              disabled={working}
+                            />
                             <Button
                               variant="outline"
                               size="sm"
