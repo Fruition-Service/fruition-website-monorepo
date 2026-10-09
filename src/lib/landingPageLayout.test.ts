@@ -42,6 +42,15 @@ describe("withLandingPageLayout", () => {
     expect(band).toContain("Shared quote")
   })
 
+  it.each(pages)("%s uses the shared Fruition theme, not its own stylesheet", async (page) => {
+    const { html } = await import(`@/app/${page}/content`)
+    const head = html.slice(0, html.indexOf("</head>"))
+    // The theme's tokens carry the brand purple; an agency sheet brings its own :root.
+    expect(head).toContain("--brand:#8015e8")
+    expect(head.match(/<style>/g)).toHaveLength(1)
+    expect(head).not.toMatch(/--purple:#5B2D8F/i)
+  })
+
   it("is idempotent", async () => {
     const { html } = await import("@/app/uk/monday-partner/content")
     const once = withLandingPageLayout(html, shared)
