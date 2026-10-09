@@ -14,7 +14,8 @@ const shared = [{ quote: "Shared quote", authorName: "Shared Person", authorRole
 describe("withLandingPageLayout", () => {
   it.each(pages)("%s: hero, then reviews + logos, booking band last", async (page) => {
     const { html } = await import(`@/app/${page}/content`)
-    const out = withLandingPageLayout(html, shared)
+    const region = page.startsWith("uk/") ? "UK" : page.startsWith("us/") ? "NA" : "APAC"
+    const out = withLandingPageLayout(html, shared, region)
 
     const hero = out.search(/<(section|header) class="hero"/)
     const proof = out.search(/<section class="lpp"/)
@@ -42,6 +43,16 @@ describe("withLandingPageLayout", () => {
     expect(band.match(/<img [^>]*alt="[^"]+"/g)?.length ?? 0).toBeGreaterThan(0)
     expect(band.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => a.includes('href="#lead"'))).toBe(true)
     expect(band).toContain("Shared quote")
+
+    // Logos first, with the regional title and description under them, then the quotes.
+    const logos = band.indexOf('class="lpp-grid"')
+    const title = band.indexOf("Trusted by teams across 900+ implementations.")
+    const lead = band.indexOf('class="lpp-lead lpp-center lpp-logos-lead"')
+    const quotes = band.indexOf(">Client proof<")
+    expect(logos).toBeGreaterThan(0)
+    expect(title).toBeGreaterThan(logos)
+    expect(lead).toBeGreaterThan(title)
+    expect(quotes).toBeGreaterThan(lead)
   })
 
   it.each(pages)("%s uses the shared Fruition theme, not its own stylesheet", async (page) => {

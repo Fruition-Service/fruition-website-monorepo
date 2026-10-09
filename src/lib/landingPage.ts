@@ -2,6 +2,7 @@ import type { LeadRegion } from "@/lib/leadNotify"
 import { ogCardUrl } from "@/lib/metadata"
 import { extractProof, mergeQuotes, renderProof, type ProofQuote } from "@/lib/landingPageProof"
 import { getCaseStudies } from "@/sanity/queries"
+import { REGION_PAGES } from "@/data/regionPages"
 import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 
@@ -165,12 +166,26 @@ function cut(html: string, open: RegExp, tag: string): { html: string; at: numbe
   return { html: html.slice(0, m.index) + html.slice(end), at: m.index, removed: html.slice(m.index, end) }
 }
 
+/** The regional page whose "Our clients" copy goes under each ad page's logo wall. */
+const REGION_CLIENTS: Record<LeadRegion, keyof typeof REGION_PAGES> = {
+  APAC: "monday-partner-australia",
+  UK: "monday-partner-uk",
+  NA: "monday-partner-us",
+  SEA: "monday-partner-singapore",
+  IND: "monday-partner-india",
+}
+
 /**
  * Section order for every landing page template: hero (with the lead form),
- * Client proof quotes + client logos, the page's own sections, then the Calendly
- * band last. Pure, exported for tests.
+ * client logos with the regional "Our clients" title and description under
+ * them, Client proof quotes, the page's own sections, then the Calendly band
+ * last. Pure, exported for tests.
  */
-export function withLandingPageLayout(html: string, sharedQuotes: ProofQuote[] = []): string {
+export function withLandingPageLayout(
+  html: string,
+  sharedQuotes: ProofQuote[] = [],
+  region?: LeadRegion,
+): string {
   if (html.includes('class="lpp"')) return html
   const proof = extractProof(html)
 
@@ -190,7 +205,13 @@ export function withLandingPageLayout(html: string, sharedQuotes: ProofQuote[] =
     }
   }
 
-  const band = renderProof({ ...proof, quotes: mergeQuotes(proof.quotes, sharedQuotes) })
+  const clients = region ? REGION_PAGES[REGION_CLIENTS[region]].clients : undefined
+  const band = renderProof({
+    ...proof,
+    quotes: mergeQuotes(proof.quotes, sharedQuotes),
+    logosHeading: clients?.heading,
+    logosLead: clients?.lead,
+  })
   if (anchor < 0) {
     // No logo strip: put the band straight after the hero.
     const hero = /<(section|header) class="hero"/.exec(out)
@@ -270,7 +291,7 @@ export async function landingPageResponse(
   html: string,
   opts: { source: string; region: LeadRegion },
 ): Promise<Response> {
-  const laidOut = withLandingPageLayout(html, await sharedQuotes())
+  const laidOut = withLandingPageLayout(html, await sharedQuotes(), opts.region)
   return new Response(withLandingPageTracking(laidOut, opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
