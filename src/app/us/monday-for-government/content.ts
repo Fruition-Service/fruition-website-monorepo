@@ -188,7 +188,7 @@ ${LP_FONTS}
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
 <p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
-<a class="btn" style="max-width:300px" href="#lead">Book My Free Consultation →</a>
+<a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET–PT business hours</p>
 </div>
 <div class="calendly-box">
