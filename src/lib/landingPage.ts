@@ -1,5 +1,8 @@
 import type { LeadRegion } from "@/lib/leadNotify"
 import { ogCardUrl } from "@/lib/metadata"
+import { extractProof, mergeQuotes, renderProof, type ProofQuote } from "@/lib/landingPageProof"
+import { getCaseStudies } from "@/sanity/queries"
+import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 
 /**
@@ -21,7 +24,11 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
  * - wires any form still posting to `#` to /api/leads, and pushes the same
  *   `generate_lead` dataLayer event as `trackLead()` once the lead is accepted;
  * - adds Open Graph / Twitter tags (built from the page's own title and
- *   description) so a shared link shows a proper preview card.
+ *   description) so a shared link shows a proper preview card;
+ * - re-orders the page (`withLandingPageLayout`): hero and form, then the
+ *   Ratings & reviews band (the main site's Client proof treatment, see
+ *   landingPageProof.ts) in place of the page's own logo strip and quotes, the
+ *   rest of the page, and the Calendly booking band last, before the footer.
  *
  * Pages that already post to /api/leads keep their own handler; they push
  * `generate_lead` themselves.
@@ -134,6 +141,75 @@ function socialTags(html: string, region: LeadRegion): string {
     .join("\n")
 }
 
+/**
+ * Index just past the element that opens at `start`, counting nested tags of
+ * the same name. -1 if it never closes.
+ */
+function elementEnd(html: string, start: number, tag: string): number {
+  const re = new RegExp(`<${tag}\\b|</${tag}>`, "gi")
+  re.lastIndex = start
+  let depth = 0
+  for (let m = re.exec(html); m; m = re.exec(html)) {
+    depth += m[0].startsWith("</") ? -1 : 1
+    if (depth === 0) return m.index + m[0].length
+  }
+  return -1
+}
+
+/** Removes the first element matched by `open`; returns the html and where it stood. */
+function cut(html: string, open: RegExp, tag: string): { html: string; at: number; removed: string } {
+  const m = open.exec(html)
+  if (!m) return { html, at: -1, removed: "" }
+  const end = elementEnd(html, m.index, tag)
+  if (end < 0) return { html, at: -1, removed: "" }
+  return { html: html.slice(0, m.index) + html.slice(end), at: m.index, removed: html.slice(m.index, end) }
+}
+
+/**
+ * Section order for every landing page template: hero (with the lead form),
+ * Ratings & reviews + client logos, the page's own sections, then the Calendly
+ * band last. Pure, exported for tests.
+ */
+export function withLandingPageLayout(html: string, sharedQuotes: ProofQuote[] = []): string {
+  if (html.includes('class="lpp"')) return html
+  const proof = extractProof(html)
+
+  // 1. The logo strip right under the hero becomes the proof band.
+  let step = cut(html, /<div class="clients">/, "div")
+  if (step.at < 0) step = cut(html, /<div class="trust">/, "div")
+  let out = step.html
+  let anchor = step.at
+
+  // 2. The page's own "Client proof" section (quotes + ratings) is folded into it.
+  const proofSection = /<section\b[^>]*>(?:(?!<section\b)[\s\S])*?<p class="k">Client proof<\/p>/.exec(out)
+  if (proofSection) {
+    const end = elementEnd(out, proofSection.index, "section")
+    if (end > 0) {
+      out = out.slice(0, proofSection.index) + out.slice(end)
+      if (proofSection.index < anchor) anchor -= end - proofSection.index
+    }
+  }
+
+  const band = renderProof({ ...proof, quotes: mergeQuotes(proof.quotes, sharedQuotes) })
+  if (anchor < 0) {
+    // No logo strip: put the band straight after the hero.
+    const hero = /<(section|header) class="hero"/.exec(out)
+    anchor = hero ? elementEnd(out, hero.index, hero[1]) : -1
+  }
+  if (anchor >= 0) out = out.slice(0, anchor) + band + out.slice(anchor)
+
+  // 3. The booking band moves to the end, just before the footer.
+  const booking = cut(out, /<section class="final" id="book">/, "section")
+  if (booking.removed) {
+    const footer = booking.html.search(/<footer\b/)
+    out =
+      footer >= 0
+        ? `${booking.html.slice(0, footer)}${booking.removed}\n\n${booking.html.slice(footer)}`
+        : booking.html.replace(/<\/body>/i, `${booking.removed}\n</body>`)
+  }
+  return out
+}
+
 /** Pure transform, exported for tests. */
 export function withLandingPageTracking(
   html: string,
@@ -153,11 +229,49 @@ export function withLandingPageTracking(
   return out
 }
 
-export function landingPageResponse(
+/**
+ * The client quotes the regional pages show (caseStudy docs with a quote),
+ * cached per Worker isolate for 10 minutes. A Sanity failure only drops them:
+ * the page still renders with its own quotes.
+ */
+let sharedQuotesCache: { at: number; quotes: ProofQuote[] } | null = null
+const SHARED_QUOTES_TTL = 10 * 60 * 1000
+
+async function sharedQuotes(): Promise<ProofQuote[]> {
+  if (sharedQuotesCache && Date.now() - sharedQuotesCache.at < SHARED_QUOTES_TTL) return sharedQuotesCache.quotes
+  try {
+    const docs: {
+      quote?: string
+      clientName?: string
+      clientRole?: string
+      clientCompany?: string
+      profilePhoto?: { asset?: { _ref?: string } }
+    }[] = (await getCaseStudies()) ?? []
+    const quotes = docs
+      .filter((d) => d.quote?.trim())
+      .map((d) => ({
+        quote: d.quote!.trim(),
+        authorName: d.clientName,
+        authorRole: d.clientRole,
+        company: d.clientCompany,
+        photoUrl: d.profilePhoto?.asset?._ref
+          ? urlFor(d.profilePhoto).width(92).height(92).fit("crop").auto("format").url()
+          : undefined,
+      }))
+    sharedQuotesCache = { at: Date.now(), quotes }
+    return quotes
+  } catch (err) {
+    console.error("[landing-page] shared quotes unavailable", err)
+    return sharedQuotesCache?.quotes ?? []
+  }
+}
+
+export async function landingPageResponse(
   html: string,
   opts: { source: string; region: LeadRegion },
-): Response {
-  return new Response(withLandingPageTracking(html, opts), {
+): Promise<Response> {
+  const laidOut = withLandingPageLayout(html, await sharedQuotes())
+  return new Response(withLandingPageTracking(laidOut, opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       // Paid-traffic page: must stay out of organic search.
