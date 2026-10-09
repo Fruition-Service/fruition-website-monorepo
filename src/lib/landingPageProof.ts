@@ -1,5 +1,5 @@
 /**
- * The "Ratings & reviews" band for the Google Ads landing pages under /au, /uk
+ * The Client proof band for the Google Ads landing pages under /au, /uk
  * and /us.
  *
  * It is the main site's Client proof treatment rebuilt as plain HTML, because
@@ -8,7 +8,6 @@
  * - quotes: `TestimonialsRoll` (two columns rolling in opposite directions on
  *   desktop, a swipe rail below 1024px), fed with the page's own industry quotes
  *   first and then the same Sanity case studies the regional pages show;
- * - ratings: the page's rating tiles, as plain text (no outbound links);
  * - logos: `ClientLogoWall` (mist tiles plus the "900+ more" counter, a
  *   self-scrolling band on phones), without the catalog links, so the page
  *   keeps no exits other than the form, the phone number and the calendar.
@@ -26,12 +25,6 @@ export interface ProofQuote {
   photoUrl?: string
 }
 
-export interface ProofRating {
-  score: string
-  stars: string
-  source: string
-}
-
 export interface ProofLogo {
   src: string
   alt: string
@@ -41,17 +34,8 @@ export interface ProofContent {
   heading: string
   logosLabel: string
   quotes: ProofQuote[]
-  ratings: ProofRating[]
   logos: ProofLogo[]
 }
-
-/** The figures the landing pages were authored with (see review-profile memory). */
-export const DEFAULT_RATINGS: ProofRating[] = [
-  { score: "5.0", stars: "★★★★★", source: "monday.com partner directory" },
-  { score: "5.0", stars: "★★★★★", source: "Google Reviews" },
-  { score: "5.0", stars: "★★★★★", source: "G2" },
-  { score: "4.0", stars: "★★★★☆", source: "Trustpilot" },
-]
 
 const SANITY = "https://cdn.sanity.io/images/bt6nb58h/production/"
 const LOGO_PARAMS = "?w=260&fit=max&auto=format"
@@ -144,13 +128,6 @@ export function extractProof(html: string): ProofContent {
     })
   }
 
-  const ratings: ProofRating[] = []
-  for (const m of html.matchAll(
-    /<div class="score">([^<]+)<\/div><div class="stars">([^<]+)<\/div><div class="src">([^<]+)<\/div>/g,
-  )) {
-    ratings.push({ score: text(m[1]), stars: text(m[2]), source: text(m[3]) })
-  }
-
   const strip =
     html.match(/<div class="(?:logo-row|trust-logos)">([\s\S]*?)<\/div>/)?.[1] ?? ""
   const imgLogos: ProofLogo[] = [...strip.matchAll(/<img src="([^"]+)" alt="([^"]*)"/g)].map((m) => ({
@@ -171,7 +148,6 @@ export function extractProof(html: string): ProofContent {
     heading: proofSection ? text(proofSection) : DEFAULT_HEADING,
     logosLabel,
     quotes,
-    ratings: ratings.length ? ratings : DEFAULT_RATINGS,
     logos,
   }
 }
@@ -216,15 +192,6 @@ export function renderProof(content: ProofContent): string {
       .map((q, i) => card(q, i * 2 + offset, true))
       .join("")}</div>`
 
-  const ratings = content.ratings
-    .map(
-      (r) =>
-        `<div class="lpp-rating"><span class="lpp-score">${esc(r.score)}</span><span class="lpp-stars" aria-label="${esc(
-          r.score,
-        )} out of 5">${esc(r.stars)}</span><span class="lpp-src">${esc(r.source)}</span></div>`,
-    )
-    .join("")
-
   const logos = content.logos
   const run = (clone: boolean) =>
     `<div class="lpp-band-run"${clone ? ' aria-hidden="true"' : ""}>${logos
@@ -244,10 +211,9 @@ export function renderProof(content: ProofContent): string {
 <section class="lpp" id="reviews">
 <div class="lpp-wrap lpp-roll">
 <div class="lpp-intro">
-<p class="lpp-eyebrow">Ratings &amp; reviews</p>
+<p class="lpp-eyebrow">Client proof</p>
 <h2 class="lpp-h2">${esc(content.heading)}</h2>
 <p class="lpp-lead">${INTRO}</p>
-<div class="lpp-ratings">${ratings}</div>
 <a class="lpp-btn" href="#lead">Book My Free Consultation →</a>
 </div>
 ${
@@ -280,11 +246,6 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-h2{font-size:28px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--lpp-fg);margin:16px 0 0;text-wrap:pretty}
 .lpp-lead{font-size:16px;line-height:1.55;color:var(--lpp-muted);margin:18px 0 0;text-wrap:pretty}
 .lpp-roll{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
-.lpp-ratings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:28px}
-.lpp-rating{display:flex;flex-direction:column;gap:2px;border:1px solid var(--lpp-lilac);border-radius:16px;background:var(--lpp-mist);padding:12px 14px}
-.lpp-score{font-size:22px;font-weight:600;line-height:1.1;color:var(--lpp-fg)}
-.lpp-stars{font-size:14px;letter-spacing:2px;color:#fdab3d}
-.lpp-src{font-size:12px;line-height:1.35;color:var(--lpp-muted)}
 .lpp-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:28px;min-height:50px;padding:12px 26px;border-radius:9999px;background:var(--lpp-brand);color:#fff;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 10px 24px -10px rgba(128,21,232,.55)}
 .lpp-btn:hover{background:#6a0fc4}
 .lpp-card{margin:0 0 20px;border:1px solid var(--lpp-lilac);border-radius:24px;background:#fff;padding:26px 28px;box-shadow:0 4px 24px rgba(0,0,0,.03)}
@@ -321,7 +282,6 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp{padding:80px 0}
 .lpp-wrap{padding:0 32px}
 .lpp-h2{font-size:36px}
-.lpp-ratings{grid-template-columns:repeat(4,minmax(0,1fr))}
 .lpp-rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;overflow:visible;margin:0;padding:0}
 .lpp-rail>.lpp-card{margin:0}
 .lpp-band{display:none}
@@ -332,7 +292,6 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-roll{grid-template-columns:400px 1fr;gap:80px}
 .lpp-h2{font-size:44px}
 .lpp-lead{font-size:17px}
-.lpp-ratings{grid-template-columns:repeat(2,minmax(0,1fr))}
 .lpp-rail{display:none}
 .lpp-cols{display:block;position:relative;height:660px;overflow:hidden;mask-image:linear-gradient(to bottom,transparent 0%,#000 8%,#000 92%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 8%,#000 92%,transparent 100%)}
 .lpp-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}

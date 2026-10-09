@@ -26,7 +26,7 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
  * - adds Open Graph / Twitter tags (built from the page's own title and
  *   description) so a shared link shows a proper preview card;
  * - re-orders the page (`withLandingPageLayout`): hero and form, then the
- *   Ratings & reviews band (the main site's Client proof treatment, see
+ *   Client proof band (the main site's testimonial section, see
  *   landingPageProof.ts) in place of the page's own logo strip and quotes, the
  *   rest of the page, and the Calendly booking band last, before the footer.
  *
@@ -167,7 +167,7 @@ function cut(html: string, open: RegExp, tag: string): { html: string; at: numbe
 
 /**
  * Section order for every landing page template: hero (with the lead form),
- * Ratings & reviews + client logos, the page's own sections, then the Calendly
+ * Client proof quotes + client logos, the page's own sections, then the Calendly
  * band last. Pure, exported for tests.
  */
 export function withLandingPageLayout(html: string, sharedQuotes: ProofQuote[] = []): string {
@@ -180,7 +180,7 @@ export function withLandingPageLayout(html: string, sharedQuotes: ProofQuote[] =
   let out = step.html
   let anchor = step.at
 
-  // 2. The page's own "Client proof" section (quotes + ratings) is folded into it.
+  // 2. The page's own "Client proof" section is folded into it (its rating tiles are dropped).
   const proofSection = /<section\b[^>]*>(?:(?!<section\b)[\s\S])*?<p class="k">Client proof<\/p>/.exec(out)
   if (proofSection) {
     const end = elementEnd(out, proofSection.index, "section")
