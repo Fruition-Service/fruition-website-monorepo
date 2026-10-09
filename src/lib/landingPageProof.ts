@@ -35,6 +35,9 @@ export interface ProofContent {
   logosLabel: string
   quotes: ProofQuote[]
   logos: ProofLogo[]
+  /** Title and description under the logo wall (the regional pages' "Our clients" copy). */
+  logosHeading?: string
+  logosLead?: string
 }
 
 const SANITY = "https://cdn.sanity.io/images/bt6nb58h/production/"
@@ -81,6 +84,7 @@ function chipLogos(html: string): ProofLogo[] {
 const DEFAULT_HEADING = "What clients say about Fruition's monday.com consultants"
 const INTRO = "Operations and IT leaders on what changed after we mapped the process first."
 const COUNTER = "900+ more"
+const LOGOS_HEADING = "Trusted by teams across 900+ implementations."
 /** Dot colours cycle so adjacent cards never repeat (TestimonialsRoll). */
 const DOTS = ["#00ca72", "#579bfc", "#8015e8", "#fdab3d"]
 const MAX_QUOTES = 10
@@ -198,17 +202,21 @@ export function renderProof(content: ProofContent): string {
       .map((l) => logoTile(l, clone, true))
       .join("")}<div class="lpp-counter">${COUNTER}</div></div>`
 
+  const heading = content.logosHeading ?? LOGOS_HEADING
   const logoWall = logos.length
     ? `<div class="lpp-wrap lpp-logos">
-<span class="lpp-rule"></span>
 <p class="lpp-eyebrow lpp-center">${esc(content.logosLabel)}</p>
 <div class="lpp-band"><div class="lpp-band-track">${run(false)}${run(true)}</div></div>
 <div class="lpp-grid" style="--lpp-n:${Math.min(logos.length + 1, 7)}">${logos.map((l) => logoTile(l)).join("")}<div class="lpp-counter">${COUNTER}</div></div>
+<h2 class="lpp-h2 lpp-center lpp-logos-h2">${esc(heading)}</h2>
+${content.logosLead ? `<p class="lpp-lead lpp-center lpp-logos-lead">${esc(content.logosLead)}</p>` : ""}
+<span class="lpp-rule"></span>
 </div>`
     : ""
 
   return `<style>${LP_PROOF_CSS}</style>
 <section class="lpp" id="reviews">
+${logoWall}
 <div class="lpp-wrap lpp-roll">
 <div class="lpp-intro">
 <p class="lpp-eyebrow">Client proof</p>
@@ -223,7 +231,6 @@ ${
     : ""
 }
 </div>
-${logoWall}
 </section>
 `
 }
@@ -262,9 +269,11 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -20px;padding:0 20px}
 .lpp-rail::-webkit-scrollbar{display:none}
 .lpp-rail>.lpp-card{flex:0 0 86%;scroll-snap-align:start;margin:0}
-.lpp-logos{margin-top:56px;text-align:center}
-.lpp-rule{display:block;width:228px;height:1px;margin:0 auto 32px;background:var(--lpp-lilac-quiet)}
+.lpp-logos{margin-bottom:56px;text-align:center}
+.lpp-rule{display:block;width:228px;height:1px;margin:48px auto 0;background:var(--lpp-lilac-quiet)}
 .lpp-logos .lpp-eyebrow{margin-bottom:24px}
+.lpp .lpp-logos-h2{margin:40px auto 0;max-width:760px}
+.lpp .lpp-logos-lead{margin:16px auto 0;max-width:600px}
 .lpp-tile{display:flex;align-items:center;justify-content:center;height:92px;border-radius:12px;background:var(--lpp-mist);padding:14px 16px;transition:background-color .2s}
 .lpp-tile:hover{background:var(--lpp-mist-hover)}
 .lpp-tile img{max-height:100%;max-width:100%;width:auto;object-fit:contain}
