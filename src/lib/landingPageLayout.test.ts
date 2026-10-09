@@ -35,6 +35,8 @@ describe("withLandingPageLayout", () => {
     expect(out).not.toContain('<div class="trust">')
     expect(out).not.toContain('<p class="k">Client proof</p>')
 
+    // Same design as the site's Client proof section: no rating tiles under the intro.
+    expect(out).not.toContain("lpp-rating")
     // Logos only, no links out of the page from the band.
     const band = out.slice(proof, out.indexOf("</section>", proof))
     expect(band.match(/<img [^>]*alt="[^"]+"/g)?.length ?? 0).toBeGreaterThan(0)
@@ -63,7 +65,6 @@ describe("extractProof", () => {
     const { html } = await import("@/app/au/monday-for-engineering-architecture/content")
     const proof = extractProof(html)
     expect(proof.quotes[0]).toMatchObject({ authorName: "Allie Swindlehurst", authorRole: "Operations Manager", company: "Falkbuilt" })
-    expect(proof.ratings.map((r) => r.score)).toEqual(["5.0", "5.0", "5.0", "4.0"])
   })
 
   it("turns text chips into approved logos and tops up missing ones", async () => {
