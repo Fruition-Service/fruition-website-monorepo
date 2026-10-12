@@ -46,6 +46,16 @@ by a hook on every edit under `src/`:
 - Exactly three breakpoints: base, `md:` (768px), `lg:` (1024px).
 - Poppins and JetBrains Mono only.
 - Never rewrite page copy or Sanity content during visual work.
+- **Supplied HTML is a reference, never code to ship.** HTML files, build packs, mockups or agency
+  drops attached to a task give you the copy and the section structure only. Keep the copy
+  verbatim, discard their CSS, inline styles, fonts, colours and breakpoints, and rebuild in this
+  design system. This holds even when a brief says "serve verbatim" or "follow PR #N" (PR #296
+  shipped 30 ad pages with agency CSS; PR #299 had to redo them). Google Ads landing pages under
+  `src/app/{au,uk,us}/` use the shared theme in `src/lib/landingPageTheme.ts` and must pass
+  `src/lib/landingPageLayout.test.ts`.
+- **A UI change is not done until it works at 375, 768 and 1440 wide**: one column on mobile, no
+  horizontal overflow (`scrollWidth <= innerWidth`), 44px tap targets. Check all three, not just
+  desktop.
 
 The internal portal (`/internal`) uses **shadcn/ui components only** — never hand-rolled equivalents.
 
