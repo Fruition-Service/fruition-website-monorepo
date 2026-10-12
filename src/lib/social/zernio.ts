@@ -7,10 +7,10 @@
  * dashboard or from the portal's social drafts panel (/internal/blog/... on
  * the website).
  *
- * YouTube is the odd one: every YouTube post is exactly one video, so it takes
- * no part in the blog fan-out (an article has no video to upload) and is
- * offered only in the standalone composer. `BLOG_PLATFORMS` is the set a blog
- * actually fans out to. YouTube Community posts are not possible at all —
+ * YouTube is the odd one: every YouTube post is exactly one video, so a blog
+ * fans out to it only once Marketa has rendered the blog's social video.
+ * `blogPlatforms(hasVideo)` is the set a blog uses; `BLOG_PLATFORMS` is the
+ * set without a video. YouTube Community posts are not possible at all —
  * Google's API does not expose them to anyone.
  *
  * Posts come from two places: a blog (captions promote an article) or a
@@ -316,11 +316,19 @@ export const PLATFORMS: PlatformSpec[] = [
 ]
 
 /**
- * The platforms a BLOG fans out to. A blog post has no video, so a YouTube
- * draft made from one could never publish; it would just sit in the panel as a
+ * The platforms a BLOG without a video fans out to. A YouTube draft made
+ * without one could never publish; it would just sit in the panel as a
  * permanent blocker. Standalone compositions use the full PLATFORMS list.
  */
 export const BLOG_PLATFORMS: PlatformSpec[] = PLATFORMS.filter((p) => !p.needsVideo)
+
+/**
+ * The platforms a blog fans out to: every one once Marketa has rendered the
+ * blog's social video (YouTube posts that video), BLOG_PLATFORMS until then.
+ */
+export function blogPlatforms(hasVideo: boolean): PlatformSpec[] {
+  return hasVideo ? PLATFORMS : BLOG_PLATFORMS
+}
 
 export function platformSpec(key: PlatformKey): PlatformSpec {
   const spec = PLATFORMS.find((p) => p.key === key)
@@ -980,12 +988,16 @@ export async function createSocialDrafts(args: {
   imageUrls?: string[]
   /** Blog URL for Pinterest's destination link (falls back to site base). */
   blogUrl?: string
+  /**
+   * The blog's social video. Only YouTube takes it at creation (it IS that
+   * post); the other channels get it from Marketa when the video renders.
+   * Without one YouTube is skipped, and asking for it by key doesn't conjure one.
+   */
+  videoUrl?: string
   keys?: PlatformKey[]
   existing?: Partial<Record<PlatformKey, ZernioPost>>
 }): Promise<SocialDraftResult[]> {
-  // BLOG_PLATFORMS, not PLATFORMS: a blog has no video, so YouTube is not part
-  // of a fan-out. Asking for it by key doesn't conjure one either.
-  const targets = BLOG_PLATFORMS.filter((p) => !args.keys || args.keys.includes(p.key))
+  const targets = blogPlatforms(Boolean(args.videoUrl)).filter((p) => !args.keys || args.keys.includes(p.key))
   const results: SocialDraftResult[] = []
 
   for (const spec of targets) {
@@ -1002,6 +1014,7 @@ export async function createSocialDrafts(args: {
         content,
         title,
         imageUrls: args.imageUrls,
+        videoUrl: spec.needsVideo ? args.videoUrl : undefined,
         link: args.blogUrl,
       })
       results.push({ key: spec.key, postId })

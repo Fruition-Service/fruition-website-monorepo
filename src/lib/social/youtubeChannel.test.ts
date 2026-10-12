@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { BLOG_PLATFORMS, PLATFORMS, mediaItemsFor, platformSpec } from "@/lib/social/zernio"
+import { BLOG_PLATFORMS, PLATFORMS, blogPlatforms, mediaItemsFor, platformSpec } from "@/lib/social/zernio"
 import { problemsFor } from "@/lib/social/validate"
 import { effectiveVideo, platformsFromInput } from "@/lib/social/composition"
 
@@ -33,9 +33,15 @@ describe("the YouTube platform", () => {
     expect(platformSpec("youtube").platform).toBe("youtube")
   })
 
-  it("stays out of a blog's fan-out, because an article has no video", () => {
+  it("stays out of a blog's fan-out until the blog has its video", () => {
     expect(BLOG_PLATFORMS.map((p) => p.key)).not.toContain("youtube")
     expect(BLOG_PLATFORMS).toHaveLength(PLATFORMS.length - 1)
+    expect(blogPlatforms(false)).toEqual(BLOG_PLATFORMS)
+  })
+
+  it("joins a blog's fan-out once the blog has its social video", () => {
+    expect(blogPlatforms(true).map((p) => p.key)).toContain("youtube")
+    expect(blogPlatforms(true)).toHaveLength(PLATFORMS.length)
   })
 
   it("publishes the video as the post's only media item", () => {

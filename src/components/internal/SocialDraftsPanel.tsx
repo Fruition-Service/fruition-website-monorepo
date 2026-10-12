@@ -409,7 +409,8 @@ export default function SocialDraftsPanel({
         selected.has(p.key) &&
         p.post.status !== "published" &&
         !overLimit(p, edits) &&
-        (!p.needsMedia || effectiveMedia(p, edits[p.key], state.coverImageUrl)),
+        (!p.needsMedia || effectiveMedia(p, edits[p.key], state.coverImageUrl)) &&
+        (!p.needsVideo || effectiveVideo(p, edits[p.key])),
     )
     .map((p) => p.key)
   const blogLive = Boolean(state.blogUrl)
@@ -569,7 +570,7 @@ function PlatformCard({
   const published = p.post?.status === "published"
   const cancelled = p.post?.status === "cancelled"
   const canUnpublish = published && p.key !== "instagram"
-  const mediaBlocked = p.needsMedia && !media && !video
+  const mediaBlocked = (p.needsMedia && !media && !video) || (p.needsVideo && !video)
   const canPublish = Boolean(p.post) && p.connected && blogLive && !over && !mediaBlocked && !published
 
   // Every selectable image: the blog's, this session's uploads, plus whatever
@@ -642,7 +643,11 @@ function PlatformCard({
           <div className="mt-2 flex items-center justify-between gap-3">
             <span className="text-xs" style={{ color: "var(--color-text-secondary)" }}>
               {edit?.dirty ? "unsaved" : ""}
-              {mediaBlocked ? " · needs an image (upload one, or add a cover to the blog)" : ""}
+              {mediaBlocked
+                ? p.needsVideo
+                  ? " · needs the video (use the blog video)"
+                  : " · needs an image (upload one, or add a cover to the blog)"
+                : ""}
             </span>
             <div className="flex gap-2">
               {canUnpublish && (
