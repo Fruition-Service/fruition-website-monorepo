@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getPortalApiUser } from "@/lib/portalAuth"
 import {
-  BLOG_PLATFORMS,
+  blogPlatforms,
   createSocialDrafts,
   findSocialPosts,
   generateSocialCaptions,
@@ -18,9 +18,9 @@ export const maxDuration = 120
 
 /**
  * Social drafts for a blog post — one Zernio draft per platform (X, Google
- * Business AU + SG + UK + US, Instagram, LinkedIn, Pinterest, Reddit). YouTube
- * is excluded here and only here: every YouTube post is a video, and an
- * article has none, so it belongs to the standalone composer.
+ * Business AU + SG + UK + US, Instagram, LinkedIn, Pinterest, Reddit), plus
+ * YouTube once Marketa has rendered the blog's social video: every YouTube
+ * post is a video, so without one there is nothing to post there.
  *
  * GET    ?slug=&draftId=&docId=      → panel state (accounts, drafts, blog facts)
  * POST   {source, blog, keys?}       → generate captions + create/regenerate drafts
@@ -98,16 +98,17 @@ export async function POST(req: Request) {
   if (!source) return NextResponse.json({ error: "Missing slug." }, { status: 400 })
   if (!title) return NextResponse.json({ error: "Missing title." }, { status: 400 })
 
-  const keys =
-    Array.isArray(body.keys) && body.keys.length
-      ? body.keys.filter((k): k is PlatformKey => BLOG_PLATFORMS.some((p) => p.key === k))
-      : undefined
-
   try {
-    const [facts, mdImages] = await Promise.all([
+    const [facts, mdImages, { videoUrl }] = await Promise.all([
       publishedBlogFacts(source.slug),
       draftBodyImages(source.draftId),
+      draftVideo(source.draftId),
     ])
+    const platforms = blogPlatforms(Boolean(videoUrl))
+    const keys =
+      Array.isArray(body.keys) && body.keys.length
+        ? body.keys.filter((k): k is PlatformKey => platforms.some((p) => p.key === k))
+        : undefined
     const blogUrl = facts.blogUrl
     // Default image for new drafts: cover first, then body images.
     const defaultImage = facts.images[0] ?? mdImages[0]
@@ -145,6 +146,7 @@ export async function POST(req: Request) {
           captions,
           blogUrl,
           imageUrls: defaultImage ? [defaultImage] : undefined,
+          videoUrl,
           keys: toCreate,
         })
         errors.push(...created.filter((r) => r.error).map((r) => `${r.key}: ${r.error}`))
@@ -156,6 +158,7 @@ export async function POST(req: Request) {
         captions,
         blogUrl,
         imageUrls: defaultImage ? [defaultImage] : undefined,
+        videoUrl,
         existing,
       })
       errors.push(...created.filter((r) => r.error).map((r) => `${r.key}: ${r.error}`))

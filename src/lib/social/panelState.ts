@@ -7,7 +7,7 @@
  */
 
 import {
-  BLOG_PLATFORMS,
+  blogPlatforms,
   findSocialPosts,
   listZernioAccounts,
   type PlatformKey,
@@ -46,6 +46,8 @@ export interface PanelPlatform {
   supportsMedia: boolean
   /** X, Instagram, LinkedIn, Pinterest: the blog's video can replace the image. */
   supportsVideo?: boolean
+  /** YouTube: the post is the video, so it can't go out without one. */
+  needsVideo?: boolean
   /** Plain-English limitations, shown next to the editor. */
   notes: string[]
   /** Account handle/name shown under the label. */
@@ -205,8 +207,8 @@ export async function buildPanelState(source: SocialSource): Promise<PanelState>
     videoUrl: video.videoUrl,
     videoPosterUrl: video.videoPosterUrl,
     dashboardUrl: DASHBOARD_URL,
-    // BLOG_PLATFORMS: YouTube takes a video, and a blog has none to give it.
-    platforms: BLOG_PLATFORMS.map((spec) => {
+    // YouTube joins once the blog has its social video; the post is that video.
+    platforms: blogPlatforms(Boolean(video.videoUrl)).map((spec) => {
       const account = accountById.get(spec.accountId)
       return {
         key: spec.key,
@@ -217,6 +219,7 @@ export async function buildPanelState(source: SocialSource): Promise<PanelState>
         needsMedia: spec.needsMedia,
         supportsMedia: spec.supportsMedia,
         supportsVideo: spec.supportsVideo,
+        needsVideo: spec.needsVideo,
         notes: spec.notes,
         account: account?.username || account?.displayName || spec.label,
         connected: Boolean(account && account.isActive !== false && account.enabled !== false),
