@@ -12,8 +12,8 @@ import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
  *   component renders; listed so the rule survives if that ever changes.
  * - `/studio`    - Sanity Studio. Also an internal tool, not a marketing page.
  * - `/ask-fruit` - the landing page has the prompt box in its hero, and the
- *   workspace under it is chromeless, so a button pointing at Ask Fruit from
- *   inside Ask Fruit only gets in the way.
+ *   workspace under it is chromeless, so a button pointing at Fruitai from
+ *   inside Fruitai only gets in the way.
  */
 const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 
@@ -21,11 +21,12 @@ const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 const CLEARANCE = 12
 
 /**
- * Floating Ask Fruit launcher, bottom right, every marketing page.
+ * Floating Fruitai launcher, bottom right, every marketing page. A plain
+ * button: no hover tag or hover motion, a click opens the workspace.
  *
  * Rendered ONCE, site-wide, by <SiteFrame>, next to <SiteStickyCta>; pages do
  * not render this directly. It replaced the SEA-only WhatsApp launcher, so it
- * shows to every visitor: Ask Fruit answers in any region, at any hour.
+ * shows to every visitor: Fruitai answers in any region, at any hour.
  *
  * The Fruition mark is drawn as a CSS mask over a white fill rather than an
  * <img>, because the SVG paints in `currentColor` and an <img> would render it
@@ -86,21 +87,14 @@ export default function AskFruitLauncher() {
   return (
     <div
       ref={anchorRef}
-      className="group fixed right-4 bottom-[var(--launcher-lift,max(1rem,env(safe-area-inset-bottom,0px)))] z-40 flex items-center gap-3 transition-[bottom] duration-300 motion-reduce:transition-none md:right-6 lg:right-8"
+      className="fixed right-4 bottom-[var(--launcher-lift,max(1rem,env(safe-area-inset-bottom,0px)))] z-40 transition-[bottom] duration-300 motion-reduce:transition-none md:right-6 lg:right-8"
       style={lift}
     >
-      {/* Desktop-only name tag, revealed on hover or keyboard focus. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none hidden translate-x-1 rounded-pill bg-surface px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap text-ink opacity-0 shadow-card transition duration-150 group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:translate-x-0 group-hover:opacity-100 motion-reduce:transition-none lg:block"
-      >
-        Ask Fruit, our AI assistant
-      </span>
       <Link
         href="/ask-fruit/workspace"
-        aria-label="Ask Fruit, Fruition's AI assistant"
+        aria-label="Fruitai, Fruition's AI assistant"
         data-cta-location="ask-fruit-launcher"
-        className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 transition duration-150 hover:-translate-y-px hover:shadow-xl hover:shadow-fruit-pink/45 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:h-[60px] md:w-[60px]"
+        className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none md:h-[60px] md:w-[60px]"
       >
         <span
           aria-hidden="true"

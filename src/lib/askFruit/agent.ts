@@ -1,5 +1,5 @@
 /**
- * One Ask Fruit turn: model call, tool calls, repeat, until the model answers.
+ * One Fruitai turn: model call, tool calls, repeat, until the model answers.
  *
  * Ported from Proploy's agent-harness run_turn_stream with its known defects
  * fixed:
@@ -128,8 +128,8 @@ export async function* runTurn(input: TurnInput): AsyncGenerator<AskFruitEvent, 
       const upstream = err instanceof UpstreamError ? err : null
       console.error("[ask-fruit] model call failed", err)
       yield upstream?.retryable
-        ? fail("MODEL_BUSY", "Fruit is busy right now. Try again in a moment.", true)
-        : fail("MODEL_ERROR", "Fruit could not finish that answer. Try again.", true)
+        ? fail("MODEL_BUSY", "Fruitai is busy right now. Try again in a moment.", true)
+        : fail("MODEL_ERROR", "Fruitai could not finish that answer. Try again.", true)
       return { reply, failed: true, steps: step, usage }
     }
 
@@ -162,12 +162,12 @@ export async function* runTurn(input: TurnInput): AsyncGenerator<AskFruitEvent, 
         yield fail("RESPONSE_TRUNCATED", "That answer ran too long. Try asking for less at once.", true)
         return { reply, failed: true, steps: step, usage }
       }
-      reply += "\n\n(Cut short. Ask Fruit to continue.)"
+      reply += "\n\n(Cut short. Ask Fruitai to continue.)"
     }
 
     // stop, end_turn, content_filter or anything else: the model is done.
     if (!reply.trim()) {
-      yield fail("EMPTY_RESPONSE", "Fruit did not reply. Try rephrasing.", true)
+      yield fail("EMPTY_RESPONSE", "Fruitai did not reply. Try rephrasing.", true)
       return { reply, failed: true, steps: step, usage }
     }
     yield { type: "message_final", data: { content: reply.trim() } }

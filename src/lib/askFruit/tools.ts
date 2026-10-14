@@ -1,5 +1,5 @@
 /**
- * Ask Fruit tools: schemas the model sees and the server-side executors.
+ * Fruitai tools: schemas the model sees and the server-side executors.
  *
  * Sam's catalog tools (search_catalog, keyword_search_catalog, get_product_info,
  * compare_products, get_pricing_detail, get_product_intelligence) collapse into
