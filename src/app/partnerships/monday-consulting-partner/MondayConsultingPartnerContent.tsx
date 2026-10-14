@@ -395,7 +395,7 @@ export default function MondayConsultingPartnerContent({ page, siteSettings, cas
       />
 
       {/* 4. Certified Excellence dark banner */}
-      <CertifiedExcellenceSection calendlyUrl={rawCalendly} />
+      <CertifiedExcellenceSection calendlyUrl={calendlyUrl} />
 
       {/* 5. Why Choose Fruition */}
       <WhyFruitionSection items={resolvedWhyFruition} />
@@ -449,7 +449,7 @@ export default function MondayConsultingPartnerContent({ page, siteSettings, cas
 
       {/* 10. Combined: CRM expertise + Industry/Global cards + Fruition Advantage banner */}
       <PartnerWrapUpSection
-        calendlyUrl={rawCalendly}
+        calendlyUrl={calendlyUrl}
         industrySolutions={resolvedIndustrySolutions}
         countries={resolvedCountries}
         fruitionAdvantages={resolvedFruitionAdvantages}

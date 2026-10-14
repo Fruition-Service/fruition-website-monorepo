@@ -12,6 +12,7 @@ import { getIndustryLogos, INDUSTRY_LOGO_KEYS } from '@/sanity/industryLogos'
 import ClientLogoSection from '@/components/sections/ClientLogoSection'
 import { groupFaqsIntoTabs } from '@/sanity/groupFaqs'
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import CalendlySection from '@/components/sections/CalendlySection'
 
 /**
  * Shared renderer for the Site Architecture v2.1 practice clusters
@@ -33,12 +34,9 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function CtaButtons({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`flex flex-wrap items-center gap-4 ${compact ? '' : 'mt-8'}`}>
-      <a
-        href={DISCOVERY_CALL_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cta-btn cta-btn-primary"
-      >
+      {/* Same tab on purpose: a `target` opts the link out of the in-page
+          scroll to #book (see inPageBooking.ts). */}
+      <a href={DISCOVERY_CALL_URL} className="cta-btn cta-btn-primary">
         Book a discovery call →
       </a>
       {!compact && (
@@ -229,6 +227,13 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
           </div>
         </div>
       </section>
+
+      {/* Booking — gives the page its own #book, so every "book a call" CTA
+          scrolls here instead of sending the visitor to /contact-us. */}
+      <CalendlySection
+        heading="Let's design the way your business should run."
+        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
+      />
 
       {/* FAQ — shared site-wide accordion (renders its own FAQPage JSON-LD + #faq anchor) */}
       <div className="border-b border-ui">

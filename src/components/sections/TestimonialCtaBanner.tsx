@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react"
 import { urlFor } from "@/sanity/image"
 import CtaButton from "@/components/CtaButton"
 import type { CaseStudy, SanityImageRef } from "./types"
+import { orderSlides } from "@/lib/testimonialSlides"
 
 interface TestimonialCtaBannerProps {
   headingPart1?: string
@@ -23,6 +24,15 @@ function safeImageUrl(ref?: SanityImageRef): string | null {
   try { return urlFor(ref).width(400).auto("format").url() } catch { return null }
 }
 
+function initials(name?: string): string {
+  return (name || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("")
+}
+
 export default function TestimonialCtaBanner({
   headingPart1 = "Join ",
   headingAccent = "900+ organisations",
@@ -38,7 +48,7 @@ export default function TestimonialCtaBanner({
   const slides = useMemo(() => {
     const list = (testimonials && testimonials.length > 0 ? testimonials : (testimonial ? [testimonial] : []))
       .filter((t) => t?.quote)
-    return list
+    return orderSlides(list, testimonial)
   }, [testimonials, testimonial])
 
   const [index, setIndex] = useState(0)
@@ -113,12 +123,23 @@ export default function TestimonialCtaBanner({
                 )}
 
                 <div className="mt-auto flex items-end gap-5">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photoSrc || "/images/default-avatar.svg"}
-                    alt={active.clientName || ""}
-                    className="h-24 w-24 shrink-0 rounded-full object-cover bg-ui"
-                  />
+                  {photoSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={photoSrc}
+                      alt={active.clientName || ""}
+                      className="h-24 w-24 shrink-0 rounded-full object-cover bg-ui"
+                    />
+                  ) : (
+                    // No photo on file: initials read as this person, where the
+                    // grey silhouette read as a broken image.
+                    <div
+                      aria-hidden
+                      className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-brand/10 text-2xl font-semibold text-brand"
+                    >
+                      {initials(active.clientName)}
+                    </div>
+                  )}
                   <div className="pb-1">
                     <div className="mb-3 flex h-9 w-9 items-center justify-center bg-brand text-white text-2xl font-bold rounded-sm">
                       &ldquo;

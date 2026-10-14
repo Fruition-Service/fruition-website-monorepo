@@ -10,6 +10,7 @@ import CroSections, { type CroSectionsData } from "@/components/sections/CroSect
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
 import type { PartnerBadge, SanityImageRef } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import CalendlySection from "@/components/sections/CalendlySection"
 
 export interface TeamMember {
   _id: string
@@ -382,6 +383,13 @@ export default function FruitionTeamClient({
       <AuditCtaBanner />
 
       <CroSections data={croSections} primaryCtaUrl={calendlyUrl} />
+
+      {/* Gives the page its own #book so the hero and sticky CTAs scroll here
+          instead of leaving for /contact-us, like the About page. */}
+      <CalendlySection
+        heading="Let's design the way your business should run."
+        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
+      />
     </div>
   )
 }

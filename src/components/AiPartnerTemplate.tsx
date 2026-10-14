@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode } from "react"
 import FaqAccordion from "@/components/sections/FaqAccordion"
 import ClosingCtaSection, { type ClosingCtaCopy } from "@/components/sections/ClosingCtaSection"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import CalendlySection from "@/components/sections/CalendlySection"
 import type { FaqTab } from "@/components/sections/types"
 
 /**
@@ -54,6 +55,11 @@ function Heading({
   nodes = apply(nodes, strike, "strike")
   return <>{nodes.map((n, i) => (typeof n === "string" ? <span key={i}>{n}</span> : n))}</>
 }
+
+// Same copy the homepage booking band uses; a page doc can override it with
+// calendlyHeading / calendlySubheading.
+const DEFAULT_BOOKING_HEADING = "Let's design the way your business should run."
+const DEFAULT_BOOKING_SUBHEADING = "30 minutes. No obligation. Speak to a consultant, not a salesperson."
 
 export default function AiPartnerTemplate({
   page,
@@ -402,6 +408,16 @@ export default function AiPartnerTemplate({
           </div>
         </section>
       )}
+
+      {/* BOOKING — every page's "book" CTAs carry /contact-us#book, and
+          InPageBookingLinks only scrolls in-page when the page renders #book.
+          Without this section these pages sent visitors to /contact-us while
+          every service page scrolled, which QA flagged as inconsistent. */}
+      <CalendlySection
+        heading={page.calendlyHeading || DEFAULT_BOOKING_HEADING}
+        subheading={page.calendlySubheading || DEFAULT_BOOKING_SUBHEADING}
+        calendlyUrl={siteSettings?.calendlyLink}
+      />
 
       {/* FAQ — shared site-wide accordion (impl-packages style). Central Sanity
           faqItems arrive via the faqTabs prop; the page doc's own faq list is
