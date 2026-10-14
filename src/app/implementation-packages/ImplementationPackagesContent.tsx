@@ -16,6 +16,7 @@ import YouTubeEmbed from "@/components/YouTubeEmbed"
 import FramedMedia from "@/components/common/FramedMedia"
 import type { FaqTab as SharedFaqTab } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import { currencyForVisitor, type CurrencyCode } from "@/lib/visitorCurrency"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -243,7 +244,6 @@ export default function ImplementationPackagesContent({
   const pricingHeading = data?.pricingHeading
 
   /* ------------- Pricing cards (new) ------------- */
-  type CurrencyCode = "USD" | "SGD" | "GBP" | "AUD" | "EUR"
   type RegionCode = "US" | "UK" | "APAC"
 
   const CURRENCIES: Record<CurrencyCode, { symbol: string; rate: number; locale: string; label: string }> = {
@@ -260,7 +260,6 @@ export default function ImplementationPackagesContent({
   }
   type PricingTier = {
     name: string
-    hours: string
     // No basePrice = a scoped tier: the card shows priceLabel and sends the
     // visitor to sales instead of publishing a figure.
     basePrice?: number
@@ -274,7 +273,6 @@ export default function ImplementationPackagesContent({
     .filter((t): t is PackageTier => !!t && typeof t.name === "string")
     .map((t) => ({
       name: t.name as string,
-      hours: t.hours ?? "",
       basePrice: typeof t.basePrice === "number" ? t.basePrice : undefined,
       pricePrefix: t.pricePrefix,
       priceLabel: t.priceLabel,
@@ -296,6 +294,26 @@ export default function ImplementationPackagesContent({
   const [regionHover, setRegionHover] = useState(false)
   const currencyRef = useRef<HTMLDivElement | null>(null)
   const regionRef = useRef<HTMLDivElement | null>(null)
+  // Prices open in the visitor's currency, from their IP country (browser
+  // timezone as the fallback). A pick from the dropdown before the lookup
+  // lands is never overwritten.
+  const currencyPicked = useRef(false)
+  useEffect(() => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone ?? ""
+    let cancelled = false
+    fetch(`/api/visitor-region?tz=${encodeURIComponent(tz)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { country?: string | null } | null) => {
+        if (cancelled || currencyPicked.current) return
+        setCurrency(currencyForVisitor(d?.country ?? undefined, tz))
+      })
+      .catch(() => {
+        if (!cancelled && !currencyPicked.current) setCurrency(currencyForVisitor(undefined, tz))
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
       const t = e.target as Node
@@ -520,23 +538,23 @@ export default function ImplementationPackagesContent({
                   onMouseLeave={() => setCurrencyHover(false)}
                   className="flex h-11 cursor-pointer items-center gap-2.5 rounded-pill border bg-surface-raised pl-[18px] pr-3.5 text-sm font-semibold text-body transition-[border-color,box-shadow,transform] duration-150 ease-out"
                   style={{
-                    borderColor: currencyHover || currencyOpen ? "var(--purple-primary)" : "var(--border-ui)",
+                    borderColor: currencyHover || currencyOpen ? "var(--cta-blue)" : "var(--border-ui)",
                     boxShadow: currencyHover
-                      ? "0px 4px 12px rgba(128,21,232,0.12)"
-                      : "0px 1px 2px rgba(43,7,77,0.04)",
+                      ? "0px 4px 12px rgba(30,64,175,0.12)"
+                      : "0px 1px 2px rgba(10,22,56,0.04)",
                     transform: currencyHover ? "translateY(-1px)" : "translateY(0)",
                   }}
                 >
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-brand">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-cta-blue">
                     CURRENCY
                   </span>
                   <span>{CURRENCIES[currency].symbol} {CURRENCIES[currency].label}</span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-brand transition-transform duration-150" style={{ transform: currencyOpen ? "rotate(180deg)" : "none" }}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-cta-blue transition-transform duration-150" style={{ transform: currencyOpen ? "rotate(180deg)" : "none" }}>
                     <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 {currencyOpen && (
-                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(43,7,77,0.12)]">
+                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(10,22,56,0.12)]">
                     {(Object.keys(CURRENCIES) as CurrencyCode[]).map((code) => {
                       const active = code === currency
                       return (
@@ -544,11 +562,12 @@ export default function ImplementationPackagesContent({
                           key={code}
                           type="button"
                           onClick={() => {
+                            currencyPicked.current = true
                             setCurrency(code)
                             setCurrencyOpen(false)
                           }}
                           className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] px-3.5 py-2.5 text-left text-sm ${
-                            active ? "bg-brand/[0.08] font-semibold text-brand" : "bg-transparent font-medium text-body"
+                            active ? "bg-cta-blue-soft font-semibold text-cta-blue" : "bg-transparent font-medium text-body"
                           }`}
                         >
                           <span>{CURRENCIES[code].label}</span>
@@ -572,23 +591,23 @@ export default function ImplementationPackagesContent({
                   onMouseLeave={() => setRegionHover(false)}
                   className="flex h-11 cursor-pointer items-center gap-2.5 rounded-pill border bg-surface-raised pl-[18px] pr-3.5 text-sm font-semibold text-body transition-[border-color,box-shadow,transform] duration-150 ease-out"
                   style={{
-                    borderColor: regionHover || regionOpen ? "var(--purple-primary)" : "var(--border-ui)",
+                    borderColor: regionHover || regionOpen ? "var(--cta-blue)" : "var(--border-ui)",
                     boxShadow: regionHover
-                      ? "0px 4px 12px rgba(128,21,232,0.12)"
-                      : "0px 1px 2px rgba(43,7,77,0.04)",
+                      ? "0px 4px 12px rgba(30,64,175,0.12)"
+                      : "0px 1px 2px rgba(10,22,56,0.04)",
                     transform: regionHover ? "translateY(-1px)" : "translateY(0)",
                   }}
                 >
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-brand">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-cta-blue">
                     TEAM
                   </span>
                   <span>{REGIONS[region].label}</span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-brand transition-transform duration-150" style={{ transform: regionOpen ? "rotate(180deg)" : "none" }}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-cta-blue transition-transform duration-150" style={{ transform: regionOpen ? "rotate(180deg)" : "none" }}>
                     <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 {regionOpen && (
-                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(43,7,77,0.12)]">
+                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(10,22,56,0.12)]">
                     {(Object.keys(REGIONS) as RegionCode[]).map((code) => {
                       const active = code === region
                       return (
@@ -600,7 +619,7 @@ export default function ImplementationPackagesContent({
                             setRegionOpen(false)
                           }}
                           className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] px-3.5 py-2.5 text-left text-sm ${
-                            active ? "bg-brand/[0.08] font-semibold text-brand" : "bg-transparent font-medium text-body"
+                            active ? "bg-cta-blue-soft font-semibold text-cta-blue" : "bg-transparent font-medium text-body"
                           }`}
                         >
                           <span>{REGIONS[code].label}</span>
@@ -632,7 +651,7 @@ export default function ImplementationPackagesContent({
                     key={tier.name}
                     className={`relative flex flex-col rounded-[28px] p-6 transition-[transform,box-shadow] duration-200 ease-out md:p-8 ${
                       featured
-                        ? "bg-gradient-to-br from-brand to-brand-dark text-white md:-translate-y-3"
+                        ? "bg-gradient-to-br from-cta-blue to-cta-blue-dark text-white md:-translate-y-3"
                         : "dark:shadow-none border border-ui bg-surface-raised text-body"
                     }`}
                     onMouseEnter={() => setHoveredTier(tier.name)}
@@ -641,11 +660,11 @@ export default function ImplementationPackagesContent({
                       transform: `translateY(${hoverLift}px)`,
                       boxShadow: featured
                         ? hovered
-                          ? "0px 32px 72px rgba(125,20,227,0.45), 0px 0px 0px 1px rgba(125,20,227,0.4)"
-                          : "0px 24px 60px rgba(125,20,227,0.35), 0px 0px 0px 1px rgba(125,20,227,0.4)"
+                          ? "0px 32px 72px rgba(30,64,175,0.45), 0px 0px 0px 1px rgba(30,64,175,0.4)"
+                          : "0px 24px 60px rgba(30,64,175,0.35), 0px 0px 0px 1px rgba(30,64,175,0.4)"
                         : hovered
-                          ? "0px 16px 36px rgba(43,7,77,0.12)"
-                          : "0px 8px 24px rgba(43,7,77,0.06)",
+                          ? "0px 16px 36px rgba(10,22,56,0.12)"
+                          : "0px 8px 24px rgba(10,22,56,0.06)",
                     }}
                   >
                     {/* Name */}
@@ -656,11 +675,6 @@ export default function ImplementationPackagesContent({
                     >
                       {tier.name}
                     </h3>
-
-                    {/* Hours */}
-                    <p className={`mt-1 text-sm font-medium ${featured ? "text-white/[0.78]" : "text-muted"}`}>
-                      {tier.hours}
-                    </p>
 
                     {/* Price */}
                     {tier.basePrice !== undefined ? (
@@ -692,7 +706,7 @@ export default function ImplementationPackagesContent({
                               featured ? "text-white" : "text-body"
                             }`}
                           >
-                            {tier.priceLabel || "Custom quote"}
+                            {tier.priceLabel || "Get quote"}
                           </span>
                         </div>
                         <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
@@ -713,7 +727,7 @@ export default function ImplementationPackagesContent({
                             height="16"
                             viewBox="0 0 11 11"
                             fill="none"
-                            className={`mt-1 shrink-0 ${featured ? "text-white" : "text-brand"}`}
+                            className={`mt-1 shrink-0 ${featured ? "text-white" : "text-cta-blue"}`}
                           >
                             <path
                               d="M1.5 5.6l2.6 2.6L9.5 2.8"
@@ -733,8 +747,8 @@ export default function ImplementationPackagesContent({
                       href={tierCtaHref}
                       className={`mt-auto flex h-12 items-center justify-center rounded-pill text-sm font-bold ${
                         featured
-                          ? "bg-white text-brand"
-                          : "bg-gradient-to-r from-brand to-brand-light text-white"
+                          ? "bg-white text-cta-blue"
+                          : "bg-gradient-to-r from-cta-blue to-cta-blue-light text-white"
                       }`}
                     >
                       {tier.ctaLabel || (tier.basePrice !== undefined ? "Get started" : "Contact sales")}

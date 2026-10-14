@@ -103,7 +103,12 @@ export default defineType({
           name: 'packageTier',
           fields: [
             { name: 'name', title: 'Name', type: 'string' },
-            { name: 'hours', title: 'Hours (e.g. "20 hrs", "40+ hrs")', type: 'string' },
+            {
+              name: 'hours',
+              title: 'Hours (e.g. "20 hrs", "40+ hrs")',
+              description: 'Not shown on the pricing cards since 2026-10-14. Fruitai still reads it when answering questions about packages.',
+              type: 'string',
+            },
             {
               name: 'basePrice',
               title: 'Base Price (USD, integer)',
@@ -113,7 +118,7 @@ export default defineType({
             { name: 'pricePrefix', title: 'Price Prefix (e.g. "From ")', type: 'string' },
             {
               name: 'priceLabel',
-              title: 'Price Label (shown when Base Price is blank, default "Custom quote")',
+              title: 'Price Label (shown when Base Price is blank, default "Get quote")',
               type: 'string',
             },
             {

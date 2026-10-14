@@ -19,13 +19,17 @@ export const dynamic = "force-dynamic"
  * the "XX"/"T1" placeholders Cloudflare sends for some networks. Anything it
  * can't place falls through to APAC, so an unknown visitor is never treated as
  * being in a region.
+ *
+ * `country` is the raw ISO code, or null when Cloudflare could not place the
+ * visitor. /implementation-packages opens its prices in that country's currency.
  */
 export async function GET(req: Request) {
   const country = req.headers.get("cf-ipcountry") ?? undefined
   const tz = (new URL(req.url).searchParams.get("tz") ?? "").slice(0, 64)
   const region = detectRegion({ country, timezone: tz || undefined })
+  const iso = country?.trim().toUpperCase()
   return NextResponse.json(
-    { region },
+    { region, country: iso && /^[A-Z]{2}$/.test(iso) && iso !== "XX" && iso !== "T1" ? iso : null },
     // Per-visitor and never shared: a cached "SEA" served to Sydney would show
     // the launcher to the wrong half of the audience.
     { headers: { "cache-control": "private, no-store" } },
