@@ -67,10 +67,8 @@ const STATS_FOOTNOTE =
   "Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption."
 
 const ALSO_LINKS: RegionServiceLink[] = [
-  { label: "AI Consulting", href: "/ai-consulting" },
-  { label: "Atlassian & Jira", href: "/atlassian-consulting" },
-  { label: "HubSpot", href: "/hubspot-consulting" },
-  { label: "Integrations", href: "/integrations" },
+  { label: "OpenAI Implementation", href: "/partnerships/openai-chatgpt-partner" },
+  { label: "Claude Implementation", href: "/partnerships/anthropic-claude-partner" },
 ]
 
 /** Cards 1, 2, 5 and 6 are the same offer everywhere; 3 and 4 are localised. */
