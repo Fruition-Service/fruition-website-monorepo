@@ -1,9 +1,9 @@
 /**
- * Block-level markdown for Ask Fruit replies: paragraphs, bullet and numbered
+ * Block-level markdown for Fruitai replies: paragraphs, bullet and numbered
  * lists, headings and pipe tables. Inline marks and links reuse the site's
  * tokenizer (src/lib/inlineMarkdown.ts).
  *
- * Proploy used react-markdown + remark-gfm. The prompt limits Fruit to this
+ * Proploy used react-markdown + remark-gfm. The prompt limits Fruitai to this
  * subset, the Worker bundle has little headroom, and building React elements
  * from a tiny AST means model output never reaches the DOM as HTML.
  */

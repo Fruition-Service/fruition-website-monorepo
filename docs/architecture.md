@@ -21,10 +21,10 @@ as a **single Cloudflare Worker** (`fruition-landing`). It serves six surfaces:
 |---|---|---|
 | Marketing site | most routes | ~106 pages, statically rendered with 60s ISR |
 | Ad landing pages | `/au/*`, `/uk/*`, `/us/*` | 47 route handlers returning HTML strings; bypass the React layout |
-| Ask Fruit | `/ask-fruit`, launcher on every page | Public AI assistant, streams from OpenRouter |
+| Fruitai | `/ask-fruit`, launcher on every page | Public AI assistant, streams from OpenRouter |
 | Staff portal | `/internal/*` | Supabase Auth + Google SSO, `@fruitionservices.io` only |
 | Sanity Studio | `/studio` | Embedded Studio, gated by Sanity's own login |
-| API + webhooks | `/api/*`, `/s/<code>` | Leads, booking, Ask Fruit, portal APIs, inbound webhooks, link shortener |
+| API + webhooks | `/api/*`, `/s/<code>` | Leads, booking, Fruitai, portal APIs, inbound webhooks, link shortener |
 
 ```
                          ┌─────────────────────────────────────────────────────────┐
@@ -113,7 +113,7 @@ not reach them. `src/lib/landingPageLayout.test.ts` must pass.
 |---|---|---|
 | Leads | `contact`, `leads` | Contact form (Resend email must succeed, then monday, Slack fallback); CRO and ad page forms (honeypot `website`) |
 | Booking | `scheduling/availability`, `scheduling/lead`, `scheduling/book`, `scheduling/booked`, `visitor-region` | Live Calendly slots by region, record the lead on the ILE board, book, mark "Meeting Booked". `visitor-region` exists so the root layout never calls `headers()` |
-| Ask Fruit | `ask-fruit/chat`, `ask-fruit/evaluations` | SSE chat (10s heartbeat), evaluation log. Evaluations list/detail/update share one route to save Worker size |
+| Fruitai | `ask-fruit/chat`, `ask-fruit/evaluations` | SSE chat (10s heartbeat), evaluation log. Evaluations list/detail/update share one route to save Worker size |
 | Webhooks | `webhooks/calendly`, `webhooks/monday`, `webhooks/rb2b` | Calendly `invitee.created` → ILE board (HMAC); monday Team Onboarding `create_item` → Sanity `teamMember`; RB2B visitor → monday RB2B board + Slack |
 | Portal | `internal/*` | Blog, social composer, design docs, invoices, onboarding, team, author link. Session-gated with `getPortalApiUser()` |
 | Admin | `internal/slack-admin` | Bearer `INTERNAL_API_KEY`; lists and deletes the bot's own Slack messages |
@@ -127,7 +127,7 @@ routes (`monday-blog`, `slack-blog`, `sanity-ingest`).
 | Dashboard | `/internal` | GA4, Search Console, blog performance, Umami, AEO visibility and competitor data (from the Marketa brain), "Needs you" list |
 | Blog | `/internal/blog`, `new`, `[draftId]/edit`, `post/[docId]/edit`, `monday/[pulseId]/edit` | TipTap editor over `portal_drafts`, publish to Sanity, Zernio social drafts per post |
 | Social | `/internal/social`, `new`, `[id]` | Standalone Zernio composer (`social_compositions`), performance views |
-| Ask Fruit | `/internal/ask-fruit` | Review public conversations |
+| Fruitai | `/internal/ask-fruit` | Review public conversations |
 | Design docs | `/internal/design`, `new`, `[docId]` | LLM restyles PDF/DOCX/PPTX into branded HTML (`src/lib/design/*`, `design_docs`) |
 | Design studio | `/internal/design/studio` | Redirects to an external studio at `DESIGN_STUDIO_URL` |
 | Invoices | `/internal/invoices`, `new`, `[id]`, `import` | Invoices in `fruition_invoices`; Clockify **PDF** import parsed in the browser; PDFs via pdfmake |
@@ -207,7 +207,7 @@ Two Supabase projects, both reached server-side only.
 | `social_compositions` | Standalone social composer |
 | `design_docs` (+ templates) | Design docs |
 | `fruition_invoices`, `fruition_consultant_profiles` | Invoices |
-| `ask_fruit_evaluations`, `ask_fruit_turns`, RPC `ask_fruit_usage` | Ask Fruit logs, rate and budget limits |
+| `ask_fruit_evaluations`, `ask_fruit_turns`, RPC `ask_fruit_usage` | Fruitai logs, rate and budget limits |
 | `short_links`, RPC `register_short_link_click` | `/s/<code>` |
 
 Access goes through the service-role client `getPortalAdmin()`; RLS is defence in depth only.
@@ -239,7 +239,7 @@ pauses, those reads return null and the dashboard panels go empty. Its migration
 **Other gates**
 - `/studio`: Sanity's own login (not the portal).
 - Webhooks: Calendly HMAC; monday and RB2B shared secret in `?key=`; `slack-admin` Bearer key.
-- Ask Fruit: httpOnly visitor cookie, same-origin check, hashed IP and Supabase-backed per-visitor,
+- Fruitai: httpOnly visitor cookie, same-origin check, hashed IP and Supabase-backed per-visitor,
   per-IP and daily dollar budgets.
 
 ---
@@ -270,7 +270,7 @@ Anything request-specific in the layout must be fetched client-side (see `api/vi
 ### 7.3 Worker size budget
 The Worker is close to Cloudflare's **10 MiB compressed limit** (about 115 KiB of headroom when
 last measured). Every route handler and heavy dependency counts. Existing mitigations:
-`optimizePackageImports`, dynamic imports for mammoth and charts, Ask Fruit knowledge served as a
+`optimizePackageImports`, dynamic imports for mammoth and charts, Fruitai knowledge served as a
 static asset (`public/ask-fruit-knowledge.json`, generated by `predev`/`prebuild`), combined API
 routes, and the og-card renderer split into its own Worker. Check the size in the deploy output
 when adding dependencies.

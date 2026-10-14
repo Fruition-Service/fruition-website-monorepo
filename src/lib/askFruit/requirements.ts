@@ -47,10 +47,10 @@ export function requirementRows(requirements: Requirements): RequirementRow[] {
 export type CoverageVerdict = "empty" | "thin" | "workable" | "strong"
 
 export const VERDICT_COPY: Record<CoverageVerdict, string> = {
-  empty: "Tell Fruit what you are trying to fix and it will take it from there.",
+  empty: "Tell Fruitai what you are trying to fix and it will take it from there.",
   thin: "Enough to start. A few more details will sharpen the recommendation.",
   workable: "Enough for a solid shortlist. The gaps below would firm it up.",
-  strong: "Fruit has what it needs for a confident recommendation.",
+  strong: "Fruitai has what it needs for a confident recommendation.",
 }
 
 export interface Coverage {

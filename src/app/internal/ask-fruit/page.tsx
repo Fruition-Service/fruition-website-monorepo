@@ -16,7 +16,7 @@ const usd = (n: number) => `$${n.toFixed(2)}`
 const when = (iso: string) => new Date(iso).toLocaleString("en-AU", { dateStyle: "medium", timeStyle: "short" })
 
 /**
- * Ask Fruit conversations from the public site. Visitors are anonymous, so this
+ * Fruitai conversations from the public site. Visitors are anonymous, so this
  * is the only place the team sees what prospects asked and were recommended.
  * `?id=` opens one conversation. One route rather than list + [id], because
  * every page route adds ~8 KiB to a Worker that is near its size limit.
@@ -29,7 +29,7 @@ export default async function AskFruitStaffPage({ searchParams }: { searchParams
     const row = await conversation(id)
     if (!row) notFound()
     return (
-      <PortalShell email={user.email} title="Ask Fruit">
+      <PortalShell email={user.email} title="Fruitai">
         <ConversationDetail row={row} />
       </PortalShell>
     )
@@ -37,10 +37,10 @@ export default async function AskFruitStaffPage({ searchParams }: { searchParams
 
   const [rows, stats] = await Promise.all([recentConversations(), usageStats()])
   return (
-    <PortalShell email={user.email} title="Ask Fruit">
+    <PortalShell email={user.email} title="Fruitai">
       <PageHeader
-        title="Ask Fruit conversations"
-        description="What visitors asked Fruit on /ask-fruit, what it captured and what it recommended. Most recent first."
+        title="Fruitai conversations"
+        description="What visitors asked Fruitai on /ask-fruit, what it captured and what it recommended. Most recent first."
       />
       <StatGrid
         stats={[
@@ -120,7 +120,7 @@ function ConversationDetail({ row }: { row: StaffRow }) {
           {row.messages.map((m) => (
             <div key={m.id} className={m.role === "user" ? "self-end rounded-lg bg-muted px-4 py-3 text-sm lg:max-w-[80%]" : "text-sm"}>
               <p className="mb-1 text-xs font-medium text-muted-foreground">
-                {m.role === "user" ? "Visitor" : "Fruit"}
+                {m.role === "user" ? "Visitor" : "Fruitai"}
                 {m.status === "failed" ? " · failed" : ""}
               </p>
               <p className="whitespace-pre-wrap">{m.markdown || "(no reply)"}</p>

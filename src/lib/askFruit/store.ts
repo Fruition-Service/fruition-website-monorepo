@@ -1,5 +1,5 @@
 /**
- * Ask Fruit persistence in the portal Supabase project.
+ * Fruitai persistence in the portal Supabase project.
  *
  * Every read and write is scoped to the visitor id from the httpOnly cookie
  * (see visitor.ts). The tables have RLS on with no policies, so only this

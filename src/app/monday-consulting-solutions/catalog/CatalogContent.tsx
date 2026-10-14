@@ -46,7 +46,7 @@ interface CatalogContentProps {
 
 export default function CatalogContent({ calendlyUrl }: CatalogContentProps) {
   // The open solution lives in the URL (?solution=<key>), so a link from Ask
-  // Fruit, a nav item or a shared URL lands on that solution's details rather
+  // Fruitai, a nav item or a shared URL lands on that solution's details rather
   // than the top of the catalog. Reading it through an external store keeps
   // the page itself statically rendered.
   const param = useSyncExternalStore(subscribe, readParam, () => null)

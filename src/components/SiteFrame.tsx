@@ -18,7 +18,7 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
  * <StickyCtaConfig>; <SiteStickyCta> merges that over the Site Settings
  * default and owns the remaining route exclusions.
  *
- * The Ask Fruit launcher is rendered here for the same reason, and inside the
+ * The Fruitai launcher is rendered here for the same reason, and inside the
  * same provider: it reads the sticky CTA bar's measured height from there so
  * the two floating elements never overlap.
  *
@@ -32,7 +32,7 @@ const EXCLUDED_PREFIXES = ["/internal", "/studio"]
 
 /**
  * Full-screen app surfaces that render their own header: the portal and the
- * Ask Fruit workspace (which also serves printable briefs). The marketing
+ * Fruitai workspace (which also serves printable briefs). The marketing
  * /ask-fruit page keeps the normal chrome.
  */
 const CHROMELESS_PREFIXES = ["/internal", "/ask-fruit/workspace"]

@@ -16,12 +16,12 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
     // my-auto rather than justify-center: centred content taller than a phone
     // screen would overflow upwards, out of reach of the scroll container.
     <div className="mx-auto my-auto flex w-full max-w-[760px] flex-col px-5 py-10 md:px-8">
-      <p className={`${EYEBROW} text-brand`}>{"// Ask Fruit"}</p>
+      <p className={`${EYEBROW} text-brand`}>{"// Fruitai"}</p>
       <h1 className="text-section-h2 mt-4 text-ink">
         What are you trying to <span className="text-brand">make happen?</span>
       </h1>
       <p className="text-body-lead mt-4 max-w-[600px] text-muted">
-        Describe the problem in your own words. Fruit asks what it needs to, recommends the Fruition solution that fits,
+        Describe the problem in your own words. Fruitai asks what it needs to, recommends the Fruition solution that fits,
         and writes up a comparison or delivery plan you can share.
       </p>
       <div className="mt-8">
@@ -149,7 +149,7 @@ export function Conversation({
               </div>
             ) : (
               <div key={m.id} className="flex flex-col gap-2">
-                <p className={`${EYEBROW} text-brand`}>Fruit</p>
+                <p className={`${EYEBROW} text-brand`}>Fruitai</p>
                 {m.markdown ? <Markdown markdown={m.markdown} /> : null}
                 {m.status === "failed" ? (
                   <p className="text-[13px] text-muted">
@@ -169,7 +169,7 @@ export function Conversation({
         <div className="mx-auto w-full max-w-[820px]">
           <Composer onSend={onSend} onStop={onStop} sending={sending} prefill={prefill} />
           <p className="mt-2 text-center text-[11.5px] text-faint">
-            Fruit can be wrong. Pricing and timelines are confirmed with a consultant.
+            Fruitai can be wrong. Pricing and timelines are confirmed with a consultant.
           </p>
         </div>
       </div>

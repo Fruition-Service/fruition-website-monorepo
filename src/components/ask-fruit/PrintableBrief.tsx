@@ -34,7 +34,7 @@ export default function PrintableBrief({ evaluationId, docId }: { evaluationId: 
       <div className="mx-auto max-w-[560px] p-10 text-center">
         <p className="text-[15px] text-ink">This brief is not available in this browser.</p>
         <Link href="/ask-fruit/workspace" className="mt-4 inline-block font-semibold text-brand">
-          Back to Ask Fruit
+          Back to Fruitai
         </Link>
       </div>
     )

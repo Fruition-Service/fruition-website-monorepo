@@ -25,7 +25,7 @@ export function RequirementsCard({
     <section className="rounded-chip border border-ui bg-surface p-4" aria-labelledby="af-reqs">
       <div className="flex items-baseline justify-between gap-3">
         <h3 id="af-reqs" className={`${EYEBROW} text-brand`}>
-          What Fruit knows
+          What Fruitai knows
         </h3>
         <span className="font-mono text-[11.5px] text-muted">
           {coverage.known}/{coverage.total}
@@ -131,7 +131,7 @@ export function DecisionBoard({
             />
           ))
         ) : (
-          <EmptyLane text="Recommendations land here once Fruit knows what you are solving." />
+          <EmptyLane text="Recommendations land here once Fruitai knows what you are solving." />
         )
       ) : null}
 
@@ -139,7 +139,7 @@ export function DecisionBoard({
         kept.length ? (
           <>
             <div className="flex flex-col gap-2 rounded-chip border border-lilac bg-tint p-3">
-              <p className="text-[12.5px] text-ink">Have Fruit write it up:</p>
+              <p className="text-[12.5px] text-ink">Have Fruitai write it up:</p>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -165,7 +165,7 @@ export function DecisionBoard({
             ))}
           </>
         ) : (
-          <EmptyLane text="Shortlist the options you want to take further. Fruit can then compare them or plan the build." />
+          <EmptyLane text="Shortlist the options you want to take further. Fruitai can then compare them or plan the build." />
         )
       ) : null}
 
@@ -214,7 +214,7 @@ export function ResultsPanel(props: {
   const matrix = buildFitMatrix(props.evaluation.matches, props.evaluation.requirements)
   const requirements = <RequirementsCard evaluation={props.evaluation} onPrefill={props.onPrefill} />
   const hasMatches = props.evaluation.matches.length > 0
-  // Before there is anything to recommend, what Fruit has understood is the
+  // Before there is anything to recommend, what Fruitai has understood is the
   // useful thing to show. Once matches arrive they lead, with the fit overview
   // above the cards and the requirements below them, so the recommendations
   // are not pushed off the bottom of the panel.
