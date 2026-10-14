@@ -65,7 +65,7 @@ depends on the Workers runtime.
   Supabase `portal_drafts` table.** Do not rename `blogPost` fields, change the
   `blog-portal-<slug>` doc id rule, move `/post/<slug>`, or drop unknown keys from
   `portal_drafts.metadata`. Contracts: [docs/architecture.md §9](docs/architecture.md#9-marketa-contracts).
-  `make/`, `n8n/`, `scripts/marketa-harness/` and the `marketa:*` npm scripts are dead leftovers.
+  No Marketa code lives in this repo any more; do not reintroduce it here.
 
 ## Non-negotiables
 

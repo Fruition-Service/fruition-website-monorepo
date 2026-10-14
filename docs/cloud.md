@@ -23,8 +23,8 @@ monday.com and others). For how the code is organised see [`architecture.md`](./
 | CMS | Sanity `bt6nb58h` / `production` | Studio embedded at `/studio` |
 | Database | Supabase (portal project; Marketa's brain project read-only) | Migrations applied by hand |
 
-**Not Vercel.** The website has never needed Vercel since moving to Cloudflare; `.vercelignore` is a
-leftover. (The separate Marketa service does run on Vercel.)
+**Not Vercel.** The website has never needed Vercel since moving to Cloudflare (the old `.vercelignore`
+was deleted in October 2026). (The separate Marketa service does run on Vercel.)
 
 ---
 
@@ -69,7 +69,7 @@ dependency can fail the deploy; see [`architecture.md` §7.3](./architecture.md#
 ### 3.2 CI/CD
 | Workflow | Trigger | Does |
 |---|---|---|
-| `ci.yml` | PR and push to `production` (also the stale `staging`) | Typecheck, test, lint (Node 22), in parallel |
+| `ci.yml` | PR and push to `production` | Typecheck, test, lint (Node 22), in parallel |
 | `deploy.yml` → `preview` | Every PR | `npm run upload`, comments the `*.workers.dev` preview URL on the PR |
 | `deploy.yml` → `deploy` | Push to `production` | `npm run deploy` |
 | `vault-sync.yml` | Every push | Mirrors commit metadata to an external notes vault. Not part of the site |
