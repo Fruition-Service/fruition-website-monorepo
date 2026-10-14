@@ -30,7 +30,7 @@ export interface ConsultantPrefill {
   title?: number
   phone?: number
   message?: number
-  /** A multi-select "which service?" question, answered with one choice. */
+  /** A multi-select "which service?" question, answered with any of its choices. */
   service?: number
 }
 
@@ -231,8 +231,13 @@ export interface BookingPrefill {
   title?: string
   phone?: string
   message?: string
-  /** One of the event type's own service choices, or omitted. */
-  service?: string
+  /**
+   * The event type's own service choices the visitor picked, or omitted.
+   * Calendly ticks one box per newline-separated value in the answer, which is
+   * exactly how `put` joins several values for one slot — a comma-joined
+   * string ticks nothing.
+   */
+  services?: string[]
   /** Site path the visitor started from — carried as utm_content. */
   sourcePage?: string
   /** UTC ISO start of the slot the visitor picked on our own calendar. */
@@ -314,7 +319,7 @@ export function buildBookingUrl(c: BookingTarget, lead: BookingPrefill): string 
   put(c.prefill.title, lead.title)
   put(c.prefill.phone, lead.phone)
   put(c.prefill.message, lead.message)
-  put(c.prefill.service, lead.service)
+  for (const service of lead.services ?? []) put(c.prefill.service, service)
   for (const [slot, parts] of slots) params.set(`a${slot}`, parts.join("\n\n"))
 
   // URLSearchParams writes spaces as "+", and Calendly's widget re-encodes the

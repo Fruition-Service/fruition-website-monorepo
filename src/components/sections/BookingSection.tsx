@@ -563,7 +563,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
   const [monthOffsetOverride, setMonthOffsetOverride] = useState<number | null>(null)
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [f, setF] = useState<Record<string, string>>({})
-  const [platform, setPlatform] = useState("")
+  /** Every platform picked — a project often spans several (monday plus Make, say). */
+  const [platforms, setPlatforms] = useState<string[]>([])
   const [size, setSize] = useState("")
   const [showOptional, setShowOptional] = useState(false)
   const [sending, setSending] = useState(false)
@@ -662,7 +663,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         ? "Check your work email to continue"
         : !f.company?.trim()
           ? "Add your company to continue"
-          : !platform
+          : platforms.length === 0
             ? "Pick what we should prepare for"
             : null
   const ready = missing === null
@@ -725,7 +726,8 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
           company: f.company ?? "",
           title: f.title ?? "",
           phone: f.phone ?? "",
-          service: platform,
+          // In the picker's order, not click order, so the CRM reads consistently.
+          services: PLATFORMS.map((p) => p.name).filter((n) => platforms.includes(n)),
           notes: f.message ?? "",
           teamSize: size,
           timezone: tz,
@@ -853,10 +855,14 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             <Field label="Company" name="company" placeholder="Acme Pty Ltd" value={f.company || ""} onChange={onField} />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-            <span style={label}>What should we prepare for?</span>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <span id="prepare-for" style={label}>What should we prepare for? (pick any)</span>
+            <div role="group" aria-labelledby="prepare-for" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {PLATFORMS.map(({ name, logo }) => (
-                <button key={name} type="button" onClick={() => setPlatform(name)} style={chip(name === platform)}>
+                <button
+                  key={name} type="button" aria-pressed={platforms.includes(name)}
+                  onClick={() => setPlatforms((prev) => prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name])}
+                  style={chip(platforms.includes(name))}
+                >
                   {logo && (
                     // Decorative: the chip already names the product, so an alt
                     // would just have a screen reader say it twice.

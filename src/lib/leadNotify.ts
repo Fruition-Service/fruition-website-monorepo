@@ -468,8 +468,10 @@ async function pushToBoard(
   if (cc && c.country) {
     cols[c.country] = { countryCode: cc, countryName: countryName(cc) }
   }
-  const service = p.fields?.["Service"]?.trim()
-  if (service && c.serviceInterest) cols[c.serviceInterest] = { labels: [service] }
+  // The booking card allows several picks and sends them comma-joined; each is
+  // its own dropdown label. No product name we offer contains a comma.
+  const services = (p.fields?.["Service"] ?? "").split(",").map((s) => s.trim()).filter(Boolean)
+  if (services.length > 0 && c.serviceInterest) cols[c.serviceInterest] = { labels: services }
   // Now that the owner is known, the meeting can be written in their own
   // wall-clock time — see meetingTime.ts for why a raw instant is never enough.
   const meetingLine = meetingTimeFor(p, ownerId)
