@@ -34,6 +34,23 @@ import { FileText, PenSquare, Share2 } from "lucide-react"
 export const dynamic = "force-dynamic"
 
 const WINDOW_DAYS = 28
+
+// GA4 does not count key events retroactively, so a zero right after marking one
+// is expected and must not read as "nothing is set up".
+function describeIdleConversions(
+  keyEvents: { eventName: string; createTime: string }[] | null
+): string {
+  if (keyEvents === null) return "no key events recorded on the GA4 property"
+  if (keyEvents.length === 0) return "no key event set on the GA4 property"
+  const names = keyEvents.map((k) => k.eventName).join(", ")
+  const newest = keyEvents.reduce((a, k) => (k.createTime > a ? k.createTime : a), "")
+  const windowStart = new Date(Date.now() - WINDOW_DAYS * 86_400_000).toISOString()
+  if (newest >= windowStart) {
+    const since = new Date(newest).toLocaleDateString("en-GB", { day: "numeric", month: "short" })
+    return `key events (${names}) last changed ${since}; GA4 only counts from then on`
+  }
+  return `none of the key events (${names}) fired in the last ${WINDOW_DAYS} days`
+}
 /** A draft nobody has touched in this long is a decision, not a work in progress. */
 const STALE_DAYS = 30
 
@@ -162,7 +179,7 @@ export default async function DashboardPage() {
   const deadFeeds: { label: string; detail: string }[] = []
   if (ctaIdle) deadFeeds.push({ label: "CTA clicks", detail: "no cta_click trigger in GTM" })
   if (conversionsIdle) {
-    deadFeeds.push({ label: "Conversions", detail: "no key event set on the GA4 property" })
+    deadFeeds.push({ label: "Conversions", detail: describeIdleConversions(ga4?.keyEvents ?? null) })
   }
 
   const metrics: SectionMetric[] = [
