@@ -8,7 +8,7 @@ import { authorSlug } from "@/sanity/authorSlug"
  * (open-next.config.ts), so a rendered page survives isolate restarts and
  * even the `revalidate = 3600` window is only honoured when something asks
  * for a re-render. `revalidatePath` is what asks — it writes the path's tag
- * to the D1 tag cache (NEXT_TAG_CACHE_D1), and the next request to that path
+ * to the KV tag cache (NEXT_TAG_CACHE_KV), and the next request to that path
  * misses the cache and re-renders from Sanity.
  *
  * Without the tag cache binding this is a silent no-op, which is exactly why

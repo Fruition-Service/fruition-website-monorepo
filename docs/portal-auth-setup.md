@@ -1,3 +1,7 @@
+> **Status 2026-10-14:** this was the provisioning checklist and is now done. Auth is live (Google SSO
+> plus email magic link). The `authorized_users` allow-list described here was never wired up; the
+> domain check is the only gate. Current behaviour: [architecture.md §6](architecture.md#6-authentication).
+
 # Portal Auth Setup — Supabase + Google Workspace SSO
 
 Provisioning checklist to enable **Google Workspace login** for the internal portal, locked to

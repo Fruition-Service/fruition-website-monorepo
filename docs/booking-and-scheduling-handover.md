@@ -1,3 +1,7 @@
+> **Status 2026-10-14:** partly out of date. The consultant picker is now ON (`BOOKING_MODE = "consultant"` in
+> `src/components/sections/BookingSection.tsx`) over the shared global Calendly account. The
+> self-iframe rule below still holds. Current flow: [architecture.md §8](architecture.md#8-integrations).
+
 # Booking & scheduling — handover
 
 _Last updated 2026-07-31._

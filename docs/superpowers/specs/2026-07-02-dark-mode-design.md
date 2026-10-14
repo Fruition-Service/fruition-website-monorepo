@@ -1,3 +1,5 @@
+> **Superseded:** dark mode was disabled site-wide (light theme only, see PRODUCT.md). Kept for history.
+
 # Site-wide Dark Mode — Design Spec
 
 **Date:** 2026-07-02
