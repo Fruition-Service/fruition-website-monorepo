@@ -126,10 +126,10 @@ Supabase, monday boards and Calendly. Treat it as production when testing forms 
 |---|---|---|
 | Sanity | `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION` (build-time), `SANITY_WRITE_TOKEN` | Reads everywhere; writes from the portal, onboarding webhook, social media uploads |
 | Site | `NEXT_PUBLIC_SITE_URL` | Canonicals, sitemap, short links (defaults to production) |
-| Portal Supabase | `PORTAL_SUPABASE_URL`, `PORTAL_SUPABASE_ANON_KEY`, `PORTAL_SUPABASE_SERVICE_ROLE_KEY`, `PORTAL_ALLOWED_EMAIL_DOMAIN` | Auth and all portal data, Fruitai logs, short links |
+| Portal Supabase | `PORTAL_SUPABASE_URL`, `PORTAL_SUPABASE_ANON_KEY`, `PORTAL_SUPABASE_SERVICE_ROLE_KEY`, `PORTAL_ALLOWED_EMAIL_DOMAIN` | Auth and all portal data, Implementation Calculator logs, short links |
 | Marketa | `MARKETA_SUPABASE_URL`, `MARKETA_SUPABASE_SERVICE_ROLE_KEY`, `MARKETA_URL` | Dashboard reads from the brain project; "content complete" webhook |
 | OpenRouter | `OPENROUTER_API_KEY`, `ASK_FRUIT_MODEL`, `DESIGN_DOC_MODEL`, `LEAD_CLASSIFIER_MODEL`, `LEAD_CLASSIFIER_SPAM`, `MARKETA_SOCIAL_MODEL` | All LLM calls |
-| Fruitai limits | `ASK_FRUIT_ENABLED`, `ASK_FRUIT_IP_SALT`, `ASK_FRUIT_VISITOR_HOURLY_TURNS`, `ASK_FRUIT_VISITOR_DAILY_TURNS`, `ASK_FRUIT_IP_DAILY_TURNS`, `ASK_FRUIT_DAILY_BUDGET_USD` | Kill switch and abuse limits |
+| Implementation Calculator limits | `ASK_FRUIT_ENABLED`, `ASK_FRUIT_IP_SALT`, `ASK_FRUIT_VISITOR_HOURLY_TURNS`, `ASK_FRUIT_VISITOR_DAILY_TURNS`, `ASK_FRUIT_IP_DAILY_TURNS`, `ASK_FRUIT_DAILY_BUDGET_USD` | Kill switch and abuse limits |
 | monday.com | `MONDAY_API_TOKEN`, `MONDAY_READ_TOKEN`, `MONDAY_WEBHOOK_SECRET`, `MONDAY_LEADS_BOARD_ID`, `MONDAY_LEADS_GROUP_ID`, `MONDAY_LEADS_EMAIL_COLUMN`, `MONDAY_LEADS_NOTES_COLUMN`, `MONDAY_LEADS_COMPANY_COLUMN` | Leads, RB2B board, onboarding |
 | Slack | `SLACK_BOT_TOKEN`, `SLACK_USER_TOKEN`, `SLACK_LEADS_CHANNEL_ID`, `INTERNAL_API_KEY` | Lead fallback, RB2B alerts, `slack-admin` |
 | Email | `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` | Contact form |

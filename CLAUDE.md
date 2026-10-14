@@ -2,7 +2,7 @@
 
 Next.js 16 (App Router) + React 19, content from Sanity, deployed as a **single Cloudflare
 Worker** (`fruition-landing`) via OpenNext. About 106 marketing pages, 47 Google Ads landing pages
-(`/au`, `/uk`, `/us`), the public Ask Fruit assistant, an auth-gated staff portal at `/internal`,
+(`/au`, `/uk`, `/us`), the public Implementation Calculator assistant (`/ask-fruit`), an auth-gated staff portal at `/internal`,
 the embedded Sanity Studio at `/studio`, and API routes for leads, booking (Calendly), monday.com,
 RB2B and Zernio.
 

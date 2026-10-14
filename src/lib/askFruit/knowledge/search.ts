@@ -1,5 +1,5 @@
 /**
- * BM25 ranking over the Fruitai knowledge records.
+ * BM25 ranking over the Implementation Calculator knowledge records.
  *
  * The corpus is small (a few hundred records, well under 2 MB of text), so an
  * in-memory inverted index rebuilt when the content cache refreshes is cheaper

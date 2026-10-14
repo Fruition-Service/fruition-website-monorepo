@@ -32,14 +32,14 @@ function titleFrom(message: string): string {
 }
 
 /**
- * One Fruitai turn, streamed as server-sent events.
+ * One Implementation Calculator turn, streamed as server-sent events.
  *
  * Body: { message, evaluation_id? }. Without an evaluation id a new evaluation
  * is created. Events: session, status, tool_call, message_delta, requirements,
  * recommendations, shortlist, document_ready, message_final | error, done.
  */
 export async function POST(req: Request) {
-  if (!askFruitEnabled()) return jsonError(503, "UNAVAILABLE", "Fruitai is offline right now.")
+  if (!askFruitEnabled()) return jsonError(503, "UNAVAILABLE", "The Implementation Calculator is offline right now.")
   if (!sameOrigin(req)) return jsonError(403, "FORBIDDEN", "Cross-site requests are not allowed.")
 
   let body: { message?: unknown; evaluation_id?: unknown }
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
   } catch (err) {
     // Fail closed: without the usage check there is no cost ceiling.
     console.error("[ask-fruit] usage check failed", err)
-    return jsonError(503, "UNAVAILABLE", "Fruitai is offline right now. Try again shortly.", true)
+    return jsonError(503, "UNAVAILABLE", "The Implementation Calculator is offline right now. Try again shortly.", true)
   }
 
   let evaluation: EvaluationDetail

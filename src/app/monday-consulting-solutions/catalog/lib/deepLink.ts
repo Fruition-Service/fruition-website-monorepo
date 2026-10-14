@@ -7,7 +7,7 @@ const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").tri
 
 /**
  * The solution a `?solution=` value points at. Matches the key first, then
- * the title, because Fruitai conversations saved before the deep link
+ * the title, because Implementation Calculator conversations saved before the deep link
  * existed only know a solution by the name it was cited under.
  */
 export function findSolution(solutions: Solution[], value: string | null): Solution | null {

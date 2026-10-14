@@ -1,5 +1,5 @@
 /**
- * The Fruitai knowledge base: every offering Fruition sells plus the FAQs,
+ * The Implementation Calculator knowledge base: every offering Fruition sells plus the FAQs,
  * case studies and regional pages that back them up.
  *
  * Two sources, merged into one in-memory index per Worker isolate and refreshed

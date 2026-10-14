@@ -281,7 +281,7 @@ export default function AskFruitWorkspace() {
           <Image src="/images/logo-fruition-black.svg" alt="" width={1366} height={280} className="hidden h-6 w-auto md:block" priority unoptimized />
         </Link>
         <span className={`mx-1 h-5 w-px bg-ui ${hasConversation ? "hidden md:block" : "block"}`} aria-hidden />
-        <span className={`${EYEBROW} text-brand ${hasConversation ? "hidden md:inline" : "inline"}`}>Fruitai</span>
+        <span className={`${EYEBROW} text-brand ${hasConversation ? "hidden md:inline" : "inline"}`}>Implementation Calculator</span>
         <span className="min-w-0 flex-1 truncate px-1 text-[13.5px] font-medium text-ink md:px-2">{hasConversation ? active?.title : ""}</span>
         {hasConversation ? (
           <button
@@ -337,7 +337,7 @@ export default function AskFruitWorkspace() {
         ) : null}
       </div>
 
-      <Drawer side="left" open={navOpen} onClose={() => setNavOpen(false)} label="Fruitai">
+      <Drawer side="left" open={navOpen} onClose={() => setNavOpen(false)} label="Implementation Calculator">
         {list}
       </Drawer>
       <Drawer side="right" open={resultsOpen} onClose={() => setResultsOpen(false)} label="Recommendations">

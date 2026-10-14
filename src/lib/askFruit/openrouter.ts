@@ -2,7 +2,7 @@
  * Streaming OpenRouter chat completions with tool calls.
  *
  * The site already routes every runtime LLM call through OpenRouter (see
- * api/internal/design/generate), so Fruitai uses the same key and billing
+ * api/internal/design/generate), so the Implementation Calculator uses the same key and billing
  * rather than adding an Anthropic SDK to a Worker bundle with ~1.8 MiB of
  * headroom. Tool calls arrive in OpenAI's delta format: fragments keyed by
  * `index`, with the id and name on the first fragment and the JSON arguments
@@ -75,7 +75,7 @@ async function open(req: CompletionRequest): Promise<Response> {
         Authorization: `Bearer ${req.apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "https://www.fruitionservices.io",
-        "X-Title": "Fruition Fruitai",
+        "X-Title": "Fruition Implementation Calculator",
       },
       body,
       signal: req.signal,

@@ -81,7 +81,7 @@ export function ComparisonBriefView({ data }: { data: ComparisonBrief }) {
           const pick = o.offering_id === data.recommendation.offering_id
           return (
             <div key={o.offering_id} className={`rounded-chip border p-4 ${pick ? "border-brand bg-tint" : "border-ui bg-surface"}`}>
-              <p className={`${EYEBROW} ${pick ? "text-brand" : "text-muted"}`}>{pick ? "Fruitai's pick" : o.kind}</p>
+              <p className={`${EYEBROW} ${pick ? "text-brand" : "text-muted"}`}>{pick ? "Our pick" : o.kind}</p>
               <p className="mt-1 text-[15px] font-semibold">
                 <OfferingLink offering={o} />
               </p>
@@ -146,7 +146,7 @@ export function ComparisonBriefView({ data }: { data: ComparisonBrief }) {
         </div>
       </Section>
 
-      <Section label="Fruitai recommends">
+      <Section label="The Implementation Calculator recommends">
         <p className="text-[15px] leading-relaxed text-ink">
           {recommended ? <OfferingLink offering={recommended} /> : null}
           {data.recommendation.reason ? <>{recommended ? ". " : ""}{data.recommendation.reason}</> : null}
@@ -266,7 +266,7 @@ export function BriefFooter() {
   return (
     <div className="mt-8 flex flex-col items-start gap-3 rounded-chip bg-surface-dark p-5 text-white md:flex-row md:items-center md:justify-between">
       <p className="text-[14px] leading-snug">
-        Prepared by Fruitai, Fruition&apos;s assistant. Scope, pricing and timelines are confirmed with a consultant.
+        Prepared by the Implementation Calculator, Fruition&apos;s assistant. Scope, pricing and timelines are confirmed with a consultant.
       </p>
       <a href={BOOKING_URL} className="cta-btn cta-btn-on-dark-primary shrink-0 print:hidden">
         <span className="cta-btn-label">Book a discovery call</span>

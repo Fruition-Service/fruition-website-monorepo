@@ -67,6 +67,8 @@ const LABELS: Record<string, string> = {
   'terms-and-conditions': 'Terms & Conditions',
   'monday-for-cabinetry-renovation': 'Installation & Renovation',
   'solar-crm-solution': 'Solar CRM Solution',
+  // The assistant kept its /ask-fruit URL through two renames.
+  'ask-fruit': 'Implementation Calculator',
   // Messaging channels — the prettifier would title-case these into
   // "Whatsapp" and "Line", which are both wrong as brand names.
   whatsapp: 'WhatsApp',

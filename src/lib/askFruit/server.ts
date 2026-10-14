@@ -1,5 +1,5 @@
 /**
- * Request plumbing shared by the Fruitai route handlers: visitor identity,
+ * Request plumbing shared by the Implementation Calculator route handlers: visitor identity,
  * origin checks, rate and budget limits, and keeping a turn alive on the Worker.
  */
 import { cookies } from "next/headers"
@@ -73,7 +73,7 @@ export function limits() {
 /** The first limit this usage breaks, as a visitor-facing message, or null. */
 export function limitBreach(usage: Usage, l = limits()): { code: string; message: string } | null {
   if (usage.cost_day >= l.dailyBudgetUsd) {
-    return { code: "DAILY_CAPACITY", message: "Fruitai has reached today's capacity. Book a call and a consultant will pick this up with you." }
+    return { code: "DAILY_CAPACITY", message: "The Implementation Calculator has reached today's capacity. Book a call and a consultant will pick this up with you." }
   }
   if (usage.visitor_hour >= l.visitorHour) {
     return { code: "RATE_LIMITED", message: "You have sent a lot of messages this hour. Take a short break and try again." }
