@@ -33,7 +33,9 @@ interface LeadRequest {
   /** Job title — ILE Title column, and prefilled where Calendly asks for it */
   title?: string
   phone?: string
-  /** "What should we prepare for?" — ILE Service Interest dropdown */
+  /** "What should we prepare for?" — every pick, ILE Service Interest dropdown */
+  services?: string[]
+  /** The single-pick form of the same answer, kept so older clients keep working */
   service?: string
   notes?: string
   /** "How many people would use it?" — extra line in the Message column */
@@ -105,10 +107,18 @@ export async function POST(req: Request) {
   const sourcePage = raw.startsWith("/") && !raw.startsWith("//") && raw.length <= 200 ? raw : undefined
 
   const title = (p.title ?? "").trim()
+  // Capped and de-duplicated: these become monday labels and Calendly answers.
+  const services = [...new Set(
+    (Array.isArray(p.services) ? p.services : [p.service])
+      .filter((s): s is string => typeof s === "string")
+      .map((s) => s.trim())
+      .filter((s) => s && s.length <= 60),
+  )].slice(0, 12)
   const fields: Record<string, string> = {}
   if (p.phone?.trim()) fields["Phone"] = p.phone.trim()
   if (title) fields["Title"] = title
-  if (p.service?.trim()) fields["Service"] = p.service.trim()
+  // Comma-joined: leadNotify splits it back into one dropdown label per pick.
+  if (services.length > 0) fields["Service"] = services.join(", ")
   if (p.notes?.trim()) fields["Message"] = p.notes.trim()
   if (p.teamSize?.trim()) fields["Team size"] = p.teamSize.trim()
 
@@ -147,17 +157,16 @@ export async function POST(req: Request) {
 
   // The regional event types have no "job title" question, so the title rides
   // along in the free-text box rather than being dropped.
-  const service = p.service?.trim()
   const bookingUrl = buildBookingUrl(target, {
     name,
     email,
     company,
     title,
     phone: p.phone?.trim(),
-    message: [title ? `Title: ${title}` : "", service, p.notes?.trim()].filter(Boolean).join(" — "),
-    // Only an exact choice — Calendly rejects a multi-select answer that isn't
+    message: [title ? `Title: ${title}` : "", services.join(", "), p.notes?.trim()].filter(Boolean).join(" — "),
+    // Only exact choices — Calendly rejects a multi-select answer that isn't
     // one of its own options, and our picker also offers "Other".
-    service: service && SERVICE_CHOICES.has(service) ? service : undefined,
+    services: services.filter((s) => SERVICE_CHOICES.has(s)),
     sourcePage,
     startUtc,
     // The visitor's timezone decides how the slot is written into the link.

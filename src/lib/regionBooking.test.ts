@@ -10,7 +10,7 @@ describe("regional booking links", () => {
       company: "Acme Ltd",
       phone: "+44 7700 900123",
       message: "Title: Ops Lead — monday.com — Need CRM help",
-      service: "monday.com",
+      services: ["monday.com"],
       startUtc: "2026-09-10T09:00:00Z",
       viewerTimezone: "Europe/London",
       sourcePage: "/monday-crm-consulting",
@@ -29,6 +29,17 @@ describe("regional booking links", () => {
     expect(q.get("utm_source")).toBe("fruition-leadfirst")
     expect(q.get("utm_content")).toBe("/monday-crm-consulting")
     expect(u).not.toContain("+Morgan")              // spaces stay %20
+  })
+
+  it("ticks every picked service, one newline-separated value each", () => {
+    // Verified against the live ANZ page: a comma-joined answer ticks nothing.
+    const u = buildBookingUrl(REGION_BOOKING.APAC, {
+      name: "Alex Morgan", email: "alex@acme.com.au", message: "Need help",
+      services: ["monday.com", "Make", "Aircall"],
+    })
+    const q = new URLSearchParams(u.split("?")[1])
+    expect(q.get("a4")!.split(/\n+/)).toEqual(["monday.com", "Make", "Aircall"])
+    expect(q.get("a4")).not.toContain(",")
   })
 
   it("sends India to its own event type, not South-East Asia", () => {
