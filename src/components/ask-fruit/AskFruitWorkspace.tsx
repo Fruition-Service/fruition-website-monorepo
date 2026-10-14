@@ -12,6 +12,12 @@ import { useAskFruit } from "./useAskFruit"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 const BOOKING_URL = "/contact-us#book"
+/**
+ * A compact booking button sized for the 56px app header. The site's
+ * `.cta-btn` is fixed at 53px tall, which filled the header edge to edge.
+ */
+const BOOK_BUTTON =
+  "h-10 items-center justify-center rounded-pill bg-cta-blue px-4 text-[13.5px] font-semibold whitespace-nowrap text-white transition-colors hover:bg-cta-blue-dark focus-visible:ring-2 focus-visible:ring-cta-blue focus-visible:ring-offset-2 focus-visible:outline-none"
 
 function ConversationList({
   summaries,
@@ -49,34 +55,47 @@ function ConversationList({
             return (
               <div
                 key={s.evaluation_id}
-                className={`group flex items-center gap-1 rounded-chip pr-1 transition-colors ${active ? "bg-tint" : "hover:bg-surface-subtle"}`}
+                className={`group relative flex items-center rounded-chip transition-colors ${active ? "bg-tint" : "hover:bg-surface-subtle"}`}
               >
                 <button
                   type="button"
                   onClick={() => onSelect(s.evaluation_id)}
                   aria-current={active ? "true" : undefined}
-                  className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-left"
+                  title={s.title}
+                  className="flex min-h-11 min-w-0 flex-1 items-center gap-2 px-3 py-2 text-left"
                 >
                   <MessageSquare size={14} className={active ? "shrink-0 text-brand" : "shrink-0 text-muted"} aria-hidden />
-                  <span className={`truncate text-[13px] ${active ? "font-semibold text-body" : "text-body"}`}>{s.title}</span>
-                  {s.match_count ? <span className="ml-auto font-mono text-[10.5px] text-muted">{s.match_count}</span> : null}
+                  <span className={`truncate text-[13px] ${active ? "font-semibold text-ink" : "text-ink"}`}>{s.title}</span>
+                  {s.match_count ? (
+                    <span className="ml-auto shrink-0 font-mono text-[10.5px] text-muted group-focus-within:invisible group-hover:invisible">
+                      {s.match_count}
+                    </span>
+                  ) : null}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => onRename(s.evaluation_id, s.title)}
-                  aria-label={`Rename ${s.title}`}
-                  className="rounded-badge p-1.5 text-muted opacity-0 group-hover:opacity-100 hover:text-brand focus-visible:opacity-100"
+                {/* Rename and delete float over the row's right end on hover or
+                    focus, so a resting row gives its whole width to the title. */}
+                <div
+                  className={`absolute inset-y-1 right-1 flex items-center gap-0.5 rounded-badge pl-3 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 ${
+                    active ? "bg-linear-to-r from-transparent to-tint to-30%" : "bg-linear-to-r from-transparent to-surface-subtle to-30%"
+                  }`}
                 >
-                  <Pencil size={13} aria-hidden />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onDelete(s.evaluation_id)}
-                  aria-label={`Delete ${s.title}`}
-                  className="rounded-badge p-1.5 text-muted opacity-0 group-hover:opacity-100 hover:text-brand focus-visible:opacity-100"
-                >
-                  <Trash2 size={13} aria-hidden />
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => onRename(s.evaluation_id, s.title)}
+                    aria-label={`Rename ${s.title}`}
+                    className="rounded-badge p-1.5 text-muted hover:text-brand"
+                  >
+                    <Pencil size={13} aria-hidden />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onDelete(s.evaluation_id)}
+                    aria-label={`Delete ${s.title}`}
+                    className="rounded-badge p-1.5 text-muted hover:text-brand"
+                  >
+                    <Trash2 size={13} aria-hidden />
+                  </button>
+                </div>
               </div>
             )
           })
@@ -86,6 +105,11 @@ function ConversationList({
           </p>
         )}
       </nav>
+      <div className="border-t border-ui p-3 lg:hidden">
+        <a href={BOOKING_URL} className={`${BOOK_BUTTON} flex w-full`}>
+          Book a call with a consultant
+        </a>
+      </div>
     </div>
   )
 }
@@ -143,7 +167,7 @@ function BriefDialog({ doc, evaluationId, onClose }: { doc: BriefDocument; evalu
         <div className="flex shrink-0 items-center gap-3 border-b border-ui px-5 py-3.5 md:px-7">
           <div className="min-w-0 flex-1">
             <p className={`${EYEBROW} text-brand`}>{doc.doc_type === "comparison_brief" ? "Comparison brief" : "Implementation brief"}</p>
-            <h2 id="af-brief-title" className="truncate text-[17px] font-semibold text-body">
+            <h2 id="af-brief-title" className="truncate text-[17px] font-semibold text-ink">
               {doc.title}
             </h2>
           </div>
@@ -151,7 +175,7 @@ function BriefDialog({ doc, evaluationId, onClose }: { doc: BriefDocument; evalu
             href={`/ask-fruit/workspace?brief=${encodeURIComponent(`${evaluationId}:${doc.doc_id}`)}`}
             target="_blank"
             rel="noopener"
-            className="inline-flex h-9 items-center gap-1.5 rounded-pill border border-ui px-3 text-[13px] font-semibold text-body transition-colors hover:border-brand hover:text-brand"
+            className="inline-flex h-9 items-center gap-1.5 rounded-pill border border-ui px-3 text-[13px] font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
           >
             <Printer size={15} aria-hidden />
             <span className="hidden md:inline">Print or save PDF</span>
@@ -243,32 +267,39 @@ export default function AskFruitWorkspace() {
   return (
     <div className="fixed inset-0 flex flex-col bg-surface">
       <header className="flex h-14 shrink-0 items-center gap-2 border-b border-ui px-3 md:px-5">
-        <button type="button" onClick={() => setNavOpen(true)} aria-label="Your conversations" className="rounded-badge p-2 text-body hover:text-brand lg:hidden">
+        <button
+          type="button"
+          onClick={() => setNavOpen(true)}
+          aria-label="Your conversations"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-badge text-ink hover:text-brand lg:hidden"
+        >
           <Menu size={19} aria-hidden />
         </button>
         <Link href="/" className="flex shrink-0 items-center" aria-label="Fruition home">
-          <Image src="/images/logo-fruition-black.svg" alt="Fruition Services" width={1366} height={280} className="h-6 w-auto" priority unoptimized />
+          {/* The mark alone on phones, so the conversation title has room. */}
+          <Image src="/images/logo-fruition-mark.svg" alt="" width={312} height={288} className="h-7 w-auto md:hidden" priority unoptimized />
+          <Image src="/images/logo-fruition-black.svg" alt="" width={1366} height={280} className="hidden h-6 w-auto md:block" priority unoptimized />
         </Link>
-        <span className="mx-1 hidden h-5 w-px bg-ui md:block" aria-hidden />
-        <span className={`${EYEBROW} hidden text-brand md:inline`}>Ask Fruit</span>
-        <span className="min-w-0 flex-1 truncate px-2 text-[13.5px] font-medium text-body">{hasConversation ? active?.title : ""}</span>
+        <span className={`mx-1 h-5 w-px bg-ui ${hasConversation ? "hidden md:block" : "block"}`} aria-hidden />
+        <span className={`${EYEBROW} text-brand ${hasConversation ? "hidden md:inline" : "inline"}`}>Ask Fruit</span>
+        <span className="min-w-0 flex-1 truncate px-1 text-[13.5px] font-medium text-ink md:px-2">{hasConversation ? active?.title : ""}</span>
         {hasConversation ? (
           <button
             type="button"
             onClick={() => setResultsOpen(true)}
-            className="inline-flex h-9 items-center gap-1.5 rounded-pill border border-ui px-3 text-[13px] font-semibold text-body hover:border-brand hover:text-brand lg:hidden"
+            className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-pill border border-ui px-3 text-[13px] font-semibold text-ink hover:border-brand hover:text-brand lg:hidden"
           >
             <PanelRight size={15} aria-hidden />
             {active?.matches.length ? `Results ${active.matches.length}` : "Results"}
           </button>
         ) : null}
-        <a href={BOOKING_URL} className="cta-btn cta-btn-primary hidden !px-4 !py-2 md:inline-flex">
-          <span className="cta-btn-label">Book a call</span>
+        <a href={BOOKING_URL} className={`${BOOK_BUTTON} hidden md:inline-flex`}>
+          Book a call
         </a>
       </header>
 
       {af.error ? (
-        <div className="flex items-center justify-between gap-3 border-b border-lilac-strong bg-tint px-5 py-2 text-[13px] text-body" role="alert">
+        <div className="flex items-center justify-between gap-3 border-b border-lilac-strong bg-tint px-5 py-2 text-[13px] text-ink" role="alert">
           <span>{af.error}</span>
           <button type="button" onClick={af.clearError} aria-label="Dismiss" className="text-muted hover:text-brand">
             <X size={15} aria-hidden />
@@ -306,11 +337,11 @@ export default function AskFruitWorkspace() {
         ) : null}
       </div>
 
-      <Drawer side="left" open={navOpen} onClose={() => setNavOpen(false)} label="Your conversations">
+      <Drawer side="left" open={navOpen} onClose={() => setNavOpen(false)} label="Ask Fruit">
         {list}
       </Drawer>
       <Drawer side="right" open={resultsOpen} onClose={() => setResultsOpen(false)} label="Recommendations">
-        <div className="bg-surface-subtle p-4">{results}</div>
+        <div className="min-h-full bg-surface-subtle p-4">{results}</div>
       </Drawer>
       {brief && active ? <BriefDialog doc={brief} evaluationId={active.evaluation_id} onClose={() => setBrief(null)} /> : null}
     </div>

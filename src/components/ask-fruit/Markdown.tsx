@@ -28,7 +28,7 @@ function Inline({ text }: { text: string }) {
         }
         let node: ReactNode = run.text
         if (run.em) node = <em>{node}</em>
-        if (run.strong) node = <strong className="font-semibold text-body">{node}</strong>
+        if (run.strong) node = <strong className="font-semibold text-ink">{node}</strong>
         return <span key={i}>{node}</span>
       })}
     </>
@@ -38,12 +38,12 @@ function Inline({ text }: { text: string }) {
 function MarkdownImpl({ markdown }: { markdown: string }) {
   const blocks = parseBlocks(markdown)
   return (
-    <div className="flex flex-col gap-3 text-[15px] leading-[1.65] text-body">
+    <div className="flex flex-col gap-3 text-[15px] leading-[1.65] text-ink">
       {blocks.map((block, i) => {
         switch (block.type) {
           case "heading":
             return (
-              <p key={i} className="font-semibold text-body">
+              <p key={i} className="font-semibold text-ink">
                 <Inline text={block.text} />
               </p>
             )

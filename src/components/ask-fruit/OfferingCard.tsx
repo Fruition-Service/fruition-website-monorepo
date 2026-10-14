@@ -43,14 +43,14 @@ export function OfferingCard({
           <Link
             href={offering.url}
             target="_blank"
-            className="group mt-1 inline-flex items-start gap-1 text-[15px] leading-snug font-semibold text-body hover:text-brand"
+            className="group mt-1 inline-flex items-start gap-1 text-[15px] leading-snug font-semibold text-ink hover:text-brand"
           >
             {offering.title}
             <ArrowUpRight size={14} className="mt-0.5 shrink-0 text-muted group-hover:text-brand" aria-hidden />
           </Link>
         </div>
         {offering.match_score != null ? (
-          <span className="font-mono text-[18px] leading-none font-semibold text-body">
+          <span className="font-mono text-[18px] leading-none font-semibold text-ink">
             {offering.match_score}
             <span className="text-[11px] text-muted">%</span>
           </span>
@@ -71,7 +71,7 @@ export function OfferingCard({
       {offering.reasons?.length ? (
         <ul className="flex flex-col gap-1.5">
           {offering.reasons.map((reason, i) => (
-            <li key={i} className="flex gap-2 text-[13.5px] leading-snug text-body">
+            <li key={i} className="flex gap-2 text-[13.5px] leading-snug text-ink">
               <Check size={14} className="mt-0.5 shrink-0 text-brand" aria-hidden />
               {reason}
             </li>
@@ -81,7 +81,7 @@ export function OfferingCard({
 
       {offering.considerations?.length ? (
         <p className="text-[12.5px] leading-snug text-muted">
-          <span className="font-semibold text-body">Watch out: </span>
+          <span className="font-semibold text-ink">Watch out: </span>
           {offering.considerations.join(" ")}
         </p>
       ) : null}
@@ -90,7 +90,7 @@ export function OfferingCard({
         <dl className="flex flex-col">
           {facts.map(([k, v]) => (
             <div key={k} className="flex justify-between gap-3 border-t border-dashed border-ui py-1.5 text-[12.5px]">
-              <dt className="font-medium text-body capitalize">{k.replace("_", " ")}</dt>
+              <dt className="font-medium text-ink capitalize">{k.replace("_", " ")}</dt>
               <dd className="text-right font-mono text-muted">{v}</dd>
             </div>
           ))}
@@ -103,7 +103,7 @@ export function OfferingCard({
         disabled={disabled}
         aria-pressed={kept}
         className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-pill border text-[13px] font-semibold transition-colors disabled:opacity-50 ${
-          kept ? "border-brand bg-tint text-brand" : "border-ui bg-surface text-body hover:border-brand hover:text-brand"
+          kept ? "border-brand bg-tint text-brand" : "border-ui bg-surface text-ink hover:border-brand hover:text-brand"
         }`}
       >
         {kept ? <BookmarkCheck size={15} aria-hidden /> : <Bookmark size={15} aria-hidden />}

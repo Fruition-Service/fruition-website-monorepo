@@ -59,6 +59,10 @@
   --map-dot: #d6cbf0;
   --text-faint: #8f92a6;
   --text-label: #9a9ab0;
+  /* Ask Fruit launcher: the orchid midpoint and pink end of its Voltage→pink
+     gradient. Used by that button only. */
+  --fruit-orchid: #b62fd9;
+  --fruit-pink: #ec4899;
   --accent-amber: #fdab3d;
   --accent-green: #00ca72;
   --accent-blue: #579bfc;
@@ -128,6 +132,13 @@
   --color-map-dot: var(--map-dot);
   --color-faint: var(--text-faint);
   --color-label: var(--text-label);
+  --color-fruit-orchid: var(--fruit-orchid);
+  --color-fruit-pink: var(--fruit-pink);
+  /* Body text colour without the type scale. `text-body` is also the 16px
+     body-copy class in the components layer, so on an element that sets its
+     own size from a parent it silently resets it to 16px; `text-ink` only
+     paints the colour. */
+  --color-ink: var(--text-body);
   --color-amber: var(--accent-amber);
   --color-emerald: var(--accent-green);
   --color-sky: var(--accent-blue);

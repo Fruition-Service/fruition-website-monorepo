@@ -86,14 +86,14 @@ export function Composer({
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={large ? "Describe what you are trying to fix or build…" : "Reply to Fruit…"}
-        className={`min-h-11 flex-1 resize-none bg-transparent py-2.5 text-body outline-none placeholder:text-faint ${large ? "text-[16px]" : "text-[15px]"}`}
+        className={`min-h-11 flex-1 resize-none bg-transparent py-2.5 text-ink outline-none placeholder:text-faint ${large ? "text-[16px]" : "text-[16px] md:text-[15px]"}`}
       />
       {sending && onStop ? (
         <button
           type="button"
           onClick={onStop}
           aria-label="Stop"
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill border border-ui text-body transition-colors hover:border-brand hover:text-brand"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill border border-ui text-ink transition-colors hover:border-brand hover:text-brand"
         >
           <Square size={14} fill="currentColor" aria-hidden />
         </button>
