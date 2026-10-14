@@ -58,7 +58,7 @@ export function FitChart({ matrix }: { matrix: FitMatrix }) {
         {focused && focusedRow ? (
           <>
             <span className="font-semibold text-ink">{focusedRow.label}</span> · {FIT_LABEL[focusedCell?.status ?? "unknown"]}
-            {focusedCell?.source === "judgement" ? " (Fruitai's read)" : focusedCell?.source === "documented" ? " (documented)" : ""}
+            {focusedCell?.source === "judgement" ? " (the calculator's read)" : focusedCell?.source === "documented" ? " (documented)" : ""}
             {focusedCell?.note ? `: ${focusedCell.note}` : ""}
           </>
         ) : (

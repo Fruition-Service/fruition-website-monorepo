@@ -74,7 +74,7 @@ export function Composer({
       }`}
     >
       <label htmlFor="af-composer" className="sr-only">
-        Message Fruitai
+        Message the Implementation Calculator
       </label>
       <textarea
         id="af-composer"
@@ -85,7 +85,7 @@ export function Composer({
         autoFocus={autoFocus}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={onKeyDown}
-        placeholder={large ? "Describe what you are trying to fix or build…" : "Reply to Fruitai…"}
+        placeholder={large ? "Describe what you are trying to fix or build…" : "Reply to the Implementation Calculator…"}
         className={`min-h-11 flex-1 resize-none bg-transparent py-2.5 text-ink outline-none placeholder:text-faint ${large ? "text-[16px]" : "text-[16px] md:text-[15px]"}`}
       />
       {sending && onStop ? (

@@ -1,5 +1,5 @@
 /**
- * Fruitai: the shared contract between the agent route and the browser.
+ * The Implementation Calculator: the shared contract between the agent route and the browser.
  *
  * Ported from Proploy's "Ask Sam" evaluation workspace. The shapes keep Sam's
  * vocabulary (evaluation, matches, shortlist, requirement fit, briefs) so the
@@ -20,7 +20,7 @@ export interface FitCell {
   note?: string
 }
 
-/** The requirement rows Fruitai captures, in the order the panel shows them. */
+/** The requirement rows the Implementation Calculator captures, in the order the panel shows them. */
 export const REQUIREMENT_KEYS = [
   "goals",
   "pain_points",

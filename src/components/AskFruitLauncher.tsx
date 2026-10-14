@@ -12,8 +12,8 @@ import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
  *   component renders; listed so the rule survives if that ever changes.
  * - `/studio`    - Sanity Studio. Also an internal tool, not a marketing page.
  * - `/ask-fruit` - the landing page has the prompt box in its hero, and the
- *   workspace under it is chromeless, so a button pointing at Fruitai from
- *   inside Fruitai only gets in the way.
+ *   workspace under it is chromeless, so a button pointing at the Implementation Calculator from
+ *   inside the Implementation Calculator only gets in the way.
  */
 const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 
@@ -21,12 +21,12 @@ const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 const CLEARANCE = 12
 
 /**
- * Floating Fruitai launcher, bottom right, every marketing page. A plain
+ * Floating Implementation Calculator launcher, bottom right, every marketing page. A plain
  * button: no hover tag or hover motion, a click opens the workspace.
  *
  * Rendered ONCE, site-wide, by <SiteFrame>, next to <SiteStickyCta>; pages do
  * not render this directly. It replaced the SEA-only WhatsApp launcher, so it
- * shows to every visitor: Fruitai answers in any region, at any hour.
+ * shows to every visitor: the Implementation Calculator answers in any region, at any hour.
  *
  * The Fruition mark is drawn as a CSS mask over a white fill rather than an
  * <img>, because the SVG paints in `currentColor` and an <img> would render it
@@ -92,7 +92,7 @@ export default function AskFruitLauncher() {
     >
       <Link
         href="/ask-fruit/workspace"
-        aria-label="Fruitai, Fruition's AI assistant"
+        aria-label="Implementation Calculator, Fruition's AI assistant"
         data-cta-location="ask-fruit-launcher"
         className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none md:h-[60px] md:w-[60px]"
       >

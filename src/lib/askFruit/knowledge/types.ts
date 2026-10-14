@@ -2,7 +2,7 @@
  * One searchable unit of Fruition knowledge.
  *
  * `offering` kinds (solution, service, platform, package) are the things Ask
- * Fruitai can recommend and put on the decision board. `evidence` kinds (faq,
+ * The Implementation Calculator can recommend and put on the decision board. `evidence` kinds (faq,
  * case_study, region, page) back up an answer but are never recommended.
  */
 export type OfferingKind = "solution" | "service" | "platform" | "package"

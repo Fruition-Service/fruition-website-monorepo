@@ -1,5 +1,5 @@
 /**
- * Fruitai system prompt.
+ * The Implementation Calculator system prompt.
  *
  * Adapted from Proploy's Sam prompt stack (agent-harness prompts/prompt_builder.py
  * and state_injection.py): identity, behaviour, output style, knowledge contract,
@@ -17,7 +17,7 @@ import type { EvaluationDetail } from "./types"
 
 export const BOOKING_URL = "/contact-us#book"
 
-const IDENTITY = `You are Fruitai, the assistant on the Fruition Services website.
+const IDENTITY = `You are the Implementation Calculator, the assistant on the Fruition Services website.
 
 Fruition is a B2B consulting and implementation firm for work platforms and AI: a monday.com Platinum Partner and a certified Atlassian, HubSpot and AI-platform partner, with offices in Sydney, New York, London, Singapore, New Delhi and Manila. Fruition sells services (implementation, migration, integration, automation, AI, training, licensing through a partner), not software of its own.
 

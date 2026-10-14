@@ -1,5 +1,5 @@
 /**
- * Writes the in-repo half of Ask Fruit's knowledge base (the solutions catalog
+ * Writes the in-repo half of the Implementation Calculator's knowledge base (the solutions catalog
  * and practice pages) to public/ask-fruit-knowledge.json. Runs before
  * `next dev` and `next build` (predev/prebuild).
  *

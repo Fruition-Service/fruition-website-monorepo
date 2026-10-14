@@ -1,9 +1,10 @@
 /**
- * Rename the "Ask Fruit" nav links to "Fruitai" (the assistant's new name).
- * Only labels change; hrefs stay /ask-fruit.
+ * Rename a label everywhere it appears in the Sanity nav. Only labels change;
+ * hrefs stay as they are. Used for the assistant's renames (Ask Fruit ->
+ * Fruitai -> Implementation Calculator).
  *
- *   npx tsx scripts/rename-nav-ask-fruit-to-fruitai.ts          # dry run
- *   npx tsx scripts/rename-nav-ask-fruit-to-fruitai.ts --apply  # backs up, then writes
+ *   npx tsx scripts/rename-nav-label.ts "Fruitai" "Implementation Calculator"          # dry run
+ *   npx tsx scripts/rename-nav-label.ts "Fruitai" "Implementation Calculator" --apply  # backs up, then writes
  *
  * Rollback: npx tsx scripts/seed-nav-v2.ts --restore scripts/nav-backups/<file>.json
  */
@@ -11,8 +12,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { writeClient } from './sanity-migrate/lib'
 
-const FROM = 'Ask Fruit'
-const TO = 'Fruitai'
+const [FROM, TO] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
+if (!FROM || !TO) throw new Error('Usage: rename-nav-label.ts <from> <to> [--apply]')
 
 /** Every string under `node` with FROM replaced; counts replacements in `hits`. */
 function rename(node: unknown, hits: string[]): unknown {

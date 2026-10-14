@@ -75,7 +75,7 @@ const MODULES: NavGroup[] = [
     items: [
       { title: "Blog", href: "/internal/blog", icon: Newspaper, match: "prefix", badge: "drafts" },
       { title: "Social", href: "/internal/social", icon: Share2, match: "prefix", badge: "queued" },
-      { title: "Fruitai", href: "/internal/ask-fruit", icon: MessagesSquare, match: "prefix" },
+      { title: "Implementation Calculator", href: "/internal/ask-fruit", icon: MessagesSquare, match: "prefix" },
     ],
   },
   {

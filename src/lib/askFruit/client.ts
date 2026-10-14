@@ -1,5 +1,5 @@
 /**
- * Browser side of Fruitai: the SSE reader, the JSON API calls, and the pure
+ * Browser side of the Implementation Calculator: the SSE reader, the JSON API calls, and the pure
  * reducer that applies stream events to an evaluation. Ported from Proploy's
  * features/ai-workspace stream.ts, client.ts and evaluation-reducer.ts.
  */
@@ -67,7 +67,7 @@ export async function* streamChat(
     })
   } catch {
     if (signal?.aborted) return
-    yield { type: "error", data: { code: "NETWORK_ERROR", message: "Could not reach Fruitai. Check your connection.", retryable: true } }
+    yield { type: "error", data: { code: "NETWORK_ERROR", message: "Could not reach the Implementation Calculator. Check your connection.", retryable: true } }
     return
   }
   if (!res.ok || !res.body) {
@@ -99,7 +99,7 @@ export async function* streamChat(
     yield { type: "error", data: { code: "STREAM_READ_FAILED", message: "The connection dropped mid-answer. Try again.", retryable: true } }
     return
   }
-  if (!sawAny) yield { type: "error", data: { code: "EMPTY_STREAM", message: "Fruitai did not respond. Try again.", retryable: true } }
+  if (!sawAny) yield { type: "error", data: { code: "EMPTY_STREAM", message: "The Implementation Calculator did not respond. Try again.", retryable: true } }
 }
 
 export async function listEvaluations(): Promise<EvaluationSummary[]> {

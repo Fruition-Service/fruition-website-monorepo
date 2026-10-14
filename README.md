@@ -6,7 +6,7 @@ One Next.js 16 app, deployed as one Cloudflare Worker, that serves:
 
 - **The marketing site**: about 106 pages (practices, platforms, industries, region pages, partner
   pages, pricing, blog) plus 47 Google Ads landing pages under `/au`, `/uk`, `/us`.
-- **Ask Fruit**: a public AI assistant (`/ask-fruit` and a site-wide launcher).
+- **Implementation Calculator**: a public AI assistant (`/ask-fruit` and a site-wide launcher).
 - **The staff portal** at `/internal` (Google SSO, `@fruitionservices.io` only): blog editor,
   social composer, design docs, invoices, QR codes, team and onboarding.
 - **Sanity Studio** at `/studio`.
@@ -35,7 +35,7 @@ npm run dev                 # http://localhost:3000
 ```
 
 The four values already filled in `.env.example` (Sanity project, dataset, API version, site URL)
-are enough for the public marketing pages. The portal, Ask Fruit, booking, lead forms and
+are enough for the public marketing pages. The portal, the Implementation Calculator, booking, lead forms and
 social tools each need their own secrets; see the inventory in
 [docs/cloud.md §5](docs/cloud.md#5-environment-variables). Cloudflare Worker secrets cannot be read
 back once set, so get the values from the password manager, not from the dashboard.
@@ -101,11 +101,11 @@ docs/               architecture, hosting and topic notes; docs/archive is histo
 | GitHub `Fruition-Service/fruition-website-monorepo` | Code, CI, deploys | Actions secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`; variables `NEXT_PUBLIC_SANITY_*` |
 | Cloudflare (Fruition Services account) | Worker hosting, DNS for `fruitionservices.io` and `fruitionmonday.com`, KV cache | `wrangler.jsonc`, Worker secrets |
 | Sanity project `bt6nb58h`, dataset `production` | All CMS content | Schemas in `src/sanity/schemas/` |
-| Supabase "portal" project | Portal auth, drafts, social compositions, invoices, design docs, Ask Fruit logs, short links | `PORTAL_SUPABASE_*` |
+| Supabase "portal" project | Portal auth, drafts, social compositions, invoices, design docs, Implementation Calculator logs, short links | `PORTAL_SUPABASE_*` |
 | Supabase "brain" project (owned by Marketa) | Read-only: Marketa drafts, AEO and competitor data for the dashboard | `MARKETA_SUPABASE_*` |
 | monday.com | Lead boards, RB2B board, team onboarding | `MONDAY_*` |
 | Calendly (shared global account) | Booking widget and scheduling API | `CALENDLY_*` |
-| OpenRouter | All LLM calls (Ask Fruit, design docs, social captions, lead classifier) | `OPENROUTER_API_KEY` |
+| OpenRouter | All LLM calls (Implementation Calculator, design docs, social captions, lead classifier) | `OPENROUTER_API_KEY` |
 | Zernio | Social scheduling | `ZERNIO_*` |
 | Resend | Contact form email | `RESEND_API_KEY` |
 | Google Tag Manager `GTM-PF6XWTL6` | GA4, Google Ads conversions, Calendly conversion | GTM, not this repo |
