@@ -2,6 +2,7 @@
 
 import { Check, Minus, ShieldAlert, X } from "lucide-react"
 import { fitCounts, FIT_LABEL } from "@/lib/askFruit/fit"
+import { catalogDeepLink } from "@/lib/askFruit/markdown"
 import type { BriefDocument, ComparisonBrief, FitStatus, ImplementationBrief, Offering } from "@/lib/askFruit/types"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
@@ -61,7 +62,7 @@ function Numbered({ items }: { items: string[] }) {
 
 function OfferingLink({ offering }: { offering: Offering }) {
   return (
-    <a href={offering.url} target="_blank" rel="noopener" className="font-semibold text-ink hover:text-brand">
+    <a href={catalogDeepLink(offering.url, offering.title)} target="_blank" rel="noopener" className="font-semibold text-ink hover:text-brand">
       {offering.title}
     </a>
   )

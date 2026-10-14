@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { ArrowUpRight, Bookmark, BookmarkCheck, Check } from "lucide-react"
+import { catalogDeepLink } from "@/lib/askFruit/markdown"
 import type { Offering } from "@/lib/askFruit/types"
 
 const KIND_LABEL: Record<string, string> = {
@@ -41,7 +42,7 @@ export function OfferingCard({
             {offering.match_strength ? <span className="text-muted"> · {offering.match_strength}</span> : null}
           </p>
           <Link
-            href={offering.url}
+            href={catalogDeepLink(offering.url, offering.title)}
             target="_blank"
             className="group mt-1 inline-flex items-start gap-1 text-[15px] leading-snug font-semibold text-ink hover:text-brand"
           >

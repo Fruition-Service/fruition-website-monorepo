@@ -1,3 +1,5 @@
+import { SOLUTIONS } from "@/app/monday-consulting-solutions/catalog/data/solutions"
+import { findSolution, SOLUTION_PARAM } from "@/app/monday-consulting-solutions/catalog/lib/deepLink"
 import { describe, expect, it } from "vitest"
 import { buildIndex, searchIndex, tokenize } from "./search"
 import { flattenSanity, sanityRecords, type SanityDoc } from "./sanity"
@@ -112,7 +114,14 @@ describe("staticRecords", () => {
 
   it("has unique ids and site-relative URLs", () => {
     expect(new Set(records.map((r) => r.id)).size).toBe(records.length)
-    for (const r of records) expect(r.url).toMatch(/^\/[a-z0-9/-]*$/)
+    for (const r of records) expect(r.url).toMatch(/^\/[a-z0-9/-]*(\?solution=[a-z0-9-]+)?$/)
+  })
+
+  it("links every solution to its own details in the catalog, not the catalog top", () => {
+    for (const r of records.filter((x) => x.id.startsWith("solution:"))) {
+      const value = new URL(r.url, "https://x.test").searchParams.get(SOLUTION_PARAM)
+      expect(findSolution(SOLUTIONS, value)?.title).toBe(r.title)
+    }
   })
 
   it("names practice pages by their breadcrumb, not their headline", () => {

@@ -93,6 +93,18 @@ export function parseBlocks(markdown: string): Block[] {
 }
 
 /** Only site-relative, https and mailto links render as links; anything else stays text. */
+const CATALOG_PATH = "/monday-consulting-solutions/catalog"
+
+/**
+ * Conversations saved before the catalog had deep links cite every solution as
+ * the bare catalog URL. Point those at the solution itself, using the name the
+ * link was given; the catalog matches a `?solution=` value by key or title.
+ */
+export function catalogDeepLink(href: string, label: string): string {
+  if (href !== CATALOG_PATH || !label.trim()) return href
+  return `${CATALOG_PATH}?solution=${encodeURIComponent(label.trim())}`
+}
+
 export function safeHref(href: string): string | null {
   const h = href.trim()
   if (/^\/(?!\/)/.test(h)) return h
