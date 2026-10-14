@@ -149,10 +149,10 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
 
               {/* CTA */}
               {ctaLabel && calendlyUrl && (
+                // Same tab: a `target` opts out of InPageBookingLinks, so on a
+                // page with its own #book this opened /contact-us in a new tab.
                 <a
                   href={calendlyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-md"
                 >
                   <PaperPlaneIcon size={16} />
@@ -311,8 +311,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
             {ctaLabel && calendlyUrl && (
               <a
                 href={calendlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
                 className="mt-4 mx-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white text-center px-6 py-2.5 rounded-full text-sm font-semibold transition-colors"
               >
                 <PaperPlaneIcon size={16} />

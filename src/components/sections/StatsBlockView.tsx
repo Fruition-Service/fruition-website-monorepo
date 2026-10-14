@@ -67,7 +67,9 @@ export default function StatsBlockView({
     ? urlFor(siteSettings.badgeMondayPartners).width(148).height(23).url()
     : '/images/badge-monday-partners.png'
   const forresterBadgeSrc = siteSettings?.badgeForrester?.asset
-    ? urlFor(siteSettings.badgeForrester).width(64).height(24).url()
+    ? // width + height together make the image builder crop (rect=14,0,37,14
+      // on the 64x14 asset, which rendered "ORRESTI"). Scale by width only.
+      urlFor(siteSettings.badgeForrester).width(128).fit('max').url()
     : '/images/badge-forrester.png'
 
   return (
@@ -129,7 +131,7 @@ export default function StatsBlockView({
           <div className="flex items-center gap-1.5 text-xs text-muted mt-2">
             <span>{footnote}</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={forresterBadgeSrc} alt="Forrester" width={60} height={24} className="h-5 w-auto" />
+            <img src={forresterBadgeSrc} alt="Forrester" width={64} height={14} className="h-[14px] w-auto" />
           </div>
         ) : (
           <div className="flex items-center gap-1.5 text-xs text-muted mt-2">
