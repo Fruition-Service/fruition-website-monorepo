@@ -332,8 +332,9 @@ these contracts are easy to break silently:
    one means updating Cloudflare and Vercel.
 
 Marketa code that used to live here (`src/lib/marketa/`, its webhooks and Google Docs) was removed
-in July 2026. `make/`, `n8n/`, `scripts/marketa-harness/` and the `marketa:*` / `brain:backfill`
-npm scripts are leftovers and do not run.
+in July 2026. The leftovers (`make/`, `n8n/`, `scripts/marketa-harness/`, `scripts/brain-backfill.ts`
+and the `marketa:*` / `brain:backfill` npm scripts) were deleted in October 2026. Nothing in this repo
+generates or seeds Marketa content any more; that all lives in `marketa-monorepo`.
 
 ---
 
@@ -378,7 +379,6 @@ scripts/                generators, Sanity migrations and seeds, QA scripts (mos
 public/                 static assets, PDFs, videos, llms.txt, markdown twins
 docs/                   this file, cloud.md, topic notes; docs/archive is historical
 .claude/                agent skills, hooks, /ship
-make/, n8n/             legacy Marketa automation exports (unused)
 ```
 
 ---
@@ -391,9 +391,7 @@ make/, n8n/             legacy Marketa automation exports (unused)
 | No Sanity revalidation webhook | n/a | Studio edits rely on the 60s ISR window |
 | `short_links` table has no migration | `supabase/` | Recreate from the live schema before any rebuild |
 | `authorized_users` table is never read | `supabase/migrations/20260702*` | Domain check is the only gate |
-| 10 broken npm scripts | `package.json` | `migrate:all` and 7 `migrate:*` point at deleted files; `marketa:*`, `brain:backfill` import removed code |
-| Legacy folders | `make/`, `n8n/`, `scripts/marketa-harness/`, `.codex/`, create-next-app SVGs in `public/` | Safe to delete in a cleanup PR |
-| CI still triggers on `staging` | `.github/workflows/ci.yml` | `staging` is hundreds of commits behind; delete the branch |
+| Stale remote `staging` branch | `origin/staging` | Hundreds of commits behind `production` and no longer triggers CI. Delete it once nobody needs it |
 | Client-side Umami may be absent in production | `layout.tsx` + `deploy.yml` | `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is not passed at build time by CI |
 | Portal Supabase migrations exist in both this repo and Marketa | `supabase/migrations/` | Pick one owner before the next schema change |
 | Worker near the 10 MiB limit | §7.3 | Budget every new dependency |

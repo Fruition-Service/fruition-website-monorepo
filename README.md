@@ -92,7 +92,6 @@ supabase/           SQL migrations for the portal Supabase project (applied by h
 scripts/            one-off migrations, Sanity seeds, generators, Playwright QA scripts
 docs/               architecture, hosting and topic notes; docs/archive is historical
 .claude/            agent tooling: skills, hooks (design guard), /ship command
-make/, n8n/         LEGACY Marketa automation exports, not used by this app
 ```
 
 ## Accounts and services
