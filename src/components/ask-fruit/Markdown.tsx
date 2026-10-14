@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { memo, type ReactNode } from "react"
 import { parseInlineMarkdown } from "@/lib/inlineMarkdown"
-import { parseBlocks, safeHref } from "@/lib/askFruit/markdown"
+import { catalogDeepLink, parseBlocks, safeHref } from "@/lib/askFruit/markdown"
 
 function Inline({ text }: { text: string }) {
   const runs = parseInlineMarkdown(text)
@@ -11,8 +11,9 @@ function Inline({ text }: { text: string }) {
     <>
       {runs.map((run, i) => {
         if (run.href) {
-          const href = safeHref(run.href)
-          if (!href) return <span key={i}>{run.text}</span>
+          const safe = safeHref(run.href)
+          if (!safe) return <span key={i}>{run.text}</span>
+          const href = catalogDeepLink(safe, run.text)
           if (href.startsWith("/")) {
             return (
               <Link key={i} href={href} className="font-medium text-brand underline decoration-lilac-strong underline-offset-2 hover:decoration-brand">

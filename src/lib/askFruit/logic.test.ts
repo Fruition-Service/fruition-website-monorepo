@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { applyEvent, emptyEvaluation, parseFrame } from "./client"
 import { buildFitMatrix, fitCounts } from "./fit"
-import { parseBlocks, safeHref } from "./markdown"
+import { catalogDeepLink, parseBlocks, safeHref } from "./markdown"
 import { mergeRequirements, requirementCoverage } from "./requirements"
 import { limitBreach } from "./server"
 import type { Offering } from "./types"
@@ -135,5 +135,20 @@ describe("limitBreach", () => {
     expect(limitBreach({ visitor_hour: 20, visitor_day: 20, ip_day: 20, cost_day: 1 }, l)?.code).toBe("RATE_LIMITED")
     expect(limitBreach({ visitor_hour: 1, visitor_day: 1, ip_day: 150, cost_day: 1 }, l)?.code).toBe("RATE_LIMITED")
     expect(limitBreach({ visitor_hour: 1, visitor_day: 1, ip_day: 1, cost_day: 1 }, l)).toBeNull()
+  })
+})
+
+describe("catalogDeepLink", () => {
+  it("points a bare catalog link at the solution it names", () => {
+    expect(catalogDeepLink("/monday-consulting-solutions/catalog", "Dream CRM")).toBe(
+      "/monday-consulting-solutions/catalog?solution=Dream%20CRM",
+    )
+  })
+
+  it("leaves deep links and other pages alone", () => {
+    expect(catalogDeepLink("/monday-consulting-solutions/catalog?solution=dream-crm", "Dream CRM")).toBe(
+      "/monday-consulting-solutions/catalog?solution=dream-crm",
+    )
+    expect(catalogDeepLink("/contact-us", "Book a call")).toBe("/contact-us")
   })
 })

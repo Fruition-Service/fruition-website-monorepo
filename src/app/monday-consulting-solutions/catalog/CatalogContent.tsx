@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useSyncExternalStore } from "react"
 import dynamic from "next/dynamic"
 import CatalogCta from "./components/CatalogCta"
 import CatalogHero from "./components/CatalogHero"
@@ -13,22 +13,47 @@ const SolutionModal = dynamic(() => import("./components/SolutionModal"), { ssr:
 import SolutionsAdvisor from "./components/SolutionsAdvisor"
 import SolutionsGrid from "./components/SolutionsGrid"
 import { SOLUTIONS } from "./data/solutions"
+import { findSolution, SOLUTION_PARAM } from "./lib/deepLink"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+
+const listeners = new Set<() => void>()
+
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  window.addEventListener("popstate", listener)
+  return () => {
+    listeners.delete(listener)
+    window.removeEventListener("popstate", listener)
+  }
+}
+
+function readParam() {
+  return new URLSearchParams(window.location.search).get(SOLUTION_PARAM)
+}
+
+/** replaceState, so opening and closing solutions does not fill the Back stack. */
+function writeParam(key: string | null) {
+  const url = new URL(window.location.href)
+  if (key) url.searchParams.set(SOLUTION_PARAM, key)
+  else url.searchParams.delete(SOLUTION_PARAM)
+  window.history.replaceState(window.history.state, "", url)
+  listeners.forEach((l) => l())
+}
 
 interface CatalogContentProps {
   calendlyUrl: string
 }
 
 export default function CatalogContent({ calendlyUrl }: CatalogContentProps) {
-  const [openKey, setOpenKey] = useState<string | null>(null)
+  // The open solution lives in the URL (?solution=<key>), so a link from Ask
+  // Fruit, a nav item or a shared URL lands on that solution's details rather
+  // than the top of the catalog. Reading it through an external store keeps
+  // the page itself statically rendered.
+  const param = useSyncExternalStore(subscribe, readParam, () => null)
+  const activeSolution = useMemo(() => findSolution(SOLUTIONS, param), [param])
 
-  const handleOpen = useCallback((key: string) => setOpenKey(key), [])
-  const handleClose = useCallback(() => setOpenKey(null), [])
-
-  const activeSolution = useMemo(
-    () => SOLUTIONS.find((s) => s.key === openKey) || null,
-    [openKey]
-  )
+  const handleOpen = useCallback((key: string) => writeParam(key), [])
+  const handleClose = useCallback(() => writeParam(null), [])
 
   return (
     <div>

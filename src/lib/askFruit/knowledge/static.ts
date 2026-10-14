@@ -3,6 +3,7 @@
  * Sanity: the 45-solution monday.com catalog and the practice pages.
  */
 import { SOLUTIONS, type Solution } from "@/app/monday-consulting-solutions/catalog/data/solutions"
+import { solutionHref } from "@/app/monday-consulting-solutions/catalog/lib/deepLink"
 import { AI_CONSULTING_PAGES } from "@/data/practicePages/aiConsulting"
 import { ATLASSIAN_PAGES } from "@/data/practicePages/atlassian"
 import { HUBSPOT_PAGES } from "@/data/practicePages/hubspot"
@@ -53,7 +54,8 @@ export function solutionRecord(s: Solution): KnowledgeRecord {
     id: `solution:${s.key}`,
     kind: "solution",
     title: s.title,
-    url: CATALOG_URL,
+    // Opens this solution's details, not the top of a 45-solution page.
+    url: solutionHref(s.key),
     summary: s.desc,
     text: lines.join("\n").slice(0, MAX_TEXT),
     tags: unique(["monday.com", PRODUCT_TYPE_LABEL[s.productType], s.tag, ...s.industries, ...(s.integrations ?? [])]),
