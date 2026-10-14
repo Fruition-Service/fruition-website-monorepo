@@ -13,9 +13,11 @@ const FOLLOW_THRESHOLD_PX = 80
 
 export function Welcome({ onSend, sending }: { onSend: (text: string) => void; sending: boolean }) {
   return (
-    <div className="mx-auto flex w-full max-w-[760px] flex-1 flex-col justify-center px-5 py-10 md:px-8">
+    // my-auto rather than justify-center: centred content taller than a phone
+    // screen would overflow upwards, out of reach of the scroll container.
+    <div className="mx-auto my-auto flex w-full max-w-[760px] flex-col px-5 py-10 md:px-8">
       <p className={`${EYEBROW} text-brand`}>{"// Ask Fruit"}</p>
-      <h1 className="text-section-h2 mt-4 text-body">
+      <h1 className="text-section-h2 mt-4 text-ink">
         What are you trying to <span className="text-brand">make happen?</span>
       </h1>
       <p className="text-body-lead mt-4 max-w-[600px] text-muted">
@@ -32,7 +34,7 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
             type="button"
             disabled={sending}
             onClick={() => onSend(s.text)}
-            className="rounded-pill border border-ui bg-surface px-3.5 py-1.5 text-[13px] font-medium text-body transition-colors hover:border-brand hover:text-brand disabled:opacity-50"
+            className="rounded-pill border border-ui bg-surface px-3.5 py-1.5 text-[13px] font-medium text-ink transition-colors hover:border-brand hover:text-brand disabled:opacity-50"
           >
             {s.label}
           </button>
@@ -46,7 +48,7 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
         ].map(([n, t, d]) => (
           <li key={n} className="flex flex-col gap-1">
             <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
-            <span className="text-[15px] font-semibold text-body">{t}</span>
+            <span className="text-[15px] font-semibold text-ink">{t}</span>
             <span className="text-[13.5px] leading-snug text-muted">{d}</span>
           </li>
         ))}
@@ -83,7 +85,7 @@ function DocumentCard({ doc, onOpen }: { doc: BriefDocument; onOpen: () => void 
         <span className={`${EYEBROW} block text-muted`}>
           {doc.doc_type === "comparison_brief" ? "Comparison brief" : "Implementation brief"}
         </span>
-        <span className="block truncate text-[14px] font-semibold text-body">{doc.title}</span>
+        <span className="block truncate text-[14px] font-semibold text-ink">{doc.title}</span>
       </span>
       <span className="flex items-center gap-1 text-[12.5px] font-semibold text-brand">
         Open <Maximize2 size={14} aria-hidden />
@@ -137,11 +139,11 @@ export function Conversation({
         }}
         className="min-h-0 flex-1 overflow-y-auto"
       >
-        <div className="mx-auto flex w-full max-w-[820px] flex-col gap-6 px-5 py-8 md:px-8">
+        <div className="mx-auto flex w-full max-w-[820px] flex-col gap-6 px-4 py-6 md:px-8 md:py-8">
           {evaluation.messages.map((m, i) =>
             m.role === "user" ? (
               <div key={m.id} className="flex justify-end">
-                <p className="max-w-[85%] rounded-chip rounded-br-[4px] bg-surface-subtle px-4 py-2.5 text-[15px] leading-relaxed whitespace-pre-wrap text-body">
+                <p className="max-w-[85%] rounded-chip rounded-br-[4px] bg-surface-subtle px-4 py-2.5 text-[15px] leading-relaxed whitespace-pre-wrap text-ink">
                   {m.markdown}
                 </p>
               </div>
@@ -163,7 +165,7 @@ export function Conversation({
           {sending && status ? <WorkingPanel status={status} /> : null}
         </div>
       </div>
-      <div className="border-t border-ui bg-surface px-5 py-3 md:px-8">
+      <div className="border-t border-ui bg-surface px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:px-8">
         <div className="mx-auto w-full max-w-[820px]">
           <Composer onSend={onSend} onStop={onStop} sending={sending} prefill={prefill} />
           <p className="mt-2 text-center text-[11.5px] text-faint">

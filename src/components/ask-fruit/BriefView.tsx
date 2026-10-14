@@ -13,7 +13,7 @@ function FitPill({ status, note }: { status: FitStatus; note?: string }) {
     <span className="flex flex-col gap-1">
       <span
         className={`inline-flex w-fit items-center gap-1 rounded-pill px-2 py-0.5 text-[11.5px] font-semibold ${
-          status === "yes" ? "bg-brand text-white" : status === "partial" ? "bg-tint-deep text-brand" : status === "no" ? "bg-lilac-strong text-body" : "border border-dashed border-ui text-muted"
+          status === "yes" ? "bg-brand text-white" : status === "partial" ? "bg-tint-deep text-brand" : status === "no" ? "bg-lilac-strong text-ink" : "border border-dashed border-ui text-muted"
         }`}
       >
         {icon}
@@ -37,7 +37,7 @@ function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="flex flex-col gap-1.5">
       {items.map((item, i) => (
-        <li key={i} className="flex gap-2 text-[14px] leading-snug text-body">
+        <li key={i} className="flex gap-2 text-[14px] leading-snug text-ink">
           <Check size={14} className="mt-1 shrink-0 text-brand" aria-hidden />
           {item}
         </li>
@@ -50,7 +50,7 @@ function Numbered({ items }: { items: string[] }) {
   return (
     <ol className="flex flex-col gap-2">
       {items.map((item, i) => (
-        <li key={i} className="flex gap-3 text-[14px] leading-snug text-body">
+        <li key={i} className="flex gap-3 text-[14px] leading-snug text-ink">
           <span className="font-mono text-[12px] font-semibold text-brand">{String(i + 1).padStart(2, "0")}</span>
           {item}
         </li>
@@ -61,7 +61,7 @@ function Numbered({ items }: { items: string[] }) {
 
 function OfferingLink({ offering }: { offering: Offering }) {
   return (
-    <a href={offering.url} target="_blank" rel="noopener" className="font-semibold text-body hover:text-brand">
+    <a href={offering.url} target="_blank" rel="noopener" className="font-semibold text-ink hover:text-brand">
       {offering.title}
     </a>
   )
@@ -112,7 +112,7 @@ export function ComparisonBriefView({ data }: { data: ComparisonBrief }) {
                 {data.requirements.map((row, i) => (
                   <tr key={i} className="border-b border-dashed border-ui align-top">
                     <td className="py-3 pr-3 text-[13.5px]">
-                      <span className="font-medium text-body">{row.requirement}</span>
+                      <span className="font-medium text-ink">{row.requirement}</span>
                       {row.why_it_matters ? <span className="mt-1 block text-[12px] text-muted">{row.why_it_matters}</span> : null}
                     </td>
                     {ids.map((id) => (
@@ -132,7 +132,7 @@ export function ComparisonBriefView({ data }: { data: ComparisonBrief }) {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {data.offerings.map((o) => (
             <div key={o.offering_id} className="flex flex-col gap-2 rounded-chip border border-ui p-4">
-              <p className="text-[14px] font-semibold text-body">{o.title}</p>
+              <p className="text-[14px] font-semibold text-ink">{o.title}</p>
               {(data.strengths[o.offering_id] ?? []).length ? <Bullets items={data.strengths[o.offering_id]} /> : null}
               {(data.watch_outs[o.offering_id] ?? []).map((w, i) => (
                 <p key={i} className="flex gap-2 text-[13px] leading-snug text-muted">
@@ -146,7 +146,7 @@ export function ComparisonBriefView({ data }: { data: ComparisonBrief }) {
       </Section>
 
       <Section label="Fruit recommends">
-        <p className="text-[15px] leading-relaxed text-body">
+        <p className="text-[15px] leading-relaxed text-ink">
           {recommended ? <OfferingLink offering={recommended} /> : null}
           {data.recommendation.reason ? <>{recommended ? ". " : ""}{data.recommendation.reason}</> : null}
         </p>
@@ -165,7 +165,7 @@ export function ImplementationBriefView({ data }: { data: ImplementationBrief })
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-[1.4fr_1fr]">
-        {data.executive_summary ? <p className="text-[15px] leading-relaxed text-body">{data.executive_summary}</p> : <span />}
+        {data.executive_summary ? <p className="text-[15px] leading-relaxed text-ink">{data.executive_summary}</p> : <span />}
         <div className="rounded-chip border border-brand bg-tint p-4">
           <p className={`${EYEBROW} text-brand`}>Built around</p>
           <p className="mt-1 text-[15px] font-semibold">
@@ -197,14 +197,14 @@ export function ImplementationBriefView({ data }: { data: ImplementationBrief })
             <li key={i} className="grid grid-cols-[32px_1fr] gap-3 border-b border-dashed border-ui py-3 last:border-0">
               <span className="font-mono text-[12px] font-semibold text-brand">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <p className="text-[14.5px] font-semibold text-body">{p.phase}</p>
+                <p className="text-[14.5px] font-semibold text-ink">{p.phase}</p>
                 {p.duration || p.owner ? (
                   <p className="mt-0.5 font-mono text-[11.5px] text-muted">
                     {[p.duration, p.owner].filter(Boolean).join(" · ")}
                   </p>
                 ) : null}
                 {p.activities.length ? (
-                  <ul className="mt-2 flex list-disc flex-col gap-1 pl-4 text-[13.5px] text-body marker:text-muted">
+                  <ul className="mt-2 flex list-disc flex-col gap-1 pl-4 text-[13.5px] text-ink marker:text-muted">
                     {p.activities.map((a, j) => (
                       <li key={j}>{a}</li>
                     ))}
@@ -221,7 +221,7 @@ export function ImplementationBriefView({ data }: { data: ImplementationBrief })
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {data.risks.map((r, i) => (
               <div key={i} className="rounded-chip border border-ui p-4">
-                <p className="flex gap-2 text-[13.5px] font-semibold text-body">
+                <p className="flex gap-2 text-[13.5px] font-semibold text-ink">
                   <ShieldAlert size={15} className="mt-0.5 shrink-0 text-brand" aria-hidden />
                   {r.risk}
                 </p>

@@ -42,7 +42,7 @@ export function RequirementsCard({
         <dl className="mt-3 flex flex-col">
           {rows.map((row) => (
             <div key={row.key} className="flex gap-3 border-t border-dashed border-ui py-2 text-[12.5px]">
-              <dt className="w-[92px] shrink-0 font-medium text-body">{row.label}</dt>
+              <dt className="w-[92px] shrink-0 font-medium text-ink">{row.label}</dt>
               <dd className="min-w-0 flex-1 text-muted">{row.values.join("; ")}</dd>
             </div>
           ))}
@@ -51,7 +51,7 @@ export function RequirementsCard({
 
       {coverage.gaps.length ? (
         <div className="mt-3">
-          <p className="text-[12px] font-medium text-body">Add context</p>
+          <p className="text-[12px] font-medium text-ink">Add context</p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {coverage.gaps.slice(0, 5).map((gap) => (
               <button
@@ -61,7 +61,7 @@ export function RequirementsCard({
                 className={`rounded-pill border px-2.5 py-1 text-[12px] font-medium transition-colors ${
                   critical.has(gap.key)
                     ? "border-lilac-strong bg-tint text-brand hover:border-brand"
-                    : "border-ui bg-surface text-body hover:border-brand hover:text-brand"
+                    : "border-ui bg-surface text-ink hover:border-brand hover:text-brand"
                 }`}
               >
                 + {gap.label}
@@ -110,8 +110,8 @@ export function DecisionBoard({
             type="button"
             aria-selected={lane === l.id}
             onClick={() => setLane(l.id)}
-            className={`flex-1 rounded-pill px-2 py-1.5 text-[12.5px] font-semibold transition-colors ${
-              lane === l.id ? "bg-surface text-body shadow-micro" : "text-muted hover:text-body"
+            className={`min-h-9 flex-1 rounded-pill px-2 py-1.5 text-[12.5px] font-semibold transition-colors ${
+              lane === l.id ? "bg-surface text-ink shadow-micro" : "text-muted hover:text-ink"
             }`}
           >
             {l.label}
@@ -139,7 +139,7 @@ export function DecisionBoard({
         kept.length ? (
           <>
             <div className="flex flex-col gap-2 rounded-chip border border-lilac bg-tint p-3">
-              <p className="text-[12.5px] text-body">Have Fruit write it up:</p>
+              <p className="text-[12.5px] text-ink">Have Fruit write it up:</p>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -185,7 +185,7 @@ export function DecisionBoard({
                 <span className={`${EYEBROW} block text-muted`}>
                   {doc.doc_type === "comparison_brief" ? "Comparison brief" : "Implementation brief"}
                 </span>
-                <span className="block truncate text-[13.5px] font-semibold text-body">{doc.title}</span>
+                <span className="block truncate text-[13.5px] font-semibold text-ink">{doc.title}</span>
               </span>
               <Maximize2 size={15} className="text-muted group-hover:text-brand" aria-hidden />
             </button>
@@ -212,9 +212,15 @@ export function ResultsPanel(props: {
   onOpenBrief: (doc: BriefDocument) => void
 }) {
   const matrix = buildFitMatrix(props.evaluation.matches, props.evaluation.requirements)
+  const requirements = <RequirementsCard evaluation={props.evaluation} onPrefill={props.onPrefill} />
+  const hasMatches = props.evaluation.matches.length > 0
+  // Before there is anything to recommend, what Fruit has understood is the
+  // useful thing to show. Once matches arrive they lead, with the fit overview
+  // above the cards and the requirements below them, so the recommendations
+  // are not pushed off the bottom of the panel.
   return (
     <div className="flex flex-col gap-4">
-      <RequirementsCard evaluation={props.evaluation} onPrefill={props.onPrefill} />
+      {hasMatches ? null : requirements}
       {matrix ? (
         <section className="rounded-chip border border-ui bg-surface p-4" aria-labelledby="af-fit">
           <h3 id="af-fit" className={`${EYEBROW} mb-3 text-brand`}>
@@ -224,6 +230,7 @@ export function ResultsPanel(props: {
         </section>
       ) : null}
       <DecisionBoard {...props} />
+      {hasMatches ? requirements : null}
     </div>
   )
 }

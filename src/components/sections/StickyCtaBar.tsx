@@ -87,7 +87,7 @@ export default function StickyCtaBar({
     }
   }, [showAfter])
 
-  // Publish the slice of the viewport floor this bar occupies, so the WhatsApp
+  // Publish the slice of the viewport floor this bar occupies, so the Ask Fruit
   // launcher can stay clear of it. Both numbers are measured, not assumed: the
   // fixed wrapper's height includes the bar's own bottom padding and moves with
   // the heading's wrap and the breakpoint, and the card's right edge moves with

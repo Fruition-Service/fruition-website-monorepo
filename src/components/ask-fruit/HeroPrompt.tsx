@@ -16,7 +16,7 @@ export default function HeroPrompt() {
             key={s.label}
             type="button"
             onClick={() => go(s.text)}
-            className="rounded-pill border border-ui bg-surface px-3.5 py-1.5 text-[13px] font-medium text-body transition-colors hover:border-brand hover:text-brand"
+            className="rounded-pill border border-ui bg-surface px-3.5 py-1.5 text-[13px] font-medium text-ink transition-colors hover:border-brand hover:text-brand"
           >
             {s.label}
           </button>

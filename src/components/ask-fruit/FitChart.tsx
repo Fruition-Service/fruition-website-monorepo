@@ -28,7 +28,7 @@ export function FitChart({ matrix }: { matrix: FitMatrix }) {
       <div className="flex flex-col gap-2" aria-label="How each option fits your requirements">
         {matrix.columns.map((col, c) => (
           <div key={col.offering.offering_id} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3">
-            <span className="truncate text-[12.5px] font-medium text-body" title={col.offering.title}>
+            <span className="line-clamp-2 text-[12.5px] leading-snug font-medium text-ink" title={col.offering.title}>
               {col.offering.title}
             </span>
             <span className="flex gap-1">
@@ -57,7 +57,7 @@ export function FitChart({ matrix }: { matrix: FitMatrix }) {
       <p className="min-h-[2.6em] text-[12px] leading-snug text-muted" aria-live="polite">
         {focused && focusedRow ? (
           <>
-            <span className="font-semibold text-body">{focusedRow.label}</span> · {FIT_LABEL[focusedCell?.status ?? "unknown"]}
+            <span className="font-semibold text-ink">{focusedRow.label}</span> · {FIT_LABEL[focusedCell?.status ?? "unknown"]}
             {focusedCell?.source === "judgement" ? " (Fruit's read)" : focusedCell?.source === "documented" ? " (documented)" : ""}
             {focusedCell?.note ? `: ${focusedCell.note}` : ""}
           </>

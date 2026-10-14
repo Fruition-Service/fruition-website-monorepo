@@ -71,7 +71,7 @@ const StickyCtaBarContext = createContext<{
  * context is only how a page overrides the site-wide default with its own. The
  * geometry context exists because the bar is `fixed inset-x-0 bottom-0` and so
  * owns the whole viewport floor: anything else floating down there (the
- * WhatsApp launcher) has to know how tall it is to stay clear of it.
+ * Ask Fruit launcher) has to know how tall it is to stay clear of it.
  */
 export function StickyCtaProvider({ children }: { children: React.ReactNode }) {
   const [registration, setRegistration] = useState<Registration | null>(null)

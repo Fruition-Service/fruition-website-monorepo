@@ -32,7 +32,7 @@ export default function PrintableBrief({ evaluationId, docId }: { evaluationId: 
   if (state === "missing" || !doc) {
     return (
       <div className="mx-auto max-w-[560px] p-10 text-center">
-        <p className="text-[15px] text-body">This brief is not available in this browser.</p>
+        <p className="text-[15px] text-ink">This brief is not available in this browser.</p>
         <Link href="/ask-fruit/workspace" className="mt-4 inline-block font-semibold text-brand">
           Back to Ask Fruit
         </Link>
@@ -56,7 +56,7 @@ export default function PrintableBrief({ evaluationId, docId }: { evaluationId: 
         {doc.doc_type === "comparison_brief" ? "Comparison brief" : "Implementation brief"} ·{" "}
         {new Date(doc.created_at).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}
       </p>
-      <h1 className="text-section-h2 mt-3 mb-8 text-body">{doc.title}</h1>
+      <h1 className="text-section-h2 mt-3 mb-8 text-ink">{doc.title}</h1>
       <BriefBody document={doc} />
       <BriefFooter />
     </div>
