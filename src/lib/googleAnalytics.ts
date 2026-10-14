@@ -27,6 +27,8 @@ export interface Ga4Overview {
   sessions: number
   pageViews: number
   conversions: number
+  /** Key events defined on the property; null when the Admin API could not be read. */
+  keyEvents: { eventName: string; createTime: string }[] | null
   daily: { date: string; users: number }[]
   topCountries: { country: string; users: number }[]
 }
@@ -67,6 +69,23 @@ export async function gscQuery<T = { keys: string[]; clicks: number; impressions
 
 export function ga4Date(days: number): string {
   return isoDaysAgo(days)
+}
+
+async function ga4ListKeyEvents(
+  property: string,
+  token: string,
+): Promise<{ eventName: string; createTime: string }[] | null> {
+  try {
+    const res = await fetch(
+      `https://analyticsadmin.googleapis.com/v1beta/properties/${property}/keyEvents?pageSize=200`,
+      { headers: { Authorization: `Bearer ${token}` } },
+    )
+    if (!res.ok) return null
+    const data = (await res.json()) as { keyEvents?: { eventName: string; createTime: string }[] }
+    return (data.keyEvents ?? []).map(({ eventName, createTime }) => ({ eventName, createTime }))
+  } catch {
+    return null
+  }
 }
 
 async function ga4RunReport(
@@ -151,7 +170,10 @@ export async function getGa4Overview(days = 28): Promise<Ga4Overview | null> {
     // countries are a nice-to-have; ignore failures
   }
 
-  return { totalUsers, sessions, pageViews, conversions, daily, topCountries }
+  // Only needed to explain a zero: which key events exist, and since when.
+  const keyEvents = conversions === 0 ? await ga4ListKeyEvents(property, token) : null
+
+  return { totalUsers, sessions, pageViews, conversions, keyEvents, daily, topCountries }
 }
 
 /* ----------------------------- GSC ----------------------------- */
