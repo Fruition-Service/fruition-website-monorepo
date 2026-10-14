@@ -1,48 +1,78 @@
 # Fruition website
 
 Next.js 16 (App Router) + React 19, content from Sanity, deployed as a **single Cloudflare
-Worker** via OpenNext. ~115 marketing pages, an auth-gated staff portal at `/internal`, and
-webhook/API routes for monday.com, Slack, RB2B and Calendly.
+Worker** (`fruition-landing`) via OpenNext. About 106 marketing pages, 47 Google Ads landing pages
+(`/au`, `/uk`, `/us`), the public Ask Fruit assistant, an auth-gated staff portal at `/internal`,
+the embedded Sanity Studio at `/studio`, and API routes for leads, booking (Calendly), monday.com,
+RB2B and Zernio.
 
-Full map: [docs/architecture.md](docs/architecture.md).
+- Orientation: [README.md](README.md)
+- Full map: [docs/architecture.md](docs/architecture.md)
+- Hosting, deploy, rollback, env vars: [docs/cloud.md](docs/cloud.md)
+
+**This repository is public.** Never commit secret values, `.env*` (except `.env.example`) or
+`.dev.vars`. Name env vars; do not paste them.
 
 ## Commands
 
 ```bash
-npm run dev          # localhost:3000
-npm test             # vitest — 96 tests, ~3s. Run this.
-npm run typecheck    # tsc against tsconfig.ci.json — CI gate
-npm run lint         # eslint — CI gate, must stay at 0 errors
+npm run dev          # localhost:3000 (copy .env.example to .env.local first)
+npm test             # vitest, ~470 tests, ~6s. Run this.
+npm run typecheck    # tsc against tsconfig.ci.json (CI gate)
+npm run lint         # eslint (CI gate, must stay at 0 errors)
 npm run build        # next build (needs live Sanity access, see below)
 npm run preview      # OpenNext build + local Workers runtime
 ```
 
 **Verify with `npm test && npm run typecheck && npm run lint`** before saying a change is done.
-All three are fast; `npm run build` takes ~2min and is only needed for build-shape changes
-(next.config, deps, route structure).
+All three are fast; `npm run build` takes about 2 min and is only needed for build-shape changes
+(next.config, deps, route structure). Use `npm run preview`, not `next dev`, to debug anything that
+depends on the Workers runtime.
 
 ## Gotchas that cost real time
 
 - **`production` is the mainline branch. There is no `main`.** Branch from it, PR into it,
-  squash-merge. Feature branches drift behind fast — rebase before you assume a conflict is real.
+  squash-merge. Merging deploys to the live site automatically. Feature branches drift behind fast;
+  rebase before you assume a conflict is real.
 - **`npm run build` fetches live Sanity data.** `getaddrinfo ENOTFOUND *.apicdn.sanity.io` is a
   network failure, not your code. Retry before debugging.
-- **Never hand-edit `src/redirects.ts`** — 892 auto-generated Wix redirects. New redirects go in
-  `auditRedirects` in `next.config.ts`.
+- **Never call `headers()` or `cookies()` in `src/app/layout.tsx`.** A dynamic API in the root
+  layout opts *every* route out of static rendering. It held the whole site at `no-store` with
+  1.4 to 2.3s TTFB until 2026-08-21. Check the build's static/dynamic counts after layout changes;
+  fetch request-specific data client-side (see `api/visitor-region`).
+- **The Worker is near Cloudflare's 10 MiB limit.** Every new dependency and route handler counts.
+  Prefer dynamic imports for heavy client libraries and check the size in the deploy output.
+- **Keep `src/middleware.ts`; never migrate to `proxy.ts`.** `proxy.ts` compiles to the Node
+  runtime, which the OpenNext Cloudflare adapter rejects.
+- **Caching:** the root layout's `revalidate = 60` sets every page's TTL. `revalidatePath` only works
+  because `NEXT_TAG_CACHE_KV` is bound; use `revalidateBlogPaths()` in `src/lib/revalidateSite.ts`
+  and pass concrete URLs untyped. There is no Sanity webhook.
+- **Never hand-edit `src/redirects.ts` (892 Wix redirects) or `src/tagRedirects.ts`.** New
+  redirects go in `auditRedirects` in `next.config.ts`.
+- **New pages must be added to `STATIC_PATHS` in `src/app/sitemap.ts` by hand.**
 - **Unknown `/partnerships/<slug>` returns 200 with an empty shell, not a 404.** Link checkers
   cannot catch nav links pointing at pages that do not exist. Verify page files exist by hand.
-- **Never call `headers()` or `cookies()` in `src/app/layout.tsx`.** A dynamic API in the root
-  layout opts *every* route out of static rendering — it held the whole site at `no-store` with
-  1.4-2.3s TTFB until 2026-08-21. Check the build's static/dynamic counts after layout changes.
-- This repo no longer contains the Marketa blog pipeline — it lives in `marketa-monorepo`. Ignore
-  any older doc that says otherwise.
+- **Portal auth is per page, not middleware.** Every `/internal` page must call
+  `requirePortalUser()` and every `/api/internal` route `getPortalApiUser()`.
+- **FAQs have two Sanity sources** (`faqTabs` on the page vs central `faqItem`). Always use
+  `resolveFaqTabs()`; FAQ JSON-LD comes only from `FaqAccordion`.
+- **Ad landing pages (`src/app/{au,uk,us}`) bypass the root layout.** Layout-level changes (tags,
+  banners, nav) do not reach them; they use `src/lib/landingPage.ts`.
+- **Live systems:** forms, PR previews and local dev all hit the real monday boards, Calendly,
+  Resend and Slack. Never submit junk. If a test must write to monday, clear any `people` column
+  and delete the item immediately.
+- **Marketa (`marketa-monorepo`) writes into this site's Sanity dataset and shares the portal
+  Supabase `portal_drafts` table.** Do not rename `blogPost` fields, change the
+  `blog-portal-<slug>` doc id rule, move `/post/<slug>`, or drop unknown keys from
+  `portal_drafts.metadata`. Contracts: [docs/architecture.md §9](docs/architecture.md#9-marketa-contracts).
+  `make/`, `n8n/`, `scripts/marketa-harness/` and the `marketa:*` npm scripts are dead leftovers.
 
 ## Non-negotiables
 
 Any UI work follows [DESIGN.md](DESIGN.md) and [PRODUCT.md](PRODUCT.md). The short version, enforced
 by a hook on every edit under `src/`:
 
-- Semantic tokens from `src/app/globals.css` only — no raw hex, no inline `style` for layout or type.
+- Semantic tokens from `src/app/globals.css` only: no raw hex, no inline `style` for layout or type.
 - Exactly three breakpoints: base, `md:` (768px), `lg:` (1024px).
 - Poppins and JetBrains Mono only.
 - Never rewrite page copy or Sanity content during visual work.
@@ -57,7 +87,7 @@ by a hook on every edit under `src/`:
   horizontal overflow (`scrollWidth <= innerWidth`), 44px tap targets. Check all three, not just
   desktop.
 
-The internal portal (`/internal`) uses **shadcn/ui components only** — never hand-rolled equivalents.
+The internal portal (`/internal`) uses **shadcn/ui components only**, never hand-rolled equivalents.
 
 ## Where to look
 
@@ -68,6 +98,7 @@ The internal portal (`/internal`) uses **shadcn/ui components only** — never h
 | Sanity schemas, GROQ, cache revalidation | `/sanity-content` |
 | Deploying, Workers runtime, KV bindings | `/cloudflare-deploy` |
 | monday.com, Slack, RB2B, Supabase, Calendly | `/integrations` |
+| Commit, PR, CI, squash-merge in one step | `/ship` |
 
 ## Google Ads (MCP server)
 
