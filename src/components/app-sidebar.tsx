@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  BookOpen,
   FileText,
   LayoutDashboard,
   MessagesSquare,
@@ -91,7 +92,10 @@ const MODULES: NavGroup[] = [
   {
     label: "Admin",
     create: { href: "/internal/onboarding", label: "Add a team member" },
-    items: [{ title: "Team", href: "/internal/team", icon: Users, match: "prefix", badge: "team" }],
+    items: [
+      { title: "Team", href: "/internal/team", icon: Users, match: "prefix", badge: "team" },
+      { title: "Developer handover", href: "/internal/handover", icon: BookOpen, match: "prefix" },
+    ],
   },
 ]
 

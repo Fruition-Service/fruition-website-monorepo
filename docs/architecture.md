@@ -133,6 +133,7 @@ routes (`monday-blog`, `slack-blog`, `sanity-ingest`).
 | Invoices | `/internal/invoices`, `new`, `[id]`, `import` | Invoices in `fruition_invoices`; Clockify **PDF** import parsed in the browser; PDFs via pdfmake |
 | QR codes | `/internal/qr` | QR generator |
 | Team, Onboarding | `/internal/team`, `/internal/onboarding` | Edit Sanity `teamMember`; create a monday People board item |
+| Developer handover | `/internal/handover`, `/internal/handover/doc` | Onboarding guide for developers (architecture, hosting, DNS, integrations, Claude Code + MCP setup). A standalone HTML document in `handover/doc/content.ts`, framed in the portal shell |
 
 Every page is `force-dynamic` and calls `requirePortalUser()`. **Portal UI uses shadcn/ui only**
 (`src/components/ui/`, `base-nova` style on `@base-ui/react`), with its own neutral theme in
