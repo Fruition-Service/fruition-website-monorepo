@@ -2,7 +2,7 @@
 
 import { bookingHref } from "@/lib/bookingLink"
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { urlFor } from "@/sanity/image"
 import CtaLabel from "@/components/CtaLabel"
 import FramedMedia from "@/components/common/FramedMedia"
@@ -101,18 +101,41 @@ export default function FruitionTeamClient({
   croSections,
 }: Props) {
   const [region, setRegion] = useState<string>(regions[0]?.code ?? "APAC")
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
+  const hasTabs = regions.length > 0
 
-  const filteredMembers = useMemo(() => {
-    return members
-      .filter((m) => Array.isArray(m.regions) && m.regions.includes(region))
-      .sort((a, b) => {
-        if (a.name === "Josh Jebathilak") return -1
-        if (b.name === "Josh Jebathilak") return 1
-        if (a.name === "Edward Zhang") return 1
-        if (b.name === "Edward Zhang") return -1
-        return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
-      })
-  }, [members, region])
+  // Every region's panel is rendered up front (inactive ones carry `hidden`), so all
+  // member names, bios and links are in the server HTML for crawlers, not just APAC's.
+  const panels = useMemo(() => {
+    const codes = hasTabs ? regions.map((r) => r.code) : ["APAC"]
+    return codes.map((code) => ({
+      code,
+      filteredMembers: members
+        .filter((m) => Array.isArray(m.regions) && m.regions.includes(code))
+        .sort((a, b) => {
+          if (a.name === "Josh Jebathilak") return -1
+          if (b.name === "Josh Jebathilak") return 1
+          if (a.name === "Edward Zhang") return 1
+          if (b.name === "Edward Zhang") return -1
+          return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
+        }),
+    }))
+  }, [members, regions, hasTabs])
+
+  // WAI-ARIA tabs keyboard pattern: arrows move between tabs, Home/End jump to the ends.
+  function onTabKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    const i = regions.findIndex((r) => r.code === region)
+    let next = -1
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % regions.length
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + regions.length) % regions.length
+    else if (e.key === "Home") next = 0
+    else if (e.key === "End") next = regions.length - 1
+    if (next < 0) return
+    e.preventDefault()
+    const code = regions[next].code
+    setRegion(code)
+    tabRefs.current[code]?.focus()
+  }
 
   return (
     <div>
@@ -211,6 +234,9 @@ export default function FruitionTeamClient({
       <section className="bg-surface">
         <div className="mx-auto px-4" style={{ maxWidth: 1100 }}>
           <div
+            role="tablist"
+            aria-label="Team regions"
+            onKeyDown={onTabKeyDown}
             className="flex items-center justify-center flex-wrap"
             style={{ gap: 16, paddingTop: 8, paddingBottom: 8 }}
           >
@@ -219,6 +245,15 @@ export default function FruitionTeamClient({
               return (
                 <button
                   key={r.code}
+                  ref={(el) => {
+                    tabRefs.current[r.code] = el
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`team-tab-${r.code}`}
+                  aria-selected={active}
+                  aria-controls={`team-panel-${r.code}`}
+                  tabIndex={active ? 0 : -1}
                   onClick={() => setRegion(r.code)}
                   className="cursor-pointer transition-all"
                   style={{
@@ -250,7 +285,15 @@ export default function FruitionTeamClient({
 
       {/* Team grid */}
       <section className="bg-surface" style={{ paddingTop: 56, paddingBottom: 96 }}>
-        <div className="mx-auto px-4" style={{ maxWidth: 1200 }}>
+        {panels.map(({ code, filteredMembers }) => (
+        <div
+          key={code}
+          id={`team-panel-${code}`}
+          role={hasTabs ? "tabpanel" : undefined}
+          aria-labelledby={hasTabs ? `team-tab-${code}` : undefined}
+          hidden={code !== region}
+          className="mx-auto max-w-[1200px] px-4"
+        >
           {filteredMembers.length === 0 ? (
             <p className="text-center" style={{ color: "var(--text-muted-fg)", fontSize: 16 }}>
               No team members listed for this region yet.
@@ -281,6 +324,7 @@ export default function FruitionTeamClient({
                         <img
                           src={photo}
                           alt={m.name}
+                          loading="lazy"
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -385,6 +429,7 @@ export default function FruitionTeamClient({
             </div>
           )}
         </div>
+        ))}
       </section>
 
       {/* Mid-page conversion banner — shared site-wide */}
