@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getPortalApiUser } from "@/lib/portalAuth"
 import { patchDocument, uploadImageAsset } from "@/lib/sanityWriteClient"
 import { ALLOWED_REGIONS, ALLOWED_CERTIFICATIONS } from "@/lib/teamMemberOptions"
+import { revalidateTeamPaths } from "@/lib/revalidateSite"
 
 export const runtime = "nodejs"
 export const maxDuration = 60
@@ -98,7 +99,9 @@ export async function PATCH(req: Request, ctx: Ctx) {
 
   try {
     await patchDocument(id, set, unset)
-    return NextResponse.json({ ok: true })
+    // Without this the public team cards keep serving the cached copy.
+    const { failed } = revalidateTeamPaths(name)
+    return NextResponse.json({ ok: true, ...(failed.length > 0 && { revalidateFailed: failed }) })
   } catch (err) {
     return NextResponse.json(
       { error: `Update failed: ${err instanceof Error ? err.message : String(err)}` },

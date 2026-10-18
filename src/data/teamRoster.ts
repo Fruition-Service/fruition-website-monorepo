@@ -52,7 +52,7 @@ export const TEAM_ROSTER: TeamRosterMember[] = [
     regions: ["SG"],
     photoUrl: "/images/team-edward-zhang.jpg",
     linkedinUrl: "https://www.linkedin.com/in/edwardzehuazhang/",
-    bio: "Edward builds and runs Fruition's website, inbound lead pipeline and marketing automation. Outside Fruition he founded Kelin Studio, the studio behind Volumet and GrooveSheet, and studies Industrial Design at NUS.",
+    bio: "Edward is a product designer and builder based in Singapore, working across SaaS, web products and digital transformation. At Fruition he shapes the web experiences that turn services and workflows into clear digital products. Outside Fruition he runs [Kelin Studio](https://kelin.studio), a product studio, and is building [GrooveSheet](https://groovesheet.net) and [Volumet](https://www.volumet.net). See more at [edwardzehuazhang.com](https://edwardzehuazhang.com).",
   },
   { id: "1879224171", name: "Suzzane Castro", role: "Regional Delivery Manager", regions: ["APAC"], emoji: "🍇", photoUrl: "https://avatars.slack-edge.com/2026-02-26/10617907859920_d590ad0b698cf401a85d_512.png", linkedinUrl: "https://www.linkedin.com/in/suzzanecastro/" },
   { id: "1879227144", name: "Annica Galang", role: "Implementation Consultant", regions: ["APAC"], emoji: "🥭", photoUrl: "https://avatars.slack-edge.com/2024-12-25/8241923908384_0294f4f8612a56a975b1_512.jpg", linkedinUrl: "https://www.linkedin.com/in/annica-galang-b275062ba/" },

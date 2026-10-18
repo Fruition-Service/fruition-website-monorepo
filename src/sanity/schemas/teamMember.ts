@@ -7,7 +7,13 @@ export default {
     { name: 'role', title: 'Role', type: 'string' },
     { name: 'emoji', title: 'Emoji', type: 'string' },
     { name: 'photo', title: 'Photo', type: 'image' },
-    { name: 'bio', title: 'Bio', type: 'text' },
+    {
+      name: 'bio',
+      title: 'Bio',
+      description:
+        'Plain text. To add a link, write [link text](https://example.com); only http and https links are turned into links.',
+      type: 'text',
+    },
     {
       name: 'certifications',
       title: 'Certifications (badges shown under the bio)',
