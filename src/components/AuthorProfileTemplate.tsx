@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
 import BlogCard from "@/components/BlogCard"
+import BioText from "@/components/BioText"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 
 /* ------------------------------------------------------------------ */
@@ -176,7 +177,7 @@ export default function AuthorProfileTemplate({
         {/* Bio */}
         {bio && (
           <p className="mt-6 max-w-[68ch] text-[17px] leading-[1.65] text-body text-pretty">
-            {bio}
+            <BioText bio={bio} />
           </p>
         )}
 

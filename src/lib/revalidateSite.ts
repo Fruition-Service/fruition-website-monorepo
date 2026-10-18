@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache"
 import { authorSlug } from "@/sanity/authorSlug"
+import type { RegionSlug } from "@/components/region/types"
 
 /**
  * Drop the cached copies of every page a blog post appears on.
@@ -51,6 +52,38 @@ export function revalidateBlogPaths({
     try {
       if (type) revalidatePath(path, type)
       else revalidatePath(path)
+      revalidated.push(path)
+    } catch (err) {
+      console.error(`[revalidate] ${path} failed:`, err instanceof Error ? err.message : err)
+      failed.push(path)
+    }
+  }
+  return { revalidated, failed }
+}
+
+/** Every page that renders the team grid. A Record so a new region slug fails typecheck here. */
+const TEAM_REGION_PAGES: Record<RegionSlug, true> = {
+  "monday-partner-australia": true,
+  "monday-partner-uk": true,
+  "monday-partner-us": true,
+  "monday-partner-singapore": true,
+  "monday-partner-india": true,
+  "monday-partner-philippines": true,
+}
+
+/**
+ * Drop the cached copies of every page that shows team-member cards, after a
+ * portal edit to a `teamMember` doc. Same contract as revalidateBlogPaths:
+ * concrete URLs only, passed untyped, and failures are reported, not thrown.
+ */
+export function revalidateTeamPaths(memberName?: string): { revalidated: string[]; failed: string[] } {
+  const paths = ["/fruition-team", ...Object.keys(TEAM_REGION_PAGES).map((s) => `/${s}`)]
+  if (memberName) paths.push(`/author/${authorSlug(memberName)}`)
+  const revalidated: string[] = []
+  const failed: string[] = []
+  for (const path of paths) {
+    try {
+      revalidatePath(path)
       revalidated.push(path)
     } catch (err) {
       console.error(`[revalidate] ${path} failed:`, err instanceof Error ? err.message : err)

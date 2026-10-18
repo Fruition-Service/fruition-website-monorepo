@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { urlFor } from "@/sanity/image"
 import CtaLabel from "@/components/CtaLabel"
+import BioText from "@/components/BioText"
 import FramedMedia from "@/components/common/FramedMedia"
 import CroSections, { type CroSectionsData } from "@/components/sections/CroSections"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
@@ -366,7 +367,7 @@ export default function FruitionTeamClient({
                             flex: 1,
                           }}
                         >
-                          {m.bio}
+                          <BioText bio={m.bio} />
                         </p>
                       )}
                       {Array.isArray(m.certifications) && m.certifications.length > 0 && (

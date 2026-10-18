@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
+import BioText from "@/components/BioText"
 import type { SanityImageRef } from "@/components/sections/types"
 import type { RegionSlug } from "@/data/regionPages"
 import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
@@ -225,7 +226,7 @@ export default function TeamGridSection({
                     {m.name} {m.emoji && <span>{m.emoji}</span>}
                   </h3>
                   {m.bio && (
-                    <p className="mt-3 flex-1 text-[13px] leading-[20px] text-muted md:mt-3.5 md:text-[14px] md:leading-[22px]">{m.bio}</p>
+                    <p className="mt-3 flex-1 text-[13px] leading-[20px] text-muted md:mt-3.5 md:text-[14px] md:leading-[22px]"><BioText bio={m.bio} /></p>
                   )}
                   {(m.linkedinUrl || m.websiteUrl) && (
                     <div className="mt-4 flex flex-wrap items-center gap-x-5">

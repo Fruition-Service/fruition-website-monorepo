@@ -169,7 +169,16 @@ export default function TeamMemberForm({ member }: { member: TeamMemberDetail })
         </div>
         <div className="grid gap-1.5 sm:col-span-2">
           <Label htmlFor="bio">Bio</Label>
-          <Textarea id="bio" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} />
+          <Textarea
+            id="bio"
+            rows={4}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            aria-describedby="bio-hint"
+          />
+          <p id="bio-hint" className="text-xs text-muted-foreground">
+            To add a link, write [link text](https://example.com). Only http and https links work.
+          </p>
         </div>
       </div>
 
