@@ -47,12 +47,12 @@ export const TEAM_ROSTER: TeamRosterMember[] = [
   // ---------- SG (APAC: Singapore / Philippines / Thailand) ----------
   {
     id: "2607577824",
-    name: "Edward Zehua Zhang",
+    name: "Edward Zhang",
     role: "Senior Web Developer",
-    regions: ["APAC", "UK", "US"],
+    regions: ["SG"],
     photoUrl: "/images/team-edward-zhang.jpg",
     linkedinUrl: "https://www.linkedin.com/in/edwardzehuazhang/",
-    bio: "Edward (Zehua) Zhang is a product designer and builder based in Singapore. At Fruition his work focuses on SaaS, web products, and mobile applications, driving digital transformation and helping clients translate services, workflows, and ideas into clearer digital products. He has designed and shipped products across edtech, travel, and music.",
+    bio: "Edward builds and runs Fruition's website, inbound lead pipeline and marketing automation. Outside Fruition he founded Kelin Studio, the studio behind Volumet and GrooveSheet, and studies Industrial Design at NUS.",
   },
   { id: "1879224171", name: "Suzzane Castro", role: "Regional Delivery Manager", regions: ["APAC"], emoji: "🍇", photoUrl: "https://avatars.slack-edge.com/2026-02-26/10617907859920_d590ad0b698cf401a85d_512.png", linkedinUrl: "https://www.linkedin.com/in/suzzanecastro/" },
   { id: "1879227144", name: "Annica Galang", role: "Implementation Consultant", regions: ["APAC"], emoji: "🥭", photoUrl: "https://avatars.slack-edge.com/2024-12-25/8241923908384_0294f4f8612a56a975b1_512.jpg", linkedinUrl: "https://www.linkedin.com/in/annica-galang-b275062ba/" },

@@ -16,6 +16,8 @@ export interface TeamMember {
   photoUrl?: string
   bio?: string
   linkedinUrl?: string
+  /** Personal website, rendered as a second link beside LinkedIn. */
+  websiteUrl?: string
   regions?: string[]
   /**
    * Region page slugs this person may appear on. Empty or absent means no
@@ -166,8 +168,8 @@ export default function TeamGridSection({
   const sorted = [...filtered].sort((a, b) => {
     if (a.name === "Josh Jebathilak") return -1
     if (b.name === "Josh Jebathilak") return 1
-    if (a.name === "Edward Zehua Zhang") return 1
-    if (b.name === "Edward Zehua Zhang") return -1
+    if (a.name === "Edward Zhang") return 1
+    if (b.name === "Edward Zhang") return -1
     return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
   })
   // Sorted most senior first, so a cap keeps leadership and trims the tail.
@@ -225,15 +227,29 @@ export default function TeamGridSection({
                   {m.bio && (
                     <p className="mt-3 flex-1 text-[13px] leading-[20px] text-muted md:mt-3.5 md:text-[14px] md:leading-[22px]">{m.bio}</p>
                   )}
-                  {m.linkedinUrl && (
-                    <Link
-                      href={m.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex min-h-[40px] items-center gap-1.5 text-[14px] font-semibold text-brand"
-                    >
-                      LinkedIn ↗
-                    </Link>
+                  {(m.linkedinUrl || m.websiteUrl) && (
+                    <div className="mt-4 flex flex-wrap items-center gap-x-5">
+                      {m.linkedinUrl && (
+                        <Link
+                          href={m.linkedinUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-[40px] items-center gap-1.5 text-[14px] font-semibold text-brand"
+                        >
+                          LinkedIn ↗
+                        </Link>
+                      )}
+                      {m.websiteUrl && (
+                        <Link
+                          href={m.websiteUrl}
+                          target="_blank"
+                          rel="noopener"
+                          className="inline-flex min-h-[40px] items-center gap-1.5 text-[14px] font-semibold text-brand"
+                        >
+                          Website ↗
+                        </Link>
+                      )}
+                    </div>
                   )}
                 </div>
               </article>

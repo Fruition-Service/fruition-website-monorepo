@@ -26,6 +26,12 @@ export default {
     },
     { name: 'linkedinUrl', title: 'LinkedIn URL', type: 'string' },
     {
+      name: 'websiteUrl',
+      title: 'Personal website URL',
+      description: 'Optional. Shown as a "Website" link on the card next to LinkedIn.',
+      type: 'url',
+    },
+    {
       name: 'regions',
       title: 'Regions',
       type: 'array',

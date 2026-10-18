@@ -607,7 +607,7 @@ export const getSiteSettings = cache(async () => {
 
 export async function getTeamMembers() {
   return client.fetch(
-    `*[_type == "teamMember"] | order(order asc) [0...200] { _id, name, role, emoji, photo, bio, linkedinUrl, regions, regionPagesOnly, order, certifications }`
+    `*[_type == "teamMember"] | order(order asc) [0...200] { _id, name, role, emoji, photo, bio, linkedinUrl, websiteUrl, regions, regionPagesOnly, order, certifications }`
   )
 }
 
@@ -615,7 +615,7 @@ export async function getTeamMembers() {
 export async function getTeamMemberById(id: string) {
   return client.fetch(
     `*[_type == "teamMember" && _id == $id][0] {
-      _id, name, role, emoji, bio, linkedinUrl, regions, order, certifications,
+      _id, name, role, emoji, bio, linkedinUrl, websiteUrl, regions, order, certifications,
       "photoUrl": photo.asset->url
     }`,
     { id }

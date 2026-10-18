@@ -35,6 +35,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
   const bio = String(form.get("bio") ?? "").trim()
   const emoji = String(form.get("emoji") ?? "").trim()
   const linkedinUrl = String(form.get("linkedinUrl") ?? "").trim()
+  const websiteUrl = String(form.get("websiteUrl") ?? "").trim()
   const orderRaw = String(form.get("order") ?? "").trim()
   const regions = form.getAll("regions").map(String).filter(Boolean)
   const certifications = form.getAll("certifications").map(String).filter(Boolean)
@@ -51,6 +52,9 @@ export async function PATCH(req: Request, ctx: Ctx) {
   if (linkedinUrl && !/^https?:\/\//i.test(linkedinUrl)) {
     return NextResponse.json({ error: "LinkedIn URL must start with http(s)://" }, { status: 400 })
   }
+  if (websiteUrl && !/^https?:\/\//i.test(websiteUrl)) {
+    return NextResponse.json({ error: "Website URL must start with http(s)://" }, { status: 400 })
+  }
   const order = orderRaw ? Number(orderRaw) : undefined
   if (orderRaw && !Number.isFinite(order)) {
     return NextResponse.json({ error: "Order must be a number." }, { status: 400 })
@@ -63,6 +67,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
     ["bio", bio],
     ["emoji", emoji],
     ["linkedinUrl", linkedinUrl],
+    ["websiteUrl", websiteUrl],
   ] as const) {
     if (value) set[field] = value
     else unset.push(field)
