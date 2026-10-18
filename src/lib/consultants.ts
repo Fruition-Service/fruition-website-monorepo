@@ -186,7 +186,7 @@ export const REGION_CONSULTANTS: Record<LeadRegion, Consultant[]> = {
  */
 const TEST_CONSULTANT: Consultant = {
   key: "edward",
-  name: "Edward Zehua Zhang",
+  name: "Edward Zhang",
   firstName: "Edward",
   calendlyUrl: "https://calendly.com/edward-fruitionservices/30min",
   eventTypeUuid: "30f608aa-27cd-45c0-b45d-77fb872f5e8f",

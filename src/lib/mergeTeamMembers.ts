@@ -17,7 +17,7 @@ function normName(s?: string): string {
  * can be reverted by deleting this array in a single commit — remove the
  * entry once the person should show on the site again.
  */
-const TEMPORARILY_HIDDEN_NAMES = ["Edward Zehua Zhang"]
+const TEMPORARILY_HIDDEN_NAMES: string[] = []
 
 /**
  * Filter Sanity team members against the optional site-level exclude

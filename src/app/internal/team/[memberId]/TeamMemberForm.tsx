@@ -19,6 +19,7 @@ export interface TeamMemberDetail {
   emoji?: string
   bio?: string
   linkedinUrl?: string
+  websiteUrl?: string
   regions?: string[]
   certifications?: string[]
   order?: number
@@ -33,6 +34,7 @@ export default function TeamMemberForm({ member }: { member: TeamMemberDetail })
   const [emoji, setEmoji] = React.useState(member.emoji ?? "")
   const [bio, setBio] = React.useState(member.bio ?? "")
   const [linkedinUrl, setLinkedinUrl] = React.useState(member.linkedinUrl ?? "")
+  const [websiteUrl, setWebsiteUrl] = React.useState(member.websiteUrl ?? "")
   const [order, setOrder] = React.useState(member.order?.toString() ?? "")
   const [regions, setRegions] = React.useState<string[]>(member.regions ?? [])
   const [certifications, setCertifications] = React.useState<string[]>(
@@ -69,6 +71,7 @@ export default function TeamMemberForm({ member }: { member: TeamMemberDetail })
       fd.set("bio", bio.trim())
       fd.set("emoji", emoji.trim())
       fd.set("linkedinUrl", linkedinUrl.trim())
+      fd.set("websiteUrl", websiteUrl.trim())
       fd.set("order", order.trim())
       regions.forEach((r) => fd.append("regions", r))
       certifications.forEach((c) => fd.append("certifications", c))
@@ -153,6 +156,15 @@ export default function TeamMemberForm({ member }: { member: TeamMemberDetail })
             value={linkedinUrl}
             onChange={(e) => setLinkedinUrl(e.target.value)}
             placeholder="https://www.linkedin.com/in/…"
+          />
+        </div>
+        <div className="grid gap-1.5 sm:col-span-2">
+          <Label htmlFor="website">Personal website URL</Label>
+          <Input
+            id="website"
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+            placeholder="https://…"
           />
         </div>
         <div className="grid gap-1.5 sm:col-span-2">

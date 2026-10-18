@@ -21,6 +21,8 @@ export interface TeamMember {
   photoUrl?: string
   bio?: string
   linkedinUrl?: string
+  /** Personal website, rendered as a second link beside LinkedIn. */
+  websiteUrl?: string
   regions?: string[]
   order?: number
   certifications?: string[]
@@ -106,8 +108,8 @@ export default function FruitionTeamClient({
       .sort((a, b) => {
         if (a.name === "Josh Jebathilak") return -1
         if (b.name === "Josh Jebathilak") return 1
-        if (a.name === "Edward Zehua Zhang") return 1
-        if (b.name === "Edward Zehua Zhang") return -1
+        if (a.name === "Edward Zhang") return 1
+        if (b.name === "Edward Zhang") return -1
         return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
       })
   }, [members, region])
@@ -352,23 +354,29 @@ export default function FruitionTeamClient({
                           ))}
                         </ul>
                       )}
-                      {m.linkedinUrl && (
-                        <Link
-                          href={m.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-semibold"
-                          style={{
-                            marginTop: 16,
-                            color: "#8015e8",
-                            fontSize: 14,
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 6,
-                          }}
-                        >
-                          LinkedIn →
-                        </Link>
+                      {(m.linkedinUrl || m.websiteUrl) && (
+                        <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1">
+                          {m.linkedinUrl && (
+                            <Link
+                              href={m.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-brand"
+                            >
+                              LinkedIn →
+                            </Link>
+                          )}
+                          {m.websiteUrl && (
+                            <Link
+                              href={m.websiteUrl}
+                              target="_blank"
+                              rel="noopener"
+                              className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-brand"
+                            >
+                              Website →
+                            </Link>
+                          )}
+                        </div>
                       )}
                     </div>
                   </article>
