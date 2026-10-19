@@ -24,6 +24,8 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
  *   (GTM's Calendly listener then records the booking conversion);
  * - wires any form still posting to `#` to /api/leads, and pushes the same
  *   `generate_lead` dataLayer event as `trackLead()` once the lead is accepted;
+ * - adds the site's favicon / touch-icon links (the root layout emits them for
+ *   every other page; without them Google Ads showed no logo next to the ad);
  * - adds Open Graph / Twitter tags (built from the page's own title and
  *   description) so a shared link shows a proper preview card;
  * - re-orders the page (`withLandingPageLayout`): hero and form, then the
@@ -44,6 +46,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${GTM_ID}');</script>`
 
 const GTM_BODY = `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`
+
+/** Same icon files the root layout links (src/app/favicon.ico, icon.png, apple-icon.png). */
+const ICON_LINKS = `<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180">`
 
 const CALENDLY_PLACEHOLDER = /<div class="calendly-box">[\s\S]*?<\/div>/
 
@@ -238,6 +245,9 @@ export function withLandingPageTracking(
 ): string {
   let out = html
   out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}`)
+  if (!/<link[^>]+rel="(?:shortcut )?icon"/i.test(out)) {
+    out = out.replace(/<\/head>/i, `${ICON_LINKS}\n</head>`)
+  }
   if (!/property="og:image"/i.test(out)) {
     const tags = socialTags(out, region)
     if (tags) out = out.replace(/<\/head>/i, `${tags}\n</head>`)
