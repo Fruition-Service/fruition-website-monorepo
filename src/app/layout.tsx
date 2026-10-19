@@ -42,10 +42,16 @@ const REB2B_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-v
 const GTM_ID = "GTM-PF6XWTL6"
 
 // Umami — cookieless, no personal data, so it needs no consent gate (it is less
-// invasive than the GA4 tag already running through GTM above). Inert until
-// NEXT_PUBLIC_UMAMI_WEBSITE_ID is set, so the script is simply absent until the
-// account exists. NEXT_PUBLIC_UMAMI_SCRIPT_URL points at a self-hosted instance.
-const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID
+// invasive than the GA4 tag already running through GTM above). The website id
+// is public (it ships in every page's HTML), so it is hardcoded like the OpenAI
+// pixel id: CI never passed NEXT_PUBLIC_UMAMI_WEBSITE_ID at build time. Umami
+// Cloud account edward@fruitionservices.io, US region.
+// NEXT_PUBLIC_UMAMI_SCRIPT_URL points at a self-hosted instance.
+const UMAMI_WEBSITE_ID =
+  process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || "bd3e100e-72c8-4a57-b32d-a4f27c52f956"
+// data-before-send hook: drop portal / Studio / test-page views (same paths
+// Clarity skips) so internal use never inflates the public numbers.
+const UMAMI_BEFORE_SEND = `window.umamiBeforeSend=function(t,p){try{if(/^\\/(internal|studio|contactustest)(\\/|$)/.test(location.pathname))return false;}catch(e){}return p;};`
 const UMAMI_SCRIPT_URL =
   process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://cloud.umami.is/script.js"
 const GTM_LOADER = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -333,12 +339,17 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: GTM_LOADER }}
         />
         {UMAMI_WEBSITE_ID ? (
-          <Script
-            id="umami-loader"
-            strategy="afterInteractive"
-            src={UMAMI_SCRIPT_URL}
-            data-website-id={UMAMI_WEBSITE_ID}
-          />
+          <>
+            <script dangerouslySetInnerHTML={{ __html: UMAMI_BEFORE_SEND }} />
+            <Script
+              id="umami-loader"
+              strategy="afterInteractive"
+              src={UMAMI_SCRIPT_URL}
+              data-website-id={UMAMI_WEBSITE_ID}
+              data-domains="www.fruitionservices.io,fruitionservices.io"
+              data-before-send="umamiBeforeSend"
+            />
+          </>
         ) : null}
         {/* Renders the placeholder SiteFrame drops on marketing pages as
             Google's "add as a preferred source" button. */}
