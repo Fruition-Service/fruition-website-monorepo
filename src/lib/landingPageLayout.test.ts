@@ -1,20 +1,19 @@
-import { readdirSync } from "node:fs"
-import path from "node:path"
 import { describe, expect, it } from "vitest"
 import { withLandingPageLayout } from "./landingPage"
 import { extractProof } from "./landingPageProof"
+import { adLandingPages } from "./adLandingPages"
+import type { LeadRegion } from "./leadNotify"
 
-const APP = path.join(__dirname, "..", "app")
-const pages = ["au", "uk", "us", "sea"].flatMap((region) =>
-  readdirSync(path.join(APP, region)).map((slug) => `${region}/${slug}`),
-)
+const routes = adLandingPages()
+const pages = routes.map((r) => r.page)
+const regionOf = (page: string) => routes.find((r) => r.page === page)!.region as LeadRegion
 
 const shared = [{ quote: "Shared quote", authorName: "Shared Person", authorRole: "COO", company: "Acme" }]
 
 describe("withLandingPageLayout", () => {
   it.each(pages)("%s: hero, then reviews + logos, booking band last", async (page) => {
     const { html } = await import(`@/app/${page}/content`)
-    const region = page.startsWith("uk/") ? "UK" : page.startsWith("us/") ? "NA" : page.startsWith("sea/") ? "SEA" : "APAC"
+    const region = regionOf(page)
     const out = withLandingPageLayout(html, shared, region)
 
     const hero = out.search(/<(section|header) class="hero"/)
