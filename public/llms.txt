@@ -80,6 +80,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 
 ## Industries
 
+- [AI use cases by industry](https://www.fruitionservices.io/ai-use-cases): 279 real Fruition builds across 12 industries, client names withheld, each with its process, monday.com boards, automations, AI steps, integrations and build timeframe. One page per industry under /ai-use-cases/ (construction, manufacturing, government, healthcare, real-estate, professional-services, financial-services, education-nonprofit, retail-ecommerce, logistics, technology-saas, cross-industry).
 - [Industries hub](https://www.fruitionservices.io/industries)
 - [Financial services](https://www.fruitionservices.io/industries/financial-services)
 - [Healthcare](https://www.fruitionservices.io/industries/healthcare)

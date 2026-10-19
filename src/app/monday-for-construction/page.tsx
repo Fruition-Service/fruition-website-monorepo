@@ -20,6 +20,8 @@ function safePhotoUrl(img: unknown): string | undefined {
 }
 
 import MondayForConstructionContent from "./MondayForConstructionContent"
+import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
+import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos } from "@/sanity/industryLogos"
 
@@ -42,13 +44,14 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs, centralTestimonials, industryLogos] = await Promise.all([
+  const [page, siteSettings, caseStudies, centralFaqs, centralTestimonials, industryLogos, featuredUseCases] = await Promise.all([
     getIndustryPageBySlug(SLUG),
     getSiteSettings(),
     getCaseStudies(),
     getFaqItemsForPage(SLUG),
     getCaseStudiesForPage("monday-for-construction"),
     getIndustryLogos("construction"),
+    getFeaturedUseCases("/monday-for-construction"),
   ])
 
   // Central testimonial store wins; the page-doc array stays as fallback.
@@ -57,6 +60,7 @@ export default async function Page() {
   }
   return (
     <MondayForConstructionContent
+      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} />}
       page={page}
       siteSettings={siteSettings}
       industryLogos={industryLogos}

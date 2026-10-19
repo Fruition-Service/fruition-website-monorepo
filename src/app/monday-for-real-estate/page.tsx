@@ -25,6 +25,8 @@ import CtaButton from "@/components/CtaButton"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos, resolveIndustryLogos } from "@/sanity/industryLogos"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
+import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { getIndustrySections } from "@/data/industrySections"
 
 export async function generateMetadata() {
@@ -44,12 +46,13 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs, industryLogos] = await Promise.all([
+  const [page, siteSettings, caseStudies, centralFaqs, industryLogos, featuredUseCases] = await Promise.all([
     getIndustryPageBySlug("monday-for-real-estate"),
     getSiteSettings(),
     getCaseStudies(),
     getFaqItemsForPage("monday-for-real-estate"),
     getIndustryLogos("real-estate"),
+    getFeaturedUseCases("/monday-for-real-estate"),
   ])
 
   if (!page) return null
@@ -198,6 +201,9 @@ export default async function Page() {
           theme="tint"
         />
       )}
+
+      {/* Featured AI use cases from the catalogue (/ai-use-cases) */}
+      <FeaturedUseCasesSection featured={featuredUseCases} />
 
       {/* Mid-page conversion banner — shared site-wide */}
       <AuditCtaBanner />
