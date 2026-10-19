@@ -5,7 +5,7 @@ import { withLandingPageLayout } from "./landingPage"
 import { extractProof } from "./landingPageProof"
 
 const APP = path.join(__dirname, "..", "app")
-const pages = ["au", "uk", "us"].flatMap((region) =>
+const pages = ["au", "uk", "us", "sea"].flatMap((region) =>
   readdirSync(path.join(APP, region)).map((slug) => `${region}/${slug}`),
 )
 
@@ -14,7 +14,7 @@ const shared = [{ quote: "Shared quote", authorName: "Shared Person", authorRole
 describe("withLandingPageLayout", () => {
   it.each(pages)("%s: hero, then reviews + logos, booking band last", async (page) => {
     const { html } = await import(`@/app/${page}/content`)
-    const region = page.startsWith("uk/") ? "UK" : page.startsWith("us/") ? "NA" : "APAC"
+    const region = page.startsWith("uk/") ? "UK" : page.startsWith("us/") ? "NA" : page.startsWith("sea/") ? "SEA" : "APAC"
     const out = withLandingPageLayout(html, shared, region)
 
     const hero = out.search(/<(section|header) class="hero"/)

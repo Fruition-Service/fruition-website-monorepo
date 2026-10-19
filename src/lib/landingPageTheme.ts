@@ -1,5 +1,5 @@
 /**
- * Site design system for the Google Ads landing pages under /au, /uk and /us.
+ * Site design system for the Google Ads landing pages under /au, /uk, /us and /sea.
  *
  * Those pages are self-contained HTML documents served from route handlers (see
  * `landingPage.ts`), so they never load `globals.css`. Until 2026-10-07 each one
@@ -156,6 +156,21 @@ h2.sec,.final h2{font-size:clamp(28px,3.6vw,44px);font-weight:600;line-height:1.
 .member .role{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:0 0 12px}
 .member p{font-size:14px;line-height:1.6;color:var(--muted)}
 
+/* Fixed-price packages (SEA partner page): three cards, the featured one ringed in brand */
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pkg{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--lilac);border-radius:24px;box-shadow:var(--shadow-whisper);padding:32px 28px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.pkg:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--lilac-strong)}
+.pkg.feat{border:2px solid var(--brand);box-shadow:var(--shadow-lift)}
+.pkg .dur{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand)}
+.pkg h3{font-size:clamp(18px,1.8vw,20px);font-weight:600;line-height:1.3;letter-spacing:-.01em;color:var(--fg);margin:12px 0 10px}
+.pkg .size{align-self:flex-start;font-size:12px;font-weight:600;color:var(--brand-dark);background:var(--brand-soft);border-radius:9999px;padding:4px 12px;margin-bottom:16px}
+.pkg .price{font-size:clamp(24px,2.4vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--fg)}
+.pkg .price small{display:block;margin-top:4px;font-size:13px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.pkg ul{list-style:none;margin:20px 0 4px;flex:1}
+.pkg li{position:relative;padding-left:30px;margin:10px 0;font-size:15px;line-height:1.5;color:var(--muted)}
+.pkg li::before{content:"✓";position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pnote{font-size:13px;color:var(--faint);margin-top:20px}
+
 /* FAQ: hairline-ruled list with mono numbers, as on the homepage */
 section:has(details){counter-reset:faq}
 details{max-width:880px;border-bottom:1px solid var(--ui);counter-increment:faq}
@@ -197,6 +212,7 @@ footer a:hover{color:#fff}
 .hero{padding:56px 0 64px}
 .hero .wrap,.final .inner{grid-template-columns:1fr;gap:40px}
 .grid3,.team,.steps,.ratings{grid-template-columns:repeat(2,1fr)}
+.pkgs{grid-template-columns:1fr;max-width:560px}
 .stats .grid4{grid-template-columns:repeat(2,1fr);row-gap:40px}
 .stats .grid4>div:nth-child(3){border-left:0;padding-left:0}
 .topbar .book{display:none}
@@ -211,7 +227,7 @@ body{padding-bottom:68px}
 .eyebrow{font-size:12px;margin-bottom:20px}
 .grid3,.team,.steps,.quotes{grid-template-columns:1fr}
 .formcard{padding:28px 20px;border-radius:20px}
-.card,.step,.quote{padding:26px 22px}
+.card,.step,.quote,.pkg{padding:26px 22px}
 .stats .grid4>div{padding:0 16px}
 .stats .grid4>div:nth-child(odd){border-left:0;padding-left:0}
 .stats .l{font-size:13px}
