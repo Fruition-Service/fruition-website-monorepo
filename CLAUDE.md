@@ -56,8 +56,16 @@ depends on the Workers runtime.
   `requirePortalUser()` and every `/api/internal` route `getPortalApiUser()`.
 - **FAQs have two Sanity sources** (`faqTabs` on the page vs central `faqItem`). Always use
   `resolveFaqTabs()`; FAQ JSON-LD comes only from `FaqAccordion`.
-- **Ad landing pages (`src/app/{au,uk,us}`) bypass the root layout.** Layout-level changes (tags,
-  banners, nav) do not reach them; they use `src/lib/landingPage.ts`.
+- **Ad landing pages (`src/app/{au,uk,us,sea}`) bypass the root layout.** Layout-level changes (tags,
+  banners, nav) do not reach them; they use `src/lib/landingPage.ts`. Every one must have a `route.ts`
+  calling `landingPageResponse` with a unique `adwords-lp-*` source and its region, next to a
+  `content.ts` document. That is how the tests find them, in any folder.
+- **Every page ships a complete `<head>`, enforced in CI.** Site pages: export `metadata` /
+  `generateMetadata` built with `buildOgMetadata` (or `openGraph`), so shared links get their own
+  card (`pageMetadata.test.ts`). Ad pages: `<html lang>`, title, meta description, `noindex`,
+  exactly one `<h1>`. Favicon, Open Graph/Twitter card and GTM are added at serve time
+  (`adLandingPageHead.test.ts`). Never hand-roll these tags, and never weaken those tests to get a
+  page through.
 - **Live systems:** forms, PR previews and local dev all hit the real monday boards, Calendly,
   Resend and Slack. Never submit junk. If a test must write to monday, clear any `people` column
   and delete the item immediately.
