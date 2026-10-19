@@ -1,5 +1,5 @@
 // Static disclosure for B2B visitor identification (RB2B) and the analytics /
-// ad tags loaded in src/app/layout.tsx (GTM, Clarity, OpenAI). Keep the tool
+// ad tags loaded in src/app/layout.tsx (GTM, Umami, Clarity, OpenAI). Keep the tool
 // list in sync with the loaders there. Embedded on
 // /data-privacy so we can update wording in code without an editor having to
 // touch Sanity. Move to CMS later if marketing needs to edit this without a
@@ -122,6 +122,11 @@ export default function VisitorTrackingDisclosure() {
           (Google LLC), loaded through Google Tag Manager: pages viewed, how you
           arrived, device and approximate location, and whether you booked a
           meeting after clicking one of our ads.
+        </li>
+        <li className="leading-relaxed">
+          <strong className={strong}>Umami</strong> (Umami Software, Inc.):
+          privacy-friendly page-view counts, referrers and button clicks. Umami
+          sets no cookies and stores no personal data.
         </li>
         <li className="leading-relaxed">
           <strong className={strong}>Microsoft Clarity</strong> (Microsoft
