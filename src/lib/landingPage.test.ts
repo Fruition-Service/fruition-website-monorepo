@@ -45,4 +45,12 @@ describe("withLandingPageTracking", () => {
     expect(out).toContain('<meta name="twitter:card" content="summary_large_image">')
     expect(out.indexOf('property="og:title"')).toBeLessThan(out.indexOf("</head>"))
   })
+
+  it("links the site favicon in head", () => {
+    const out = withLandingPageTracking(legal, opts)
+    const head = out.slice(0, out.indexOf("</head>"))
+    expect(head).toContain('<link rel="icon" href="/favicon.ico" sizes="any">')
+    expect(head).toContain('<link rel="icon" href="/icon.png" type="image/png" sizes="512x512">')
+    expect(head).toContain('<link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180">')
+  })
 })
