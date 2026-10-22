@@ -33,9 +33,6 @@ export default function ContactSection({
     <>
       <ContactHero offices={offices} salesEmail={salesEmail} supportEmail={supportEmail} phone={phone} phoneTel={phoneTel} />
 
-      {/* Mid-page conversion banner — shared site-wide */}
-      <AuditCtaBanner />
-
       <OfficeBand offices={offices} />
       <BookingSection
         eyebrow="Contact us"
@@ -67,6 +64,11 @@ function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: Con
         <p className="text-center text-body-lead mt-5 max-w-[600px] text-muted text-pretty">
           Reach the team directly, or find the office nearest you. We answer every message within one business day.
         </p>
+      </div>
+
+      {/* Booking banner, links to the Calendly booking on this page */}
+      <div className="mx-auto w-full max-w-[1000px] px-4 pt-8 pb-2 md:pt-10">
+        <AuditCtaBanner contained={false} />
       </div>
 
       {/* World map */}
