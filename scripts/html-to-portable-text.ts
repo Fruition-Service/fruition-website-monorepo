@@ -3,6 +3,23 @@
 // blockquotes, bold, italic, underline, code, and links.
 
 import type { HTMLElement as NHPElement, Node as NHPNode } from 'node-html-parser'
+import { bestScrapedImageUrl, widestSrcsetUrl } from '../src/lib/scrapedImage.js'
+
+/**
+ * The best image URL an element offers.
+ *
+ * Wix server-renders `<img src>` with a blurred ~49px lazy-load placeholder and
+ * leaves the real image in `srcset` / `data-*`. Taking `src` at face value is
+ * what left the older blog posts with blurred body images.
+ */
+function bestImageSrc(el: NHPElement): string | null {
+  return bestScrapedImageUrl([
+    widestSrcsetUrl(el.getAttribute('srcset')),
+    el.getAttribute('src'),
+    el.getAttribute('data-src'),
+    el.getAttribute('data-pin-media'),
+  ])
+}
 
 // Strip control chars without trimming — trimming at the text-node level
 // would destroy the whitespace that sits between inline elements
@@ -229,8 +246,8 @@ function walkBlock(container: NHPElement, out: PTNode[]): void {
 
     // Images — emit a placeholder with the source URL
     if (tag === 'img') {
-      const src = el.getAttribute('src') || el.getAttribute('data-src') || ''
-      if (src && !src.startsWith('data:')) {
+      const src = bestImageSrc(el)
+      if (src) {
         out.push({
           _type: 'imagePlaceholder',
           _key: rk(),
@@ -250,16 +267,14 @@ function walkBlock(container: NHPElement, out: PTNode[]): void {
     if (tag === 'p') {
       // Check if this paragraph contains only an image (common pattern: <p><img ...></p>)
       const imgChild = el.querySelector('img')
-      if (imgChild) {
-        const src = imgChild.getAttribute('src') || imgChild.getAttribute('data-src') || ''
-        if (src && !src.startsWith('data:')) {
-          out.push({
-            _type: 'imagePlaceholder',
-            _key: rk(),
-            src,
-            alt: imgChild.getAttribute('alt') || undefined,
-          })
-        }
+      const childSrc = imgChild ? bestImageSrc(imgChild) : null
+      if (imgChild && childSrc) {
+        out.push({
+          _type: 'imagePlaceholder',
+          _key: rk(),
+          src: childSrc,
+          alt: imgChild.getAttribute('alt') || undefined,
+        })
       }
       const b = buildBlock('normal', el)
       if (b) out.push(b)
@@ -285,16 +300,14 @@ function walkBlock(container: NHPElement, out: PTNode[]): void {
     // <picture> — extract the <img> inside
     if (tag === 'picture') {
       const imgChild = el.querySelector('img')
-      if (imgChild) {
-        const src = imgChild.getAttribute('src') || imgChild.getAttribute('data-src') || ''
-        if (src && !src.startsWith('data:')) {
-          out.push({
-            _type: 'imagePlaceholder',
-            _key: rk(),
-            src,
-            alt: imgChild.getAttribute('alt') || undefined,
-          })
-        }
+      const childSrc = imgChild ? bestImageSrc(imgChild) : null
+      if (imgChild && childSrc) {
+        out.push({
+          _type: 'imagePlaceholder',
+          _key: rk(),
+          src: childSrc,
+          alt: imgChild.getAttribute('alt') || undefined,
+        })
       }
       continue
     }

@@ -6,6 +6,8 @@ import { createClient } from '@sanity/client'
 import { parse } from 'node-html-parser'
 import type { HTMLElement } from 'node-html-parser'
 import * as dotenv from 'dotenv'
+import { imageSize } from '../src/lib/imageSize.js'
+import { WIX_PLACEHOLDER_WIDTH, wixOriginalUrl } from '../src/lib/wixImage.js'
 dotenv.config({ path: '.env.local' })
 
 const client = createClient({
@@ -42,6 +44,13 @@ async function uploadImage(imageUrl: string, filename: string): Promise<string |
     const buffer = Buffer.from(await res.arrayBuffer())
     if (buffer.length < 500) return null // skip tiny images / tracking pixels
 
+    // Never ingest a lazy-load placeholder, whatever the URL claimed to be.
+    const size = imageSize(buffer)
+    if (size && size.width < WIX_PLACEHOLDER_WIDTH) {
+      console.log(`    Skipped ${size.width}x${size.height} placeholder`)
+      return null
+    }
+
     const contentType = res.headers.get('content-type') || 'image/jpeg'
     const asset = await client.assets.upload('image', buffer, {
       filename: filename.substring(0, 100),
@@ -60,16 +69,15 @@ function extractOgImage(root: HTMLElement): string {
 }
 
 /**
- * Rewrite Wix static image URLs to request full-size images.
- * Wix serves tiny placeholders like /v1/fill/w_49,h_33,...
- * We replace the fill dimensions with large values to get the real image.
+ * Rewrite a Wix image URL to the full-resolution original.
+ *
+ * The previous version rewrote the `w_`/`h_` of a `fill` transform, which
+ * silently did nothing for `fit` and `crop` transforms — that is how ~100 body
+ * images were ingested at their 49px/147px placeholder size. Stripping the
+ * transform outright is both simpler and correct for every transform Wix emits.
  */
 function wixFullSize(url: string): string {
-  if (!url.includes('static.wixstatic.com/media/')) return url
-  // Replace fill/w_X,h_Y with fill/w_1200,h_800 and remove blur
-  return url
-    .replace(/\/fill\/w_\d+,h_\d+/, '/fill/w_1200,h_800')
-    .replace(/,blur_\d+/g, '')
+  return wixOriginalUrl(url)
 }
 
 /** Extract inline image URLs from the post body HTML */
