@@ -601,7 +601,10 @@ export const getSiteSettings = cache(async () => {
     footerIndustrySolutionsHeading,
     footerOurLocationsHeading,
     footerLegalLinks,
-    footerCopyrightText
+    footerCopyrightText,
+    footerTagline,
+    footerBadges,
+    footerColumns[]{ heading, links[]{ label, href } }
   }`)
 })
 
@@ -704,6 +707,18 @@ export async function getCaseStudiesForPage(pageKey: string) {
       linkedinUrl, industry, platform, order
     }`,
     { pageKey }
+  )
+}
+
+/**
+ * Every published quote testimonial, for the /customer-testimonials grid.
+ * Copies of the same quote are collapsed by buildTestimonialCards.
+ */
+export async function getAllQuoteTestimonials() {
+  return client.fetch(
+    `*[_type == "caseStudy" && defined(quote) && defined(clientName)] | order(coalesce(order, 99) asc, _id asc) {
+      _id, clientName, clientRole, clientCompany, quote, industry, platform, pages
+    }`
   )
 }
 

@@ -1,10 +1,11 @@
 import { bookingHref } from "@/lib/bookingLink"
-import { getSiteSettings, getPageBySlug } from "@/sanity/queries"
+import { getSiteSettings, getPageBySlug, getAllQuoteTestimonials } from "@/sanity/queries"
 import { ClientLogoSection, CalendlySection, DiscoverCtaSection, CroSections, StickyCtaConfig, TestimonialFilterGrid } from "@/components/sections"
-import type { PartnerBadge, SanityImageRef } from "@/components/sections/types"
+import type { SanityImageRef } from "@/components/sections/types"
 import { urlFor } from "@/sanity/image"
-import CtaButton from "@/components/CtaButton"
-import FramedMedia from "@/components/common/FramedMedia"
+import { HubHero, HubSection } from "@/components/hubs/HubSections"
+import TestimonialQuoteGrid from "@/components/hubs/TestimonialQuoteGrid"
+import { buildTestimonialCards, testimonialFilterTags } from "@/lib/testimonials"
 import { buildOgMetadata } from "@/lib/metadata"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 
@@ -33,23 +34,6 @@ interface CaseStudyCard {
   services?: string
   timeline?: string
   verifiedSource?: string
-}
-
-/** Rendered height of a hero partner badge, in CSS pixels. */
-const BADGE_HEIGHT = 44
-
-/**
- * Partner badges render at `h-[44px] w-auto`, so constrain by height only —
- * these are wide wordmarks and a square crop lops the name off. `fit=max`
- * preserves the aspect ratio and never upscales past the source.
- */
-function badgeImageUrl(ref: SanityImageRef): string | null {
-  if (!ref?.asset?._ref) return null
-  try {
-    return urlFor(ref).height(BADGE_HEIGHT * 2).fit("max").auto("format").url()
-  } catch {
-    return null
-  }
 }
 
 /**
@@ -111,29 +95,23 @@ function getCaseStudyImageSrc(image?: SanityImageRef | string): string | null {
 }
 
 export default async function CustomerTestimonialsPage() {
-  const [siteSettings, page] = await Promise.all([
+  const [siteSettings, page, quoteDocs] = await Promise.all([
     getSiteSettings(),
     getPageBySlug("customer-testimonials"),
+    getAllQuoteTestimonials(),
   ])
 
   const rawCalendly = siteSettings?.calendlyLink || ""
   const calendlyUrl = bookingHref(rawCalendly)
-  const partnerBadges: PartnerBadge[] = page?.heroPartnerBadges?.length > 0
-    ? page.heroPartnerBadges
-    : siteSettings?.navbarPartnerBadges || []
 
-  const heroHeading = page?.heroHeading
-  const heroSubheading = page?.heroSubheading
-  const heroBody = page?.heroBody
   const primaryCtaLabel = page?.primaryCtaLabel
   const primaryCtaUrl = page?.primaryCtaUrl || calendlyUrl
-  const secondaryCtaLabel = page?.secondaryCtaLabel
-  const secondaryCtaUrl = page?.secondaryCtaUrl
 
   const logoCloudPart1 = page?.logoCloudHeadingPart1
   const logoCloudAccent = page?.logoCloudHeadingAccent
 
   const caseStudyCards: CaseStudyCard[] = (page?.caseStudyCards ?? []) as CaseStudyCard[]
+  const testimonials = buildTestimonialCards(quoteDocs ?? [], caseStudyCards)
 
   const calendlyHeading = page?.calendlyHeading
   const calendlySubheading = page?.calendlySubheading
@@ -147,109 +125,12 @@ export default async function CustomerTestimonialsPage() {
   return (
     <div>
       <StickyCtaConfig label={page?.croSections?.stickyCtaLabel} mobileLabel={page?.croSections?.stickyCtaMobileLabel} href={bookingHref(page?.croSections?.stickyCtaUrl || rawCalendly)} />
-      {/* Hero */}
-      <section className="bg-surface">
-        <div
-          className="mx-auto flex flex-col items-center"
-          style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 80, paddingBottom: 80, maxWidth: 1200 }}
-        >
-          {partnerBadges.length > 0 && (
-            <div className="flex items-center flex-wrap justify-center" style={{ gap: 22 }}>
-              {partnerBadges.map((badge, i) => {
-                const src = badgeImageUrl(badge.image)
-                if (!src) return null
-                // Reserve the badge's real footprint so it doesn't shift on load —
-                // these wordmarks are all different shapes.
-                const intrinsicWidth =
-                  badge.width && badge.height
-                    ? Math.round((badge.width / badge.height) * BADGE_HEIGHT)
-                    : 120
-                return (
-                  <FramedMedia key={badge._key || `badge-${i}`} className="dark:p-1.5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={badge.name || "Partner badge"}
-                      width={intrinsicWidth}
-                      height={BADGE_HEIGHT}
-                      className="h-[44px] w-auto rounded-[5px]"
-                    />
-                  </FramedMedia>
-                )
-              })}
-            </div>
-          )}
-
-          {heroHeading && (
-            <h1
-              className="text-center font-bold"
-              style={{
-                fontSize: "clamp(32px, 8vw, 48px)",
-                lineHeight: "1.2",
-                marginTop: partnerBadges.length > 0 ? 42 : 0,
-                maxWidth: 924,
-                color: "var(--text-body)",
-              }}
-            >
-              {heroHeading}
-            </h1>
-          )}
-
-          {heroSubheading && (
-            <p
-              className="text-center"
-              style={{
-                fontSize: 18,
-                lineHeight: "28px",
-                color: "var(--text-body)",
-                marginTop: 24,
-                maxWidth: 860,
-              }}
-            >
-              {heroSubheading}
-            </p>
-          )}
-
-          {heroBody && (
-            <p
-              className="text-center"
-              style={{
-                fontSize: 16,
-                lineHeight: "26px",
-                color: "var(--text-body)",
-                marginTop: 16,
-                maxWidth: 860,
-              }}
-            >
-              {heroBody}
-            </p>
-          )}
-
-          {(primaryCtaLabel || secondaryCtaLabel) && (
-            <div
-              className="flex items-center justify-center flex-wrap"
-              style={{ gap: 20, marginTop: 40 }}
-            >
-              {primaryCtaLabel && (
-                <CtaButton
-                  href={primaryCtaUrl}
-                  label={primaryCtaLabel}
-                  variant="primary"
-                  style={{ width: 260 }}
-                />
-              )}
-              {secondaryCtaLabel && (
-                <CtaButton
-                  href={secondaryCtaUrl || "#case-studies"}
-                  label={secondaryCtaLabel}
-                  variant="outline"
-                  style={{ width: 260 }}
-                />
-              )}
-            </div>
-          )}
-        </div>
-      </section>
+      <HubHero
+        eyebrow="Customers"
+        heading="Customer stories"
+        accent="and case studies"
+        lead="Read what Fruition's clients say in their own words, then see how the work was done in our verified case studies. Filter by industry or platform to find a team like yours."
+      />
 
       {/* Client logos */}
       {(logoCloudPart1 || logoCloudAccent) && (
@@ -260,9 +141,17 @@ export default async function CustomerTestimonialsPage() {
         />
       )}
 
+      {/* Testimonials, word for word from Sanity, filterable by industry & platform */}
+      {testimonials.length > 0 && (
+        <HubSection eyebrow="In their words" heading="What our clients say" subtle>
+          <TestimonialQuoteGrid cards={testimonials} tags={testimonialFilterTags(testimonials)} />
+        </HubSection>
+      )}
+
       {/* Case studies — filterable by industry & solution */}
       <TestimonialFilterGrid
-        heading={page?.caseStudySectionHeading}
+        heading={page?.caseStudySectionHeading || "Case studies"}
+        subheading="Eight verified client implementations, with the problem, the build and the result."
         cards={caseStudyCards.map((s) => {
           const highRes = s._key ? HIGH_RES_CASE_STUDY_IMAGES[s._key] : undefined
           return {

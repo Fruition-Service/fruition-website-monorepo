@@ -2,7 +2,7 @@
 import { bookingHref } from "@/lib/bookingLink"
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import PaperPlaneIcon from '@/components/common/icons/PaperPlaneIcon'
 import { NavIcon } from '@/components/common/icons/NavIcons'
@@ -13,6 +13,8 @@ interface NavLink {
   href?: string
   description?: string
   icon?: string
+  /** Short partner-tier pill after the label, e.g. "Platinum". */
+  tier?: string
   featured?: boolean
 }
 
@@ -26,11 +28,22 @@ interface NavSubSection {
   badge?: string
 }
 
+interface NavFeature {
+  kicker?: string
+  quote?: string
+  attribution?: string
+  label?: string
+  href?: string
+}
+
 interface NavItem {
   label?: string
   href?: string
   layout?: 'stacked' | 'columns'
   sections?: NavSubSection[]
+  footerNote?: string
+  footerLinks?: { label?: string; href?: string }[]
+  feature?: NavFeature
 }
 
 interface PartnerBadge {
@@ -50,18 +63,43 @@ interface SiteSettingsProp {
   offices?: CallOffice[]
 }
 
+/** Grid columns for the links inside a section. */
+const ITEM_COLS: Record<number, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+}
+
+/** A section's share of the dropdown width in the "columns" layout. */
+const SECTION_GROW: Record<number, string> = {
+  1: 'flex-1',
+  2: 'flex-[2]',
+  3: 'flex-[3]',
+}
+
+/** How long the pointer may leave a tab or its dropdown before it closes. */
+const HOVER_CLOSE_MS = 180
+/** A click this soon after hover-open keeps the dropdown open instead of closing it. */
+const HOVER_CLICK_GRACE_MS = 400
+
+const panelId = (label?: string) => `nav-panel-${(label || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+
+const isDropdown = (item: NavItem) => !!item.sections?.length
+
+/**
+ * Site header. Every dropdown is rendered into the HTML on the server and only
+ * shown or hidden on the client, so crawlers and AI agents can follow every
+ * menu link without running JavaScript. Dropdowns open on hover or click and
+ * close on Esc, an outside click or navigation; the mobile menu is a list of
+ * native details/summary disclosures.
+ */
 export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsProp | null }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
-  const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null)
   const pathname = usePathname()
-
-  const closeMobile = () => {
-    setMobileOpen(false)
-    setMobileExpanded(null)
-    setMobileExpandedSection(null)
-  }
+  const navRef = useRef<HTMLElement>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hoverOpenedAt = useRef(0)
 
   const calendlyUrl = siteSettings?.calendlyLink ? bookingHref(siteSettings.calendlyLink) : ''
   const phoneAu = siteSettings?.phone
@@ -69,15 +107,71 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
   const ctaLabel = siteSettings?.navbarCtaLabel || ''
   const offices: CallOffice[] = siteSettings?.offices || []
 
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = null
+  }
+  const scheduleClose = () => {
+    cancelClose()
+    closeTimer.current = setTimeout(() => setOpenMenu(null), HOVER_CLOSE_MS)
+  }
+  const openOnHover = (label: string) => {
+    cancelClose()
+    setOpenMenu((current) => {
+      if (current !== label) hoverOpenedAt.current = Date.now()
+      return label
+    })
+  }
+  const toggleOnClick = (label: string) => {
+    cancelClose()
+    setOpenMenu((current) => {
+      if (current === label && Date.now() - hoverOpenedAt.current > HOVER_CLICK_GRACE_MS) return null
+      hoverOpenedAt.current = 0
+      return label
+    })
+  }
+
+  const closeMobile = useCallback(() => setMobileOpen(false), [])
+
+  // Close everything on navigation (state adjusted during render, not in an effect).
+  const [lastPathname, setLastPathname] = useState(pathname)
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname)
+    setOpenMenu(null)
+    setMobileOpen(false)
+  }
+
+  // Esc closes and returns focus to the tab; a click outside the header closes.
+  useEffect(() => {
+    if (!openMenu) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      const tab = navRef.current?.querySelector<HTMLButtonElement>(`[aria-controls="${panelId(openMenu)}"]`)
+      setOpenMenu(null)
+      tab?.focus()
+    }
+    const onClick = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null)
+    }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('click', onClick)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('click', onClick)
+    }
+  }, [openMenu])
+
+  useEffect(() => () => cancelClose(), [])
+
   const isNavItemActive = (item: NavItem) =>
     item.sections?.some((s) => s.items?.some((link) => link.href && pathname === link.href)) ?? false
 
   return (
-    <nav className="bg-surface dark:shadow-none sticky top-0 z-50 shadow-sm" onMouseLeave={() => setOpenMenu(null)}>
+    <nav ref={navRef} aria-label="Primary" className="bg-surface sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-[1348px] px-4 w-full">
         <div className="flex justify-between items-center gap-4 h-[85px]">
           {/* Logo — black on light, white in dark mode (prefers-color-scheme) */}
-          <Link href="/" className="shrink-0">
+          <Link href="/" className="shrink-0" aria-label="Fruition home">
             <Image
               src="/images/logo-fruition-black.svg"
               alt="Fruition Services"
@@ -98,56 +192,60 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
             />
           </Link>
 
-          {/* Desktop nav */}
+          {/* Desktop tabs */}
           <div className="hidden lg:flex items-center gap-3">
-            {navItems.map((item) => {
-              const active = isNavItemActive(item)
-              // Direct-link tab (e.g. Contact): a plain link, no dropdown.
-              if (item.href && !item.sections?.length) {
-                const linkActive = pathname === item.href
+            <ul className="flex items-center gap-1">
+              {navItems.map((item) => {
+                const label = item.label || ''
+                if (!isDropdown(item)) {
+                  const linkActive = pathname === item.href
+                  return (
+                    <li key={label} onMouseEnter={scheduleClose}>
+                      <Link
+                        href={bookingHref(item.href)}
+                        aria-current={linkActive ? 'page' : undefined}
+                        className={`block rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
+                          linkActive ? 'text-brand' : 'text-body'
+                        }`}
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  )
+                }
+                const open = openMenu === label
+                const active = isNavItemActive(item)
                 return (
-                  <div key={item.label} onMouseEnter={() => setOpenMenu(null)}>
-                    <Link
-                      href={bookingHref(item.href)}
-                      className={`block font-medium text-sm py-1.5 px-3 transition-colors border border-transparent whitespace-nowrap ${
-                        linkActive
-                          ? 'text-brand dark:text-brand-light'
-                          : 'text-body hover:text-brand dark:hover:text-brand-light'
+                  <li key={label} onMouseEnter={() => openOnHover(label)} onMouseLeave={scheduleClose}>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      aria-controls={panelId(label)}
+                      onClick={() => toggleOnClick(label)}
+                      className={`flex items-center gap-1.5 rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
+                        open ? 'bg-tint text-brand' : active ? 'text-brand' : 'text-body'
                       }`}
                     >
-                      {item.label}
-                    </Link>
-                  </div>
+                      {label}
+                      <svg
+                        aria-hidden
+                        className={`shrink-0 opacity-60 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+                        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      >
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                    </button>
+                  </li>
                 )
-              }
-              return (
-                <div
-                  key={item.label}
-                  onMouseEnter={() => setOpenMenu(item.label || null)}
-                >
-                  <button
-                    className={`font-medium text-sm py-1.5 px-3 transition-colors border whitespace-nowrap ${
-                      openMenu === item.label
-                        ? 'text-body border-body rounded-[4px]'
-                        : active
-                          ? 'text-brand dark:text-brand-light border-transparent'
-                          : 'text-body border-transparent hover:text-brand dark:hover:text-brand-light'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                </div>
-              )
-            })}
+              })}
+            </ul>
 
-            {/* Phone icon + CTA (partner badges removed from nav — they crowded
-                the six-tab row and overlapped the Contact tab) */}
-            <div className="flex items-center gap-2 border-l border-ui pl-3" onMouseEnter={() => setOpenMenu(null)}>
-              {/* Phone icon — opens the regional numbers rather than dialling
-                  the Sydney office for every visitor. */}
+            {/* Phone + CTA */}
+            <div className="flex items-center gap-2 border-l border-ui pl-3" onMouseEnter={scheduleClose}>
+              {/* Opens the regional numbers rather than dialling the Sydney
+                  office for every visitor. */}
               <RegionalCallPopover offices={offices} fallbackPhone={phoneAu} />
 
-              {/* CTA */}
               {ctaLabel && calendlyUrl && (
                 // Same tab: a `target` opts out of InPageBookingLinks, so on a
                 // page with its own #book this opened /contact-us in a new tab.
@@ -164,155 +262,104 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden text-body"
-            onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
+            type="button"
+            className="lg:hidden flex h-11 w-11 items-center justify-center text-body"
+            aria-expanded={mobileOpen}
+            aria-controls="nav-mobile"
+            onClick={() => setMobileOpen((o) => !o)}
           >
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">{mobileOpen ? 'Close menu' : 'Open menu'}</span>
             {mobileOpen ? (
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg aria-hidden className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg aria-hidden className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu: one native disclosure per dropdown tab */}
         {mobileOpen && (
-          <div className="lg:hidden py-2 border-t border-ui max-h-[80vh] overflow-y-auto">
+          <div id="nav-mobile" className="lg:hidden border-t border-ui max-h-[calc(100vh-85px)] overflow-y-auto pb-8">
             {navItems.map((item) => {
-              const expanded = mobileExpanded === item.label
-              const active = isNavItemActive(item)
-              // Direct-link tab (e.g. Contact): a plain row, no accordion.
-              if (item.href && !item.sections?.length) {
+              const label = item.label || ''
+              if (!isDropdown(item)) {
                 return (
-                  <div key={item.label} className="border-b border-ui last:border-b-0">
-                    <Link
-                      href={bookingHref(item.href)}
-                      onClick={closeMobile}
-                      className={`block px-2 py-3 text-[15px] font-semibold ${
-                        pathname === item.href ? 'text-brand' : 'text-body hover:text-brand'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  </div>
+                  <Link
+                    key={label}
+                    href={bookingHref(item.href)}
+                    onClick={closeMobile}
+                    aria-current={pathname === item.href ? 'page' : undefined}
+                    className={`block border-b border-ui px-2 py-4 text-[17px] font-semibold ${
+                      pathname === item.href ? 'text-brand' : 'text-body'
+                    }`}
+                  >
+                    {label}
+                  </Link>
                 )
               }
               return (
-                <div key={item.label} className="border-b border-ui last:border-b-0">
-                  {/* Level 1: category header (tap to expand) */}
-                  <button
-                    type="button"
-                    aria-expanded={expanded}
-                    onClick={() => {
-                      setMobileExpanded(expanded ? null : item.label || null)
-                      setMobileExpandedSection(null)
-                    }}
-                    className={`w-full flex items-center justify-between gap-3 px-2 py-3 text-left transition-colors ${
-                      expanded || active ? 'text-brand' : 'text-body hover:text-brand'
+                <details key={label} className="group border-b border-ui">
+                  <summary
+                    className={`flex cursor-pointer list-none items-center justify-between px-2 py-4 text-[17px] font-semibold [&::-webkit-details-marker]:hidden ${
+                      isNavItemActive(item) ? 'text-brand' : 'text-body'
                     }`}
                   >
-                    <span className="text-[15px] font-semibold">{item.label}</span>
+                    {label}
                     <svg
-                      className={`shrink-0 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+                      aria-hidden
+                      className="shrink-0 text-brand transition-transform duration-200 group-open:rotate-180"
                       width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                     >
                       <path d="M6 9l6 6 6-6" />
                     </svg>
-                  </button>
-
-                  {/* Level 2: sub-sections as their own accordions */}
-                  {expanded && (
-                    <div className="pb-2">
-                      {item.sections?.map((section, sIdx) => {
-                        const sectionKey = `${item.label}-${section.heading}-${sIdx}`
-                        const sectionOpen = !section.heading || mobileExpandedSection === sectionKey
-                        return (
-                        <div key={`${section.heading}-${sIdx}`} className="mb-1">
-                          {section.heading && (
-                            <button
-                              type="button"
-                              aria-expanded={sectionOpen}
-                              onClick={() =>
-                                setMobileExpandedSection(
-                                  mobileExpandedSection === sectionKey ? null : sectionKey,
-                                )
-                              }
-                              className="w-full flex items-center justify-between gap-2 px-3 py-2 text-left"
-                            >
-                              <span className="text-xs font-semibold text-muted uppercase tracking-wider flex items-center gap-2">
-                                {section.heading}
-                                {section.logo ? (
-                                  <Image
-                                    src={section.logo}
-                                    alt={section.badge ?? ''}
-                                    width={150}
-                                    height={38}
-                                    className="h-[22px] w-auto shrink-0 rounded-[4px] object-contain"
-                                    unoptimized
-                                  />
-                                ) : (
-                                  section.badge && (
-                                    <span className="inline-flex items-center rounded-full ring-1 ring-ui text-muted text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 whitespace-nowrap">
-                                      {section.badge}
-                                    </span>
-                                  )
-                                )}
-                              </span>
-                              <svg
-                                className={`shrink-0 text-muted transition-transform duration-200 ${sectionOpen ? 'rotate-180' : ''}`}
-                                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                              >
-                                <path d="M6 9l6 6 6-6" />
-                              </svg>
-                            </button>
-                          )}
-                          {sectionOpen && section.items?.map((sub) => {
-                            const isActive = sub.href && pathname === sub.href
-                            return (
-                              <Link
-                                key={sub.href}
-                                href={bookingHref(sub.href || '#')}
-                                className={`flex items-start gap-3 pl-4 pr-2 py-2 rounded-md transition-colors ${
-                                  isActive ? 'bg-black/5 dark:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5'
-                                }`}
-                                onClick={closeMobile}
-                              >
-                                {sub.icon && (
-                                  <div className={`shrink-0 mt-0.5 w-7 h-7 rounded-md ring-1 bg-surface-raised flex items-center justify-center ${isActive ? 'text-brand ring-ui' : sub.featured ? 'text-brand ring-brand/30' : 'text-body ring-ui'}`}>
-                                    <NavIcon iconKey={sub.icon} href={sub.href} className="h-4 w-4" />
-                                  </div>
-                                )}
-                                <div className="min-w-0">
-                                  <div className={`text-sm font-medium ${isActive || sub.featured ? 'text-brand dark:text-brand-light' : 'text-body'}`}>
-                                    {sub.label}
-                                  </div>
-                                  {sub.description && (
-                                    <div className="mt-0.5 text-xs text-muted leading-snug">
-                                      {sub.description}
-                                    </div>
-                                  )}
-                                </div>
-                              </Link>
-                            )
-                          })}
-                        </div>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
+                  </summary>
+                  <div className="pb-3">
+                    {item.sections?.map((section, sIdx) => (
+                      <div key={`${section.heading}-${sIdx}`} className="mb-2">
+                        {section.heading && (
+                          <p className="px-2 pt-2 pb-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+                            {section.heading}
+                          </p>
+                        )}
+                        {section.items?.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={bookingHref(sub.href || '#')}
+                            onClick={closeMobile}
+                            aria-current={pathname === sub.href ? 'page' : undefined}
+                            className={`flex min-h-11 items-center gap-3 rounded-badge px-2 py-2.5 text-[15px] ${
+                              pathname === sub.href ? 'bg-tint text-brand' : 'text-body'
+                            }`}
+                          >
+                            {sub.label}
+                            {sub.tier && <TierPill>{sub.tier}</TierPill>}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                    {item.footerLinks?.map((l) => (
+                      <Link
+                        key={l.href}
+                        href={l.href || '#'}
+                        onClick={closeMobile}
+                        className="flex min-h-11 items-center px-2 py-2.5 text-[15px] font-semibold text-brand"
+                      >
+                        {l.label}
+                      </Link>
+                    ))}
+                  </div>
+                </details>
               )
             })}
             {ctaLabel && calendlyUrl && (
               <a
                 href={calendlyUrl}
-                onClick={() => setMobileOpen(false)}
-                className="mt-4 mx-2 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white text-center px-6 py-2.5 rounded-full text-sm font-semibold transition-colors"
+                onClick={closeMobile}
+                className="mt-6 flex items-center justify-center gap-2 bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white text-center px-6 py-3 rounded-full text-sm font-semibold transition-colors"
               >
                 <PaperPlaneIcon size={16} />
                 {ctaLabel}
@@ -326,28 +373,32 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
         )}
       </div>
 
-      {/* Desktop mega dropdown */}
-      {openMenu && (() => {
-        const activeItem = navItems.find((item) => item.label === openMenu)
-        if (!activeItem?.sections?.length) return null
-        const columnsLayout = activeItem.layout === 'columns'
+      {/* Desktop dropdowns. All of them are in the HTML; only the open one shows. */}
+      {navItems.filter(isDropdown).map((item) => {
+        const label = item.label || ''
+        const open = openMenu === label
+        const columnsLayout = item.layout === 'columns'
         return (
-          <div className="hidden lg:block absolute left-0 right-0 top-full border-t border-ui bg-surface-raised shadow-lg z-50">
-            <div className="max-w-[1348px] mx-auto px-4 py-8">
-              <div className={columnsLayout ? 'flex flex-row items-stretch gap-6' : 'flex flex-col gap-6'}>
-                {activeItem.sections.map((section, sIdx) => {
+          <div
+            key={label}
+            id={panelId(label)}
+            role="region"
+            aria-label={label}
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+            className={`${open ? 'hidden lg:block' : 'hidden'} absolute left-0 right-0 top-full border-t border-ui bg-surface-raised shadow-lg z-50`}
+          >
+            <div className="max-w-[1348px] mx-auto px-4 pt-8 pb-6">
+              <div className={columnsLayout ? 'flex flex-row items-stretch gap-8' : 'flex flex-col gap-6'}>
+                {item.sections?.map((section, sIdx) => {
                   const cols = section.columns ?? (columnsLayout ? 1 : 3)
                   return (
                     <div
                       key={`${section.heading}-${sIdx}`}
-                      className={`min-w-0 ${columnsLayout ? 'flex-1' : ''}`}
+                      className={`min-w-0 ${columnsLayout ? SECTION_GROW[cols] ?? 'flex-1' : ''}`}
                     >
                       {section.heading && (
-                        <p
-                          className={`text-xs pb-3 border-b mb-3 text-muted border-ui ${
-                            columnsLayout ? 'font-semibold uppercase tracking-wider' : 'font-medium'
-                          }`}
-                        >
+                        <p className="mb-3 border-b border-ui pb-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                           {/* Fixed row height (the partner logo's) so headings with
                               and without a logo share one baseline and one rule. */}
                           <span className="flex items-center gap-2 min-h-[26px]">
@@ -362,63 +413,51 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                                 unoptimized
                               />
                             ) : (
-                              section.badge && (
-                                <span className="inline-flex items-center rounded-full ring-1 ring-ui text-muted text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 whitespace-nowrap">
-                                  {section.badge}
-                                </span>
-                              )
+                              section.badge && <TierPill>{section.badge}</TierPill>
                             )}
                           </span>
                         </p>
                       )}
-                      <div
-                        className="grid gap-x-6 gap-y-1"
-                        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
-                      >
+                      <div className={`grid gap-x-6 gap-y-1 ${ITEM_COLS[cols] ?? 'grid-cols-1'}`}>
                         {section.items?.map((sub) => {
                           const isActive = sub.href && pathname === sub.href
                           return (
                             <Link
                               key={sub.href}
                               href={bookingHref(sub.href || '#')}
-                              className={`group flex items-start gap-3 rounded-lg p-3 transition-colors ${
-                                isActive
-                                  ? 'bg-black/5 dark:bg-white/10'
-                                  : 'hover:bg-black/5 dark:hover:bg-white/5'
+                              aria-current={isActive ? 'page' : undefined}
+                              className={`group flex items-start gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
+                                isActive ? 'bg-tint' : 'hover:bg-tint'
                               }`}
                               onClick={() => setOpenMenu(null)}
                             >
-                              <div
-                                className={`shrink-0 mt-0.5 w-8 h-8 rounded-md ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
-                                  isActive
-                                    ? 'text-brand ring-ui'
-                                    : sub.featured
-                                      ? 'text-brand ring-brand/30'
-                                      : 'text-body ring-ui group-hover:text-brand group-hover:ring-brand/30'
+                              <span
+                                aria-hidden
+                                className={`shrink-0 mt-0.5 w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
+                                  isActive || sub.featured
+                                    ? 'text-brand ring-brand/30'
+                                    : 'text-body ring-ui group-hover:text-brand group-hover:ring-brand/30'
                                 }`}
                               >
-                                {sub.icon ? (
+                                {sub.icon || sub.href ? (
                                   <NavIcon iconKey={sub.icon} href={sub.href} className="h-[18px] w-[18px]" />
                                 ) : (
-                                  <span className="block h-2 w-2 rounded-full bg-gray-300" />
+                                  <span className="block h-2 w-2 rounded-full bg-ui" />
                                 )}
-                              </div>
-                              <div className="min-w-0">
-                                <div
-                                  className={`text-sm font-semibold leading-tight ${
-                                    isActive || sub.featured
-                                      ? 'text-brand dark:text-brand-light'
-                                      : 'text-body group-hover:text-brand'
+                              </span>
+                              <span className="min-w-0">
+                                <span
+                                  className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold leading-tight ${
+                                    isActive || sub.featured ? 'text-brand' : 'text-body group-hover:text-brand'
                                   }`}
                                 >
                                   {sub.label}
-                                </div>
+                                  {sub.tier && <TierPill>{sub.tier}</TierPill>}
+                                </span>
                                 {sub.description && (
-                                  <div className="mt-1 text-xs text-muted leading-snug">
-                                    {sub.description}
-                                  </div>
+                                  <span className="mt-1 block text-xs text-muted leading-snug">{sub.description}</span>
                                 )}
-                              </div>
+                              </span>
                             </Link>
                           )
                         })}
@@ -426,11 +465,60 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     </div>
                   )
                 })}
+
+                {item.feature?.quote && (
+                  <figure className="flex-1 min-w-0 rounded-card bg-tint p-6 flex flex-col">
+                    {item.feature.kicker && (
+                      <figcaption className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+                        {item.feature.kicker}
+                      </figcaption>
+                    )}
+                    <blockquote className="mt-3 text-[15px] italic leading-relaxed text-body">
+                      &ldquo;{item.feature.quote}&rdquo;
+                    </blockquote>
+                    {item.feature.attribution && (
+                      <p className="mt-3 text-xs text-muted">{item.feature.attribution}</p>
+                    )}
+                    {item.feature.href && item.feature.label && (
+                      <Link
+                        href={item.feature.href}
+                        onClick={() => setOpenMenu(null)}
+                        className="mt-auto pt-4 text-sm font-semibold text-brand hover:text-brand-dark"
+                      >
+                        {item.feature.label}
+                      </Link>
+                    )}
+                  </figure>
+                )}
               </div>
+
+              {(item.footerNote || item.footerLinks?.length) && (
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-ui pt-4 text-sm">
+                  {item.footerNote && <p className="mr-auto text-muted">{item.footerNote}</p>}
+                  {item.footerLinks?.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href || '#'}
+                      onClick={() => setOpenMenu(null)}
+                      className="font-semibold text-brand hover:text-brand-dark"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )
-      })()}
+      })}
     </nav>
+  )
+}
+
+function TierPill({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-full bg-brand-soft px-2 py-px font-mono text-[10px] font-semibold uppercase tracking-wider text-brand whitespace-nowrap">
+      {children}
+    </span>
   )
 }

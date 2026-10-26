@@ -9,9 +9,9 @@
       "autoPort": true
     },
     {
-      "name": "dev-nav-v2",
+      "name": "dev-nav-v3",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev:nav-v2"],
+      "runtimeArgs": ["run", "dev:nav-v3"],
       "port": 3005,
       "autoPort": false
     }

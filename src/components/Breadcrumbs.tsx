@@ -22,6 +22,7 @@ const LINKABLE_PARENTS = new Set([
   '/integrations',
   '/monday-consulting-solutions',
   '/partnerships',
+  '/industries',
   '/consulting-blog',
 ])
 
@@ -31,7 +32,7 @@ const LINKABLE_PARENTS = new Set([
  * v2.1 proposal forbids touching ranking monday.com slugs. Parents without an
  * href render as plain text and are omitted from the JSON-LD.
  */
-const INDUSTRIES_PARENT = { label: 'Industries' }
+const INDUSTRIES_PARENT = { label: 'Industries', href: '/industries' }
 const REGIONS_PARENT = { label: 'Regions' }
 const AI_PARENT = { label: 'AI Consulting', href: '/ai-consulting' }
 
@@ -55,7 +56,8 @@ const VIRTUAL_PARENTS: Record<string, { label: string; href?: string }> = {
 
 const LABELS: Record<string, string> = {
   'consulting-blog': 'Blog',
-  'customer-testimonials': 'Case Studies',
+  partnerships: 'Partners',
+  'customer-testimonials': 'Customer Stories',
   'fruition-team': 'Meet the Team',
   'monday-consulting-solutions': 'monday.com Solutions',
   'rag-knowledge-systems': 'RAG & Knowledge Systems',
