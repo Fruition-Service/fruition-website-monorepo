@@ -9,9 +9,7 @@ import { tagPostRedirects } from "./src/tagRedirects";
 const auditRedirects: Redirect[] = [
   // ── Consolidations (July 2026 traffic audit) ──
   // Case-study hub folded into the ranked client-stories library.
-  { source: "/case-studies", destination: "/customer-testimonials", permanent: true },
-  // Legacy Wix partnerships hub → the curated credentials directory.
-  { source: "/partnerships", destination: "/certifications-and-awards", permanent: true },
+  { source: "/case-studies", destination: "/customer-testimonials#case-studies", permanent: true },
   // Duplicate Aircall / Make pages → their canonical partner pages.
   { source: "/integrations/aircall", destination: "/partnerships/aircall-partner", permanent: true },
   { source: "/monday-consulting-solutions/aircall", destination: "/partnerships/aircall-partner", permanent: true },

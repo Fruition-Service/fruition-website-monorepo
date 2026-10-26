@@ -983,7 +983,7 @@ npx wrangler whoami          <span class="c"># confirm it is Fruition, not a per
       <div><h4>RB2B</h4><div class="chips"><code>RB2B_WEBHOOK_SECRET</code><code>REACHLY_API_KEY</code><code>BRANDFETCH_CLIENT_ID</code></div></div>
       <div><h4>Zernio<small>social</small></h4><div class="chips"><code>ZERNIO_API_KEY</code><code>ZERNIO_DASHBOARD_URL</code><code>ZERNIO_{X,LINKEDIN,INSTAGRAM,PINTEREST,REDDIT,YOUTUBE}_ACCOUNT_ID</code><code>ZERNIO_GBP_ACCOUNT_ID</code><code>ZERNIO_GBP_{AU,UK,US}_ACCOUNT_ID</code><code>ZERNIO_PINTEREST_BOARD_ID</code><code>ZERNIO_REDDIT_SUBREDDIT</code><code>BLOG_AUTO_SOCIAL_DRAFTS</code></div></div>
       <div><h4>Analytics<small>portal dashboard</small></h4><div class="chips"><code>GA4_PROPERTY_ID</code><code>GSC_SITE_URL</code><code>GOOGLE_SA_KEY_B64</code><code>UMAMI_API_KEY</code><code>UMAMI_API_URL</code><code>UMAMI_WEBSITE_ID</code><code class="pub">NEXT_PUBLIC_UMAMI_WEBSITE_ID</code><code class="pub">NEXT_PUBLIC_UMAMI_SCRIPT_URL</code></div></div>
-      <div><h4>Misc</h4><div class="chips"><code>DESIGN_STUDIO_URL</code><code>NAV_V2_PREVIEW</code></div></div>
+      <div><h4>Misc</h4><div class="chips"><code>DESIGN_STUDIO_URL</code><code>NAV_V3_PREVIEW</code></div></div>
     </div>
   </section>
 

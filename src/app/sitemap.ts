@@ -83,6 +83,7 @@ const STATIC_PATHS: string[] = [
   "/monday-partner-uk",
   "/monday-partner-us",
   "/monday-training",
+  "/partnerships",
   "/partnerships/aircall-partner",
   "/partnerships/anthropic-claude-partner",
   "/partnerships/aws-partner",

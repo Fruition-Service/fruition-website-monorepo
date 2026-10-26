@@ -137,7 +137,7 @@ Supabase, monday boards and Calendly. Treat it as production when testing forms 
 | RB2B | `RB2B_WEBHOOK_SECRET`, `REACHLY_API_KEY`, `BRANDFETCH_CLIENT_ID` | Visitor identification webhook and enrichment |
 | Zernio | `ZERNIO_API_KEY`, `ZERNIO_DASHBOARD_URL`, `ZERNIO_{X,LINKEDIN,INSTAGRAM,PINTEREST,REDDIT,YOUTUBE}_ACCOUNT_ID`, `ZERNIO_GBP_ACCOUNT_ID`, `ZERNIO_GBP_{AU,UK,US}_ACCOUNT_ID`, `ZERNIO_PINTEREST_BOARD_ID`, `ZERNIO_REDDIT_SUBREDDIT`, `BLOG_AUTO_SOCIAL_DRAFTS` | Social composer and blog social drafts |
 | Analytics | `GA4_PROPERTY_ID`, `GSC_SITE_URL`, `GOOGLE_SA_KEY_B64`, `UMAMI_API_KEY`, `UMAMI_API_URL`, `UMAMI_WEBSITE_ID`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, `NEXT_PUBLIC_UMAMI_SCRIPT_URL` | Portal dashboard; client Umami script |
-| Misc | `DESIGN_STUDIO_URL`, `NAV_V2_PREVIEW` | Portal design studio link; nav preview |
+| Misc | `DESIGN_STUDIO_URL`, `NAV_V3_PREVIEW` | Portal design studio link; nav preview |
 
 Notes:
 - `NEXT_PUBLIC_*` values are inlined at **build** time. In CI only the three Sanity ones are passed,

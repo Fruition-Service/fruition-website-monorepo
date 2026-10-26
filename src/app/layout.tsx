@@ -162,11 +162,16 @@ export default async function RootLayout({
 }>) {
   const siteSettings = await getSiteSettings()
 
-  // Local preview of the Site Architecture v2.1 nav without writing to Sanity:
-  // NAV_V2_PREVIEW=1 npm run dev  (see scripts/seed-nav-v2.ts for the real rollout)
-  if (process.env.NAV_V2_PREVIEW === '1' && siteSettings) {
-    const { NAV_V2 } = await import('@/data/nav-v2')
-    siteSettings.navigation = NAV_V2
+  // Local preview of the v3 menu and footer without writing to Sanity:
+  // NAV_V3_PREVIEW=1 npm run dev  (see scripts/seed-nav-v3.ts for the real rollout)
+  if (process.env.NAV_V3_PREVIEW === '1' && siteSettings) {
+    const { NAV_V3 } = await import('@/data/nav-v3')
+    const footer = await import('@/data/footer-v3')
+    siteSettings.navigation = NAV_V3
+    siteSettings.footerTagline = footer.FOOTER_V3_TAGLINE
+    siteSettings.footerBadges = footer.FOOTER_V3_BADGES
+    siteSettings.footerColumns = footer.FOOTER_V3_COLUMNS
+    siteSettings.footerCopyrightText = footer.FOOTER_V3_COPYRIGHT
   }
 
   const BASE =

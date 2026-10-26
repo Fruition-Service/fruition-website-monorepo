@@ -158,6 +158,12 @@ export default {
                             { name: 'href', title: 'Href', type: 'string' },
                             { name: 'description', title: 'Description', type: 'string' },
                             {
+                              name: 'tier',
+                              title: 'Partner tier',
+                              type: 'string',
+                              description: 'Short pill after the label, e.g. "Platinum" or "Select".',
+                            },
+                            {
                               name: 'featured',
                               title: 'Featured',
                               type: 'boolean',
@@ -177,7 +183,82 @@ export default {
                 },
               ],
             },
+            {
+              name: 'footerNote',
+              title: 'Dropdown footer note',
+              type: 'string',
+              description: 'Short line on the left of the dropdown’s bottom bar.',
+            },
+            {
+              name: 'footerLinks',
+              title: 'Dropdown footer links',
+              type: 'array',
+              description: 'Links on the right of the dropdown’s bottom bar, e.g. "All partners →".',
+              of: [
+                {
+                  type: 'object',
+                  name: 'navFooterLink',
+                  fields: [
+                    { name: 'label', title: 'Label', type: 'string' },
+                    { name: 'href', title: 'Href', type: 'string' },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'feature',
+              title: 'Feature quote',
+              type: 'object',
+              description: 'Optional quote card shown as the dropdown’s last column. Use a testimonial word for word.',
+              fields: [
+                { name: 'kicker', title: 'Kicker', type: 'string' },
+                { name: 'quote', title: 'Quote', type: 'text', rows: 3 },
+                { name: 'attribution', title: 'Attribution', type: 'string' },
+                { name: 'label', title: 'Link label', type: 'string' },
+                { name: 'href', title: 'Link href', type: 'string' },
+              ],
+            },
           ],
+        },
+      ],
+    },
+
+    // Footer v3: tagline, partner pills and link columns
+    { name: 'footerTagline', title: 'Footer Tagline', type: 'string' },
+    {
+      name: 'footerBadges',
+      title: 'Footer Partner Pills',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Short credential pills under the footer logo, e.g. "Atlassian Platinum".',
+    },
+    {
+      name: 'footerColumns',
+      title: 'Footer Link Columns',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'footerColumn',
+          fields: [
+            { name: 'heading', title: 'Heading', type: 'string' },
+            {
+              name: 'links',
+              title: 'Links',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'footerColumnLink',
+                  fields: [
+                    { name: 'label', title: 'Label', type: 'string' },
+                    { name: 'href', title: 'Href', type: 'string' },
+                  ],
+                },
+              ],
+            },
+          ],
+          preview: { select: { title: 'heading' } },
         },
       ],
     },

@@ -15,7 +15,7 @@
  *
  * Consumed by:
  *  - scripts/seed-nav-v2.ts   → writes to Sanity siteSettings.navigation
- *  - src/app/layout.tsx       → local preview when NAV_V2_PREVIEW=1
+ *  - src/app/layout.tsx       → local preview (retired; NAV_V3_PREVIEW previews nav-v3)
  */
 
 export interface NavV2Link {
