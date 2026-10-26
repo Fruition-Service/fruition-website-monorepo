@@ -426,14 +426,14 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                               key={sub.href}
                               href={bookingHref(sub.href || '#')}
                               aria-current={isActive ? 'page' : undefined}
-                              className={`group flex items-start gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
+                              className={`group flex ${sub.description ? 'items-start' : 'items-center'} gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
                                 isActive ? 'bg-tint' : 'hover:bg-tint'
                               }`}
                               onClick={() => setOpenMenu(null)}
                             >
                               <span
                                 aria-hidden
-                                className={`shrink-0 mt-0.5 w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
+                                className={`shrink-0 ${sub.description ? 'mt-0.5' : ''} w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
                                   isActive || sub.featured
                                     ? 'text-brand ring-brand/30'
                                     : 'text-body ring-ui group-hover:text-brand group-hover:ring-brand/30'
