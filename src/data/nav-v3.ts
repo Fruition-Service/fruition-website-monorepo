@@ -11,6 +11,8 @@
  *    confirms partner status and the two pages exist.
  *  - The Ron Amaram quote is the testimonial as stored in Sanity, word for word.
  *  - "Implementation calculator" points at /ask-fruit, its real route.
+ * The one-line item descriptions were dropped on 26 Oct 2026 (Edward: they
+ * added nothing, and Josh had asked for the descriptions to go on 16 Oct).
  *
  * Every href resolves to a page that exists. Consumed by:
  *  - scripts/seed-nav-v3.ts   → writes siteSettings.navigation (and the footer)
@@ -66,19 +68,16 @@ export const NAV_V3: NavV3Item[] = [
             label: 'OpenAI',
             href: '/partnerships/openai-chatgpt-partner',
             tier: 'Select',
-            description: 'ChatGPT Enterprise, custom GPTs & agents',
             icon: 'openai',
           },
           {
             label: 'Anthropic Claude',
             href: '/partnerships/anthropic-claude-partner',
-            description: 'Claude Enterprise & Claude Code rollouts',
             icon: 'anthropic',
           },
           {
             label: 'AI consulting',
             href: '/ai-consulting',
-            description: 'Strategy, agents & governance on any model',
             icon: 'bulb',
           },
         ],
@@ -90,20 +89,17 @@ export const NAV_V3: NavV3Item[] = [
             label: 'monday.com',
             href: '/partnerships/monday-consulting-partner',
             tier: 'Platinum',
-            description: 'Implementation, CRM & training · Rising Star 2026',
             icon: 'monday',
           },
           {
             label: 'Atlassian',
             href: '/partnerships/certified-atlassian-partner',
             tier: 'Platinum',
-            description: 'Jira, JSM & Confluence · Rising Star 2026',
             icon: 'atlassian',
           },
           {
             label: 'Implementation packages',
             href: '/implementation-packages',
-            description: 'Fixed-fee, from $2,500 · 900+ delivered',
             icon: 'package',
           },
         ],
@@ -114,13 +110,11 @@ export const NAV_V3: NavV3Item[] = [
           {
             label: 'n8n',
             href: '/partnerships/n8n-integration-partner',
-            description: 'Self-hosted workflows & AI agents',
             icon: 'n8n',
           },
           {
             label: 'Make',
             href: '/partnerships/make-partners',
-            description: 'No-code automation across your stack',
             icon: 'make',
           },
         ],
@@ -143,37 +137,31 @@ export const NAV_V3: NavV3Item[] = [
           {
             label: 'Construction',
             href: '/monday-for-construction',
-            description: 'Projects, sites, subcontractors & handover',
             icon: 'building',
           },
           {
             label: 'Manufacturing',
             href: '/monday-for-manufacturing',
-            description: 'Production planning, quality & ops',
             icon: 'factory',
           },
           {
             label: 'Government',
             href: '/monday-for-government',
-            description: 'Secure public-sector delivery · NSW ICT Scheme',
             icon: 'flag',
           },
           {
             label: 'Professional services',
             href: '/monday-for-professional-services',
-            description: 'Client delivery, resourcing & billing',
             icon: 'briefcase',
           },
           {
             label: 'Real estate',
             href: '/monday-for-real-estate',
-            description: 'Listings, deals & property operations',
             icon: 'home',
           },
           {
             label: 'Financial services',
             href: '/industries/financial-services',
-            description: 'APRA/FCA-aligned workflows & AI',
             icon: 'dollar',
           },
         ],
@@ -184,13 +172,11 @@ export const NAV_V3: NavV3Item[] = [
           {
             label: 'Solutions catalog',
             href: '/monday-consulting-solutions/catalog',
-            description: '45 prebuilt solutions by team and industry',
             icon: 'list',
           },
           {
             label: 'Project & portfolio management',
             href: '/monday-consulting-solutions/monday-project-management',
-            description: 'Our most-used solution',
             icon: 'layers',
           },
         ],
@@ -212,13 +198,11 @@ export const NAV_V3: NavV3Item[] = [
           {
             label: 'Customer stories',
             href: '/customer-testimonials',
-            description: 'Testimonials and case studies in one place',
             icon: 'users',
           },
           {
             label: 'Case studies',
             href: '/customer-testimonials#case-studies',
-            description: '8 verified client implementations',
             icon: 'chart',
           },
         ],
@@ -229,13 +213,11 @@ export const NAV_V3: NavV3Item[] = [
           {
             label: 'Certifications & awards',
             href: '/certifications-and-awards',
-            description: 'Platinum ×2 · Rising Star 2026 ×2',
             icon: 'shield',
           },
           {
             label: 'Our team',
             href: '/fruition-team',
-            description: "The consultants who'll do the work",
             icon: 'user',
           },
         ],

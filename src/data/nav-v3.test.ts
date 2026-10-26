@@ -40,6 +40,11 @@ describe('v3 menu, footer and hub links', () => {
     expect(NAV_V3.map((i) => i.label)).toEqual(['Partners', 'Industries', 'Customers', 'Blog', 'Contact'])
   })
 
+  it('carries no per-item descriptions (removed 26 Oct 2026)', () => {
+    const described = NAV_V3.flatMap((i) => i.sections ?? []).flatMap((s) => s.items).filter((l) => l.description)
+    expect(described.map((l) => l.label)).toEqual([])
+  })
+
   it('leaves Lovable and Base44 out until their partner status is confirmed', () => {
     const all = [...navV3Hrefs(), ...footerV3Hrefs(), ...hubHrefs].join(' ')
     expect(all).not.toMatch(/lovable|base44/i)
