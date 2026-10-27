@@ -63,6 +63,12 @@ describe("withLandingPageLayout", () => {
     expect(head).not.toMatch(/--purple:#5B2D8F/i)
   })
 
+  it.each(pages)("%s: leaves the <head> to the tracking step, byte for byte", async (page) => {
+    const { html } = await import(`@/app/${page}/content`)
+    const head = (doc: string) => doc.slice(0, doc.search(/<\/head>/i))
+    expect(head(withLandingPageLayout(html, shared, regionOf(page)))).toBe(head(html))
+  })
+
   it("is idempotent", async () => {
     const { html } = await import("@/app/uk/monday-partner/content")
     const once = withLandingPageLayout(html, shared)

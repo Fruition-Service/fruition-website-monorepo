@@ -48,4 +48,18 @@ describe("page metadata", () => {
     if (/robots:\s*\{[^}]*index:\s*false/.test(code)) return
     expect(code).toMatch(/\bopenGraph:/)
   })
+
+  it.each([
+    ["monday-partner-australia", "en_AU"],
+    ["monday-partner-us", "en_US"],
+    ["monday-partner-uk", "en_GB"],
+    ["monday-partner-india", "en_IN"],
+    ["monday-partner-philippines", "en_PH"],
+    ["monday-partner-singapore", "en_SG"],
+  ])("/%s sets og:locale %s", (page, locale) => {
+    const code = readFileSync(path.join(APP, page, "page.tsx"), "utf8")
+    const call = code.match(/buildOgMetadata\(\{[\s\S]*?\}\)/)?.[0]
+    expect(call).toBeTruthy()
+    expect(call).toContain(`locale: "${locale}"`)
+  })
 })

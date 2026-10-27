@@ -118,12 +118,21 @@ const REGION_LABEL: Record<LeadRegion, string> = {
   UK: "UK",
 }
 
+/** og:locale per ad region. ISO language_TERRITORY: en_GB for the UK, en_US for the US. */
+export const REGION_OG_LOCALE: Record<LeadRegion, string> = {
+  APAC: "en_AU",
+  SEA: "en_SG",
+  IND: "en_IN",
+  NA: "en_US",
+  UK: "en_GB",
+}
+
 function escapeAttr(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
 }
 
 /** Social preview tags for pages that were authored without any. */
-function socialTags(html: string, region: LeadRegion): string {
+function socialTags(html: string, region: LeadRegion, locale: string): string {
   const decode = (v: string) =>
     v.replace(/&amp;/g, "&").replace(/&mdash;/g, "\u2014").replace(/&ndash;/g, "\u2013").replace(/&#39;|&rsquo;/g, "'").replace(/&quot;/g, '"')
   const title = decode(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim() ?? "")
@@ -133,6 +142,7 @@ function socialTags(html: string, region: LeadRegion): string {
   const tags = [
     ["property", "og:type", "website"],
     ["property", "og:site_name", "Fruition"],
+    ["property", "og:locale", locale],
     ["property", "og:title", title],
     ["property", "og:description", description],
     ["property", "og:image", image],
@@ -147,6 +157,10 @@ function socialTags(html: string, region: LeadRegion): string {
     .filter(([, , v]) => v)
     .map(([attr, key, v]) => `<meta ${attr}="${key}" content="${escapeAttr(v)}">`)
     .join("\n")
+}
+
+function ogLocaleTag(locale: string): string {
+  return `<meta property="og:locale" content="${escapeAttr(locale)}">`
 }
 
 /**
@@ -248,9 +262,15 @@ export function withLandingPageTracking(
   if (!/<link[^>]+rel="(?:shortcut )?icon"/i.test(out)) {
     out = out.replace(/<\/head>/i, `${ICON_LINKS}\n</head>`)
   }
+  // The region owns og:locale: drop any the page brought so exactly one is emitted.
+  out = out.replace(/[ \t]*<meta\s+property="og:locale"[^>]*>[ \t]*\r?\n?/gi, "")
+  const locale = REGION_OG_LOCALE[region]
   if (!/property="og:image"/i.test(out)) {
-    const tags = socialTags(out, region)
+    const tags = socialTags(out, region, locale)
     if (tags) out = out.replace(/<\/head>/i, `${tags}\n</head>`)
+  }
+  if (!out.includes('property="og:locale"')) {
+    out = out.replace(/<\/head>/i, `${ogLocaleTag(locale)}\n</head>`)
   }
   out = out.replace(/<body([^>]*)>/i, (m) => `${m}\n${GTM_BODY}`)
   out = out.replace(CALENDLY_PLACEHOLDER, calendlyEmbed(REGION_BOOKING[region].calendlyUrl))
