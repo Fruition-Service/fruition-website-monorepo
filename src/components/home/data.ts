@@ -39,8 +39,8 @@ export const SERVICES: ServiceCard[] = [
   },
   {
     icon: "file",
-    title: "Partner & licensing advisory",
-    body: "Licensing, plan and procurement guidance, plus managed services as the long-term partner of record.",
+    title: "Software licence procurement",
+    body: "Audit, sourcing, negotiation and renewal management for Microsoft, Google, Adobe, Atlassian, monday.com and similar software.",
     href: "/pricing",
   },
   {
