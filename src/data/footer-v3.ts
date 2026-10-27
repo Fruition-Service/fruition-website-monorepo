@@ -30,7 +30,7 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
     heading: 'Services',
     links: [
       { label: 'Implementation packages', href: '/implementation-packages' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Licence procurement', href: '/pricing' },
       { label: 'Implementation consultants', href: '/monday-implementation-consultants' },
       { label: 'CRM consulting', href: '/monday-crm-consulting' },
       { label: 'Training', href: '/monday-training' },

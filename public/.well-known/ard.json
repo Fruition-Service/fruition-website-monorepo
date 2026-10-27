@@ -47,15 +47,15 @@
     },
     {
       "identifier": "urn:air:fruitionservices.io:doc:pricing",
-      "displayName": "Fruition Services licensing and procurement (markdown)",
+      "displayName": "Fruition Services software licence procurement (markdown)",
       "type": "text/markdown",
       "url": "https://www.fruitionservices.io/pricing.md",
-      "description": "How Fruition procures monday.com, Atlassian and HubSpot licences as a certified partner, with the vendor terms that drive the cost and indicative implementation fees, in plain markdown so an agent can read it without scraping HTML.",
+      "description": "Software licence procurement for SMB and mid-market teams across Microsoft, Google, Adobe, Atlassian and monday.com: licence audit, recommendation, sourcing and negotiation, and renewal management, in plain markdown so an agent can read it without scraping HTML.",
       "tags": ["licensing", "procurement", "pricing", "markdown"],
       "representativeQueries": [
-        "buy monday.com licences through a partner",
-        "how does monday.com seat pricing work",
-        "how much does a monday.com implementation cost"
+        "software licence procurement for a mid-market team",
+        "who can audit and renew our software licences",
+        "help negotiating a Microsoft or Google Workspace renewal"
       ]
     },
     {

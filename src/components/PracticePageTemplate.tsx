@@ -31,13 +31,19 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CtaButtons({ compact = false }: { compact?: boolean }) {
+function CtaButtons({
+  compact = false,
+  label = 'Book a discovery call',
+}: {
+  compact?: boolean
+  label?: string
+}) {
   return (
     <div className={`flex flex-wrap items-center gap-4 ${compact ? '' : 'mt-8'}`}>
       {/* Same tab on purpose: a `target` opts the link out of the in-page
           scroll to #book (see inPageBooking.ts). */}
       <a href={DISCOVERY_CALL_URL} className="cta-btn cta-btn-primary">
-        Book a discovery call →
+        {label} →
       </a>
       {!compact && (
         <a href="#faq" className="cta-btn cta-btn-outline">
@@ -85,7 +91,7 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
             <span className="text-brand">.</span>
           </h1>
           <p className="mt-6 text-body-lead text-muted max-w-[680px]">{page.lead}</p>
-          <CtaButtons />
+          <CtaButtons label={page.primaryCtaLabel} />
         </div>
       </section>
 
@@ -96,7 +102,13 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
         <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
           <Eyebrow>{page.approachEyebrow ?? 'Our approach'}</Eyebrow>
           <h2 className="text-section-h2 mb-10">{page.approachHeading}</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          {/* Four steps read as a 2x2 on tablet and one row on desktop;
+              everything else keeps the three-column grid. */}
+          <div
+            className={`grid gap-6 ${
+              page.approach.length === 4 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'
+            }`}
+          >
             {page.approach.map((a, i) => (
               <div key={a.title} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
                 <div className="font-mono text-xs font-semibold text-brand mb-3">
