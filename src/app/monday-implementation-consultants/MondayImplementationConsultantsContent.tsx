@@ -380,7 +380,7 @@ export default function MondayImplementationConsultantsContent({
             )}
 
             {/* Heading */}
-            <h1 className="text-display md:text-[40px] lg:text-[48px] mt-4 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
+            <h1 className="text-display md:text-[40px] lg:text-[48px] mt-4 md:mt-6 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
               {heroHeadingPart1 && <span className="text-body">{heroHeadingPart1}</span>}
               <span className="text-brand">{heroHeadingAccent}</span>
               {heroHeadingPart2 && <span className="text-body">{heroHeadingPart2}</span>}
