@@ -6,6 +6,7 @@ import { buildFitMatrix } from "@/lib/askFruit/fit"
 import { VERDICT_COPY, requirementCoverage, requirementRows } from "@/lib/askFruit/requirements"
 import type { BriefDocument, EvaluationDetail, Offering } from "@/lib/askFruit/types"
 import { FitChart } from "./FitChart"
+import { RoughQuoteCard } from "./Handoff"
 import { OfferingCard } from "./OfferingCard"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
@@ -210,6 +211,8 @@ export function ResultsPanel(props: {
   onCompare: (offerings: Offering[]) => void
   onPlan: (offering: Offering) => void
   onOpenBrief: (doc: BriefDocument) => void
+  /** Opens the inline booking card; without it "Book a call" links to the contact page. */
+  onBook?: () => void
 }) {
   const matrix = buildFitMatrix(props.evaluation.matches, props.evaluation.requirements)
   const requirements = <RequirementsCard evaluation={props.evaluation} onPrefill={props.onPrefill} />
@@ -221,6 +224,7 @@ export function ResultsPanel(props: {
   return (
     <div className="flex flex-col gap-4">
       {hasMatches ? null : requirements}
+      <RoughQuoteCard evaluation={props.evaluation} onBook={props.onBook} />
       {matrix ? (
         <section className="rounded-chip border border-ui bg-surface p-4" aria-labelledby="af-fit">
           <h3 id="af-fit" className={`${EYEBROW} mb-3 text-brand`}>
