@@ -6,7 +6,7 @@ import { buildOgMetadata } from "@/lib/metadata"
 
 const TITLE = "Implementation Calculator | Find the Right monday.com, CRM or AI Solution | Fruition"
 const DESCRIPTION =
-  "Describe what you are trying to fix. The Implementation Calculator, Fruition's AI assistant, recommends the right monday.com, CRM, integration or AI solution, scores it against your requirements and writes a brief you can share."
+  "Describe what you are trying to fix. The Implementation Calculator, Fruition's assistant, recommends the right monday.com, CRM, integration or AI solution, scores it against your requirements and writes a brief you can share."
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -56,7 +56,7 @@ export default function AskFruitPage() {
               Describe the problem. <span className="text-brand">Get a plan.</span>
             </h1>
             <p className="text-body-lead mt-6 max-w-[560px] text-muted">
-              The Implementation Calculator is Fruition&apos;s AI assistant. Tell it what you are trying to fix and it recommends the monday.com, CRM,
+              The Implementation Calculator is Fruition&apos;s assistant. Tell it what you are trying to fix and it recommends the monday.com, CRM,
               integration or AI solution that fits, scores it against your requirements, and writes a brief you can share.
             </p>
           </div>

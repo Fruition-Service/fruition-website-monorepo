@@ -68,7 +68,7 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'Healthcare', href: '/industries/healthcare' },
       { label: 'Solar & renewables', href: '/industries/solar-renewables' },
       { label: 'Solutions catalog', href: '/monday-consulting-solutions/catalog' },
-      { label: 'Implementation calculator', href: '/ask-fruit' },
+      { label: 'Implementation Calculator', href: '/ask-fruit' },
     ],
   },
   {

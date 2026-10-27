@@ -97,7 +97,7 @@ export const PARTNERS_HUB = {
     heading: 'Not sure which platform fits?',
     body: "Tell us the process and we'll recommend the stack. It's often the one you already pay for.",
     primary: { label: 'Book a free consultation', href: '/contact-us#book' },
-    secondary: { label: 'Try the implementation calculator', href: '/ask-fruit' },
+    secondary: { label: 'Try the Implementation Calculator', href: '/ask-fruit' },
   },
   othersHeading: 'Other platforms and integrations',
   othersLede: 'We also deliver on these platforms, usually alongside a core partner above.',

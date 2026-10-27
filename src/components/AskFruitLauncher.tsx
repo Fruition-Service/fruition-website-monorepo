@@ -92,7 +92,7 @@ export default function AskFruitLauncher() {
     >
       <Link
         href="/ask-fruit/workspace"
-        aria-label="Implementation Calculator, Fruition's AI assistant"
+        aria-label="Implementation Calculator, Fruition's assistant"
         data-cta-location="ask-fruit-launcher"
         className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none md:h-[60px] md:w-[60px]"
       >
