@@ -150,15 +150,15 @@ export function HandoffActions({
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap gap-2">
         {onBook ? (
-          <button type="button" onClick={onBook} className={`${PRIMARY_ACTION} grow basis-44`}>
+          <button type="button" onClick={onBook} className={`${PRIMARY_ACTION} grow basis-44 whitespace-nowrap`}>
             <CalendarDays size={15} aria-hidden /> Book a call
           </button>
         ) : (
-          <a href={BOOKING_FALLBACK_URL} className={`${PRIMARY_ACTION} grow basis-44`}>
+          <a href={BOOKING_FALLBACK_URL} className={`${PRIMARY_ACTION} grow basis-44 whitespace-nowrap`}>
             <CalendarDays size={15} aria-hidden /> Book a call
           </a>
         )}
-        <button type="button" onClick={() => setSendOpen((v) => !v)} aria-expanded={sendOpen} className={`${SECONDARY_ACTION} grow basis-44`}>
+        <button type="button" onClick={() => setSendOpen((v) => !v)} aria-expanded={sendOpen} className={`${SECONDARY_ACTION} grow basis-44 whitespace-nowrap`}>
           <Send size={15} aria-hidden /> Send to our team
         </button>
       </div>
