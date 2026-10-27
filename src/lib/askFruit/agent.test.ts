@@ -33,6 +33,16 @@ const CORPUS: KnowledgeRecord[] = [
     facts: { price: "Scoped and quoted by the Fruition team", hours: "40 hrs" },
   },
   {
+    id: "package:training-optimisation",
+    kind: "package",
+    title: "Training & Optimisation implementation package",
+    url: "/implementation-packages",
+    summary: "Starting from 10 hrs",
+    text: "training optimisation",
+    tags: [],
+    facts: { price: "USD 2,500", hours: "Starting from 10 hrs", terms: "Prices exclude monday.com licences." },
+  },
+  {
     id: "faq:hipaa",
     kind: "faq",
     title: "Is monday.com HIPAA compliant?",
@@ -255,5 +265,38 @@ describe("tools", () => {
     expect(doc.data.recommendation.offering_id).toBe("solution:solar-crm") // falls back to a real option
     expect(ctx.evaluation.stage).toBe("comparing")
     expect(events.some((e) => e.type === "document_ready")).toBe(true)
+  })
+
+  const briefArgs = (extra: object = {}) =>
+    JSON.stringify({
+      title: "Solar CRM rollout",
+      recommended_offering_id: "solution:solar-crm",
+      business_objectives: ["One pipeline"],
+      phases: [{ phase: "Build", activities: ["Boards"] }],
+      next_steps: ["Book a call"],
+      ...extra,
+    })
+
+  it("prices an implementation brief from the package records it names", async () => {
+    const ctx = { evaluation: newEvaluation(), emit: () => {} }
+    const res = await executeTool(
+      "create_implementation_brief",
+      briefArgs({ quote_package_ids: ["package:training-optimisation", "package:not-real", "solution:solar-crm"] }),
+      ctx,
+    )
+    expect(res.ok).toBe(true)
+    const doc = ctx.evaluation.documents[0]
+    if (doc.doc_type !== "implementation_brief") throw new Error("expected an implementation brief")
+    expect(doc.data.quote).toMatchObject({ kind: "from", currency: "USD", low: 2500, high: null, terms: "Prices exclude monday.com licences." })
+    expect(doc.data.quote?.packages.map((p) => p.offering_id)).toEqual(["package:training-optimisation"])
+    expect(doc.data.quote?.packages[0]).toMatchObject({ price: "USD 2,500", hours: "Starting from 10 hrs", amount: 2500 })
+  })
+
+  it("attaches a confirmed-on-the-call quote when no package ids are given", async () => {
+    const ctx = { evaluation: newEvaluation(), emit: () => {} }
+    expect((await executeTool("create_implementation_brief", briefArgs(), ctx)).ok).toBe(true)
+    const doc = ctx.evaluation.documents[0]
+    if (doc.doc_type !== "implementation_brief") throw new Error("expected an implementation brief")
+    expect(doc.data.quote).toMatchObject({ kind: "on_call", currency: null, low: null, high: null, packages: [] })
   })
 })

@@ -76,6 +76,34 @@ export interface ComparisonBrief {
   next_steps: string[]
 }
 
+/** A package behind a rough quote, with its price exactly as documented. */
+export interface QuotePackage {
+  offering_id: string
+  title: string
+  price: string
+  hours?: string
+  currency?: string
+  amount?: number
+}
+
+export type QuoteKind = "from" | "range" | "on_call"
+
+/**
+ * A rough quote built only from published package prices (see quote.ts). The
+ * model never supplies a number: it names package ids and the server prices
+ * them from the knowledge base.
+ */
+export interface RoughQuote {
+  kind: QuoteKind
+  currency: string | null
+  low: number | null
+  high: number | null
+  packages: QuotePackage[]
+  /** What moves the range, fixed copy. */
+  drivers: string[]
+  terms?: string
+}
+
 export interface ImplementationBrief {
   title: string
   recommended: Offering
@@ -87,6 +115,7 @@ export interface ImplementationBrief {
   risks: Array<{ risk: string; mitigation?: string }>
   considered: Offering[]
   next_steps: string[]
+  quote?: RoughQuote
 }
 
 export type BriefDocument =

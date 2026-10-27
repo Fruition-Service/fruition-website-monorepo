@@ -11,6 +11,7 @@
 import { getRecords, searchKnowledge, isOfferingKind, type KnowledgeRecord } from "./knowledge"
 import { OFFERING_KINDS } from "./knowledge/types"
 import { matchStrength } from "./fit"
+import { buildRoughQuote } from "./quote"
 import { mergeRequirements } from "./requirements"
 import {
   REQUIREMENT_KEYS,
@@ -229,6 +230,13 @@ export const TOOL_DEFINITIONS = [
           },
         },
         next_steps: { ...STRING_LIST, maxItems: 4 },
+        quote_package_ids: {
+          type: "array",
+          items: { type: "string" },
+          maxItems: 3,
+          description:
+            "Ids of kind package records from search_knowledge whose published prices cover this scope. Never pass a price: the rough quote is built from these records.",
+        },
       },
       required: ["title", "recommended_offering_id", "business_objectives", "phases", "next_steps"],
     },
@@ -540,6 +548,12 @@ async function implementationTool(input: Json, ctx: ToolContext): Promise<ToolRe
     .filter((p) => p.phase)
   if (!phases.length) return { ok: false, content: { error: "At least one phase is required." } }
 
+  // The quote is priced here, from package records only. The model names ids;
+  // it never supplies a number. No ids, or none that resolve, still attaches a
+  // quote: the "confirmed on the call" one.
+  const quoteIds = [...new Set(strList(input.quote_package_ids, 3, 120))]
+  const quote = buildRoughQuote((await getRecords(quoteIds)).filter((r) => r.kind === "package"))
+
   const data: ImplementationBrief = {
     title: str(input.title, 120) || "Implementation brief",
     recommended: boardOrRecord(ctx, recommended),
@@ -555,6 +569,7 @@ async function implementationTool(input: Json, ctx: ToolContext): Promise<ToolRe
       .filter((r) => r.risk),
     considered: valid.filter((r) => r.id !== recommendedId).map((r) => boardOrRecord(ctx, r)),
     next_steps: strList(input.next_steps, 4, 240),
+    quote,
   }
   const document: BriefDocument = {
     doc_id: newDocId(),
@@ -565,7 +580,14 @@ async function implementationTool(input: Json, ctx: ToolContext): Promise<ToolRe
   }
   addDocument(ctx, document)
   ctx.evaluation.stage = "planning"
-  return { ok: true, content: { created: document.doc_id, title: data.title } }
+  return {
+    ok: true,
+    content: {
+      created: document.doc_id,
+      title: data.title,
+      quote: { kind: quote.kind, packages: quote.packages.map((p) => p.offering_id) },
+    },
+  }
 }
 
 export async function executeTool(name: string, rawArgs: string, ctx: ToolContext): Promise<ToolResult> {

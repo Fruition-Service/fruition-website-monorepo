@@ -6,7 +6,7 @@ import { buildOgMetadata } from "@/lib/metadata"
 
 const TITLE = "Implementation Calculator | Find the Right monday.com, CRM or AI Solution | Fruition"
 const DESCRIPTION =
-  "Describe what you are trying to fix. The Implementation Calculator, Fruition's AI assistant, recommends the right monday.com, CRM, integration or AI solution, scores it against your requirements and writes a brief you can share."
+  "Describe what you are trying to fix. The Implementation Calculator, Fruition's AI assistant, recommends the right monday.com, CRM, integration or AI solution, writes a short proposal and gives a rough quote from Fruition's published package prices."
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -21,7 +21,7 @@ const STEPS = [
   ["Describe the problem", "In your own words: what you run on today, who is involved and what keeps breaking."],
   ["The Implementation Calculator asks what matters", "One or two sharp questions, never a questionnaire. It records what you say as requirements you can see."],
   ["Matched to real solutions", "Recommendations come only from Fruition's documented solutions, services and packages, each scored against your requirements."],
-  ["A brief to take further", "Shortlist the options, then ask for a comparison or an implementation brief to share with your team."],
+  ["A proposal and a rough quote", "What Fruition would implement, the packages involved, the phases, and a rough price range you can send to our team or bring to the call."],
 ]
 
 const BRIEF_PARTS = [
@@ -51,20 +51,21 @@ export default function AskFruitPage() {
       <section className="bg-surface">
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 pt-14 pb-16 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:pb-24">
           <div>
-            <p className={EYEBROW}>{"// Implementation Calculator"}</p>
+            <p className={EYEBROW}>{"// Quick quote tool"}</p>
             <h1 className="text-display mt-5 text-ink">
-              Describe the problem. <span className="text-brand">Get a plan.</span>
+              Get a rough quote <span className="text-brand">before the call.</span>
             </h1>
             <p className="text-body-lead mt-6 max-w-[560px] text-muted">
-              The Implementation Calculator is Fruition&apos;s AI assistant. Tell it what you are trying to fix and it recommends the monday.com, CRM,
-              integration or AI solution that fits, scores it against your requirements, and writes a brief you can share.
+              The Implementation Calculator is Fruition&apos;s AI assistant. Describe what you are trying to fix and it recommends the monday.com,
+              CRM, integration or AI solution that fits, prices the implementation packages it would use from Fruition&apos;s published rates, and
+              writes a short proposal with a rough quote. It pre-qualifies the work, so the call starts with scope, not discovery.
             </p>
           </div>
           <div className="rounded-card border border-ui bg-surface-subtle p-5 md:p-7">
-            <p className="mb-3 text-[14px] font-semibold text-ink">What are you trying to make happen?</p>
+            <p className="mb-3 text-[14px] font-semibold text-ink">What do you need quoted?</p>
             <HeroPrompt />
             <p className="mt-4 text-[12px] leading-snug text-muted">
-              Free, no sign-up. The Implementation Calculator can be wrong; a consultant confirms scope, pricing and timelines.
+              Free, no sign-up. Prices are rough estimates from published package rates; a consultant confirms scope, price and timeline.
             </p>
           </div>
         </div>

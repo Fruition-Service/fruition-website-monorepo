@@ -92,14 +92,18 @@ export default function AskFruitLauncher() {
     >
       <Link
         href="/ask-fruit/workspace"
-        aria-label="Implementation Calculator, Fruition's AI assistant"
+        aria-label="Get a rough implementation quote from the Implementation Calculator"
         data-cta-location="ask-fruit-launcher"
-        className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none md:h-[60px] md:w-[60px]"
+        className="flex h-14 w-14 items-center justify-center rounded-pill bg-linear-135 from-brand via-fruit-orchid to-fruit-pink shadow-lg shadow-fruit-orchid/40 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none md:h-[60px] md:w-auto md:gap-2.5 md:px-5"
       >
         <span
           aria-hidden="true"
-          className="h-7 w-7 bg-white [mask:url(/images/logo-fruition-mark.svg)_center/contain_no-repeat] md:h-8 md:w-8"
+          className="h-7 w-7 shrink-0 bg-white [mask:url(/images/logo-fruition-mark.svg)_center/contain_no-repeat] md:h-8 md:w-8"
         />
+        {/* Mobile keeps the 56px circle; from md the launcher says what it is. */}
+        <span aria-hidden="true" className="hidden text-[14px] font-semibold whitespace-nowrap text-white md:inline">
+          Get a quote
+        </span>
       </Link>
     </div>
   )

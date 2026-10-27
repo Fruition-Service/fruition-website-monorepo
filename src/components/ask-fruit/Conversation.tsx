@@ -16,13 +16,14 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
     // my-auto rather than justify-center: centred content taller than a phone
     // screen would overflow upwards, out of reach of the scroll container.
     <div className="mx-auto my-auto flex w-full max-w-[760px] flex-col px-5 py-10 md:px-8">
-      <p className={`${EYEBROW} text-brand`}>{"// Implementation Calculator"}</p>
+      <p className={`${EYEBROW} text-brand`}>{"// Quick quote tool"}</p>
       <h1 className="text-section-h2 mt-4 text-ink">
-        What are you trying to <span className="text-brand">make happen?</span>
+        What do you need <span className="text-brand">quoted?</span>
       </h1>
       <p className="text-body-lead mt-4 max-w-[600px] text-muted">
-        Describe the problem in your own words. The Implementation Calculator asks what it needs to, recommends the Fruition solution that fits,
-        and writes up a comparison or delivery plan you can share.
+        Describe the goal, the tools you run on and the size of the team. The Implementation Calculator recommends the Fruition solution that
+        fits, then writes a short proposal with a rough quote from Fruition&apos;s published package prices. Book a call or send the proposal to our
+        team when you are ready.
       </p>
       <div className="mt-8">
         <Composer onSend={onSend} sending={sending} autoFocus large />

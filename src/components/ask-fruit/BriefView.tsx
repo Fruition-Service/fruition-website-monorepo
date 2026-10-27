@@ -4,6 +4,7 @@ import { Check, Minus, ShieldAlert, X } from "lucide-react"
 import { fitCounts, FIT_LABEL } from "@/lib/askFruit/fit"
 import { catalogDeepLink } from "@/lib/askFruit/markdown"
 import type { BriefDocument, ComparisonBrief, FitStatus, ImplementationBrief, Offering } from "@/lib/askFruit/types"
+import { QuoteBlock } from "./ProposalQuote"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 const BOOKING_URL = "/contact-us#book"
@@ -216,6 +217,12 @@ export function ImplementationBriefView({ data }: { data: ImplementationBrief })
           ))}
         </ol>
       </Section>
+
+      {data.quote ? (
+        <section className="break-inside-avoid border-t border-ui pt-5">
+          <QuoteBlock quote={data.quote} />
+        </section>
+      ) : null}
 
       {data.risks.length ? (
         <Section label="Risks">

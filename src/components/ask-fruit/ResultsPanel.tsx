@@ -7,6 +7,7 @@ import { VERDICT_COPY, requirementCoverage, requirementRows } from "@/lib/askFru
 import type { BriefDocument, EvaluationDetail, Offering } from "@/lib/askFruit/types"
 import { FitChart } from "./FitChart"
 import { OfferingCard } from "./OfferingCard"
+import { ProposalPanel } from "./ProposalQuote"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 
@@ -231,6 +232,12 @@ export function ResultsPanel(props: {
       ) : null}
       <DecisionBoard {...props} />
       {hasMatches ? requirements : null}
+      {/* The end state: the proposal, its rough quote and the two actions. */}
+      <ProposalPanel
+        evaluation={props.evaluation}
+        busy={props.busy}
+        onGenerateProposal={() => props.onPlan(props.evaluation.matches[0])}
+      />
     </div>
   )
 }
