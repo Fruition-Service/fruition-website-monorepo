@@ -16,6 +16,19 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
     // my-auto rather than justify-center: centred content taller than a phone
     // screen would overflow upwards, out of reach of the scroll container.
     <div className="mx-auto my-auto flex w-full max-w-[760px] flex-col px-5 py-10 md:px-8">
+      <ol className="grid grid-cols-1 gap-4 border-b border-ui pb-6 mb-10 md:grid-cols-3">
+        {[
+          ["01", "Describe", "Your goal, your tools, what is breaking."],
+          ["02", "Compare", "Matched Fruition solutions, scored against your requirements."],
+          ["03", "Plan", "A brief to share, then a call with a consultant when you are ready."],
+        ].map(([n, t, d]) => (
+          <li key={n} className="flex flex-col gap-1">
+            <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
+            <span className="text-[15px] font-semibold text-ink">{t}</span>
+            <span className="text-[13.5px] leading-snug text-muted">{d}</span>
+          </li>
+        ))}
+      </ol>
       <p className={`${EYEBROW} text-brand`}>{"// Implementation Calculator"}</p>
       <h1 className="text-section-h2 mt-4 text-ink">
         What are you trying to <span className="text-brand">make happen?</span>
@@ -40,19 +53,6 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
           </button>
         ))}
       </div>
-      <ol className="mt-10 grid grid-cols-1 gap-4 border-t border-ui pt-6 md:grid-cols-3">
-        {[
-          ["01", "Describe", "Your goal, your tools, what is breaking."],
-          ["02", "Compare", "Matched Fruition solutions, scored against your requirements."],
-          ["03", "Plan", "A brief to share, then a call with a consultant when you are ready."],
-        ].map(([n, t, d]) => (
-          <li key={n} className="flex flex-col gap-1">
-            <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
-            <span className="text-[15px] font-semibold text-ink">{t}</span>
-            <span className="text-[13.5px] leading-snug text-muted">{d}</span>
-          </li>
-        ))}
-      </ol>
     </div>
   )
 }
