@@ -47,7 +47,7 @@ export function ProcessingSteps({ steps }: { steps: ProcessingStep[] }) {
             </span>
             <span
               className={`shrink-0 font-mono text-[10.5px] tracking-[0.14em] uppercase ${
-                step.state === "active" ? "text-brand" : "text-faint"
+                step.state === "active" ? "text-brand" : "text-muted"
               }`}
             >
               {STATE_TAG[step.state]}
