@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { usePathname } from "next/navigation"
 import CtaButton from "@/components/CtaButton"
 import { useReportStickyCtaBar } from "@/components/sections/StickyCtaContext"
+import { bookingHrefForPath } from "@/lib/bookingLink"
 import { BOOKING_SECTION_ID } from "@/lib/inPageBooking"
 
 interface StickyCtaBarProps {
@@ -74,6 +76,13 @@ export default function StickyCtaBar({
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const cardRef = useRef<HTMLDivElement | null>(null)
   const reportBar = useReportStickyCtaBar()
+  const pathname = usePathname()
+  // The bar streams ahead of the page's own <StickyCtaConfig>, so on the
+  // location pages the served HTML would otherwise carry the site-wide
+  // /contact-us#book for a form that is on the page itself (monday 2887483583).
+  // Resolving here fixes the prerendered href; the page's own config, once it
+  // registers, already carries the same value.
+  const ctaHref = bookingHrefForPath(href, pathname)
   const showing = Boolean(label) && Boolean(href) && visible && !dismissed
 
   useEffect(() => {
@@ -186,7 +195,7 @@ export default function StickyCtaBar({
           {/* Full-width, shorter pill on phones; the design's 248×53 from md up. */}
           <span className="w-full md:hidden">
             <CtaButton
-              href={href}
+              href={ctaHref}
               label={mobileLabel ?? label}
               variant="onDarkPrimary"
               className="w-full justify-center"
@@ -195,7 +204,7 @@ export default function StickyCtaBar({
           </span>
           <span className="hidden md:block">
             <CtaButton
-              href={href}
+              href={ctaHref}
               label={label}
               mobileLabel={mobileLabel}
               variant="onDarkPrimary"

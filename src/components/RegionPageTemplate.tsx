@@ -1,4 +1,4 @@
-import { bookingHref } from "@/lib/bookingLink"
+import { bookingHrefForPath } from "@/lib/bookingLink"
 import { mergeRegionContent, type RegionSanityContent } from "@/lib/mergeRegionContent"
 import {
   CalendlySection,
@@ -75,7 +75,11 @@ export default function RegionPageTemplate({
 }: Props) {
   const region = mergeRegionContent(content, page)
   const rawCalendly = siteSettings?.calendlyLink ?? ""
-  const bookingUrl = bookingHref(page?.primaryCtaUrl || rawCalendly)
+  // Every "book" CTA on this page points at this page's own booking section.
+  // These pages render <BookingSection id="book"> inline, so the old
+  // /contact-us#book href read as a cross-page link while the click scrolled
+  // here: monday 2887483583. A custom CTA URL in Sanity still wins.
+  const bookingUrl = bookingHrefForPath(page?.primaryCtaUrl || rawCalendly, `/${content.slug}`)
 
   return (
     <div>
