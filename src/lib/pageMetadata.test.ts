@@ -62,4 +62,12 @@ describe("page metadata", () => {
     expect(call).toBeTruthy()
     expect(call).toContain(`locale: "${locale}"`)
   })
+
+  it("keeps the deprecated service agreements out of search (noindex)", () => {
+    const deprecated = pages.filter(({ page }) => page.startsWith("/legal/deprecated/"))
+    expect(deprecated.length).toBeGreaterThan(0)
+    for (const { page, code } of deprecated) {
+      expect(code, page).toMatch(/robots:\s*\{[^}]*index:\s*false/)
+    }
+  })
 })
