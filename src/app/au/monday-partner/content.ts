@@ -31,6 +31,9 @@ export const html = `<!DOCTYPE html>
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
+<style>
+@media(min-width:1024px){.team>.member:nth-child(3n+1):last-child{grid-column:2}}
+</style>
 </head>
 <body>
 
