@@ -380,7 +380,7 @@ export default function MondayImplementationConsultantsContent({
             )}
 
             {/* Heading */}
-            <h1 className="text-display mt-4 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
+            <h1 className="text-display md:text-[40px] lg:text-[48px] mt-4 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
               {heroHeadingPart1 && <span className="text-body">{heroHeadingPart1}</span>}
               <span className="text-brand">{heroHeadingAccent}</span>
               {heroHeadingPart2 && <span className="text-body">{heroHeadingPart2}</span>}
@@ -395,11 +395,11 @@ export default function MondayImplementationConsultantsContent({
 
             {/* Dual CTA */}
             {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
-              <div className="flex flex-col md:flex-row items-center justify-start flex-wrap w-full max-w-[680px] gap-5 mt-10">
+              <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 mt-10 w-full max-w-[640px]">
                 {heroPrimaryCtaUrl && (
                   <Link
                     href={heroPrimaryCtaUrl}
-                    className="cta-btn cta-btn-outline w-full md:flex-1 md:max-w-[330px]"
+                    className="cta-btn cta-btn-outline w-full md:w-auto md:px-5"
                   >
                     <CtaLabel label={heroPrimaryCtaLabel} />
                   </Link>
@@ -407,7 +407,7 @@ export default function MondayImplementationConsultantsContent({
                 {heroSecondaryCtaUrl && (
                   <Link
                     href={heroSecondaryCtaUrl}
-                    className="cta-btn cta-btn-primary w-full md:flex-1 md:max-w-[330px]"
+                    className="cta-btn cta-btn-primary w-full md:w-auto md:px-5"
                   >
                     <CtaLabel label={heroSecondaryCtaLabel} />
                   </Link>
@@ -417,7 +417,7 @@ export default function MondayImplementationConsultantsContent({
           </div>
 
           {/* Visual column */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 lg:grid-cols-1 lg:gap-10 justify-items-center items-center gap-10 w-full min-w-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-10 justify-items-center items-center gap-10 w-full min-w-0">
             {/* Certification badge */}
             {heroCertBadgeSrc && (
               <div className="flex justify-center w-full">
