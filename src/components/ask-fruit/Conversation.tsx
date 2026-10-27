@@ -24,6 +24,19 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
         A quick quote for your project. Describe what you need in your own words: the Implementation Calculator scopes it, matches the
         Fruition solution that fits, gives you a rough quote and a proposal, and books you a call with a consultant.
       </p>
+      <ol className="mt-8 grid grid-cols-1 gap-4 border-t border-ui pt-6 md:grid-cols-3">
+        {[
+          ["01", "Describe", "Your goal, your tools, what is breaking."],
+          ["02", "Compare", "Matched Fruition solutions, scored against your requirements."],
+          ["03", "Plan", "A brief to share, then a call with a consultant when you are ready."],
+        ].map(([n, t, d]) => (
+          <li key={n} className="flex flex-col gap-1">
+            <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
+            <span className="text-[15px] font-semibold text-ink">{t}</span>
+            <span className="text-[13.5px] leading-snug text-muted">{d}</span>
+          </li>
+        ))}
+      </ol>
       <div className="mt-8">
         <Composer onSend={onSend} sending={sending} autoFocus large />
       </div>
@@ -40,19 +53,6 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
           </button>
         ))}
       </div>
-      <ol className="mt-10 grid grid-cols-1 gap-4 border-t border-ui pt-6 md:grid-cols-3">
-        {[
-          ["01", "Describe", "Your goal, your tools, what is breaking."],
-          ["02", "Compare", "Matched Fruition solutions, scored against your requirements."],
-          ["03", "Plan", "A brief to share, then a call with a consultant when you are ready."],
-        ].map(([n, t, d]) => (
-          <li key={n} className="flex flex-col gap-1">
-            <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
-            <span className="text-[15px] font-semibold text-ink">{t}</span>
-            <span className="text-[13.5px] leading-snug text-muted">{d}</span>
-          </li>
-        ))}
-      </ol>
     </div>
   )
 }
