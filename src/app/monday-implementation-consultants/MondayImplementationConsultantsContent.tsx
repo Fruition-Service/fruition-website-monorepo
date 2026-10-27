@@ -359,7 +359,7 @@ export default function MondayImplementationConsultantsContent({
       {/* SECTION 1 — Hero                                             */}
       {/* ============================================================ */}
       <section className="bg-surface">
-        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-center gap-12 lg:gap-14 px-4 lg:px-[120px] py-14 md:py-20 w-full max-w-[1600px]">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-center gap-12 lg:gap-14 px-4 md:px-8 lg:px-16 py-14 md:py-20 w-full max-w-[1600px]">
           {/* Text column */}
           <div className="flex flex-col items-start text-left min-w-0">
             {/* Partner badges */}
