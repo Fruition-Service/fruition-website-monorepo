@@ -65,6 +65,12 @@ export interface CapabilityCard {
   title?: string
   description?: string
   bullets?: Bullet[]
+  /** Makes the whole card a link to this page (CapabilitiesGrid). */
+  href?: string
+  /** Visible link cue at the foot of a linked card. Defaults to "Learn more". */
+  linkLabel?: string
+  /** Related pages, rendered as chips above the card link. */
+  links?: { label: string; href: string }[]
 }
 
 export interface FeatureNumberItem {

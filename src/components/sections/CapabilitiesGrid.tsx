@@ -79,22 +79,39 @@ export default function CapabilitiesGrid({
         <div className={`${gridClass} gap-6`}>
           {cards.map((card, i) => {
             const hasBullets = (card.bullets?.length ?? 0) > 0
+            // A linked card is left-aligned and the title link stretches over
+            // the whole card, so the full card is the tap target.
+            const isLinked = Boolean(card.href)
+            const alignLeft = hasBullets || isLinked
             return (
               <div
                 key={card._key || i}
                 className={`rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised dark:shadow-none p-7 ${
-                  hasBullets ? "text-left" : "text-center"
+                  alignLeft ? "text-left" : "text-center"
+                } ${
+                  isLinked
+                    ? "relative flex flex-col transition-[transform,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-card hover:ring-brand focus-within:ring-2 focus-within:ring-brand motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                    : ""
                 }`}
               >
                 {card.emoji && (
                   <div
-                    className={`text-[32px] leading-none mb-3 ${hasBullets ? "text-left" : "text-center"}`}
+                    className={`text-[32px] leading-none mb-3 ${alignLeft ? "text-left" : "text-center"}`}
                   >
                     {card.emoji}
                   </div>
                 )}
                 <h3 className="text-xl font-bold text-brand mb-2.5">
-                  {card.title}
+                  {isLinked ? (
+                    <Link
+                      href={card.href!}
+                      className="after:absolute after:inset-0 after:rounded-card focus-visible:outline-none"
+                    >
+                      {card.title}
+                    </Link>
+                  ) : (
+                    card.title
+                  )}
                 </h3>
                 {card.description && (
                   <p className="text-sm leading-[1.55] text-body whitespace-pre-line">
@@ -123,6 +140,25 @@ export default function CapabilitiesGrid({
                       )
                     })}
                   </ul>
+                )}
+                {(card.links?.length ?? 0) > 0 && (
+                  <ul className="relative z-10 mt-5 flex flex-wrap gap-2">
+                    {card.links!.map((l) => (
+                      <li key={l.href}>
+                        <Link
+                          href={l.href}
+                          className="inline-flex min-h-11 items-center rounded-full border border-ui bg-surface-raised px-4 text-[13px] font-semibold text-body transition-colors hover:border-brand hover:text-brand"
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {isLinked && (
+                  <span aria-hidden className="mt-auto pt-5 text-sm font-semibold text-brand">
+                    {card.linkLabel || "Learn more"} →
+                  </span>
                 )}
               </div>
             )

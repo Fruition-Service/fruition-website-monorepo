@@ -106,6 +106,7 @@ const STATIC_PATHS: string[] = [
   "/partnerships/vapi-partner",
   "/pricing",
   "/terms-and-conditions",
+  "/what-we-do",
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

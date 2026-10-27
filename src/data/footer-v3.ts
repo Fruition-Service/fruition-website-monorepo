@@ -29,6 +29,7 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
   {
     heading: 'Services',
     links: [
+      { label: 'What we do', href: '/what-we-do' },
       { label: 'Implementation packages', href: '/implementation-packages' },
       { label: 'Licence procurement', href: '/pricing' },
       { label: 'Implementation consultants', href: '/monday-implementation-consultants' },
