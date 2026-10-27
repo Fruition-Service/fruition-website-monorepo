@@ -34,7 +34,7 @@ ${LP_FONTS}
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-black.svg" alt="Fruition Services">
 <div class="right">
-<a class="phone" href="tel:+61483955931">+61 483 955 931</a>
+<a class="phone" href="tel:+6531586808">+65 3158 6808</a>
 <a class="book" href="#lead">Book a Free Consultation</a>
 </div>
 </div>
@@ -216,7 +216,7 @@ ${LP_FONTS}
 <h2>Ready to get running in days, not months?</h2>
 <p>Book a free consultation — a frank read on scope, fit and cost from a monday.com Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" style="max-width:300px" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · Singapore &amp; Malaysia business hours (GMT+8)</p>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+6531586808" style="color:var(--purple);font-weight:700;text-decoration:none">+65 3158 6808</a> · Singapore &amp; Malaysia business hours (GMT+8)</p>
 </div>
 <div class="calendly-box">
 <!-- CALENDLY: Edward — South-East Asia round-robin — GMT+8 team ONLY -->
@@ -229,13 +229,13 @@ Calendly embed — South-East Asia round-robin — GMT+8 team ONLY
 <footer>
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-white.svg" alt="Fruition Services">
-<div>Fruition Services · Serving Singapore &amp; Malaysia · <a href="tel:+61483955931">+61 483 955 931</a></div>
+<div>Fruition Services · Serving Singapore &amp; Malaysia · <a href="tel:+6531586808">+65 3158 6808</a></div>
 <div><a href="https://www.fruitionservices.io/data-privacy">Privacy</a> · <a href="https://www.fruitionservices.io/terms-and-conditions">Terms</a></div>
 </div>
 </footer>
 
 <div class="mcta">
-<a class="call" href="tel:+61483955931">Call SEA team</a>
+<a class="call" href="tel:+6531586808">Call SEA team</a>
 <a class="book" href="#lead">Book free consult</a>
 </div>
 
