@@ -199,6 +199,11 @@ function imageUrl(ref: SanityImageRef): string | null {
   }
 }
 
+/** Bind " &" to the preceding word so a heading line never starts with "&". */
+function keepAmpersandAttached(text?: string): string | undefined {
+  return text?.replace(/ &/g, " &")
+}
+
 function portableTextToString(blocks?: PortableTextBlock[]): string {
   if (!blocks || !Array.isArray(blocks)) return ""
   return blocks
@@ -359,112 +364,118 @@ export default function MondayImplementationConsultantsContent({
       {/* SECTION 1 — Hero                                             */}
       {/* ============================================================ */}
       <section className="bg-surface">
-        <div className="mx-auto flex flex-col items-center px-4 lg:px-[120px] py-14 md:py-20 w-full max-w-[1600px]">
-          {/* Partner badges */}
-          {heroPartnerBadges.length > 0 && (
-            <div className="flex items-center flex-wrap justify-center gap-[22px]">
-              {heroPartnerBadges.map((badge) => (
-                <Image
-                  key={badge._key ?? badge.src}
-                  src={badge.src}
-                  alt={badge.alt}
-                  width={120}
-                  height={44}
-                  className="h-[44px] w-auto rounded-[5px]"
-                  unoptimized
-                />
-              ))}
-            </div>
-          )}
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] items-center gap-12 lg:gap-10 px-4 md:px-8 lg:px-10 py-14 md:py-20 w-full max-w-[1600px]">
+          {/* Text column */}
+          <div className="flex flex-col items-start text-left min-w-0">
+            {/* Partner badges */}
+            {heroPartnerBadges.length > 0 && (
+              <div className="flex items-center flex-wrap justify-start gap-[22px]">
+                {heroPartnerBadges.map((badge) => (
+                  <Image
+                    key={badge._key ?? badge.src}
+                    src={badge.src}
+                    alt={badge.alt}
+                    width={120}
+                    height={44}
+                    className="h-[44px] w-auto rounded-[5px]"
+                    unoptimized
+                  />
+                ))}
+              </div>
+            )}
 
-          {/* Heading */}
-          <h1 className="text-display text-center mt-4 max-w-[924px] whitespace-pre-line">
-            {heroHeadingPart1 && <span className="text-body">{heroHeadingPart1}</span>}
-            <span className="text-brand">{heroHeadingAccent}</span>
-            {heroHeadingPart2 && <span className="text-body">{heroHeadingPart2}</span>}
-          </h1>
+            {/* Heading */}
+            <h1 className="text-display md:text-[40px] lg:text-[clamp(36px,3.5vw,48px)] mt-4 md:mt-6 lg:mt-5 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
+              {heroHeadingPart1 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart1)}</span>}
+              <span className="text-brand">{keepAmpersandAttached(heroHeadingAccent)}</span>
+              {heroHeadingPart2 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart2)}</span>}
+            </h1>
 
-          {/* Subheading */}
-          {heroSubheading && (
-            <p className="text-body-lead text-muted text-center mt-8 max-w-[859px] whitespace-pre-line">
-              {heroSubheading}
-            </p>
-          )}
+            {/* Subheading */}
+            {heroSubheading && (
+              <p className="text-body-lead text-muted mt-8 lg:mt-5 max-w-[640px] md:max-w-[640px] lg:max-w-none whitespace-pre-line">
+                {heroSubheading}
+              </p>
+            )}
 
-          {/* Certification badge */}
-          {heroCertBadgeSrc && (
-            <div className="mt-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={heroCertBadgeSrc}
-                alt="monday.com Certifications"
-                className="w-full max-w-[534px] h-auto object-contain"
-              />
-            </div>
-          )}
-
-          {/* Monday Partners image */}
-          <div className="mt-10">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://static.wixstatic.com/media/39b8ef_abd15c5dcf7c4d16a392b5693a6f7923~mv2.png/v1/fill/w_534,h_133,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MONDAY%20PARTNERS.png"
-              alt="Monday.com Partners"
-              width={534}
-              height={133}
-              className="w-full max-w-[415px] h-auto object-contain"
-            />
+            {/* Dual CTA */}
+            {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
+              <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 lg:gap-3 mt-10 lg:mt-6 w-full max-w-[640px]">
+                {heroPrimaryCtaUrl && (
+                  <Link
+                    href={heroPrimaryCtaUrl}
+                    className="cta-btn cta-btn-outline w-full md:w-auto md:px-5"
+                  >
+                    <CtaLabel label={heroPrimaryCtaLabel} />
+                  </Link>
+                )}
+                {heroSecondaryCtaUrl && (
+                  <Link
+                    href={heroSecondaryCtaUrl}
+                    className="cta-btn cta-btn-primary w-full md:w-auto md:px-5"
+                  >
+                    <CtaLabel label={heroSecondaryCtaLabel} />
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Dual CTA */}
-          {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
-            <div className="flex flex-col md:flex-row items-center justify-center flex-wrap w-full max-w-[680px] gap-5 mt-10">
-              {heroPrimaryCtaUrl && (
-                <Link
-                  href={heroPrimaryCtaUrl}
-                  className="cta-btn cta-btn-outline w-full md:flex-1 md:max-w-[330px]"
-                >
-                  <CtaLabel label={heroPrimaryCtaLabel} />
-                </Link>
-              )}
-              {heroSecondaryCtaUrl && (
-                <Link
-                  href={heroSecondaryCtaUrl}
-                  className="cta-btn cta-btn-primary w-full md:flex-1 md:max-w-[330px]"
-                >
-                  <CtaLabel label={heroSecondaryCtaLabel} />
-                </Link>
-              )}
-            </div>
-          )}
+          {/* Visual column */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-12 justify-items-center items-center gap-10 w-full min-w-0">
+            {/* Certification badge */}
+            {heroCertBadgeSrc && (
+              <div className="flex justify-center w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={heroCertBadgeSrc}
+                  alt="monday.com Certifications"
+                  className="w-full max-w-[534px] h-auto object-contain"
+                />
+              </div>
+            )}
 
-          {/* Hero dashboard image */}
-          {heroDashboardImageSrc && (
-            <div className="w-full max-w-[1042px] mt-10">
+            {/* Monday Partners image */}
+            <div className="flex justify-center w-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={heroDashboardImageSrc}
-                alt="monday.com dashboards"
-                width={1042}
-                height={312}
-                className="rounded-card object-contain bg-surface-raised w-full h-auto aspect-[1042/312]"
+                src="https://static.wixstatic.com/media/39b8ef_abd15c5dcf7c4d16a392b5693a6f7923~mv2.png/v1/fill/w_534,h_133,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MONDAY%20PARTNERS.png"
+                alt="Monday.com Partners"
+                width={534}
+                height={133}
+                className="w-full max-w-[415px] h-auto object-contain"
               />
             </div>
-          )}
 
-          {/* Product images row */}
-          {heroProductImages.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-10">
-              {heroProductImages.map((img) => (
-                /* eslint-disable-next-line @next/next/no-img-element */
+            {/* Hero dashboard image */}
+            {heroDashboardImageSrc && (
+              <div className="w-full max-w-[1042px] md:col-span-2 lg:col-span-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  key={img._key ?? img.src}
-                  src={img.src}
-                  alt={img.alt}
-                  className="h-auto object-contain w-full max-w-[220px]"
+                  src={heroDashboardImageSrc}
+                  alt="monday.com dashboards"
+                  width={1042}
+                  height={312}
+                  className="rounded-card object-contain bg-surface-raised w-full h-auto aspect-[1042/312]"
                 />
-              ))}
-            </div>
-          )}
+              </div>
+            )}
+
+            {/* Product images row */}
+            {heroProductImages.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-6 w-full md:col-span-2 lg:col-span-1">
+                {heroProductImages.map((img) => (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    key={img._key ?? img.src}
+                    src={img.src}
+                    alt={img.alt}
+                    className="h-auto object-contain w-full max-w-[220px]"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
