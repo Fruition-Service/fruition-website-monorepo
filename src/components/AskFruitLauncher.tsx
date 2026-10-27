@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
+import {
+  useConsentNotice,
+  useStickyCtaBar,
+  type ConsentNoticeState,
+  type StickyCtaBarState,
+} from "@/components/sections/StickyCtaContext"
 
 /**
  * Path prefixes that never get the launcher:
@@ -17,8 +22,11 @@ import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
  */
 const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 
-/** Clearance in px between the sticky CTA bar and the launcher, either way. */
-const CLEARANCE = 12
+/**
+ * Clearance in px between the launcher and the sticky CTA bar or the consent
+ * notice, either way.
+ */
+export const CLEARANCE = 12
 
 /** The two destinations the panel offers, in order. */
 const PANEL_LINKS = [
@@ -71,10 +79,24 @@ const PANEL_LINKS = [
  * click, and the open panel, which reaches back over the card, stays on top.
  * The panel is positioned inside the same lifted wrapper, so the lift moves
  * the button and the panel together.
+ *
+ * Overlap with the visitor consent notice. Until the visitor decides, the
+ * notice is `fixed inset-x-0 bottom-0 z-50` on a phone, a card that runs gutter
+ * to gutter along the floor, and from `md:` a card in the bottom-left corner.
+ * On a phone it would cover the launcher and swallow every tap on it. So the
+ * notice publishes its geometry through <ConsentNoticeProvider> the same way
+ * the bar does, and the launcher runs the same test against it: when the
+ * card's right edge comes within the clearance of the launcher's left edge, it
+ * lifts by the notice's height plus the clearance. With both the bar and the
+ * notice up it takes the larger of the two lifts, which clears both, since
+ * each is measured from the viewport floor. The launcher still sits a layer
+ * below the notice; it simply no longer sits under it. When the notice stays in
+ * its corner the launcher does not move.
  */
 export default function AskFruitLauncher() {
   const pathname = usePathname()
   const bar = useStickyCtaBar()
+  const notice = useConsentNotice()
   const [left, setLeft] = useState<number | null>(null)
   const [openOn, setOpenOn] = useState<string | null>(null)
   const anchorRef = useRef<HTMLDivElement | null>(null)
@@ -134,21 +156,11 @@ export default function AskFruitLauncher() {
 
   if (excluded) return null
 
-  // Only a bar whose card actually reaches this far across the window is in the
-  // way; on a wide desktop it stops short and the launcher keeps the floor.
-  // `left === null` means the first measurement has not landed yet, which is
-  // also the first frame the bar can be up, so assume a collision until it has.
-  const collides =
-    bar.visible && (left === null || bar.right + CLEARANCE > left)
-
-  // The reported height already includes the bar's own bottom padding, so
-  // lifting by it plus the clearance lands the launcher a clean 12px above it.
-  const lift = collides
-    ? ({ "--launcher-lift": `${bar.height + CLEARANCE}px` } as CSSProperties)
-    : undefined
-
-  // Beside the bar rather than above it: rise over its transparent wrapper.
-  const layer = bar.visible && !collides ? "z-[60]" : "z-40"
+  const { lift: liftPx, layer } = launcherPlacement(bar, notice, left)
+  const lift =
+    liftPx > 0
+      ? ({ "--launcher-lift": `${liftPx}px` } as CSSProperties)
+      : undefined
 
   return (
     <div
@@ -205,4 +217,40 @@ export default function AskFruitLauncher() {
       </button>
     </div>
   )
+}
+
+/**
+ * Where the launcher sits given what is on the viewport floor: how far to lift
+ * it (0 keeps it on the floor) and which layer it takes. `left` is the
+ * launcher's measured left edge, or null before the first measurement lands.
+ */
+export function launcherPlacement(
+  bar: StickyCtaBarState,
+  notice: ConsentNoticeState,
+  left: number | null,
+): { lift: number; layer: "z-40" | "z-[60]" } {
+  // Only a bar whose card actually reaches this far across the window is in the
+  // way; on a wide desktop it stops short and the launcher keeps the floor.
+  // `left === null` means the first measurement has not landed yet, which is
+  // also the first frame the bar can be up, so assume a collision until it has.
+  const barCollides =
+    bar.visible && (left === null || bar.right + CLEARANCE > left)
+
+  // The same test against the consent notice: on a phone it spans the floor,
+  // from `md:` it stays in the bottom-left corner and never reaches this far.
+  const noticeCollides =
+    notice.visible && (left === null || notice.right + CLEARANCE > left)
+
+  // Both reported heights already include their own bottom padding, so lifting
+  // by one plus the clearance lands the launcher a clean 12px above it. Both
+  // are measured from the viewport floor, so the larger lift clears both.
+  const lift = Math.max(
+    barCollides ? bar.height + CLEARANCE : 0,
+    noticeCollides ? notice.height + CLEARANCE : 0,
+  )
+
+  // Beside the bar rather than above it: rise over its transparent wrapper.
+  const layer = bar.visible && !barCollides ? "z-[60]" : "z-40"
+
+  return { lift, layer }
 }

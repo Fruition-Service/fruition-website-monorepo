@@ -6,8 +6,9 @@
 // document <head> (src/app/layout.tsx) so it runs before RB2B is injected.
 //
 // Storage key is shared with that head script — keep them in sync.
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { useReportConsentNotice } from "@/components/sections/StickyCtaContext"
 
 const CONSENT_KEY = "fruition-visitor-consent"
 const EXIT_MS = 260
@@ -17,6 +18,9 @@ type Choice = "accepted" | "declined"
 export default function CookieNotice() {
   const [mounted, setMounted] = useState(false)
   const [entered, setEntered] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const cardRef = useRef<HTMLDivElement | null>(null)
+  const reportNotice = useReportConsentNotice()
 
   useEffect(() => {
     let stored: string | null = null
@@ -41,6 +45,40 @@ export default function CookieNotice() {
     }
   }, [])
 
+  // Publish the slice of the viewport floor this notice occupies, so the
+  // Implementation Calculator launcher can stay clear of it, the same way the
+  // sticky CTA bar does. The height is measured from the wrapper, not the card:
+  // the card carries a `translate-y-3` entry transform, the wrapper does not,
+  // and the distance from the viewport floor to the wrapper's top already
+  // includes its bottom padding. The card's right edge is what says whether the
+  // notice spans the floor (phones) or sits in the bottom-left corner (`md:`).
+  const showing = mounted && entered
+  useEffect(() => {
+    const wrapper = wrapperRef.current
+    const card = cardRef.current
+    if (!showing || !wrapper || !card) {
+      reportNotice({ visible: false, height: 0, right: 0 })
+      return
+    }
+    const measure = () =>
+      reportNotice({
+        visible: true,
+        height: window.innerHeight - wrapper.getBoundingClientRect().top,
+        right: card.getBoundingClientRect().right,
+      })
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(wrapper)
+    // The card's width tracks the window even when its height does not, so the
+    // ResizeObserver alone would miss a horizontal-only resize.
+    window.addEventListener("resize", measure, { passive: true })
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("resize", measure)
+      reportNotice({ visible: false, height: 0, right: 0 })
+    }
+  }, [reportNotice, showing])
+
   const decide = useCallback((choice: Choice) => {
     try {
       window.localStorage.setItem(CONSENT_KEY, choice)
@@ -55,11 +93,13 @@ export default function CookieNotice() {
 
   return (
     <div
+      ref={wrapperRef}
       role="region"
       aria-label="Visitor identification notice"
       className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 md:inset-x-auto md:left-6 md:bottom-6 md:justify-start md:px-0 md:pb-0"
     >
       <div
+        ref={cardRef}
         style={{
           transitionDuration: `${EXIT_MS}ms`,
           transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",

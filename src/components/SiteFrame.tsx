@@ -5,7 +5,7 @@ import Breadcrumbs from "./Breadcrumbs"
 import GooglePreferredSourceButton from "./GooglePreferredSourceButton"
 import SiteStickyCta from "./SiteStickyCta"
 import AskFruitLauncher from "./AskFruitLauncher"
-import { StickyCtaProvider } from "./sections/StickyCtaContext"
+import { ConsentNoticeProvider, StickyCtaProvider } from "./sections/StickyCtaContext"
 import type { StickyCtaValue } from "./sections/StickyCtaContext"
 
 /**
@@ -20,7 +20,9 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
  *
  * The Implementation Calculator launcher is rendered here for the same reason, and inside the
  * same provider: it reads the sticky CTA bar's measured height from there so
- * the two floating elements never overlap.
+ * the two floating elements never overlap. The cookie notice and the launcher
+ * also share a <ConsentNoticeProvider>, so the launcher can stay clear of the
+ * notice on a phone, where it runs along the viewport floor.
  *
  * Google's preferred-source button sits above the footer on every content page
  * (blog and informational routes alike). The homepage is a sales page rather
@@ -74,9 +76,11 @@ export default function SiteFrame({
         </div>
       ) : null}
       {footer}
-      {cookie}
-      <SiteStickyCta heading={stickyCtaHeading} defaults={stickyCtaDefaults} />
-      <AskFruitLauncher />
+      <ConsentNoticeProvider>
+        {cookie}
+        <SiteStickyCta heading={stickyCtaHeading} defaults={stickyCtaDefaults} />
+        <AskFruitLauncher />
+      </ConsentNoticeProvider>
     </StickyCtaProvider>
   )
 }
