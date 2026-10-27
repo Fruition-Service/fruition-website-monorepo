@@ -21,8 +21,8 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
         What are you trying to <span className="text-brand">make happen?</span>
       </h1>
       <p className="text-body-lead mt-4 max-w-[600px] text-muted">
-        Describe the problem in your own words. The Implementation Calculator asks what it needs to, recommends the Fruition solution that fits,
-        and writes up a comparison or delivery plan you can share.
+        A quick quote for your project. Describe what you need in your own words: the Implementation Calculator scopes it, matches the
+        Fruition solution that fits, gives you a rough quote and a proposal, and books you a call with a consultant.
       </p>
       <div className="mt-8">
         <Composer onSend={onSend} sending={sending} autoFocus large />

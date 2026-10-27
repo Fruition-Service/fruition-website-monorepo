@@ -266,7 +266,7 @@ export function BriefFooter() {
   return (
     <div className="mt-8 flex flex-col items-start gap-3 rounded-chip bg-surface-dark p-5 text-white md:flex-row md:items-center md:justify-between">
       <p className="text-[14px] leading-snug">
-        Prepared by the Implementation Calculator, Fruition&apos;s assistant. Scope, pricing and timelines are confirmed with a consultant.
+        Prepared by the Implementation Calculator. Scope, pricing and timelines are confirmed with a consultant.
       </p>
       <a href={BOOKING_URL} className="cta-btn cta-btn-on-dark-primary shrink-0 print:hidden">
         <span className="cta-btn-label">Book a discovery call</span>
