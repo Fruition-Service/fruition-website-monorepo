@@ -3,8 +3,11 @@ import {
   DISCOVERY_CALL_URL,
   GEO_REGIONS,
   PRACTICE_LEADER,
+  type PracticeLink,
   type PracticePage,
 } from '@/data/practicePages/types'
+import type { PackageTierView } from '@/data/pricing/packages'
+import PackagePricingSection from '@/components/sections/PackagePricingSection'
 import FaqAccordion from '@/components/sections/FaqAccordion'
 import ClosingCtaSection from '@/components/sections/ClosingCtaSection'
 import { getFaqItemsForPageStrict, getClosingCtaForPage } from '@/sanity/queries'
@@ -34,9 +37,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function CtaButtons({
   compact = false,
   label = 'Book a discovery call',
+  secondary,
 }: {
   compact?: boolean
   label?: string
+  secondary?: PracticeLink
 }) {
   return (
     <div className={`flex flex-wrap items-center gap-4 ${compact ? '' : 'mt-8'}`}>
@@ -45,8 +50,20 @@ function CtaButtons({
       <a href={DISCOVERY_CALL_URL} className="cta-btn cta-btn-primary">
         {label} →
       </a>
+      {!compact && secondary && (
+        <Link href={secondary.href} className="cta-btn cta-btn-outline">
+          {secondary.label}
+        </Link>
+      )}
       {!compact && (
-        <a href="#faq" className="cta-btn cta-btn-outline">
+        <a
+          href="#faq"
+          className={
+            secondary
+              ? 'text-sm font-medium text-muted hover:text-brand underline underline-offset-4 min-h-11 inline-flex items-center'
+              : 'cta-btn cta-btn-outline'
+          }
+        >
           Common questions
         </a>
       )}
@@ -54,7 +71,14 @@ function CtaButtons({
   )
 }
 
-export default async function PracticePageTemplate({ page }: { page: PracticePage }) {
+export default async function PracticePageTemplate({
+  page,
+  packages,
+}: {
+  page: PracticePage
+  /** Implementation package tiers; rendered only when the page has `packagesSection` copy. */
+  packages?: PackageTierView[]
+}) {
   // Central Sanity FAQs for this route (tagged with the page key in faqItem.pages).
   // Fall back to the page's hardcoded faqs until the migration has seeded them.
   // FAQPage JSON-LD is emitted by FaqAccordion itself.
@@ -91,9 +115,17 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
             <span className="text-brand">.</span>
           </h1>
           <p className="mt-6 text-body-lead text-muted max-w-[680px]">{page.lead}</p>
-          <CtaButtons label={page.primaryCtaLabel} />
+          <CtaButtons label={page.primaryCtaLabel} secondary={page.heroSecondaryLink} />
         </div>
       </section>
+
+      {page.packagesSection && packages?.length ? (
+        <PackagePricingSection
+          copy={page.packagesSection}
+          tiers={packages}
+          ctaHref={DISCOVERY_CALL_URL}
+        />
+      ) : null}
 
       {industryLogos?.length ? <ClientLogoSection logos={industryLogos} /> : null}
 

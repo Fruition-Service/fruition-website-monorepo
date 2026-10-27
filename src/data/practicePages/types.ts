@@ -24,6 +24,16 @@ export interface PracticeFaq {
   a: string
 }
 
+/** Copy for the implementation package price cards on /pricing. */
+export interface PricingSectionCopy {
+  eyebrow: string
+  heading: string
+  subheading: string
+  comparisonHeading: string
+  footnote: string
+  deliveryHandoff: PracticeLink & { text: string }
+}
+
 export interface PracticePage {
   /** Route path, also used as canonical, e.g. '/atlassian-consulting/jira' */
   path: string
@@ -33,6 +43,8 @@ export interface PracticePage {
   breadcrumb: PracticeLink[]
   /** Hero CTA label. Defaults to "Book a discovery call"; still links to DISCOVERY_CALL_URL. */
   primaryCtaLabel?: string
+  /** Optional outline button beside the hero's primary CTA. */
+  heroSecondaryLink?: PracticeLink
   eyebrow: string
   heading: string
   lead: string
@@ -57,6 +69,11 @@ export interface PracticePage {
    * See /sanity-content, "The FAQ two-source trap".
    */
   preferPageFaqs?: boolean
+  /**
+   * Renders the implementation package price cards straight after the hero.
+   * Only shown when the route also passes `packages` to the template.
+   */
+  packagesSection?: PricingSectionCopy
 }
 
 /** Same Calendly link the navbar CTA uses (siteSettings.calendlyLink). */

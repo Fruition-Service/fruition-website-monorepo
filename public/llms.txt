@@ -103,9 +103,9 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 
 ## Licence procurement and packages
 
-- [Software licence procurement](https://www.fruitionservices.io/pricing): software licence procurement for SMB and mid-market teams across Microsoft, Google, Adobe, Atlassian and monday.com: licence audit, recommendation, sourcing and negotiation, and renewal management.
-- [Implementation packages](https://www.fruitionservices.io/implementation-packages): the packaged delivery phases.
-- [pricing.md](https://www.fruitionservices.io/pricing.md): the same software licence procurement page as plain markdown.
+- [Pricing](https://www.fruitionservices.io/pricing): monday.com implementation package prices (from $2,500 for training and optimisation, 40-hour Lock-Step builds, ongoing Managed Services) plus software licence procurement: audit, sourcing, negotiation and renewal management.
+- [Implementation packages](https://www.fruitionservices.io/implementation-packages): how a monday.com implementation is delivered: phases, scope, timeline, who does what, and how to buy it.
+- [pricing.md](https://www.fruitionservices.io/pricing.md): the same pricing and licence procurement page as plain markdown.
 
 ## Blog
 
@@ -124,7 +124,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 ## Files for agents
 
 - [/index.md](https://www.fruitionservices.io/index.md): markdown twin of the homepage.
-- [/pricing.md](https://www.fruitionservices.io/pricing.md): markdown twin of the software licence procurement page.
+- [/pricing.md](https://www.fruitionservices.io/pricing.md): the same pricing and licence procurement page as plain markdown.
 - [/about-us.md](https://www.fruitionservices.io/about-us.md): markdown twin of the about page.
 - [/.well-known/agent-skills/index.json](https://www.fruitionservices.io/.well-known/agent-skills/index.json): machine-readable capability index.
 - [/.well-known/ard.json](https://www.fruitionservices.io/.well-known/ard.json): Agentic Resource Discovery catalog of the documents above plus the contact route.

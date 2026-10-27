@@ -1,7 +1,14 @@
 "use client"
 
+/**
+ * /implementation-packages: the delivery page. It owns what an implementation
+ * includes: the phases, who does what in each, scope, prerequisites, timeline
+ * and handover (copy in src/data/implementationJourney.ts). It publishes no
+ * prices: package prices, the comparison and licence procurement live on
+ * /pricing (#packages), and the teaser near the end links there.
+ */
+
 import { bookingHref } from "@/lib/bookingLink"
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { PortableText, type PortableTextBlock } from "@portabletext/react"
@@ -16,6 +23,14 @@ import YouTubeEmbed from "@/components/YouTubeEmbed"
 import FramedMedia from "@/components/common/FramedMedia"
 import type { FaqTab as SharedFaqTab } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import {
+  DELIVERY_PHASES,
+  DELIVERY_TIMELINE,
+  PREREQUISITES,
+  SCOPE_IN,
+  SCOPE_OUT,
+} from "@/data/implementationJourney"
+import { buildPackageTiers } from "@/data/pricing/packages"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -233,88 +248,13 @@ export default function ImplementationPackagesContent({
   const servicesIntroHeadingPart1 = data?.servicesIntroHeadingPart1
   const servicesIntroHeadingAccent = data?.servicesIntroHeadingAccent
   const servicesIntroHeadingPart2 = data?.servicesIntroHeadingPart2
-  const servicesIntroImageSrc = imgSrc(data?.servicesIntroImage)
-  const featureCards: FeatureCard[] = data?.featureCards ?? []
 
   const socialProofBannerHtml = data?.socialProofBannerHtml
   const socialProofCtaLabel = data?.socialProofCtaLabel
   const socialProofCtaUrl = data?.socialProofCtaUrl
 
-  const pricingHeading = data?.pricingHeading
-
-  /* ------------- Pricing cards (new) ------------- */
-  type CurrencyCode = "USD" | "SGD" | "GBP" | "AUD" | "EUR"
-  type RegionCode = "US" | "UK" | "APAC"
-
-  const CURRENCIES: Record<CurrencyCode, { symbol: string; rate: number; locale: string; label: string }> = {
-    USD: { symbol: "$", rate: 1, locale: "en-US", label: "USD" },
-    SGD: { symbol: "S$", rate: 1.34, locale: "en-SG", label: "SGD" },
-    GBP: { symbol: "£", rate: 0.79, locale: "en-GB", label: "GBP" },
-    AUD: { symbol: "A$", rate: 1.52, locale: "en-AU", label: "AUD" },
-    EUR: { symbol: "€", rate: 0.92, locale: "de-DE", label: "EUR" },
-  }
-  const REGIONS: Record<RegionCode, { label: string; multiplier: number }> = {
-    US: { label: "US", multiplier: 1.0 },
-    UK: { label: "UK", multiplier: 0.95 },
-    APAC: { label: "APAC", multiplier: 0.85 },
-  }
-  type PricingTier = {
-    name: string
-    hours: string
-    // No basePrice = a scoped tier: the card shows priceLabel and sends the
-    // visitor to sales instead of publishing a figure.
-    basePrice?: number
-    pricePrefix?: string
-    priceLabel?: string
-    ctaLabel?: string
-    features: string[]
-    featured?: boolean
-  }
-  const PRICING_TIERS: PricingTier[] = (data?.packageTiers ?? [])
-    .filter((t): t is PackageTier => !!t && typeof t.name === "string")
-    .map((t) => ({
-      name: t.name as string,
-      hours: t.hours ?? "",
-      basePrice: typeof t.basePrice === "number" ? t.basePrice : undefined,
-      pricePrefix: t.pricePrefix,
-      priceLabel: t.priceLabel,
-      ctaLabel: t.ctaLabel,
-      features: (t.features ?? []).filter((f): f is string => typeof f === "string"),
-      featured: !!t.featured,
-    }))
-  const hasPricedTier = PRICING_TIERS.some((t) => t.basePrice !== undefined)
-  // In the 4-up row a long name wraps to two lines; reserve that height on
-  // every card so the price rows stay level.
-  const reserveTwoLineName = PRICING_TIERS.length === 4 && PRICING_TIERS.some((t) => t.name.length > 16)
-  const tierCtaHref = bookingHref(heroPrimaryCtaUrl || data?.calendlyUrl)
-  const [currency, setCurrency] = useState<CurrencyCode>("USD")
-  const [region, setRegion] = useState<RegionCode>("US")
-  const [currencyOpen, setCurrencyOpen] = useState(false)
-  const [regionOpen, setRegionOpen] = useState(false)
-  const [hoveredTier, setHoveredTier] = useState<string | null>(null)
-  const [currencyHover, setCurrencyHover] = useState(false)
-  const [regionHover, setRegionHover] = useState(false)
-  const currencyRef = useRef<HTMLDivElement | null>(null)
-  const regionRef = useRef<HTMLDivElement | null>(null)
-  useEffect(() => {
-    function onDocClick(e: MouseEvent) {
-      const t = e.target as Node
-      if (currencyRef.current && !currencyRef.current.contains(t)) setCurrencyOpen(false)
-      if (regionRef.current && !regionRef.current.contains(t)) setRegionOpen(false)
-    }
-    document.addEventListener("mousedown", onDocClick)
-    return () => document.removeEventListener("mousedown", onDocClick)
-  }, [])
-
-  const formatPrice = (base: number): string => {
-    const { rate, locale, symbol } = CURRENCIES[currency]
-    const adjusted = base * REGIONS[region].multiplier * rate
-    const rounded = Math.round(adjusted / 100) * 100
-    const formatted = new Intl.NumberFormat(locale, {
-      maximumFractionDigits: 0,
-    }).format(rounded)
-    return `${symbol}${formatted}`
-  }
+  // Names and hours only: the prices for these tiers are on /pricing.
+  const packageTeaserTiers = buildPackageTiers(data?.packageTiers)
 
   const testimonialsHeading = data?.testimonialsHeading
   const testimonialsCtaLabel = data?.testimonialsCtaLabel
@@ -342,7 +282,6 @@ export default function ImplementationPackagesContent({
 
   const methodologyHeading = data?.methodologyHeading
   const methodologyHeadingAccent = data?.methodologyHeadingAccent
-  const methodologySteps: MethodologyStep[] = data?.methodologySteps ?? []
 
   const securityBadgeSrc = imgSrc(data?.securityBadge)
 
@@ -425,6 +364,21 @@ export default function ImplementationPackagesContent({
             </div>
           )}
 
+          {/* Purpose strip: this page is delivery, prices are on /pricing */}
+          <div className="mt-10 w-full max-w-[760px] rounded-card border border-ui bg-surface-subtle p-5 md:p-6 text-left">
+            <p className="text-body">
+              This page covers delivery: the phases of an implementation, what is in scope, who does
+              what and how long it takes. Package prices, comparison and licence procurement are on
+              Pricing.
+            </p>
+            <Link
+              href="/pricing#packages"
+              className="mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-brand underline-offset-4 hover:underline"
+            >
+              See pricing and packages <span aria-hidden>→</span>
+            </Link>
+          </div>
+
           {/* Hero image */}
           {heroImageSrc && (
             <FramedMedia className="mt-10 w-full max-w-[1042px]">
@@ -490,270 +444,161 @@ export default function ImplementationPackagesContent({
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 4.5 -- Pricing Packages                              */}
+      {/* SECTION 4 -- Delivery journey: phases and who does what      */}
       {/* ============================================================ */}
-      <section className="bg-surface">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col px-4 py-14 md:py-24">
-          {/* Header row: heading left, dropdowns right */}
-          <div className="flex w-full flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="flex max-w-[640px] flex-col text-left">
-              <h2 className="text-section-h2 text-body">
-                {pricingHeading || "Pricing Packages"}
-              </h2>
-              <p className="mt-3.5 text-body-lead text-muted">
-                {data?.pricingSubheading || "Hit the ground running and drive lasting impact with hands-on support"}
-              </p>
-            </div>
-
-            {/* Toggles: only meaningful while at least one card shows a figure */}
-            {hasPricedTier && (
-            <div className="flex flex-wrap items-center gap-4">
-              {/* Currency dropdown */}
-              <div ref={currencyRef} className="relative">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCurrencyOpen((o) => !o)
-                    setRegionOpen(false)
-                  }}
-                  onMouseEnter={() => setCurrencyHover(true)}
-                  onMouseLeave={() => setCurrencyHover(false)}
-                  className="flex h-11 cursor-pointer items-center gap-2.5 rounded-pill border bg-surface-raised pl-[18px] pr-3.5 text-sm font-semibold text-body transition-[border-color,box-shadow,transform] duration-150 ease-out"
-                  style={{
-                    borderColor: currencyHover || currencyOpen ? "var(--purple-primary)" : "var(--border-ui)",
-                    boxShadow: currencyHover
-                      ? "0px 4px 12px rgba(128,21,232,0.12)"
-                      : "0px 1px 2px rgba(43,7,77,0.04)",
-                    transform: currencyHover ? "translateY(-1px)" : "translateY(0)",
-                  }}
-                >
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-brand">
-                    CURRENCY
-                  </span>
-                  <span>{CURRENCIES[currency].symbol} {CURRENCIES[currency].label}</span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-brand transition-transform duration-150" style={{ transform: currencyOpen ? "rotate(180deg)" : "none" }}>
-                    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                {currencyOpen && (
-                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(43,7,77,0.12)]">
-                    {(Object.keys(CURRENCIES) as CurrencyCode[]).map((code) => {
-                      const active = code === currency
-                      return (
-                        <button
-                          key={code}
-                          type="button"
-                          onClick={() => {
-                            setCurrency(code)
-                            setCurrencyOpen(false)
-                          }}
-                          className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] px-3.5 py-2.5 text-left text-sm ${
-                            active ? "bg-brand/[0.08] font-semibold text-brand" : "bg-transparent font-medium text-body"
-                          }`}
-                        >
-                          <span>{CURRENCIES[code].label}</span>
-                          <span className="font-normal text-muted">{CURRENCIES[code].symbol}</span>
-                        </button>
-                      )
-                    })}
-                  </div>
+      <section id="delivery" className="scroll-mt-24 border-t border-ui bg-surface">
+        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
+            How an implementation runs
+          </p>
+          <h2 className="text-section-h2 max-w-[820px]">
+            {methodologyHeading ? (
+              <>
+                <span className="text-body">{methodologyHeading}</span>
+                {methodologyHeadingAccent && (
+                  <>
+                    {" "}
+                    <span className="text-brand">{methodologyHeadingAccent}</span>
+                  </>
                 )}
-              </div>
-
-              {/* Region dropdown */}
-              <div ref={regionRef} className="relative">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setRegionOpen((o) => !o)
-                    setCurrencyOpen(false)
-                  }}
-                  onMouseEnter={() => setRegionHover(true)}
-                  onMouseLeave={() => setRegionHover(false)}
-                  className="flex h-11 cursor-pointer items-center gap-2.5 rounded-pill border bg-surface-raised pl-[18px] pr-3.5 text-sm font-semibold text-body transition-[border-color,box-shadow,transform] duration-150 ease-out"
-                  style={{
-                    borderColor: regionHover || regionOpen ? "var(--purple-primary)" : "var(--border-ui)",
-                    boxShadow: regionHover
-                      ? "0px 4px 12px rgba(128,21,232,0.12)"
-                      : "0px 1px 2px rgba(43,7,77,0.04)",
-                    transform: regionHover ? "translateY(-1px)" : "translateY(0)",
-                  }}
-                >
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-brand">
-                    TEAM
-                  </span>
-                  <span>{REGIONS[region].label}</span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-brand transition-transform duration-150" style={{ transform: regionOpen ? "rotate(180deg)" : "none" }}>
-                    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                {regionOpen && (
-                  <div className="dark:shadow-none absolute left-0 top-[calc(100%+8px)] z-20 min-w-[180px] rounded-2xl border border-ui bg-surface-raised p-1.5 shadow-[0px_12px_32px_rgba(43,7,77,0.12)]">
-                    {(Object.keys(REGIONS) as RegionCode[]).map((code) => {
-                      const active = code === region
-                      return (
-                        <button
-                          key={code}
-                          type="button"
-                          onClick={() => {
-                            setRegion(code)
-                            setRegionOpen(false)
-                          }}
-                          className={`flex w-full cursor-pointer items-center justify-between rounded-[10px] px-3.5 py-2.5 text-left text-sm ${
-                            active ? "bg-brand/[0.08] font-semibold text-brand" : "bg-transparent font-medium text-body"
-                          }`}
-                        >
-                          <span>{REGIONS[code].label}</span>
-                          <span className="text-xs font-normal text-muted">
-                            {code === "US" ? "Americas" : code === "UK" ? "EMEA" : "Asia-Pacific"}
-                          </span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
+              </>
+            ) : (
+              "What an implementation actually includes"
             )}
-          </div>
+          </h2>
 
-            {/* Cards */}
-            <div
-              className={`mt-11 grid w-full grid-cols-1 gap-6 ${
-                PRICING_TIERS.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"
-              }`}
-            >
-              {PRICING_TIERS.map((tier) => {
-                const featured = !!tier.featured
-                const hovered = hoveredTier === tier.name
-                const hoverLift = hovered ? -4 : 0
-                return (
-                  <div
-                    key={tier.name}
-                    className={`relative flex flex-col rounded-[28px] p-6 transition-[transform,box-shadow] duration-200 ease-out md:p-8 ${
-                      featured
-                        ? "bg-gradient-to-br from-brand to-brand-dark text-white md:-translate-y-3"
-                        : "dark:shadow-none border border-ui bg-surface-raised text-body"
-                    }`}
-                    onMouseEnter={() => setHoveredTier(tier.name)}
-                    onMouseLeave={() => setHoveredTier(null)}
-                    style={{
-                      transform: `translateY(${hoverLift}px)`,
-                      boxShadow: featured
-                        ? hovered
-                          ? "0px 32px 72px rgba(125,20,227,0.45), 0px 0px 0px 1px rgba(125,20,227,0.4)"
-                          : "0px 24px 60px rgba(125,20,227,0.35), 0px 0px 0px 1px rgba(125,20,227,0.4)"
-                        : hovered
-                          ? "0px 16px 36px rgba(43,7,77,0.12)"
-                          : "0px 8px 24px rgba(43,7,77,0.06)",
-                    }}
-                  >
-                    {/* Name */}
-                    <h3
-                      className={`text-card-title ${featured ? "text-white" : "text-body"} ${
-                        reserveTwoLineName ? "lg:min-h-[2lh]" : ""
-                      }`}
-                    >
-                      {tier.name}
-                    </h3>
+          <ol className="mt-10 md:mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {DELIVERY_PHASES.map((phase) => (
+              <li
+                key={phase.number}
+                className="flex flex-col border-l-2 border-ui pl-5 md:rounded-card md:border md:border-ui md:bg-surface-raised md:p-8 md:shadow-whisper"
+              >
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+                  {phase.number}
+                </p>
+                <h3 className="text-card-title mt-2">{phase.title}</h3>
+                <p className="mt-2 text-sm text-muted leading-relaxed">{phase.summary}</p>
 
-                    {/* Hours */}
-                    <p className={`mt-1 text-sm font-medium ${featured ? "text-white/[0.78]" : "text-muted"}`}>
-                      {tier.hours}
+                <div className="mt-5 flex flex-col gap-5">
+                  {(
+                    [
+                      ["Fruition does", phase.weDo],
+                      ["You do", phase.youDo],
+                    ] as const
+                  ).map(([label, items]) => (
+                    <div key={label}>
+                      <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-2">
+                        {label}
+                      </p>
+                      <ul className="flex flex-col gap-1.5 text-sm text-body">
+                        {items.map((item) => (
+                          <li key={item} className="flex items-start gap-2">
+                            <span aria-hidden className="text-muted">·</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <div>
+                    <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-2">
+                      You get
                     </p>
-
-                    {/* Price */}
-                    {tier.basePrice !== undefined ? (
-                      <>
-                        <div className="mt-[18px] flex flex-wrap items-baseline gap-1.5">
-                          {tier.pricePrefix && (
-                            <span className={`text-lg font-medium ${featured ? "text-white/[0.85]" : "text-muted"}`}>
-                              {tier.pricePrefix}
-                            </span>
-                          )}
-                          <span
-                            className={`text-[32px] font-semibold leading-none tracking-[-0.02em] md:text-[40px] ${
-                              featured ? "text-white" : "text-body"
-                            }`}
-                          >
-                            {formatPrice(tier.basePrice)}
-                          </span>
-                        </div>
-                        <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
-                          {CURRENCIES[currency].label} · {REGIONS[region].label} team rate
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        {/* Same box height as a priced card so the rows line up */}
-                        <div className="mt-[18px] flex min-h-8 items-end md:min-h-10">
-                          <span
-                            className={`text-[26px] font-semibold leading-none tracking-[-0.02em] md:text-[28px] ${
-                              featured ? "text-white" : "text-body"
-                            }`}
-                          >
-                            {tier.priceLabel || "Custom quote"}
-                          </span>
-                        </div>
-                        <p className={`mt-1.5 text-xs ${featured ? "text-white/70" : "text-muted"}`}>
-                          Scoped to your requirements
-                        </p>
-                      </>
-                    )}
-
-                    {/* Divider */}
-                    <div className={`mb-5 mt-6 h-px ${featured ? "bg-white/[0.18]" : "bg-ui"}`} />
-
-                    {/* Features */}
-                    <ul className="mb-7 flex flex-col gap-3">
-                      {tier.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm leading-normal">
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 11 11"
-                            fill="none"
-                            className={`mt-1 shrink-0 ${featured ? "text-white" : "text-brand"}`}
-                          >
-                            <path
-                              d="M1.5 5.6l2.6 2.6L9.5 2.8"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <span className={featured ? "text-white/95" : "text-body"}>{f}</span>
+                    <ul className="flex flex-col gap-1.5 text-sm text-body">
+                      {phase.youGet.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span aria-hidden className="text-brand font-semibold">✓</span>
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
-
-                    {/* CTA */}
-                    <Link
-                      href={tierCtaHref}
-                      className={`mt-auto flex h-12 items-center justify-center rounded-pill text-sm font-bold ${
-                        featured
-                          ? "bg-white text-brand"
-                          : "bg-gradient-to-r from-brand to-brand-light text-white"
-                      }`}
-                    >
-                      {tier.ctaLabel || (tier.basePrice !== undefined ? "Get started" : "Contact sales")}
-                    </Link>
                   </div>
-                )
-              })}
-            </div>
-
-            {/* Footnote */}
-            <p className="mt-7 text-center text-xs italic text-muted">
-              {data?.pricingFootnote || "*Please note: you must purchase one package per product. Scoped packages are quoted by our team after a short discovery call."}
-            </p>
-          </div>
-
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4 -- Services Content (bg-[#f0ecfe])                 */}
+      {/* SECTION 5 -- Timeline and prerequisites                      */}
+      {/* ============================================================ */}
+      <section className="bg-surface-subtle">
+        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
+              Timeline
+            </p>
+            <h2 className="text-section-h2">{DELIVERY_TIMELINE.heading}</h2>
+            <p className="mt-4 text-body-lead text-muted">{DELIVERY_TIMELINE.body}</p>
+            <p className="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted mb-2">
+              What moves the date
+            </p>
+            <ul>
+              {DELIVERY_TIMELINE.drivers.map((d) => (
+                <li key={d} className="border-t border-dashed border-ui py-3 text-sm font-medium text-body">
+                  {d}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
+              What we need from you
+            </p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {PREREQUISITES.map((p) => (
+                <div key={p.title} className="rounded-card border border-ui bg-surface-raised p-6 shadow-whisper">
+                  <h3 className="text-card-title">{p.title}</h3>
+                  <p className="mt-2 text-sm text-muted leading-relaxed">{p.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* SECTION 6 -- Scope                                           */}
+      {/* ============================================================ */}
+      <section className="bg-surface">
+        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
+            Scope
+          </p>
+          <h2 className="text-section-h2">What is in scope, and what is not</h2>
+          <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
+            <div>
+              <h3 className="text-card-title mb-4">In scope</h3>
+              <ul>
+                {SCOPE_IN.map((item) => (
+                  <li key={item} className="flex items-start gap-3 border-t border-dashed border-ui py-3 text-sm text-body">
+                    <span aria-hidden className="text-brand font-semibold">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-card-title mb-4">Not in scope</h3>
+              <ul>
+                {SCOPE_OUT.map((item) => (
+                  <li key={item} className="flex items-start gap-3 border-t border-dashed border-ui py-3 text-sm text-body">
+                    <span aria-hidden className="text-muted font-semibold">-</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="mt-8 text-xs text-muted">
+            Anything outside this list is quoted separately before it starts.
+          </p>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* SECTION 7 -- Services Content                                */}
       {/* ============================================================ */}
       <section className="bg-surface-subtle">
         <div className="mx-auto flex flex-col items-center px-4 py-14 md:py-24">
@@ -765,28 +610,6 @@ export default function ImplementationPackagesContent({
               <span className="text-body">{servicesIntroHeadingPart2}</span>
             </p>
           </div>
-
-          {/* 4b: Two feature cards */}
-          {featureCards.length > 0 && (
-          <div className="mt-10 md:mt-14 grid w-full max-w-[1200px] grid-cols-1 gap-6 md:grid-cols-2 md:gap-7">
-            {featureCards.map((card, i) => (
-              <div
-                key={card._key ?? i}
-                className="dark:shadow-none rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 md:p-7"
-              >
-                <div className="flex items-start gap-5 md:gap-7">
-                  <span className="text-5xl leading-none md:text-6xl">{card.emoji}</span>
-                  <h3 className="text-card-title text-body font-medium">
-                    {card.title}
-                  </h3>
-                </div>
-                <p className="mt-5 text-body">
-                  {card.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          )}
 
           {/* 4c: Social proof banner */}
           {(socialProofBannerHtml || socialProofCtaUrl) && (
@@ -837,11 +660,42 @@ export default function ImplementationPackagesContent({
         </div>
       </section>
 
+      {/* ============================================================ */}
+      {/* SECTION 8 -- How to buy this (prices live on /pricing)       */}
+      {/* ============================================================ */}
+      <section id="packages-on-pricing" className="scroll-mt-24 border-t border-ui bg-surface">
+        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+          <h2 className="text-section-h2">How to buy this</h2>
+          <p className="mt-4 max-w-[640px] text-body-lead text-muted">
+            Three packages cover this work. Prices, the comparison and the licence side are on the
+            pricing page.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {packageTeaserTiers.map((tier) => (
+              <Link
+                key={tier.name}
+                href="/pricing#packages"
+                className="group flex items-start justify-between gap-4 rounded-card border border-ui bg-surface-raised p-6 shadow-whisper transition-colors hover:border-brand"
+              >
+                <div>
+                  <h3 className="text-card-title group-hover:text-brand transition-colors">{tier.name}</h3>
+                  {tier.hours && <p className="mt-1 text-sm text-muted">{tier.hours}</p>}
+                </div>
+                <span aria-hidden className="text-brand text-xl shrink-0">→</span>
+              </Link>
+            ))}
+          </div>
+          <Link href="/pricing#packages" className="cta-btn cta-btn-primary mt-8">
+            See pricing and packages
+          </Link>
+        </div>
+      </section>
+
       {/* Mid-page conversion banner — shared site-wide */}
       <AuditCtaBanner />
 
       {/* ============================================================ */}
-      {/* SECTION 5 -- Testimonials (shared carousel component)        */}
+      {/* SECTION 9 -- Testimonials (shared carousel component)        */}
       {/* ============================================================ */}
       <TestimonialsGrid
         heading={testimonialsHeading}
@@ -855,7 +709,7 @@ export default function ImplementationPackagesContent({
       />
 
       {/* ============================================================ */}
-      {/* SECTION 5b -- CRO action items                               */}
+      {/* SECTION 9b -- CRO action items                               */}
       {/* ============================================================ */}
       <CroSections
         data={data?.croSections}
@@ -864,7 +718,7 @@ export default function ImplementationPackagesContent({
       />
 
       {/* ============================================================ */}
-      {/* SECTION 6 -- Calendly Booking                                */}
+      {/* SECTION 10 -- Calendly Booking                               */}
       {/* ============================================================ */}
       {calendlyUrl && (
         <CalendlySection
@@ -874,14 +728,14 @@ export default function ImplementationPackagesContent({
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 7 -- FAQ                                             */}
+      {/* SECTION 11 -- FAQ                                            */}
       {/* ============================================================ */}
       {faqTabs.length > 0 && (
         <FaqAccordion heading={faqHeading} tabs={faqTabs as SharedFaqTab[]} />
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 8 -- Discover CTA                                    */}
+      {/* SECTION 12 -- Discover CTA                                   */}
       {/* ============================================================ */}
       <section className="bg-surface-subtle py-14 md:py-24">
         <div className="mx-auto flex flex-col items-center px-4">
@@ -931,59 +785,7 @@ export default function ImplementationPackagesContent({
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 9 -- Implementation Methodology                     */}
-      {/* ============================================================ */}
-      {methodologySteps.length > 0 && (
-      <section className="bg-surface py-14 md:py-24">
-        <div className="mx-auto flex w-full max-w-[1040px] flex-col items-center gap-10 px-4 md:px-6 md:gap-14 lg:px-8">
-          {/* Heading */}
-          <h2 className="text-section-h2 text-center">
-            <span className="text-body">{methodologyHeading}</span>
-            <br />
-            <span className="text-brand">{methodologyHeadingAccent}</span>
-          </h2>
-
-          {/* Steps grid — 2 columns on md+, 1 column on mobile */}
-          <div className="grid w-full grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-16 md:gap-y-12">
-            {methodologySteps.map((step, si) => (
-              <div
-                key={step._key ?? step.number ?? si}
-                className="flex flex-col items-start"
-              >
-                {/* Number */}
-                <p className="mb-4 text-[44px] font-extralight leading-none text-brand md:text-[56px]">
-                  {step.number}
-                </p>
-                {/* Content */}
-                <h3 className="mb-2 text-lg font-bold leading-snug text-body">
-                  {step.title}
-                </h3>
-                {step.description && (
-                  <p className="text-body-sm text-muted">
-                    {step.description}
-                  </p>
-                )}
-                {step.bullets && step.bullets.length > 0 && (
-                  <ul className="mt-4 list-disc pl-5 text-body-sm text-muted">
-                    {step.bullets.map((b, bi) => (
-                      <li key={bi} className="mb-1">{b}</li>
-                    ))}
-                  </ul>
-                )}
-                {step.extraText && (
-                  <p className="mt-4 text-body-sm text-muted">
-                    {step.extraText}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      )}
-
-      {/* ============================================================ */}
-      {/* SECTION 10 -- Security Badge                                 */}
+      {/* SECTION 13 -- Security Badge                                 */}
       {/* ============================================================ */}
       {securityBadgeSrc && (
         <section className="bg-surface px-4 pb-14 md:pb-24">

@@ -123,7 +123,7 @@ export const NAV_V3: NavV3Item[] = [
     footerNote: 'Platform-agnostic: we recommend the stack that fits your process, not the other way round.',
     footerLinks: [
       { label: 'All partners & integrations →', href: '/partnerships' },
-      { label: 'Licence procurement →', href: '/pricing' },
+      { label: 'Pricing & packages →', href: '/pricing' },
     ],
   },
   {
