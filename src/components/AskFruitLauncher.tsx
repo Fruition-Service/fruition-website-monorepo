@@ -92,6 +92,18 @@ const PANEL_LINKS = [
  * each is measured from the viewport floor. The launcher still sits a layer
  * below the notice; it simply no longer sits under it. When the notice stays in
  * its corner the launcher does not move.
+ *
+ * The open panel. Once the visitor opens it, the panel is the foreground
+ * surface and must never sit behind the fixed chrome. At tablet widths the
+ * notice stays in its corner, so the launcher keeps the floor, but the 320px
+ * panel reaches back far enough to run behind the notice card. So while the
+ * panel is open the launcher takes the layer above the bar and the notice
+ * (z-60), whatever its closed layer was. Only the layer changes: the lift is
+ * computed exactly as when closed, so opening never makes it jump. And in
+ * every case where the launcher is lifted, the geometry already keeps it 12px
+ * clear of the bar and the notice, so raising the layer while open cannot
+ * cover either of them; it only matters where the panel reaches over a card
+ * beside it.
  */
 export default function AskFruitLauncher() {
   const pathname = usePathname()
@@ -156,7 +168,7 @@ export default function AskFruitLauncher() {
 
   if (excluded) return null
 
-  const { lift: liftPx, layer } = launcherPlacement(bar, notice, left)
+  const { lift: liftPx, layer } = launcherPlacement(bar, notice, left, open)
   const lift =
     liftPx > 0
       ? ({ "--launcher-lift": `${liftPx}px` } as CSSProperties)
@@ -222,12 +234,14 @@ export default function AskFruitLauncher() {
 /**
  * Where the launcher sits given what is on the viewport floor: how far to lift
  * it (0 keeps it on the floor) and which layer it takes. `left` is the
- * launcher's measured left edge, or null before the first measurement lands.
+ * launcher's measured left edge, or null before the first measurement lands;
+ * `open` is whether the panel is open, which changes only the layer.
  */
 export function launcherPlacement(
   bar: StickyCtaBarState,
   notice: ConsentNoticeState,
   left: number | null,
+  open: boolean,
 ): { lift: number; layer: "z-40" | "z-[60]" } {
   // Only a bar whose card actually reaches this far across the window is in the
   // way; on a wide desktop it stops short and the launcher keeps the floor.
@@ -249,8 +263,10 @@ export function launcherPlacement(
     noticeCollides ? notice.height + CLEARANCE : 0,
   )
 
-  // Beside the bar rather than above it: rise over its transparent wrapper.
-  const layer = bar.visible && !barCollides ? "z-[60]" : "z-40"
+  // Open: the panel is the foreground surface, above the bar and the notice.
+  // Closed and beside the bar rather than above it: rise over its transparent
+  // wrapper.
+  const layer = open || (bar.visible && !barCollides) ? "z-[60]" : "z-40"
 
   return { lift, layer }
 }
