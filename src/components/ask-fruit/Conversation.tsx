@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from "react"
 import { FileText, Maximize2 } from "lucide-react"
+import { firstCompletedAssistantIndex } from "@/lib/askFruit/cta"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
+import { BookingCta } from "./BookingCta"
 import { Composer, STARTERS } from "./Composer"
 import { Markdown } from "./Markdown"
 import type { WorkingStatus } from "./useAskFruit"
@@ -128,6 +130,8 @@ export function Conversation({
     if (at == null) continue
     docsByTurn.set(at, [...(docsByTurn.get(at) ?? []), doc])
   }
+  // The booking card follows the first finished answer, once per conversation.
+  const ctaAt = firstCompletedAssistantIndex(evaluation.messages)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -159,6 +163,7 @@ export function Conversation({
                 {(docsByTurn.get(i) ?? []).map((doc) => (
                   <DocumentCard key={doc.doc_id} doc={doc} onOpen={() => onOpenBrief(doc)} />
                 ))}
+                {i === ctaAt ? <BookingCta /> : null}
               </div>
             ),
           )}
