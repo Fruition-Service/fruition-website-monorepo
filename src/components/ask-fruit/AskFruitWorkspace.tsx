@@ -317,7 +317,7 @@ export default function AskFruitWorkspace() {
             <Conversation
               evaluation={active}
               sending={af.sending}
-              status={af.status}
+              steps={af.steps}
               prefill={prefill}
               onSend={(t) => void af.send(t)}
               onStop={af.stop}

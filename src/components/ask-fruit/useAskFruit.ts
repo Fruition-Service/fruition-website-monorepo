@@ -12,16 +12,12 @@ import {
   toSummary,
   type ApiError,
 } from "@/lib/askFruit/client"
+import { applyStepEvent, initialSteps, type ProcessingStep } from "@/lib/askFruit/steps"
 import type { EvaluationDetail, EvaluationSummary, Offering } from "@/lib/askFruit/types"
 
 const ACTIVE_KEY = "ask-fruit-active-evaluation"
 /** Local key for a conversation whose first turn hasn't been assigned an id yet. */
 const DRAFT = "draft"
-
-export interface WorkingStatus {
-  label: string
-  kind: "thinking" | "tool"
-}
 
 function readActive(): string | null {
   try {
@@ -51,7 +47,7 @@ export function useAskFruit() {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
-  const [status, setStatus] = useState<WorkingStatus | null>(null)
+  const [steps, setSteps] = useState<ProcessingStep[]>([])
   const [error, setError] = useState<string | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const sendingRef = useRef(false)
@@ -121,7 +117,7 @@ export function useAskFruit() {
       sendingRef.current = true
       setSending(true)
       setError(null)
-      setStatus({ label: "Thinking it through", kind: "thinking" })
+      setSteps(initialSteps())
 
       const current0 = activeRef.current
       const startId = current0 && current0 !== DRAFT && detailsRef.current[current0] ? current0 : DRAFT
@@ -152,9 +148,7 @@ export function useAskFruit() {
             // Only follow the new conversation if the visitor is still on it.
             if (activeRef.current === DRAFT) activate(key)
           }
-          if (event.type === "tool_call") setStatus(event.data.status === "started" ? { label: event.data.label, kind: "tool" } : null)
-          if (event.type === "status") setStatus({ label: event.data.label, kind: "thinking" })
-          if (event.type === "message_delta") setStatus(null)
+          setSteps((s) => applyStepEvent(s, event))
           if (event.type === "error") setError(event.data.message)
           const snapshot = current
           setDetails((d) => {
@@ -175,7 +169,7 @@ export function useAskFruit() {
         sendingRef.current = false
         abortRef.current = null
         setSending(false)
-        setStatus(null)
+        setSteps([])
       }
     },
     [activate],
@@ -253,7 +247,7 @@ export function useAskFruit() {
     active,
     loading,
     sending,
-    status,
+    steps,
     error,
     clearError: () => setError(null),
     select,

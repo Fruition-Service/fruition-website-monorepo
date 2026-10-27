@@ -5,7 +5,8 @@ import { FileText, Maximize2 } from "lucide-react"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
 import { Composer, STARTERS } from "./Composer"
 import { Markdown } from "./Markdown"
-import type { WorkingStatus } from "./useAskFruit"
+import { ProcessingSteps } from "./ProcessingSteps"
+import type { ProcessingStep } from "@/lib/askFruit/steps"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 /** Follow new output only when the reader is already near the bottom. */
@@ -57,20 +58,6 @@ export function Welcome({ onSend, sending }: { onSend: (text: string) => void; s
   )
 }
 
-function WorkingPanel({ status }: { status: WorkingStatus }) {
-  return (
-    <div className="flex w-fit items-center gap-2.5 rounded-chip bg-surface-dark px-3.5 py-2 font-mono text-[12px] text-white/80" role="status">
-      <span className="text-brand-light">[{status.kind === "tool" ? "RUN" : "THINK"}]</span>
-      <span>{status.label}</span>
-      <span className="flex gap-0.5" aria-hidden>
-        <span className="h-1 w-1 animate-pulse rounded-full bg-white/70" />
-        <span className="h-1 w-1 animate-pulse rounded-full bg-white/70 [animation-delay:150ms]" />
-        <span className="h-1 w-1 animate-pulse rounded-full bg-white/70 [animation-delay:300ms]" />
-      </span>
-    </div>
-  )
-}
-
 function DocumentCard({ doc, onOpen }: { doc: BriefDocument; onOpen: () => void }) {
   return (
     <button
@@ -97,7 +84,7 @@ function DocumentCard({ doc, onOpen }: { doc: BriefDocument; onOpen: () => void 
 export function Conversation({
   evaluation,
   sending,
-  status,
+  steps,
   prefill,
   onSend,
   onStop,
@@ -105,7 +92,7 @@ export function Conversation({
 }: {
   evaluation: EvaluationDetail
   sending: boolean
-  status: WorkingStatus | null
+  steps: ProcessingStep[]
   prefill: { text: string; nonce: number } | null
   onSend: (text: string) => void
   onStop: () => void
@@ -118,7 +105,7 @@ export function Conversation({
   useEffect(() => {
     const el = scroller.current
     if (el && following.current) el.scrollTop = el.scrollHeight
-  }, [last?.markdown, evaluation.messages.length, status, evaluation.documents.length])
+  }, [last?.markdown, evaluation.messages.length, steps, evaluation.documents.length])
 
   // Briefs appear in the transcript after the reply of the turn that made them.
   const docsByTurn = new Map<number, BriefDocument[]>()
@@ -162,7 +149,7 @@ export function Conversation({
               </div>
             ),
           )}
-          {sending && status ? <WorkingPanel status={status} /> : null}
+          {sending && steps.length ? <ProcessingSteps steps={steps} /> : null}
         </div>
       </div>
       <div className="border-t border-ui bg-surface px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:px-8">
