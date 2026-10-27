@@ -199,6 +199,11 @@ function imageUrl(ref: SanityImageRef): string | null {
   }
 }
 
+/** Bind " &" to the preceding word so a heading line never starts with "&". */
+function keepAmpersandAttached(text?: string): string | undefined {
+  return text?.replace(/ &/g, " &")
+}
+
 function portableTextToString(blocks?: PortableTextBlock[]): string {
   if (!blocks || !Array.isArray(blocks)) return ""
   return blocks
@@ -359,7 +364,7 @@ export default function MondayImplementationConsultantsContent({
       {/* SECTION 1 — Hero                                             */}
       {/* ============================================================ */}
       <section className="bg-surface">
-        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-center gap-12 lg:gap-14 px-4 md:px-8 lg:px-16 py-14 md:py-20 w-full max-w-[1600px]">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] items-center gap-12 lg:gap-10 px-4 md:px-8 lg:px-10 py-14 md:py-20 w-full max-w-[1600px]">
           {/* Text column */}
           <div className="flex flex-col items-start text-left min-w-0">
             {/* Partner badges */}
@@ -380,22 +385,22 @@ export default function MondayImplementationConsultantsContent({
             )}
 
             {/* Heading */}
-            <h1 className="text-display md:text-[40px] lg:text-[48px] mt-4 md:mt-6 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
-              {heroHeadingPart1 && <span className="text-body">{heroHeadingPart1}</span>}
-              <span className="text-brand">{heroHeadingAccent}</span>
-              {heroHeadingPart2 && <span className="text-body">{heroHeadingPart2}</span>}
+            <h1 className="text-display md:text-[40px] lg:text-[clamp(36px,3.5vw,48px)] mt-4 md:mt-6 lg:mt-5 w-full max-w-[640px] md:max-w-[640px] lg:max-w-none break-words whitespace-pre-line">
+              {heroHeadingPart1 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart1)}</span>}
+              <span className="text-brand">{keepAmpersandAttached(heroHeadingAccent)}</span>
+              {heroHeadingPart2 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart2)}</span>}
             </h1>
 
             {/* Subheading */}
             {heroSubheading && (
-              <p className="text-body-lead text-muted mt-8 max-w-[640px] md:max-w-[640px] lg:max-w-none whitespace-pre-line">
+              <p className="text-body-lead text-muted mt-8 lg:mt-5 max-w-[640px] md:max-w-[640px] lg:max-w-none whitespace-pre-line">
                 {heroSubheading}
               </p>
             )}
 
             {/* Dual CTA */}
             {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
-              <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 mt-10 w-full max-w-[640px]">
+              <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 lg:gap-3 mt-10 lg:mt-6 w-full max-w-[640px]">
                 {heroPrimaryCtaUrl && (
                   <Link
                     href={heroPrimaryCtaUrl}
@@ -417,7 +422,7 @@ export default function MondayImplementationConsultantsContent({
           </div>
 
           {/* Visual column */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-10 justify-items-center items-center gap-10 w-full min-w-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-1 lg:gap-12 justify-items-center items-center gap-10 w-full min-w-0">
             {/* Certification badge */}
             {heroCertBadgeSrc && (
               <div className="flex justify-center w-full">
