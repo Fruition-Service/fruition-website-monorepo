@@ -1,11 +1,26 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { Check, FileText, Maximize2, X } from "lucide-react"
+import { useEffect, useId, useRef, useState } from "react"
+import dynamic from "next/dynamic"
+import { CalendarDays, Check, ChevronUp, FileText, Maximize2, Send, X } from "lucide-react"
+import { ctaTurnIndex } from "@/lib/askFruit/cta"
+import { buildRoughQuote } from "@/lib/askFruit/quote"
 import { buildSteps, elapsedLabel, type ProgressEvent, type WorkStep } from "@/lib/askFruit/steps"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
 import { Composer, STARTERS } from "./Composer"
+import { BOOKING_FALLBACK_URL, PRIMARY_ACTION, SECONDARY_ACTION, SendToTeamForm } from "./Handoff"
 import { Markdown } from "./Markdown"
+
+// Loaded on first open: the picker is the site's largest client component and
+// most conversations never open it.
+const BookingSection = dynamic(() => import("@/components/sections/BookingSection"), {
+  ssr: false,
+  loading: () => (
+    <p role="status" className="rounded-card border border-ui bg-surface p-6 text-center text-[14px] text-muted">
+      Loading available times…
+    </p>
+  ),
+})
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 /** Follow new output only when the reader is already near the bottom. */
@@ -112,6 +127,81 @@ function WorkingPanel({ progress, startedAt }: { progress: ProgressEvent[]; star
   )
 }
 
+/**
+ * The hand-off at the end of the first turn that produced a result: the site's
+ * own booking picker, opened inline in the transcript, or the lead form. The
+ * contact page link stays under the picker so a failed availability call never
+ * leaves a dead card.
+ */
+function BookingCta({
+  evaluation,
+  bookingOpen,
+  onBookingOpenChange,
+}: {
+  evaluation: EvaluationDetail
+  bookingOpen: boolean
+  onBookingOpenChange: (open: boolean) => void
+}) {
+  const id = useId()
+  const [sendOpen, setSendOpen] = useState(false)
+  const bookButton = useRef<HTMLButtonElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
+  const wasOpen = useRef(bookingOpen)
+
+  useEffect(() => {
+    if (bookingOpen && !wasOpen.current) {
+      panel.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+      panel.current?.focus({ preventScroll: true })
+    }
+    if (!bookingOpen && wasOpen.current) bookButton.current?.focus()
+    wasOpen.current = bookingOpen
+  }, [bookingOpen])
+
+  return (
+    <section className="flex flex-col gap-3 rounded-chip border border-lilac bg-tint p-4" aria-labelledby={`${id}-title`}>
+      <p id={`${id}-title`} className={`${EYEBROW} text-brand`}>
+        Next step
+      </p>
+      <p className="text-[14.5px] leading-relaxed text-ink">
+        Turn this into a proposal with a confirmed quote. Book a call with a consultant, or send it to our team and we will come back to you.
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <button
+          ref={bookButton}
+          type="button"
+          onClick={() => onBookingOpenChange(!bookingOpen)}
+          aria-expanded={bookingOpen}
+          aria-controls={`${id}-booking`}
+          className={`${PRIMARY_ACTION} grow basis-44 whitespace-nowrap md:grow-0 md:basis-auto`}
+        >
+          {bookingOpen ? <ChevronUp size={15} aria-hidden /> : <CalendarDays size={15} aria-hidden />}
+          {bookingOpen ? "Hide booking" : "Book a call"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setSendOpen((v) => !v)}
+          aria-expanded={sendOpen}
+          className={`${SECONDARY_ACTION} grow basis-44 whitespace-nowrap md:grow-0 md:basis-auto`}
+        >
+          <Send size={15} aria-hidden /> Send to our team
+        </button>
+      </div>
+      {sendOpen ? <SendToTeamForm evaluation={evaluation} quote={buildRoughQuote(evaluation)} /> : null}
+      {bookingOpen ? (
+        <div id={`${id}-booking`} ref={panel} tabIndex={-1} className="flex scroll-mt-4 flex-col gap-2 outline-none" aria-label="Book a call">
+          <BookingSection variant="inline" />
+          <p className="text-center text-[12.5px] text-muted">
+            Times not loading?{" "}
+            <a href={BOOKING_FALLBACK_URL} className="font-semibold text-brand underline">
+              Use the booking page
+            </a>
+          </p>
+        </div>
+      ) : null}
+    </section>
+  )
+}
+
 function DocumentCard({ doc, onOpen }: { doc: BriefDocument; onOpen: () => void }) {
   return (
     <button
@@ -144,6 +234,8 @@ export function Conversation({
   onSend,
   onStop,
   onOpenBrief,
+  bookingOpen,
+  onBookingOpenChange,
 }: {
   evaluation: EvaluationDetail
   sending: boolean
@@ -153,6 +245,8 @@ export function Conversation({
   onSend: (text: string) => void
   onStop: () => void
   onOpenBrief: (doc: BriefDocument) => void
+  bookingOpen: boolean
+  onBookingOpenChange: (open: boolean) => void
 }) {
   const scroller = useRef<HTMLDivElement>(null)
   const following = useRef(true)
@@ -162,6 +256,8 @@ export function Conversation({
     const el = scroller.current
     if (el && following.current) el.scrollTop = el.scrollHeight
   }, [last?.markdown, evaluation.messages.length, progress.length, evaluation.documents.length])
+
+  const ctaAt = ctaTurnIndex(evaluation)
 
   // Briefs appear in the transcript after the reply of the turn that made them.
   const docsByTurn = new Map<number, BriefDocument[]>()
@@ -202,6 +298,9 @@ export function Conversation({
                 {(docsByTurn.get(i) ?? []).map((doc) => (
                   <DocumentCard key={doc.doc_id} doc={doc} onOpen={() => onOpenBrief(doc)} />
                 ))}
+                {i === ctaAt ? (
+                  <BookingCta evaluation={evaluation} bookingOpen={bookingOpen} onBookingOpenChange={onBookingOpenChange} />
+                ) : null}
               </div>
             ),
           )}

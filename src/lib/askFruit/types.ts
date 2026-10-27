@@ -99,6 +99,8 @@ export interface EvaluationMessage {
   markdown: string
   status?: "complete" | "streaming" | "failed"
   created_at?: string
+  /** Assistant replies only: this turn put recommendations on the board. */
+  produced_result?: boolean
 }
 
 export type EvaluationStage = "discovery" | "recommending" | "comparing" | "planning"

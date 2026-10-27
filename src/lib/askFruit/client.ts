@@ -172,8 +172,14 @@ export function applyEvent(ev: EvaluationDetail, event: AskFruitEvent): Evaluati
         open_questions: event.data.open_questions,
         ...(event.data.title ? { title: event.data.title } : {}),
       }
-    case "recommendations":
-      return { ...ev, matches: event.data.items, match_count: event.data.items.length }
+    case "recommendations": {
+      const next = { ...ev, matches: event.data.items, match_count: event.data.items.length }
+      if (!event.data.items.length) return next
+      const messages = [...next.messages]
+      const last = messages[messages.length - 1]
+      if (last?.role === "assistant") messages[messages.length - 1] = { ...last, produced_result: true }
+      return { ...next, messages }
+    }
     case "shortlist":
       return { ...ev, shortlist: event.data.items, shortlist_count: event.data.items.length }
     case "document_ready":

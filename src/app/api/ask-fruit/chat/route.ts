@@ -107,6 +107,8 @@ export async function POST(req: Request) {
           usage: { prompt_tokens: 0, completion_tokens: 0, cost: 0 },
         }
         let errorCode: string | null = null
+        // Marks the reply whose turn produced matches, so the booking card follows it.
+        let producedResult = false
         try {
           const gen = runTurn({ evaluation, message, apiKey, model, signal: abort.signal })
           while (true) {
@@ -116,6 +118,7 @@ export async function POST(req: Request) {
               break
             }
             if (next.value.type === "error") errorCode = next.value.data.code
+            if (next.value.type === "recommendations" && next.value.data.items.length) producedResult = true
             send(next.value)
           }
         } catch (err) {
@@ -134,6 +137,7 @@ export async function POST(req: Request) {
             markdown: outcome.reply,
             status: outcome.failed ? "failed" : "complete",
             created_at: now,
+            ...(producedResult && !outcome.failed ? { produced_result: true } : {}),
           },
         ]
         evaluation.match_count = evaluation.matches.length

@@ -83,7 +83,40 @@ export interface BookingSectionProps {
    * page keeps exactly one top-level heading. Copy is the caller's, unchanged.
    */
   headingAs?: "h1" | "h2"
+  /**
+   * "inline" renders only the booking card (picker and its three steps) at the
+   * width of its container: no band, copy, office strap or proof line. The
+   * Implementation Calculator embeds it in the chat transcript.
+   */
+  variant?: "section" | "inline"
 }
+
+/**
+ * The card's own narrow-layout rules for the inline variant, keyed to the
+ * container rather than the viewport: a chat column can be 360px wide on a
+ * 1024px screen. Day cells and month arrows keep 44px and 40px targets.
+ */
+const INLINE_CSS = `
+@layer components {
+  .fr-booking-inline { container-type: inline-size; }
+  .fr-booking-inline .fr-booking-nav { width: 40px !important; height: 40px !important; }
+  .fr-booking-inline .fr-booking-day { height: 44px !important; }
+  @container (max-width: 560px) {
+    .fr-booking-inline .fr-booking-pad { padding: 20px !important; }
+    .fr-booking-inline .fr-booking-card-grid { grid-template-columns: 1fr !important; }
+    .fr-booking-inline .fr-booking-pickers { width: 100%; gap: 8px; }
+    .fr-booking-inline .fr-booking-picker { flex: 1 1 0 !important; min-width: 0; }
+    .fr-booking-inline .fr-booking-picker select { min-width: 0; width: 100%; }
+    .fr-booking-inline .fr-booking-times {
+      padding-left: 0 !important;
+      border-left: none !important;
+      border-top: 1px solid var(--border-ui);
+      padding-top: 14px;
+      min-height: 0 !important;
+    }
+  }
+}
+`
 
 const TZS: [string, string][] = [
   ["Australia/Sydney", "Sydney (AEST)"],
@@ -1067,10 +1100,23 @@ export default function BookingSection({
   mode = BOOKING_MODE,
   forceRegion,
   headingAs: Heading = "h2",
+  variant = "section",
 }: BookingSectionProps) {
   // The office strap follows the CMS office list (see OfficeStrapProvider) so
   // adding or renaming an office is a single edit in Sanity.
   const officeStrapText = useOfficeStrap()
+  if (variant === "inline") {
+    return (
+      <div className="fr-booking-inline w-full overflow-hidden rounded-card border border-ui bg-surface shadow-micro">
+        {mode === "consultant" ? (
+          <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} forceRegion={forceRegion} />
+        ) : (
+          <CalendlyEmbed calendlyUrl={calendlyUrl} />
+        )}
+        <style>{INLINE_CSS}</style>
+      </div>
+    )
+  }
   return (
     <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 72px", overflow: "hidden" }}>
       {/* brand glow motif */}

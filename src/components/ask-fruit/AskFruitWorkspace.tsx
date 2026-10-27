@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { Menu, MessageSquare, PanelRight, Pencil, Plus, Printer, Trash2, X } from "lucide-react"
+import { ctaTurnIndex } from "@/lib/askFruit/cta"
 import type { BriefDocument, EvaluationSummary } from "@/lib/askFruit/types"
 import { BriefBody, BriefFooter } from "./BriefView"
 import { Conversation, Welcome } from "./Conversation"
@@ -216,6 +217,11 @@ export default function AskFruitWorkspace() {
   }, [loading, send, newConversation])
 
   const hasConversation = Boolean(active && active.messages.length)
+  // The inline booking card in the transcript, which the results panel can open
+  // too. Held per conversation, so switching conversations closes it.
+  const [bookingFor, setBookingFor] = useState<string | null>(null)
+  const bookingOpen = bookingFor !== null && bookingFor === (active?.evaluation_id ?? null)
+  const setBookingOpen = (open: boolean) => setBookingFor(open ? (active?.evaluation_id ?? null) : null)
   const prefillComposer = (text: string) => {
     setResultsOpen(false)
     setPrefill({ text, nonce: Date.now() })
@@ -261,6 +267,14 @@ export default function AskFruitWorkspace() {
         void af.requestImplementation(offering)
       }}
       onOpenBrief={setBrief}
+      onBook={
+        ctaTurnIndex(active) != null
+          ? () => {
+              setResultsOpen(false)
+              setBookingOpen(true)
+            }
+          : undefined
+      }
     />
   ) : null
 
@@ -323,6 +337,8 @@ export default function AskFruitWorkspace() {
               onSend={(t) => void af.send(t)}
               onStop={af.stop}
               onOpenBrief={setBrief}
+              bookingOpen={bookingOpen}
+              onBookingOpenChange={setBookingOpen}
             />
           ) : (
             <div className="flex min-h-0 flex-1 overflow-y-auto">
