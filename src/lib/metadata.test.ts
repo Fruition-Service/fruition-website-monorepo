@@ -51,3 +51,13 @@ describe("buildOgMetadata images", () => {
     expect(url).toContain("w=1200")
   })
 })
+
+describe("buildOgMetadata locale", () => {
+  it("defaults og:locale to en_US", () => {
+    expect(buildOgMetadata({ title: "x", path: "/x" }).openGraph.locale).toBe("en_US")
+  })
+
+  it("honours an explicit locale", () => {
+    expect(buildOgMetadata({ title: "x", path: "/monday-partner-uk", locale: "en_GB" }).openGraph.locale).toBe("en_GB")
+  })
+})

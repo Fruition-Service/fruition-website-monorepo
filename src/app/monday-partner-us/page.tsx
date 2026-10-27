@@ -25,6 +25,7 @@ export async function generateMetadata() {
       title,
       description,
       path: "/monday-partner-us",
+      locale: "en_US",
     }),
   }
 }

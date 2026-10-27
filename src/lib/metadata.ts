@@ -22,6 +22,11 @@ export interface OgMetadataInput {
   image?: string | null
   /** Sanity image source — resolved via urlFor to 1200×630. Takes precedence over `image`. */
   ogImageSource?: unknown
+  /**
+   * Open Graph locale (`og:locale`) in ISO language_TERRITORY form, e.g. `en_AU`.
+   * Defaults to `en_US`, which stays the site default.
+   */
+  locale?: string
   /** Extra OpenGraph / Twitter fields merged on top of the generated defaults. */
   extra?: {
     openGraph?: Record<string, unknown>
@@ -48,7 +53,7 @@ export function buildOgMetadata(input: OgMetadataInput) {
   const og: Record<string, unknown> = {
     type: "website",
     siteName: SITE_NAME,
-    locale: "en_US",
+    locale: input.locale ?? "en_US",
     url,
     title,
     description,

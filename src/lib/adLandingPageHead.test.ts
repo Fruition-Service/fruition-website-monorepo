@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { withLandingPageLayout, withLandingPageTracking } from "./landingPage"
+import { REGION_OG_LOCALE, withLandingPageLayout, withLandingPageTracking } from "./landingPage"
 import { adLandingPages } from "./adLandingPages"
 import type { LeadRegion } from "./leadNotify"
 
@@ -27,6 +27,30 @@ describe("Google Ads landing pages", () => {
     expect(new Set(sources).size).toBe(sources.length)
   })
 
+  it("map each region to its ISO og:locale (en_GB for the UK, en_US for the US)", () => {
+    expect(REGION_OG_LOCALE).toEqual({ APAC: "en_AU", SEA: "en_SG", IND: "en_IN", NA: "en_US", UK: "en_GB" })
+  })
+
+  it("emit exactly one og:locale whatever the document already carries", () => {
+    const head = (extra: string) =>
+      `<html lang="en"><head><title>T</title>${extra}</head><body></body></html>`
+    for (const extra of [
+      "",
+      '\n  <meta property="og:locale" content="en_UK">\n',
+      '<meta property="og:image" content="https://example.com/a.png">',
+      '<meta property="og:image" content="x"><meta property="og:locale" content="en_AU">',
+    ]) {
+      const out = withLandingPageTracking(head(extra), { source: "adwords-lp-test", region: "UK" })
+      expect(out.match(/property="og:locale"/g)).toHaveLength(1)
+      expect(out).toContain('<meta property="og:locale" content="en_GB">')
+    }
+    const untitled = withLandingPageTracking("<html><head></head><body></body></html>", {
+      source: "adwords-lp-test",
+      region: "SEA",
+    })
+    expect(untitled.match(/<meta property="og:locale" content="en_SG">/g)).toHaveLength(1)
+  })
+
   it.each(pages)("$page serves a complete head", async ({ page, source, region }) => {
     expect(REGIONS).toContain(region)
     const { html } = await import(`@/app/${page}/content`)
@@ -52,6 +76,9 @@ describe("Google Ads landing pages", () => {
     // Social preview card
     for (const key of ["og:title", "og:description", "og:image", "og:type"]) expect(meta("property", key)).toBeTruthy()
     expect(meta("name", "twitter:card")).toBe("summary_large_image")
+    // og:locale for the ad's market, exactly once
+    expect(meta("property", "og:locale")).toBe(REGION_OG_LOCALE[region as LeadRegion])
+    expect(out.match(/property="og:locale"/g)).toHaveLength(1)
     // Tracking
     expect(head).toContain("'dataLayer','GTM-PF6XWTL6'")
     // One H1, the ad's headline
