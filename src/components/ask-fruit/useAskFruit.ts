@@ -12,6 +12,7 @@ import {
   toSummary,
   type ApiError,
 } from "@/lib/askFruit/client"
+import type { ProgressEvent } from "@/lib/askFruit/steps"
 import type { EvaluationDetail, EvaluationSummary, Offering } from "@/lib/askFruit/types"
 
 const ACTIVE_KEY = "ask-fruit-active-evaluation"
@@ -52,6 +53,9 @@ export function useAskFruit() {
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
   const [status, setStatus] = useState<WorkingStatus | null>(null)
+  /** This turn's status and tool events, for the progress list. */
+  const [progress, setProgress] = useState<ProgressEvent[]>([])
+  const [startedAt, setStartedAt] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const sendingRef = useRef(false)
@@ -122,6 +126,8 @@ export function useAskFruit() {
       setSending(true)
       setError(null)
       setStatus({ label: "Thinking it through", kind: "thinking" })
+      setProgress([{ type: "status", label: "Thinking it through" }])
+      setStartedAt(Date.now())
 
       const current0 = activeRef.current
       const startId = current0 && current0 !== DRAFT && detailsRef.current[current0] ? current0 : DRAFT
@@ -155,6 +161,9 @@ export function useAskFruit() {
           if (event.type === "tool_call") setStatus(event.data.status === "started" ? { label: event.data.label, kind: "tool" } : null)
           if (event.type === "status") setStatus({ label: event.data.label, kind: "thinking" })
           if (event.type === "message_delta") setStatus(null)
+          if (event.type === "status") setProgress((p) => [...p, { type: "status", label: event.data.label }])
+          if (event.type === "tool_call") setProgress((p) => [...p, { type: "tool_call", ...event.data }])
+          if (event.type === "message_delta") setProgress((p) => (p[p.length - 1]?.type === "message_delta" ? p : [...p, { type: "message_delta" }]))
           if (event.type === "error") setError(event.data.message)
           const snapshot = current
           setDetails((d) => {
@@ -176,6 +185,8 @@ export function useAskFruit() {
         abortRef.current = null
         setSending(false)
         setStatus(null)
+        setProgress([])
+        setStartedAt(null)
       }
     },
     [activate],
@@ -254,6 +265,8 @@ export function useAskFruit() {
     loading,
     sending,
     status,
+    progress,
+    startedAt,
     error,
     clearError: () => setError(null),
     select,
