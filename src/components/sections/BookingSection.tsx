@@ -77,6 +77,12 @@ export interface BookingSectionProps {
    * unset so cf-ipcountry decides and the visitor can still correct it.
    */
   forceRegion?: BookingRegion
+  /**
+   * Heading level for `heading`. Every placement is a mid-page section, so it
+   * defaults to h2; /contact-us opens with this band and passes "h1" so the
+   * page keeps exactly one top-level heading. Copy is the caller's, unchanged.
+   */
+  headingAs?: "h1" | "h2"
 }
 
 const TZS: [string, string][] = [
@@ -1060,6 +1066,7 @@ export default function BookingSection({
   calendlyUrl = FALLBACK_BOOKING_URL,
   mode = BOOKING_MODE,
   forceRegion,
+  headingAs: Heading = "h2",
 }: BookingSectionProps) {
   // The office strap follows the CMS office list (see OfficeStrapProvider) so
   // adding or renaming an office is a single edit in Sanity.
@@ -1077,7 +1084,7 @@ export default function BookingSection({
       <div style={{ position: "relative", maxWidth: 1276, margin: "0 auto", alignItems: "start" }} className="fr-booking-grid">
         <div className="fr-booking-head">
           <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow}</span>
-          <h2 style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading}</h2>
+          <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading}</Heading>
         </div>
 
         <div className="fr-booking-body">

@@ -31,23 +31,28 @@ export default function ContactSection({
 }: ContactSectionProps) {
   return (
     <>
-      <ContactHero offices={offices} salesEmail={salesEmail} supportEmail={supportEmail} phone={phone} phoneTel={phoneTel} />
-
-      {/* Mid-page conversion banner — shared site-wide */}
-      <AuditCtaBanner />
-
-      <OfficeBand offices={offices} />
+      {/* The booking band opens the page: it is the first thing a visitor sees,
+          and it carries the page's h1. Everything that used to sit above it
+          follows underneath, unchanged. */}
       <BookingSection
         eyebrow="Contact us"
         heading="Tell us what you’re building"
         sub="Pick a time and talk it through with a specialist, or email us and we’ll reply within one business day."
         email={salesEmail}
+        headingAs="h1"
       />
+
+      <ContactHero offices={offices} salesEmail={salesEmail} supportEmail={supportEmail} phone={phone} phoneTel={phoneTel} />
+
+      {/* Mid-page conversion banner, shared site-wide */}
+      <AuditCtaBanner />
+
+      <OfficeBand offices={offices} />
     </>
   )
 }
 
-/* ── Hero: headline, world map, three contact channels ─────────────────── */
+/* ── Contact channels: headline, world map, three ways to reach us ─────── */
 
 function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: ContactSectionProps) {
   const telHref = phoneTel || (phone ? phone.replace(/[^\d+]/g, "") : "")
@@ -56,13 +61,12 @@ function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: Con
   return (
     <section className="bg-surface px-4">
       <div className="mx-auto flex flex-col items-center max-w-[1100px] pt-26 pb-6">
-        <span className="inline-flex items-center rounded-full bg-brand-soft text-brand border border-brand/30 font-mono text-xs font-semibold uppercase tracking-[0.14em] px-4 py-2">
-          Contact us
-        </span>
-
-        <h1 className="text-center mt-6 max-w-[860px] text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-body text-balance">
+        {/* No "Contact us" pill here any more: the booking band above opens the
+            page with that exact label, and two of them one screen apart read as
+            a mistake. The label itself is unchanged, just not doubled. */}
+        <h2 className="text-center max-w-[860px] text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-body text-balance">
           We&rsquo;d love to hear from you
-        </h1>
+        </h2>
 
         <p className="text-center text-body-lead mt-5 max-w-[600px] text-muted text-pretty">
           Reach the team directly, or find the office nearest you. We answer every message within one business day.
@@ -121,7 +125,7 @@ function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: Con
 function Channel({ title, blurb, value, href }: { title: string; blurb: string; value: string; href?: string }) {
   return (
     <div className="flex flex-col items-center gap-1.5">
-      <h2 className="text-[17px] font-semibold text-body">{title}</h2>
+      <h3 className="text-[17px] font-semibold text-body">{title}</h3>
       <p className="text-sm text-muted leading-5 max-w-[240px]">{blurb}</p>
       {href ? (
         <a
