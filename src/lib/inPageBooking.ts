@@ -14,6 +14,10 @@
  * tracking is: most of the site's CTAs are raw `<a>` in individual sections or
  * come out of Sanity, and wiring them one by one would miss every CTA added
  * later.
+ *
+ * The /monday-partner-* location pages are the deliberate exception: they carry
+ * their own path plus #book (see `bookingHrefForPath`), so the browser's native
+ * anchor navigation scrolls them and there is nothing to intercept.
  */
 
 /** The id <BookingSection> renders on itself. */

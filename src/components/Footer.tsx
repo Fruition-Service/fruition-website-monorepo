@@ -1,6 +1,6 @@
 import { bookingHref } from "@/lib/bookingLink"
 import Link from 'next/link'
-import CtaButton from '@/components/CtaButton'
+import FooterBookingCta from '@/components/FooterBookingCta'
 import FooterColumn from '@/components/FooterColumn'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
@@ -111,7 +111,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               </ul>
             )}
             {ctaLabel && calendlyUrl && (
-              <CtaButton href={calendlyUrl} label={ctaLabel} variant="primary" className="mt-6 h-11 px-6 text-sm" />
+              <FooterBookingCta url={calendlyUrl} label={ctaLabel} className="mt-6 h-11 px-6 text-sm" />
             )}
             {contactEmail && (
               <a

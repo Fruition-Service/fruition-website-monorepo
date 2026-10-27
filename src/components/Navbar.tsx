@@ -1,5 +1,5 @@
 "use client"
-import { bookingHref } from "@/lib/bookingLink"
+import { bookingHref, bookingHrefForPath } from "@/lib/bookingLink"
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -101,7 +101,11 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const hoverOpenedAt = useRef(0)
 
-  const calendlyUrl = siteSettings?.calendlyLink ? bookingHref(siteSettings.calendlyLink) : ''
+  // Path-aware: on the location pages the booking form is on the page itself,
+  // so the header CTA points at this page's own #book rather than /contact-us.
+  const calendlyUrl = siteSettings?.calendlyLink
+    ? bookingHrefForPath(siteSettings.calendlyLink, pathname)
+    : ''
   const phoneAu = siteSettings?.phone
   const navItems: NavItem[] = siteSettings?.navigation || []
   const ctaLabel = siteSettings?.navbarCtaLabel || ''

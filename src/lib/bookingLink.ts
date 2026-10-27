@@ -13,6 +13,52 @@ export function bookingHref(url?: string | null): string {
 }
 
 /**
+ * Paths that render the booking section themselves: the six /monday-partner-*
+ * location pages (see `src/components/RegionPageTemplate.tsx`). A pattern
+ * rather than a slug list, so client chrome can recognise one without
+ * importing the region copy into the browser bundle.
+ */
+const REGION_PAGE_PATH_RE = /^\/monday-partner-[a-z]+$/
+
+export function isRegionPagePath(pathname?: string | null): boolean {
+  if (!pathname) return false
+  return REGION_PAGE_PATH_RE.test(pathname.replace(/\/+$/, ""))
+}
+
+/**
+ * The booking section on this page's own URL: `/monday-partner-uk#book`.
+ *
+ * The location pages render <BookingSection id="book"> in place, so a CTA
+ * carrying `/contact-us#book` reads as a cross-page link while behaving as a
+ * same-page one. Writing the page's own path plus #book makes the href say
+ * what the click does, which is what search engines and anyone who copies the
+ * link see.
+ */
+export function pageBookingHref(pathname: string): string {
+  const path = pathname.trim().split(/[?#]/)[0].replace(/\/+$/, "")
+  return path ? `${path}#book` : "#book"
+}
+
+/** Every spelling of the cross-page booking anchor that reaches an href. */
+const BOOKING_ANCHOR_RE =
+  /^(?:https?:\/\/(?:www\.)?fruitionservices\.io)?(?:\/contact-us)?\/?#book$/i
+
+/**
+ * `url` resolved for `pathname`. On a location page a booking anchor becomes
+ * that page's own #book; every other destination (a custom CTA URL, a live
+ * Calendly link) and every other page is left exactly as it was.
+ */
+export function bookingHrefForPath(
+  url?: string | null,
+  pathname?: string | null,
+): string {
+  const href = bookingHref(url)
+  const path = (pathname ?? "").replace(/\/+$/, "")
+  if (!isRegionPagePath(path)) return href
+  return BOOKING_ANCHOR_RE.test(href.trim()) ? pageBookingHref(path) : href
+}
+
+/**
  * The one Sanity field that must keep its raw Calendly URL: BookingSection
  * falls back to it when live availability can't load, and pointing that at
  * ourselves would strand the visitor.
