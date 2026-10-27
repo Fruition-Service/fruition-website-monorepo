@@ -43,6 +43,16 @@ export default function ServicesGrid() {
             )
           })}
         </Reveal>
+
+        <Reveal className="mt-8">
+          <Link
+            href="/what-we-do"
+            className="inline-flex min-h-11 items-center gap-2 text-body-sm font-semibold text-brand-dark hover:underline"
+          >
+            See all six practices
+            <span aria-hidden>→</span>
+          </Link>
+        </Reveal>
       </div>
     </section>
   )

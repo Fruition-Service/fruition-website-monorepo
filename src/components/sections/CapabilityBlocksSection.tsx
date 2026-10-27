@@ -1,3 +1,4 @@
+import Link from "next/link"
 import SectionIntro from "./SectionIntro"
 import RichText from "./RichText"
 import type { CapabilityBlock, IndustryPoint } from "./types"
@@ -95,6 +96,17 @@ export default function CapabilityBlocksSection({
                 <p className="text-caption text-muted border-t border-ui pt-4 mt-6">
                   <RichText text={block.note} />
                 </p>
+              )}
+              {block.linkLabel && block.href && (
+                <div className="mt-auto pt-6">
+                  <Link
+                    href={block.href}
+                    className="inline-flex min-h-11 w-full items-center gap-2 border-t border-ui pt-4 text-body-sm font-semibold text-brand-dark hover:underline"
+                  >
+                    {block.linkLabel}
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
               )}
             </article>
           ))}

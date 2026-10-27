@@ -175,6 +175,10 @@ export interface CapabilityBlock {
   points?: IndustryPoint[]
   /** Closing aside, separated from the points by a hairline. */
   note?: string
+  /** Optional card footer action, e.g. "Explore platform implementation". */
+  linkLabel?: string
+  /** Destination for `linkLabel`. Rendered only when both are set. */
+  href?: string
 }
 
 /** A labelled group of bullets inside a spec panel. */
