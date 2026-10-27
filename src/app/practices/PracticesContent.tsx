@@ -27,8 +27,8 @@ const STATS = [
 /** Body copy for each delivery phase, keyed by the phase title in METHOD_STEPS. */
 const PHASE_COPY: Record<string, { body: string; produces: string }> = {
   Discover: {
-    body: "Map how work runs today, where it breaks, and what the business needs the system to do. We talk to the people doing the work, not only the people who bought the tool.",
-    produces: "Process map, data model, success measures.",
+    body: "Map how work runs today, where it breaks, and what the business needs the system to do. We interview the people doing the work before we look at the licence.",
+    produces: "A process map and the success measures we will be judged on.",
   },
   Design: {
     body: "Blueprint the process, the data and the integrations before anything is configured. Decisions get written down while they are still cheap to change.",
@@ -36,11 +36,11 @@ const PHASE_COPY: Record<string, { body: string; produces: string }> = {
   },
   Deliver: {
     body: "Build and migrate in two-week sprints. Each sprint is reviewed against the design, so scope changes show up as a conversation rather than a surprise invoice.",
-    produces: "Configured platform, migrated data, tested automations.",
+    produces: "A configured platform, migrated data and tested automations.",
   },
   Adopt: {
     body: "Train the people who will use it, run the change comms, and measure adoption after go-live. This phase is why implementations stick.",
-    produces: "Trained team, adoption dashboard, handover pack.",
+    produces: "A trained team, plus a handover pack your admins can run from.",
   },
 }
 
@@ -53,7 +53,7 @@ const PLATFORM_FIRST = [
 
 const MODEL_FIRST = [
   "The process is mapped before a tool is named.",
-  "Configuration follows the work, not a template.",
+  "Configuration is built around the work.",
   "Integrations are scoped during design.",
   "Adoption has named owners from week one.",
 ]
@@ -67,13 +67,13 @@ const FAQ_TABS: FaqTab[] = [
         _key: "what-are-the-six",
         question: "What are Fruition's six practices?",
         answer:
-          "Platform implementation, integrations and automation, AI advisory and implementation, change management and adoption, software licence procurement, and FDE and managed services. Each one has its own page with the detail, examples and pricing.",
+          "Platform implementation, integrations and automation, AI advisory and implementation, change management and adoption, software licence procurement, and FDE and managed services. Each one has its own page with the detail and the examples.",
       },
       {
         _key: "what-is-the-operating-model",
         question: "What is the operating model?",
         answer:
-          "It is the four phases every engagement runs through: discover, design, deliver and adopt, across a typical twelve week first build. The phases decide what gets built. The practices decide who builds it.",
+          "It is the four phases every engagement runs through: discover, design, deliver and adopt, across a typical twelve-week first build. The phases decide what gets built. The practices decide who builds it.",
       },
       {
         _key: "do-i-need-all-six",
@@ -97,7 +97,7 @@ const FAQ_TABS: FaqTab[] = [
         _key: "where",
         question: "Where do you deliver?",
         answer:
-          "From Sydney, London and New York, covering Australia, the UK, the US, Singapore, India and the Philippines. Delivery follows your time zone, not ours.",
+          "From Sydney, London and New York, covering Australia, the UK, the US, Singapore, India and the Philippines. Delivery runs in your time zone.",
       },
     ],
   },
@@ -180,13 +180,16 @@ export default function PracticesContent({ logos = [] }: PracticesContentProps) 
 
           <dl className="mt-12 grid grid-cols-2 gap-x-6 border-t border-ui md:mt-16 lg:grid-cols-4">
             {STATS.map((stat) => (
-              <div key={stat.label} className="border-b border-dashed border-ui py-5 pr-2 md:py-6">
-                <dd className="text-[26px] font-semibold leading-none text-ink md:text-[32px]">
-                  {stat.value}
-                </dd>
-                <dt className="mt-2 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">
+              <div
+                key={stat.label}
+                className="flex flex-col-reverse border-b border-dashed border-ui py-5 pr-2 md:py-6"
+              >
+                <dt className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">
                   {stat.label}
                 </dt>
+                <dd className="mb-2 text-section-h3 leading-none font-semibold text-ink">
+                  {stat.value}
+                </dd>
               </div>
             ))}
           </dl>
@@ -202,7 +205,7 @@ export default function PracticesContent({ logos = [] }: PracticesContentProps) 
           </h2>
           <p className="text-body-lead mt-5 max-w-[640px] text-muted">
             Each practice stands alone, and most engagements draw on two or three. The detail,
-            the examples and the pricing for each one live on its own page.
+            the examples and the scope for each one live on its own page.
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
@@ -215,7 +218,7 @@ export default function PracticesContent({ logos = [] }: PracticesContentProps) 
                 <span className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-brand">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-4 text-[20px] font-semibold leading-snug text-ink md:text-[22px]">
+                <h3 className="mt-4 text-card-title text-ink">
                   {service.title}
                 </h3>
                 <p className="mt-3 flex-1 text-body text-muted">{service.body}</p>
@@ -264,9 +267,7 @@ export default function PracticesContent({ logos = [] }: PracticesContentProps) 
                   </span>
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <h3 className="text-[20px] font-semibold text-ink md:text-[22px]">
-                        {step.title}
-                      </h3>
+                      <h3 className="text-card-title text-ink">{step.title}</h3>
                       <span className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">
                         Weeks {step.from} to {step.to}
                       </span>
@@ -351,11 +352,11 @@ export default function PracticesContent({ logos = [] }: PracticesContentProps) 
           eyebrow: "Start here",
           heading: "Start with the operating model, not the tool.",
           headingAccent: "not the tool.",
-          lead: "A 30-minute audit maps your current workflows and tells you which of the six practices you need first. No slide deck, no obligation.",
+          lead: "A 30-minute audit maps your current workflows and tells you which of the six practices you need first.",
           primaryLabel: "Book a 30-minute audit",
           primaryUrl: "/contact-us#book",
-          secondaryLabel: "See how we price work",
-          secondaryUrl: "/pricing",
+          secondaryLabel: "See implementation packages",
+          secondaryUrl: "/implementation-packages",
         }}
       />
     </>
