@@ -1021,7 +1021,7 @@ export async function getHomePage() {
   }`)
 }
 /**
- * Licensing & procurement page (/pricing).
+ * Licensing & procurement page (/licence-procurement).
  *
  * Every field is optional: the route merges this over the code copy in
  * src/data/practicePages/licensing.ts, so a document that has never been

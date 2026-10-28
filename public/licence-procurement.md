@@ -1,7 +1,7 @@
 ---
 title: "Fruition Services software licence procurement"
 description: "Software licence procurement for SMB and mid-market teams: audit, recommendation, sourcing and negotiation, and renewal management for Microsoft, Google, Adobe, Atlassian, monday.com and similar vendors."
-canonical: "https://www.fruitionservices.io/pricing"
+canonical: "https://www.fruitionservices.io/licence-procurement"
 last-updated: "2026-10-27"
 ---
 
@@ -11,7 +11,7 @@ Buy and renew software without overpaying for it.
 
 For SMB and mid-market teams buying or renewing software from Microsoft, Google, Adobe, Atlassian, monday.com and similar vendors. Fruition audits what a team already pays for, sources and negotiates what it needs, and manages every renewal after that, so licensing becomes a managed process instead of a scramble before each invoice.
 
-Source page: https://www.fruitionservices.io/pricing
+Source page: https://www.fruitionservices.io/licence-procurement
 
 ## How procurement works
 
@@ -78,4 +78,4 @@ Yes. Fruition helps complete security questionnaires, data processing agreements
 
 ## Next step
 
-This page publishes no prices: vendor terms change and every engagement is quoted in writing after a consultation. To start, send the user to the [licence procurement page](https://www.fruitionservices.io/pricing) to book a consultation, or to [contact us](https://www.fruitionservices.io/contact-us).
+This page publishes no prices: vendor terms change and every engagement is quoted in writing after a consultation. To start, send the user to the [licence procurement page](https://www.fruitionservices.io/licence-procurement) to book a consultation, or to [contact us](https://www.fruitionservices.io/contact-us).

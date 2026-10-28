@@ -209,7 +209,7 @@ export default function PackagesSection() {
         <p className="text-caption mx-auto mt-4 max-w-[80ch] text-center text-muted">{PACKAGES_INTRO.footnote}</p>
         <p className="text-caption mx-auto mt-3 max-w-[80ch] text-center text-muted">
           These packages price Fruition&apos;s implementation services. To buy or renew monday.com licences, see{" "}
-          <Link href="/pricing" className="underline underline-offset-2 hover:text-brand">
+          <Link href="/licence-procurement" className="underline underline-offset-2 hover:text-brand">
             monday.com licence procurement
           </Link>
           . Looking for a consultant rather than a package? Meet our{" "}

@@ -1,30 +1,46 @@
 import Image from "next/image"
 import Link from "next/link"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
+import ClosingCtaSection from "@/components/sections/ClosingCtaSection"
 import AuditLeadForm from "./AuditLeadForm"
 import PackagesSection from "./PackagesSection"
 import {
   AT_A_GLANCE,
   CTA,
-  EXAMPLE,
   FAQ_INTRO,
   FAQS,
   HERO,
-  INDUSTRIES,
+  HOW_PRICING_WORKS,
+  LICENCES,
   LOGOS,
   METHOD,
+  OVERVIEW,
+  PACKAGES,
   PHONE_HREF,
   REGIONS,
   REVIEWS,
+  SERVICE_PRICES,
+  SERVICES_INTRO,
   WHY,
-  WHY_NOW,
+  aud,
+  groupFrom,
+  usd,
 } from "./content"
 
 /**
- * /implementation-packages, rebuilt from Josh's October 2026 redesign in the
- * site design system. Static copy from ./content; the only client islands are
- * the hero audit form and the package switcher.
+ * /implementation-packages: Fruition's pricing page (/pricing redirects here).
+ * Josh's October 2026 package redesign sits inside a price overview, the
+ * starting prices of every other service line and the licence hand-off.
+ * Static copy from ./content; the only client islands are the hero audit form
+ * and the package switcher.
  */
+
+const JUMP_LINKS = [
+  { href: "#packages", label: "monday.com packages" },
+  ...SERVICE_PRICES.map((g) => ({ href: `#${g.id}`, label: g.eyebrow })),
+  { href: "#licences", label: "Licences" },
+  { href: "#faq", label: "FAQ" },
+]
 
 const SHELL = "mx-auto max-w-[1148px] px-4"
 const EYEBROW = "mb-[18px] font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand"
@@ -87,6 +103,21 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
                 </li>
               ))}
             </ul>
+            <nav aria-label="Pricing sections" className="mt-8 border-t border-ui pt-5">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">{HERO.jumpLabel}</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {JUMP_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="inline-flex min-h-[44px] items-center rounded-pill border border-ui bg-surface-raised px-4 text-caption text-body transition-colors hover:border-brand hover:text-brand"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
           <div className="lg:pt-2">
             <AuditLeadForm />
@@ -115,92 +146,112 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
         </div>
       </section>
 
-      {/* Fruition at a glance */}
-      <section className="bg-surface py-14 md:py-24">
-        <div className={`${SHELL} grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14`}>
-          <div>
-            <p className={EYEBROW}>Fact sheet</p>
-            <h2 className="text-section-h2 text-body">Fruition at a glance</h2>
-          </div>
-          <dl className="border-t border-ui">
-            {AT_A_GLANCE.map(([k, v]) => (
-              <div key={k} className="grid grid-cols-1 gap-1 border-b border-dashed border-ui py-3.5 md:grid-cols-[200px_1fr] md:gap-6">
-                <dt className="text-caption font-semibold text-body">{k}</dt>
-                <dd className="text-body-sm text-muted">{v}</dd>
-              </div>
+      {/* Pricing at a glance: one card per service line */}
+      <section id="overview" className="bg-surface py-14 md:py-24">
+        <div className={SHELL}>
+          <Intro eyebrow={OVERVIEW.eyebrow} heading={OVERVIEW.heading} lead={OVERVIEW.lead} />
+          <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <li>
+              <PriceCard
+                href="#packages"
+                title={OVERVIEW.mondayTitle}
+                note={OVERVIEW.mondayNote}
+                price={usd(Math.min(...PACKAGES.map((p) => p.basePriceUsd)))}
+                featured
+              />
+            </li>
+            {SERVICE_PRICES.map((g) => (
+              <li key={g.id}>
+                <PriceCard href={`#${g.id}`} title={g.eyebrow} note={OVERVIEW.groupNote} price={aud(groupFrom(g))} />
+              </li>
             ))}
-          </dl>
+            <li>
+              <PriceCard href="#licences" title={OVERVIEW.licencesTitle} note={OVERVIEW.licencesNote} label={OVERVIEW.licencesPrice} />
+            </li>
+          </ul>
         </div>
       </section>
 
-      {/* Worked example */}
-      <section id="example" className="bg-surface-subtle py-14 md:py-24">
+      {/* monday.com packages: cards, switcher and the "See what's included" fold-out */}
+      <PackagesSection />
+
+      {/* Starting prices for every other service line */}
+      <section id="services" className="scroll-mt-24 bg-surface py-14 md:py-24">
         <div className={SHELL}>
-          <Intro eyebrow={EXAMPLE.eyebrow} heading={EXAMPLE.heading} lead={EXAMPLE.lead} />
-          <ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {EXAMPLE.steps.map((s, i) => (
-              <li key={s.title} className="rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-7">
-                <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-                  {String(i + 1).padStart(2, "0")} · {s.tag}
-                </p>
-                <h3 className="text-card-title mt-3 text-body">{s.title}</h3>
-                <p className="text-body-sm mt-3 text-muted">{s.body}</p>
+          <Intro eyebrow={SERVICES_INTRO.eyebrow} heading={SERVICES_INTRO.heading} lead={SERVICES_INTRO.lead} />
+          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
+            {SERVICE_PRICES.map((g) => (
+              <article
+                key={g.id}
+                id={g.id}
+                className="flex scroll-mt-24 flex-col rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8"
+              >
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">{g.eyebrow}</p>
+                <h3 className="text-card-title mt-3 text-body">{g.heading}</h3>
+                <p className="text-body-sm mt-2 text-muted">{g.lead}</p>
+                <ul className="mt-5 border-t border-ui">
+                  {g.items.map((i) => (
+                    <li key={i.href}>
+                      <Link
+                        href={i.href}
+                        className="group flex min-h-[52px] items-center justify-between gap-4 border-b border-dashed border-ui py-3"
+                      >
+                        <span className="text-body-sm text-body transition-colors group-hover:text-brand">{i.name}</span>
+                        <span className="flex shrink-0 flex-col items-end">
+                          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-faint">{SERVICES_INTRO.priceCaption}</span>
+                          <span className="text-body font-semibold text-body">{aud(i.fromAud)}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={g.href}
+                  className="mt-auto inline-flex min-h-[44px] items-center self-start pt-3 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-brand hover:text-brand-dark"
+                >
+                  {g.linkLabel} →
+                </Link>
+              </article>
+            ))}
+          </div>
+          <p className="text-caption mx-auto mt-6 max-w-[80ch] text-center text-muted">{SERVICES_INTRO.footnote}</p>
+        </div>
+      </section>
+
+      {/* Licences: separate from service fees, handled on their own page */}
+      <section id="licences" className="scroll-mt-24 bg-surface pb-14 md:pb-24">
+        <div className={SHELL}>
+          <div className="flex flex-col gap-6 rounded-card border border-ui bg-brand-soft p-6 md:flex-row md:items-center md:justify-between md:p-10">
+            <div>
+              <p className={EYEBROW}>{LICENCES.eyebrow}</p>
+              <h2 className="text-section-h3 text-body text-balance">{LICENCES.heading}</h2>
+              <p className="text-body-sm mt-3 max-w-[60ch] text-muted">{LICENCES.body}</p>
+            </div>
+            <Link href={LICENCES.href} className="cta-btn cta-btn-outline shrink-0">
+              <span className="cta-btn-label">{LICENCES.cta}</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* How pricing works */}
+      <section id="how-pricing-works" className="bg-surface-subtle py-14 md:py-24">
+        <div className={SHELL}>
+          <Intro eyebrow={HOW_PRICING_WORKS.eyebrow} heading={HOW_PRICING_WORKS.heading} />
+          <ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {HOW_PRICING_WORKS.items.map((it, i) => (
+              <li key={it.title} className="rounded-card border border-ui bg-surface-raised p-6">
+                <p className="font-mono text-xs font-semibold text-brand">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="text-card-title mt-3 text-body">{it.title}</h3>
+                <p className="text-body-sm mt-3 text-muted">{it.body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* Why implementation matters */}
-      <section id="why-now" className="bg-surface py-14 md:py-24">
-        <div className={SHELL}>
-          <Intro eyebrow={WHY_NOW.eyebrow} heading={WHY_NOW.heading} />
-          <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-14">
-            <div className="flex flex-col gap-4">
-              {WHY_NOW.paragraphs.map((p) => (
-                <p key={p.slice(0, 24)} className="text-body text-muted">
-                  {p}
-                </p>
-              ))}
-            </div>
-            <div className="rounded-card border border-ui bg-surface-raised p-6 md:p-8">
-              <h3 className="text-card-title text-body">{WHY_NOW.signsHeading}</h3>
-              <ul className="mt-4">
-                {WHY_NOW.signs.map((s) => (
-                  <li key={s} className="text-body-sm flex gap-3 border-b border-dashed border-ui py-3 text-body last:border-b-0">
-                    <Tick />
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Packages: cards, switcher and the "See what's included" fold-out */}
-      <PackagesSection />
-
-      {/* CTA directly below the packages (27 Oct review) */}
-      <section className="bg-surface py-14 md:py-20">
-        <div className={SHELL}>
-          <div className="rounded-card border border-ui bg-cta-blue-soft px-6 py-10 text-center md:px-12 md:py-14">
-            <h2 className="text-section-h2 text-body text-balance">{CTA.heading}</h2>
-            <p className="text-body-lead mx-auto mt-4 max-w-[60ch] text-muted">{CTA.body}</p>
-            <div className="mx-auto mt-8 flex max-w-[560px] flex-col gap-3 md:flex-row md:justify-center">
-              <Link href="#book" className="cta-btn cta-btn-primary md:flex-1">
-                <span className="cta-btn-label">{CTA.primary}</span>
-              </Link>
-              <a href={PHONE_HREF} className="cta-btn cta-btn-outline md:flex-1">
-                <span className="cta-btn-label">{CTA.secondary}</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Method */}
-      <section id="method" className="bg-surface-subtle py-14 md:py-24">
+      <section id="method" className="bg-surface py-14 md:py-24">
         <div className={SHELL}>
           <Intro eyebrow={METHOD.eyebrow} heading={METHOD.heading} lead={METHOD.lead} />
           <ol className="mt-10 border-t border-ui">
@@ -212,28 +263,6 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* Industries */}
-      <section id="industries" className="bg-surface py-14 md:py-24">
-        <div className={SHELL}>
-          <Intro eyebrow={INDUSTRIES.eyebrow} heading={INDUSTRIES.heading} lead={INDUSTRIES.lead} />
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {INDUSTRIES.items.map((it) => (
-              <Link
-                key={it.href}
-                href={it.href}
-                className="ui-hover-card flex flex-col rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-7"
-              >
-                <h3 className="text-card-title text-body">{it.title}</h3>
-                <p className="text-body-sm mt-3 text-muted">{it.body}</p>
-                <span className="mt-auto pt-5 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-brand">
-                  {it.link} →
-                </span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -278,8 +307,26 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
         </div>
       </section>
 
+      {/* Fruition at a glance: the fact sheet answer engines quote */}
+      <section className="bg-surface-subtle py-14 md:py-24">
+        <div className={`${SHELL} grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14`}>
+          <div>
+            <p className={EYEBROW}>Fact sheet</p>
+            <h2 className="text-section-h2 text-body">Fruition at a glance</h2>
+          </div>
+          <dl className="border-t border-ui">
+            {AT_A_GLANCE.map(([k, v]) => (
+              <div key={k} className="grid grid-cols-1 gap-1 border-b border-dashed border-ui py-3.5 md:grid-cols-[200px_1fr] md:gap-6">
+                <dt className="text-caption font-semibold text-body">{k}</dt>
+                <dd className="text-body-sm text-muted">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       {/* Regions */}
-      <section id="regions" className="border-y border-ui bg-surface-subtle py-10 md:py-14">
+      <section id="regions" className="border-y border-ui bg-surface py-10 md:py-14">
         <div className={SHELL}>
           <p className={`${EYEBROW} text-center`}>{REGIONS.eyebrow}</p>
           <ul className="flex flex-wrap justify-center gap-3">
@@ -298,7 +345,7 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
       </section>
 
       {/* FAQ. Its FAQPage schema is part of the page's single JSON-LD graph. */}
-      <section id="faq" className="bg-surface py-14 md:py-24">
+      <section id="faq" className="bg-surface-subtle py-14 md:py-24">
         <div className={`${SHELL} grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14`}>
           <Intro eyebrow={FAQ_INTRO.eyebrow} heading={FAQ_INTRO.heading} />
           <div className="border-t border-ui">
@@ -319,6 +366,56 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
           </div>
         </div>
       </section>
+
+      <ClosingCtaSection
+        fallback={{
+          eyebrow: CTA.eyebrow,
+          heading: CTA.heading,
+          headingAccent: CTA.headingAccent,
+          lead: CTA.body,
+          primaryLabel: CTA.primary,
+          primaryUrl: "#book",
+          secondaryLabel: CTA.secondary,
+          secondaryUrl: PHONE_HREF,
+        }}
+      />
     </div>
+  )
+}
+
+function PriceCard({
+  href,
+  title,
+  note,
+  price,
+  label,
+  featured = false,
+}: {
+  href: string
+  title: string
+  note: string
+  price?: string
+  label?: string
+  featured?: boolean
+}) {
+  return (
+    <a
+      href={href}
+      className={`ui-hover-card flex h-full flex-col rounded-card border bg-surface-raised p-6 shadow-card md:p-7 ${featured ? "border-brand" : "border-ui"}`}
+    >
+      <h3 className="text-card-title text-body">{title}</h3>
+      <p className="text-body-sm mt-2 text-muted">{note}</p>
+      <p className="mt-auto flex flex-wrap items-baseline gap-x-2 border-t border-dashed border-ui pt-5">
+        {price ? (
+          <>
+            <span className="text-caption text-muted">{OVERVIEW.from}</span>
+            <span className="text-section-h3 font-semibold text-body">{price}</span>
+          </>
+        ) : (
+          <span className="text-card-title font-semibold text-body">{label}</span>
+        )}
+      </p>
+      <span className="mt-4 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-brand">{OVERVIEW.view} →</span>
+    </a>
   )
 }

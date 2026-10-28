@@ -56,7 +56,7 @@ const LEGACY_HOSTS = new Set([
 // at this path first.
 const MARKDOWN_TWINS: Record<string, string> = {
   "/": "/index.md",
-  "/pricing": "/pricing.md",
+  "/licence-procurement": "/licence-procurement.md",
   "/about-us": "/about-us.md",
 }
 

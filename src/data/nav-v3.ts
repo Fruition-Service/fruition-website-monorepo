@@ -14,6 +14,10 @@
  * The one-line item descriptions were dropped on 26 Oct 2026 (Edward: they
  * added nothing, and Josh had asked for the descriptions to go on 16 Oct).
  *
+ * 28 Oct 2026 (Edward): HubSpot added under Atlassian, Implementation packages
+ * moved under Make, and the Partners "Pricing →" link points at
+ * /implementation-packages (the pricing page; /pricing redirects there).
+ *
  * Every href resolves to a page that exists. Consumed by:
  *  - scripts/seed-nav-v3.ts   → writes siteSettings.navigation (and the footer)
  *  - src/app/layout.tsx       → local preview when NAV_V3_PREVIEW=1
@@ -98,9 +102,9 @@ export const NAV_V3: NavV3Item[] = [
             icon: 'atlassian',
           },
           {
-            label: 'Implementation packages',
-            href: '/implementation-packages',
-            icon: 'package',
+            label: 'HubSpot',
+            href: '/partnerships/certified-hubspot-partner',
+            icon: 'hubspot',
           },
         ],
       },
@@ -117,13 +121,18 @@ export const NAV_V3: NavV3Item[] = [
             href: '/partnerships/make-partners',
             icon: 'make',
           },
+          {
+            label: 'Implementation packages',
+            href: '/implementation-packages',
+            icon: 'package',
+          },
         ],
       },
     ],
     footerNote: 'Platform-agnostic: we recommend the stack that fits your process, not the other way round.',
     footerLinks: [
       { label: 'All partners & integrations →', href: '/partnerships' },
-      { label: 'Licence procurement →', href: '/pricing' },
+      { label: 'Pricing →', href: '/implementation-packages' },
     ],
   },
   {

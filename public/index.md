@@ -43,7 +43,7 @@ Process before platform. We design how the business should run first, then confi
 - [HubSpot consulting](https://www.fruitionservices.io/hubspot-consulting)
 - [Integrations](https://www.fruitionservices.io/integrations)
 - [Industries](https://www.fruitionservices.io/industries)
-- [Software licence procurement](https://www.fruitionservices.io/pricing)
+- [Software licence procurement](https://www.fruitionservices.io/licence-procurement)
 - [Implementation packages](https://www.fruitionservices.io/implementation-packages)
 - [Customer testimonials](https://www.fruitionservices.io/customer-testimonials)
 - [Consulting blog](https://www.fruitionservices.io/consulting-blog)
