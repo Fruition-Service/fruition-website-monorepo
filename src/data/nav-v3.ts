@@ -14,9 +14,6 @@
  * The one-line item descriptions were dropped on 26 Oct 2026 (Edward: they
  * added nothing, and Josh had asked for the descriptions to go on 16 Oct).
  *
- * 28 Oct 2026 (Edward): "AI Use Cases" added as a sixth top-level tab, and the
- * hub listed under Customers below Case studies, so the hub is one click away.
- *
  * Every href resolves to a page that exists. Consumed by:
  *  - scripts/seed-nav-v3.ts   → writes siteSettings.navigation (and the footer)
  *  - src/app/layout.tsx       → local preview when NAV_V3_PREVIEW=1
@@ -208,11 +205,6 @@ export const NAV_V3: NavV3Item[] = [
             href: '/customer-testimonials#case-studies',
             icon: 'chart',
           },
-          {
-            label: 'AI use case hub',
-            href: '/ai-use-cases',
-            icon: 'list',
-          },
         ],
       },
       {
@@ -240,7 +232,6 @@ export const NAV_V3: NavV3Item[] = [
       href: '/customer-testimonials',
     },
   },
-  { label: 'AI Use Cases', href: '/ai-use-cases' },
   { label: 'Blog', href: '/consulting-blog' },
   { label: 'Contact', href: '/contact-us' },
 ]
