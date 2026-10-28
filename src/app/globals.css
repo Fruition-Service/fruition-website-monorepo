@@ -79,6 +79,7 @@
   --radius-badge: 8px;
   --radius-chip: 12px;
   --radius-card: 24px;
+  --radius-tile: 20px;
   --radius-pill: 9999px;
 
   /* Shadow scale */
@@ -143,8 +144,9 @@
   --color-emerald: var(--accent-green);
   --color-sky: var(--accent-blue);
 
-  /* Radius tokens → rounded-card, rounded-pill, rounded-badge, rounded-chip */
+  /* Radius tokens → rounded-card, rounded-tile, rounded-pill, rounded-badge, rounded-chip */
   --radius-card: var(--radius-card);
+  --radius-tile: var(--radius-tile);
   --radius-pill: var(--radius-pill);
   --radius-badge: var(--radius-badge);
   --radius-chip: var(--radius-chip);
