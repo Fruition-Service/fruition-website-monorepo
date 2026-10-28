@@ -16,6 +16,7 @@ import {
   Share2,
   Users,
   Wand2,
+  PencilLine,
 } from "lucide-react"
 
 import {
@@ -74,6 +75,7 @@ const MODULES: NavGroup[] = [
     label: "Content",
     create: { href: "/internal/blog/new", label: "New blog post" },
     items: [
+      { title: "Edit website", href: "/internal/edit", icon: PencilLine, match: "prefix" },
       { title: "Blog", href: "/internal/blog", icon: Newspaper, match: "prefix", badge: "drafts" },
       { title: "Social", href: "/internal/social", icon: Share2, match: "prefix", badge: "queued" },
       { title: "Implementation Calculator", href: "/internal/ask-fruit", icon: MessagesSquare, match: "prefix" },
