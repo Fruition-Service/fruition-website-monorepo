@@ -22,6 +22,27 @@ export default {
       of: [{ type: 'string' }],
     },
 
+    // Shared copy slots: top banner, audit banner, booking band and card.
+    // Slot list and defaults live in src/lib/siteCopy.ts.
+    {
+      name: 'copy',
+      title: 'Shared copy',
+      description:
+        'Text that appears on many pages: the top banner, the audit banner and the booking card. Easiest to edit on the page itself: open editing.fruitionservices.io and click the text. The slot list is managed in code (src/lib/siteCopy.ts); clearing a slot shows the built-in default.',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'copySlot',
+          fields: [
+            { name: 'label', title: 'Where it appears', type: 'string', readOnly: true },
+            { name: 'text', title: 'Text', type: 'text', rows: 3 },
+          ],
+          preview: { select: { title: 'label', subtitle: 'text' } },
+        },
+      ],
+    },
+
     // Reusable button labels
     { name: 'navbarCtaLabel', title: 'Navbar CTA Label', type: 'string' },
     { name: 'footerCtaLabel', title: 'Footer CTA Label', type: 'string' },

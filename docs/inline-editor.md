@@ -35,6 +35,10 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
   not outlined. The home page's copy was moved into 170 slots (`homePage.copy`, registry in
   `src/components/home/copy.ts`, defaults in code); after adding a slot, run
   `npx tsx scripts/seed-home-copy.ts --apply` so it exists in Sanity and becomes editable.
+  Shared parts work the same way: the top banner, the audit banner and the booking band and card
+  read 33 slots on `siteSettings.copy` (registry in `src/lib/siteCopy.ts`, client components read
+  them with `useSiteText()` from `SiteCopyProvider`); seed with `--site --apply`. The nav and
+  footer were already Sanity fields on `siteSettings`.
 - Text and images only: links, alt text, adding/removing/reordering blocks still happen in Studio.
 - An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
   untick the ones that should keep the old image. Old assets are not deleted.

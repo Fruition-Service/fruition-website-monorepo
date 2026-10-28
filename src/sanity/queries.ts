@@ -645,7 +645,8 @@ export const getSiteSettings = cache(async () => {
     footerCopyrightText,
     footerTagline,
     footerBadges,
-    footerColumns[]{ heading, links[]{ label, href } }
+    footerColumns[]{ heading, links[]{ label, href } },
+    "copy": copy[]{ _key, text }
   }`)
 })
 

@@ -5,6 +5,7 @@ import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { ChangeEvent, CSSProperties, ReactNode } from "react"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
+import { useSiteCopy } from "@/components/SiteCopyProvider"
 
 /**
  * Unified contact + booking section — dark brand band, big left copy, and a
@@ -541,6 +542,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
   calendlyUrl: string
   forceRegion?: BookingRegion
 }) {
+  const t = useSiteCopy()
   const [tz, setTz] = useState("Australia/Sydney")
   /**
    * The timezone we *detected*, kept apart from `tz` (which the visitor can
@@ -767,7 +769,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         {/* The region's own page on the shared account — the same desk the
             picker was about to offer. Only if the region never resolved do we
             fall through to the site-wide link. */}
-        <CtaLink href={regionBookingUrl || calendlyUrl}>Open the booking calendar</CtaLink>
+        <CtaLink href={regionBookingUrl || calendlyUrl}>{t("card-fallback-cta")}</CtaLink>
       </div>
     )
   }
@@ -776,7 +778,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
   if (rawSlots === null) {
     return (
       <div role="status" style={{ fontFamily: "var(--font-sans)", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 414, padding: 30, fontSize: 15, color: "var(--color-text-secondary)" }}>
-        Loading available times…
+        {t("card-loading")}
       </div>
     )
   }
@@ -797,7 +799,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               Last step — confirm {dayShort(dayKey)} at {fmtTime(slot.start, tz)}
             </span>
             <span style={{ fontFamily: "var(--font-sans)", fontSize: 12.5, color: "var(--color-text-secondary)" }}>
-              Your details are filled in already, just press Schedule.
+              {t("card-confirm-note")}
             </span>
           </div>
         </div>
@@ -855,13 +857,13 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <Field label="Name" name="name" placeholder="Alex Morgan" value={f.name || ""} onChange={onField} />
+          <Field label={t("card-field-name")} name="name" placeholder="Alex Morgan" value={f.name || ""} onChange={onField} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            <Field label="Work email" name="email" type="email" placeholder="you@company.com" value={f.email || ""} onChange={onField} error={emailError} />
-            <Field label="Company" name="company" placeholder="Acme Pty Ltd" value={f.company || ""} onChange={onField} />
+            <Field label={t("card-field-email")} name="email" type="email" placeholder="you@company.com" value={f.email || ""} onChange={onField} error={emailError} />
+            <Field label={t("card-field-company")} name="company" placeholder="Acme Pty Ltd" value={f.company || ""} onChange={onField} />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-            <span id="prepare-for" style={label}>What should we prepare for? (pick any)</span>
+            <span id="prepare-for" style={label}>{t("card-prepare")}</span>
             <div role="group" aria-labelledby="prepare-for" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {PLATFORMS.map(({ name, logo }) => (
                 <button
@@ -884,7 +886,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
           {/* The one thing that most changes how the call goes — asked up front,
               not buried behind a disclosure. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <label htmlFor="message" style={label}>Anything we should read first? (optional)</label>
+            <label htmlFor="message" style={label}>{t("card-message")}</label>
             <textarea
               id="message" name="message" rows={3} value={f.message || ""} onChange={onField}
               placeholder="We run sales in spreadsheets and quotes in email…"
@@ -942,10 +944,10 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
             </span>
           )}
           <Cta type="submit" disabled={!ready || sending}>
-            {sending ? "One moment…" : (missing ?? "Continue to confirm")}
+            {sending ? "One moment…" : (missing ?? t("card-continue"))}
           </Cta>
           <span style={{ fontSize: 12, color: "var(--color-text-secondary)", textAlign: "center" }}>
-            By booking you agree to our privacy policy. We never share your details.
+            {t("card-privacy")}
           </span>
         </div>
       </form>
@@ -963,11 +965,11 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               truncates instead of wrapping the timezone picker onto its own
               line. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
-            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>Discovery call · {duration} min</span>
+            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>{t("card-title")} · {duration} min</span>
             <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {activeRegion
                 ? `with a consultant in ${REGION_DESK[activeRegion].country}`
-                : "with a certified monday consultant"}
+                : t("card-desk-fallback")}
             </span>
           </div>
         </div>
@@ -1027,14 +1029,14 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
         {/* time column — scrolls vertically, never wraps sideways */}
         <div className="fr-booking-times" style={{ display: "flex", flexDirection: "column", gap: 9, paddingLeft: 20, borderLeft: "1px solid var(--border-ui)", minHeight: 230, maxHeight: 318 }}>
           <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-secondary)", flex: "none" }}>
-            {dayKey ? (() => { const dd = partsOf(dayKey); const dt = new Date(dd.y, dd.m - 1, dd.d); return `${DOW[(dt.getDay() + 6) % 7]} ${dd.d} ${MONTH_FULL[dd.m - 1]}` })() : "Pick a day"}
+            {dayKey ? (() => { const dd = partsOf(dayKey); const dt = new Date(dd.y, dd.m - 1, dd.d); return `${DOW[(dt.getDay() + 6) % 7]} ${dd.d} ${MONTH_FULL[dd.m - 1]}` })() : t("card-pick-day")}
           </span>
           <div style={{ display: "flex", flexDirection: "column", gap: 7, overflowY: "auto", paddingRight: 4, marginRight: -4 }}>
             {daySlots.map((s) => (
               <button key={s.start} type="button" onClick={() => setSlot(s)} style={pill(s.start === slot?.start, true)}>{fmtTime(s.start, tz)}</button>
             ))}
             {daySlots.length === 0 && (
-              <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Nothing open — try another day.</span>
+              <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>{t("card-no-slots")}</span>
             )}
           </div>
         </div>
@@ -1043,10 +1045,10 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <Cta disabled={slot == null} onClick={() => { if (slot != null) { setSubmitError(""); setStep(2) } }}>
-          {slot == null || !dayKey ? "Pick a time to continue" : `Continue · ${dayShort(dayKey)} at ${fmtTime(slot.start, tz)}`}
+          {slot == null || !dayKey ? t("card-pick-cta") : `Continue · ${dayShort(dayKey)} at ${fmtTime(slot.start, tz)}`}
         </Cta>
         <span style={{ fontSize: 12, color: "var(--color-text-secondary)", textAlign: "center" }}>
-          {"Live availability \u00b7 confirmed instantly"}
+          {t("card-live-note")}
         </span>
       </div>
     </div>
@@ -1055,12 +1057,12 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
 
 /* ---------- the section ---------- */
 export default function BookingSection({
-  eyebrow = "See it on your pipeline",
-  heading = "Watch your sales process run on monday CRM.",
-  sub = "Pick a time and we'll map your pipeline live on the call: your stages, your handoffs, your reporting. No slides.",
+  eyebrow,
+  heading,
+  sub,
   email = "contact@fruitionservices.io",
   offices,
-  proof = "Platinum monday.com partner · 900+ implementations",
+  proof,
   duration = 30,
   askTeamSize = true,
   calendlyUrl = FALLBACK_BOOKING_URL,
@@ -1071,6 +1073,8 @@ export default function BookingSection({
   // The office strap follows the CMS office list (see OfficeStrapProvider) so
   // adding or renaming an office is a single edit in Sanity.
   const officeStrapText = useOfficeStrap()
+  // Unset band copy reads the `booking-*` shared slots (src/lib/siteCopy.ts).
+  const t = useSiteCopy()
   return (
     <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 0", overflow: "hidden" }}>
       {/* brand glow motif */}
@@ -1083,12 +1087,12 @@ export default function BookingSection({
           back in one column with the card alongside. */}
       <div style={{ position: "relative", alignItems: "start" }} className="fr-booking-grid site-container">
         <div className="fr-booking-head">
-          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow}</span>
-          <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading}</Heading>
+          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow ?? t("booking-eyebrow")}</span>
+          <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading ?? t("booking-heading")}</Heading>
         </div>
 
         <div className="fr-booking-body">
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.78)", margin: 0, maxWidth: 460, textWrap: "pretty" }}>{sub}</p>
+          <p style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.78)", margin: 0, maxWidth: 460, textWrap: "pretty" }}>{sub ?? t("booking-sub")}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 38 }}>
             <a href={`mailto:${email}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", color: "#fff", fontSize: 15, fontWeight: 500 }}>
@@ -1108,7 +1112,7 @@ export default function BookingSection({
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#fdab3d" }} />
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#e2445c" }} />
             </span>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,.72)", letterSpacing: ".01em" }}>{proof}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,.72)", letterSpacing: ".01em" }}>{proof ?? t("booking-proof")}</span>
           </div>
         </div>
 

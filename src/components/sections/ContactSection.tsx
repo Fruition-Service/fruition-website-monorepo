@@ -5,6 +5,7 @@ import Link from "next/link"
 import BookingSection from "./BookingSection"
 import WorldMap, { type MapOffice } from "./WorldMap"
 import AuditCtaBanner from "./AuditCtaBanner"
+import { useSiteCopy } from "@/components/SiteCopyProvider"
 import LeadForm, { type LeadFormField } from "./LeadForm"
 
 export interface ContactOffice extends MapOffice {
@@ -45,6 +46,7 @@ export default function ContactSection({
   phone,
   phoneTel,
 }: ContactSectionProps) {
+  const t = useSiteCopy()
   return (
     <>
       <ContactHero
@@ -56,9 +58,9 @@ export default function ContactSection({
       />
 
       <BookingSection
-        eyebrow="Book a call"
-        heading="Tell us what you’re building"
-        sub="Pick a time and talk it through with a specialist, or email us and we’ll reply within one business day."
+        eyebrow={t("booking-contact-eyebrow")}
+        heading={t("booking-contact-heading")}
+        sub={t("booking-contact-sub")}
         email={salesEmail}
       />
 
