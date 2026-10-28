@@ -37,8 +37,8 @@ export default function ChannelSpecPanel({
   if (rows.length === 0) return null
 
   return (
-    <section className="bg-surface-dark px-4 py-14 md:py-20 lg:py-24">
-      <div className="mx-auto w-full max-w-[1100px]">
+    <section className="bg-surface-dark section-y">
+      <div className="site-container">
         {eyebrow && (
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-light mb-3">
             {eyebrow}

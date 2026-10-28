@@ -81,7 +81,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
 
   return (
     <footer className="bg-surface-dark text-white">
-      <div className="mx-auto max-w-[1348px] px-4 pt-14 pb-8 lg:pt-16">
+      <div className="site-container pt-14 pb-8 lg:pt-16">
         <div className="grid grid-cols-1 gap-y-2 md:grid-cols-3 md:gap-x-8 md:gap-y-10 lg:grid-cols-[1.5fr_repeat(5,minmax(0,1fr))]">
           {/* Brand */}
           <div className="pb-8 md:col-span-3 md:pb-0 lg:col-span-1">

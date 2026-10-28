@@ -59,9 +59,12 @@ describe("pageShellKey", () => {
 describe("shells still match the templates they mirror", () => {
   it("practice pages", () => {
     expect(source("src/components/PracticePageTemplate.tsx")).toContain(
-      "max-w-[1148px] mx-auto px-4",
+      '<div className="site-container',
     )
-    expect(PAGE_SHELLS.standard).toBe("max-w-[1148px] px-4")
+    expect(source("src/components/hubs/HubSections.tsx")).toContain(
+      '<div className="site-container',
+    )
+    expect(PAGE_SHELLS.standard).toBe("site-container")
   })
 
   it("region pages", () => {
@@ -73,9 +76,9 @@ describe("shells still match the templates they mirror", () => {
 
   it("banner heroes", () => {
     expect(source("src/components/sections/HeroBanner.tsx")).toContain(
-      "px-4 md:px-16 lg:px-24 max-w-[1588px]",
+      '<div className="site-container',
     )
-    expect(PAGE_SHELLS.banner).toBe("max-w-[1588px] px-4 md:px-16 lg:px-24")
+    expect(PAGE_SHELLS.banner).toBe("site-container")
   })
 
   it("Sanity-driven partnership pages", () => {

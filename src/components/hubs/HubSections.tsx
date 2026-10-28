@@ -29,33 +29,41 @@ export function HubHero({
   facts?: string[]
 }) {
   return (
-    <section className="border-b border-ui">
-      <div className="mx-auto max-w-[1148px] px-4 pt-10 pb-14 md:pb-20">
-        <span className="mb-5 inline-flex items-center rounded-full bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-          {eyebrow}
-        </span>
-        <h1 className="text-display max-w-[860px]">
-          {heading}
-          {accent && (
-            <>
-              {' '}
-              <span className="text-brand">{accent}</span>
-            </>
+    <section className="hero-band">
+      <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+        <div
+          className={`grid grid-cols-1 gap-8 lg:items-center ${
+            facts.length > 0 ? 'lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16' : ''
+          }`}
+        >
+          <div className="min-w-0">
+            <span className="mb-5 inline-flex items-center rounded-full bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+              {eyebrow}
+            </span>
+            <h1 className="text-display max-w-[860px]">
+              {heading}
+              {accent && (
+                <>
+                  {' '}
+                  <span className="text-brand">{accent}</span>
+                </>
+              )}
+            </h1>
+            <p className="mt-5 max-w-[64ch] text-body-lead text-muted">{lead}</p>
+          </div>
+          {facts.length > 0 && (
+            <ul className="flex flex-wrap gap-2 lg:flex-col lg:flex-nowrap lg:gap-0 lg:divide-y lg:divide-dashed lg:divide-ui lg:rounded-card lg:bg-surface-raised lg:px-6 lg:py-2 lg:shadow-whisper lg:ring-1 lg:ring-ui">
+              {facts.map((f) => (
+                <li
+                  key={f}
+                  className="rounded-full border border-ui bg-surface-raised px-3.5 py-1.5 text-[13px] font-semibold text-body lg:rounded-none lg:border-0 lg:bg-transparent lg:px-0 lg:py-3.5 lg:text-[15px]"
+                >
+                  {f}
+                </li>
+              ))}
+            </ul>
           )}
-        </h1>
-        <p className="mt-6 max-w-[760px] text-body-lead text-muted">{lead}</p>
-        {facts.length > 0 && (
-          <ul className="mt-7 flex flex-wrap gap-2">
-            {facts.map((f) => (
-              <li
-                key={f}
-                className="rounded-full border border-ui bg-surface-raised px-3.5 py-1.5 text-[13px] font-semibold text-body"
-              >
-                {f}
-              </li>
-            ))}
-          </ul>
-        )}
+        </div>
       </div>
     </section>
   )
@@ -78,11 +86,11 @@ export function HubSection({
 }) {
   return (
     <section id={id} className={`border-b border-ui ${subtle ? 'bg-surface-subtle' : ''}`}>
-      <div className="mx-auto max-w-[1148px] px-4 py-14 md:py-20">
+      <div className="site-container section-y">
         {eyebrow && <HubEyebrow>{eyebrow}</HubEyebrow>}
         <h2 className="text-section-h2">{heading}</h2>
-        {lede && <p className="mt-4 max-w-[760px] text-muted">{lede}</p>}
-        <div className="mt-10">{children}</div>
+        {lede && <p className="mt-4 max-w-[64ch] text-body-lead text-muted">{lede}</p>}
+        <div className="mt-8 md:mt-10">{children}</div>
       </div>
     </section>
   )
@@ -135,7 +143,7 @@ export function HubCardGrid({ cards, columns = 3 }: { cards: HubCard[]; columns?
               {c.badge}
             </span>
           )}
-          <p className="mt-3 text-sm leading-relaxed text-muted">{c.body}</p>
+          <p className="mt-3 text-body-sm text-muted">{c.body}</p>
           {c.links && c.links.length > 0 && (
             <ul className="mt-4 text-sm">
               {c.links.map((l) => (
@@ -194,7 +202,7 @@ export function HubPickPanel({
 }) {
   return (
     <section className="border-b border-ui">
-      <div className="mx-auto max-w-[1148px] px-4 py-14 md:py-20">
+      <div className="site-container section-y">
         <div className="grid gap-6 rounded-card bg-surface-dark p-8 text-white md:p-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
             <h2 className="text-card-title text-white">{heading}</h2>

@@ -32,7 +32,7 @@ export default function IndustryTabsSection({
 
   return (
     <section className="py-[80px] bg-[linear-gradient(135deg,var(--dark-bg)_0%,var(--dark-bg-secondary)_100%)]">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         {heading && (
           <h2 className="text-section-h2 text-center text-white mb-10">
             {heading}

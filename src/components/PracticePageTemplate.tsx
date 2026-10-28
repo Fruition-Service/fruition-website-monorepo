@@ -79,19 +79,48 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
     // <div>, not <main> — SiteFrame already wraps marketing pages in <main>
     <div className="bg-surface text-body">
 
-      {/* Hero */}
-      <section className="border-b border-ui">
+      {/* Hero: condensed copy and CTAs left; on desktop the practice's
+          services run down the right as a plain list, so the first screen
+          says what Fruition does here before any scrolling. */}
+      <section className="hero-band">
         {/* Breadcrumb trail renders site-wide via SiteFrame > Breadcrumbs */}
-        <div className="max-w-[1148px] mx-auto px-4 pt-10 pb-16 md:pb-20">
-          <span className="inline-flex items-center rounded-full bg-brand-soft text-brand font-mono text-xs font-semibold uppercase tracking-[0.14em] px-3 py-1 mb-5">
-            {page.eyebrow}
-          </span>
-          <h1 className="text-display max-w-[820px]">
-            {page.heading}
-            <span className="text-brand">.</span>
-          </h1>
-          <p className="mt-6 text-body-lead text-muted max-w-[680px]">{page.lead}</p>
-          <CtaButtons label={page.primaryCtaLabel} />
+        <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-10 lg:gap-16 lg:items-center">
+            <div className="min-w-0">
+              <span className="inline-flex items-center rounded-full bg-brand-soft text-brand font-mono text-xs font-semibold uppercase tracking-[0.14em] px-3 py-1 mb-5">
+                {page.eyebrow}
+              </span>
+              <h1 className="text-display">
+                {page.heading}
+                <span className="text-brand">.</span>
+              </h1>
+              <p className="mt-5 text-body-lead text-muted max-w-[60ch]">{page.lead}</p>
+              <CtaButtons label={page.primaryCtaLabel} />
+            </div>
+            {page.services.length > 0 && (
+              <nav
+                aria-label={page.servicesEyebrow ?? 'Services'}
+                className="hidden lg:block rounded-card ring-1 ring-ui bg-surface-raised shadow-whisper p-6"
+              >
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-2">
+                  {page.servicesEyebrow ?? 'Services'}
+                </p>
+                <ul className="divide-y divide-dashed divide-ui">
+                  {page.services.map((s) => (
+                    <li key={s.title}>
+                      <Link
+                        href={s.href ?? '#services'}
+                        className="flex min-h-11 items-center justify-between gap-4 py-2.5 text-[15px] font-medium text-body hover:text-brand transition-colors"
+                      >
+                        {s.title}
+                        <span aria-hidden className="text-brand">&rarr;</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
         </div>
       </section>
 
@@ -99,9 +128,9 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
 
       {/* Approach */}
       <section className="border-b border-ui">
-        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+        <div className="site-container section-y">
           <Eyebrow>{page.approachEyebrow ?? 'Our approach'}</Eyebrow>
-          <h2 className="text-section-h2 mb-10">{page.approachHeading}</h2>
+          <h2 className="text-section-h2 mb-8 md:mb-10">{page.approachHeading}</h2>
           {/* Four steps read as a 2x2 on tablet and one row on desktop;
               everything else keeps the three-column grid. */}
           <div
@@ -114,8 +143,8 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
                 <div className="font-mono text-xs font-semibold text-brand mb-3">
                   {String(i + 1).padStart(2, '0')}
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{a.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{a.body}</p>
+                <h3 className="text-card-title mb-2">{a.title}</h3>
+                <p className="text-body-sm text-muted">{a.body}</p>
               </div>
             ))}
           </div>
@@ -123,10 +152,10 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
       </section>
 
       {/* Services */}
-      <section className="border-b border-ui bg-surface-subtle">
-        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+      <section id="services" className="border-b border-ui bg-surface-subtle scroll-mt-24">
+        <div className="site-container section-y">
           <Eyebrow>{page.servicesEyebrow ?? 'Services'}</Eyebrow>
-          <h2 className="text-section-h2 mb-10">{page.servicesHeading}</h2>
+          <h2 className="text-section-h2 mb-8 md:mb-10">{page.servicesHeading}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {page.services.map((s) =>
               s.href ? (
@@ -136,17 +165,17 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
                   className="group rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 flex items-start justify-between gap-4 hover:ring-brand transition-colors"
                 >
                   <div>
-                    <h3 className="text-lg font-semibold mb-2 group-hover:text-brand transition-colors">
+                    <h3 className="text-card-title mb-2 group-hover:text-brand transition-colors">
                       {s.title}
                     </h3>
-                    <p className="text-sm text-muted leading-relaxed">{s.body}</p>
+                    <p className="text-body-sm text-muted">{s.body}</p>
                   </div>
                   <span aria-hidden className="text-brand text-xl shrink-0 mt-0.5">→</span>
                 </Link>
               ) : (
                 <div key={s.title} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
-                  <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{s.body}</p>
+                  <h3 className="text-card-title mb-2">{s.title}</h3>
+                  <p className="text-body-sm text-muted">{s.body}</p>
                 </div>
               ),
             )}
@@ -157,9 +186,9 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
       {/* Child pages */}
       {page.children && page.children.length > 0 && (
         <section className="border-b border-ui">
-          <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+          <div className="site-container section-y">
             <Eyebrow>{page.childrenEyebrow ?? 'Explore'}</Eyebrow>
-            <h2 className="text-section-h2 mb-10">
+            <h2 className="text-section-h2 mb-8 md:mb-10">
               {page.childrenHeading ?? 'Go deeper.'}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -170,11 +199,11 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
                   className="group rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6 flex items-start justify-between gap-4 hover:ring-brand transition-colors"
                 >
                   <div>
-                    <h3 className="text-lg font-semibold mb-1 group-hover:text-brand transition-colors">
+                    <h3 className="text-card-title mb-1 group-hover:text-brand transition-colors">
                       {c.label}
                     </h3>
                     {c.description && (
-                      <p className="text-sm text-muted leading-relaxed">{c.description}</p>
+                      <p className="text-body-sm text-muted">{c.description}</p>
                     )}
                   </div>
                   <span aria-hidden className="text-brand text-xl shrink-0 mt-0.5">→</span>
@@ -190,20 +219,20 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
 
       {/* Geographic coverage */}
       <section className="border-b border-ui">
-        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+        <div className="site-container section-y">
           <Eyebrow>Geographic coverage</Eyebrow>
-          <h2 className="text-section-h2 mb-10">
+          <h2 className="text-section-h2 mb-8 md:mb-10">
             Delivered locally across three regions.
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {GEO_REGIONS.map((g) => (
               <div key={g.region} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
                 <div className="text-2xl mb-3" aria-hidden>{g.flag}</div>
-                <h3 className="text-lg font-semibold">{g.region}</h3>
+                <h3 className="text-card-title">{g.region}</h3>
                 <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mt-1 mb-3">
                   {g.cities}
                 </p>
-                <p className="text-sm text-muted leading-relaxed">{g.body}</p>
+                <p className="text-body-sm text-muted">{g.body}</p>
               </div>
             ))}
           </div>
@@ -212,7 +241,7 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
 
       {/* Practice leader */}
       <section className="border-b border-ui bg-surface-subtle">
-        <div className="max-w-[1148px] mx-auto px-4 py-14 md:py-24">
+        <div className="site-container section-y">
           <Eyebrow>Who leads it</Eyebrow>
           <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 items-start">
             <div>
@@ -223,7 +252,7 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
                 {PRACTICE_LEADER.name}
                 <span className="text-muted font-normal"> · {PRACTICE_LEADER.title}</span>
               </p>
-              <p className="mt-3 text-sm text-muted leading-relaxed">{PRACTICE_LEADER.bio}</p>
+              <p className="mt-3 text-body-sm text-muted">{PRACTICE_LEADER.bio}</p>
               <p className="mt-4 text-base font-medium text-body">{PRACTICE_LEADER.pull}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {PRACTICE_LEADER.badges.map((b) => (

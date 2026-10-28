@@ -26,8 +26,8 @@ export default function ServicesWorkflowTabs({ heading, tabs }: ServicesWorkflow
   const active = tabs[activeIndex]
 
   return (
-    <section className="bg-surface py-20">
-      <div className="mx-auto px-4 max-w-[1200px]">
+    <section className="bg-surface section-y">
+      <div className="site-container">
         {heading && (
           <h2 className="text-section-h2 text-center mb-8">
             {heading}

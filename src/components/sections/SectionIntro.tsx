@@ -19,7 +19,7 @@ export default function SectionIntro({
   heading,
   headingAccent,
   lead,
-  align = "center",
+  align = "left",
 }: SectionIntroProps) {
   if (!eyebrow && !heading && !headingAccent && !lead) return null
   const centered = align === "center"

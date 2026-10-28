@@ -172,7 +172,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
 
   return (
     <nav ref={navRef} aria-label="Primary" className="bg-surface sticky top-0 z-50 shadow-sm">
-      <div className="mx-auto max-w-[1348px] px-4 w-full">
+      <div className="site-container">
         <div className="flex justify-between items-center gap-4 h-[85px]">
           {/* Logo — black on light, white in dark mode (prefers-color-scheme) */}
           <Link href="/" className="shrink-0" aria-label="Fruition home">
@@ -392,7 +392,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
             onMouseLeave={scheduleClose}
             className={`${open ? 'hidden lg:block' : 'hidden'} absolute left-0 right-0 top-full border-t border-ui bg-surface-raised shadow-lg z-50`}
           >
-            <div className="max-w-[1348px] mx-auto px-4 pt-8 pb-6">
+            <div className="site-container pt-8 pb-6">
               <div className={columnsLayout ? 'flex flex-row items-stretch gap-8' : 'flex flex-col gap-6'}>
                 {item.sections?.map((section, sIdx) => {
                   const cols = section.columns ?? (columnsLayout ? 1 : 3)

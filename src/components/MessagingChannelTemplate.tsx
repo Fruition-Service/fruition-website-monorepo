@@ -91,8 +91,8 @@ export default async function MessagingChannelTemplate({ page }: { page: Channel
       />
 
       {/* Where the channel actually is — the reason this page exists per market. */}
-      <section className="bg-surface-subtle px-4 py-14 md:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-[1100px]">
+      <section className="bg-surface-subtle section-y">
+        <div className="site-container">
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
             {page.reachEyebrow}
           </p>

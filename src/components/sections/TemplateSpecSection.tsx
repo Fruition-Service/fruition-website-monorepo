@@ -53,11 +53,11 @@ export default function TemplateSpecSection({
 
   return (
     <section
-      className={`px-4 py-14 md:py-20 lg:py-24 ${
+      className={`section-y ${
         theme === "tint" ? "bg-surface-subtle" : "bg-surface"
       }`}
     >
-      <div className="mx-auto w-full max-w-[1200px]">
+      <div className="site-container">
         <SectionIntro
           eyebrow={eyebrow}
           heading={heading}

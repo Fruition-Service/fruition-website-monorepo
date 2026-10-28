@@ -34,7 +34,7 @@ export default function PartnerEcosystemSection({
 
   return (
     <section className="bg-surface py-[80px]">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         {eyebrow && (
           <div className="text-center font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
             {eyebrow}

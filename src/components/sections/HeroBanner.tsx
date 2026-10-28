@@ -22,6 +22,7 @@ interface HeroBannerProps {
   /** Override for the hero image height in px (used with heroImageContain to control vertical space). */
   heroImageMaxHeight?: number
   heroVideoSrc?: string
+  /** Accepted for older call sites; the hero does not draw it. */
   certificationBadge?: SanityImageRef
   partnerBadges?: PartnerBadge[]
   /** When set, hides individual partner badges and shows this image below the hero media instead. */
@@ -32,7 +33,11 @@ interface HeroBannerProps {
   primaryCtaIcon?: ReactNode
   secondaryCtaLabel?: string
   secondaryCtaUrl?: string
-  /** When true, render text on the left and the hero image on the right (single row). */
+  /**
+   * Forces the side-by-side layout (copy left, media right) whatever the
+   * media's shape. Without it the hero still goes side by side on desktop,
+   * except for very wide banner media, which runs full width under the copy.
+   */
   splitLayout?: boolean
   /** When true, suppress the partner-badges row at the top of the hero. */
   hidePartnerBadges?: boolean
@@ -47,6 +52,27 @@ function heroImgFromRef(ref: SanityImageRef): string | null {
   if (!ref?.asset?._ref) return null
   try { return urlFor(ref).width(2084).auto("format").url() } catch { return null }
 }
+
+/**
+ * Width / height of the hero media, when it can be known without loading it:
+ * Sanity asset refs carry their dimensions (`image-<id>-1249x500-png`), as do
+ * most CDN file names. Unknown media (local files, video) returns null.
+ */
+export function mediaAspect(ref: SanityImageRef, url?: string | null): number | null {
+  const source = url || ref?.asset?._ref || ""
+  const m = source.match(/-(\d{2,5})x(\d{2,5})(?:[-.]|$)/)
+  if (!m) return null
+  const w = Number(m[1])
+  const h = Number(m[2])
+  return w > 0 && h > 0 ? w / h : null
+}
+
+/**
+ * Media at least this wide (3:1 and up, e.g. the 1042x312 product strips) reads
+ * as a banner: squeezed into half a row it would be a thin sliver, so it runs
+ * full width under the copy instead.
+ */
+const BANNER_ASPECT = 3
 
 /** Override specific partner badges with local dark variants */
 const DARK_LOGO_OVERRIDES: Record<string, string> = {
@@ -74,7 +100,6 @@ export default function HeroBanner({
   heroImageContain = false,
   heroImageMaxHeight,
   heroVideoSrc,
-  certificationBadge,
   partnerBadges = [],
   partnerImageSrc,
   primaryCtaLabel,
@@ -86,227 +111,192 @@ export default function HeroBanner({
   hidePartnerBadges = false,
 }: HeroBannerProps) {
   const heroImageSrc = heroImageUrl || heroImgFromRef(heroImage)
-  const certBadgeSrc = safeImageUrl(certificationBadge)
   const partnerImageUrl = typeof partnerImageSrc === "string"
     ? partnerImageSrc
     : safeImageUrl(partnerImageSrc as SanityImageRef)
   const showPartnerBadges = !hidePartnerBadges && !partnerImageUrl && partnerBadges.length > 0
 
-  if (splitLayout) {
+  const hasMedia = Boolean(heroVideoSrc || heroImageSrc)
+  // Video has no readable size; it used to render in the 1042x312 banner frame.
+  const aspect = heroVideoSrc ? null : mediaAspect(heroImage, heroImageUrl)
+  const banner = hasMedia && !splitLayout && (aspect === null || aspect >= BANNER_ASPECT)
+  const sideBySide = hasMedia && !banner
+  // Landscape media (wider than 8:5) gets the larger share of the row.
+  const wideMedia = aspect !== null && aspect >= 1.6
+
+  const badges = showPartnerBadges && (
+    <div className="flex items-center flex-wrap gap-3 md:gap-4 mb-6">
+      {partnerBadges.map((badge, i) => {
+        const cmsSrc = safeImageUrl(badge.image)
+        const src = getDarkBadgeSrc(badge.name, cmsSrc)
+        if (!src) return null
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={badge._key || `badge-${i}`}
+            src={src}
+            alt={badge.name || "Partner badge"}
+            width={120}
+            height={44}
+            className="h-9 md:h-[44px] w-auto rounded-[5px]"
+          />
+        )
+      })}
+    </div>
+  )
+
+  const copy = (
+    <>
+      {badges}
+      {eyebrow && (
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-4">
+          {eyebrow}
+        </p>
+      )}
+      <h1 className="text-display">
+        <span className="text-body">{headingPart1}</span>
+        {headingAccent && (
+          <span className={accentBlock ? "text-brand block" : "text-brand"}>
+            {headingAccent}
+          </span>
+        )}
+        {headingPart2 && <span className="text-body">{headingPart2}</span>}
+      </h1>
+      {subheading && (
+        <p className="text-body-lead text-muted mt-5 max-w-[60ch] whitespace-pre-line">
+          {subheading}
+        </p>
+      )}
+    </>
+  )
+
+  const partnerLockup = partnerImageUrl && (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={partnerImageUrl}
+      alt="monday.com partner certifications"
+      className="w-full max-w-[420px] h-auto"
+    />
+  )
+
+  // Stacked on desktop (`stacked`), beside each other on a tablet (the row is
+  // wide enough there and the media sits underneath anyway), full width on a
+  // phone. A hero with no media keeps them in a row on desktop too.
+  const hasCtas = Boolean((primaryCtaLabel && primaryCtaUrl) || (secondaryCtaLabel && secondaryCtaUrl))
+  const renderCtas = (stacked: boolean) => {
+    if (!hasCtas) return null
+    const button = stacked ? "w-full md:w-auto lg:w-full" : "w-full md:w-auto"
     return (
-      <section className="bg-surface">
-        <div
-          className="mx-auto px-4 md:px-16 lg:px-24 max-w-[1588px] w-full py-20"
-        >
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-            {/* Left: text */}
-            <div className="flex-1 flex flex-col items-start text-left max-w-[640px] w-full">
-              {showPartnerBadges && (
-                <div className="flex items-center flex-wrap gap-[22px] mb-8">
-                  {partnerBadges.map((badge, i) => {
-                    const cmsSrc = safeImageUrl(badge.image)
-                    const src = getDarkBadgeSrc(badge.name, cmsSrc)
-                    if (!src) return null
-                    return (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        key={badge._key || `badge-${i}`}
-                        src={src}
-                        alt={badge.name || "Partner badge"}
-                        width={120}
-                        height={44}
-                        className="h-[44px] w-auto rounded-[5px]"
-                      />
-                    )
-                  })}
+      <div
+        className={`flex flex-col md:flex-row items-stretch w-full md:w-auto gap-3 ${
+          stacked ? "lg:flex-col lg:w-full lg:max-w-[340px]" : ""
+        }`}
+      >
+        {primaryCtaLabel && primaryCtaUrl && (
+          <CtaButton
+            href={primaryCtaUrl}
+            label={primaryCtaLabel}
+            icon={primaryCtaIcon}
+            variant={secondaryCtaLabel ? "outline" : "primary"}
+            className={button}
+          />
+        )}
+        {secondaryCtaLabel && secondaryCtaUrl && (
+          <CtaButton
+            href={secondaryCtaUrl}
+            label={secondaryCtaLabel}
+            variant="primary"
+            className={button}
+          />
+        )}
+      </div>
+    )
+  }
+
+  const media = heroVideoSrc ? (
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className={`rounded-card object-contain bg-surface w-full h-auto ${banner ? "aspect-[1042/312]" : ""}`}
+    >
+      <source src={heroVideoSrc} type="video/mp4" />
+    </video>
+  ) : heroImageSrc ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={heroImageSrc}
+      alt="Hero"
+      fetchPriority="high"
+      className={`rounded-card bg-surface w-full h-auto object-contain ${sideBySide ? "max-h-[520px]" : ""}`}
+      style={heroImageContain && heroImageMaxHeight ? { maxHeight: heroImageMaxHeight } : undefined}
+    />
+  ) : null
+
+  // Side by side: condensed copy and stacked CTAs left, the visual right.
+  if (sideBySide) {
+    return (
+      <section className="hero-band">
+        <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+          <div className={`grid grid-cols-1 items-center gap-10 lg:gap-14 ${wideMedia ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"}`}>
+            <div className="flex flex-col items-start min-w-0">
+              {copy}
+              {(hasCtas || partnerLockup) && (
+                <div className="flex flex-col items-start gap-6 mt-8 w-full">
+                  {renderCtas(true)}
+                  {partnerLockup}
                 </div>
               )}
-              {eyebrow && (
-                <div className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-4">
-                  {eyebrow}
-                </div>
-              )}
-              <h1 className="text-display mt-0">
-                <span className="text-body">{headingPart1}</span>
-                {headingAccent && (
-                  <span className={accentBlock ? "text-brand block" : "text-brand"}>
-                    {headingAccent}
-                  </span>
-                )}
-                {headingPart2 && <span className="text-body">{headingPart2}</span>}
-              </h1>
-              {subheading && (
-                <p className="text-body-lead text-muted mt-6 whitespace-pre-line">
-                  {subheading}
-                </p>
-              )}
-              <div className="flex flex-col items-stretch w-full max-w-[330px] gap-4 mt-8">
-                {primaryCtaLabel && primaryCtaUrl && (
-                  <CtaButton
-                    href={primaryCtaUrl}
-                    label={primaryCtaLabel}
-                    icon={primaryCtaIcon}
-                    variant={secondaryCtaLabel ? "outline" : "primary"}
-                    className="w-full"
-                  />
-                )}
-                {secondaryCtaLabel && secondaryCtaUrl && (
-                  <CtaButton
-                    href={secondaryCtaUrl}
-                    label={secondaryCtaLabel}
-                    variant="primary"
-                    className="w-full"
-                  />
-                )}
-              </div>
             </div>
-            {/* Right: image */}
-            <div className="flex-1 w-full flex justify-center lg:justify-end">
-              {heroVideoSrc ? (
-                <FramedMedia className="w-full max-w-[560px]">
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="rounded-card object-contain bg-surface w-full h-auto"
-                  >
-                    <source src={heroVideoSrc} type="video/mp4" />
-                  </video>
-                </FramedMedia>
-              ) : heroImageSrc ? (
-                <FramedMedia className="w-full max-w-[560px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={heroImageSrc}
-                    alt="Hero"
-                    className="rounded-card bg-surface w-full h-auto object-contain"
-                  />
-                </FramedMedia>
-              ) : null}
-            </div>
+            <FramedMedia className="w-full min-w-0 flex justify-center lg:justify-end">
+              {media}
+            </FramedMedia>
           </div>
         </div>
       </section>
     )
   }
 
+  // No media: one left-aligned column, CTAs in a row under the copy.
+  if (!hasMedia) {
+    return (
+      <section className="hero-band">
+        <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+          <div className="flex flex-col items-start max-w-[860px]">
+            {copy}
+            {(hasCtas || partnerLockup) && (
+              <div className="flex flex-col items-start gap-6 mt-8 w-full">
+                {renderCtas(false)}
+                {partnerLockup}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Banner: copy left with the CTAs stacked beside it, then the wide visual
+  // across the container.
   return (
-    <section className="bg-surface">
-      <div
-        className="mx-auto flex flex-col items-center px-4 md:px-16 lg:px-24 max-w-[1588px] w-full py-20"
-      >
-        {/* Partner badges — hidden when a single partnerImageUrl is used or hidePartnerBadges flag is set */}
-        {showPartnerBadges && (
-          <div className="flex flex-wrap items-center justify-center gap-[22px]">
-            {partnerBadges.map((badge, i) => {
-              const cmsSrc = safeImageUrl(badge.image)
-              const src = getDarkBadgeSrc(badge.name, cmsSrc)
-              if (!src) return null
-              return (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={badge._key || `badge-${i}`}
-                  src={src}
-                  alt={badge.name || "Partner badge"}
-                  width={120}
-                  height={44}
-                  className="h-[44px] w-auto rounded-[5px]"
-                />
-              )
-            })}
-          </div>
-        )}
-
-        {/* Eyebrow */}
-        {eyebrow && (
-          <div
-            className={`font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand ${showPartnerBadges ? "mt-8" : "mt-0"}`}
-          >
-            {eyebrow}
-          </div>
-        )}
-
-        {/* Heading */}
-        <h1
-          className={`text-display text-center max-w-[924px] ${eyebrow ? "mt-4" : "mt-[42px]"}`}
-        >
-          <span className="text-body">{headingPart1}</span>
-          {headingAccent && (
-            <span className={accentBlock ? "text-brand block" : "text-brand"}>
-              {headingAccent}
-            </span>
-          )}
-          {headingPart2 && <span className="text-body">{headingPart2}</span>}
-        </h1>
-
-        {/* Subheading */}
-        {subheading && (
-          <p className="text-body-lead text-center text-muted mt-[31px] max-w-[859px] whitespace-pre-line">
-            {subheading}
-          </p>
-        )}
-
-        {/* Partner image — shown below hero text when partnerImageUrl is resolved */}
-        {partnerImageUrl && (
-          <div className="mt-10">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={partnerImageUrl}
-              alt="monday.com partner certifications"
-              className="w-full max-w-[700px] h-auto"
-            />
-          </div>
-        )}
-
-        {/* CTA buttons */}
-        <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[680px] gap-5 mt-10">
-          {primaryCtaLabel && primaryCtaUrl && (
-            <CtaButton
-              href={primaryCtaUrl}
-              label={primaryCtaLabel}
-              icon={primaryCtaIcon}
-              variant={secondaryCtaLabel ? "outline" : "primary"}
-              className="w-full md:flex-1 md:max-w-[330px]"
-            />
-          )}
-          {secondaryCtaLabel && secondaryCtaUrl && (
-            <CtaButton
-              href={secondaryCtaUrl}
-              label={secondaryCtaLabel}
-              variant="primary"
-              className="w-full md:flex-1 md:max-w-[330px]"
-            />
+    <section className="hero-band">
+      <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-end gap-8 lg:gap-14">
+          <div className="flex flex-col items-start min-w-0">{copy}</div>
+          {(hasCtas || partnerLockup) && (
+            <div className="flex flex-col items-start lg:items-stretch gap-6 min-w-0">
+              {partnerLockup}
+              {renderCtas(true)}
+            </div>
           )}
         </div>
-
-        {/* Hero media — video takes precedence over image */}
-        {heroVideoSrc ? (
-          <FramedMedia className="w-full max-w-[1042px] mt-10">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="rounded-card object-contain bg-surface w-full h-auto aspect-[1042/312]"
-            >
-              <source src={heroVideoSrc} type="video/mp4" />
-            </video>
+        {media && (
+          <FramedMedia className="w-full mt-10 lg:mt-12">
+            {media}
           </FramedMedia>
-        ) : heroImageSrc ? (
-          <FramedMedia className="w-full max-w-[1042px] mt-10">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={heroImageSrc}
-              alt="Hero"
-              className={`rounded-card bg-surface w-full h-auto object-contain ${heroImageContain ? "" : "aspect-[1042/312]"}`}
-              style={heroImageContain ? { maxHeight: heroImageMaxHeight ?? 520 } : undefined}
-            />
-          </FramedMedia>
-        ) : null}
-
+        )}
       </div>
     </section>
   )

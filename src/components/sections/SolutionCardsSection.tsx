@@ -32,9 +32,9 @@ export default function SolutionCardsSection({
   if (cards.length === 0) return null
 
   return (
-    <section className="bg-surface py-20">
-      <div className="mx-auto px-4 max-w-[1200px]">
-        <div className="flex flex-col gap-[60px]">
+    <section className="bg-surface section-y">
+      <div className="site-container">
+        <div className="flex flex-col gap-14 lg:gap-20">
           {cards.map((card, i) => {
             const imageSrc = card.imageSrc || safeImageUrl(card.image)
             const isEven = i % 2 === 0
@@ -57,7 +57,7 @@ export default function SolutionCardsSection({
                     </h3>
                   )}
                   {card.body && (
-                    <p className="text-base leading-[1.6] mt-5 whitespace-pre-line">
+                    <p className="text-body text-muted mt-4 max-w-[60ch] whitespace-pre-line">
                       {card.body}
                     </p>
                   )}

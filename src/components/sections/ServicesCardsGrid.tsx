@@ -31,8 +31,8 @@ export default function ServicesCardsGrid({
   const isDark = theme === "dark"
 
   return (
-    <section className={`py-20 ${isDark ? "bg-surface-dark-2" : "bg-surface-subtle"}`}>
-      <div className="mx-auto px-4 max-w-[1200px]">
+    <section className={`section-y ${isDark ? "bg-surface-dark-2" : "bg-surface-subtle"}`}>
+      <div className="site-container">
         {(heading || headingAccent) && (
           <h2
             className={`text-section-h2 text-center ${isDark ? "text-white" : ""} ${
