@@ -10,6 +10,8 @@ const auditRedirects: Redirect[] = [
   // ── Consolidations (July 2026 traffic audit) ──
   // Case-study hub folded into the ranked client-stories library.
   { source: "/case-studies", destination: "/customer-testimonials#case-studies", permanent: true },
+  // Legacy Wix/editor path still stored in Sanity (makePartnersPage) that 404s.
+  { source: "/about/case-studies", destination: "/customer-testimonials#case-studies", permanent: true },
   // Duplicate Aircall / Make pages → their canonical partner pages.
   { source: "/integrations/aircall", destination: "/partnerships/aircall-partner", permanent: true },
   { source: "/monday-consulting-solutions/aircall", destination: "/partnerships/aircall-partner", permanent: true },

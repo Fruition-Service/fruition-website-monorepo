@@ -104,7 +104,7 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
   const gridKey = `${industry}|${solution}`
 
   return (
-    <section id="case-studies" className="bg-surface py-24">
+    <section id="case-studies" className="scroll-mt-24 bg-surface py-24">
       <div className="site-container">
         {(heading || subheading) && (
           <div className="mb-10 max-w-[760px]">
