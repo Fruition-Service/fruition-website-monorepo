@@ -42,5 +42,23 @@ export default defineType({
         defineArrayMember({ type: 'teamsTransformedBlock' }),
       ],
     }),
+    defineField({
+      name: 'copy',
+      title: 'Page copy',
+      description:
+        'Every piece of text on the home page, one slot each. Easiest to edit on the page itself: open editing.fruitionservices.io and click the text. The slot list is managed in code (src/components/home/copy.ts); clearing a slot shows the built-in default.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'copySlot',
+          fields: [
+            defineField({ name: 'label', title: 'Where it appears', type: 'string', readOnly: true }),
+            defineField({ name: 'text', title: 'Text', type: 'text', rows: 3 }),
+          ],
+          preview: { select: { title: 'label', subtitle: 'text' } },
+        }),
+      ],
+    }),
   ],
 })

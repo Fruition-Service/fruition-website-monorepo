@@ -3,13 +3,14 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { INDUSTRIES } from "./data"
+import { homeText, type HomeCopy } from "./copy"
 
-const TOTAL_CHIPS = INDUSTRIES.reduce((sum, card) => sum + card.chips.length, 0)
+const TOTAL_CHIPS = INDUSTRIES.reduce((sum, card) => sum + card.chipSlots.length, 0)
 const STEP_MS = 1100
 
 /** Index of the first chip belonging to each card. */
 const CHIP_OFFSETS = INDUSTRIES.reduce<number[]>((acc, card, i) => {
-  acc.push(i === 0 ? 0 : acc[i - 1] + INDUSTRIES[i - 1].chips.length)
+  acc.push(i === 0 ? 0 : acc[i - 1] + INDUSTRIES[i - 1].chipSlots.length)
   return acc
 }, [])
 
@@ -22,7 +23,7 @@ const CHIP_OFFSETS = INDUSTRIES.reduce<number[]>((acc, card, i) => {
  * The connector graphic only renders at `lg`, where the four columns line up
  * with the stems; below that the cards stack and the hub is dropped.
  */
-export default function IndustriesHub() {
+export default function IndustriesHub({ copy }: { copy: HomeCopy }) {
   const [step, setStep] = useState(0)
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function IndustriesHub() {
   }, [])
 
   const activeCard = INDUSTRIES.findIndex(
-    (card, i) => step >= CHIP_OFFSETS[i] && step < CHIP_OFFSETS[i] + card.chips.length
+    (card, i) => step >= CHIP_OFFSETS[i] && step < CHIP_OFFSETS[i] + card.chipSlots.length
   )
   const activeX = 12.5 + 25 * Math.max(0, activeCard)
 
@@ -49,11 +50,11 @@ export default function IndustriesHub() {
       <div className="relative mx-auto max-w-[1348px] px-5 py-16 md:px-8 md:py-20 lg:pt-24 lg:pb-18">
         <div className="max-w-[760px]">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-amber">
-            Industries we focus on
+            {homeText(copy, "industries-eyebrow")}
           </p>
-          <h2 className="text-section-h2 mt-4 text-white">Four industries. One method.</h2>
+          <h2 className="text-section-h2 mt-4 text-white">{homeText(copy, "industries-heading")}</h2>
           <p className="text-body mt-4 text-white/65 lg:text-[17px]">
-            We work deep in a small set of industries — so your processes aren&apos;t new to us.
+            {homeText(copy, "industries-lead")}
           </p>
         </div>
 
@@ -80,15 +81,15 @@ export default function IndustriesHub() {
                   >
                     {card.num}
                   </span>
-                  <span className="text-[15px] font-semibold break-words text-white md:text-xl">{card.title}</span>
+                  <span className="text-[15px] font-semibold break-words text-white md:text-xl">{homeText(copy, card.titleSlot)}</span>
                 </div>
-                <p className="mt-3 text-[13px] text-white/60 md:mt-3.5 md:text-[13.5px]">{card.tagline}</p>
+                <p className="mt-3 text-[13px] text-white/60 md:mt-3.5 md:text-[13.5px]">{homeText(copy, card.taglineSlot)}</p>
                 <div className="mt-4 flex flex-col items-start gap-2">
-                  {card.chips.map((chip, j) => {
+                  {card.chipSlots.map((chipSlot, j) => {
                     const chipActive = isActive && j === activeChip
                     return (
                       <span
-                        key={chip}
+                        key={chipSlot}
                         className={`inline-flex max-w-full items-center gap-2 rounded-pill px-2.5 py-[6px] text-[13px] transition-all duration-400 md:px-3.5 md:py-[7px] md:text-[13px] md:whitespace-nowrap ${
                           chipActive
                             ? "border border-[rgba(186,131,240,0.9)] bg-brand text-white shadow-[0_6px_18px_-6px_rgba(128,21,232,0.8)]"
@@ -100,7 +101,7 @@ export default function IndustriesHub() {
                             chipActive ? "bg-amber" : "bg-brand-light"
                           }`}
                         />
-                        {chip}
+                        {homeText(copy, chipSlot)}
                       </span>
                     )
                   })}

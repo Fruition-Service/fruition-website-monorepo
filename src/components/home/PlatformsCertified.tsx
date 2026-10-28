@@ -2,12 +2,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
 import Reveal from "./Reveal"
+import { homeText, type HomeCopy, type HomeCopySlot } from "./copy"
 
-const MONDAY_POINTS = [
-  "Work OS rollouts",
-  "monday CRM builds",
-  "Platform migrations",
-  "monday AI enablement",
+const MONDAY_POINTS: HomeCopySlot[] = [
+  "platforms-monday-point-1",
+  "platforms-monday-point-2",
+  "platforms-monday-point-3",
+  "platforms-monday-point-4",
 ]
 
 const ALSO_CERTIFIED = [
@@ -20,35 +21,35 @@ const ALSO_CERTIFIED = [
 ]
 
 /** Platform credentials: monday.com as the anchor, Atlassian and HubSpot beside it. */
-export default function PlatformsCertified() {
+export default function PlatformsCertified({ copy }: { copy: HomeCopy }) {
   return (
     <section id="platforms" className="scroll-mt-24 bg-tint py-16 md:py-20 lg:pt-25 lg:pb-19">
       <div className="mx-auto max-w-[1348px] px-5 md:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:flex-wrap lg:items-end lg:gap-12">
           <div className="max-w-[680px]">
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">
-              Certifications
+              {homeText(copy, "platforms-eyebrow")}
             </p>
             <h2 className="text-section-h2 mt-4 text-foreground" style={{ textWrap: "pretty" }}>
-              Certified where it counts.
+              {homeText(copy, "platforms-heading")}
             </h2>
             <p className="text-body-lead mt-4 text-muted" style={{ textWrap: "pretty" }}>
-              Platinum on the platform we build on. Credentialled on everything it has to talk to.
+              {homeText(copy, "platforms-lead")}
             </p>
           </div>
           <div className="flex flex-none items-center gap-7 lg:pb-1.5">
             <span className="flex flex-col">
               <span className="text-3xl leading-[1.15] font-semibold tracking-[-0.02em] text-brand">
-                8
+                {homeText(copy, "platforms-stat-1-value")}
               </span>
-              <span className="text-[13px] text-muted">vendor certifications</span>
+              <span className="text-[13px] text-muted">{homeText(copy, "platforms-stat-1-label")}</span>
             </span>
             <span className="h-10 w-px bg-[#e4dcf8]" />
             <span className="flex flex-col">
               <span className="text-3xl leading-[1.15] font-semibold tracking-[-0.02em] text-brand">
-                900+
+                {homeText(copy, "platforms-stat-2-value")}
               </span>
-              <span className="text-[13px] text-muted">implementations</span>
+              <span className="text-[13px] text-muted">{homeText(copy, "platforms-stat-2-label")}</span>
             </span>
           </div>
         </Reveal>
@@ -78,17 +79,16 @@ export default function PlatformsCertified() {
                 className="h-[84px] w-auto max-w-full self-start object-contain"
               />
               <h3 className="text-section-h3 mt-6.5 max-w-[460px] text-white lg:text-[30px] lg:leading-[1.28]" style={{ textWrap: "pretty" }}>
-                Platinum tier — the top 1% of monday.com partners.
+                {homeText(copy, "platforms-monday-title")}
               </h3>
               <p className="text-body mt-3.5 max-w-[470px] text-white/76" style={{ textWrap: "pretty" }}>
-                Our founder spent six years in sales leadership at monday.com, so rollouts start from
-                how the platform is meant to be used.
+                {homeText(copy, "platforms-monday-body")}
               </p>
               <div className="mt-7.5 grid grid-cols-1 gap-x-7 gap-y-3 sm:grid-cols-2">
-                {MONDAY_POINTS.map((point) => (
-                  <span key={point} className="flex items-center gap-[9px] text-[14.5px] font-medium text-white">
+                {MONDAY_POINTS.map((pointSlot) => (
+                  <span key={pointSlot} className="flex items-center gap-[9px] text-[14.5px] font-medium text-white">
                     <Check size={15} strokeWidth={2.5} className="flex-none text-brand-light" aria-hidden />
-                    <span>{point}</span>
+                    <span>{homeText(copy, pointSlot)}</span>
                   </span>
                 ))}
               </div>
@@ -96,7 +96,7 @@ export default function PlatformsCertified() {
                 href="/monday-consulting-solutions"
                 className="mt-auto pt-8.5 text-[15px] font-semibold text-white hover:text-brand-light"
               >
-                Our monday.com services →
+                {homeText(copy, "platforms-monday-cta")}
               </Link>
             </div>
           </div>
@@ -108,9 +108,9 @@ export default function PlatformsCertified() {
               logoAlt="Atlassian Platinum Solution Partner"
               logoHeight={74}
               boxHeight={78}
-              title="Jira, JSM and Confluence"
-              body="Service desks and engineering workflows, with accredited cloud migrations."
-              cta="Our Atlassian services"
+              title={homeText(copy, "platforms-atlassian-title")}
+              body={homeText(copy, "platforms-atlassian-body")}
+              cta={homeText(copy, "platforms-atlassian-cta")}
             />
             <PlatformCard
               href="/hubspot-consulting"
@@ -118,16 +118,16 @@ export default function PlatformsCertified() {
               logoAlt="HubSpot Solutions Partner"
               logoHeight={124}
               boxHeight={124}
-              title="Marketing and sales hubs"
-              body="Pipeline and campaign automation, synced two ways with monday CRM."
-              cta="Our HubSpot services"
+              title={homeText(copy, "platforms-hubspot-title")}
+              body={homeText(copy, "platforms-hubspot-body")}
+              cta={homeText(copy, "platforms-hubspot-cta")}
             />
           </div>
         </Reveal>
 
         <Reveal className="mt-5 flex flex-wrap items-center gap-x-11 gap-y-6 rounded-card border border-lilac bg-surface-raised px-6 py-7 shadow-whisper lg:px-9">
           <span className="text-micro flex-none font-bold tracking-[0.12em] uppercase text-label">
-            Also certified
+            {homeText(copy, "platforms-also")}
           </span>
           <div className="flex flex-wrap items-center gap-x-11 gap-y-6 lg:ml-auto">
             {ALSO_CERTIFIED.map((badge) => (

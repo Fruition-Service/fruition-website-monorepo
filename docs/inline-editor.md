@@ -31,8 +31,10 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
 
 ## Limits
 
-- Only text that comes from Sanity is editable. Copy hard-coded in components (most of the
-  homepage, `src/components/home/data.ts`) has no marker and is not outlined.
+- Only text that comes from Sanity is editable. Copy hard-coded in components has no marker and is
+  not outlined. The home page's copy was moved into 170 slots (`homePage.copy`, registry in
+  `src/components/home/copy.ts`, defaults in code); after adding a slot, run
+  `npx tsx scripts/seed-home-copy.ts --apply` so it exists in Sanity and becomes editable.
 - Text and images only: links, alt text, adding/removing/reordering blocks still happen in Studio.
 - An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
   untick the ones that should keep the old image. Old assets are not deleted.

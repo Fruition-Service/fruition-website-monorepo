@@ -4,11 +4,13 @@ import Link from "next/link"
 import { urlFor } from "@/sanity/image"
 import { usableClientLogos } from "@/components/sections/ClientLogoWall"
 import type { CarouselLogo } from "@/components/sections/types"
+import { homeText, type HomeCopy } from "./copy"
 
 export type ClientLogo = CarouselLogo
 
 interface Props {
   logos: ClientLogo[]
+  copy: HomeCopy
 }
 
 /**
@@ -32,7 +34,7 @@ const SLOT = "flex h-14 w-[116px] shrink-0 items-center justify-center px-3 md:w
 const FOCUS =
   "rounded-chip focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:outline-none"
 
-export default function ClientLogoCarousel({ logos }: Props) {
+export default function ClientLogoCarousel({ logos, copy }: Props) {
   const usable = usableClientLogos(logos, MAX_LOGOS)
   if (usable.length === 0) return null
 
@@ -69,7 +71,7 @@ export default function ClientLogoCarousel({ logos }: Props) {
       })}
       <li className={SLOT}>
         <span className="text-xl leading-none font-semibold tracking-[-0.02em] whitespace-nowrap text-brand lg:text-[22px]">
-          900+ more
+          {homeText(copy, "clients-more")}
         </span>
       </li>
     </ul>
@@ -84,7 +86,7 @@ export default function ClientLogoCarousel({ logos }: Props) {
             className="text-center text-micro font-bold tracking-[0.12em] uppercase text-brand"
           >
             <span className="sr-only">Our clients: </span>
-            Trusted by teams across 900+ implementations
+            {homeText(copy, "clients-heading")}
           </h2>
           <div className="fr-logo-carousel mt-5 lg:mt-6">
             <div className="fr-logo-carousel-track" style={{ "--count": usable.length + 1 } as CSSProperties}>

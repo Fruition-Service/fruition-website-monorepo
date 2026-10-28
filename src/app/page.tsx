@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getHomePage, getHomeSectionData } from '@/features/content/loaders'
+import { homeText, toHomeCopy } from '@/components/home/copy'
 import { buildOgMetadata } from '@/lib/metadata'
 import HeroNetwork from '@/components/home/HeroNetwork'
 import ServicesGrid from '@/components/home/ServicesGrid'
@@ -28,6 +29,7 @@ interface HomeData {
   }
   testimonials?: HomeTestimonial[]
   posts?: HomePost[]
+  copy?: { _key?: string; text?: string }[] | null
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -57,40 +59,48 @@ export default async function Home() {
   const bookingHref = '#book'
 
   const offices = settings.offices ?? []
+  const copy = toHomeCopy(data.copy)
 
   return (
     <>
-      <HeroNetwork bookingHref={bookingHref} />
+      <HeroNetwork bookingHref={bookingHref} copy={copy} />
 
       {/* Who we work with as one compact scrolling strip (it replaced the
           5x5 wall in Oct 2026), so what we do follows straight after the
           hero. The booking band still sits high because visitors engage but
           rarely scroll; the hero CTA scrolls to it. */}
-      <ClientLogoCarousel logos={settings.carouselLogos ?? []} />
-      <ServicesGrid />
+      <ClientLogoCarousel logos={settings.carouselLogos ?? []} copy={copy} />
+      <ServicesGrid copy={copy} />
       {/* The site's single contact/scheduling surface, shared with every
           other page via CalendlySection → BookingSection. */}
       <CalendlySection
-        heading="Let's design the way your business should run."
-        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
+        heading={homeText(copy, "booking-heading")}
+        subheading={homeText(copy, "booking-subheading")}
         calendlyUrl={calendlyUrl || undefined}
       />
-      <TestimonialsRoll testimonials={data.testimonials ?? []} bookingHref={bookingHref} />
+      <TestimonialsRoll
+        testimonials={data.testimonials ?? []}
+        bookingHref={bookingHref}
+        eyebrow={homeText(copy, "testimonials-eyebrow")}
+        heading={homeText(copy, "testimonials-heading")}
+        intro={homeText(copy, "testimonials-intro")}
+        ctaLabel={homeText(copy, "testimonials-cta")}
+      />
 
-      <ByTheNumbers />
-      <MethodTimeline />
-      <WhereWeWork offices={offices} />
+      <ByTheNumbers copy={copy} />
+      <MethodTimeline copy={copy} />
+      <WhereWeWork offices={offices} copy={copy} />
 
       {/* Mid-page conversion banner — shared site-wide. The home page's own
           sections all sit in a 1348px container, so match it here; the
           component's 1200px default suits the narrower inner pages. */}
       <AuditCtaBanner containerClassName="max-w-[1348px] px-5 md:px-8" />
 
-      <IndustriesHub />
-      <PlatformsCertified />
-      <AiCapability bookingHref={bookingHref} />
-      <InsightsGrid posts={data.posts ?? []} />
-      <FaqSplit contactEmail={contactEmail} />
+      <IndustriesHub copy={copy} />
+      <PlatformsCertified copy={copy} />
+      <AiCapability bookingHref={bookingHref} copy={copy} />
+      <InsightsGrid posts={data.posts ?? []} copy={copy} />
+      <FaqSplit contactEmail={contactEmail} copy={copy} />
     </>
   )
 }

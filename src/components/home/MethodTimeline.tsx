@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { METHOD_STEPS } from "./data"
+import { homeText, type HomeCopy } from "./copy"
 import { useReducedMotion } from "./useReducedMotion"
 
 /** One full sweep of the 12-week timeline. */
@@ -26,7 +27,7 @@ const BARS = METHOD_STEPS.map((step) => ({
  * Below `lg` the gantt is dropped (it needs the width to stay legible) and the
  * step list carries the animation on its own.
  */
-export default function MethodTimeline() {
+export default function MethodTimeline({ copy }: { copy: HomeCopy }) {
   const reduced = useReducedMotion()
   const [sweepWeek, setSweepWeek] = useState(1)
   // Reduced motion shows the finished state rather than a frozen week one.
@@ -79,12 +80,11 @@ export default function MethodTimeline() {
         <div className="flex items-start justify-between gap-8">
           <div className="max-w-[760px]">
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-amber">
-              The Fruition method
+              {homeText(copy, "method-eyebrow")}
             </p>
-            <h2 className="text-section-h2 mt-4 text-white">Process before platform.</h2>
+            <h2 className="text-section-h2 mt-4 text-white">{homeText(copy, "method-heading")}</h2>
             <p className="text-body mt-4 max-w-[640px] text-white/70 lg:text-[17px]">
-              We design how your business should run first — then configure the platform to match.
-              Numbered because the sequence matters.
+              {homeText(copy, "method-lead")}
             </p>
           </div>
           <Image
@@ -121,12 +121,12 @@ export default function MethodTimeline() {
                   </span>
                   <span className="flex min-w-0 flex-1 flex-col gap-1">
                     <span className="flex items-baseline gap-2.5">
-                      <span className="text-lg font-semibold text-white">{step.title}</span>
+                      <span className="text-lg font-semibold text-white">{homeText(copy, step.titleSlot)}</span>
                       <span className="font-mono text-[11px] whitespace-nowrap text-white/40">
                         W{step.from}–W{step.to}
                       </span>
                     </span>
-                    <span className="text-[13.5px] leading-[1.45] text-white/55">{step.desc}</span>
+                    <span className="text-[13.5px] leading-[1.45] text-white/55">{homeText(copy, step.descSlot)}</span>
                     <span className="mt-2 block h-[3px] w-full max-w-[190px] overflow-hidden rounded-sm bg-white/10">
                       <span
                         ref={(el) => {
