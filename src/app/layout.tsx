@@ -9,6 +9,7 @@ import NavigationProgress from "@/components/NavigationProgress"
 import CookieNotice from "@/components/CookieNotice"
 import SiteFrame from "@/components/SiteFrame"
 import CtaClickTracker from "@/components/CtaClickTracker"
+import BookingEventTracker from "@/components/BookingEventTracker"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
 import AwardBanner from "@/components/home/AwardBanner"
 import { ThemeProvider } from "@/components/ThemeProvider"
@@ -82,6 +83,21 @@ const CLARITY_LOADER = `(function(){try{if(window.localStorage.getItem("fruition
 if(/^\\/(internal|studio|contactustest)(\\/|$)/.test(window.location.pathname))return;
 (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_PROJECT_ID}");
 })();`
+// PostHog (org "Fruition Services", project "fruitionservices.io" 693212, US
+// cloud, owner edward@fruitionservices.io): product analytics, session replay,
+// heatmaps and web vitals. The phc_ key is a public ingestion key (it ships in
+// every page's HTML), so it is hardcoded like the Clarity and OpenAI ids.
+// Honours the same fruition-visitor-consent gate as REB2B, keep in sync with
+// src/components/CookieNotice.tsx, and skips the portal, the embedded Studio
+// and the /contactustest sandbox like Clarity. Replays mask every input.
+// person_profiles "identified_only": anonymous visitors cost no person profile.
+const POSTHOG_KEY = "phc_kQrn7uDvZwqM3ufvBn2QmP7Lm97RscjApS7gbcKMF6dt"
+const POSTHOG_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-visitor-consent")==="declined")return;}catch(e){}
+if(/^\\/(internal|studio|contactustest)(\\/|$)/.test(window.location.pathname))return;
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init("${POSTHOG_KEY}",{api_host:"https://us.i.posthog.com",ui_host:"https://us.posthog.com",defaults:"2025-05-24",person_profiles:"identified_only",session_recording:{maskAllInputs:true}});
+})();`
+
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -366,6 +382,7 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: REB2B_LOADER }} />
         <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
         <script dangerouslySetInnerHTML={{ __html: CLARITY_LOADER }} />
+        <script dangerouslySetInnerHTML={{ __html: POSTHOG_LOADER }} />
         {/* Per-region ProfessionalService JSON-LD. Renders only on the six
             /monday-partner-* routes; null everywhere else. It lives here
             because <head> is unreachable from a page in the App Router — see
@@ -374,6 +391,7 @@ export default async function RootLayout({
       </head>
       <body className={`${poppins.variable} ${jetbrainsMono.variable} antialiased`}>
         <CtaClickTracker />
+        <BookingEventTracker />
         <InPageBookingLinks />
         {/* GTM's no-JS fallback. It records the pageview only; none of the
             container's tags run without JavaScript. */}
