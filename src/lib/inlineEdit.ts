@@ -83,3 +83,50 @@ export function safeReturnPath(p: string | null | undefined): string {
 export function isEditablePagePath(p: string): boolean {
   return !/^\/(internal|studio|api)(\/|$)/.test(p)
 }
+
+const SANITY_IMAGE = /^https:\/\/cdn\.sanity\.io\/images\/[\w-]+\/[\w-]+\/([a-f0-9]+)-(\d+x\d+)\.(\w+)/
+
+/**
+ * Sanity image asset id (`image-<hash>-<WxH>-<ext>`) behind an <img> src.
+ * Accepts the CDN URL itself or a Next image-optimiser URL wrapping it.
+ */
+export function assetIdFromImageUrl(src: string): string | null {
+  let url = src
+  try {
+    const u = new URL(src, "https://www.fruitionservices.io")
+    const inner = u.pathname === "/_next/image" ? u.searchParams.get("url") : null
+    url = inner ?? u.href
+  } catch {
+    return null
+  }
+  const m = SANITY_IMAGE.exec(url)
+  return m ? `image-${m[1]}-${m[2]}-${m[3]}` : null
+}
+
+/**
+ * Patch paths (Studio syntax) of every image object in a document that points
+ * at `assetId`. Array items are addressed by `_key` when they have one.
+ */
+export function findImagePaths(doc: unknown, assetId: string): string[] {
+  const out: string[] = []
+  const walk = (v: unknown, path: string) => {
+    if (Array.isArray(v)) {
+      v.forEach((item, i) => {
+        const key = item && typeof item === "object" ? (item as { _key?: unknown })._key : undefined
+        walk(item, `${path}[${typeof key === "string" && /^[\w-]+$/.test(key) ? `_key=="${key}"` : i}]`)
+      })
+    } else if (v && typeof v === "object") {
+      const asset = (v as { asset?: { _ref?: unknown } }).asset
+      if (path && asset?._ref === assetId) {
+        out.push(path)
+        return
+      }
+      for (const [k, child] of Object.entries(v)) {
+        if (k.startsWith("_")) continue
+        walk(child, path ? `${path}.${k}` : k)
+      }
+    }
+  }
+  walk(doc, "")
+  return out
+}
