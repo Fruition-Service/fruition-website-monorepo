@@ -64,7 +64,7 @@ export const SERVICES_NAV: ServicesNavItem = {
           href: '/monday-implementation-consultants',
           icon: 'wrench',
         },
-        { label: 'monday training', href: '/monday-training', icon: 'graduation' },
+        { label: 'monday training', href: '/training', icon: 'graduation' },
         { label: 'Atlassian consulting', href: '/atlassian-consulting', icon: 'atlassian' },
         { label: 'HubSpot consulting', href: '/hubspot-consulting', icon: 'hubspot' },
       ],
