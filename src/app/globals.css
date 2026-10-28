@@ -1408,6 +1408,62 @@ body {
   }
 
   /* ============================================================ */
+  /* Client logo carousel (home/ClientLogoCarousel, all widths).   */
+  /* The homepage's compact proof strip directly under the hero,   */
+  /* after the Senzo hero strip: one row of logos sliding at a     */
+  /* steady pace per logo (--count is set on the track), feathered */
+  /* at both ends. Same loop mechanics as the band above: two      */
+  /* copies, slide by half, pause under a pointer or keyboard      */
+  /* focus, swipeable, and still under reduced motion (where the   */
+  /* strip becomes a plain horizontally scrollable row).           */
+  /* ============================================================ */
+  .fr-logo-carousel {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 48px,
+      #000 calc(100% - 48px),
+      transparent
+    );
+  }
+
+  .fr-logo-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fr-logo-carousel-track {
+    display: flex;
+    width: max-content;
+    animation: fr-logo-band-slide calc(var(--count, 24) * 2.6s) linear infinite;
+  }
+
+  .fr-logo-carousel:hover .fr-logo-carousel-track,
+  .fr-logo-carousel:focus-within .fr-logo-carousel-track {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 1024px) {
+    .fr-logo-carousel {
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 120px,
+        #000 calc(100% - 120px),
+        transparent
+      );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fr-logo-carousel-track {
+      animation: none;
+    }
+  }
+
+  /* ============================================================ */
   /* Swipe rail: a horizontal, snapping row of cards for phones.   */
   /* Sections whose cards carry too much text to sit two-up (a     */
   /* testimonial, a case study) become one screen tall instead of  */

@@ -4,7 +4,7 @@ import { buildOgMetadata } from '@/lib/metadata'
 import HeroNetwork from '@/components/home/HeroNetwork'
 import ServicesGrid from '@/components/home/ServicesGrid'
 import ByTheNumbers from '@/components/home/ByTheNumbers'
-import ClientsGrid, { type ClientLogo } from '@/components/home/ClientsGrid'
+import ClientLogoCarousel, { type ClientLogo } from '@/components/home/ClientLogoCarousel'
 import MethodTimeline from '@/components/home/MethodTimeline'
 import WhereWeWork, { type Office } from '@/components/home/WhereWeWork'
 import TestimonialsRoll, { type HomeTestimonial } from '@/components/home/TestimonialsRoll'
@@ -62,10 +62,12 @@ export default async function Home() {
     <>
       <HeroNetwork bookingHref={bookingHref} />
 
-      {/* Same opening as the six regional partner pages: who we work with,
-          then the way to book, then what we do and what clients say. The
-          booking band sits high because visitors engage but rarely scroll. */}
-      <ClientsGrid logos={settings.carouselLogos ?? []} />
+      {/* Who we work with as one compact scrolling strip (it replaced the
+          5x5 wall in Oct 2026), so what we do follows straight after the
+          hero. The booking band still sits high because visitors engage but
+          rarely scroll; the hero CTA scrolls to it. */}
+      <ClientLogoCarousel logos={settings.carouselLogos ?? []} />
+      <ServicesGrid />
       {/* The site's single contact/scheduling surface, shared with every
           other page via CalendlySection → BookingSection. */}
       <CalendlySection
@@ -73,7 +75,6 @@ export default async function Home() {
         subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
         calendlyUrl={calendlyUrl || undefined}
       />
-      <ServicesGrid />
       <TestimonialsRoll testimonials={data.testimonials ?? []} bookingHref={bookingHref} />
 
       <ByTheNumbers />
