@@ -278,7 +278,18 @@ const nextConfig: NextConfig = {
     // that tag names, so it must win over the /consulting-blog/tags/:slug*
     // catch-all in auditRedirects, which is the fallback for tags that name
     // no article.
+    // The AI use case hub replaces the old Solutions Catalogue (Josh, 27 Oct
+    // 2026). Route-only redirect: the catalog source files stay in the repo.
+    const hubRedirects: Redirect[] = [
+      {
+        source: "/monday-consulting-solutions/catalog",
+        destination: "/ai-use-cases",
+        permanent: true,
+      },
+    ];
+
     return [
+      ...hubRedirects,
       ...tagPostRedirects.map((r) => ({ ...r, destination: resolveFinal(r.destination) })),
       ...laterRedirects,
     ];

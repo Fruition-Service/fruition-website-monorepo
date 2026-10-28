@@ -30,7 +30,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 ## monday.com services
 
 - [monday.com consulting solutions](https://www.fruitionservices.io/monday-consulting-solutions): the hub for every monday.com build we deliver.
-- [Solutions catalog](https://www.fruitionservices.io/monday-consulting-solutions/catalog): the full list of packaged monday.com solutions.
+- [AI use case hub](https://www.fruitionservices.io/ai-use-cases): 279 real AI and monday.com builds across 12 industries.
 - [monday.com implementation consultants](https://www.fruitionservices.io/monday-implementation-consultants): scoping, solution design, build and rollout.
 - [monday CRM consulting](https://www.fruitionservices.io/monday-crm-consulting): sales pipeline, CRM migration, reporting.
 - [monday.com project management](https://www.fruitionservices.io/monday-consulting-solutions/monday-project-management)

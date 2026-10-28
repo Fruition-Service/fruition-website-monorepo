@@ -170,8 +170,8 @@ export const NAV_V3: NavV3Item[] = [
         heading: 'Use case hub',
         items: [
           {
-            label: 'Solutions catalog',
-            href: '/monday-consulting-solutions/catalog',
+            label: 'AI use case hub',
+            href: '/ai-use-cases',
             icon: 'list',
           },
           {
@@ -185,7 +185,7 @@ export const NAV_V3: NavV3Item[] = [
     footerNote: 'Also: retail, healthcare, solar & renewables.',
     footerLinks: [
       { label: 'All industries →', href: '/industries' },
-      { label: 'Browse use cases →', href: '/monday-consulting-solutions/catalog' },
+      { label: 'Browse use cases →', href: '/ai-use-cases' },
     ],
   },
   {

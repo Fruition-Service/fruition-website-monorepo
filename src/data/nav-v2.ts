@@ -183,8 +183,8 @@ export const NAV_V2: NavV2Item[] = [
         heading: 'Solutions by Team',
         items: [
           {
-            label: 'Solutions Catalog',
-            href: '/monday-consulting-solutions/catalog',
+            label: 'AI Use Case Hub',
+            href: '/ai-use-cases',
             icon: 'list',
             description: 'Browse every prebuilt solution',
             featured: true,
@@ -333,7 +333,7 @@ export const NAV_V2: NavV2Item[] = [
         items: [
           { label: 'Blog', href: '/consulting-blog', icon: 'edit', description: '100+ articles on monday.com, AI & automation' },
           { label: 'Case Studies', href: '/customer-testimonials', icon: 'chart', description: '8 verified client implementations, filterable' },
-          { label: 'Solutions Catalog', href: '/monday-consulting-solutions/catalog', icon: 'list', description: '45 prebuilt monday.com solutions in one atlas' },
+          { label: 'AI Use Case Hub', href: '/ai-use-cases', icon: 'list', description: '279 real AI and monday.com builds across 12 industries' },
           { label: 'FAQs', href: '/faqs', icon: 'question', description: 'Direct answers to common questions' },
         ],
       },

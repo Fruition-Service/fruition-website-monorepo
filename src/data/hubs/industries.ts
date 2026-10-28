@@ -83,6 +83,6 @@ export const INDUSTRIES_HUB = {
     { label: 'Service', href: '/monday-consulting-solutions/monday-service' },
     { label: 'Product management', href: '/monday-consulting-solutions/monday-product-management' },
     { label: 'Marketing & creative', href: '/monday-for-marketing' },
-    { label: 'All 45 solutions →', href: '/monday-consulting-solutions/catalog', primary: true },
+    { label: 'All AI use cases →', href: '/ai-use-cases', primary: true },
   ],
 }

@@ -72,7 +72,6 @@ const STATIC_PATHS: string[] = [
   "/fruition-team",
   "/implementation-packages",
   "/monday-consulting-solutions",
-  "/monday-consulting-solutions/catalog",
   "/monday-consulting-solutions/monday-for-cabinetry-renovation",
   "/monday-consulting-solutions/monday-for-finance",
   "/monday-consulting-solutions/monday-for-hr",
