@@ -13,6 +13,8 @@ import BookingEventTracker from "@/components/BookingEventTracker"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
 import EditModeLoader from "@/components/edit/EditModeLoader"
 import AwardBanner from "@/components/home/AwardBanner"
+import { SiteCopyProvider } from "@/components/SiteCopyProvider"
+import { toSiteCopy } from "@/lib/siteCopy"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
 import { getSiteSettings } from "@/sanity/queries"
@@ -190,6 +192,8 @@ export default async function RootLayout({
     siteSettings.footerColumns = footer.FOOTER_V3_COLUMNS
     siteSettings.footerCopyrightText = footer.FOOTER_V3_COPYRIGHT
   }
+
+  const siteCopy = toSiteCopy(siteSettings?.copy)
 
   const BASE =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fruitionservices.io"
@@ -408,10 +412,11 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <NavigationProgress />
           <OfficeStrapProvider value={officeStrap(siteSettings?.offices)}>
+          <SiteCopyProvider copy={siteCopy}>
             <SiteFrame
               header={
                 <div key="site-header">
-                  <AwardBanner />
+                  <AwardBanner copy={siteCopy} />
                   <Navbar siteSettings={siteSettings} />
                 </div>
               }
@@ -428,6 +433,7 @@ export default async function RootLayout({
             >
               {children}
             </SiteFrame>
+          </SiteCopyProvider>
           </OfficeStrapProvider>
         </ThemeProvider>
       </body>

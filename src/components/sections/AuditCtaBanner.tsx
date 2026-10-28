@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link"
 import { bookingHref } from "@/lib/bookingLink"
+import { useSiteCopy } from "@/components/SiteCopyProvider"
 
 /**
  * Site-wide mid-content conversion banner. Started life as the bottom-of-article
@@ -16,10 +19,8 @@ import { bookingHref } from "@/lib/bookingLink"
  * and sticky bar): blue means "act here", purple stays with content.
  */
 
-const DEFAULT_HEADING = "Ready to build systems that scale with your team?"
-const DEFAULT_BODY =
-  "Book a complimentary 30-minute audit with a Fruition consultant — we will map your workflows, spot the automation wins and show you what the build looks like."
-const DEFAULT_CTA_LABEL = "Book a 30-Min System Audit"
+// Default wording is the `audit-*` shared copy slots (src/lib/siteCopy.ts),
+// editable in place; a page that passes its own heading/body/ctaLabel wins.
 
 interface AuditCtaBannerProps {
   /** Booking destination. Calendly URLs are rewritten to our own scheduler. */
@@ -41,13 +42,14 @@ interface AuditCtaBannerProps {
 
 export default function AuditCtaBanner({
   bookingUrl,
-  heading = DEFAULT_HEADING,
-  body = DEFAULT_BODY,
-  ctaLabel = DEFAULT_CTA_LABEL,
+  heading,
+  body,
+  ctaLabel,
   contained = true,
   containerClassName = "site-container",
   className = "",
 }: AuditCtaBannerProps) {
+  const t = useSiteCopy()
   const card = (
     <aside
       className={`relative w-full overflow-hidden rounded-card p-[28px] md:p-[40px] lg:p-[52px] bg-[linear-gradient(160deg,var(--cta-blue-deep)_0%,var(--cta-blue)_55%,var(--cta-blue-light)_115%)] md:bg-[linear-gradient(110deg,var(--cta-blue-deep)_0%,var(--cta-blue)_50%,var(--cta-blue-light)_105%)]${
@@ -63,17 +65,17 @@ export default function AuditCtaBanner({
           {/* Sub-section scale: reads as a peer of the surrounding sections
               without competing with their 40-44px H2s. */}
           <h2 className="font-semibold tracking-[-0.01em] text-white text-[22px] leading-[30px] md:text-[28px] md:leading-[36px] lg:text-[32px] lg:leading-[41px] text-balance">
-            {heading}
+            {heading ?? t("audit-heading")}
           </h2>
           <p className="mt-[10px] text-[15px] leading-[24px] text-white/[0.78] md:mt-[14px] md:text-[16px] md:leading-[26px]">
-            {body}
+            {body ?? t("audit-body")}
           </p>
         </div>
         <Link
           href={bookingHref(bookingUrl)}
           className="flex-none cta-btn cta-btn-on-dark-primary"
         >
-          {ctaLabel}
+          {ctaLabel ?? t("audit-cta")}
         </Link>
       </div>
     </aside>

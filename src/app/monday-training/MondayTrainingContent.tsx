@@ -19,6 +19,7 @@ import type { FaqTab as SharedFaqTab } from "@/components/sections/types"
 import type { SiteSettings } from "@/types/siteSettings"
 import CtaLabel from "@/components/CtaLabel"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import { useSiteCopy } from "@/components/SiteCopyProvider"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -198,6 +199,7 @@ export default function MondayTrainingContent({
   faqTabs: faqTabsOverride,
   navbarPartnerBadges,
 }: MondayTrainingContentProps) {
+  const t = useSiteCopy()
   const trainingTabs = data?.trainingTabs ?? []
   const faqTabs = faqTabsOverride?.length ? faqTabsOverride : (data?.faqTabs ?? [])
   const trainingServices = data?.trainingServices ?? []
@@ -627,9 +629,9 @@ export default function MondayTrainingContent({
       {/* SECTION 9 -- Calendly Booking                                */}
       {/* ============================================================ */}
       <BookingSection
-        eyebrow="monday.com training"
-        heading="Book a FREE Training Consultation"
-        sub="Tell us about your team and the workflows you want to master, we’ll tailor the session live on the call."
+        eyebrow={t("booking-training-eyebrow")}
+        heading={t("booking-training-heading")}
+        sub={t("booking-training-sub")}
       />
 
       {/* ============================================================ */}

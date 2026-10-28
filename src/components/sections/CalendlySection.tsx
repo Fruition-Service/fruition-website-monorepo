@@ -1,4 +1,7 @@
+"use client"
+
 import BookingSection, { type BookingRegion } from "./BookingSection"
+import { useSiteCopy } from "@/components/SiteCopyProvider"
 
 /**
  * Thin wrapper over the unified BookingSection so every existing placement
@@ -27,15 +30,16 @@ interface CalendlySectionProps {
 }
 
 export default function CalendlySection({
-  heading = "Schedule A 30-Min Consultation With One of Our monday.com Consultants",
+  heading,
   subheading,
   calendlyUrl,
   bookingRegion,
 }: CalendlySectionProps) {
+  const t = useSiteCopy()
   return (
     <BookingSection
-      eyebrow="Book a time"
-      heading={heading}
+      eyebrow={t("booking-calendly-eyebrow")}
+      heading={heading || t("booking-calendly-heading")}
       sub={subheading}
       calendlyUrl={calendlyUrl}
       forceRegion={bookingRegion}

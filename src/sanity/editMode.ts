@@ -29,10 +29,17 @@ const MACHINE_KEYS = new Set([
   'calendlyLink', 'videoId', 'youtubeId', 'lang', 'locale', 'alt', 'altText',
 ])
 
+// Fields that only ever hold human copy, so a lowercase single word there
+// ("monday.com", "n8n") is still copy and gets a source map.
+const TEXT_KEYS = new Set([
+  'label', 'heading', 'title', 'text', 'description', 'eyebrow', 'subheading', 'body', 'footerNote',
+])
+
 /**
- * Which strings get the hidden source map. Only human copy: it must contain a
- * space or start with a capital letter (enums and keys are lowercase single
- * words), and it must not sit under a system or machine-value key.
+ * Which strings get the hidden source map. Only human copy: it must not sit
+ * under a system or machine-value key, and it must contain a space, start with
+ * a capital letter or sit in a known text field (enums and keys elsewhere are
+ * lowercase single words).
  */
 export const stegaFilter: FilterDefault = (props) => {
   if (!props.filterDefault(props)) return false
@@ -40,5 +47,5 @@ export const stegaFilter: FilterDefault = (props) => {
   if (keys.some((k) => k.startsWith('_') || MACHINE_KEYS.has(k))) return false
   const v = props.value.trim()
   if (v.length < 2 || /^https?:|^\/|^#|^mailto:|^tel:/i.test(v)) return false
-  return /\s/.test(v) || /^[A-Z0-9]/.test(v)
+  return /\s/.test(v) || /^[A-Z0-9]/.test(v) || TEXT_KEYS.has(keys[keys.length - 1] ?? '')
 }
