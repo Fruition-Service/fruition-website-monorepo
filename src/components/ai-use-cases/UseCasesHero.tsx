@@ -42,8 +42,8 @@ export default function UseCasesHero({
   stats,
 }: UseCasesHeroProps) {
   return (
-    <section className="border-b border-ui bg-surface px-4 pt-10 pb-14 md:pt-16 md:pb-20">
-      <div className="mx-auto w-full max-w-[1200px]">
+    <section className="border-b border-ui bg-surface pt-10 pb-14 md:pt-16 md:pb-20">
+      <div className="site-container">
         {eyebrow && (
           <p className="mb-[18px] font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
             {eyebrow}

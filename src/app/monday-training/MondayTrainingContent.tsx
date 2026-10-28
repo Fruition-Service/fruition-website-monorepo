@@ -300,7 +300,7 @@ export default function MondayTrainingContent({
       {/* SECTION 1 -- Hero                                            */}
       {/* ============================================================ */}
       <section className="bg-surface">
-        <div className="mx-auto flex flex-col items-center px-4 py-14 md:py-24 max-w-[1200px]">
+        <div className="site-container flex flex-col items-center py-14 md:py-24">
           {/* Partner badges */}
           {heroPartnerBadges.length > 0 && (
             <div className="flex flex-wrap items-center justify-center gap-[22px]">
@@ -392,8 +392,8 @@ export default function MondayTrainingContent({
       {/* ============================================================ */}
       {/* SECTION 2 -- Logo Cloud with Marquee Scroll                  */}
       {/* ============================================================ */}
-      <section className="bg-surface py-14 md:py-24 px-4">
-        <div className="flex flex-col gap-[35px] items-center w-full max-w-[1348px] mx-auto">
+      <section className="bg-surface py-14 md:py-24">
+        <div className="site-container flex flex-col gap-[35px] items-center">
           <p className="text-section-h3 text-center">
             <span className="text-body">{logoCloudPart1}</span>
             <span className="text-brand">{logoCloudAccent}</span>
@@ -684,7 +684,7 @@ export default function MondayTrainingContent({
       {/* ============================================================ */}
       {trainingServices.length > 1 && (
         <section className="bg-surface py-14 md:py-24">
-          <div className="mx-auto px-4 md:px-6 lg:px-8 max-w-[1200px]">
+          <div className="site-container">
             <div className="flex flex-col gap-14 md:gap-20">
               {trainingServices.slice(1).map((service, i) => {
                 const serviceImageSrc = imageUrl(service.image)

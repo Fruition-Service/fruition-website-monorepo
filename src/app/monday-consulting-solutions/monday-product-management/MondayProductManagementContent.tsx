@@ -128,7 +128,7 @@ export default function MondayProductManagementContent({
     <div>
       {/* 1. Hero */}
       <section className="bg-surface">
-        <div className="mx-auto flex flex-col items-center px-4 max-w-[1200px] py-14 md:py-24">
+        <div className="site-container flex flex-col items-center py-14 md:py-24">
           {/* Partner badges */}
           {partnerBadges.length > 0 && (
             <div className="flex flex-wrap items-center justify-center gap-[22px]">
@@ -388,7 +388,7 @@ function WhyProductTeamsSection({
 
   return (
     <section className="bg-surface-subtle py-14 md:py-24">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         <h2 className="text-section-h2 text-center text-body mb-4">
           {headingPart1}
           <span className="block text-brand">{headingAccent}</span>
@@ -518,7 +518,7 @@ function IndustrySpecificSection({
 
   return (
     <section className="bg-gradient-to-br from-surface-dark-2 to-brand py-14 md:py-24">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         {heading && (
           <h2 className="text-section-h2 text-center text-white mb-10">
             {heading}
@@ -617,7 +617,7 @@ function ProductDevelopmentSection({
 
   return (
     <section className="bg-surface-subtle py-14 md:py-24">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         <h2 className="text-section-h2 text-center text-body mb-10 max-w-[1000px] mx-auto">
           {headingPart1}
           <span className="text-brand">{headingAccent}</span>

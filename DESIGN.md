@@ -200,7 +200,7 @@ The system is flat-by-default: depth is drawn with 1px hairline borders and surf
 - Paper White fill, 1px Hairline border, 12px radius, Ink text. Focus: Voltage Purple border + soft `rgba(128,21,232,0.08)` ring. Error: message in plain language below the field.
 
 ### Page layout (Oct 2026 theme, after senzo.com.au)
-- **One container:** `.site-container` (1248px, 16px gutter, 24px from `md:`) for heroes, shared sections, nav, footer and the breadcrumb trail.
+- **One container:** `.site-container` (1248px, 16px gutter, 24px from `md:`) for heroes, every section, nav and footer. No page opens its own wider or narrower outer container; a narrower measure goes inside it, left-aligned. There is no visible breadcrumb trail (removed 28 Oct 2026); BreadcrumbList JSON-LD still renders site-wide.
 - **One rhythm:** `.section-y` gives every shared section 56 / 80 / 96px top and bottom.
 - **Heroes:** `.hero-band` (white, hairline bottom rule). On desktop the copy sits left with stacked CTAs and the visual sits right; banner media (3:1 and wider) runs full width under the copy instead. Phones stay one column.
 - **Section heads** are left-aligned (eyebrow, H2, lead), not centred.

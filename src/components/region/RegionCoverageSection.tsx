@@ -11,8 +11,8 @@ export default function RegionCoverageSection({
   coverage: RegionContent["coverage"]
 }) {
   return (
-    <section className="bg-tint px-4 py-14 md:py-24">
-      <div className="mx-auto w-full max-w-[1200px]">
+    <section className="bg-tint py-14 md:py-24">
+      <div className="site-container">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
           <div className="max-w-[700px]">
             <SectionIntro align="left" eyebrow={coverage.eyebrow} heading={coverage.heading} />

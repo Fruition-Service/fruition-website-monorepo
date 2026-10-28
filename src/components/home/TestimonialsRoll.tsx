@@ -66,7 +66,7 @@ export default function TestimonialsRoll({
 
   return (
     <section className="bg-surface py-16 md:py-20 lg:pt-25 lg:pb-26">
-      <Reveal className="mx-auto grid max-w-[1348px] grid-cols-1 items-start gap-10 px-5 md:px-8 lg:grid-cols-[400px_1fr] lg:gap-20">
+      <Reveal className="site-container grid grid-cols-1 items-start gap-10 lg:grid-cols-[400px_1fr] lg:gap-20">
         <div className="flex flex-col lg:pt-2">
           {eyebrow && (
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{eyebrow}</p>

@@ -132,8 +132,8 @@ export default async function Page() {
 
       <ClientLogoSection logos={siteSettings?.carouselLogos ?? []} />
 
-      <section id="industries" className="scroll-mt-24 bg-surface-subtle px-4 py-14 md:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-[1200px]">
+      <section id="industries" className="scroll-mt-24 bg-surface-subtle py-14 md:py-20 lg:py-24">
+        <div className="site-container">
           <SectionIntro
             eyebrow="Industries"
             heading="Browse by industry"
@@ -145,8 +145,8 @@ export default async function Page() {
         </div>
       </section>
 
-      <section id="explore" className="scroll-mt-24 bg-surface px-4 py-14 md:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-[1200px]">
+      <section id="explore" className="scroll-mt-24 bg-surface py-14 md:py-20 lg:py-24">
+        <div className="site-container">
           <SectionIntro
             eyebrow="Use case catalogue"
             heading="Find a use case like yours"

@@ -124,8 +124,8 @@ export default async function Page({ params }: { params: Params }) {
         ]}
       />
 
-      <section id="explore" className="scroll-mt-24 bg-surface-subtle px-4 py-14 md:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-[1200px]">
+      <section id="explore" className="scroll-mt-24 bg-surface-subtle py-14 md:py-20 lg:py-24">
+        <div className="site-container">
           <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
             Use case catalogue
           </p>
@@ -163,8 +163,8 @@ export default async function Page({ params }: { params: Params }) {
         />
       )}
 
-      <section className="bg-surface-subtle px-4 py-14 md:py-20">
-        <div className="mx-auto w-full max-w-[1200px]">
+      <section className="bg-surface-subtle py-14 md:py-20">
+        <div className="site-container">
           <SectionIntro eyebrow="Industries" heading="Other industries" align="left" />
           <div className="mt-10">
             <IndustryGrid industries={others} />

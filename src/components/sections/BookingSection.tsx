@@ -1072,7 +1072,7 @@ export default function BookingSection({
   // adding or renaming an office is a single edit in Sanity.
   const officeStrapText = useOfficeStrap()
   return (
-    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 72px", overflow: "hidden" }}>
+    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 0", overflow: "hidden" }}>
       {/* brand glow motif */}
       <div aria-hidden="true" style={{ position: "absolute", top: -160, right: -120, width: 620, height: 620, borderRadius: "50%", opacity: 0.5, mixBlendMode: "screen", pointerEvents: "none", background: "radial-gradient(circle, rgba(255,255,255,0.28), rgba(255,255,255,0))" }} />
 
@@ -1081,7 +1081,7 @@ export default function BookingSection({
           reaches the first open slot without scrolling past the pitch. The
           placement lives in the stylesheet below — desktop puts head and body
           back in one column with the card alongside. */}
-      <div style={{ position: "relative", maxWidth: 1276, margin: "0 auto", alignItems: "start" }} className="fr-booking-grid">
+      <div style={{ position: "relative", alignItems: "start" }} className="fr-booking-grid site-container">
         <div className="fr-booking-head">
           <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow}</span>
           <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading}</Heading>
@@ -1140,7 +1140,7 @@ export default function BookingSection({
         .fr-booking-body { order: 3; }
 
         @media (max-width: 960px) {
-          .fr-booking-section { padding: 64px 20px !important; }
+          .fr-booking-section { padding: 64px 0 !important; }
           .fr-booking-grid h2 { font-size: 34px !important; }
         }
         @media (min-width: 961px) {

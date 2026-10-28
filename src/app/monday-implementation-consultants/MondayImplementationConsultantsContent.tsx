@@ -504,8 +504,8 @@ export default function MondayImplementationConsultantsContent({
       {/* ============================================================ */}
       {/* SECTION 2 — Logo cloud marquee                               */}
       {/* ============================================================ */}
-      <section className="bg-surface py-14 md:py-20 px-4">
-        <div className="flex flex-col gap-[35px] items-center w-full max-w-[1348px] mx-auto">
+      <section className="bg-surface py-14 md:py-20">
+        <div className="site-container flex flex-col gap-[35px] items-center">
           <p className="text-section-h3 text-center">
             <span className="text-body">{logoCloudPart1}</span>
             <span className="text-brand">{logoCloudAccent}</span>
@@ -580,7 +580,7 @@ export default function MondayImplementationConsultantsContent({
       {/* SECTION 8 — Solution cards                                   */}
       {/* ============================================================ */}
       <section className="bg-surface py-14 md:py-20">
-        <div className="mx-auto px-4 max-w-[1200px]">
+        <div className="site-container">
           {/* Solution cards — alternating sides.
               Re-map source data to match design: synthesize CRM card from
               section heading/intro + first card's eyebrow-as-CTA, then

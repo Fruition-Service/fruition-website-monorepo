@@ -636,7 +636,7 @@ export default function MakePartnersContent({
       {/* 7. Showcase */}
       {resolvedShowcaseCards.length > 0 && (
         <section className="bg-surface py-14 md:py-24">
-          <div className="mx-auto px-4 max-w-[1200px]">
+          <div className="site-container">
             <div className="flex flex-col items-center text-center mb-10 md:mb-14">
               {pageData?.showcaseHeading && (
                 <h2 className="text-section-h2 text-body max-w-[900px]">

@@ -39,7 +39,7 @@ export default function ClientLogoSection({
 
   return (
     <section className="bg-surface py-[80px]">
-      <div className="mx-auto flex w-full max-w-[1348px] flex-col items-center gap-[35px] px-5 md:px-8">
+      <div className="site-container flex flex-col items-center gap-[35px]">
         <p className="text-section-h3 text-center">
           <span className="text-body">{part1}</span>
           <span className="text-brand">{accent}</span>

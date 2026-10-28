@@ -208,7 +208,7 @@ function HeroSection({
         className="absolute inset-0 -z-10 opacity-[0.35] bg-[radial-gradient(circle_at_1px_1px,rgba(128,21,232,0.18)_1px,transparent_0)] [background-size:28px_28px] [mask-image:linear-gradient(180deg,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0)_70%)]"
       />
 
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-6">
             {eyebrow && (
@@ -334,7 +334,7 @@ function StatsBand({ stats }: { stats: StatItem[] }) {
   if (!stats?.length) return null
   return (
     <section className="pt-4 pb-10 md:pb-16">
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         <div className="relative grid grid-cols-1 overflow-hidden rounded-[28px] bg-gradient-to-br from-surface-dark to-surface-dark-2 px-6 py-11 text-white shadow-[0_24px_60px_-28px_rgba(16,0,58,0.55)] md:grid-cols-3">
           <div
             aria-hidden
@@ -454,7 +454,7 @@ function ChallengesBento({
   ]
   return (
     <section className="bg-surface bg-gradient-to-b from-brand-soft/40 to-surface py-14 md:py-24 dark:bg-none">
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         <div className="mb-10 text-center md:mb-14">
           {eyebrow && (
             <span className="inline-flex items-center rounded-pill bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-dark">
@@ -590,7 +590,7 @@ function ApproachTabs({
   const current = tabs[active]
   return (
     <section className="bg-surface py-14 md:py-24">
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         <div className="mb-10 text-center">
           {eyebrow && (
             <span className="inline-flex items-center rounded-pill bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-dark">
@@ -659,7 +659,7 @@ function GlobalPresence({
   if (!offices?.length) return null
   return (
     <section className="bg-surface-subtle bg-gradient-to-b from-surface-subtle to-surface py-14 md:py-24 dark:bg-none">
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         <div className="mb-10 text-center md:mb-14">
           {eyebrow && (
             <span className="inline-flex items-center rounded-pill bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand-dark">
@@ -708,7 +708,7 @@ function PartnerStack({ badges, eyebrow }: { badges: PartnerBadge[]; eyebrow?: s
   if (!badges?.length) return null
   return (
     <section className="bg-surface py-10 md:py-16">
-      <div className="mx-auto max-w-[1240px] px-4 md:px-6 lg:px-8">
+      <div className="site-container">
         {eyebrow && (
           <div className="mb-8 text-center">
             <div className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">

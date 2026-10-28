@@ -54,7 +54,7 @@ export default function InsightsGrid({ posts, copy }: Props) {
 
   return (
     <section id="insights" className="scroll-mt-24 bg-tint py-16 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <Reveal className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end sm:gap-8">
           <div>
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{homeText(copy, "insights-eyebrow")}</p>

@@ -39,7 +39,7 @@ export interface ChannelReach {
 }
 
 export interface ChannelPage {
-  /** Route path — canonical, sitemap entry and pageShell key. */
+  /** Route path: canonical and sitemap entry. */
   path: string
   /** Sanity `servicePage` slug backing this route. */
   sanitySlug: string

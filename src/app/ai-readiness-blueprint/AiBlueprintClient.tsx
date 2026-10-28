@@ -305,7 +305,7 @@ export default function AiBlueprintClient() {
     <main className="bg-surface">
       {/* Hero */}
       <section className="bg-surface">
-        <div className="mx-auto grid w-full max-w-[1280px] items-center gap-10 px-4 py-14 md:px-8 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:px-10">
+        <div className="site-container grid items-center gap-10 py-14 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           <div>
             <div className={`${EYEBROW} mb-4`}>{"// free · 3 minutes · 12 questions"}</div>
             <h1 className="text-display text-body max-w-[640px]">
@@ -343,7 +343,7 @@ export default function AiBlueprintClient() {
 
       {/* How it works strip */}
       <section className="border-y border-ui bg-surface-subtle">
-        <div className="mx-auto grid w-full max-w-[1280px] gap-6 px-4 py-9 md:grid-cols-3 md:gap-0 md:px-8 lg:px-10">
+        <div className="site-container grid gap-6 py-9 md:grid-cols-3 md:gap-0">
           {[
             ["01: ANSWER", "12 questions, no jargon", "Size, systems, data, ambition. If you run the business, you can answer them."],
             ["02: SCORE", "Readiness across 8 dimensions", "Benchmarked against 900+ organisations we've assessed across APAC, UK and US."],
@@ -361,7 +361,7 @@ export default function AiBlueprintClient() {
       {/* Assessment */}
       {!blueprint && (
         <section id="assess" className="scroll-mt-24 bg-surface py-14 md:py-24">
-          <div className="mx-auto w-full max-w-[1280px] px-4 md:px-8 lg:px-10">
+          <div className="site-container">
             <div className="mb-10 max-w-[640px]">
               <div className={`${EYEBROW} mb-3`}>The self-assessment</div>
               <h2 className="text-section-h2 text-body">Twelve questions. One blueprint.</h2>

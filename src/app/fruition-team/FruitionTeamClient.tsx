@@ -293,7 +293,7 @@ export default function FruitionTeamClient({
           role={hasTabs ? "tabpanel" : undefined}
           aria-labelledby={hasTabs ? `team-tab-${code}` : undefined}
           hidden={code !== region}
-          className="mx-auto max-w-[1200px] px-4"
+          className="site-container"
         >
           {filteredMembers.length === 0 ? (
             <p className="text-center" style={{ color: "var(--text-muted-fg)", fontSize: 16 }}>

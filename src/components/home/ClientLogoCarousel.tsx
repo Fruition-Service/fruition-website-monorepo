@@ -79,7 +79,7 @@ export default function ClientLogoCarousel({ logos, copy }: Props) {
 
   return (
     <section id="clients" aria-labelledby="clients-heading" className="scroll-mt-24 bg-surface pb-10 lg:pb-12">
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <div className="border-t border-ui pt-7 lg:pt-8">
           <h2
             id="clients-heading"

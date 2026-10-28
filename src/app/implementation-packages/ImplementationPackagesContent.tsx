@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
 import ClosingCtaSection from "@/components/sections/ClosingCtaSection"
+import FaqAccordion from "@/components/sections/FaqAccordion"
 import AuditLeadForm from "./AuditLeadForm"
 import PackagesSection from "./PackagesSection"
 import {
@@ -42,7 +43,7 @@ const JUMP_LINKS = [
   { href: "#faq", label: "FAQ" },
 ]
 
-const SHELL = "mx-auto max-w-[1148px] px-4"
+const SHELL = "site-container"
 const EYEBROW = "mb-[18px] font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand"
 
 export interface ReviewPhotos {
@@ -345,27 +346,12 @@ export default function ImplementationPackagesContent({ reviewPhotos = {} }: { r
       </section>
 
       {/* FAQ. Its FAQPage schema is part of the page's single JSON-LD graph. */}
-      <section id="faq" className="bg-surface-subtle py-14 md:py-24">
-        <div className={`${SHELL} grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14`}>
-          <Intro eyebrow={FAQ_INTRO.eyebrow} heading={FAQ_INTRO.heading} />
-          <div className="border-t border-ui">
-            {FAQS.map((f, i) => (
-              <details key={f.q} open={i === 0} className="group border-b border-ui">
-                <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between gap-4 py-4 text-body marker:hidden [&::-webkit-details-marker]:hidden">
-                  <h3 className="text-body font-semibold text-body">{f.q}</h3>
-                  <span
-                    aria-hidden
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill border border-ui text-brand transition-transform group-open:rotate-45"
-                  >
-                    +
-                  </span>
-                </summary>
-                <p className="text-body-sm pb-5 pr-10 text-muted">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordion
+        eyebrow={FAQ_INTRO.eyebrow}
+        heading={FAQ_INTRO.heading}
+        tabs={[{ items: FAQS.map(({ q, a }) => ({ question: q, answer: a })) }]}
+        jsonLd={false}
+      />
 
       <ClosingCtaSection
         fallback={{

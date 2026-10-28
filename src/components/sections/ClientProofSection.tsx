@@ -44,7 +44,7 @@ export default function ClientProofSection({
 
   return (
     <section id={id} className={`scroll-mt-24 ${className}`}>
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <Reveal className="mx-auto max-w-[660px] text-center">
           {eyebrow && (
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{eyebrow}</p>

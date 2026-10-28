@@ -469,7 +469,7 @@ const CSS = `
   font-size: 16px;
   line-height: 1.6;
 }
-.aipartner .ap-wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+.aipartner .ap-wrap { max-width: 1248px; margin: 0 auto; padding: 0 24px; }
 .aipartner .accent { color: var(--accent); }
 .aipartner .strike { position: relative; color: var(--ink-soft); white-space: nowrap; }
 .aipartner .strike::after { content: ""; position: absolute; left: 0; right: 0; top: 55%; height: 4px; background: var(--accent); transform: skewY(-2deg); }
@@ -669,7 +669,7 @@ const CSS = `
   .aipartner .stat { border-right: none; padding: 28px 0; }
   .aipartner .compare-row { grid-template-columns: 1fr; }
   .aipartner .hero-regions { border-left: none; padding-left: 0; }
-  .aipartner .ap-wrap { padding: 0 20px; }
+  .aipartner .ap-wrap { padding: 0 16px; }
   .aipartner .ap-hero { padding: 56px 0; }
   .aipartner .ap-section { padding: 56px 0; }
   .aipartner .operator { padding: 28px; }

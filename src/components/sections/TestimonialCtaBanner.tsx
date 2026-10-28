@@ -66,8 +66,8 @@ export default function TestimonialCtaBanner({
   const role = active?.clientCompany || active?.clientRole || ""
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 px-4 md:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section className="py-16 md:py-20 lg:py-24">
+      <div className="site-container">
         <div className="relative w-full rounded-[28px] bg-black text-white overflow-hidden">
           {/* Layered gradient background */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(90,110,255,0.32),transparent_25%),radial-gradient(circle_at_45%_70%,rgba(70,90,255,0.22),transparent_28%),linear-gradient(135deg,#020307_15%,#050814_45%,#090d24_75%,#04050c_100%)]" />

@@ -47,7 +47,7 @@ export default function IndustriesHub({ copy }: { copy: HomeCopy }) {
             "radial-gradient(900px 520px at 70% 85%, rgba(128,21,232,0.2) 0%, rgba(128,21,232,0) 70%)",
         }}
       />
-      <div className="relative mx-auto max-w-[1348px] px-5 py-16 md:px-8 md:py-20 lg:pt-24 lg:pb-18">
+      <div className="site-container relative py-16 md:py-20 lg:pt-24 lg:pb-18">
         <div className="max-w-[760px]">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-amber">
             {homeText(copy, "industries-eyebrow")}

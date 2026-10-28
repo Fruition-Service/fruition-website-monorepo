@@ -7,7 +7,7 @@ export default function ProcessStepsSection({
   process: RegionContent["process"]
 }) {
   return (
-    <section className="relative overflow-hidden bg-surface-dark px-4 py-14 md:py-24">
+    <section className="relative overflow-hidden bg-surface-dark py-14 md:py-24">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -16,7 +16,7 @@ export default function ProcessStepsSection({
             "radial-gradient(1000px 540px at 24% 10%, rgba(128,21,232,0.22) 0%, rgba(128,21,232,0) 70%)",
         }}
       />
-      <div className="relative mx-auto w-full max-w-[1200px]">
+      <div className="site-container relative">
         <div className="max-w-[800px]">
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-amber">
             {process.eyebrow}

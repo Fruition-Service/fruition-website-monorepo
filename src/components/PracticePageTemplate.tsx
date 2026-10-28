@@ -19,8 +19,8 @@ import CalendlySection from '@/components/sections/CalendlySection'
  * (/atlassian-consulting, /hubspot-consulting, /ai-consulting, /integrations,
  * /monday-products). Sections mirror Josh's approved mockups: hero, numbered
  * approach, services, child pages, geographic coverage, practice leader,
- * FAQ (with FAQPage JSON-LD), closing CTA. The breadcrumb bar and its
- * BreadcrumbList JSON-LD render site-wide via SiteFrame > Breadcrumbs.
+ * FAQ (with FAQPage JSON-LD), closing CTA. The BreadcrumbList JSON-LD
+ * renders site-wide via SiteFrame > Breadcrumbs.
  */
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -83,7 +83,6 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
           services run down the right as a plain list, so the first screen
           says what Fruition does here before any scrolling. */}
       <section className="hero-band">
-        {/* Breadcrumb trail renders site-wide via SiteFrame > Breadcrumbs */}
         <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-10 lg:gap-16 lg:items-center">
             <div className="min-w-0">

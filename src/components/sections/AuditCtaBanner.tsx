@@ -31,8 +31,8 @@ interface AuditCtaBannerProps {
   contained?: boolean
   /**
    * The host page's section container — width AND horizontal padding, so the
-   * card's edges line up with the headings above it. Legacy pages run a
-   * 1200px/px-4 grid; the home page runs 1348px/px-5 md:px-8.
+   * card's edges line up with the headings above it. Every page now runs on
+   * `.site-container`, so the default is almost always right.
    */
   containerClassName?: string
   /** Extra classes on the outer element (section, or the card when bare). */
