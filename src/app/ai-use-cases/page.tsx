@@ -6,7 +6,7 @@ import { getAllUseCases, getUseCaseIndex } from "@/features/ai-use-cases/data"
 import { industryHref, toTile, USE_CASES_PATH } from "@/features/ai-use-cases/types"
 import UseCasesHero from "@/components/ai-use-cases/UseCasesHero"
 import IndustryGrid from "@/components/ai-use-cases/IndustryGrid"
-import UseCaseExplorer, { UseCaseFilterLink } from "@/components/ai-use-cases/UseCaseExplorer"
+import UseCaseExplorer from "@/components/ai-use-cases/UseCaseExplorer"
 import JsonLd, { SITE_URL } from "@/components/ai-use-cases/JsonLd"
 import SectionIntro from "@/components/sections/SectionIntro"
 import ClientLogoSection from "@/components/sections/ClientLogoSection"
@@ -142,31 +142,6 @@ export default async function Page() {
           <div className="mt-12">
             <IndustryGrid industries={index.industries} />
           </div>
-        </div>
-      </section>
-
-      <section className="bg-surface px-4 pt-14 md:pt-20 lg:pt-24">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-6 rounded-card bg-tint p-6 ring-1 ring-lilac md:p-10 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-[62ch]">
-            <p className="mb-[18px] font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-              Built for ourselves first
-            </p>
-            <h2 className="text-section-h3 text-body text-balance">
-              {index.ownCount} AI and automation builds running inside Fruition
-            </h2>
-            <p className="mt-4 text-body text-muted">
-              Before we build it for clients, we run it on our own business: an AI marketing agent, a
-              discovery-call-to-proposal generator, meeting-to-action automation, automated contractor payroll, a
-              Google Ads agent, our headless website and more.
-            </p>
-          </div>
-          <UseCaseFilterLink
-            params={{ own: "1" }}
-            targetId="explore"
-            className="cta-btn cta-btn-primary shrink-0 self-start lg:self-center"
-          >
-            <span className="cta-btn-label">See our own builds</span>
-          </UseCaseFilterLink>
         </div>
       </section>
 
