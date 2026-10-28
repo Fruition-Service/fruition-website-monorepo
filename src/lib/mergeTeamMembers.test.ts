@@ -36,8 +36,25 @@ describe("mergeTeamMembers", () => {
   })
 
   it("keeps everyone who is not excluded", () => {
-    const merged = mergeTeamMembers([JOSH, member("Ada Lovelace")], [])
+    const merged = mergeTeamMembers(
+      [{ ...JOSH, photoUrl: "/j.jpg" }, member("Ada Lovelace", { role: "Consultant", photoUrl: "/a.jpg" })],
+      [],
+    )
     expect(merged.map((m) => m.name)).toEqual(["Josh Jebathilak", "Ada Lovelace"])
+  })
+
+  it("drops half-filled onboarding records with no role or no photo", () => {
+    const merged = mergeTeamMembers(
+      [
+        member("New item", { role: "Consultant", photoUrl: "/n.jpg" }),
+        member("Louis Romero (copy)", { role: "Consultant", photoUrl: "/l.jpg" }),
+        member("No Role", { photoUrl: "/r.jpg" }),
+        member("No Photo", { role: "Consultant" }),
+        member("Complete", { role: "Consultant", photoUrl: "/c.jpg" }),
+      ],
+      [],
+    )
+    expect(merged.map((m) => m.name)).toEqual(["Complete"])
   })
 })
 

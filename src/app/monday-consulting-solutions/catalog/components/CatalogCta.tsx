@@ -26,7 +26,7 @@ export default function CatalogCta({ calendlyUrl }: CatalogCtaProps) {
             rel="noopener noreferrer"
             className="ui-cta-btn ui-cta-btn-primary mt-8 inline-flex"
           >
-            Talk to Zach <span aria-hidden>→</span>
+            Talk to Fruition <span aria-hidden>→</span>
           </a>
         </div>
       </div>
