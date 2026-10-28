@@ -3,7 +3,7 @@ import { getLicensingPageContent } from '@/features/content/licensingPage'
 import { practiceMetadata } from '@/data/practicePages/types'
 
 /**
- * /pricing — licence procurement. Copy lives in
+ * /licence-procurement: licence procurement. Copy lives in
  * src/data/practicePages/licensing.ts and is overridden field by field by the
  * `licensingPage` document in the Studio.
  */

@@ -65,7 +65,7 @@ export function mergeLicensingPage(
 }
 
 /**
- * /pricing content: shipped copy with the `licensingPage` Studio document
+ * /licence-procurement content: shipped copy with the `licensingPage` Studio document
  * merged over it. Cached per render pass because the route reads it twice,
  * once in generateMetadata and once in the component body.
  */

@@ -116,7 +116,7 @@ const STATIC_PATHS: string[] = [
   "/partnerships/openclaw-partner",
   "/partnerships/supabase-partner",
   "/partnerships/vapi-partner",
-  "/pricing",
+  "/licence-procurement",
   "/terms-and-conditions",
 ]
 

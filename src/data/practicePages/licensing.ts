@@ -1,7 +1,7 @@
 import type { PracticePage } from './types'
 
 /**
- * /pricing: software licence procurement.
+ * /licence-procurement: software licence procurement.
  *
  * The route used to publish indicative consulting fees, then sold monday.com,
  * Atlassian and HubSpot licences through a partner. It now describes the
@@ -16,16 +16,16 @@ import type { PracticePage } from './types'
  * This copy is the *fallback*. The live page merges the `licensingPage`
  * singleton over it field by field (see src/features/content/licensingPage.ts),
  * so anything edited in the Studio wins and anything left blank falls back to
- * here. public/pricing.md is the markdown twin and must say the same thing.
+ * here. public/licence-procurement.md is the markdown twin and must say the same thing.
  */
 
 export const LICENSING_PAGES: Record<string, PracticePage> = {
   pricing: {
-    path: '/pricing',
+    path: '/licence-procurement',
     seoTitle: 'Software Licence Procurement for SMB and Mid-Market Teams | Fruition',
     seoDescription:
       'Software licence procurement for SMB and mid-market teams: we audit what you pay for, recommend the right plans, source and negotiate Microsoft, Google, Adobe, Atlassian and monday.com licences, and manage every renewal.',
-    breadcrumb: [{ label: 'Licence procurement', href: '/pricing' }],
+    breadcrumb: [{ label: 'Licence procurement', href: '/licence-procurement' }],
     primaryCtaLabel: 'Book a consultation',
     eyebrow: 'Software licence procurement',
     heading: 'Buy and renew software without overpaying for it',

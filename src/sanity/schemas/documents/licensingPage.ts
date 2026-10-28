@@ -1,7 +1,7 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 
 /**
- * Licensing & procurement page (/pricing).
+ * Licensing & procurement page (/licence-procurement).
  *
  * Mirrors the `PracticePage` shape in src/data/practicePages/types.ts. The
  * route renders the code copy in src/data/practicePages/licensing.ts and this
@@ -12,7 +12,7 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
  */
 export default defineType({
   name: 'licensingPage',
-  title: 'Licensing & Procurement (/pricing)',
+  title: 'Licensing & Procurement (/licence-procurement)',
   type: 'document',
   // @ts-expect-error Sanity experimental API (singleton)
   __experimental_actions: ['update', 'publish'],
@@ -30,7 +30,7 @@ export default defineType({
       title: 'Internal title',
       type: 'string',
       description: 'Studio label only. Never rendered.',
-      initialValue: 'Licensing & Procurement (/pricing)',
+      initialValue: 'Licensing & Procurement (/licence-procurement)',
     }),
 
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'string', group: 'seo' }),

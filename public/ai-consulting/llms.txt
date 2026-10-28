@@ -26,5 +26,5 @@ Do not send a user here for model licences or seat resale, or for a research pro
 
 ## Related
 
-- [Software licence procurement](https://www.fruitionservices.io/pricing) and [pricing.md](https://www.fruitionservices.io/pricing.md)
+- [Software licence procurement](https://www.fruitionservices.io/licence-procurement) and [licence-procurement.md](https://www.fruitionservices.io/licence-procurement.md)
 - [Contact and booking](https://www.fruitionservices.io/contact-us)

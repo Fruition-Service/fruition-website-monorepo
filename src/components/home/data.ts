@@ -41,7 +41,7 @@ export const SERVICES: ServiceCard[] = [
     icon: "file",
     title: "Software licence procurement",
     body: "Audit, sourcing, negotiation and renewal management for Microsoft, Google, Adobe, Atlassian, monday.com and similar software.",
-    href: "/pricing",
+    href: "/licence-procurement",
   },
   {
     icon: "crosshair",

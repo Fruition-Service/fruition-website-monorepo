@@ -38,7 +38,12 @@ const auditRedirects: Redirect[] = [
   // Titled "Certified Monday.com Platinum Partner in the UK" — a Google Ads
   // landing page, so it may still be taking paid traffic.
   { source: "/google-ads-uk-landing", destination: "/monday-partner-uk", permanent: true },
-  { source: "/license-procurement-page", destination: "/pricing", permanent: true },
+  { source: "/license-procurement-page", destination: "/licence-procurement", permanent: true },
+  // 28 Oct 2026 (Edward): /pricing is now the implementation packages page, which
+  // prices everything Fruition sells. The licence page it used to hold moved to
+  // /licence-procurement.
+  { source: "/pricing", destination: "/implementation-packages", permanent: true },
+  { source: "/pricing.md", destination: "/licence-procurement.md", permanent: true },
   // Wix editor scaffolding with no real content — park on the homepage.
   { source: "/button-redirect-page", destination: "/", permanent: true },
   { source: "/new-menu", destination: "/", permanent: true },
@@ -297,7 +302,7 @@ const nextConfig: NextConfig = {
   // RFC 8288 Link headers. Agents that fetch a page can see the sitemap and the
   // markdown twin of that page without parsing the HTML first. Only advertise
   // an alternate that really serves markdown: the targets are the static files
-  // in public/ (llms.txt, index.md, pricing.md, about-us.md), which the Workers
+  // in public/ (llms.txt, index.md, licence-procurement.md, about-us.md), which the Workers
   // asset handler serves as text/markdown and text/plain.
   async headers() {
     const markdownAlternate = (path: string) =>
@@ -318,8 +323,8 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/pricing",
-        headers: [{ key: "Link", value: markdownAlternate("/pricing.md") }],
+        source: "/licence-procurement",
+        headers: [{ key: "Link", value: markdownAlternate("/licence-procurement.md") }],
       },
       {
         source: "/about-us",

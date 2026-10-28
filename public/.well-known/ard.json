@@ -46,10 +46,10 @@
       ]
     },
     {
-      "identifier": "urn:air:fruitionservices.io:doc:pricing",
+      "identifier": "urn:air:fruitionservices.io:doc:licence-procurement",
       "displayName": "Fruition Services software licence procurement (markdown)",
       "type": "text/markdown",
-      "url": "https://www.fruitionservices.io/pricing.md",
+      "url": "https://www.fruitionservices.io/licence-procurement.md",
       "description": "Software licence procurement for SMB and mid-market teams across Microsoft, Google, Adobe, Atlassian and monday.com: licence audit, recommendation, sourcing and negotiation, and renewal management, in plain markdown so an agent can read it without scraping HTML.",
       "tags": ["licensing", "procurement", "pricing", "markdown"],
       "representativeQueries": [

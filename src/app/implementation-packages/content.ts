@@ -14,15 +14,21 @@
  *
  * Copy is Josh's, verbatim, except numeric ranges ("1-2 teams") which use a
  * hyphen instead of an en dash, and empty table cells, which read "Not included".
+ *
+ * 28 Oct 2026 (Edward): the page became Fruition's pricing page. /pricing
+ * redirects here, and SERVICE_PRICES lists the starting price of every other
+ * service line. Those figures are not new: each one is the "engagements start
+ * at" answer already published in that service page's FAQ
+ * (src/data/practicePages/*.ts). Change a price there and here together.
  */
 
 export const PAGE_PATH = "/implementation-packages"
 export const SITE_URL = "https://www.fruitionservices.io"
 export const PAGE_URL = `${SITE_URL}${PAGE_PATH}`
 
-export const SEO_TITLE = "monday.com Implementation Packages | Platinum Partner"
+export const SEO_TITLE = "Pricing: monday.com Implementation Packages & Services | Fruition"
 export const SEO_DESCRIPTION =
-  "monday.com implementation packages from a Platinum Partner: Training & Optimisation from $2,500, Lock-Step from $5,000, Deployed Engineer from $2,500/month."
+  "Fruition pricing: monday.com implementation packages from $2,500, plus published starting prices for AI consulting, Atlassian, HubSpot, automation and integrations."
 export const DATE_MODIFIED = "2026-10-28"
 
 export const PHONE_DISPLAY = "+61 483 955 931"
@@ -138,22 +144,161 @@ export const COMPARE_ROWS: CompareRow[] = [
 ]
 
 /* ------------------------------------------------------------------ */
+/*  Everything else Fruition sells: published starting prices          */
+/* ------------------------------------------------------------------ */
+
+/** Starting price of one service, as published in its page's FAQ. */
+export interface ServicePrice {
+  name: string
+  href: string
+  /** AUD, the figure the service page publishes. */
+  fromAud: number
+}
+
+export interface ServiceGroup {
+  id: "ai" | "atlassian" | "hubspot" | "automation"
+  eyebrow: string
+  heading: string
+  lead: string
+  href: string
+  linkLabel: string
+  items: ServicePrice[]
+}
+
+export const SERVICE_PRICES: ServiceGroup[] = [
+  {
+    id: "ai",
+    eyebrow: "AI consulting and agents",
+    heading: "AI strategy, agents and automation",
+    lead: "Strategy, governance and production AI agents on OpenAI and Anthropic Claude, priced per phase.",
+    href: "/ai-consulting",
+    linkLabel: "AI consulting",
+    items: [
+      { name: "AI consulting", href: "/ai-consulting", fromAud: 24500 },
+      { name: "AI agent development", href: "/ai-consulting/agent-development", fromAud: 35000 },
+      { name: "RAG knowledge systems", href: "/ai-consulting/rag-knowledge-systems", fromAud: 35000 },
+      { name: "AI governance and compliance", href: "/ai-consulting/governance-and-compliance", fromAud: 18000 },
+      { name: "AI marketing automation", href: "/ai-consulting/marketing-automation", fromAud: 18000 },
+      { name: "AI sales and outbound", href: "/ai-consulting/sales-outbound", fromAud: 18000 },
+      { name: "AI customer service", href: "/ai-consulting/customer-service", fromAud: 18000 },
+      { name: "AI operations and back office", href: "/ai-consulting/operations-back-office", fromAud: 18000 },
+    ],
+  },
+  {
+    id: "atlassian",
+    eyebrow: "Atlassian",
+    heading: "Jira, Confluence and Jira Service Management",
+    lead: "Implementation, optimisation and migration through our Atlassian Platinum Partner practice.",
+    href: "/atlassian-consulting",
+    linkLabel: "Atlassian consulting",
+    items: [
+      { name: "Atlassian consulting", href: "/atlassian-consulting", fromAud: 12000 },
+      { name: "Jira implementation and optimisation", href: "/atlassian-consulting/jira", fromAud: 12000 },
+      { name: "Confluence knowledge systems", href: "/atlassian-consulting/confluence", fromAud: 10000 },
+      { name: "Jira Service Management", href: "/atlassian-consulting/jira-service-management", fromAud: 12000 },
+      { name: "Jira to monday.com migration", href: "/atlassian-consulting/jira-to-monday-migration", fromAud: 15000 },
+    ],
+  },
+  {
+    id: "hubspot",
+    eyebrow: "HubSpot",
+    heading: "HubSpot implementation, Breeze AI and integration",
+    lead: "HubSpot builds, Breeze AI and the hand-off between HubSpot and monday.com.",
+    href: "/hubspot-consulting",
+    linkLabel: "HubSpot consulting",
+    items: [
+      { name: "HubSpot implementation", href: "/hubspot-consulting/implementation", fromAud: 12000 },
+      { name: "HubSpot Breeze AI", href: "/hubspot-consulting/breeze-ai", fromAud: 8000 },
+      { name: "monday.com and HubSpot integration", href: "/hubspot-consulting/monday-hubspot-integration", fromAud: 8000 },
+      { name: "HubSpot to monday.com migration", href: "/hubspot-consulting/hubspot-to-monday-migration", fromAud: 12000 },
+    ],
+  },
+  {
+    id: "automation",
+    eyebrow: "Automation and integrations",
+    heading: "Integrations, Make, Zapier and telephony",
+    lead: "Connecting monday.com, your CRM and the rest of your stack, from a single Zap to a full integration layer.",
+    href: "/integrations",
+    linkLabel: "Integrations",
+    items: [
+      { name: "Integrations", href: "/integrations", fromAud: 6000 },
+      { name: "Make automation", href: "/partnerships/make-partners", fromAud: 4000 },
+      { name: "Zapier", href: "/integrations/zapier", fromAud: 3000 },
+      { name: "Aircall integration", href: "/partnerships/aircall-partner", fromAud: 4000 },
+      { name: "Twilio", href: "/integrations/twilio", fromAud: 5000 },
+    ],
+  },
+]
+
+/** "A$12,000": every SERVICE_PRICES figure is AUD. */
+export function aud(n: number): string {
+  return `A$${n.toLocaleString("en-US")}`
+}
+
+/** Lowest starting price in a group, for the overview cards. */
+export function groupFrom(g: ServiceGroup): number {
+  return Math.min(...g.items.map((i) => i.fromAud))
+}
+
+export const OVERVIEW = {
+  eyebrow: "Pricing at a glance",
+  heading: "What Fruition costs, by service",
+  lead: "Starting prices for every service line. monday.com packages are priced in USD; everything else is quoted in AUD, with local pricing in each region.",
+  mondayTitle: "monday.com implementation",
+  mondayNote: "Three fixed-scope packages",
+  groupNote: "Fixed-fee initial phase",
+  licencesTitle: "Software licences",
+  licencesNote: "monday.com, Atlassian and HubSpot licences bought through Fruition",
+  licencesPrice: "Quoted per vendor",
+  from: "From",
+  view: "See prices",
+}
+
+export const SERVICES_INTRO = {
+  eyebrow: "Services pricing",
+  heading: "Starting prices for everything else we build",
+  lead: "Each service starts with a structured initial phase at a fixed fee. Mid-scope projects are quoted after a scoping call.",
+  priceCaption: "Initial phase, from",
+  footnote:
+    "Prices in AUD. We serve Australia (AUD), the UK (GBP) and the US (USD) with local pricing in each region. Software licences are paid separately.",
+}
+
+export const LICENCES = {
+  eyebrow: "Software licences",
+  heading: "Buying monday.com, Atlassian or HubSpot licences?",
+  body: "Licences are separate from our service fees. As a certified partner we can source, renew and consolidate them for you.",
+  cta: "Licence procurement",
+  href: "/licence-procurement",
+}
+
+export const HOW_PRICING_WORKS = {
+  eyebrow: "How our pricing works",
+  heading: "No hourly surprises",
+  items: [
+    { title: "Fixed fee per phase", body: "Every package and initial phase has a fixed price, agreed in writing before work starts." },
+    { title: "Scoped after a call", body: "Mid-scope and enterprise projects are quoted after a free scoping call or system audit." },
+    { title: "Local pricing", body: "Consultants and pricing for Australia & NZ, South-East Asia, India & UAE, UK & Europe and US & Canada." },
+    { title: "Licences billed separately", body: "monday.com, Atlassian and HubSpot seats are paid to the vendor, or through our licence procurement service." },
+  ],
+}
+
+/* ------------------------------------------------------------------ */
 /*  Hero                                                               */
 /* ------------------------------------------------------------------ */
 
 export const HERO = {
-  eyebrow: "monday.com Platinum Partner · AU · UK · US · India · Singapore",
-  h1Before: "monday.com implementation packages, ",
-  h1Accent: "fixed in scope",
-  h1After: " and built to be adopted.",
+  eyebrow: "Pricing · monday.com Platinum Partner · AU · UK · US · India · Singapore",
+  h1Before: "Fruition pricing: ",
+  h1Accent: "published up front",
+  h1After: ", fixed before work starts.",
   /** Answer-first summary: the WebPage speakable selector points at it. */
-  answer: `Fruition is a monday.com Platinum Partner offering three monday.com implementation packages: Training & Optimisation (from ${usd(TRAINING.basePriceUsd)} one-time, 1 team up to 25 users), Lock-Step, where we build and deploy together (from ${usd(LOCKSTEP.basePriceUsd)} one-time, up to 50 users), and Deployed Engineer (from ${usd(DEPLOYED.basePriceUsd)} per month, up to 250 users). Each package maps your process first, then builds boards, automations and integrations your team actually uses.`,
-  lead: "Most teams buy monday.com, build a few boards and stall. Our packages fix the process before the platform, so you get workflows, reporting and automations that hold up after go-live.",
+  answer: `Fruition prices monday.com implementation as three packages: Training & Optimisation (from ${usd(TRAINING.basePriceUsd)} one-time), Lock-Step, where we build and deploy together (from ${usd(LOCKSTEP.basePriceUsd)} one-time), and Deployed Engineer (from ${usd(DEPLOYED.basePriceUsd)} per month). AI consulting, Atlassian, HubSpot, automation and integration work starts with a fixed-fee initial phase, from A$3,000 for a Zapier build to A$35,000 for a production AI agent.`,
+  lead: "Every engagement is priced per phase and agreed in writing before anything is built. Pick a package, or start with a free 30-minute system audit and we'll recommend one.",
   bullets: [
-    "Three packages: optimise, build together, or embed an engineer",
+    "Three monday.com packages: optimise, build together, or embed an engineer",
+    "Published starting prices for AI, Atlassian, HubSpot and automation work",
     "Process mapping and solution design before anything is built",
-    "Integrations, data migration, training and handover documentation included where scoped",
-    "Consultants in Sydney, Singapore, India, London and New York time zones",
+    "Local pricing for Australia, the UK, the US and Asia",
   ],
   chips: [
     "monday.com Platinum Partner",
@@ -162,6 +307,7 @@ export const HERO = {
     "OpenAI & Anthropic partner",
     "NSW Gov ICT Scheme SCM0020",
   ],
+  jumpLabel: "Jump to",
 }
 
 export const FORM = {
@@ -195,42 +341,15 @@ export const AT_A_GLANCE: Array<[string, string]> = [
   ["Recognition", "2026 Rising Star awards · Finalist, 2026 Australian AI Awards · NSW Government ICT Services Scheme (SCM0020, Advanced)"],
   ["Clients", "900+ small and mid-sized organisations"],
   ["Implementation packages", PACKAGES.map((p) => `${p.name} (from ${usd(p.basePriceUsd)} ${p.cadence})`).join(" · ")],
+  ["Other services", SERVICE_PRICES.map((g) => `${g.eyebrow} (from ${aud(groupFrom(g))})`).join(" · ")],
   ["monday.com products", "Work Management, monday CRM, monday Service, monday dev, monday AI and Vibe apps"],
   ["Regions", "Australia & NZ, South-East Asia, India & UAE, UK & Europe, US & Canada"],
   ["Approach", "Process before platform: map and agree the process, then design, build, train and hand over"],
 ]
 
-export const EXAMPLE = {
-  eyebrow: "What an implementation actually changes",
-  heading: "One workflow, before and after a Fruition implementation",
-  lead: "A typical first use case from a Lock-Step package on a construction operations board. The same pattern applies to CRM pipelines, service desks and project portfolios.",
-  steps: [
-    { tag: "Trigger", title: "A site request lands on the board", body: "Submitted through a monday.com form, the mobile app or an email integration. No more requests buried in inboxes." },
-    { tag: "Automate", title: "It's routed, prioritised and assigned", body: "Automations set status, owner and due date from your routing rules. monday AI can summarise and categorise the request where you want it to." },
-    { tag: "Report", title: "Everyone sees what's next", body: "Dashboards show workload, SLAs and blockers by project. The client gets an automatic update, and the PM reviews exceptions, not every request." },
-  ],
-}
-
-export const WHY_NOW = {
-  eyebrow: "Why implementation matters",
-  heading: "Your monday.com plan can do more than your team is using",
-  paragraphs: [
-    "Most monday.com accounts we audit run a fraction of what their plan already includes. Automations, integrations, dashboards, forms and monday AI sit unused while the same work is still done by hand: chasing updates, re-keying data and building the Monday status report from scratch.",
-    "A Fruition implementation package closes that gap one workflow at a time. We start with the process, agree it with the people who run it, then build it in monday.com so the system matches how the work really happens.",
-  ],
-  signsHeading: "Signs you need an implementation partner",
-  signs: [
-    "Boards were built by different people, with no shared structure",
-    "Reporting still lives in spreadsheets",
-    "Automations break or nobody owns them",
-    "Data sits in a CRM, finance or document tool that monday.com can't see",
-    "Adoption dropped after the first month",
-  ],
-}
-
 export const PACKAGES_INTRO = {
   eyebrow: "monday.com implementation pricing",
-  heading: "Three packages, sized to your team",
+  heading: "monday.com implementation packages, sized to your team",
   lead: "Choose by team size and what you need done. Every package starts with your workflows, not a template, and every price is fixed before work starts.",
   enterprise: "More than 250 users or several departments? We scope enterprise rollouts separately.",
   enterpriseCta: "Get quote",
@@ -241,7 +360,9 @@ export const PACKAGES_INTRO = {
 }
 
 export const CTA = {
-  heading: "Find the right monday.com implementation package",
+  eyebrow: "Not sure which one you need?",
+  heading: "Get a fixed price for your project",
+  headingAccent: "fixed price",
   body: "Book a free 30-minute system audit. We'll map your workflow, spot the automation wins and recommend the package to get there.",
   primary: "Book a free system audit",
   secondary: `Call ${PHONE_DISPLAY}`,
@@ -257,20 +378,6 @@ export const METHOD = {
     { title: "Data migration and integration", body: "Data moved from spreadsheets or legacy tools, and integrations set up to systems such as Xero, HubSpot, Salesforce, Outlook, Slack or Jira." },
     { title: "Training and onboarding", body: "Role-based training for end users, champions and admins, with documentation written for your workflows rather than generic guides." },
     { title: "Go-live and ongoing support", body: "A supported go-live, adoption checks and a clear path to a Deployed Engineer or ad-hoc help as your processes change." },
-  ],
-}
-
-export const INDUSTRIES = {
-  eyebrow: "Implementation by industry",
-  heading: "monday.com implementations for the industries we know",
-  lead: "Every package starts from a proven pattern for your sector, then gets shaped around your workflows.",
-  items: [
-    { href: "/monday-for-construction", title: "Construction & trades", body: "Tenders, project delivery, variations, site diaries and subcontractor management.", link: "monday.com for construction" },
-    { href: "/monday-for-government", title: "Government", body: "Program and project portfolios, approvals and reporting under procurement and records rules.", link: "monday.com for government" },
-    { href: "/monday-for-manufacturing", title: "Manufacturing", body: "Production planning, quality, maintenance and supplier workflows.", link: "monday.com for manufacturing" },
-    { href: "/monday-for-real-estate", title: "Real estate & property", body: "Listings, developments, leasing and property management pipelines.", link: "monday.com for real estate" },
-    { href: "/monday-for-marketing", title: "Marketing & agencies", body: "Campaigns, content calendars, approvals and client reporting.", link: "monday.com for marketing" },
-    { href: "/monday-crm-consulting", title: "Sales teams on monday CRM", body: "Pipelines, lead routing, quoting and CRM migrations from Salesforce, HubSpot or Pipedrive.", link: "monday CRM consulting" },
   ],
 }
 
@@ -314,14 +421,18 @@ export const REGIONS = {
 /* ------------------------------------------------------------------ */
 
 export const FAQ_INTRO = {
-  eyebrow: "monday.com implementation FAQ",
-  heading: "Questions about our implementation packages",
+  eyebrow: "Pricing FAQ",
+  heading: "Questions about our pricing and packages",
 }
 
 export const FAQS: Array<{ q: string; a: string }> = [
   {
     q: "How much does a monday.com implementation cost?",
     a: `A monday.com implementation with Fruition costs from ${usd(TRAINING.basePriceUsd)} one-time for Training & Optimisation (1 team, up to 25 users), from ${usd(LOCKSTEP.basePriceUsd)} one-time for a Lock-Step build (1-2 teams, up to 50 users), or from ${usd(DEPLOYED.basePriceUsd)} per month for a Deployed Engineer (multiple teams, up to 250 users). Prices are in USD at the US team rate and fixed before work starts. monday.com licences are paid separately.`,
+  },
+  {
+    q: "How much do Fruition's AI, Atlassian, HubSpot and integration services cost?",
+    a: `Each service starts with a fixed-fee initial phase: AI consulting from ${aud(24500)}, production AI agents from ${aud(35000)}, Atlassian from ${aud(10000)}, HubSpot from ${aud(8000)}, and automation and integrations from ${aud(3000)} (all AUD). Mid-scope projects are quoted after a scoping call, with local pricing in the UK and US.`,
   },
   {
     q: "How long does a monday.com implementation take?",
@@ -436,12 +547,27 @@ export function buildJsonLd() {
         },
       },
       {
+        "@type": "OfferCatalog",
+        "@id": `${PAGE_URL}#services`,
+        name: "Fruition services: starting prices",
+        url: `${PAGE_URL}#services`,
+        itemListElement: SERVICE_PRICES.flatMap((g) =>
+          g.items.map((i) => ({
+            "@type": "Offer",
+            name: `${i.name}: initial phase`,
+            url: `${SITE_URL}${i.href}`,
+            priceSpecification: { "@type": "PriceSpecification", minPrice: i.fromAud, priceCurrency: "AUD" },
+            itemOffered: { "@type": "Service", name: i.name, provider: { "@id": ORG_ID } },
+          })),
+        ),
+      },
+      {
         "@type": "BreadcrumbList",
         "@id": `${PAGE_URL}#breadcrumb`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
           { "@type": "ListItem", position: 2, name: "monday.com consulting", item: `${SITE_URL}/partnerships/monday-consulting-partner` },
-          { "@type": "ListItem", position: 3, name: "Implementation packages", item: PAGE_URL },
+          { "@type": "ListItem", position: 3, name: "Pricing", item: PAGE_URL },
         ],
       },
       {
