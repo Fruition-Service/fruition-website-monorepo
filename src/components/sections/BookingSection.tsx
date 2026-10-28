@@ -509,8 +509,33 @@ function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: string; onS
     return () => window.removeEventListener("message", onMessage)
   }, [])
 
+  /**
+   * Grow the host to the height Calendly reports for its current step, so the
+   * whole booking flow shows instead of clipping inside a fixed box with its
+   * own scrollbar. Only messages from this widget's own iframe count, and
+   * anything below the CSS floor (or unparseable) is ignored.
+   */
   useEffect(() => {
-    const embedUrl = `${src}${src.includes("?") ? "&" : "?"}hide_gdpr_banner=1&embed_type=Inline`
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== "https://calendly.com") return
+      const host = hostRef.current
+      const frame = host?.querySelector("iframe")
+      if (!host || !frame || e.source !== frame.contentWindow) return
+      const data = e.data as { event?: string; payload?: { height?: unknown } } | null
+      if (data?.event !== "calendly.page_height") return
+      const height = parseInt(String(data.payload?.height ?? ""), 10)
+      if (!Number.isFinite(height) || height <= 0) return
+      const floor = parseFloat(getComputedStyle(host).minHeight) || 0
+      host.style.height = `${Math.max(height, floor)}px`
+    }
+    window.addEventListener("message", onMessage)
+    return () => window.removeEventListener("message", onMessage)
+  }, [])
+
+  useEffect(() => {
+    // hide_event_type_details drops Calendly's header block (logo, event name,
+    // duration, host) so the calendar starts at the top of the card.
+    const embedUrl = `${src}${src.includes("?") ? "&" : "?"}hide_gdpr_banner=1&hide_event_type_details=1&embed_type=Inline`
     const init = () => {
       if (!window.Calendly || !hostRef.current) return
       hostRef.current.innerHTML = ""
@@ -533,7 +558,7 @@ function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: string; onS
     return () => script.removeEventListener("load", init)
   }, [src])
 
-  return <div ref={hostRef} style={{ width: "100%", height: 700 }} />
+  return <div ref={hostRef} className="fr-calendly-host" />
 }
 
 function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
@@ -1142,6 +1167,11 @@ export default function BookingSection({
         .fr-booking-head { order: 1; }
         .fr-booking-card { order: 2; }
         .fr-booking-body { order: 3; }
+        /* Calendly embed: full width and a usable 700px floor until the
+           widget measures itself; after that the JS sets the height Calendly
+           reports. The iframe is height:100%, so the host needs a real height. */
+        .fr-calendly-host { width: 100%; height: 700px; min-height: 700px; }
+        .fr-calendly-host iframe { display: block; width: 100%; height: 100%; }
 
         @media (max-width: 960px) {
           .fr-booking-section { padding: 64px 0 !important; }

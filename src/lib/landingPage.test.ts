@@ -17,7 +17,7 @@ describe("withLandingPageTracking", () => {
   it("replaces the Calendly placeholder with the region's calendar", () => {
     const out = withLandingPageTracking(legal, opts)
     expect(out).not.toContain('class="calendly-box"')
-    expect(out).toContain(`data-url="${REGION_BOOKING.APAC.calendlyUrl}?hide_gdpr_banner=1"`)
+    expect(out).toContain(`data-url="${REGION_BOOKING.APAC.calendlyUrl}?hide_gdpr_banner=1&hide_event_type_details=1"`)
   })
 
   it("wires #-posting forms to /api/leads and pushes generate_lead", () => {
