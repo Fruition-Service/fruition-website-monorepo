@@ -1,8 +1,11 @@
 "use client"
 
+import Image from "next/image"
+import Link from "next/link"
 import BookingSection from "./BookingSection"
 import WorldMap, { type MapOffice } from "./WorldMap"
 import AuditCtaBanner from "./AuditCtaBanner"
+import LeadForm, { type LeadFormField } from "./LeadForm"
 
 export interface ContactOffice extends MapOffice {
   flag?: string
@@ -13,7 +16,7 @@ export interface ContactOffice extends MapOffice {
 
 interface ContactSectionProps {
   offices: ContactOffice[]
-  /** Where the form is sent + the "Sales" channel. */
+  /** The "Sales" channel. */
   salesEmail: string
   /** Support channel email. */
   supportEmail: string
@@ -22,6 +25,19 @@ interface ContactSectionProps {
   phoneTel?: string
 }
 
+/**
+ * /contact-us, top to bottom (Josh, 27 Oct 2026 website sync):
+ *
+ *   1. business details, kept simple: sales and support email, phone
+ *   2. accreditations: the partner badges already used on the homepage
+ *   3. a short lead form (the shared LeadForm, posting to /api/leads like the
+ *      CRO and ad landing page forms)
+ *   4. the booking band
+ *   5. the world map, then the offices as collapsible rows
+ *
+ * On desktop 1 and 2 sit in the left column with the form on the right, the
+ * enreap.com/contact layout Ishani shared; on mobile they stack in that order.
+ */
 export default function ContactSection({
   offices,
   salesEmail,
@@ -31,90 +47,93 @@ export default function ContactSection({
 }: ContactSectionProps) {
   return (
     <>
-      {/* The booking band opens the page: it is the first thing a visitor sees,
-          and it carries the page's h1. Everything that used to sit above it
-          follows underneath, unchanged. */}
+      <ContactHero
+        offices={offices}
+        salesEmail={salesEmail}
+        supportEmail={supportEmail}
+        phone={phone}
+        phoneTel={phoneTel}
+      />
+
       <BookingSection
-        eyebrow="Contact us"
+        eyebrow="Book a call"
         heading="Tell us what you’re building"
         sub="Pick a time and talk it through with a specialist, or email us and we’ll reply within one business day."
         email={salesEmail}
-        headingAs="h1"
       />
-
-      <ContactHero offices={offices} salesEmail={salesEmail} supportEmail={supportEmail} phone={phone} phoneTel={phoneTel} />
 
       {/* Mid-page conversion banner, shared site-wide */}
       <AuditCtaBanner />
 
       <OfficeBand offices={offices} />
+      <OfficeList offices={offices} />
     </>
   )
 }
 
-/* ── Contact channels: headline, world map, three ways to reach us ─────── */
+/* ── Hero: details + accreditations (left), lead form (right) ──────────── */
 
-function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: ContactSectionProps) {
+/** Answers land under the keys the monday sink reads: "Phone" fills the phone
+ *  column, "Message" the notes column (see pushToMonday in @/lib/leadNotify). */
+const FORM_FIELDS: LeadFormField[] = [
+  { label: "Phone", name: "Phone", inputType: "tel", autoComplete: "tel" },
+  {
+    label: "What do you need help with?",
+    name: "Message",
+    type: "textarea",
+    required: true,
+    placeholder: "A sentence or two is plenty.",
+  },
+]
+
+function ContactHero({ salesEmail, supportEmail, phone, phoneTel }: ContactSectionProps) {
   const telHref = phoneTel || (phone ? phone.replace(/[^\d+]/g, "") : "")
-  // The CMS often uses one shared inbox — don't show the same address twice.
+  // The CMS often uses one shared inbox, so don't show the same address twice.
   const sameInbox = salesEmail.toLowerCase() === supportEmail.toLowerCase()
+
   return (
-    <section className="bg-surface px-4">
-      <div className="mx-auto flex flex-col items-center max-w-[1100px] pt-26 pb-6">
-        {/* No "Contact us" pill here any more: the booking band above opens the
-            page with that exact label, and two of them one screen apart read as
-            a mistake. The label itself is unchanged, just not doubled. */}
-        <h2 className="text-center max-w-[860px] text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-body text-balance">
-          We&rsquo;d love to hear from you
-        </h2>
+    <section className="bg-surface px-4 pt-14 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
+        <div className="min-w-0">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+            Contact us
+          </p>
+          <h1 className="text-display mt-4 text-body text-balance">We&rsquo;d love to hear from you</h1>
+          <p className="text-body-lead mt-4 max-w-[560px] text-muted text-pretty">
+            Reach the team directly, or find the office nearest you. We answer every message within one business day.
+          </p>
 
-        <p className="text-center text-body-lead mt-5 max-w-[600px] text-muted text-pretty">
-          Reach the team directly, or find the office nearest you. We answer every message within one business day.
-        </p>
-      </div>
-
-      {/* World map */}
-      <div className="mx-auto px-4 max-w-[1100px] pt-3 pb-4">
-        <WorldMap offices={offices} />
-      </div>
-
-      {/* Channels */}
-      <div className="mx-auto px-4 max-w-[1000px] pt-6 pb-22">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6 text-center">
-          {sameInbox ? (
-            <Channel
-              title="Email"
-              blurb="Sales, support, or a general question."
-              value={salesEmail}
-              href={`mailto:${salesEmail}`}
+          {/* Business details: the dashed-ledger rows from DESIGN.md */}
+          <dl className="mt-8 border-t border-dashed border-ui">
+            {sameInbox ? (
+              <DetailRow label="Email" value={salesEmail} href={`mailto:${salesEmail}`} />
+            ) : (
+              <>
+                <DetailRow label="Sales" value={salesEmail} href={`mailto:${salesEmail}`} />
+                <DetailRow label="Support" value={supportEmail} href={`mailto:${supportEmail}`} />
+              </>
+            )}
+            {phone && <DetailRow label="Phone" value={phone} href={telHref ? `tel:${telHref}` : undefined} />}
+            <DetailRow
+              label="LinkedIn"
+              value="linkedin.com/company/fruition-services"
+              href="https://www.linkedin.com/company/fruition-services"
             />
-          ) : (
-            <>
-              <Channel
-                title="Sales"
-                blurb="New project or partnership? Start here."
-                value={salesEmail}
-                href={`mailto:${salesEmail}`}
-              />
-              <Channel
-                title="Support"
-                blurb="Existing client needing a hand."
-                value={supportEmail}
-                href={`mailto:${supportEmail}`}
-              />
-            </>
-          )}
-          <Channel
-            title="Phone"
-            blurb="Monday to Friday, business hours AEST."
-            value={phone || ", "}
-            href={telHref ? `tel:${telHref}` : undefined}
-          />
-          <Channel
-            title="LinkedIn"
-            blurb="Follow along and connect with the team."
-            value="linkedin.com/company/fruition-services"
-            href="https://www.linkedin.com/company/fruition-services"
+          </dl>
+
+          <Accreditations />
+        </div>
+
+        <div className="min-w-0 lg:pt-2">
+          <LeadForm
+            variant="card"
+            heading="Send us a message"
+            subheading="Tell us a little about what you need and a specialist will get back to you within one business day."
+            source="contact-us"
+            showCompany={false}
+            fields={FORM_FIELDS}
+            submitLabel="Send message"
+            successMessage="Thanks, a specialist will be in touch within one business day."
           />
         </div>
       </div>
@@ -122,80 +141,163 @@ function ContactHero({ offices, salesEmail, supportEmail, phone, phoneTel }: Con
   )
 }
 
-function Channel({ title, blurb, value, href }: { title: string; blurb: string; value: string; href?: string }) {
+function DetailRow({ label, value, href }: { label: string; value: string; href?: string }) {
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <h3 className="text-[17px] font-semibold text-body">{title}</h3>
-      <p className="text-sm text-muted leading-5 max-w-[240px]">{blurb}</p>
-      {href ? (
-        <a
-          href={href}
-          className="text-[15px] font-semibold text-brand mt-0.5 [word-break:break-word]"
-        >
-          {value}
-        </a>
-      ) : (
-        <span className="text-[15px] font-semibold text-muted mt-0.5">{value}</span>
-      )}
+    <div className="flex flex-col gap-1 border-b border-dashed border-ui py-4 md:flex-row md:items-center md:justify-between md:gap-6">
+      <dt className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">{label}</dt>
+      <dd className="min-w-0">
+        {href ? (
+          <a
+            href={href}
+            className="inline-flex min-h-11 items-center text-[17px] font-semibold text-body [word-break:break-word] hover:text-brand"
+          >
+            {value}
+          </a>
+        ) : (
+          <span className="text-[17px] font-semibold text-body">{value}</span>
+        )}
+      </dd>
     </div>
   )
 }
 
-/* ── Office band: full-bleed purple, addresses ─────────────────────────── */
+/* ── Accreditations: the same partner marks as the homepage ─────────────── */
+
+const BADGES: { src: string; alt: string; width: number; height: number }[] = [
+  { src: "/images/home/partner-monday.png", alt: "monday.com Platinum Partner", width: 268, height: 92 },
+  { src: "/images/home/partner-atlassian.png", alt: "Atlassian Platinum Solution Partner", width: 291, height: 92 },
+  { src: "/images/home/partner-hubspot.png", alt: "HubSpot Solutions Partner", width: 124, height: 124 },
+  { src: "/images/home/partner-claude.png", alt: "Claude Select Services Partner", width: 253, height: 80 },
+  { src: "/images/home/partner-openai.png", alt: "OpenAI Select Partner", width: 331, height: 156 },
+  { src: "/images/home/partner-aws.png", alt: "AWS Partner", width: 123, height: 124 },
+  { src: "/images/home/partner-googlecloud.png", alt: "Google Cloud Partner", width: 598, height: 147 },
+  { src: "/images/home/partner-make.png", alt: "Make Partner", width: 357, height: 92 },
+  { src: "/images/home/partner-clickup.png", alt: "ClickUp Registered Partner", width: 124, height: 124 },
+]
+
+function Accreditations() {
+  return (
+    <div className="mt-10">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+          Accreditations
+        </h2>
+        <Link
+          href="/certifications-and-awards"
+          className="inline-flex min-h-11 items-center text-caption font-semibold text-brand hover:text-brand-dark"
+        >
+          All certifications &rarr;
+        </Link>
+      </div>
+      <ul className="mt-3 grid grid-cols-3 gap-3">
+        {BADGES.map((b) => (
+          <li
+            key={b.alt}
+            className="flex h-[72px] items-center justify-center rounded-chip border border-ui bg-surface-raised px-3 md:h-[84px] md:px-4"
+          >
+            <Image
+              src={b.src}
+              alt={b.alt}
+              width={b.width}
+              height={b.height}
+              className="h-auto max-h-[44px] w-auto max-w-full object-contain md:max-h-[52px]"
+            />
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3 flex items-center justify-center rounded-chip border border-ui bg-surface-raised px-4 py-3">
+        <Image
+          src="/images/badge-certifications.png"
+          alt="monday.com certifications: product, advanced workflows, customer success, partner marketing"
+          width={325}
+          height={73}
+          className="h-auto w-full max-w-[325px]"
+        />
+      </div>
+    </div>
+  )
+}
+
+/* ── Office band: full-bleed purple, world map ─────────────────────────── */
 
 function OfficeBand({ offices }: { offices: ContactOffice[] }) {
   return (
-    <section className="py-24 bg-[linear-gradient(135deg,var(--color-surface-dark)_0%,var(--color-surface-dark-2)_55%,var(--color-brand-dark)_100%)]">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-12 px-4 lg:flex-row lg:items-start lg:gap-16">
-        {/* Heading column */}
-        <div className="max-w-[360px] min-w-0 lg:flex-none">
-          <p className="text-brand-light text-base font-semibold leading-6">
-            Our locations
-          </p>
-          <h2 className="text-section-h2 text-white mt-3 text-balance">
-            Visit our offices
-          </h2>
-          <p className="text-white/[0.72] text-xl leading-[30px] mt-5">
+    <section className="bg-[linear-gradient(135deg,var(--color-surface-dark)_0%,var(--color-surface-dark-2)_55%,var(--color-brand-dark)_100%)] px-4 py-14 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="max-w-[640px]">
+          <p className="text-brand-light text-base font-semibold leading-6">Our locations</p>
+          <h2 className="text-section-h2 mt-3 text-white text-balance">Visit our offices</h2>
+          <p className="mt-4 text-body-lead text-white/[0.72]">
             Local teams across {offices.length} cities, working in your timezone.
           </p>
         </div>
-
-        {/* Office list */}
-        <div className="flex flex-1 flex-wrap gap-8 lg:gap-x-16 lg:gap-y-8">
-          {offices.map((o, i) => (
-            <div key={`${o.city}-${i}`} className="min-w-[240px] max-w-[320px] flex-[1_0_0]">
-              <div className="flex items-center gap-2">
-                {o.flag && <span className="text-lg leading-none">{o.flag}</span>}
-                <span className="text-lg font-semibold text-white leading-7">{o.city}</span>
-              </div>
-              {o.address &&
-                (o.addressUrl ? (
-                  <a
-                    href={o.addressUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-base leading-6 text-white/[0.72] mt-1"
-                  >
-                    {o.address}
-                  </a>
-                ) : (
-                  <p className="text-base leading-6 text-white/[0.72] mt-1">
-                    {o.address}
-                  </p>
-                ))}
-              {o.phone && (
-                <a
-                  href={`tel:${o.phoneTel || o.phone.replace(/[^\d+]/g, "")}`}
-                  className="block text-base text-white/[0.72] mt-1"
-                >
-                  {o.phone}
-                </a>
-              )}
-            </div>
-          ))}
+        <div className="mt-10 rounded-card bg-surface-raised px-2 py-4 md:px-6 md:py-6">
+          <WorldMap offices={offices} />
         </div>
       </div>
+    </section>
+  )
+}
 
+/* ── Office list: one collapsible row per office ───────────────────────── */
+
+function OfficeList({ offices }: { offices: ContactOffice[] }) {
+  if (offices.length === 0) return null
+  return (
+    <section className="bg-surface px-4 py-14 md:py-20">
+      <div className="mx-auto max-w-[1180px]">
+        <h2 className="text-section-h3 text-body">Our offices</h2>
+        <ul className="mt-6 grid grid-cols-1 gap-x-8 border-t border-ui md:grid-cols-2 lg:grid-cols-3 md:border-t-0">
+          {offices.map((o, i) => (
+            <li key={`${o.city}-${i}`} className="border-b border-ui md:border-t">
+              <details className="group">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center gap-3 py-4 text-body [&::-webkit-details-marker]:hidden">
+                  {o.flag && (
+                    <span className="text-lg leading-none" aria-hidden>
+                      {o.flag}
+                    </span>
+                  )}
+                  <span className="flex-1 text-lg font-semibold">{o.city}</span>
+                  <span
+                    aria-hidden
+                    className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-ui text-brand transition-transform duration-200 group-open:rotate-45 motion-reduce:transition-none"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                </summary>
+                <div className="flex flex-col gap-1 pb-5 pr-11">
+                  {o.label && (
+                    <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">{o.label}</p>
+                  )}
+                  {o.address &&
+                    (o.addressUrl ? (
+                      <a
+                        href={o.addressUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base leading-6 text-muted hover:text-brand"
+                      >
+                        {o.address}
+                      </a>
+                    ) : (
+                      <p className="text-base leading-6 text-muted">{o.address}</p>
+                    ))}
+                  {o.phone && (
+                    <a
+                      href={`tel:${o.phoneTel || o.phone.replace(/[^\d+]/g, "")}`}
+                      className="inline-flex min-h-11 items-center self-start text-base font-semibold text-body hover:text-brand"
+                    >
+                      {o.phone}
+                    </a>
+                  )}
+                </div>
+              </details>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }
