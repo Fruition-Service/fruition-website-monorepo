@@ -5,6 +5,7 @@ import { getCaseStudies } from "@/sanity/queries"
 import { REGION_PAGES } from "@/data/regionPages"
 import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
+import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 
 /**
  * Serving for the Google Ads landing pages under /au, /uk and /us.
@@ -32,6 +33,8 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
  *   Client proof band (the main site's testimonial section, see
  *   landingPageProof.ts) in place of the page's own logo strip and quotes, the
  *   rest of the page, and the Calendly booking band last, before the footer.
+ * - adds the consultants band (real team headshots, see landingPageTeam.ts) to
+ *   pages that ship without a team section of their own.
  *
  * Pages that already post to /api/leads keep their own handler; they push
  * `generate_lead` themselves.
@@ -238,9 +241,28 @@ export function withLandingPageLayout(
     const hero = /<(section|header) class="hero"/.exec(out)
     anchor = hero ? elementEnd(out, hero.index, hero[1]) : -1
   }
-  if (anchor >= 0) out = out.slice(0, anchor) + band + out.slice(anchor)
+  let insertAt = -1
+  if (anchor >= 0) {
+    out = out.slice(0, anchor) + band + out.slice(anchor)
+    insertAt = anchor + band.length
+  }
 
-  // 3. The booking band moves to the end, just before the footer.
+  // 3. Consultants band, straight under the proof band. Pages that already carry
+  //    a curated team section (the region partner pages) keep their own copy.
+  if (region && !hasTeamSection(html)) {
+    const team = renderTeamSection(region)
+    if (insertAt >= 0) {
+      out = out.slice(0, insertAt) + team + out.slice(insertAt)
+    } else {
+      const footer = out.search(/<footer\b/)
+      out =
+        footer >= 0
+          ? `${out.slice(0, footer)}${team}\n${out.slice(footer)}`
+          : out.replace(/<\/body>/i, `${team}\n</body>`)
+    }
+  }
+
+  // 4. The booking band moves to the end, just before the footer.
   const booking = cut(out, /<section class="final" id="book">/, "section")
   if (booking.removed) {
     const footer = booking.html.search(/<footer\b/)

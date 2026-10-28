@@ -56,6 +56,21 @@ section{padding:96px 0}
 :focus-visible{outline:2px solid var(--brand);outline-offset:3px}
 input,select,textarea,button{font-family:inherit}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+/* Team photos (consultants band, shared by both templates).
+   Injected by landingPage.ts on any ad page without a team section of its own. */
+.lp-team{padding:72px 0;background:var(--tint-bg);border-top:1px solid var(--lilac)}
+.lp-team-k{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:16px}
+.lp-team h2{font-size:clamp(28px,3.6vw,44px);font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--fg);margin:0 0 16px;max-width:820px}
+.lp-team-lede{font-size:clamp(16px,1.5vw,18px);line-height:1.55;color:var(--muted);max-width:640px;margin:0 0 40px}
+.lp-team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.lp-team-card{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;box-shadow:var(--shadow-whisper);padding:32px 28px;text-align:center;transition:transform .2s,box-shadow .2s,border-color .2s}
+.lp-team-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--lilac-strong)}
+.lp-team-card img{display:block;width:88px;height:88px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 4px var(--brand-soft);margin:0 auto 18px}
+.lp-team-card h3{font-size:clamp(18px,1.8vw,20px);font-weight:600;line-height:1.3;letter-spacing:-.01em;color:var(--fg);margin-bottom:6px}
+.lp-team-role{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:0 0 12px}
+.lp-team-card p{font-size:14px;line-height:1.6;color:var(--muted)}
+@media(max-width:1023px){.lp-team{padding:56px 0}.lp-team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:767px){.lp-team{padding:40px 0}.lp-team-grid{grid-template-columns:1fr}.lp-team-card{padding:26px 22px}}
 @media(max-width:767px){.wrap{padding:0 16px}section{padding:56px 0}}
 `
 
