@@ -54,10 +54,36 @@ const ICON_LINKS = `<link rel="icon" href="/favicon.ico" sizes="any">
 
 const CALENDLY_PLACEHOLDER = /<div class="calendly-box">[\s\S]*?<\/div>/
 
+/**
+ * Calendly's inline widget for ad landing pages. hide_event_type_details drops
+ * Calendly's header block (logo, event name, duration, host), and the small
+ * script grows the box to the height Calendly reports for each step, so the
+ * booking flow is never clipped inside a fixed-height frame. The 680px
+ * height/min-height is the floor until Calendly measures itself.
+ */
 function calendlyEmbed(url: string): string {
-  return `<style>.lp-calendly{min-width:300px;height:680px;border-radius:14px;overflow:hidden;background:#fff}</style>
-<div class="calendly-inline-widget lp-calendly" data-url="${url}?hide_gdpr_banner=1"></div>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>`
+  const embedUrl = `${url}${url.includes("?") ? "&" : "?"}hide_gdpr_banner=1&hide_event_type_details=1`
+  return `<style>.lp-calendly{width:100%;min-width:300px;height:680px;min-height:680px;border-radius:14px;overflow:hidden;background:#fff}.lp-calendly iframe{display:block;width:100%;height:100%}</style>
+<div class="calendly-inline-widget lp-calendly" data-url="${embedUrl}"></div>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+(function(){
+  window.addEventListener('message',function(e){
+    if(e.origin!=='https://calendly.com')return;
+    var d=e.data;
+    if(!d||d.event!=='calendly.page_height'||!d.payload)return;
+    var h=parseInt(String(d.payload.height),10);
+    if(!(h>0))return;
+    var boxes=document.querySelectorAll('.lp-calendly');
+    for(var i=0;i<boxes.length;i++){
+      var f=boxes[i].querySelector('iframe');
+      if(!f||f.contentWindow!==e.source)continue;
+      var floor=parseFloat(getComputedStyle(boxes[i]).minHeight)||0;
+      boxes[i].style.height=Math.max(h,floor)+'px';
+    }
+  });
+})();
+</script>`
 }
 
 /**
