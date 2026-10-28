@@ -20,11 +20,13 @@ export async function isEditMode(): Promise<boolean> {
 
 // Fields that hold machine values the templates compare against or put in
 // attributes. Encoding them would break `variant === "dark"` style checks.
+// Alt text only ever lands in an attribute, where it can't be clicked, so it
+// stays clean too.
 const MACHINE_KEYS = new Set([
   'variant', 'style', 'theme', 'layout', 'icon', 'iconName', 'color', 'colour',
   'alignment', 'align', 'slug', 'current', 'href', 'url', 'link', 'anchor', 'id',
   'region', 'regions', 'type', 'kind', 'size', 'tone', 'email', 'phone',
-  'calendlyLink', 'videoId', 'youtubeId', 'lang', 'locale',
+  'calendlyLink', 'videoId', 'youtubeId', 'lang', 'locale', 'alt', 'altText',
 ])
 
 /**

@@ -1,26 +1,11 @@
 import { NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
-import { createClient } from "@sanity/client"
 import { getPortalApiUser, bylineFor } from "@/lib/portalAuth"
-import {
-  getAtPath,
-  isEditablePagePath,
-  isSafeDocId,
-  parsePath,
-  publishedId,
-  safeReturnPath,
-} from "@/lib/inlineEdit"
-import { apiVersion, dataset, projectId } from "@/sanity/env"
+import { getAtPath, isSafeDocId, parsePath, publishedId } from "@/lib/inlineEdit"
+import { editWriteClient, revalidateAfterEdit } from "@/lib/inlineEditServer"
 
 export const runtime = "nodejs"
 
 const MAX_LENGTH = 20_000
-
-function writeClient() {
-  const token = process.env.SANITY_WRITE_TOKEN
-  if (!token) throw new Error("SANITY_WRITE_TOKEN missing")
-  return createClient({ projectId, dataset, apiVersion, token, useCdn: false, perspective: "raw" })
-}
 
 function badRequest(error: string, status = 400) {
   return NextResponse.json({ error }, { status })
@@ -46,7 +31,7 @@ export async function GET(req: Request) {
   const t = target(sp.get("id"), sp.get("path"))
   if (!t) return badRequest("Bad field reference")
 
-  const doc = await writeClient().fetch(`*[_id == $id][0]`, { id: t.id })
+  const doc = await editWriteClient().fetch(`*[_id == $id][0]`, { id: t.id })
   if (!doc) return badRequest("Document not found", 404)
   const value = getAtPath(doc, t.segments)
   if (typeof value !== "string") return badRequest("Field is not plain text", 422)
@@ -76,7 +61,7 @@ export async function POST(req: Request) {
   if (typeof body.value !== "string") return badRequest("Value must be text")
   if (body.value.length > MAX_LENGTH) return badRequest("Text is too long")
 
-  const client = writeClient()
+  const client = editWriteClient()
   const docs = await client.fetch<{ _id: string }[]>(
     `*[_id in [$id, $draft]]{ _id }`,
     { id: t.id, draft: `drafts.${t.id}` },
@@ -90,22 +75,7 @@ export async function POST(req: Request) {
   }
   await tx.commit({ visibility: "sync" })
 
-  // A field can show on any page (nav, footer, shared FAQs), so drop every
-  // cached page; the next visit to each re-renders from Sanity. The concrete
-  // URL goes first so the page being edited is fresh even if the layout-wide
-  // tag were ever missed.
-  const pagePath = safeReturnPath(typeof body.pagePath === "string" ? body.pagePath : "/").split("?")[0]
-  const failed: string[] = []
-  for (const [p, type] of [[pagePath], ["/", "layout"]] as [string, "layout"?][]) {
-    if (type !== "layout" && !isEditablePagePath(p)) continue
-    try {
-      if (type) revalidatePath(p, type)
-      else revalidatePath(p)
-    } catch (err) {
-      console.error(`[inline-edit] revalidate ${p} failed:`, err instanceof Error ? err.message : err)
-      failed.push(p)
-    }
-  }
+  const failed = revalidateAfterEdit(body.pagePath)
 
   console.log(`[inline-edit] ${await bylineFor(user)} set ${t.id} ${t.path}`)
   return NextResponse.json({ ok: true, revalidateFailed: failed })

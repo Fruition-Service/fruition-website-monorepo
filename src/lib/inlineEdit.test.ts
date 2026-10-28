@@ -7,6 +7,8 @@ import {
   parseStegaHref,
   publishedId,
   safeReturnPath,
+  assetIdFromImageUrl,
+  findImagePaths,
 } from "./inlineEdit"
 
 describe("parseStegaHref", () => {
@@ -72,5 +74,38 @@ describe("ids and return paths", () => {
     expect(isEditablePagePath("/about-us")).toBe(true)
     expect(isEditablePagePath("/internal/blog")).toBe(false)
     expect(isEditablePagePath("/studio")).toBe(false)
+  })
+})
+
+describe("assetIdFromImageUrl", () => {
+  const cdn = "https://cdn.sanity.io/images/abc123/production/9f3e1a2b-1200x800.png?w=800&auto=format"
+  it("reads the asset id from a CDN url", () => {
+    expect(assetIdFromImageUrl(cdn)).toBe("image-9f3e1a2b-1200x800-png")
+  })
+  it("unwraps the Next image optimiser", () => {
+    expect(assetIdFromImageUrl(`/_next/image?url=${encodeURIComponent(cdn)}&w=1080&q=75`)).toBe(
+      "image-9f3e1a2b-1200x800-png",
+    )
+  })
+  it("ignores other images", () => {
+    expect(assetIdFromImageUrl("/logos/fruition.svg")).toBeNull()
+    expect(assetIdFromImageUrl("https://example.com/a-1x1.png")).toBeNull()
+  })
+})
+
+describe("findImagePaths", () => {
+  const ref = { _type: "reference", _ref: "image-a-1x1-png" }
+  it("finds nested and keyed image fields, never system keys", () => {
+    const doc = {
+      _id: "x",
+      hero: { image: { _type: "image", asset: ref } },
+      logos: [{ _key: "k1", image: { asset: ref } }, { _key: "k2", image: { asset: { _ref: "image-b-1x1-png" } } }],
+      gallery: [{ asset: ref }],
+    }
+    expect(findImagePaths(doc, "image-a-1x1-png")).toEqual([
+      "hero.image",
+      'logos[_key=="k1"].image',
+      "gallery[0]",
+    ])
   })
 })

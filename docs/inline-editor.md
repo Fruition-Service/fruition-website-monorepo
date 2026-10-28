@@ -4,7 +4,7 @@ Staff edit live page copy in place, Framer-style, without opening Sanity Studio.
 
 **Use it:** portal sidebar → *Edit website*, or go to `editing.fruitionservices.io/<any path>`.
 Google login (the portal's) is required. Outlined text is editable: click, type, Enter to save,
-Esc to cancel. *Exit* in the bottom bar returns to the normal site.
+Esc to cancel. Outlined images: click, choose a file, pick where to replace it, Replace image. *Exit* in the bottom bar returns to the normal site.
 
 ## How it works
 
@@ -19,7 +19,13 @@ Esc to cancel. *Exit* in the bottom bar returns to the normal site.
 4. The overlay decodes the markers, outlines those elements and on click fetches the stored value
    (`GET /api/internal/edit/field`). If the element shows exactly that value it is edited in place;
    if the template reshapes it (markdown, icons inside a link), a docked panel edits the stored copy.
-5. `POST /api/internal/edit/field` sets the field on the **published** document (and on any open
+5. Images: a Sanity CDN URL names its asset, so the overlay outlines every `<img>` served from
+   `cdn.sanity.io` (directly or via `/_next/image`). Clicking one calls
+   `GET /api/internal/edit/image`, which lists the published documents using that asset and flags
+   those whose text is on the page. `POST` uploads the new file, repoints every matching image field
+   in the chosen documents (paths worked out server side; crop and hotspot cleared, alt kept) and
+   flushes the cache like a text save.
+6. `POST /api/internal/edit/field` sets the field on the **published** document (and on any open
    Studio draft of it), then `revalidatePath` on the page and the whole layout, and the overlay
    reloads.
 
@@ -27,5 +33,8 @@ Esc to cancel. *Exit* in the bottom bar returns to the normal site.
 
 - Only text that comes from Sanity is editable. Copy hard-coded in components (most of the
   homepage, `src/components/home/data.ts`) has no marker and is not outlined.
-- Plain text only: images, links, adding/removing/reordering blocks still happen in Studio.
+- Text and images only: links, alt text, adding/removing/reordering blocks still happen in Studio.
+- An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
+  untick the ones that should keep the old image. Old assets are not deleted.
+- CSS background images and images in code (`public/`) are not editable.
 - Saves go straight to the live site. Sanity's document history is the undo.
