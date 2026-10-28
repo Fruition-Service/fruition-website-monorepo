@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import PaperPlaneIcon from '@/components/common/icons/PaperPlaneIcon'
 import { NavIcon } from '@/components/common/icons/NavIcons'
 import RegionalCallPopover, { MobileCallList, type CallOffice } from '@/components/RegionalCallPopover'
+import { withServicesNav } from '@/data/nav-services'
 
 interface NavLink {
   label?: string
@@ -107,7 +108,10 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
     ? bookingHrefForPath(siteSettings.calendlyLink, pathname)
     : ''
   const phoneAu = siteSettings?.phone
-  const navItems: NavItem[] = siteSettings?.navigation || []
+  // Services is defined in code (src/data/nav-services.ts) so the tab ships
+  // with the deploy; a Sanity navigation entry of the same name wins if one
+  // is added in Studio later.
+  const navItems: NavItem[] = withServicesNav(siteSettings?.navigation || [])
   const ctaLabel = siteSettings?.navbarCtaLabel || ''
   const offices: CallOffice[] = siteSettings?.offices || []
 
@@ -226,6 +230,21 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                       aria-expanded={open}
                       aria-controls={panelId(label)}
                       onClick={() => toggleOnClick(label)}
+                      onKeyDown={(e) => {
+                        // The panels sit at the end of the header's DOM, so Tab
+                        // from a tab walks the other tabs first. ArrowDown opens
+                        // the panel and moves focus straight into it.
+                        if (e.key !== 'ArrowDown') return
+                        e.preventDefault()
+                        cancelClose()
+                        setOpenMenu(label)
+                        requestAnimationFrame(() => {
+                          document
+                            .getElementById(panelId(label))
+                            ?.querySelector<HTMLAnchorElement>('a[href]')
+                            ?.focus()
+                        })
+                      }}
                       className={`flex items-center gap-1.5 rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
                         open ? 'bg-tint text-brand' : active ? 'text-brand' : 'text-body'
                       }`}
