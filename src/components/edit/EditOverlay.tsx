@@ -41,7 +41,9 @@ function isOurUi(node: Node | null): boolean {
 
 /** Tag every element whose text carries a Sanity source map. Returns how many. */
 function scan(): number {
-  let count = 0
+  // Page titles come from Sanity too; keep the markers out of the browser tab.
+  const title = vercelStegaClean(document.title)
+  if (title !== document.title) document.title = title
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
   for (let n = walker.nextNode(); n; n = walker.nextNode()) {
     const text = n as Text
@@ -54,9 +56,8 @@ function scan(): number {
     el.dataset.feType = ref.type
     el.dataset.fePath = ref.path
     el.classList.add(...MARK)
-    count++
   }
-  return count
+  return document.querySelectorAll("[data-fe-id]").length
 }
 
 function refOf(el: HTMLElement): FieldRef {
@@ -255,7 +256,7 @@ export default function EditOverlay() {
         </div>
       )}
 
-      <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground shadow-xl">
+      <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl md:rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground shadow-xl">
         <span className="size-2 rounded-full bg-primary" aria-hidden />
         {editing?.mode === "inline" ? (
           <>

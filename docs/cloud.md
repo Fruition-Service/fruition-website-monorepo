@@ -153,6 +153,10 @@ Notes:
   routed to `fruition-og-card` (more specific route wins).
 - `fruitionmonday.com` zone (legacy Wix domain): routed to the same Worker, which 301s to www.
 - `fruition-services.io` hosts are also 301'd by middleware if they reach the Worker.
+- `editing.fruitionservices.io` is a Workers **custom domain** on `fruition-landing`, attached in the
+  dashboard/API rather than in `wrangler.jsonc` (declaring it there makes every deploy rewrite the
+  script's custom domains, which the CI token may not be allowed to do). Middleware 302s it to
+  `www.../api/internal/edit/enable?path=<same path>`, the switch into the inline website editor.
 - Cloudflare's **managed robots.txt must stay off**; the app serves its own `/robots.txt`.
 - After changing site-wide cache headers, purge the zone once in the Cloudflare dashboard.
 
