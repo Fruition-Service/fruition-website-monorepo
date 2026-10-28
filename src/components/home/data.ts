@@ -19,7 +19,7 @@ export const SERVICES: ServiceCard[] = [
   { icon: "layers", titleSlot: "services-1-title", bodySlot: "services-1-body", href: "/monday-implementation-consultants" },
   { icon: "zap", titleSlot: "services-2-title", bodySlot: "services-2-body", href: "/integrations" },
   { icon: "sparkles", titleSlot: "services-3-title", bodySlot: "services-3-body", href: "/ai-consulting" },
-  { icon: "users", titleSlot: "services-4-title", bodySlot: "services-4-body", href: "/monday-training" },
+  { icon: "users", titleSlot: "services-4-title", bodySlot: "services-4-body", href: "/training" },
   { icon: "file", titleSlot: "services-5-title", bodySlot: "services-5-body", href: "/licence-procurement" },
   { icon: "crosshair", titleSlot: "services-6-title", bodySlot: "services-6-body", href: "/implementation-packages" },
 ]

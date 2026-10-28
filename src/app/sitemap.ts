@@ -94,7 +94,6 @@ const STATIC_PATHS: string[] = [
   "/monday-partner-singapore",
   "/monday-partner-uk",
   "/monday-partner-us",
-  "/monday-training",
   "/partnerships",
   "/partnerships/aircall-partner",
   "/partnerships/anthropic-claude-partner",
@@ -118,6 +117,7 @@ const STATIC_PATHS: string[] = [
   "/partnerships/vapi-partner",
   "/licence-procurement",
   "/terms-and-conditions",
+  "/training",
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

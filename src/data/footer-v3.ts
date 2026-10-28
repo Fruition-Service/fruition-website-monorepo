@@ -33,7 +33,7 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'Licence procurement', href: '/licence-procurement' },
       { label: 'Implementation consultants', href: '/monday-implementation-consultants' },
       { label: 'CRM consulting', href: '/monday-crm-consulting' },
-      { label: 'Training', href: '/monday-training' },
+      { label: 'Training', href: '/training' },
       { label: 'AI consulting', href: '/ai-consulting' },
       { label: 'AI capability assessment', href: '/ai-capability-assessment' },
       { label: 'AI strategy & execution', href: '/ai-strategy-and-execution' },

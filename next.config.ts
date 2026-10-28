@@ -18,6 +18,8 @@ const auditRedirects: Redirect[] = [
   { source: "/post/monday-com-vs-clickup-1", destination: "/post/monday-com-vs-clickup", permanent: true },
   // n8n service page folded into the certified-partner page (Aircall pattern).
   { source: "/ai-consulting/n8n", destination: "/partnerships/n8n-integration-partner", permanent: true },
+  // Renamed to the dedicated Training page (28 Oct 2026 website call, monday 2893019668).
+  { source: "/monday-training", destination: "/training", permanent: true },
   // monday-products cluster (July 2026 build, zero traffic) pruned into
   // the ranked monday.com service pages.
   { source: "/monday-products", destination: "/implementation-packages", permanent: true },
@@ -33,7 +35,7 @@ const auditRedirects: Redirect[] = [
   // 52 page paths these seven were the only ones with no live successor. All
   // 241 /post/<slug> URLs already resolved and were checked for a real <h1>,
   // not just a 200. Destinations come from each old page's own <title>.
-  { source: "/monday-com-training", destination: "/monday-training", permanent: true },
+  { source: "/monday-com-training", destination: "/training", permanent: true },
   { source: "/monday-crm-demo", destination: "/monday-crm-consulting", permanent: true },
   // Titled "Certified Monday.com Platinum Partner in the UK" — a Google Ads
   // landing page, so it may still be taking paid traffic.

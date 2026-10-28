@@ -68,7 +68,7 @@ function urlFor(doc: SanityDoc): string | null {
     case "implementationPackagesPage":
       return "/implementation-packages"
     case "mondayTrainingPage":
-      return "/monday-training"
+      return "/training"
     case "mondayImplementationConsultantsPage":
       return "/monday-implementation-consultants"
     case "makePartnersPage":

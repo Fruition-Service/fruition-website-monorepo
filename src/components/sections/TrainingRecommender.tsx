@@ -158,7 +158,7 @@ export default function TrainingRecommender({
             {ctaLabel && ctaUrl && (
               <a
                 href={ctaUrl}
-                className="cta-btn cta-btn-on-dark-primary self-start mt-[26px]"
+                className="cta-btn cta-btn-on-dark-primary mt-[26px] h-auto max-w-full self-start whitespace-normal px-5 py-3 text-center leading-snug"
               >
                 {ctaLabel}
               </a>
