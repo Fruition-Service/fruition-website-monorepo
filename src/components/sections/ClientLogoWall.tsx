@@ -34,6 +34,18 @@ interface ClientLogoWallProps {
 /** Exports that reached the CMS without a usable name — hidden until renamed. */
 const UNNAMED = /^(screenshot\b|logo(\s|$)|client \d+$)/i
 
+/**
+ * The entries a logo wall or carousel may draw: an uploaded image and a real
+ * client name, capped at `max`. Shared with `home/ClientLogoCarousel` so both
+ * apply the same rules to the same Studio list.
+ */
+export function usableClientLogos(logos: CarouselLogo[], max: number): CarouselLogo[] {
+  return logos
+    .filter((logo) => logo?.image?.asset?._ref)
+    .filter((logo) => !UNNAMED.test(logo.alt ?? ""))
+    .slice(0, max)
+}
+
 const TILE =
   "flex h-[92px] items-center justify-center rounded-xl bg-mist px-4 py-3.5 transition-colors duration-200 hover:bg-mist-hover lg:h-[104px] lg:px-6 lg:py-5"
 
@@ -49,10 +61,7 @@ export default function ClientLogoWall({
   counterLabel,
   className = "",
 }: ClientLogoWallProps) {
-  const usable = logos
-    .filter((logo) => logo?.image?.asset?._ref)
-    .filter((logo) => !UNNAMED.test(logo.alt ?? ""))
-    .slice(0, maxTiles)
+  const usable = usableClientLogos(logos, maxTiles)
 
   if (usable.length === 0) return null
 
