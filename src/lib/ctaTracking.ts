@@ -31,6 +31,8 @@ declare global {
     dataLayer?: Record<string, unknown>[]
     /** Injected by the Umami script when NEXT_PUBLIC_UMAMI_WEBSITE_ID is set. */
     umami?: { track: (event: string, data?: Record<string, unknown>) => void }
+    /** PostHog stub/SDK from the consent-gated loader in src/app/layout.tsx. */
+    posthog?: { capture: (event: string, properties?: Record<string, unknown>) => void }
   }
 }
 
@@ -106,6 +108,19 @@ export function trackCtaClick(event: CtaClickEvent): void {
       variant: event.variant,
       location: event.location,
       page_path: window.location.pathname,
+    })
+  } catch {
+    // Analytics must never break navigation.
+  }
+
+  // PostHog gets it too, so CTA clicks sit in the same funnels as pageviews and
+  // replays. Absent when the visitor declined or on excluded paths.
+  try {
+    window.posthog?.capture("cta_click", {
+      label: event.label,
+      destination: event.href,
+      variant: event.variant,
+      location: event.location,
     })
   } catch {
     // Analytics must never break navigation.
