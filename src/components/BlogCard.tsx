@@ -15,6 +15,8 @@ interface BlogCardProps {
   excerpt?: string
   publishedAt?: string
   author?: string
+  /** The author's team headshot, attached by the blog queries in src/sanity/queries.ts. */
+  authorPhotoUrl?: string
   coverImage?: { asset: { _ref: string } }
   charCount?: number
   categories?: BlogCategory[]
@@ -32,6 +34,11 @@ function initials(name: string) {
     .slice(0, 2)
     .map((s) => s[0]?.toUpperCase() ?? "")
     .join("")
+}
+
+/** Bylines that are Fruition itself rather than a person, shown with the Fruition mark. */
+function isBrandByline(name: string) {
+  return /^fruition\b/i.test(name.trim())
 }
 
 function hashIndex(input: string, modulo: number) {
@@ -86,6 +93,7 @@ export default function BlogCard({
   excerpt,
   publishedAt,
   author,
+  authorPhotoUrl,
   coverImage,
   charCount,
   categories,
@@ -134,11 +142,26 @@ export default function BlogCard({
       <div className="pt-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div
-              className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-xs font-semibold ${avatarClass}`}
-            >
-              {initials(displayAuthor) || "F"}
-            </div>
+            {authorPhotoUrl ? (
+              <Image
+                src={`${authorPhotoUrl}?w=64&h=64&fit=crop&auto=format`}
+                alt=""
+                width={32}
+                height={32}
+                className="w-8 h-8 shrink-0 rounded-full object-cover"
+                unoptimized
+              />
+            ) : isBrandByline(displayAuthor) ? (
+              <div className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center bg-brand-soft">
+                <Image src="/images/logo-fruition-mark.svg" alt="" width={18} height={17} className="w-[18px] h-auto" />
+              </div>
+            ) : (
+              <div
+                className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-xs font-semibold ${avatarClass}`}
+              >
+                {initials(displayAuthor) || "F"}
+              </div>
+            )}
             <div className="leading-tight min-w-0">
               {authorHref ? (
                 <Link

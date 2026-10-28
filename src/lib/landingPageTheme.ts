@@ -338,6 +338,10 @@ h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:40px}
 /* Team */
 .tm{overflow:hidden}
 .tm-img{aspect-ratio:4/3;display:flex;align-items:flex-end;padding:20px 22px;color:#fff;font-size:18px;font-weight:600;letter-spacing:-.01em;background:radial-gradient(ellipse 80% 80% at 90% 0%,rgba(186,131,240,.45) 0%,rgba(186,131,240,0) 70%),linear-gradient(160deg,var(--navy-2) 0%,var(--navy) 100%)}
+.tm-img.has-photo{position:relative;overflow:hidden}
+.tm-img.has-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.tm-img.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,56,0) 45%,rgba(10,22,56,.75) 100%)}
+.tm-img.has-photo span{position:relative;z-index:1}
 .tm-body{padding:24px 26px 28px}
 .tm-role{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
 

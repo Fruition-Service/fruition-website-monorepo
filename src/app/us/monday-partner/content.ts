@@ -190,11 +190,10 @@ Calendly embed &mdash; US/North America round-robin &mdash; North America team O
 <p class="k">Your consultants</p>
 <h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
 <p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
-<!-- TEAM-PHOTOS: Edward &mdash; swap initials avatars using Sanity assets: Zach cf374b7d32b3925ddec53b799e10e0d0cc759207, Valeria 4179badfb046d5720f83fc8ed82e088cde8578bc -->
 <div class="team">
-<div class="member"><div class="avatar">ZW</div><h3>Zach Weller</h3><div class="role">Director &mdash; North America</div><p>Leads US delivery from New York &mdash; hands-on through scoping, build and training.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800.jpg?w=560&h=560&fit=crop" alt="Zach Weller" loading="lazy"><h3>Zach Weller</h3><div class="role">Director &mdash; North America</div><p>Leads US delivery from New York &mdash; hands-on through scoping, build and training.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop" alt="Nikhil Tiwari" loading="lazy"><h3>Nikhil Tiwari</h3><div class="role">Sales &amp; Implementation Lead</div><p>Certified monday.com and Make consultant with a machine learning and GenAI background.</p></div>
-<div class="member"><div class="avatar">VM</div><h3>Valeria Marin</h3><div class="role">Implementation Consultant</div><p>Optimizes business processes and ensures seamless project transitions for US clients.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/4179badfb046d5720f83fc8ed82e088cde8578bc-400x400.jpg?w=560&h=560&fit=crop" alt="Valeria Marin" loading="lazy"><h3>Valeria Marin</h3><div class="role">Implementation Consultant</div><p>Optimizes business processes and ensures seamless project transitions for US clients.</p></div>
 
 </div>
 </div>

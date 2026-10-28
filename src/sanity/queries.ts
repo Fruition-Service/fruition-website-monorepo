@@ -6,8 +6,46 @@ import { authorSlug } from './authorSlug'
 /*  Blog                                                                */
 /* ================================================================== */
 
+/**
+ * Blog bylines are free text, not references, and a few are spelled
+ * differently from the author's team profile. Map those here (lower-cased
+ * byline -> lower-cased teamMember name) so the byline still finds its photo.
+ */
+const BYLINE_TEAM_NAMES: Record<string, string> = {
+  'ishani dhar chowdury': 'ishani chowdhury',
+}
+
+/** The team profile name a blog byline belongs to, lower-cased. */
+export function teamNameForByline(byline: string): string {
+  const key = byline.trim().toLowerCase()
+  return BYLINE_TEAM_NAMES[key] ?? key
+}
+
+const getTeamPhotoUrls = cache(async (): Promise<Map<string, string>> => {
+  const rows: { name?: string; photoUrl?: string }[] = await client.fetch(
+    `*[_type == "teamMember" && defined(photo.asset)]{ name, "photoUrl": photo.asset->url }`
+  )
+  return new Map(
+    rows.filter((r) => r.name && r.photoUrl).map((r) => [r.name!.trim().toLowerCase(), r.photoUrl!])
+  )
+})
+
+/**
+ * Adds `authorPhotoUrl` (the author's team headshot) to each post that has one.
+ * Typed as a pass-through so callers keep the shape client.fetch gave them.
+ */
+async function withAuthorPhotos<T>(posts: T): Promise<T> {
+  const list = posts as unknown as { author?: string }[] | null
+  if (!Array.isArray(list) || list.length === 0) return posts
+  const photos = await getTeamPhotoUrls()
+  return list.map((post) => {
+    const photo = post.author ? photos.get(teamNameForByline(post.author)) : undefined
+    return photo ? { ...post, authorPhotoUrl: photo } : post
+  }) as unknown as T
+}
+
 export async function getBlogPosts(limit = 12, offset = 0) {
-  return client.fetch(
+  return withAuthorPhotos(await client.fetch(
     `*[_type == "blogPost"] | order(publishedAt desc) [$offset...$end] {
       _id,
       title,
@@ -20,11 +58,11 @@ export async function getBlogPosts(limit = 12, offset = 0) {
       categories[]->{ _id, title, "slug": slug.current }
     }`,
     { offset, end: offset + limit }
-  )
+  ))
 }
 
 export async function getBlogPostBySlug(slug: string) {
-  return client.fetch(
+  const post = await client.fetch(
     `*[_type == "blogPost" && slug.current == $slug][0] {
       _id,
       title,
@@ -42,10 +80,13 @@ export async function getBlogPostBySlug(slug: string) {
     }`,
     { slug }
   )
+  if (!post) return post
+  const [withPhoto] = await withAuthorPhotos([post])
+  return withPhoto as typeof post
 }
 
 export async function getRelatedBlogPosts(excludeSlug: string, limit = 2) {
-  return client.fetch(
+  return withAuthorPhotos(await client.fetch(
     `*[_type == "blogPost" && slug.current != $excludeSlug] | order(publishedAt desc) [0...$limit] {
       _id,
       title,
@@ -58,7 +99,7 @@ export async function getRelatedBlogPosts(excludeSlug: string, limit = 2) {
       categories[]->{ _id, title, "slug": slug.current }
     }`,
     { excludeSlug, limit }
-  )
+  ))
 }
 
 export interface BlogAuthorSummary {
@@ -97,7 +138,7 @@ export async function getBlogAuthors(): Promise<BlogAuthorSummary[]> {
 }
 
 export async function getPostsByAuthor(authorName: string) {
-  return client.fetch(
+  return withAuthorPhotos(await client.fetch(
     `*[_type == "blogPost" && author == $authorName] | order(publishedAt desc) [0...100] {
       _id,
       title,
@@ -110,7 +151,7 @@ export async function getPostsByAuthor(authorName: string) {
       categories[]->{ _id, title, "slug": slug.current }
     }`,
     { authorName }
-  )
+  ))
 }
 
 export async function getTeamMemberByName(name: string) {
@@ -119,7 +160,7 @@ export async function getTeamMemberByName(name: string) {
       name, role, emoji, photo, bio, linkedinUrl, regions,
       "photoUrl": photo.asset->url
     }`,
-    { name }
+    { name: teamNameForByline(name) }
   )
 }
 

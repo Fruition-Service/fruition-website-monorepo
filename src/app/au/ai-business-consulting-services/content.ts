@@ -141,7 +141,7 @@ ${LP_FONTS}
 <p class="lede">The people who scope your automation roadmap are the people who engineer it.</p>
 <div class="team">
 <div class="tm">
-<div class="tm-img">Josh Jebathilak</div>
+<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?w=800&amp;h=600&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><span>Josh Jebathilak</span></div>
 <div class="tm-body">
 <div class="tm-role">Director, APAC</div>
 <p>Leads AI strategy and delivery across the region. Personally oversaw intelligent system builds and process automations for hundreds of organisations.</p>
