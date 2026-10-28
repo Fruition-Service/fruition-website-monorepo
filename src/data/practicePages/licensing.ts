@@ -102,7 +102,7 @@ export const LICENSING_PAGES: Record<string, PracticePage> = {
       {
         label: 'Training & enablement',
         description: 'Team workshops and structured enablement programs.',
-        href: '/monday-training',
+        href: '/training',
       },
       {
         label: 'AI Capability Assessment',

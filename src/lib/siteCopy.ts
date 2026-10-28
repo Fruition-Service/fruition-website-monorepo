@@ -51,7 +51,7 @@ export const SITE_COPY = {
     text: "Schedule A 30-Min Consultation With One of Our monday.com Consultants",
   },
 
-  // Booking band on /monday-training
+  // Booking band on /training
   "booking-training-eyebrow": { label: "Training page booking band: eyebrow", text: "monday.com training" },
   "booking-training-heading": { label: "Training page booking band: heading", text: "Book a FREE Training Consultation" },
   "booking-training-sub": {

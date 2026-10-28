@@ -59,7 +59,7 @@ export const PARTNERS_HUB = {
       links: [
         { label: 'Implementation packages', href: '/implementation-packages' },
         { label: 'CRM consulting', href: '/monday-crm-consulting' },
-        { label: 'Training', href: '/monday-training' },
+        { label: 'Training', href: '/training' },
       ],
       cta: 'monday.com services →',
       href: '/partnerships/monday-consulting-partner',

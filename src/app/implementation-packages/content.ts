@@ -412,7 +412,7 @@ export const REGIONS = {
     { href: "/monday-partner-india", label: "monday.com partner India" },
     { href: "/monday-partner-singapore", label: "monday.com partner Singapore" },
     { href: "/monday-implementation-consultants", label: "monday.com implementation consultants" },
-    { href: "/monday-training", label: "monday.com training" },
+    { href: "/training", label: "monday.com training" },
   ],
 }
 

@@ -111,7 +111,7 @@ export const NAV_V2: NavV2Item[] = [
           },
           {
             label: 'Training',
-            href: '/monday-training',
+            href: '/training',
             icon: 'graduation',
             description: 'Role-based monday.com enablement',
           },
