@@ -45,8 +45,8 @@ export default function IndustryCaseStudy({
   const hasImage = !!imageSrc
 
   return (
-    <section className="bg-surface-dark-2 py-20">
-      <div className="mx-auto px-4 max-w-[1200px]">
+    <section className="bg-surface-dark-2 section-y">
+      <div className="site-container">
         <div
           className={`flex flex-col ${hasImage ? "lg:flex-row" : ""} items-stretch gap-12`}
         >

@@ -26,14 +26,16 @@
  * same content box while keeping a gutter on mobile.
  */
 export const PAGE_SHELLS = {
-  /** PracticePageTemplate — AI, Atlassian, HubSpot, integrations, pricing. */
-  standard: "max-w-[1148px] px-4",
+  /** PracticePageTemplate (AI, Atlassian, HubSpot, integrations, pricing) and
+      the hub heroes: the shared `.site-container` (1248px, 16px / 24px gutter). */
+  standard: "site-container",
   /** RegionHero and the pages rebuilt on it. */
   wide: "max-w-[1200px] px-4",
   /** Same width, roomier gutter (people-and-proof pages). */
   wideRoomy: "max-w-[1200px] px-6",
-  /** sections/HeroBanner — industry, solution and platform-partner pages. */
-  banner: "max-w-[1588px] px-4 md:px-16 lg:px-24",
+  /** sections/HeroBanner (industry, solution and platform-partner pages), on
+      the same `.site-container` as the practice pages. */
+  banner: "site-container",
   /** AiPartnerTemplate's `.ap-wrap` (20px gutter under md, 32px above). */
   aiPartner: "max-w-[1240px] px-5 md:px-8",
   /** About us — 1240px shell with the standard responsive gutter. */
@@ -73,7 +75,7 @@ const EXACT: Record<string, PageShell> = {
   "/careers": "wide",
   "/consulting-blog": "blog",
   "/contact-us": "contact",
-  "/customer-testimonials": "wideRoomy",
+  "/customer-testimonials": "standard",
   "/data-privacy": "prose",
   "/faqs": "faq",
   "/fruition-team": "team",

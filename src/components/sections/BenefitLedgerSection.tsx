@@ -35,11 +35,11 @@ export default function BenefitLedgerSection({
 
   return (
     <section
-      className={`px-4 py-14 md:py-20 lg:py-24 ${
+      className={`section-y ${
         theme === "tint" ? "bg-surface-subtle" : "bg-surface"
       }`}
     >
-      <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-10 lg:grid-cols-[minmax(0,410px)_minmax(0,1fr)] lg:gap-16">
+      <div className="site-container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,410px)_minmax(0,1fr)] lg:gap-16">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <SectionIntro
             eyebrow={eyebrow}

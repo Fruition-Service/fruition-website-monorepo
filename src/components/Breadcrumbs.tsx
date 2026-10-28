@@ -193,7 +193,7 @@ export default function Breadcrumbs() {
           pageShell.ts. A single hardcoded width left it 26-66px adrift of the
           copy on every page that is not a 1148px practice page. */}
       <nav aria-label="Breadcrumb" className={`${pageShell(pathname)} mx-auto pt-5`}>
-        <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
+        <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted">
           <li>
             <Link href="/" className="hover:text-[#8015e8] transition-colors">Home</Link>
           </li>

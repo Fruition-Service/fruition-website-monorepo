@@ -84,7 +84,7 @@
   /* Shadow scale */
   --shadow-whisper: 0 4px 24px rgba(0, 0, 0, 0.03);
   --shadow-micro: 0 1px 4px rgba(16, 24, 40, 0.04);
-  --shadow-card: 0px 1px 17px 0px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0px 1px 12px 0px rgba(16, 24, 40, 0.06);
 }
 
 @theme inline {
@@ -244,16 +244,18 @@
   .text-display {
     font-size: 48px;
     font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
   }
 
   /* Section H2: landing page scale 44px, bold, slightly tight */
   .text-section-h2 {
     font-size: 44px;
     font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
   /* Large sub-section heading: 28px */
@@ -289,6 +291,61 @@
     font-weight: inherit;
     line-height: inherit;
     letter-spacing: inherit;
+  }
+}
+
+/* ============================================================ */
+/* Page layout primitives (Oct 2026 theme, after senzo.com.au)  */
+/* One container and one vertical rhythm for every shared       */
+/* section, so pages line up edge to edge instead of each       */
+/* section picking its own max-width and padding.               */
+/*   .site-container  1248px, 16px gutter (24px from md)        */
+/*   .section-y       56 / 80 / 96px top and bottom             */
+/*   .section-head    left-aligned eyebrow, H2 and lead         */
+/*   .hero-band       white hero with a hairline bottom rule    */
+/* ============================================================ */
+@layer components {
+  .site-container {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1248px;
+    padding-inline: 16px;
+  }
+
+  .section-y {
+    padding-block: 56px;
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 760px;
+  }
+
+  .section-head > p {
+    max-width: 64ch;
+  }
+
+  .hero-band {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-ui);
+  }
+
+  @media (min-width: 768px) {
+    .site-container {
+      padding-inline: 24px;
+    }
+
+    .section-y {
+      padding-block: 80px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-block: 96px;
+    }
   }
 }
 
@@ -410,12 +467,12 @@
     /* Mobile typography clamp — scale heading utilities down site-wide */
     .text-display {
       font-size: 32px;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     .text-section-h2 {
       font-size: 28px;
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
     .text-section-h3 {

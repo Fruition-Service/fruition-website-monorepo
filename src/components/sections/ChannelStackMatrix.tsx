@@ -51,8 +51,8 @@ export default function ChannelStackMatrix({
   if (rows.length === 0) return null
 
   return (
-    <section className="bg-surface px-4 py-14 md:py-20 lg:py-24">
-      <div className="mx-auto w-full max-w-[1100px]">
+    <section className="bg-surface section-y">
+      <div className="site-container">
         <SectionIntro
           eyebrow={eyebrow}
           heading={heading}

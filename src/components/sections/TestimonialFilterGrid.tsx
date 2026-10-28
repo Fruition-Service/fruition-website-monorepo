@@ -104,7 +104,7 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
 
   return (
     <section id="case-studies" className="bg-surface py-24">
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         {(heading || subheading) && (
           <div className="mb-10 max-w-[760px]">
             {heading && (

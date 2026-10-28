@@ -45,7 +45,7 @@ export default function AuditCtaBanner({
   body = DEFAULT_BODY,
   ctaLabel = DEFAULT_CTA_LABEL,
   contained = true,
-  containerClassName = "max-w-[1200px] px-4",
+  containerClassName = "site-container",
   className = "",
 }: AuditCtaBannerProps) {
   const card = (

@@ -45,7 +45,7 @@ export default function RemoteTeamSection({
 
   return (
     <section className="py-[80px]" style={{ backgroundColor: bg }}>
-      <div className="mx-auto px-4 max-w-[1200px]">
+      <div className="site-container">
         {eyebrow && (
           <div className="text-center font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3">
             {eyebrow}

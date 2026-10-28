@@ -42,11 +42,11 @@ export default function CapabilitiesGrid({
       : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
 
   return (
-    <section className={`py-20 ${isDark ? "bg-surface-dark-2" : "bg-surface-subtle"}`}>
-      <div className="mx-auto px-4 max-w-[1200px]">
+    <section className={`section-y ${isDark ? "bg-surface-dark-2" : "bg-surface-subtle"}`}>
+      <div className="site-container">
         {eyebrow && (
           <div
-            className={`text-center font-mono text-xs font-semibold uppercase tracking-[0.14em] mb-3 ${
+            className={`font-mono text-xs font-semibold uppercase tracking-[0.14em] mb-4 ${
               isDark ? "text-white/75" : "text-brand"
             }`}
           >
@@ -55,8 +55,8 @@ export default function CapabilitiesGrid({
         )}
         {(heading || headingAccent) && (
           <h2
-            className={`text-section-h2 text-center ${isDark ? "text-white" : ""} ${
-              subheading ? "mb-4" : "mb-12"
+            className={`text-section-h2 max-w-[860px] ${isDark ? "text-white" : ""} ${
+              subheading ? "mb-4" : "mb-10"
             }`}
           >
             {heading}
@@ -69,7 +69,7 @@ export default function CapabilitiesGrid({
         )}
         {subheading && (
           <p
-            className={`text-body text-center mx-auto max-w-[820px] mb-12 whitespace-pre-line ${
+            className={`text-body-lead max-w-[64ch] mb-10 whitespace-pre-line ${
               isDark ? "text-white/80" : "text-muted"
             }`}
           >
@@ -82,22 +82,20 @@ export default function CapabilitiesGrid({
             return (
               <div
                 key={card._key || i}
-                className={`rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised dark:shadow-none p-7 ${
-                  hasBullets ? "text-left" : "text-center"
-                }`}
+                className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised dark:shadow-none p-6 md:p-7 text-left"
               >
                 {card.emoji && (
                   <div
-                    className={`text-[32px] leading-none mb-3 ${hasBullets ? "text-left" : "text-center"}`}
+                    className="text-[32px] leading-none mb-4"
                   >
                     {card.emoji}
                   </div>
                 )}
-                <h3 className="text-xl font-bold text-brand mb-2.5">
+                <h3 className="text-card-title text-body mb-2.5">
                   {card.title}
                 </h3>
                 {card.description && (
-                  <p className="text-sm leading-[1.55] text-body whitespace-pre-line">
+                  <p className="text-body-sm text-muted whitespace-pre-line">
                     {card.description}
                   </p>
                 )}
@@ -108,7 +106,7 @@ export default function CapabilitiesGrid({
                       return (
                         <li
                           key={b._key || bi}
-                          className="flex items-start gap-2.5 text-sm leading-normal text-body"
+                          className="flex items-start gap-2.5 text-body-sm text-body"
                         >
                           <span
                             aria-hidden
@@ -129,7 +127,7 @@ export default function CapabilitiesGrid({
           })}
         </div>
         {((ctaLabel && ctaUrl) || (ctaSecondaryLabel && ctaSecondaryUrl)) && (
-          <div className="flex flex-wrap justify-center mt-10 gap-4">
+          <div className="flex flex-wrap mt-10 gap-4">
             {ctaLabel && ctaUrl && (
               <Link href={ctaUrl} className="cta-btn cta-btn-primary">
                 {ctaLabel}

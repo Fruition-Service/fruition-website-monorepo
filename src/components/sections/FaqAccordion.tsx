@@ -59,14 +59,14 @@ export default function FaqAccordion({
 
 
   return (
-    <section id="faq" className="bg-surface pt-14 pb-20 md:pt-20 md:pb-[120px]">
+    <section id="faq" className="bg-surface section-y scroll-mt-24">
       {faqJsonLd.mainEntity.length > 0 && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
-      <div className="mx-auto flex flex-col px-4 md:px-6 lg:px-8 max-w-[1200px] gap-6">
+      <div className="site-container flex flex-col gap-6">
         {heading && (
           <h2 className="text-section-h2 text-brand">
             {heading}
