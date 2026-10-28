@@ -53,7 +53,14 @@ const VIRTUAL_PARENTS: Record<string, { label: string; href?: string }> = {
   '/monday-partner-philippines': REGIONS_PARENT,
   '/ai-capability-assessment': AI_PARENT,
   '/ai-strategy-and-execution': AI_PARENT,
+  '/implementation-packages': { label: 'monday.com consulting', href: '/partnerships/monday-consulting-partner' },
 }
+
+/**
+ * Pages that publish their BreadcrumbList inside their own JSON-LD @graph, so the
+ * page carries one merged block. The visible trail still renders here.
+ */
+const PAGES_WITH_OWN_BREADCRUMB_SCHEMA = new Set(['/implementation-packages'])
 
 const LABELS: Record<string, string> = {
   'consulting-blog': 'Blog',
@@ -78,6 +85,7 @@ const LABELS: Record<string, string> = {
   'cross-industry': 'Cross-industry',
   // The assistant kept its /ask-fruit URL through two renames.
   'ask-fruit': 'Implementation Calculator',
+  'implementation-packages': 'Implementation packages',
   // /pricing is the software licence procurement page, not a price list.
   pricing: 'Licence procurement',
   // Messaging channels — the prettifier would title-case these into
@@ -178,7 +186,9 @@ export default function Breadcrumbs() {
 
   return (
     <div className="bg-surface">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {!PAGES_WITH_OWN_BREADCRUMB_SCHEMA.has(pathname) && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      )}
       {/* The trail runs in the same container as the page below it — see
           pageShell.ts. A single hardcoded width left it 26-66px adrift of the
           copy on every page that is not a 1148px practice page. */}
