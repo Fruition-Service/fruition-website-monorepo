@@ -1,6 +1,7 @@
 import { Clock, Globe, SquareCheckBig, Trophy } from "lucide-react"
 import Reveal from "./Reveal"
 import { STATS, type StatCard } from "./data"
+import { homeText, type HomeCopy } from "./copy"
 
 const ICONS: Record<StatCard["icon"], typeof Clock> = {
   check: SquareCheckBig,
@@ -10,16 +11,16 @@ const ICONS: Record<StatCard["icon"], typeof Clock> = {
 }
 
 /** Four proof-point tiles: scale, footprint, speed to Platinum, and the award. */
-export default function ByTheNumbers() {
+export default function ByTheNumbers({ copy }: { copy: HomeCopy }) {
   return (
     <section className="bg-surface pt-16 pb-10 md:pt-20 lg:pt-23">
       <div className="mx-auto max-w-[1348px] px-5 md:px-8">
         <Reveal className="max-w-[720px]">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">
-            By the numbers
+            {homeText(copy, "stats-eyebrow")}
           </p>
           <h2 className="text-section-h2 mt-3.5 text-foreground lg:text-[38px]" style={{ textWrap: "pretty" }}>
-            Platinum tier, earned in under two years.
+            {homeText(copy, "stats-heading")}
           </h2>
         </Reveal>
 
@@ -28,7 +29,7 @@ export default function ByTheNumbers() {
             const Icon = ICONS[stat.icon]
             return (
               <div
-                key={stat.label}
+                key={stat.labelSlot}
                 className="ui-hover-card flex flex-col gap-5 rounded-card border border-lilac bg-surface-raised px-8 pt-8 pb-8 shadow-whisper"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-chip bg-tint">
@@ -36,9 +37,9 @@ export default function ByTheNumbers() {
                 </span>
                 <div>
                   <div className="text-[40px] leading-none font-semibold tracking-[-0.025em] text-brand lg:text-[46px]">
-                    {stat.value}
+                    {homeText(copy, stat.valueSlot)}
                   </div>
-                  <div className="text-body-sm mt-2.5 text-muted">{stat.label}</div>
+                  <div className="text-body-sm mt-2.5 text-muted">{homeText(copy, stat.labelSlot)}</div>
                 </div>
               </div>
             )

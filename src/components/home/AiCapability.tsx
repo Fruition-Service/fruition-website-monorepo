@@ -2,12 +2,9 @@ import { Check } from "lucide-react"
 import CtaButton from "@/components/CtaButton"
 import Reveal from "./Reveal"
 import { AI_TILES, type AiTile } from "./data"
+import { homeText, type HomeCopy, type HomeCopySlot } from "./copy"
 
-const POINTS = [
-  "Readiness and use-case scoring first",
-  "Agents on Claude, OpenAI and Copilot",
-  "n8n automations across the whole stack",
-]
+const POINTS: HomeCopySlot[] = ["ai-point-1", "ai-point-2", "ai-point-3"]
 
 const TILE_W = 138
 const TILE_H = 102
@@ -62,14 +59,15 @@ const V_LINKS = [
   { left: 572, top: 242 },
 ]
 
-const LEGEND = [
-  { swatch: "linear-gradient(135deg, #4a0d86, #1b0338)", label: "AI layer", strong: true },
-  { swatch: "linear-gradient(135deg, #9c3af2, #7a10e0)", label: "AI-enabled now", strong: false },
-  { swatch: "linear-gradient(135deg, #f6f1ff, #d9caf5)", label: "Next in the roadmap", strong: false },
+const LEGEND: { swatch: string; labelSlot: HomeCopySlot; strong: boolean }[] = [
+  { swatch: "linear-gradient(135deg, #4a0d86, #1b0338)", labelSlot: "ai-legend-1", strong: true },
+  { swatch: "linear-gradient(135deg, #9c3af2, #7a10e0)", labelSlot: "ai-legend-2", strong: false },
+  { swatch: "linear-gradient(135deg, #f6f1ff, #d9caf5)", labelSlot: "ai-legend-3", strong: false },
 ]
 
 interface Props {
   bookingHref: string
+  copy: HomeCopy
 }
 
 /**
@@ -80,7 +78,7 @@ interface Props {
  * is scaled rather than reflowed and is hidden on the narrowest screens where
  * the tile labels would be unreadable.
  */
-export default function AiCapability({ bookingHref }: Props) {
+export default function AiCapability({ bookingHref, copy }: Props) {
   return (
     <section
       className="relative overflow-hidden"
@@ -91,24 +89,23 @@ export default function AiCapability({ bookingHref }: Props) {
     >
       <div className="mx-auto grid max-w-[1348px] grid-cols-1 items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[384px_1fr] lg:pt-19 lg:pb-28">
         <Reveal>
-          <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">AI capability</p>
+          <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{homeText(copy, "ai-eyebrow")}</p>
           <h2 className="text-section-h2 mt-4 text-foreground" style={{ textWrap: "pretty" }}>
-            Every function, on one connected layer.
+            {homeText(copy, "ai-heading")}
           </h2>
           <p className="text-body mt-5 text-muted lg:text-[17px]" style={{ textWrap: "pretty" }}>
-            We map the work your teams actually do, then put AI where it removes the handoffs —
-            readiness, agent builds and adoption run as one programme.
+            {homeText(copy, "ai-lead")}
           </p>
           <div className="mt-7 flex flex-col gap-3.25">
-            {POINTS.map((point) => (
-              <span key={point} className="flex items-center gap-2.5 text-[15px] font-medium text-body">
+            {POINTS.map((pointSlot) => (
+              <span key={pointSlot} className="flex items-center gap-2.5 text-[15px] font-medium text-body">
                 <Check size={15} strokeWidth={3} className="flex-none text-brand" aria-hidden />
-                {point}
+                {homeText(copy, pointSlot)}
               </span>
             ))}
           </div>
           <div className="mt-9">
-            <CtaButton href={bookingHref} label="Book an AI readiness call" variant="primary" />
+            <CtaButton href={bookingHref} label={homeText(copy, "ai-cta")} variant="primary" />
           </div>
         </Reveal>
 
@@ -187,7 +184,7 @@ export default function AiCapability({ bookingHref }: Props) {
                 const isCore = tile.tone === "core"
                 return (
                   <div
-                    key={tile.label}
+                    key={tile.labelSlot}
                     className={`absolute flex flex-col items-center justify-center gap-[5px] rounded-xl ${isCore ? "home-anim-tile" : ""}`}
                     style={{
                       left: tile.col * COL_GAP,
@@ -204,16 +201,16 @@ export default function AiCapability({ bookingHref }: Props) {
                       className="text-[12.5px] font-bold tracking-[0.08em] whitespace-nowrap uppercase"
                       style={{ color: tone.label }}
                     >
-                      {tile.label}
+                      {homeText(copy, tile.labelSlot)}
                     </span>
-                    {isCore ? (
+                    {isCore || !tile.subSlot ? (
                       <span className="h-0.5 w-7.5 rounded-sm bg-brand-light" />
                     ) : (
                       <span
                         className="text-[10px] font-semibold tracking-[0.04em]"
                         style={{ color: tone.sub }}
                       >
-                        {tile.sub}
+                        {homeText(copy, tile.subSlot)}
                       </span>
                     )}
                   </div>
@@ -226,13 +223,13 @@ export default function AiCapability({ bookingHref }: Props) {
               style={{ animation: "fruLift 5s ease-in-out infinite" }}
             >
               {LEGEND.map((item, i) => (
-                <span key={item.label} className="flex items-center gap-2.5">
+                <span key={item.labelSlot} className="flex items-center gap-2.5">
                   {i > 0 && <span className="h-3.5 w-px bg-lilac" />}
                   <span
                     className={`flex items-center gap-2 text-[12.5px] ${item.strong ? "font-semibold text-body" : "font-medium text-muted"}`}
                   >
                     <span className="h-[11px] w-[11px] rounded-[3px]" style={{ background: item.swatch }} />
-                    {item.label}
+                    {homeText(copy, item.labelSlot)}
                   </span>
                 </span>
               ))}

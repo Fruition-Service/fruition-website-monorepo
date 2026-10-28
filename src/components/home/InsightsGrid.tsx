@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
 import Reveal from "./Reveal"
+import { homeText, type HomeCopy } from "./copy"
 
 export interface HomePost {
   _id?: string
@@ -41,10 +42,11 @@ function initials(name?: string) {
 
 interface Props {
   posts: HomePost[]
+  copy: HomeCopy
 }
 
 /** Latest thinking — one featured post plus the two behind it. */
-export default function InsightsGrid({ posts }: Props) {
+export default function InsightsGrid({ posts, copy }: Props) {
   const usable = posts.filter((post) => post.title && post.slug).slice(0, 3)
   if (usable.length === 0) return null
 
@@ -55,16 +57,16 @@ export default function InsightsGrid({ posts }: Props) {
       <div className="mx-auto max-w-[1348px] px-5 md:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end sm:gap-8">
           <div>
-            <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">Insights</p>
+            <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{homeText(copy, "insights-eyebrow")}</p>
             <h2 className="text-section-h2 mt-4 text-foreground">
-              Fresh thinking from the delivery floor.
+              {homeText(copy, "insights-heading")}
             </h2>
           </div>
           <Link
             href="/consulting-blog"
             className="text-[15px] font-semibold whitespace-nowrap text-brand hover:text-[color:var(--blue-press)]"
           >
-            All insights →
+            {homeText(copy, "insights-all")}
           </Link>
         </Reveal>
 
@@ -112,7 +114,7 @@ export default function InsightsGrid({ posts }: Props) {
                   <span className="text-[13.5px] text-muted">
                     {featured.author}
                     <span className="mx-1.75 opacity-50">·</span>
-                    {readTime(featured.charCount)} min read
+                    {readTime(featured.charCount)} {homeText(copy, "insights-min-read")}
                   </span>
                 </span>
               </div>
@@ -165,7 +167,7 @@ export default function InsightsGrid({ posts }: Props) {
                   <span className="text-[13.5px] text-muted">
                     {post.author}
                     <span className="mx-1.75 opacity-50">·</span>
-                    {readTime(post.charCount)} min read
+                    {readTime(post.charCount)} {homeText(copy, "insights-min-read")}
                   </span>
                 </div>
               </Link>

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import CtaButton from "@/components/CtaButton"
 import { HERO_NODES, ORBIT_LOGOS } from "./data"
+import { homeText, type HomeCopy } from "./copy"
 
 /** Packets that travel along a connector path, with per-path colour + timing. */
 const PACKETS = [
@@ -34,6 +35,7 @@ const ORBIT_STEP = 30
 
 interface Props {
   bookingHref: string
+  copy: HomeCopy
 }
 
 /**
@@ -45,7 +47,7 @@ interface Props {
  * rather than reflowed, since every node is absolutely positioned against the
  * same 560×480 SVG canvas. It is decorative and `aria-hidden`.
  */
-export default function HeroNetwork({ bookingHref }: Props) {
+export default function HeroNetwork({ bookingHref, copy }: Props) {
   return (
     <section className="relative overflow-hidden bg-surface">
       <div
@@ -59,20 +61,18 @@ export default function HeroNetwork({ bookingHref }: Props) {
       <div className="relative mx-auto grid max-w-[1348px] grid-cols-1 items-center gap-10 px-5 pt-14 pb-10 md:px-8 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:pt-[88px] lg:pb-12">
         <div className="flex flex-col items-start">
           <div className="mb-6 inline-flex items-center gap-[9px] rounded-pill border border-lilac-strong bg-tint py-[7px] pr-4 pl-[13px] text-[13px] font-semibold tracking-[0.01em] text-brand">
-            <span className="text-[15px] leading-none">🏆</span>Rising Star 2026
+            <span className="text-[15px] leading-none">🏆</span>{homeText(copy, "hero-badge")}
           </div>
           <h1 className="text-display text-foreground lg:text-[52px] lg:leading-[1.16]" style={{ textWrap: "pretty" }}>
-            Implementation, integration and AI advisory for{" "}
-            <span className="text-brand">monday.com, Atlassian and HubSpot.</span>
+            {homeText(copy, "hero-title")}{" "}
+            <span className="text-brand">{homeText(copy, "hero-title-accent")}</span>
           </h1>
           <p className="text-body-lead mt-6 max-w-[560px] text-muted">
-            Fruition is a monday.com Platinum Partner helping small businesses, mid-market and
-            enterprise teams across Australia, India, the Philippines, Singapore, the UK and the US.
-            We design the way work should run — build it, and help you maintain it.
+            {homeText(copy, "hero-lead")}
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
-            <CtaButton href={bookingHref} label="Book a discovery call" variant="primary" />
-            <CtaButton href="#services" label="Explore our services" variant="outline" />
+            <CtaButton href={bookingHref} label={homeText(copy, "hero-cta-primary")} variant="primary" />
+            <CtaButton href="#services" label={homeText(copy, "hero-cta-secondary")} variant="outline" />
           </div>
           <div className="mt-11 flex items-center gap-[18px]">
             <Image
@@ -83,17 +83,17 @@ export default function HeroNetwork({ bookingHref }: Props) {
               className="h-[42px] w-auto"
             />
             <span className="h-[30px] w-px bg-ui" />
-            <span className="text-caption text-muted">900+ implementations · 6 markets</span>
+            <span className="text-caption text-muted">{homeText(copy, "hero-proof")}</span>
           </div>
         </div>
 
-        <HeroGraphic />
+        <HeroGraphic copy={copy} />
       </div>
     </section>
   )
 }
 
-function HeroGraphic() {
+function HeroGraphic({ copy }: { copy: HomeCopy }) {
   return (
     <div
       aria-hidden
@@ -153,7 +153,7 @@ function HeroGraphic() {
                 className="flex h-11 w-11 origin-top-left items-center justify-center rounded-full border border-dashed border-[#cbb2f2] bg-tint text-[12.5px] font-bold text-brand"
                 style={{ transform: `rotate(${-11 * ORBIT_STEP}deg) translate(-50%, -50%)` }}
               >
-                +40
+                {homeText(copy, "hero-orbit-more")}
               </div>
             </div>
           </div>
@@ -228,7 +228,7 @@ function HeroGraphic() {
                   unoptimized
                   className="block h-[22px] w-[22px] shrink-0 object-contain"
                 />
-                {node.label}
+                {homeText(copy, node.labelSlot)}
               </div>
             </div>
           ))}

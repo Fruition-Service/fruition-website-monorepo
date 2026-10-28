@@ -28,8 +28,8 @@ export const getSiteSettings = cache(async () => {
  * Everything the 2026 home page needs, in one round trip.
  *
  * The page's copy lives in `src/components/home/data.ts`; this only fetches the
- * parts that must stay live — client logos, testimonials, office phone numbers
- * and the three most recent posts. Testimonials still come from the homePage
+ * parts that must stay live — page copy slots (see components/home/copy.ts),
+ * client logos, testimonials, office phone numbers and the three most recent posts. Testimonials still come from the homePage
  * `contentBlocks` so the marketing team keeps editing them where they always
  * have, even though the blocks are no longer rendered by BlockRenderer.
  */
@@ -43,6 +43,7 @@ export async function getHomeSectionData() {
         offices,
         carouselLogos[]{ _key, alt, image, clientSlug }
       },
+      "copy": *[_type == "homePage"][0].copy[]{ _key, text },
       "testimonials": *[_type == "homePage"][0].contentBlocks[_type == "testimonialBlock"]{
         _key,
         quote,

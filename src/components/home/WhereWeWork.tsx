@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Phone } from "lucide-react"
 import Reveal from "./Reveal"
+import { homeText, type HomeCopy, type HomeCopySlot } from "./copy"
 
 export interface Office {
   _key?: string
@@ -13,13 +14,13 @@ export interface Office {
 }
 
 /** Display country per flag — `siteSettings.offices` has no country field. */
-const COUNTRY: Record<string, string> = {
-  "🇦🇺": "Australia",
-  "🇸🇬": "Singapore",
-  "🇵🇭": "Philippines",
-  "🇮🇳": "India",
-  "🇬🇧": "United Kingdom",
-  "🇺🇸": "United States",
+const COUNTRY: Record<string, HomeCopySlot> = {
+  "🇦🇺": "where-country-au",
+  "🇸🇬": "where-country-sg",
+  "🇵🇭": "where-country-ph",
+  "🇮🇳": "where-country-in",
+  "🇬🇧": "where-country-uk",
+  "🇺🇸": "where-country-us",
 }
 
 /** The design's column order, west-to-east from the Sydney HQ. */
@@ -27,9 +28,10 @@ const ORDER = ["🇦🇺", "🇸🇬", "🇵🇭", "🇮🇳", "🇬🇧", "🇺
 
 interface Props {
   offices: Office[]
+  copy: HomeCopy
 }
 
-export default function WhereWeWork({ offices }: Props) {
+export default function WhereWeWork({ offices, copy }: Props) {
   const columns = offices
     .filter((office) => office.flag && COUNTRY[office.flag])
     .sort((a, b) => ORDER.indexOf(a.flag!) - ORDER.indexOf(b.flag!))
@@ -37,7 +39,7 @@ export default function WhereWeWork({ offices }: Props) {
       // `city` is stored as "Sydney, Australia" / "New York, US Office".
       const place = (office.city ?? "").split(",")[0].trim()
       const isHq = /head office/i.test(office.label ?? "")
-      const country = COUNTRY[office.flag!]
+      const country = homeText(copy, COUNTRY[office.flag!])
       // Offices without a city yet store the country as their `city`, which
       // would render "India / India" — drop the second line in that case.
       const cityLine = place && place !== country ? place : ""
@@ -60,14 +62,14 @@ export default function WhereWeWork({ offices }: Props) {
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end lg:gap-12">
           <div className="max-w-[620px]">
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">
-              Where we work
+              {homeText(copy, "where-eyebrow")}
             </p>
             <h2 className="text-section-h2 mt-3.5 text-foreground lg:text-[40px]">
-              Consultants across six markets.
+              {homeText(copy, "where-heading")}
             </h2>
           </div>
           <p className="text-body-sm max-w-[340px] flex-none text-muted lg:pb-1 lg:text-[15.5px]">
-            Whatever your time zone, one of our hubs is online during your working day.
+            {homeText(copy, "where-lead")}
           </p>
         </Reveal>
 
