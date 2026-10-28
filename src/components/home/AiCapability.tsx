@@ -87,7 +87,7 @@ export default function AiCapability({ bookingHref, copy }: Props) {
           "linear-gradient(180deg, var(--purple-tint) 0%, var(--purple-tint-deep) 46%, var(--surface) 100%)",
       }}
     >
-      <div className="mx-auto grid max-w-[1348px] grid-cols-1 items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[384px_1fr] lg:pt-19 lg:pb-28">
+      <div className="site-container grid grid-cols-1 items-center gap-10 py-16 md:py-20 lg:grid-cols-[384px_1fr] lg:pt-19 lg:pb-28">
         <Reveal>
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{homeText(copy, "ai-eyebrow")}</p>
           <h2 className="text-section-h2 mt-4 text-foreground" style={{ textWrap: "pretty" }}>

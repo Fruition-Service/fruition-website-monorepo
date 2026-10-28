@@ -91,10 +91,9 @@ export default async function Home() {
       <MethodTimeline copy={copy} />
       <WhereWeWork offices={offices} copy={copy} />
 
-      {/* Mid-page conversion banner — shared site-wide. The home page's own
-          sections all sit in a 1348px container, so match it here; the
-          component's 1200px default suits the narrower inner pages. */}
-      <AuditCtaBanner containerClassName="max-w-[1348px] px-5 md:px-8" />
+      {/* Mid-page conversion banner, shared site-wide, on the same
+          .site-container as every other section. */}
+      <AuditCtaBanner />
 
       <IndustriesHub copy={copy} />
       <PlatformsCertified copy={copy} />

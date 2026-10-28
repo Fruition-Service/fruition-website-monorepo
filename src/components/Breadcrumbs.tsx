@@ -1,37 +1,22 @@
 "use client"
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { pageShell } from '@/lib/pageShell'
 
 /**
- * Site-wide breadcrumb bar, rendered by SiteFrame directly under the navbar so
- * every marketing page — legacy and practice-cluster alike — gets the same
- * trail (§05: breadcrumb schema on every page). Labels derive from the path;
- * LABELS overrides the prettifier where kebab-case can't be prettified into
- * the real page name.
+ * Site-wide BreadcrumbList JSON-LD, rendered once by SiteFrame (§05: breadcrumb
+ * schema on every page). The visible trail was removed on 28 Oct 2026 at
+ * Edward's request; only the structured data remains, so search results keep
+ * their breadcrumb path. Labels derive from the path; LABELS overrides the
+ * prettifier where kebab-case can't be prettified into the real page name.
  */
 
 const HIDDEN_PREFIXES = ['/internal', '/studio', '/post', '/api']
-
-/** Parents that exist as real pages — intermediates outside this set render as plain text. */
-const LINKABLE_PARENTS = new Set([
-  '/ai-consulting',
-  '/ai-use-cases',
-  '/atlassian-consulting',
-  '/hubspot-consulting',
-  '/integrations',
-  '/monday-consulting-solutions',
-  '/partnerships',
-  '/industries',
-  '/consulting-blog',
-])
 
 /**
  * Virtual hierarchy for flat legacy URLs: the crumb trail shows the logical
  * cluster (Home / Industries / …) without moving any ranked URL — §07 of the
  * v2.1 proposal forbids touching ranking monday.com slugs. Parents without an
- * href render as plain text and are omitted from the JSON-LD.
+ * href are omitted from the JSON-LD.
  */
 const INDUSTRIES_PARENT = { label: 'Industries', href: '/industries' }
 const REGIONS_PARENT = { label: 'Regions' }
@@ -58,7 +43,7 @@ const VIRTUAL_PARENTS: Record<string, { label: string; href?: string }> = {
 
 /**
  * Pages that publish their BreadcrumbList inside their own JSON-LD @graph, so the
- * page carries one merged block. The visible trail still renders here.
+ * page carries one merged block.
  */
 const PAGES_WITH_OWN_BREADCRUMB_SCHEMA = new Set(['/implementation-packages'])
 
@@ -156,14 +141,12 @@ export default function Breadcrumbs() {
     return {
       label: labelFor(segment),
       href: href as string | undefined,
-      isLast: i === segments.length - 1,
-      linkable: i === segments.length - 1 ? false : LINKABLE_PARENTS.has(href),
     }
   })
 
   const virtualParent = VIRTUAL_PARENTS[pathname]
   const crumbs = virtualParent
-    ? [{ label: virtualParent.label, href: virtualParent.href, isLast: false, linkable: !!virtualParent.href }, ...pathCrumbs]
+    ? [{ label: virtualParent.label, href: virtualParent.href }, ...pathCrumbs]
     : pathCrumbs
 
   const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fruitionservices.io'
@@ -172,7 +155,7 @@ export default function Breadcrumbs() {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
-      // virtual parents without a real page are visual-only — kept out of the schema
+      // virtual parents without a real page are kept out of the schema
       ...crumbs
         .filter((c) => c.href)
         .map((c, i) => ({
@@ -184,35 +167,7 @@ export default function Breadcrumbs() {
     ],
   }
 
-  return (
-    <div className="bg-surface">
-      {!PAGES_WITH_OWN_BREADCRUMB_SCHEMA.has(pathname) && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      )}
-      {/* The trail runs in the same container as the page below it — see
-          pageShell.ts. A single hardcoded width left it 26-66px adrift of the
-          copy on every page that is not a 1148px practice page. */}
-      <nav aria-label="Breadcrumb" className={`${pageShell(pathname)} mx-auto pt-5`}>
-        <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted">
-          <li>
-            <Link href="/" className="hover:text-[#8015e8] transition-colors">Home</Link>
-          </li>
-          {crumbs.map((c) => (
-            <li key={`${c.label}-${c.href ?? 'virtual'}`} className="flex items-center gap-1.5">
-              <span aria-hidden>/</span>
-              {c.isLast ? (
-                /* The current page reads as part of the trail, not as a heading:
-                   same muted grey and weight as every other crumb. */
-                <span aria-current="page">{c.label}</span>
-              ) : c.linkable && c.href ? (
-                <Link href={c.href} className="hover:text-[#8015e8] transition-colors">{c.label}</Link>
-              ) : (
-                <span>{c.label}</span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </nav>
-    </div>
-  )
+  if (PAGES_WITH_OWN_BREADCRUMB_SCHEMA.has(pathname)) return null
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 }

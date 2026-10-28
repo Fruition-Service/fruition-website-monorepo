@@ -19,8 +19,8 @@ export default function RegionVideoSection({
   videoTitle,
 }: Props) {
   return (
-    <section className="bg-surface px-4 py-14 md:py-24">
-      <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+    <section className="bg-surface py-14 md:py-24">
+      <div className="site-container grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div>
           <SectionIntro align="left" eyebrow={eyebrow} heading={heading} lead={lead} />
           {caption && <p className="mt-6 text-caption text-faint">{caption}</p>}

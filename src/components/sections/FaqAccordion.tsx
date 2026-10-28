@@ -1,146 +1,153 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
+import { vercelStegaClean } from "@vercel/stega"
 import { faqTabsToPairs, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
 import type { FaqTab } from "./types"
 
 interface FaqAccordionProps {
   heading?: string
   tabs?: FaqTab[]
+  /** Mono eyebrow above the heading. */
+  eyebrow?: string
+  /** Optional lead under the heading (the homepage uses one). */
+  intro?: string
+  /** Line above the contact email in the aside. */
+  contactLead?: string
+  contactEmail?: string
+  /**
+   * Emit FAQPage JSON-LD. Off only where the page already publishes the same
+   * questions inside its own JSON-LD graph (/implementation-packages).
+   */
+  jsonLd?: boolean
 }
 
+const DEFAULT_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."
+
+/**
+ * The site's one FAQ section: a sticky heading and contact aside on the left,
+ * numbered native <details> questions on the right, on the shared
+ * `.site-container`. The homepage, region pages, templates and hand-built
+ * pages all render this; there is no other FAQ layout.
+ *
+ * Several Sanity pages group their questions into tabs. With more than one
+ * non-empty tab, the groups show as chips above the list; with one, no chips.
+ *
+ * FAQPage JSON-LD is built from the very tabs this component renders, so the
+ * structured data can never advertise questions the page does not show.
+ * Google requires the Q&A to be visible on the page; markup that contradicts
+ * it risks the rich result being dropped or a manual action. (This used to
+ * live in FaqHeadJsonLd in the root layout, which opted every route out of
+ * static rendering and stamped 124 generic questions onto 257 pages.)
+ */
 export default function FaqAccordion({
-  heading,
+  heading = "Frequently asked questions",
   tabs = [],
+  eyebrow = "FAQ",
+  intro,
+  contactLead = DEFAULT_CONTACT_LEAD,
+  contactEmail = "hello@fruitionservices.io",
+  jsonLd = true,
 }: FaqAccordionProps) {
-  const [activeFaqTab, setActiveFaqTab] = useState(0)
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
-  const [canScrollRight, setCanScrollRight] = useState(false)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const tabsRef = useRef<HTMLDivElement>(null)
+  const [activeTab, setActiveTab] = useState(0)
 
-  // FAQPage JSON-LD is built from the very tabs this component renders, so the
-  // structured data can never advertise questions the page does not show.
-  // Google requires the Q&A to be visible on the page; markup that contradicts
-  // it risks the rich result being dropped or a manual action.
-  //
-  // This used to live in FaqHeadJsonLd in the root layout, which re-queried
-  // Sanity by pathname via headers(). A dynamic API in the root layout opted
-  // EVERY route out of static rendering, and its fallback to the curated /faqs
-  // set stamped 124 generic monday.com questions onto 257 pages that render no
-  // FAQ at all — author bios and blog posts included.
-  const faqJsonLd = generateFaqJsonLdFromPairs(faqTabsToPairs(tabs))
+  // Drop empty tabs and blank or repeated questions, so what renders and what
+  // the JSON-LD contains stay identical.
+  const seen = new Set<string>()
+  const groups = tabs
+    .map((tab) => ({
+      key: tab._key,
+      label: tab.label,
+      items: (tab.items ?? []).filter((it) => {
+        const q = it.question?.trim()
+        if (!q || !it.answer?.trim() || seen.has(q)) return false
+        seen.add(q)
+        return true
+      }),
+    }))
+    .filter((g) => g.items.length > 0)
 
-  useEffect(() => {
-    const el = tabsRef.current
-    if (!el) return
-    const update = () => {
-      setCanScrollLeft(el.scrollLeft > 4)
-      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
-    }
-    update()
-    el.addEventListener("scroll", update, { passive: true })
-    const ro = new ResizeObserver(update)
-    ro.observe(el)
-    return () => {
-      el.removeEventListener("scroll", update)
-      ro.disconnect()
-    }
-  }, [tabs])
+  if (groups.length === 0) return null
 
-  const scrollBy = (dir: 1 | -1) => {
-    const el = tabsRef.current
-    if (!el) return
-    el.scrollBy({ left: dir * Math.max(200, el.clientWidth * 0.6), behavior: "smooth" })
-  }
-
-  if (tabs.length === 0) return null
-  const currentItems = tabs[activeFaqTab]?.items ?? []
-
+  // Edit mode wraps Sanity strings in invisible source-map characters; keep
+  // them out of the schema.
+  const faqJsonLd = generateFaqJsonLdFromPairs(
+    faqTabsToPairs(groups).map((p) => ({ question: vercelStegaClean(p.question), answer: vercelStegaClean(p.answer) })),
+  )
+  const current = groups[Math.min(activeTab, groups.length - 1)]
 
   return (
     <section id="faq" className="bg-surface section-y scroll-mt-24">
-      {faqJsonLd.mainEntity.length > 0 && (
+      {jsonLd && faqJsonLd.mainEntity.length > 0 && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
-      <div className="site-container flex flex-col gap-6">
-        {heading && (
-          <h2 className="text-section-h2 text-brand">
-            {heading}
-          </h2>
-        )}
-
-        {/* Tab navigation bar with icon-triggered horizontal scroll */}
-        <div className="relative h-[52px]">
-          <div
-            ref={tabsRef}
-            className="faq-tab-scroll flex items-start h-full overflow-x-auto overflow-y-hidden"
-          >
-            {tabs.map((tab, idx) => (
-              <button
-                key={tab._key || idx}
-                onClick={() => { setActiveFaqTab(idx); setOpenFaqIndex(0) }}
-                className={`h-full shrink-0 relative cursor-pointer pt-3.5 pb-[17px] px-5 md:px-7 border-b-[3px] ${
-                  activeFaqTab === idx ? "border-brand" : "border-transparent"
-                }`}
-              >
-                <span className={`text-sm md:text-base text-center whitespace-nowrap ${activeFaqTab === idx ? "text-brand" : "text-body"}`}>
-                  {tab.label}
-                </span>
-              </button>
-            ))}
+      <div className="site-container grid grid-cols-1 items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-22">
+        <div className="lg:sticky lg:top-28">
+          <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+            {eyebrow}
+          </p>
+          <h2 className="text-section-h2 text-balance text-foreground">{heading}</h2>
+          {intro && <p className="mt-5 max-w-[340px] text-body text-muted">{intro}</p>}
+          <div className="mt-9 border-t border-lilac pt-7">
+            <p className="mb-4 max-w-[300px] text-body-sm text-muted">{contactLead}</p>
+            <a
+              href={`mailto:${contactEmail}`}
+              className="text-[15px] font-semibold text-brand hover:text-brand-dark"
+            >
+              {contactEmail} →
+            </a>
           </div>
-          {canScrollLeft && (
-            <button
-              type="button"
-              aria-label="Scroll tabs left"
-              onClick={() => scrollBy(-1)}
-              className="faq-tab-arrow absolute left-0 top-0 h-full w-10 flex items-center justify-start bg-gradient-to-r from-surface via-surface to-transparent text-brand hover:text-brand-dark transition-colors cursor-pointer"
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          )}
-          {canScrollRight && (
-            <button
-              type="button"
-              aria-label="Scroll tabs right"
-              onClick={() => scrollBy(1)}
-              className="faq-tab-arrow absolute right-0 top-0 h-full w-10 flex items-center justify-end bg-gradient-to-l from-surface via-surface to-transparent text-brand hover:text-brand-dark transition-colors cursor-pointer"
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          )}
         </div>
 
-        {/* FAQ items for active tab */}
-        <div className="flex flex-col gap-3">
-          {currentItems.map((item, i) => (
-            <div key={item._key || i} className={i === 0 ? "pt-5" : "pt-6"}>
-              <button
-                onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
-                className="w-full flex items-start justify-between gap-3 text-left cursor-pointer min-h-[30px]"
-              >
-                <span className="min-w-0 text-lg md:text-xl leading-6 text-body">{item.question}</span>
-                <div className="shrink-0 w-[30px] h-[30px]">
-                  <svg className={`transition-transform ${openFaqIndex === i ? "rotate-180" : ""}`} width="30" height="30" viewBox="0 0 30 30" fill="none">
-                    <path d="M8 12L15 19L22 12" stroke="var(--text-body)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              </button>
-              {openFaqIndex === i && (
-                <div className="pb-4 pt-[31px] text-base leading-6 text-body whitespace-pre-line">
-                  {item.answer}
-                </div>
-              )}
-              <div className={`border-b border-ui ${openFaqIndex === i ? "mt-0" : "mt-9"}`} />
+        <div className="min-w-0">
+          {groups.length > 1 && (
+            <div role="tablist" aria-label="FAQ topics" className="mb-4 flex flex-wrap gap-2">
+              {groups.map((g, i) => (
+                <button
+                  key={g.key || i}
+                  type="button"
+                  role="tab"
+                  aria-selected={current === g}
+                  onClick={() => setActiveTab(i)}
+                  className={`min-h-[44px] cursor-pointer rounded-pill border px-4 text-body-sm transition-colors ${
+                    current === g
+                      ? "border-brand bg-brand text-white"
+                      : "border-lilac text-body hover:border-brand hover:text-brand"
+                  }`}
+                >
+                  {g.label}
+                </button>
+              ))}
             </div>
+          )}
+
+          {current.items.map((item, i) => (
+            <details key={`${current.key ?? activeTab}-${item._key || item.question}`} className="group border-b border-lilac">
+              <summary className="flex cursor-pointer list-none items-start gap-5 py-6 text-body hover:text-brand [&::-webkit-details-marker]:hidden">
+                <span className="flex-none pt-1 font-mono text-[13px] font-semibold text-brand-light">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex-1 text-[17px] font-medium leading-[1.45] tracking-[-0.01em] text-pretty md:text-[19px]">
+                  {item.question}
+                </span>
+                <svg
+                  aria-hidden
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="mt-1.5 flex-none text-brand transition-transform duration-200 group-open:rotate-180"
+                >
+                  <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </summary>
+              <p className="whitespace-pre-line pb-7 text-base leading-[1.7] text-pretty text-muted md:pl-11">
+                {item.answer}
+              </p>
+            </details>
           ))}
         </div>
       </div>

@@ -18,8 +18,8 @@ export default function RegionServicesSection({
   services: RegionContent["services"]
 }) {
   return (
-    <section id="services" className="scroll-mt-24 bg-tint px-4 py-14 md:py-24">
-      <div className="mx-auto w-full max-w-[1200px]">
+    <section id="services" className="scroll-mt-24 bg-tint py-14 md:py-24">
+      <div className="site-container">
         <div className="max-w-[840px]">
           <SectionIntro
             align="left"

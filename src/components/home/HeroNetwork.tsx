@@ -58,7 +58,7 @@ export default function HeroNetwork({ bookingHref, copy }: Props) {
             "radial-gradient(820px 420px at 78% 42%, var(--purple-tint) 0%, transparent 70%)",
         }}
       />
-      <div className="relative mx-auto grid max-w-[1348px] grid-cols-1 items-center gap-10 px-5 pt-14 pb-10 md:px-8 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:pt-[88px] lg:pb-12">
+      <div className="site-container relative grid grid-cols-1 items-center gap-10 pt-14 pb-10 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:pt-[88px] lg:pb-12">
         <div className="flex flex-col items-start">
           <div className="mb-6 inline-flex items-center gap-[9px] rounded-pill border border-lilac-strong bg-tint py-[7px] pr-4 pl-[13px] text-[13px] font-semibold tracking-[0.01em] text-brand">
             <span className="text-[15px] leading-none">🏆</span>{homeText(copy, "hero-badge")}

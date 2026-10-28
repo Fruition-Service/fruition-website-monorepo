@@ -11,8 +11,8 @@ export default function AnswerBlockSection({
   answerBlock: RegionContent["answerBlock"]
 }) {
   return (
-    <section className="bg-surface px-4 py-14 md:py-[92px]">
-      <div className="mx-auto w-full max-w-[1200px]">
+    <section className="bg-surface py-14 md:py-[92px]">
+      <div className="site-container">
         <div className="grid grid-cols-1 items-start gap-8 border-l-[3px] border-brand pl-6 md:pl-11 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <h2 className="text-[28px] font-semibold leading-[1.26] tracking-[-0.015em] text-balance text-foreground md:text-[36px]">
             {answerBlock.question}

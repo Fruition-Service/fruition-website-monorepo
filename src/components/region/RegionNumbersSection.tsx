@@ -7,8 +7,8 @@ export default function RegionNumbersSection({
   numbers: RegionContent["numbers"]
 }) {
   return (
-    <section className="bg-tint px-4 py-14 md:py-24">
-      <div className="mx-auto w-full max-w-[1200px]">
+    <section className="bg-tint py-14 md:py-24">
+      <div className="site-container">
         <div className="max-w-[860px]">
           <SectionIntro
             align="left"

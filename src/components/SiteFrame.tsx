@@ -69,7 +69,7 @@ export default function SiteFrame({
       <Breadcrumbs />
       <main>{children}</main>
       {showPreferredSource ? (
-        <div className="mx-auto flex max-w-[1348px] justify-center px-5 py-8 md:px-8">
+        <div className="site-container flex justify-center py-8">
           <GooglePreferredSourceButton />
         </div>
       ) : null}

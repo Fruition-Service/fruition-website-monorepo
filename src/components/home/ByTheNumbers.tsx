@@ -14,7 +14,7 @@ const ICONS: Record<StatCard["icon"], typeof Clock> = {
 export default function ByTheNumbers({ copy }: { copy: HomeCopy }) {
   return (
     <section className="bg-surface pt-16 pb-10 md:pt-20 lg:pt-23">
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <Reveal className="max-w-[720px]">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">
             {homeText(copy, "stats-eyebrow")}

@@ -58,7 +58,7 @@ export default function WhereWeWork({ offices, copy }: Props) {
 
   return (
     <section id="markets" className="scroll-mt-24 bg-tint py-16 md:py-20 lg:pt-25 lg:pb-26">
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <Reveal className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end lg:gap-12">
           <div className="max-w-[620px]">
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">

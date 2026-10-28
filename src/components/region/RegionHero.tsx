@@ -64,7 +64,7 @@ export default function RegionHero({
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1200px] px-4 pt-10 pb-14 md:pt-14 md:pb-20">
+      <div className="site-container relative pt-10 pb-14 md:pt-14 md:pb-20">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[55fr_45fr] lg:gap-14">
           <div className="flex flex-col items-start">
             <p className="mb-6 inline-flex items-center gap-2.5 rounded-pill border border-lilac-strong bg-tint px-4 py-[7px] pr-[18px] text-[13px] font-semibold text-brand">

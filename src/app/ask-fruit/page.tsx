@@ -49,7 +49,7 @@ export default function AskFruitPage() {
   return (
     <>
       <section className="bg-surface">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 pt-14 pb-16 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:pb-24">
+        <div className="site-container grid grid-cols-1 gap-10 pt-14 pb-16 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:pb-24">
           <div>
             <p className={EYEBROW}>{"// Implementation Calculator"}</p>
             <h1 className="text-display mt-5 text-ink">
@@ -71,7 +71,7 @@ export default function AskFruitPage() {
       </section>
 
       <section className="bg-surface-subtle">
-        <div className="mx-auto max-w-[1200px] px-4 py-14 md:py-24">
+        <div className="site-container py-14 md:py-24">
           <p className={EYEBROW}>How it works</p>
           <h2 className="text-section-h2 mt-4 max-w-[720px] text-ink">
             A consultant&apos;s first conversation, <span className="text-brand">on demand.</span>
@@ -89,7 +89,7 @@ export default function AskFruitPage() {
       </section>
 
       <section className="bg-surface">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-4 py-14 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <div className="site-container grid grid-cols-1 gap-10 py-14 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
             <p className={EYEBROW}>What&apos;s in a brief</p>
             <h2 className="text-section-h2 mt-4 text-ink">
@@ -112,7 +112,7 @@ export default function AskFruitPage() {
       </section>
 
       <section className="bg-surface-subtle">
-        <div className="mx-auto max-w-[1200px] px-4 py-14 md:py-24">
+        <div className="site-container py-14 md:py-24">
           <p className={EYEBROW}>Where the Implementation Calculator stops</p>
           <h2 className="text-section-h2 mt-4 max-w-[720px] text-ink">Honest about what it knows.</h2>
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -143,7 +143,7 @@ export default function AskFruitPage() {
       </section>
 
       <section className="bg-surface-dark">
-        <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-6 px-4 py-14 md:py-20 lg:flex-row lg:items-center lg:justify-between">
+        <div className="site-container flex flex-col items-start gap-6 py-14 md:py-20 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-section-h2 text-white">Start with the Implementation Calculator, finish with a consultant.</h2>
             <p className="text-body-lead mt-4 max-w-[600px] text-white/75">

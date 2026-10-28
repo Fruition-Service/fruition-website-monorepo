@@ -33,9 +33,9 @@ export default function FeaturedUseCasesSection({
   return (
     <section
       id="use-cases"
-      className={`scroll-mt-24 px-4 py-14 md:py-20 lg:py-24 ${theme === "tint" ? "bg-surface-subtle" : "bg-surface"}`}
+      className={`scroll-mt-24 py-14 md:py-20 lg:py-24 ${theme === "tint" ? "bg-surface-subtle" : "bg-surface"}`}
     >
-      <div className="mx-auto w-full max-w-[1200px]">
+      <div className="site-container">
         <SectionIntro
           eyebrow="Use case catalogue"
           heading={featured.heading ?? `${industry.name} use cases`}

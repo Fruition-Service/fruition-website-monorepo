@@ -17,7 +17,7 @@ const ICONS: Record<ServiceCard["icon"], typeof Layers> = {
 export default function ServicesGrid({ copy }: { copy: HomeCopy }) {
   return (
     <section id="services" className="scroll-mt-24 bg-tint py-16 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-[1348px] px-5 md:px-8">
+      <div className="site-container">
         <Reveal className="max-w-[820px]">
           <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{homeText(copy, "services-eyebrow")}</p>
           <h2 className="text-section-h2 mt-4 text-foreground" style={{ textWrap: "pretty" }}>
