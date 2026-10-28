@@ -13,6 +13,17 @@ export interface LeadFormField {
   /** Options for select fields */
   options?: string[]
   required?: boolean
+  /**
+   * Key the answer is sent under in `fields`. Defaults to `label`. Use it when
+   * the visible label differs from the key the lead sinks read, e.g. "Phone"
+   * (monday phone column) or "Message" (monday notes column).
+   */
+  name?: string
+  /** HTML input type for text fields, e.g. "tel". Defaults to "text". */
+  inputType?: "text" | "tel" | "url"
+  /** Browser autofill hint, e.g. "tel". */
+  autoComplete?: string
+  placeholder?: string
 }
 
 interface LeadFormProps {
@@ -24,6 +35,13 @@ interface LeadFormProps {
   fields?: LeadFormField[]
   submitLabel?: string
   successMessage?: string
+  /** Show the optional Company field. Defaults to true. */
+  showCompany?: boolean
+  /**
+   * "section" (default) wraps the card in its own full-width page section.
+   * "card" renders only the card, for pages that place it in their own layout.
+   */
+  variant?: "section" | "card"
 }
 
 /**
@@ -44,6 +62,8 @@ export default function LeadForm({
   fields = [],
   submitLabel = "Request a free workflow audit",
   successMessage = "Thanks, we'll be in touch within one business day.",
+  showCompany = true,
+  variant = "section",
 }: LeadFormProps) {
   const router = useRouter()
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle")
@@ -56,9 +76,10 @@ export default function LeadForm({
     const fd = new FormData(e.currentTarget)
     const extra: Record<string, string> = {}
     for (const f of fields) {
-      if (!f.label) continue
-      const v = String(fd.get(f.label) ?? "").trim()
-      if (v) extra[f.label] = v
+      const key = f.name || f.label
+      if (!key) continue
+      const v = String(fd.get(key) ?? "").trim()
+      if (v) extra[key] = v
     }
     const payload = {
       name: String(fd.get("name") ?? "").trim(),
@@ -90,10 +111,13 @@ export default function LeadForm({
     }
   }
 
-  return (
-    <section className="bg-surface px-4 py-[72px]">
-      <div className="mx-auto rounded-card bg-surface-raised max-w-[620px] p-8 border border-brand-soft shadow-[0_24px_48px_-32px_rgba(64,12,140,0.28)] dark:shadow-none dark:border dark:border-ui">
-        <h2 className={`text-section-h2 text-body ${subheading ? "mb-3" : "mb-6"}`}>
+  const card = (
+      <div
+        className={`rounded-card bg-surface-raised border border-brand-soft shadow-[0_24px_48px_-32px_rgba(64,12,140,0.28)] dark:shadow-none dark:border dark:border-ui ${
+          variant === "card" ? "w-full p-6 md:p-8" : "mx-auto max-w-[620px] p-8"
+        }`}
+      >
+        <h2 className={`${variant === "card" ? "text-section-h3" : "text-section-h2"} text-body ${subheading ? "mb-3" : "mb-6"}`}>
           {heading}
         </h2>
         {subheading && (
@@ -113,18 +137,27 @@ export default function LeadForm({
             toolname="contact_fruition"
             tooldescription="Submit a consulting enquiry to Fruition Services about monday.com, monday CRM, AI and automation, Atlassian or HubSpot work. Requires the visitor's name and work email; company and any page-specific qualifying questions are optional. Fruition replies within one business day."
           >
-            <Field name="name" label="Full name" required />
-            <Field name="email" label="Work email" type="email" required />
-            <Field name="company" label="Company" />
-            {fields.map((f, i) =>
-              f.type === "textarea" ? (
-                <TextArea key={i} name={f.label || `field-${i}`} label={f.label} required={f.required} />
+            <Field name="name" label="Full name" autoComplete="name" required />
+            <Field name="email" label="Work email" type="email" autoComplete="email" required />
+            {showCompany && <Field name="company" label="Company" autoComplete="organization" />}
+            {fields.map((f, i) => {
+              const name = f.name || f.label || `field-${i}`
+              return f.type === "textarea" ? (
+                <TextArea key={i} name={name} label={f.label} required={f.required} placeholder={f.placeholder} />
               ) : f.type === "select" ? (
-                <Select key={i} name={f.label || `field-${i}`} label={f.label} options={f.options} required={f.required} />
+                <Select key={i} name={name} label={f.label} options={f.options} required={f.required} />
               ) : (
-                <Field key={i} name={f.label || `field-${i}`} label={f.label} required={f.required} />
-              ),
-            )}
+                <Field
+                  key={i}
+                  name={name}
+                  label={f.label}
+                  type={f.inputType}
+                  autoComplete={f.autoComplete}
+                  placeholder={f.placeholder}
+                  required={f.required}
+                />
+              )
+            })}
 
             {/* Honeypot — hidden from users */}
             <input
@@ -150,8 +183,11 @@ export default function LeadForm({
           </form>
         )}
       </div>
-    </section>
   )
+
+  if (variant === "card") return card
+
+  return <section className="bg-surface px-4 py-[72px]">{card}</section>
 }
 
 /* Canonical shared field style — .form-field in globals.css (DESIGN.md Inputs) */
@@ -170,24 +206,45 @@ function Field({
   name,
   label,
   type = "text",
+  autoComplete,
+  placeholder,
   required,
 }: {
   name: string
   label?: string
   type?: string
+  autoComplete?: string
+  placeholder?: string
   required?: boolean
 }) {
   return (
     <Labeled label={label}>
-      <input name={name} type={type} required={required} className={inputClass} />
+      <input
+        name={name}
+        type={type}
+        autoComplete={autoComplete}
+        placeholder={placeholder}
+        required={required}
+        className={inputClass}
+      />
     </Labeled>
   )
 }
 
-function TextArea({ name, label, required }: { name: string; label?: string; required?: boolean }) {
+function TextArea({
+  name,
+  label,
+  required,
+  placeholder,
+}: {
+  name: string
+  label?: string
+  required?: boolean
+  placeholder?: string
+}) {
   return (
     <Labeled label={label}>
-      <textarea name={name} required={required} rows={3} className={`${inputClass} resize-y`} />
+      <textarea name={name} required={required} placeholder={placeholder} rows={4} className={`${inputClass} resize-y`} />
     </Labeled>
   )
 }
