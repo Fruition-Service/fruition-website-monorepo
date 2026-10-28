@@ -67,7 +67,7 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'Retail', href: '/monday-for-retail' },
       { label: 'Healthcare', href: '/industries/healthcare' },
       { label: 'Solar & renewables', href: '/industries/solar-renewables' },
-      { label: 'Solutions catalog', href: '/monday-consulting-solutions/catalog' },
+      { label: 'AI use case hub', href: '/ai-use-cases' },
       { label: 'Implementation calculator', href: '/ask-fruit' },
     ],
   },

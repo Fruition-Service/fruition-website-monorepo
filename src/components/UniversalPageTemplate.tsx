@@ -63,6 +63,12 @@ interface UniversalPageTemplateProps {
    * leaves) pass their own.
    */
   sections?: IndustrySections
+  /**
+   * Featured AI use cases (FeaturedUseCasesSection), rendered after the
+   * long-form industry sections. Built by the server page, which loads the
+   * catalogue data.
+   */
+  useCasesSlot?: ReactNode
 }
 
 function youtubeEmbedUrl(url?: string): string | null {
@@ -92,6 +98,7 @@ export default function UniversalPageTemplate({
   heroPartnerImageSrc,
   industryLogos,
   sections,
+  useCasesSlot,
 }: UniversalPageTemplateProps) {
   if (!page) return null
 
@@ -323,6 +330,9 @@ export default function UniversalPageTemplate({
           theme={capabilityBlocks && !benefitLedger ? "light" : "tint"}
         />
       )}
+
+      {/* 3c. Featured AI use cases from the catalogue (/ai-use-cases) */}
+      {useCasesSlot}
 
       {/* Mid-page conversion banner — shared site-wide */}
       <AuditCtaBanner />

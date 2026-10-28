@@ -17,6 +17,7 @@ const HIDDEN_PREFIXES = ['/internal', '/studio', '/post', '/api']
 /** Parents that exist as real pages — intermediates outside this set render as plain text. */
 const LINKABLE_PARENTS = new Set([
   '/ai-consulting',
+  '/ai-use-cases',
   '/atlassian-consulting',
   '/hubspot-consulting',
   '/integrations',
@@ -69,6 +70,12 @@ const LABELS: Record<string, string> = {
   'terms-and-conditions': 'Terms & Conditions',
   'monday-for-cabinetry-renovation': 'Installation & Renovation',
   'solar-crm-solution': 'Solar CRM Solution',
+  // AI use case catalogue (/ai-use-cases/<industry>)
+  'ai-use-cases': 'AI Use Cases',
+  'education-nonprofit': 'Education & Nonprofit',
+  'retail-ecommerce': 'Retail & E-commerce',
+  'technology-saas': 'Technology & SaaS',
+  'cross-industry': 'Cross-industry',
   // The assistant kept its /ask-fruit URL through two renames.
   'ask-fruit': 'Implementation Calculator',
   // /pricing is the software licence procurement page, not a price list.

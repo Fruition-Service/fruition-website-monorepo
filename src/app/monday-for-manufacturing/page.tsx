@@ -6,6 +6,8 @@ import {
 } from "@/sanity/queries"
 import { resolveFaqTabs } from "@/sanity/groupFaqs"
 import UniversalPageTemplate from "@/components/UniversalPageTemplate"
+import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
+import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos } from "@/sanity/industryLogos"
 
@@ -26,15 +28,17 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs, industryLogos] = await Promise.all([
+  const [page, siteSettings, caseStudies, centralFaqs, industryLogos, featuredUseCases] = await Promise.all([
     getIndustryPageBySlug("monday-for-manufacturing"),
     getSiteSettings(),
     getCaseStudies(),
     getFaqItemsForPage("monday-for-manufacturing"),
     getIndustryLogos("manufacturing"),
+    getFeaturedUseCases("/monday-for-manufacturing"),
   ])
   return (
     <UniversalPageTemplate
+      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} />}
       page={page}
       siteSettings={siteSettings}
       caseStudies={caseStudies || []}

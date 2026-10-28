@@ -555,6 +555,12 @@ body {
       animation: none;
     }
   }
+
+  /* AI use case "See the build" dialog (BuildDialog): a modal <dialog> does
+     not stop the page behind it scrolling, so lock it while one is open. */
+  html:has(dialog.uc-dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 /* ============================================================ */

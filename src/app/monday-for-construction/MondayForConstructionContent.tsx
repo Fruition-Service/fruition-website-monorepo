@@ -2,7 +2,7 @@
 
 import { bookingHref } from "@/lib/bookingLink"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import {
   HeroBanner,
   ClientLogoSection,
@@ -32,6 +32,8 @@ interface Props {
   siteSettings?: SiteSettingsData | null
   caseStudies?: CaseStudy[]
   faqTabs?: FaqTab[]
+  /** Featured AI use cases (FeaturedUseCasesSection), built by the server page. */
+  useCasesSlot?: ReactNode
 }
 
 /* ----------------- Sections ----------------- */
@@ -159,6 +161,7 @@ function ConstructionTabs({ tabs }: { tabs: ComparisonTab[] }) {
 /* ----------------- Page ----------------- */
 
 export default function MondayForConstructionContent({
+  useCasesSlot,
   industryLogos,
   page,
   siteSettings,
@@ -249,6 +252,9 @@ export default function MondayForConstructionContent({
           theme="tint"
         />
       )}
+
+      {/* Featured AI use cases from the catalogue (/ai-use-cases) */}
+      {useCasesSlot}
 
       {/* Calendly */}
       <CalendlySection
