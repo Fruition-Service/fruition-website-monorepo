@@ -31,7 +31,7 @@ export default function UseCaseCard({ tile, action, hideKicker, headingLevel = "
   const Heading = headingLevel
   const showKicker = !hideKicker || tile.own
   return (
-    <article className="flex h-full flex-col rounded-card bg-surface-raised p-6 shadow-whisper ring-1 ring-ui transition-[box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:shadow-card hover:ring-brand-light motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-7">
+    <article className="flex h-full flex-col rounded-tile bg-surface-raised p-6 shadow-whisper ring-1 ring-ui transition-[box-shadow,transform] duration-200 hover:-translate-y-[3px] hover:shadow-card hover:ring-brand-light motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-7">
       <div className="flex items-start justify-between gap-3">
         {showKicker ? (
           <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
@@ -43,22 +43,27 @@ export default function UseCaseCard({ tile, action, hideKicker, headingLevel = "
         <UseCasePills ai={tile.ai} own={tile.own} />
       </div>
       {tile.metric && (
-        <p className="mt-4 font-mono text-sm font-semibold text-body">{tile.metric}</p>
+        <p className="mt-4 font-mono text-[13px] font-semibold uppercase tracking-[0.08em] text-brand">{tile.metric}</p>
       )}
-      <Heading className={`${tile.metric ? "mt-1" : "mt-4"} text-[19px] leading-tight font-semibold tracking-[-0.01em] text-body`}>
+      <Heading className={`${tile.metric ? "mt-2" : "mt-4"} text-[19px] leading-tight font-semibold tracking-[-0.01em] text-body`}>
         {tile.title}
       </Heading>
-      <p className="mt-3 line-clamp-5 text-body-sm text-muted">{tile.summary}</p>
+      <p className="mt-3 line-clamp-5 text-base text-muted md:text-[15px]">{tile.summary}</p>
       {tile.teams.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-1.5">
           {tile.teams.slice(0, 3).map((team) => (
-            <li key={team} className="rounded-badge bg-mist px-2 py-0.5 text-[12px] text-muted ring-1 ring-ui">
+            <li
+              key={team}
+              className="rounded-pill border border-ui bg-surface px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-muted"
+            >
               {team}
             </li>
           ))}
         </ul>
       )}
-      <div className="mt-auto pt-5">{action}</div>
+      <div className="mt-auto pt-5">
+        <div className="border-t border-ui pt-3">{action}</div>
+      </div>
     </article>
   )
 }

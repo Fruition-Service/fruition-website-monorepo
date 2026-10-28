@@ -227,7 +227,7 @@ export default function UseCaseExplorer({
   return (
     <div>
       <form role="search" aria-label="Filter use cases" onSubmit={(e) => e.preventDefault()}>
-        <div className="rounded-card bg-surface-raised p-4 shadow-whisper ring-1 ring-ui md:p-5">
+        <div className="rounded-tile bg-surface-raised p-4 shadow-whisper ring-1 ring-ui md:p-5">
           <div
             className={`grid gap-3 md:grid-cols-2 ${
               industryFilter
@@ -368,7 +368,7 @@ export default function UseCaseExplorer({
       </ul>
 
       {visible.length === 0 && (
-        <p className="mt-8 rounded-card bg-surface-raised p-6 text-center text-body ring-1 ring-ui">
+        <p className="mt-8 rounded-tile bg-surface-raised p-6 text-center text-body ring-1 ring-ui">
           No use cases match those filters.{" "}
           <button type="button" onClick={clearParams} className="font-semibold text-brand hover:underline">
             Clear filters

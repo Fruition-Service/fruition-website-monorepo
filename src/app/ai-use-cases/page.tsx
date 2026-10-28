@@ -10,7 +10,6 @@ import UseCaseExplorer from "@/components/ai-use-cases/UseCaseExplorer"
 import JsonLd, { SITE_URL } from "@/components/ai-use-cases/JsonLd"
 import SectionIntro from "@/components/sections/SectionIntro"
 import ClientLogoSection from "@/components/sections/ClientLogoSection"
-import NumberedStepList from "@/components/common/NumberedStepList"
 import FaqAccordion from "@/components/sections/FaqAccordion"
 import ClosingCtaSection from "@/components/sections/ClosingCtaSection"
 import CalendlySection from "@/components/sections/CalendlySection"
@@ -116,6 +115,7 @@ export default async function Page() {
     <>
       <JsonLd data={jsonLd} />
       <UseCasesHero
+        eyebrow="Use case library"
         badges={BADGES}
         heading="Fruition AI and software solutions, by industry."
         headingAccent="by industry"
@@ -130,29 +130,34 @@ export default async function Page() {
         ]}
       />
 
-      <ClientLogoSection logos={siteSettings?.carouselLogos ?? []} />
+      <ClientLogoSection
+        eyebrow="Clients"
+        align="left"
+        className="bg-surface section-y"
+        logos={siteSettings?.carouselLogos ?? []}
+      />
 
-      <section id="industries" className="scroll-mt-24 bg-surface-subtle py-14 md:py-20 lg:py-24">
+      <section id="industries" className="section-y scroll-mt-24 bg-surface-subtle">
         <div className="site-container">
           <SectionIntro
             eyebrow="Industries"
             heading="Browse by industry"
             lead="Each industry has its own page with every use case, the integrations that come up most and typical timeframes."
           />
-          <div className="mt-12">
+          <div className="mt-10 md:mt-12">
             <IndustryGrid industries={index.industries} />
           </div>
         </div>
       </section>
 
-      <section id="explore" className="scroll-mt-24 bg-surface py-14 md:py-20 lg:py-24">
+      <section id="explore" className="section-y scroll-mt-24 bg-surface">
         <div className="site-container">
           <SectionIntro
             eyebrow="Use case catalogue"
             heading="Find a use case like yours"
             lead={`Client names are withheld. Select "See the build" on any tile for the full detail.`}
           />
-          <div className="mt-12">
+          <div className="mt-10 md:mt-12">
             <UseCaseExplorer
               tiles={useCases.map(toTile)}
               industries={index.industries}
@@ -165,14 +170,29 @@ export default async function Page() {
         </div>
       </section>
 
-      <section id="method" className="bg-surface-subtle px-4 py-14 md:py-20 lg:py-24">
-        <div className="mx-auto flex w-full max-w-[959px] flex-col items-center gap-10">
+      <section id="method" className="section-y scroll-mt-24 bg-surface-subtle">
+        <div className="site-container lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
           <SectionIntro
             eyebrow="Our method"
             heading="How a Fruition build ships"
             lead="Process before platform. Every build follows the same five phases."
           />
-          <NumberedStepList items={METHOD} />
+          <ol className="mt-10 lg:mt-0">
+            {METHOD.map((step, n) => (
+              <li
+                key={step.title}
+                className="flex gap-5 border-b border-dashed border-ui py-5 last:border-b-0 lg:first:pt-0"
+              >
+                <span className="pt-1 font-mono text-xs font-semibold tracking-[0.12em] text-brand">
+                  {String(n + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-[17px] leading-snug font-semibold text-body">{step.title}</h3>
+                  <p className="mt-1 text-[15px] text-muted">{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

@@ -8,6 +8,11 @@ interface ClientLogoSectionProps {
   logos?: CarouselLogo[]
   /** 2×5 by default — a sample of the industry's clients, not the whole book. */
   maxTiles?: number
+  /** Mono label above the heading. */
+  eyebrow?: string
+  align?: "center" | "left"
+  /** Surface and vertical rhythm of the section. */
+  className?: string
 }
 
 /**
@@ -27,6 +32,9 @@ export default function ClientLogoSection({
   description,
   logos = [],
   maxTiles = 10,
+  eyebrow,
+  align = "center",
+  className = "bg-surface py-[80px]",
 }: ClientLogoSectionProps) {
   if (!logos.length) return null
 
@@ -37,15 +45,31 @@ export default function ClientLogoSection({
   const part1 = headingPart1?.trim() ? headingPart1 : DEFAULT_PART1
   const accent = headingAccent?.trim() ? headingAccent : DEFAULT_ACCENT
 
+  const left = align === "left"
+  const heading = (
+    <p className={left ? "text-section-h3 text-left" : "text-section-h3 text-center"}>
+      <span className="text-body">{part1}</span>
+      <span className="text-brand">{accent}</span>
+    </p>
+  )
+
   return (
-    <section className="bg-surface py-[80px]">
-      <div className="site-container flex flex-col items-center gap-[35px]">
-        <p className="text-section-h3 text-center">
-          <span className="text-body">{part1}</span>
-          <span className="text-brand">{accent}</span>
-        </p>
+    <section className={className}>
+      <div className={`site-container flex flex-col ${left ? "items-start" : "items-center"} gap-[35px]`}>
+        {eyebrow ? (
+          <div>
+            <p className="mb-[18px] font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+              {eyebrow}
+            </p>
+            {heading}
+          </div>
+        ) : (
+          heading
+        )}
         {description && (
-          <p className="max-w-[860px] text-center text-base leading-[1.6] whitespace-pre-line text-muted">
+          <p
+            className={`max-w-[860px] ${left ? "text-left" : "text-center"} text-base leading-[1.6] whitespace-pre-line text-muted`}
+          >
             {description}
           </p>
         )}
