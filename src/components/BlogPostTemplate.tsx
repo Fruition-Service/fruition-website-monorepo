@@ -42,6 +42,7 @@ export interface BlogCategoryRef {
 export interface BlogPostData {
   title: string
   author?: string
+  authorPhotoUrl?: string
   publishedAt?: string
   coverImage?: SanityImage
   excerpt?: string
@@ -56,6 +57,7 @@ export interface RelatedBlogPost {
   slug: string
   publishedAt?: string
   author?: string
+  authorPhotoUrl?: string
   excerpt?: string
   charCount?: number
   coverImage?: SanityImage
@@ -395,7 +397,19 @@ function BodyVideoEmbed({ url, caption }: { url?: string; caption?: string }) {
 /*  Sub-components (pixel-matched fragments)                           */
 /* ------------------------------------------------------------------ */
 
-function AuthorAvatar({ name }: { name?: string }) {
+function AuthorAvatar({ name, photoUrl }: { name?: string; photoUrl?: string }) {
+  if (photoUrl) {
+    return (
+      <Image
+        src={`${photoUrl}?w=64&h=64&fit=crop&auto=format`}
+        alt=""
+        width={32}
+        height={32}
+        className="shrink-0 size-[32px] rounded-[16px] object-cover"
+        unoptimized
+      />
+    )
+  }
   return (
     <div
       className="shrink-0 size-[32px] rounded-[16px] flex items-center justify-center text-white font-semibold text-[12px] leading-none select-none bg-gradient-to-br from-brand to-brand-light"
@@ -408,10 +422,12 @@ function AuthorAvatar({ name }: { name?: string }) {
 
 function AuthorMetaRow({
   author,
+  authorPhotoUrl,
   publishedAt,
   readingTime,
 }: {
   author?: string
+  authorPhotoUrl?: string
   publishedAt?: string
   readingTime: string
 }) {
@@ -425,13 +441,13 @@ function AuthorMetaRow({
           className="flex flex-col h-[32px] items-start pr-[12px] w-[44px]"
         >
           <div className="content-stretch flex flex-col items-start overflow-clip rounded-[16px] shrink-0 size-[32px]">
-            <AuthorAvatar name={author} />
+            <AuthorAvatar name={author} photoUrl={authorPhotoUrl} />
           </div>
         </Link>
       ) : (
         <div className="flex flex-col h-[32px] items-start pr-[12px] w-[44px]">
           <div className="content-stretch flex flex-col items-start overflow-clip rounded-[16px] shrink-0 size-[32px]">
-            <AuthorAvatar name={author} />
+            <AuthorAvatar name={author} photoUrl={authorPhotoUrl} />
           </div>
         </div>
       )}
@@ -605,6 +621,7 @@ function RelatedPostsSection({ posts }: { posts: RelatedBlogPost[] }) {
               excerpt={p.excerpt}
               publishedAt={p.publishedAt}
               author={p.author}
+              authorPhotoUrl={p.authorPhotoUrl}
               coverImage={p.coverImage}
               charCount={p.charCount}
               categories={p.categories}
@@ -650,6 +667,7 @@ export default function BlogPostTemplate({
           {/* Author meta */}
           <AuthorMetaRow
             author={post.author}
+            authorPhotoUrl={post.authorPhotoUrl}
             publishedAt={post.publishedAt}
             readingTime={readingTime}
           />

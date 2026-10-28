@@ -259,12 +259,15 @@ export const NAV_ICONS: Record<string, (props: IconProps) => ReactElement> = {
       <path d="M4 4h13l-2 4 2 4H4" />
     </svg>
   ),
-  // monday.com: the three tilted capsules of the monday.com mark.
+  // monday.com: the official mark (two tilted capsules and a dot), from
+  // public/images/home/logos/monday.svg, scaled from its 256x156 box into 24x24.
   monday: (p) => (
-    <svg {...base(p)} strokeWidth={3}>
-      <path d="M6.7 16.1 9.7 7.6" />
-      <path d="M12.4 16.1 15.4 7.6" />
-      <path d="M18 16.1v-1.3" />
+    <svg {...brand(p)}>
+      <g transform="translate(0 4.69) scale(0.09375)">
+        <path d="M31.85 153.49c-11.52.02-22.17-6.15-27.86-16.17-5.62-9.95-5.28-22.19.87-31.82L62.23 15.4C68.21 5.55 79.03-.33 90.56.01c11.51.28 21.99 6.74 27.41 16.9 5.35 10.11 4.68 22.28-1.73 31.77L58.9 138.78c-5.91 9.21-16.12 14.76-27.05 14.71z" />
+        <path d="M130.26 153.49c-11.57 0-22.22-6.19-27.81-16.13-5.6-9.93-5.27-22.14.87-31.74L160.58 15.73C166.48 5.73 177.33-.28 188.93.01c11.67.26 22.24 6.79 27.59 17 5.31 10.21 4.53 22.45-2.07 31.92l-57.25 89.89c-5.89 9.17-16.05 14.7-26.95 14.67z" />
+        <ellipse cx="226.47" cy="125.32" rx="29.54" ry="28.92" />
+      </g>
     </svg>
   ),
   // Atlassian

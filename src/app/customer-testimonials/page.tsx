@@ -39,43 +39,31 @@ interface CaseStudyCard {
 /**
  * The Sanity card images are only 797x421, but the card renders them full-bleed
  * at up to ~1088 CSS px (~2176 device px at 2x), so small in-image text was
- * upscaled and pixelated. Known cards are served from local high-res AVIFs
- * (generated from the original captures in public/images), keyed by the Sanity
- * card `_key`. Cards without an entry fall back to their Sanity image.
+ * upscaled and pixelated. Known cards are served from local high-res captures
+ * in public/case-studies, keyed by the Sanity card `_key`. Each ships as WebP
+ * with a JPEG fallback: the earlier AVIF-only set rendered blank on browsers
+ * without AVIF support. Cards without an entry fall back to their Sanity image.
  */
-const HIGH_RES_CASE_STUDY_IMAGES: Record<string, { src: string; srcSet: string }> = {
-  "cs-bl-air": {
-    src: "/case-studies/bl-air.avif",
-    srcSet: "/case-studies/bl-air-1200.avif 1200w, /case-studies/bl-air.avif 2400w",
-  },
-  "cs-clsq": {
-    src: "/case-studies/clsq.avif",
-    srcSet: "/case-studies/clsq-1200.avif 1200w, /case-studies/clsq.avif 2400w",
-  },
-  "cs-givergy": {
-    src: "/case-studies/givergy.avif",
-    srcSet: "/case-studies/givergy-1200.avif 1200w, /case-studies/givergy.avif 2400w",
-  },
-  "cs-hvac": {
-    src: "/case-studies/hvac.avif",
-    srcSet: "/case-studies/hvac-1200.avif 1200w, /case-studies/hvac.avif 2400w",
-  },
-  "cs-popology": {
-    src: "/case-studies/popology.avif",
-    srcSet: "/case-studies/popology-1200.avif 1200w, /case-studies/popology.avif 2400w",
-  },
-  "cs-promotify": {
-    src: "/case-studies/promotify.avif",
-    srcSet: "/case-studies/promotify-1200.avif 1200w, /case-studies/promotify.avif 2400w",
-  },
-  "cs-r2s": {
-    src: "/case-studies/r2s.avif",
-    srcSet: "/case-studies/r2s-1200.avif 1200w, /case-studies/r2s.avif 2400w",
-  },
-  "cs-tourism-nt": {
-    src: "/case-studies/tourism-nt.avif",
-    srcSet: "/case-studies/tourism-nt-1200.avif 1200w, /case-studies/tourism-nt.avif 2400w",
-  },
+const HIGH_RES_CASE_STUDY_SLUGS: Record<string, string> = {
+  "cs-bl-air": "bl-air",
+  "cs-clsq": "clsq",
+  "cs-givergy": "givergy",
+  "cs-hvac": "hvac",
+  "cs-popology": "popology",
+  "cs-promotify": "promotify",
+  "cs-r2s": "r2s",
+  "cs-tourism-nt": "tourism-nt",
+}
+
+function highResCaseStudyImage(key?: string) {
+  const slug = key ? HIGH_RES_CASE_STUDY_SLUGS[key] : undefined
+  if (!slug) return undefined
+  const base = `/case-studies/${slug}`
+  return {
+    src: `${base}.jpg`,
+    srcSet: `${base}-1200.jpg 1200w, ${base}.jpg 2400w`,
+    webpSrcSet: `${base}-1200.webp 1200w, ${base}.webp 2400w`,
+  }
 }
 
 function cardImageUrl(ref: SanityImageRef): string | null {
@@ -153,7 +141,7 @@ export default async function CustomerTestimonialsPage() {
         heading={page?.caseStudySectionHeading || "Case studies"}
         subheading="Eight verified client implementations, with the problem, the build and the result."
         cards={caseStudyCards.map((s) => {
-          const highRes = s._key ? HIGH_RES_CASE_STUDY_IMAGES[s._key] : undefined
+          const highRes = highResCaseStudyImage(s._key)
           return {
             _key: s._key,
             title: s.title,
@@ -164,6 +152,7 @@ export default async function CustomerTestimonialsPage() {
             verifiedSource: s.verifiedSource,
             imageUrl: highRes ? highRes.src : getCaseStudyImageSrc(s.image),
             imageSrcSet: highRes?.srcSet,
+            imageWebpSrcSet: highRes?.webpSrcSet,
           }
         })}
       />
