@@ -197,8 +197,8 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
           </Link>
 
           {/* Desktop tabs */}
-          <div className="hidden lg:flex items-center gap-3">
-            <ul className="flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-2">
+            <ul className="flex items-center gap-0.5">
               {navItems.map((item) => {
                 const label = item.label || ''
                 if (!isDropdown(item)) {
@@ -208,7 +208,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                       <Link
                         href={bookingHref(item.href)}
                         aria-current={linkActive ? 'page' : undefined}
-                        className={`block rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
+                        className={`block rounded-badge px-2 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
                           linkActive ? 'text-brand' : 'text-body'
                         }`}
                       >
@@ -226,7 +226,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                       aria-expanded={open}
                       aria-controls={panelId(label)}
                       onClick={() => toggleOnClick(label)}
-                      className={`flex items-center gap-1.5 rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
+                      className={`flex items-center gap-1.5 rounded-badge px-2 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
                         open ? 'bg-tint text-brand' : active ? 'text-brand' : 'text-body'
                       }`}
                     >
@@ -245,7 +245,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
             </ul>
 
             {/* Phone + CTA */}
-            <div className="flex items-center gap-2 border-l border-ui pl-3" onMouseEnter={scheduleClose}>
+            <div className="flex items-center gap-2 border-l border-ui pl-2" onMouseEnter={scheduleClose}>
               {/* Opens the regional numbers rather than dialling the Sydney
                   office for every visitor. */}
               <RegionalCallPopover offices={offices} fallbackPhone={phoneAu} />
@@ -255,7 +255,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                 // page with its own #book this opened /contact-us in a new tab.
                 <a
                   href={calendlyUrl}
-                  className="inline-flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-md"
+                  className="inline-flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-md"
                 >
                   <PaperPlaneIcon size={16} />
                   {ctaLabel}

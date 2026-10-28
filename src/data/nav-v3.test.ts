@@ -36,8 +36,8 @@ describe('v3 menu, footer and hub links', () => {
     expect(hasPage(href)).toBe(true)
   })
 
-  it('keeps the menu to five top-level tabs', () => {
-    expect(NAV_V3.map((i) => i.label)).toEqual(['Partners', 'Industries', 'Customers', 'Blog', 'Contact'])
+  it('keeps the menu to six top-level tabs', () => {
+    expect(NAV_V3.map((i) => i.label)).toEqual(['Partners', 'Industries', 'Customers', 'AI Use Cases', 'Blog', 'Contact'])
   })
 
   it('carries no per-item descriptions (removed 26 Oct 2026)', () => {
