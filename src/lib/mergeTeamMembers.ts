@@ -32,7 +32,20 @@ export function mergeTeamMembers(
   const excluded = new Set(
     [...excludedNames, ...TEMPORARILY_HIDDEN_NAMES].map(normName),
   )
-  return sanityMembers.filter((m) => !excluded.has(normName(m.name)))
+  return sanityMembers.filter((m) => !excluded.has(normName(m.name)) && isPublishable(m))
+}
+
+/**
+ * The monday onboarding webhook creates a `team-monday-*` doc the moment an
+ * item is added to the people board, usually with only a name. Those half-filled
+ * records ("New item", "(copy)" duplicates, people with no role or photo) used to
+ * render as blank cards. A member shows once they have a role and a photo.
+ */
+function isPublishable(m: TeamMember): boolean {
+  const name = m.name?.trim() ?? ""
+  if (!name || /^new item$/i.test(name) || /\(copy\)/i.test(name)) return false
+  const hasPhoto = Boolean(m.photo?.asset?._ref || m.photoUrl)
+  return Boolean(m.role?.trim()) && hasPhoto
 }
 
 /* ------------------------------------------------------------------ */
