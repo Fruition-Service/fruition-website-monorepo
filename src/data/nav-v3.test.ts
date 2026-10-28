@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { NAV_V3, navV3Hrefs } from './nav-v3'
+import { SERVICES_NAV, servicesNavHrefs } from './nav-services'
 import { footerV3Hrefs } from './footer-v3'
 import { PARTNERS_HUB } from './hubs/partners'
 import { INDUSTRIES_HUB } from './hubs/industries'
@@ -36,8 +37,30 @@ describe('v3 menu, footer and hub links', () => {
     expect(hasPage(href)).toBe(true)
   })
 
-  it('keeps the menu to five top-level tabs', () => {
-    expect(NAV_V3.map((i) => i.label)).toEqual(['Partners', 'Industries', 'Customers', 'Blog', 'Contact'])
+  it('keeps the menu to six top-level tabs', () => {
+    expect(NAV_V3.map((i) => i.label)).toEqual([
+      'Services',
+      'Partners',
+      'Industries',
+      'Customers',
+      'Blog',
+      'Contact',
+    ])
+  })
+
+  it('opens the menu with the Services dropdown (28 Oct 2026)', () => {
+    expect(NAV_V3[0]).toBe(SERVICES_NAV)
+    expect(SERVICES_NAV.sections?.map((s) => s.heading)).toEqual([
+      'AI consulting',
+      'Work platforms',
+      'Commercial',
+    ])
+    expect(SERVICES_NAV.sections?.flatMap((s) => s.items).length).toBe(15)
+  })
+
+  it('links every Services item to a real page in src/app', () => {
+    const missing = servicesNavHrefs().filter((href) => !hasPage(href))
+    expect(missing).toEqual([])
   })
 
   it('carries no per-item descriptions (removed 26 Oct 2026)', () => {

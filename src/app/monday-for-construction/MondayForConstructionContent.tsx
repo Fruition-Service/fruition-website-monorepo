@@ -279,7 +279,7 @@ export default function MondayForConstructionContent({
         ctaUrl={calendlyUrl}
         statCardSubtitle="have maximised their workflows with our monday.com expert support"
         statCardCtaLabel="Read our case studies"
-        statCardCtaUrl="/customer-testimonials"
+        statCardCtaUrl="/customer-testimonials#case-studies"
         caseStudies={partnerCaseStudies}
       />
     </div>

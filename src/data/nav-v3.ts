@@ -18,10 +18,16 @@
  * moved under Make, and the Partners "Pricing →" link points at
  * /implementation-packages (the pricing page; /pricing redirects there).
  *
+ * 28 Oct 2026 website call: a Services tab (dropdown) goes ahead of Partners.
+ * It lives in src/data/nav-services.ts, so the header can merge it ahead of a
+ * Sanity navigation document that predates the change.
+ *
  * Every href resolves to a page that exists. Consumed by:
  *  - scripts/seed-nav-v3.ts   → writes siteSettings.navigation (and the footer)
  *  - src/app/layout.tsx       → local preview when NAV_V3_PREVIEW=1
  */
+
+import { SERVICES_NAV } from './nav-services'
 
 export interface NavV3Link {
   label: string
@@ -61,6 +67,7 @@ export interface NavV3Item {
 }
 
 export const NAV_V3: NavV3Item[] = [
+  SERVICES_NAV,
   {
     label: 'Partners',
     layout: 'columns',

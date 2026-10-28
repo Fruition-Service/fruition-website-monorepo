@@ -165,7 +165,7 @@ async function main() {
             { _type: 'navLink', label: 'Careers', href: '/careers' },
             { _type: 'navLink', label: 'Meet The Team', href: '/fruition-team' },
             { _type: 'navLink', label: 'FAQs', href: '/faqs' },
-            { _type: 'navLink', label: 'Case Studies', href: '/customer-testimonials' },
+            { _type: 'navLink', label: 'Case Studies', href: '/customer-testimonials#case-studies' },
             { _type: 'navLink', label: 'Blog', href: '/consulting-blog' },
           ],
         },
@@ -300,7 +300,7 @@ async function main() {
     { _type: 'link', label: 'monday.com for Product Management', href: '/monday-consulting-solutions/monday-product-management' },
     { _type: 'link', label: 'Solar CRM & Work Management Solution', href: '/monday-consulting-solutions/solar-crm-solution' },
     { _type: 'link', label: 'AI Strategy & Execution', href: '/ai-strategy-and-execution' },
-    { _type: 'link', label: 'Case Studies', href: '/customer-testimonials' },
+    { _type: 'link', label: 'Case Studies', href: '/customer-testimonials#case-studies' },
   ])
 
   const footerIndustryLinks = withKeys([
