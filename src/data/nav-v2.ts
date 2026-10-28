@@ -332,7 +332,7 @@ export const NAV_V2: NavV2Item[] = [
         columns: 2,
         items: [
           { label: 'Blog', href: '/consulting-blog', icon: 'edit', description: '100+ articles on monday.com, AI & automation' },
-          { label: 'Case Studies', href: '/customer-testimonials', icon: 'chart', description: '8 verified client implementations, filterable' },
+          { label: 'Case Studies', href: '/customer-testimonials#case-studies', icon: 'chart', description: '8 verified client implementations, filterable' },
           { label: 'AI Use Case Hub', href: '/ai-use-cases', icon: 'list', description: '279 real AI and monday.com builds across 12 industries' },
           { label: 'FAQs', href: '/faqs', icon: 'question', description: 'Direct answers to common questions' },
         ],

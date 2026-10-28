@@ -183,7 +183,7 @@ async function main() {
 
     testimonialsHeading: 'What our clients say',
     testimonialsCtaLabel: 'View All Case Studies',
-    testimonialsCtaUrl: '/about/case-studies',
+    testimonialsCtaUrl: '/customer-testimonials#case-studies',
     statCardValue: '290+',
     statCardSubtitle: 'Satisfied clients across Australia, US & UK',
     statCardCtaLabel: 'Join Them',
