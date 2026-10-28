@@ -1,12 +1,30 @@
 import { createClient } from 'next-sanity'
 import { rewriteBookingLinks } from '@/lib/bookingLink'
 import { apiVersion, dataset, projectId } from './env'
+import { isEditMode, stegaFilter } from './editMode'
 
 const base = createClient({
   projectId,
   dataset,
   apiVersion,
   useCdn: true,
+})
+
+/**
+ * The inline editor's client (see src/components/edit/). Only used while a
+ * portal user has edit mode on, which is Next draft mode: those requests skip
+ * the ISR cache, so reading uncached from the API costs nothing on the live
+ * site. Stega hides each string's document id and field path inside it as
+ * zero-width characters; the overlay decodes them to know what to patch.
+ */
+const editBase = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+  perspective: 'published',
+  token: process.env.SANITY_WRITE_TOKEN,
+  stega: { enabled: true, studioUrl: '/studio', filter: stegaFilter },
 })
 
 /**
@@ -23,6 +41,8 @@ export const client = {
   // Generic defaults to `any` to match next-sanity's own fetch signature —
   // call sites rely on that inference.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fetch: async <T = any>(query: string, params?: Record<string, unknown>): Promise<T> =>
-    rewriteBookingLinks(await base.fetch<T>(query, params ?? {})),
+  fetch: async <T = any>(query: string, params?: Record<string, unknown>): Promise<T> => {
+    const c = (await isEditMode()) ? editBase : base
+    return rewriteBookingLinks(await c.fetch<T>(query, params ?? {}))
+  },
 }

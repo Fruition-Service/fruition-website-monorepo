@@ -11,6 +11,7 @@ import SiteFrame from "@/components/SiteFrame"
 import CtaClickTracker from "@/components/CtaClickTracker"
 import BookingEventTracker from "@/components/BookingEventTracker"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
+import EditModeLoader from "@/components/edit/EditModeLoader"
 import AwardBanner from "@/components/home/AwardBanner"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
@@ -393,6 +394,7 @@ export default async function RootLayout({
         <CtaClickTracker />
         <BookingEventTracker />
         <InPageBookingLinks />
+        <EditModeLoader />
         {/* GTM's no-JS fallback. It records the pageview only; none of the
             container's tags run without JavaScript. */}
         <noscript>

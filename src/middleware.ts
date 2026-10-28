@@ -66,8 +66,20 @@ function wantsMarkdown(accept: string | null): boolean {
   return value.includes("text/markdown") && !value.includes("text/html")
 }
 
+// editing.fruitionservices.io is the easy-to-remember door into the inline
+// website editor. It serves nothing itself: it hands the same path to the
+// edit-mode switch on the canonical host, which runs the portal's Google login
+// first. Edit mode has to live on www because that is where the portal's
+// session cookies are.
+const EDITING_HOST = "editing.fruitionservices.io"
+
 export function middleware(request: NextRequest) {
   const host = (request.headers.get("host") ?? "").split(":")[0].toLowerCase()
+  if (host === EDITING_HOST) {
+    const target = new URL("https://" + CANONICAL_HOST + "/api/internal/edit/enable")
+    target.searchParams.set("path", request.nextUrl.pathname + request.nextUrl.search)
+    return NextResponse.redirect(target, 302)
+  }
   if (host === "fruitionservices.io" || LEGACY_HOSTS.has(host)) {
     const url = request.nextUrl.clone()
     url.protocol = "https"
