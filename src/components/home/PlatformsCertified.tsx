@@ -93,7 +93,7 @@ export default function PlatformsCertified({ copy }: { copy: HomeCopy }) {
                 ))}
               </div>
               <Link
-                href="/monday-consulting-solutions"
+                href="/monday-implementation-consultants"
                 className="mt-auto pt-8.5 text-[15px] font-semibold text-white hover:text-brand-light"
               >
                 {homeText(copy, "platforms-monday-cta")}
