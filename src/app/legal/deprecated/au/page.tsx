@@ -10,7 +10,7 @@ export async function generateMetadata() {
     title,
     description,
     alternates: { canonical: "/legal/deprecated/au" },
-    // Superseded agreement: keep it out of the index, same as /contactustest.
+    // Superseded agreement: keep it out of the index, same as /studio.
     robots: { index: false, follow: false },
     ...buildOgMetadata({ title, description, path: "/legal/deprecated/au" }),
   }

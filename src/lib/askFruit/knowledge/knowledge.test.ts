@@ -1,9 +1,7 @@
-import { SOLUTIONS } from "@/app/monday-consulting-solutions/catalog/data/solutions"
-import { findSolution, SOLUTION_PARAM } from "@/app/monday-consulting-solutions/catalog/lib/deepLink"
 import { describe, expect, it } from "vitest"
 import { buildIndex, searchIndex, tokenize } from "./search"
 import { flattenSanity, sanityRecords, type SanityDoc } from "./sanity"
-import { staticRecords } from "./static"
+import { SOLUTIONS_URL, staticRecords } from "./static"
 import type { KnowledgeRecord } from "./types"
 
 function record(id: string, kind: KnowledgeRecord["kind"], title: string, text = ""): KnowledgeRecord {
@@ -117,10 +115,10 @@ describe("staticRecords", () => {
     for (const r of records) expect(r.url).toMatch(/^\/[a-z0-9/-]*(\?solution=[a-z0-9-]+)?$/)
   })
 
-  it("links every solution to its own details in the catalog, not the catalog top", () => {
+  it("links every solution to the AI use case hub, never the deleted catalog", () => {
+    expect(SOLUTIONS_URL).toBe("/ai-use-cases")
     for (const r of records.filter((x) => x.id.startsWith("solution:"))) {
-      const value = new URL(r.url, "https://x.test").searchParams.get(SOLUTION_PARAM)
-      expect(findSolution(SOLUTIONS, value)?.title).toBe(r.title)
+      expect(r.url).toBe("/ai-use-cases")
     }
   })
 

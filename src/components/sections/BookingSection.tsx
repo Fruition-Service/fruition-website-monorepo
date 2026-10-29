@@ -74,7 +74,7 @@ export interface BookingSectionProps {
   mode?: BookingMode
   /**
    * Pins the desk instead of detecting it, so one page can show every region
-   * side by side. Only /contactustest passes this — real placements leave it
+   * side by side. Only preview surfaces pass this; real placements leave it
    * unset so cf-ipcountry decides and the visitor can still correct it.
    */
   forceRegion?: BookingRegion

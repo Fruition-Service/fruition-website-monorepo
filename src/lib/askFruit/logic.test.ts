@@ -139,16 +139,20 @@ describe("limitBreach", () => {
 })
 
 describe("catalogDeepLink", () => {
-  it("points a bare catalog link at the solution it names", () => {
-    expect(catalogDeepLink("/monday-consulting-solutions/catalog", "Dream CRM")).toBe(
-      "/monday-consulting-solutions/catalog?solution=Dream%20CRM",
-    )
+  it("sends a bare catalog link to the AI use case hub", () => {
+    expect(catalogDeepLink("/monday-consulting-solutions/catalog", "Dream CRM")).toBe("/ai-use-cases")
   })
 
-  it("leaves deep links and other pages alone", () => {
+  it("sends catalog deep links to the hub and drops the query", () => {
     expect(catalogDeepLink("/monday-consulting-solutions/catalog?solution=dream-crm", "Dream CRM")).toBe(
-      "/monday-consulting-solutions/catalog?solution=dream-crm",
+      "/ai-use-cases",
     )
+    expect(catalogDeepLink("/monday-consulting-solutions/catalog/anything", "Dream CRM")).toBe("/ai-use-cases")
+  })
+
+  it("leaves other pages alone", () => {
     expect(catalogDeepLink("/contact-us", "Book a call")).toBe("/contact-us")
+    expect(catalogDeepLink("/monday-consulting-solutions", "monday consulting")).toBe("/monday-consulting-solutions")
+    expect(catalogDeepLink("/monday-consulting-solutions/catalogue", "x")).toBe("/monday-consulting-solutions/catalogue")
   })
 })

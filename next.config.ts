@@ -241,6 +241,11 @@ const auditRedirects: Redirect[] = [
   { source: "/monday-consulting-solutions/monday-project-management-0", destination: "/monday-consulting-solutions/monday-project-management", permanent: true },
   { source: "/monday-consulting-solutions/monday-for-finance-4", destination: "/monday-consulting-solutions/monday-for-finance", permanent: true },
   { source: "/monday-consulting-solutions/solar-crm-solution-6", destination: "/monday-consulting-solutions/solar-crm-solution", permanent: true },
+
+  // monday 2893694816: /contactustest was a staff sandbox of past booking-card
+  // versions and is deleted. `:path*` matches zero or more segments, so the
+  // bare URL and anything under it land on the real contact page.
+  { source: "/contactustest/:path*", destination: "/contact-us", permanent: true },
 ];
 
 const nextConfig: NextConfig = {
@@ -299,10 +304,11 @@ const nextConfig: NextConfig = {
     // catch-all in auditRedirects, which is the fallback for tags that name
     // no article.
     // The AI use case hub replaces the old Solutions Catalogue (Josh, 27 Oct
-    // 2026). Route-only redirect: the catalog source files stay in the repo.
+    // 2026). The catalog route was deleted in monday 2893694816; `:path*`
+    // sends the bare URL and anything under it to the hub.
     const hubRedirects: Redirect[] = [
       {
-        source: "/monday-consulting-solutions/catalog",
+        source: "/monday-consulting-solutions/catalog/:path*",
         destination: "/ai-use-cases",
         permanent: true,
       },

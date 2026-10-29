@@ -13,8 +13,7 @@ import { describe, expect, it } from "vitest"
  * covers those.
  */
 const APP = path.join(__dirname, "..", "app")
-// contactustest: frozen archive of past booking-card versions, staff only (noindex, nofollow).
-const SKIP = new Set(["internal", "studio", "api", "contactustest"])
+const SKIP = new Set(["internal", "studio", "api"])
 
 /** Helpers that return buildOgMetadata() output (openGraph + twitter). */
 const OG_HELPERS = /\b(buildOgMetadata|practiceMetadata|channelMetadata)\(/

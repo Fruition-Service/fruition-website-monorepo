@@ -92,19 +92,26 @@ export function parseBlocks(markdown: string): Block[] {
   return blocks
 }
 
-/** Only site-relative, https and mailto links render as links; anything else stays text. */
+/** The deleted Solutions Catalogue and the hub that replaced it. */
 const CATALOG_PATH = "/monday-consulting-solutions/catalog"
+const AI_USE_CASES_PATH = "/ai-use-cases"
 
 /**
- * Conversations saved before the catalog had deep links cite every solution as
- * the bare catalog URL. Point those at the solution itself, using the name the
- * link was given; the catalog matches a `?solution=` value by key or title.
+ * Saved conversations and older knowledge cite solutions as the catalog URL,
+ * bare or with `?solution=`. The catalog is gone (monday 2893694816), so send
+ * those links straight to the AI use case hub instead of through a redirect.
+ * The query is dropped because the hub ignores it. `label` is unused now but
+ * kept so the call sites in src/components/ask-fruit/ stay unchanged.
  */
-export function catalogDeepLink(href: string, label: string): string {
-  if (href !== CATALOG_PATH || !label.trim()) return href
-  return `${CATALOG_PATH}?solution=${encodeURIComponent(label.trim())}`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function catalogDeepLink(href: string, _label: string): string {
+  if (href === CATALOG_PATH || href.startsWith(`${CATALOG_PATH}/`) || href.startsWith(`${CATALOG_PATH}?`)) {
+    return AI_USE_CASES_PATH
+  }
+  return href
 }
 
+/** Only site-relative, https and mailto links render as links; anything else stays text. */
 export function safeHref(href: string): string | null {
   const h = href.trim()
   if (/^\/(?!\/)/.test(h)) return h

@@ -81,7 +81,7 @@ export default function ClientLogoWall({
     return logo.clientSlug && !clone ? (
       <Link
         key={logo._key ?? i}
-        href={`/monday-consulting-solutions/catalog?client=${logo.clientSlug}`}
+        href="/customer-testimonials"
         aria-label={`${name} — see the work we delivered`}
         className={`${TILE} ${FOCUS}`}
       >

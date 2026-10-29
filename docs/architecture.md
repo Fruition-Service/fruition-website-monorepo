@@ -89,7 +89,6 @@ There are no route groups; everything is flat under `src/app/`.
 | Pricing | `/pricing` (licence procurement page) | `src/data/practicePages/licensing.ts`, overridden field by field by Sanity `licensingPage` |
 | Blog | `/consulting-blog`, `/consulting-blog/categories/[slug]`, `/post/[slug]`, `/author/[slug]` | Sanity `blogPost`, `teamMember` |
 | Legal | `/legal/*`, `/terms-and-conditions` | Code + PDFs in `public/` |
-| Sandbox | `/contactustest` | Every historical version of the booking card; writes are suppressed |
 
 ### 3.2 Ad landing pages (`src/app/{au,uk,us}/*`)
 Each is a `route.ts` plus a `content.ts` holding an HTML string, served through
@@ -190,8 +189,8 @@ does not render anything.
   regenerates `src/lib/videoCatalog.generated.ts`.
 - **Blog body images must be Sanity-hosted.** A remote `![](url)` publishes as a link; the publish
   paths sideload images into Sanity first.
-- **NDA clients** must never appear in client lists or logo walls (`src/app/monday-consulting-solutions/catalog/data/clients.ts`), even when
-  the list is regenerated from the CRM.
+- **NDA clients** must never appear in client lists or logo walls, even when the list is
+  regenerated from the CRM.
 
 ---
 
