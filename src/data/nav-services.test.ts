@@ -14,7 +14,6 @@ describe('Services nav item', () => {
       'RAG & knowledge systems',
       'Governance & compliance',
       'AI readiness blueprint',
-      'monday.com solutions',
       'monday CRM consulting',
       'Implementation consultants',
       'monday training',
@@ -32,6 +31,12 @@ describe('Services nav item', () => {
       expect(href.startsWith('/')).toBe(true)
       expect(href).not.toMatch(/^\/(au|uk|us|sea)\b/)
     }
+  })
+
+  it('links each page once', () => {
+    const hrefs = (SERVICES_NAV.sections ?? []).flatMap((s) => s.items.map((l) => l.href))
+    expect(new Set(hrefs).size).toBe(hrefs.length)
+    expect(new Set(servicesNavHrefs()).size).toBe(servicesNavHrefs().length)
   })
 
   it('keeps the anchor page first', () => {

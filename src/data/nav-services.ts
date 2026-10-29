@@ -57,7 +57,6 @@ export const SERVICES_NAV: ServicesNavItem = {
     {
       heading: 'Work platforms',
       items: [
-        { label: 'monday.com solutions', href: '/monday-implementation-consultants', icon: 'monday' },
         { label: 'monday CRM consulting', href: '/monday-crm-consulting', icon: 'chart' },
         {
           label: 'Implementation consultants',

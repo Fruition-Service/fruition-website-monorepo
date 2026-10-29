@@ -62,3 +62,33 @@ export function rewriteRetiredLinks<T>(value: T): T {
   }
   return value
 }
+
+function isRetiredHubEntry(value: unknown): boolean {
+  return isPlainObject(value) && typeof value.href === "string" && RETIRED_HUB_RE.test(value.href)
+}
+
+function pruneRetiredHubEntries(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.filter((v) => !isRetiredHubEntry(v)).map((v) => pruneRetiredHubEntries(v))
+  }
+  if (isPlainObject(value)) {
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(value)) out[k] = pruneRetiredHubEntries(v)
+    return out
+  }
+  return value
+}
+
+/**
+ * Removes nav entries that link to the retired hub, at every depth (sections,
+ * items, columns, children, whatever the key). A CMS nav item saved with the
+ * hub URL would be rewritten into a second link to
+ * /monday-implementation-consultants beside the existing "Implementation
+ * consultants" one, so the nav drops it rather than duplicating it. Groups
+ * left empty stay in place with an empty array, and subpaths of the hub are
+ * kept. Applied only to siteSettings.navigation (see sanity/client.ts);
+ * everywhere else the hub is rewritten by rewriteRetiredLinks, not removed.
+ */
+export function dropRetiredHubNavLinks<T>(navigation: T[]): T[] {
+  return pruneRetiredHubEntries(navigation) as T[]
+}

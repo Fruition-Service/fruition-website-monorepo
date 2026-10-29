@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   RETIRED_HUB_DESTINATION,
   RETIRED_SOLUTION_SLUGS,
+  dropRetiredHubNavLinks,
   retiredLinkHref,
   rewriteRetiredLinks,
 } from "./retiredLinks"
@@ -75,6 +76,88 @@ describe("rewriteRetiredLinks", () => {
       ],
       order: 3,
     })
+  })
+})
+
+describe("dropRetiredHubNavLinks", () => {
+  it("drops a nav item stored with the hub href and keeps the canonical one", () => {
+    const nav = [
+      { label: "monday.com solutions", href: "/monday-consulting-solutions" },
+      { label: "monday.com solutions", href: "/monday-implementation-consultants" },
+      { label: "Contact", href: "/contact-us" },
+    ]
+    expect(dropRetiredHubNavLinks(nav)).toEqual([
+      { label: "monday.com solutions", href: "/monday-implementation-consultants" },
+      { label: "Contact", href: "/contact-us" },
+    ])
+    expect(nav).toHaveLength(3)
+  })
+
+  it("matches the hub the same way retiredLinkHref does", () => {
+    const nav = [
+      "https://www.fruitionservices.io/monday-consulting-solutions/",
+      "http://FruitionServices.io/monday-consulting-solutions?utm_source=nav",
+      "/monday-consulting-solutions#top",
+    ].map((href) => ({ label: "Hub", href }))
+    expect(dropRetiredHubNavLinks(nav)).toEqual([])
+  })
+
+  it("filters nested groups at every depth and keeps siblings and empty groups", () => {
+    const nav = [
+      {
+        label: "Partners",
+        sections: [
+          {
+            heading: "Work platforms",
+            items: [
+              { label: "monday.com solutions", href: "/monday-consulting-solutions", icon: "monday" },
+              { label: "Implementation consultants", href: "/monday-implementation-consultants" },
+            ],
+          },
+          { heading: "Legacy", items: [{ label: "Hub", href: "/monday-consulting-solutions/" }] },
+        ],
+        columns: [{ children: [{ subItems: [{ label: "Hub", href: "/monday-consulting-solutions" }, { label: "HR", href: "/monday-consulting-solutions/monday-for-hr" }] }] }],
+        footerLinks: [
+          { label: "Hub", href: "https://www.fruitionservices.io/monday-consulting-solutions" },
+          { label: "Catalog", href: "/monday-consulting-solutions/catalog" },
+        ],
+      },
+      { label: "Contact", href: "/contact-us", order: 2 },
+    ]
+    expect(dropRetiredHubNavLinks(nav)).toEqual([
+      {
+        label: "Partners",
+        sections: [
+          {
+            heading: "Work platforms",
+            items: [{ label: "Implementation consultants", href: "/monday-implementation-consultants" }],
+          },
+          { heading: "Legacy", items: [] },
+        ],
+        columns: [{ children: [{ subItems: [{ label: "HR", href: "/monday-consulting-solutions/monday-for-hr" }] }] }],
+        footerLinks: [{ label: "Catalog", href: "/monday-consulting-solutions/catalog" }],
+      },
+      { label: "Contact", href: "/contact-us", order: 2 },
+    ])
+  })
+
+  it("keeps hub subpaths and passes non-object entries through", () => {
+    const nav = [
+      { label: "HR", href: "/monday-consulting-solutions/monday-for-hr" },
+      { label: "Catalog", href: "/monday-consulting-solutions/catalog" },
+      "/monday-consulting-solutions",
+      null,
+      7,
+    ]
+    expect(dropRetiredHubNavLinks(nav)).toEqual(nav)
+  })
+
+  it("leaves hub URLs outside the nav to rewriteRetiredLinks, which rewrites rather than drops", () => {
+    const body = { body: [{ _type: "link", href: "/monday-consulting-solutions", text: "our services" }] }
+    expect(rewriteRetiredLinks(body)).toEqual({
+      body: [{ _type: "link", href: RETIRED_HUB_DESTINATION, text: "our services" }],
+    })
+    expect(rewriteRetiredLinks("/monday-consulting-solutions")).toBe(RETIRED_HUB_DESTINATION)
   })
 })
 
