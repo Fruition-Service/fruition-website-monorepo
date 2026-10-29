@@ -49,7 +49,7 @@ export default async function IndustriesHubPage() {
       <HubHero eyebrow={hub.eyebrow} heading={hub.heading} accent={hub.accent} lead={hub.lead} facts={hub.facts} />
 
       <HubSection eyebrow="Sectors" heading={hub.sectorsHeading} subtle>
-        <HubCardGrid cards={hub.sectors} columns={3} />
+        <HubCardGrid cards={hub.sectors} columns={3} label="Sectors" />
         <p className="mt-8 text-muted">
           Also:{' '}
           {hub.also.map((a, i) => (

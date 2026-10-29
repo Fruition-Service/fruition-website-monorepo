@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { NavIcon } from '@/components/common/icons/NavIcons'
+import CardRail from '@/components/common/CardRail'
 
 /**
  * Building blocks for the three hub pages that sit under the v3 menu
@@ -114,9 +115,23 @@ const GRID_COLS: Record<number, string> = {
   4: 'md:grid-cols-2 lg:grid-cols-4',
 }
 
-export function HubCardGrid({ cards, columns = 3 }: { cards: HubCard[]; columns?: 2 | 3 | 4 }) {
+export function HubCardGrid({
+  cards,
+  columns = 3,
+  label = 'Cards',
+}: {
+  cards: HubCard[]
+  columns?: 2 | 3 | 4
+  /** Names the phone swipe rail for screen readers; pass the section heading. */
+  label?: string
+}) {
   return (
-    <div className={`grid grid-cols-1 gap-5 ${GRID_COLS[columns]}`}>
+    <CardRail
+      label={label}
+      count={cards.length}
+      className={`gap-5 ${GRID_COLS[columns]}`}
+      stackedClassName={`grid grid-cols-1 gap-5 ${GRID_COLS[columns]}`}
+    >
       {cards.map((c) => (
         <article
           key={c.href}
@@ -163,7 +178,7 @@ export function HubCardGrid({ cards, columns = 3 }: { cards: HubCard[]; columns?
           </Link>
         </article>
       ))}
-    </div>
+    </CardRail>
   )
 }
 

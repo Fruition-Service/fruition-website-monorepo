@@ -29,7 +29,7 @@ export default function PartnershipsHubPage() {
       <HubHero eyebrow={page.eyebrow} heading={page.heading} accent={page.accent} lead={page.lead} facts={page.facts} />
 
       <HubSection eyebrow="Core partners" heading={page.coreHeading} lede={page.coreLede} subtle>
-        <HubCardGrid cards={page.core} columns={3} />
+        <HubCardGrid cards={page.core} columns={3} label="Core partners" />
       </HubSection>
 
       <HubPickPanel {...page.pick} />

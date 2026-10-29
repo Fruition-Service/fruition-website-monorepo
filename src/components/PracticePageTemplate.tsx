@@ -6,6 +6,7 @@ import {
   type PracticePage,
 } from '@/data/practicePages/types'
 import FaqAccordion from '@/components/sections/FaqAccordion'
+import CardRail from '@/components/common/CardRail'
 import ClosingCtaSection from '@/components/sections/ClosingCtaSection'
 import { getFaqItemsForPageStrict, getClosingCtaForPage } from '@/sanity/queries'
 import { getIndustryLogos, INDUSTRY_LOGO_KEYS } from '@/sanity/industryLogos'
@@ -155,7 +156,12 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
         <div className="site-container section-y">
           <Eyebrow>{page.servicesEyebrow ?? 'Services'}</Eyebrow>
           <h2 className="text-section-h2 mb-8 md:mb-10">{page.servicesHeading}</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <CardRail
+            label={page.servicesHeading ?? page.servicesEyebrow ?? 'Services'}
+            count={page.services.length}
+            className="md:grid-cols-2 gap-6"
+            stackedClassName="grid md:grid-cols-2 gap-6"
+          >
             {page.services.map((s) =>
               s.href ? (
                 <Link
@@ -178,7 +184,7 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
                 </div>
               ),
             )}
-          </div>
+          </CardRail>
         </div>
       </section>
 
