@@ -1,6 +1,6 @@
 import { createClient } from 'next-sanity'
 import { rewriteBookingLinks } from '@/lib/bookingLink'
-import { rewriteRetiredLinks } from '@/lib/retiredLinks'
+import { dropRetiredHubNavLinks, rewriteRetiredLinks } from '@/lib/retiredLinks'
 import { apiVersion, dataset, projectId } from './env'
 import { isEditMode, stegaFilter } from './editMode'
 
@@ -40,10 +40,15 @@ const editBase = createClient({
  *
  * Results also pass through rewriteRetiredLinks, which points any field whose
  * value is the retired /monday-consulting-solutions hub at
- * /monday-implementation-consultants. The live Sanity nav item labelled
- * "monday.com solutions" and the homepage "Our monday.com services" CTA both
- * still link to the hub, and there is no Sanity write access today, so the
- * read layer fixes them without a CMS edit.
+ * /monday-implementation-consultants. The homepage "Our monday.com services"
+ * CTA (and any body copy) still links to the hub, and there is no Sanity write
+ * access today, so the read layer rewrites it without a CMS edit.
+ *
+ * Navigation is the one exception: on the siteSettings payload, `navigation`
+ * entries linking to the hub are dropped (dropRetiredHubNavLinks) before the
+ * rewrite, because the Services menu already lists
+ * /monday-implementation-consultants as "Implementation consultants" and a
+ * rewritten entry would duplicate it.
  */
 export const client = {
   // Generic defaults to `any` to match next-sanity's own fetch signature —
@@ -51,6 +56,16 @@ export const client = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetch: async <T = any>(query: string, params?: Record<string, unknown>): Promise<T> => {
     const c = (await isEditMode()) ? editBase : base
-    return rewriteRetiredLinks(rewriteBookingLinks(await c.fetch<T>(query, params ?? {})))
+    return rewriteRetiredLinks(withoutRetiredHubNav(rewriteBookingLinks(await c.fetch<T>(query, params ?? {}))))
   },
+}
+
+/** Drops retired hub entries from a siteSettings `navigation` array; any other payload is returned as is. */
+function withoutRetiredHubNav<T>(payload: T): T {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload
+  const proto = Object.getPrototypeOf(payload)
+  if (proto !== Object.prototype && proto !== null) return payload
+  const { navigation } = payload as { navigation?: unknown }
+  if (!Array.isArray(navigation)) return payload
+  return { ...payload, navigation: dropRetiredHubNavLinks(navigation) }
 }

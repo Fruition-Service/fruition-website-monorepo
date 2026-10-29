@@ -55,7 +55,7 @@ describe('v3 menu, footer and hub links', () => {
       'Work platforms',
       'Commercial',
     ])
-    expect(SERVICES_NAV.sections?.flatMap((s) => s.items).length).toBe(15)
+    expect(SERVICES_NAV.sections?.flatMap((s) => s.items).length).toBe(14)
   })
 
   it('links every Services item to a real page in src/app', () => {
