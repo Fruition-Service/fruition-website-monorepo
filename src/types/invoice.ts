@@ -7,6 +7,8 @@ export interface LineItem {
   total: number
 }
 
+export type PaymentMethod = 'wise' | 'bank'
+
 export interface Invoice {
   id?: string
   user_id?: string
@@ -21,6 +23,15 @@ export interface Invoice {
   consultant_email: string
   wise_name: string
   wise_tag: string
+  /** Which payment block the invoice prints. Missing on invoices saved before bank details existed: treat as Wise. */
+  payment_method?: PaymentMethod | null
+  bank_account_name?: string | null
+  bank_name?: string | null
+  bank_address?: string | null
+  /** Local routing code: BSB, sort code, bank/branch code, ABA routing. */
+  bank_code?: string | null
+  bank_account_number?: string | null
+  bank_swift?: string | null
   billing_address: string
   notes: string
   line_items: LineItem[]

@@ -1,6 +1,7 @@
 'use client'
 
 import type { Invoice } from '@/types/invoice'
+import { paymentBlock } from '@/lib/invoicePayment'
 
 interface Props {
   invoice: Invoice
@@ -9,6 +10,7 @@ interface Props {
 export default function InvoicePreview({ invoice }: Props) {
   const totalAmount = invoice.line_items.reduce((sum, item) => sum + item.total, 0)
   const currency = invoice.currency || 'USD'
+  const payment = paymentBlock(invoice)
 
   return (
     <div
@@ -34,9 +36,10 @@ export default function InvoicePreview({ invoice }: Props) {
             <div className="mt-4 w-full border-t pt-3">
               <p className="mb-2 text-xs font-semibold">Kindly make payment to:</p>
               <div className="flex flex-col gap-0.5">
-                <p className="text-xs text-muted-foreground">Wise account</p>
-                <p className="text-xs text-muted-foreground">Name: {invoice.wise_name}</p>
-                <p className="text-xs text-muted-foreground">Wisetag: {invoice.wise_tag}</p>
+                <p className="text-xs text-muted-foreground">{payment.heading}</p>
+                {payment.lines.map((line) => (
+                  <p key={line} className="text-xs text-muted-foreground">{line}</p>
+                ))}
               </div>
             </div>
           </div>

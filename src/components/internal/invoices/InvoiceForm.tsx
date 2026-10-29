@@ -14,6 +14,8 @@ import {
 import InvoicePreview from './InvoicePreview'
 import LineItemRow from './LineItemRow'
 import ClockifyDropzone from './ClockifyDropzone'
+import PaymentDetailsFields from './PaymentDetailsFields'
+import { bankPart, type PaymentDetails } from '@/lib/invoicePayment'
 import type { ParsedProject } from '@/lib/clockifyPdf'
 import {
   FALLBACK_DEFAULTS,
@@ -61,8 +63,11 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
   }
 
   const [consultantName, setConsultantName] = useState(initial.consultantName)
-  const [wiseName, setWiseName] = useState(initial.wiseName)
-  const [wiseTag, setWiseTag] = useState(initial.wiseTag)
+  const [payment, setPayment] = useState<PaymentDetails>({
+    ...initial.payment,
+    wise_name: initial.wiseName,
+    wise_tag: initial.wiseTag,
+  })
   const [region, setRegion] = useState(initial.region)
   const [invoiceNo, setInvoiceNo] = useState('')
   const [invoiceDate, setInvoiceDate] = useState(
@@ -85,8 +90,12 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
     const remembered = readRememberedDefaults()
     if (!remembered) return
     if (remembered.consultantName) setConsultantName(remembered.consultantName)
-    if (remembered.wiseName !== undefined) setWiseName(remembered.wiseName)
-    if (remembered.wiseTag !== undefined) setWiseTag(remembered.wiseTag)
+    setPayment((p) => ({
+      ...p,
+      ...remembered.payment,
+      ...(remembered.wiseName !== undefined && { wise_name: remembered.wiseName }),
+      ...(remembered.wiseTag !== undefined && { wise_tag: remembered.wiseTag }),
+    }))
     if (remembered.region) setRegion(remembered.region)
     if (remembered.currency) setCurrency(remembered.currency)
     if (remembered.rate) setRate(remembered.rate)
@@ -94,8 +103,9 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
 
   const currentDefaults = (): InvoiceDefaults => ({
     consultantName,
-    wiseName,
-    wiseTag,
+    wiseName: payment.wise_name,
+    wiseTag: payment.wise_tag,
+    payment: bankPart(payment),
     region,
     currency,
     rate,
@@ -118,8 +128,7 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
     consultant_address: profile?.consultant_address || '',
     consultant_phone: profile?.consultant_phone || '',
     consultant_email: profile?.consultant_email || '',
-    wise_name: wiseName,
-    wise_tag: wiseTag,
+    ...payment,
     billing_address: REGION_ADDRESSES[region] || '',
     region,
     currency,
@@ -238,7 +247,7 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
           </span>
           <div>
             <p className="text-sm font-semibold text-foreground">Who is billing</p>
-            <p className="text-xs text-muted-foreground">Your Wise details come from your profile — the name never does</p>
+            <p className="text-xs text-muted-foreground">Payment details carry over from your last invoice, the name never does</p>
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -268,27 +277,8 @@ export default function InvoiceForm({ profile, defaults, onSave }: Props) {
           </div>
         </div>
 
-        {/* Wise */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">
-              Wise Account Name
-            </label>
-            <Input
-              placeholder="Account holder name"
-              value={wiseName}
-              onChange={(e) => setWiseName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Wisetag</label>
-            <Input
-              placeholder="@wisetag"
-              value={wiseTag}
-              onChange={(e) => setWiseTag(e.target.value)}
-            />
-          </div>
-        </div>
+        {/* Payment */}
+        <PaymentDetailsFields value={payment} onChange={setPayment} />
 
         {/* Invoice meta */}
         <div className="flex items-center gap-2.5">
