@@ -101,6 +101,25 @@ if(/^\\/(internal|studio|contactustest)(\\/|$)/.test(window.location.pathname))r
 posthog.init("${POSTHOG_KEY}",{api_host:"https://us.i.posthog.com",ui_host:"https://us.posthog.com",defaults:"2025-05-24",person_profiles:"identified_only",session_recording:{maskAllInputs:true}});
 })();`
 
+// Everything below is measurement or visitor-identification tooling: no visitor
+// can see any of it, and none of it is needed to paint or hydrate the page. Left
+// to load at parse time it competes with hydration for the main thread during
+// exactly the seconds the hero is trying to appear (Lighthouse mobile on the
+// homepage: 6.9 s of main-thread work, LCP pushed from ~2.4 s out to ~7.4 s).
+// One bootstrap now holds all four back until the load event plus an idle slot,
+// so the page becomes interactive first and the pixels start afterwards. The
+// consent gate and the per-path exclusions still live inside each loader, so
+// nothing about what is or is not tracked changes, only when it begins.
+const DEFERRED_ANALYTICS = `(function(){
+function start(){${REB2B_LOADER}${OAIQ_LOADER}${CLARITY_LOADER}${POSTHOG_LOADER}}
+var ran=false;
+function arm(){if(ran)return;ran=true;start();}
+function idle(){if("requestIdleCallback" in window)window.requestIdleCallback(arm,{timeout:4000});else setTimeout(arm,200);}
+if(document.readyState==="complete")idle();else window.addEventListener("load",idle,{once:true});
+// Last resort: a stalled subresource must not stop analytics loading forever.
+setTimeout(arm,8000);
+})();`
+
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -377,17 +396,10 @@ export default async function RootLayout({
             />
           </>
         ) : null}
-        {/* Renders the placeholder SiteFrame drops on marketing pages as
-            Google's "add as a preferred source" button. */}
-        <Script
-          id="google-preferred-source"
-          strategy="afterInteractive"
-          src="https://news.google.com/swg/js/v1/publisher.js"
-        />
-        <script dangerouslySetInnerHTML={{ __html: REB2B_LOADER }} />
-        <script dangerouslySetInnerHTML={{ __html: OAIQ_LOADER }} />
-        <script dangerouslySetInnerHTML={{ __html: CLARITY_LOADER }} />
-        <script dangerouslySetInnerHTML={{ __html: POSTHOG_LOADER }} />
+        {/* Google's preferred-source publisher.js is NOT loaded here: it only
+            renders the button SiteFrame draws, and the pages that draw it are
+            the only ones that need its ~170 kB. SiteFrame loads it there. */}
+        <script dangerouslySetInnerHTML={{ __html: DEFERRED_ANALYTICS }} />
         {/* Per-region ProfessionalService JSON-LD. Renders only on the six
             /monday-partner-* routes; null everywhere else. It lives here
             because <head> is unreachable from a page in the App Router — see

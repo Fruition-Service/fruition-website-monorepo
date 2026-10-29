@@ -36,6 +36,21 @@ import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
  * - adds the consultants band (real team headshots, see landingPageTeam.ts) to
  *   pages that ship without a team section of their own.
  *
+ * Two performance rules apply to every page it serves:
+ *
+ * - The response is prerendered at build and revalidated in the background
+ *   (`dynamic = "force-static"` + `revalidate = 60` in each ad route). It used
+ *   to be a fully dynamic route handler, so every request waited on a Sanity
+ *   round trip for the shared quotes: measured TTFB on /us/monday-crm-consulting
+ *   was 2.3 to 2.7 s, and since that page's LCP element is the hero heading it
+ *   was almost entirely TTFB.
+ * - Calendly's widget is fetched when the booking band approaches the viewport
+ *   rather than on load. Its booking bundle is 1.45 MB of JS plus 1.29 MB of
+ *   CSS inside the frame (Lighthouse measured 4.09 MB total on this page, of
+ *   which Calendly was 3.2 MB) and it sits last on the page, after the hero,
+ *   the proof band and the consultants band. Nothing about the band changes;
+ *   it just stops downloading before anyone has scrolled to it.
+ *
  * Pages that already post to /api/leads keep their own handler; they push
  * `generate_lead` themselves.
  */
@@ -68,7 +83,34 @@ function calendlyEmbed(url: string): string {
   const embedUrl = `${url}${url.includes("?") ? "&" : "?"}hide_gdpr_banner=1&hide_event_type_details=1`
   return `<style>.lp-calendly{width:100%;min-width:300px;height:680px;min-height:680px;border-radius:14px;overflow:hidden;background:#fff}.lp-calendly iframe{display:block;width:100%;height:100%}</style>
 <div class="calendly-inline-widget lp-calendly" data-url="${embedUrl}"></div>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+(function(){
+  // Defer widget.js until the booking band is within 800px of the viewport.
+  // Calendly's booking bundle is 1.45 MB of JS and 1.29 MB of CSS inside the
+  // frame, and this band is the last thing on the page, so loading it on load
+  // spent most of an ad page's 4 MB before the visitor had read the headline.
+  // The band itself is unchanged: same div, same widget, same height floor.
+  var box=document.querySelector('.lp-calendly');
+  var loaded=false;
+  function load(){
+    if(loaded)return;
+    loaded=true;
+    var s=document.createElement('script');
+    s.src='https://assets.calendly.com/assets/external/widget.js';
+    s.async=true;
+    document.head.appendChild(s);
+  }
+  if(!box||!('IntersectionObserver' in window)){load();}
+  else{
+    var io=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){io.disconnect();load();return;}
+      }
+    },{rootMargin:'800px 0px'});
+    io.observe(box);
+  }
+})();
+</script>
 <script>
 (function(){
   window.addEventListener('message',function(e){

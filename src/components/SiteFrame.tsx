@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
+import Script from "next/script"
 import Breadcrumbs from "./Breadcrumbs"
 import GooglePreferredSourceButton from "./GooglePreferredSourceButton"
 import SiteStickyCta from "./SiteStickyCta"
@@ -70,6 +71,15 @@ export default function SiteFrame({
       <main>{children}</main>
       {showPreferredSource ? (
         <div className="site-container flex justify-center py-8">
+          {/* publisher.js is what renders the button below, so it is loaded
+              only on the pages that draw one. It used to sit in the root
+              layout, which meant every page paid its ~170 kB including the
+              homepage, where the button is deliberately never shown. */}
+          <Script
+            id="google-preferred-source"
+            strategy="afterInteractive"
+            src="https://news.google.com/swg/js/v1/publisher.js"
+          />
           <GooglePreferredSourceButton />
         </div>
       ) : null}
