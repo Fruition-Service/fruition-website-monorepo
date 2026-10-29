@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import type { TestimonialCard } from '@/lib/testimonials'
+import CardRail from '@/components/common/CardRail'
 
 /**
  * Filterable testimonial quotes. Every card is in the HTML; a filter only
@@ -32,7 +33,13 @@ export default function TestimonialQuoteGrid({ cards, tags }: { cards: Testimoni
           })}
         </div>
       )}
-      <ul className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <CardRail
+        as="ul"
+        label="Testimonials"
+        count={cards.length}
+        className="mt-8 gap-5 md:grid-cols-2"
+        stackedClassName="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2"
+      >
         {cards.map((c) => (
           <li
             key={c.id}
@@ -59,7 +66,7 @@ export default function TestimonialQuoteGrid({ cards, tags }: { cards: Testimoni
             </figure>
           </li>
         ))}
-      </ul>
+      </CardRail>
     </div>
   )
 }

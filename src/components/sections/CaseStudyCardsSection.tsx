@@ -3,6 +3,7 @@
 import { urlFor } from "@/sanity/image"
 import type { SanityImageRef } from "./types"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
+import CardRail from "@/components/common/CardRail"
 
 interface CaseStudyCard {
   _key?: string
@@ -46,7 +47,12 @@ export default function CaseStudyCardsSection({
             {heading}
           </h2>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+        <CardRail
+          label={heading || "Case studies"}
+          count={cards.length}
+          className="md:grid-cols-2 gap-7"
+          stackedClassName="grid grid-cols-1 md:grid-cols-2 gap-7"
+        >
           {cards.map((card, i) => {
             const imageSrc = safeImageUrl(card.image) || card.imageUrl || null
             const embedUrl = toEmbedUrl(card.videoUrl)
@@ -99,7 +105,7 @@ export default function CaseStudyCardsSection({
               </div>
             )
           })}
-        </div>
+        </CardRail>
       </div>
     </section>
   )

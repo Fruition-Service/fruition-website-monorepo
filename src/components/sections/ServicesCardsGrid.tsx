@@ -1,6 +1,7 @@
 "use client"
 
 import { Check } from "lucide-react"
+import CardRail from "@/components/common/CardRail"
 import type { Bullet, SectionTheme } from "./types"
 
 export interface ServiceCard {
@@ -54,7 +55,12 @@ export default function ServicesCardsGrid({
             {subheading}
           </p>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <CardRail
+          label={[heading, headingAccent].filter(Boolean).join(" ") || "Services"}
+          count={cards.length}
+          className="md:grid-cols-2 gap-6"
+          stackedClassName="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           {cards.map((card, i) => (
             <div
               key={card._key || i}
@@ -97,7 +103,7 @@ export default function ServicesCardsGrid({
               )}
             </div>
           ))}
-        </div>
+        </CardRail>
       </div>
     </section>
   )

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Check } from "lucide-react"
+import CardRail from "@/components/common/CardRail"
 import type { CapabilityCard, SectionTheme } from "./types"
 
 interface CapabilitiesGridProps {
@@ -36,10 +37,7 @@ export default function CapabilitiesGrid({
   const isDark = theme === "dark"
 
   const cols = columns ?? (cards.length <= 4 ? 2 : 3)
-  const gridClass =
-    cols === 2
-      ? "grid grid-cols-1 md:grid-cols-2"
-      : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+  const mdCols = cols === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"
 
   return (
     <section className={`section-y ${isDark ? "bg-surface-dark-2" : "bg-surface-subtle"}`}>
@@ -76,7 +74,12 @@ export default function CapabilitiesGrid({
             {subheading}
           </p>
         )}
-        <div className={`${gridClass} gap-6`}>
+        <CardRail
+          label={[heading, headingAccent].filter(Boolean).join(" ") || eyebrow || "Capabilities"}
+          count={cards.length}
+          className={`${mdCols} gap-6`}
+          stackedClassName={`grid grid-cols-1 ${mdCols} gap-6`}
+        >
           {cards.map((card, i) => {
             const hasBullets = (card.bullets?.length ?? 0) > 0
             return (
@@ -125,7 +128,7 @@ export default function CapabilitiesGrid({
               </div>
             )
           })}
-        </div>
+        </CardRail>
         {((ctaLabel && ctaUrl) || (ctaSecondaryLabel && ctaSecondaryUrl)) && (
           <div className="flex flex-wrap mt-10 gap-4">
             {ctaLabel && ctaUrl && (
