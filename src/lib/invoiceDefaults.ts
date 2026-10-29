@@ -11,10 +11,15 @@
  * older than the server copy for the browser you are sitting at.
  */
 
+import type { BankDetails } from '@/lib/invoicePayment'
+import { EMPTY_PAYMENT_DETAILS, bankPart } from '@/lib/invoicePayment'
+
 export interface InvoiceDefaults {
   consultantName: string
   wiseName: string
   wiseTag: string
+  /** Bank transfer details and which method to print, carried like the Wise ones. */
+  payment: BankDetails
   region: string
   currency: string
   rate: number
@@ -35,6 +40,7 @@ export const FALLBACK_DEFAULTS: InvoiceDefaults = {
   consultantName: '',
   wiseName: '',
   wiseTag: '',
+  payment: bankPart(EMPTY_PAYMENT_DETAILS),
   region: 'APAC',
   currency: 'SGD',
   rate: 40,
@@ -63,6 +69,8 @@ export function readRememberedDefaults(): Partial<InvoiceDefaults> | null {
     if (isNonEmptyString(o.consultantName)) out.consultantName = o.consultantName
     if (typeof o.wiseName === 'string') out.wiseName = o.wiseName
     if (typeof o.wiseTag === 'string') out.wiseTag = o.wiseTag
+    const payment = readPayment(o.payment)
+    if (payment) out.payment = payment
     if (isNonEmptyString(o.region)) out.region = o.region
     if (isNonEmptyString(o.currency)) out.currency = o.currency
     if (typeof o.rate === 'number' && o.rate > 0) out.rate = o.rate
@@ -71,6 +79,27 @@ export function readRememberedDefaults(): Partial<InvoiceDefaults> | null {
     // Corrupt JSON or storage blocked — fall back to the server defaults.
     return null
   }
+}
+
+const BANK_KEYS = [
+  'bank_account_name',
+  'bank_name',
+  'bank_address',
+  'bank_code',
+  'bank_account_number',
+  'bank_swift',
+] as const
+
+/** Accepts a stored payment object only if every field is the right type. */
+export function readPayment(v: unknown): InvoiceDefaults['payment'] | null {
+  if (!v || typeof v !== 'object') return null
+  const o = v as Record<string, unknown>
+  if (o.payment_method !== 'bank' && o.payment_method !== 'wise') return null
+  const out: InvoiceDefaults['payment'] = { ...FALLBACK_DEFAULTS.payment, payment_method: o.payment_method }
+  for (const k of BANK_KEYS) {
+    if (typeof o[k] === 'string') out[k] = o[k] as string
+  }
+  return out
 }
 
 /** Remembers the current values. Never throws: storage can be full or blocked. */

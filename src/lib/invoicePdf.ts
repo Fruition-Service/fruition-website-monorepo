@@ -1,4 +1,5 @@
 import type { Invoice } from '@/types/invoice'
+import { paymentBlock } from '@/lib/invoicePayment'
 
 let pdfMake: typeof import('pdfmake/build/pdfmake').default | null = null
 
@@ -17,6 +18,7 @@ async function getPdfMake() {
 export async function exportInvoiceToPDF(invoice: Invoice) {
   const pdf = await getPdfMake()
   const currency = invoice.currency || 'USD'
+  const payment = paymentBlock(invoice)
 
   const tableBody: Array<Array<Record<string, unknown>>> = [
     [
@@ -60,9 +62,8 @@ export async function exportInvoiceToPDF(invoice: Invoice) {
                 .map((text) => ({ text, style: 'consultantInfo' })),
               { text: '', margin: [0, 10, 0, 0] },
               { text: 'Kindly make payment to:', style: 'paymentLabel' },
-              { text: 'Wise account', style: 'consultantInfo' },
-              { text: 'Name: ' + (invoice.wise_name || ''), style: 'consultantInfo' },
-              { text: 'Wisetag: ' + (invoice.wise_tag || ''), style: 'consultantInfo' },
+              { text: payment.heading, style: 'consultantInfo' },
+              ...payment.lines.map((text) => ({ text, style: 'consultantInfo' })),
             ],
           },
           {

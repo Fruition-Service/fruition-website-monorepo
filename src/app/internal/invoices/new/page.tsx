@@ -3,6 +3,7 @@ import PortalShell from '@/components/internal/PortalShell'
 import NewInvoiceClient from './NewInvoiceClient'
 import type { ConsultantProfile, Invoice, LineItem } from '@/types/invoice'
 import type { InvoiceDefaults } from '@/lib/invoiceDefaults'
+import { bankPart, paymentDetailsOf } from '@/lib/invoicePayment'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,13 +27,27 @@ export default async function NewInvoicePage() {
     // copy on top, which also covers exporting without saving.
     const { data: last } = await admin
       .from('fruition_invoices')
-      .select('consultant_name, wise_name, wise_tag, region, currency, line_items')
+      .select(
+        'consultant_name, wise_name, wise_tag, payment_method, bank_account_name, bank_name, bank_address, bank_code, bank_account_number, bank_swift, region, currency, line_items'
+      )
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle<Pick<
         Invoice,
-        'consultant_name' | 'wise_name' | 'wise_tag' | 'region' | 'currency' | 'line_items'
+        | 'consultant_name'
+        | 'wise_name'
+        | 'wise_tag'
+        | 'payment_method'
+        | 'bank_account_name'
+        | 'bank_name'
+        | 'bank_address'
+        | 'bank_code'
+        | 'bank_account_number'
+        | 'bank_swift'
+        | 'region'
+        | 'currency'
+        | 'line_items'
       >>()
 
     if (last) {
@@ -41,6 +56,11 @@ export default async function NewInvoicePage() {
       if (last.consultant_name) defaults.consultantName = last.consultant_name
       if (typeof last.wise_name === 'string') defaults.wiseName = last.wise_name
       if (typeof last.wise_tag === 'string') defaults.wiseTag = last.wise_tag
+      // Only carry bank details from an invoice that was actually paid by bank;
+      // an old Wise invoice leaves the new one on the bank tab, empty.
+      if (last.payment_method === 'bank') {
+        defaults.payment = bankPart(paymentDetailsOf(last as Invoice))
+      }
       if (last.region) defaults.region = last.region
       if (last.currency) defaults.currency = last.currency
       if (typeof lastRate === 'number' && lastRate > 0) defaults.rate = lastRate
