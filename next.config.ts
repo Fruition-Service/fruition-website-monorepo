@@ -230,6 +230,17 @@ const auditRedirects: Redirect[] = [
   // but harmless — src/redirects.ts is generated, so they stay put.
   { source: "/consulting-blog/tags/:slug*", destination: "/consulting-blog", permanent: true },
   { source: "/consulting-blog/hashtags/:slug*", destination: "/consulting-blog", permanent: true },
+  // Retired duplicate solution pages (October 2026 SEO review, Vadim)
+  // The hub and its six suffix-numbered duplicates came from the early Wix import: thin
+  // copies that competed with the real service pages. The hub redirects to the
+  // implementation consultants page; each duplicate redirects to its clean sibling.
+  { source: "/monday-consulting-solutions", destination: "/monday-implementation-consultants", permanent: true },
+  { source: "/monday-consulting-solutions/monday-service-1", destination: "/monday-implementation-consultants", permanent: true },
+  { source: "/monday-consulting-solutions/monday-product-management-5", destination: "/monday-consulting-solutions/monday-product-management", permanent: true },
+  { source: "/monday-consulting-solutions/monday-for-hr-2", destination: "/monday-consulting-solutions/monday-for-hr", permanent: true },
+  { source: "/monday-consulting-solutions/monday-project-management-0", destination: "/monday-consulting-solutions/monday-project-management", permanent: true },
+  { source: "/monday-consulting-solutions/monday-for-finance-4", destination: "/monday-consulting-solutions/monday-for-finance", permanent: true },
+  { source: "/monday-consulting-solutions/solar-crm-solution-6", destination: "/monday-consulting-solutions/solar-crm-solution", permanent: true },
 ];
 
 const nextConfig: NextConfig = {

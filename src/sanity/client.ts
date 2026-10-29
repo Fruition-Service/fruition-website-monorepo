@@ -1,5 +1,6 @@
 import { createClient } from 'next-sanity'
 import { rewriteBookingLinks } from '@/lib/bookingLink'
+import { rewriteRetiredLinks } from '@/lib/retiredLinks'
 import { apiVersion, dataset, projectId } from './env'
 import { isEditMode, stegaFilter } from './editMode'
 
@@ -36,6 +37,13 @@ const editBase = createClient({
  * than at each render site means new CMS content can't reintroduce a raw
  * Calendly link. `siteSettings.calendlyLink` is deliberately exempt: the
  * booking card needs the real URL as its availability-failure escape hatch.
+ *
+ * Results also pass through rewriteRetiredLinks, which points any field whose
+ * value is the retired /monday-consulting-solutions hub at
+ * /monday-implementation-consultants. The live Sanity nav item labelled
+ * "monday.com solutions" and the homepage "Our monday.com services" CTA both
+ * still link to the hub, and there is no Sanity write access today, so the
+ * read layer fixes them without a CMS edit.
  */
 export const client = {
   // Generic defaults to `any` to match next-sanity's own fetch signature —
@@ -43,6 +51,6 @@ export const client = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetch: async <T = any>(query: string, params?: Record<string, unknown>): Promise<T> => {
     const c = (await isEditMode()) ? editBase : base
-    return rewriteBookingLinks(await c.fetch<T>(query, params ?? {}))
+    return rewriteRetiredLinks(rewriteBookingLinks(await c.fetch<T>(query, params ?? {})))
   },
 }

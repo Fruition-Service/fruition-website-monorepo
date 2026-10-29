@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const QUICK_LINKS = [
   { href: "/consulting-blog", label: "Consulting blog" },
   { href: "/implementation-packages", label: "Implementation packages" },
-  { href: "/monday-consulting-solutions", label: "Consulting solutions" },
+  { href: "/monday-implementation-consultants", label: "Consulting solutions" },
 ]
 
 export default function NotFound() {

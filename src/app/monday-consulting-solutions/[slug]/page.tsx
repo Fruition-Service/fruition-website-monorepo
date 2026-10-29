@@ -8,10 +8,14 @@ import {
 import { resolveFaqTabs } from "@/sanity/groupFaqs"
 import UniversalPageTemplate from "@/components/UniversalPageTemplate"
 import { buildOgMetadata } from "@/lib/metadata"
+import { notFound } from "next/navigation"
+import { RETIRED_SOLUTION_SLUGS } from "@/lib/retiredLinks"
 
 export async function generateStaticParams() {
   const pages = await getAllSolutionPages()
-  return pages.map((p: { slug: string }) => ({ slug: p.slug }))
+  return pages
+    .filter((p: { slug: string }) => !RETIRED_SOLUTION_SLUGS.has(p.slug))
+    .map((p: { slug: string }) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({
@@ -20,6 +24,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  // Retired duplicates are redirected in next.config.ts; never render them.
+  if (RETIRED_SOLUTION_SLUGS.has(slug)) notFound()
   const page = await getSolutionPageBySlug(slug)
   const title = page?.seoTitle || page?.title || slug
   const description = page?.seoDescription
@@ -41,6 +47,8 @@ export default async function SolutionPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  // Retired duplicates are redirected in next.config.ts; never render them.
+  if (RETIRED_SOLUTION_SLUGS.has(slug)) notFound()
   const [page, siteSettings, caseStudies, centralFaqs] = await Promise.all([
     getSolutionPageBySlug(slug),
     getSiteSettings(),

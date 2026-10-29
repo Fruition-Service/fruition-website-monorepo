@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { RETIRED_SOLUTION_SLUGS } from "@/lib/retiredLinks"
 import {
   getBlogPosts,
   getBlogAuthors,
@@ -71,7 +72,6 @@ const STATIC_PATHS: string[] = [
   "/faqs",
   "/fruition-team",
   "/implementation-packages",
-  "/monday-consulting-solutions",
   "/monday-consulting-solutions/monday-for-cabinetry-renovation",
   "/monday-consulting-solutions/monday-for-finance",
   "/monday-consulting-solutions/monday-for-hr",
@@ -161,7 +161,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const p of STATIC_PATHS) add(p)
   for (const p of posts) if (p?.slug) add(`/post/${p.slug}`, p.publishedAt)
   for (const a of authors) if (a?.slug) add(`/author/${a.slug}`, a.latestPublishedAt)
-  for (const s of solutions) if (s?.slug) add(`/monday-consulting-solutions/${s.slug}`)
+  for (const s of solutions) if (s?.slug && !RETIRED_SOLUTION_SLUGS.has(s.slug)) add(`/monday-consulting-solutions/${s.slug}`)
   for (const p of partnerships) if (p?.slug) add(`/partnerships/${p.slug}`)
 
   return entries
