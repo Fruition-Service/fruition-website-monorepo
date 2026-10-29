@@ -57,7 +57,7 @@ export default function ClientLogoCarousel({ logos, copy }: Props) {
           <li key={`${logo._key ?? i}${clone ? "-c" : ""}`} className={SLOT}>
             {logo.clientSlug && !clone ? (
               <Link
-                href={`/monday-consulting-solutions/catalog?client=${logo.clientSlug}`}
+                href="/customer-testimonials"
                 aria-label={`${name}: see the work we delivered`}
                 className={`flex h-full w-full items-center justify-center ${FOCUS}`}
               >

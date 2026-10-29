@@ -1,9 +1,7 @@
 /**
  * Knowledge records built from content that lives in the repo rather than in
- * Sanity: the 45-solution monday.com catalog and the practice pages.
+ * Sanity: the 45 monday.com solutions and the practice pages.
  */
-import { SOLUTIONS, type Solution } from "@/app/monday-consulting-solutions/catalog/data/solutions"
-import { solutionHref } from "@/app/monday-consulting-solutions/catalog/lib/deepLink"
 import { AI_CONSULTING_PAGES } from "@/data/practicePages/aiConsulting"
 import { ATLASSIAN_PAGES } from "@/data/practicePages/atlassian"
 import { HUBSPOT_PAGES } from "@/data/practicePages/hubspot"
@@ -12,9 +10,15 @@ import { INTEGRATIONS_PAGES } from "@/data/practicePages/integrations"
 import { LICENSING_PAGES } from "@/data/practicePages/licensing"
 import { PROOF_PAGES } from "@/data/practicePages/proof"
 import type { PracticePage } from "@/data/practicePages/types"
+import { SOLUTIONS, type Solution } from "./solutions"
 import { unique, type KnowledgeRecord } from "./types"
 
-export const CATALOG_URL = "/monday-consulting-solutions/catalog"
+/**
+ * The Solutions Catalogue page that used to open each solution is deleted
+ * (monday 2893694816). The AI use case hub replaced it and has no
+ * per-solution entry, so every solution links to the hub.
+ */
+export const SOLUTIONS_URL = "/ai-use-cases"
 const MAX_TEXT = 6000
 
 /**
@@ -54,8 +58,7 @@ export function solutionRecord(s: Solution): KnowledgeRecord {
     id: `solution:${s.key}`,
     kind: "solution",
     title: s.title,
-    // Opens this solution's details, not the top of a 45-solution page.
-    url: solutionHref(s.key),
+    url: SOLUTIONS_URL,
     summary: s.desc,
     text: lines.join("\n").slice(0, MAX_TEXT),
     tags: unique(["monday.com", PRODUCT_TYPE_LABEL[s.productType], s.tag, ...s.industries, ...(s.integrations ?? [])]),

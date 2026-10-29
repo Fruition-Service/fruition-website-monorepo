@@ -8,6 +8,7 @@ import {
 import { resolveFaqTabs } from "@/sanity/groupFaqs"
 import UniversalPageTemplate from "@/components/UniversalPageTemplate"
 import { buildOgMetadata } from "@/lib/metadata"
+import { notFound } from "next/navigation"
 
 export async function generateStaticParams() {
   const pages = await getAllPartnershipPages()
@@ -21,6 +22,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params
   const page = await getPartnershipPageBySlug(slug)
+  if (!page) return {}
   const title = page?.seoTitle || page?.title || slug
   const description = page?.seoDescription
   return {
@@ -47,6 +49,8 @@ export default async function PartnershipPage({
     getCaseStudies(),
     getFaqItemsForPage(`partnerships/${slug}`),
   ])
+  // Unknown slugs must 404, not render an empty 200 shell.
+  if (!page) notFound()
   // Testimonials are monday-specific; force-hide on non-monday partnership pages.
   const isMondayThemed = slug.includes("monday")
   const adjustedPage = page

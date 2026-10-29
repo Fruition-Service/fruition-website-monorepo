@@ -2,6 +2,7 @@
 import { getBlogPosts, getBlogCategories } from "@/sanity/queries"
 import BlogCard from "@/components/BlogCard"
 import { buildOgMetadata } from "@/lib/metadata"
+import { notFound } from "next/navigation"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,7 +27,9 @@ interface BlogCategoryRef { slug: string }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const posts = await getBlogPosts(300, 0)
+  const [categories, posts] = await Promise.all([getBlogCategories(), getBlogPosts(300, 0)])
+  // Unknown categories must 404, not render an empty 200 shell.
+  if (!categories.some((c: { slug?: string }) => c.slug === slug)) notFound()
   const filtered = posts.filter((p: { categories?: BlogCategoryRef[] }) =>
     p.categories?.some((c) => c.slug === slug)
   )

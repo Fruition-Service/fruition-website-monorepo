@@ -27,6 +27,7 @@ export async function generateMetadata({
   // Retired duplicates are redirected in next.config.ts; never render them.
   if (RETIRED_SOLUTION_SLUGS.has(slug)) notFound()
   const page = await getSolutionPageBySlug(slug)
+  if (!page) return {}
   const title = page?.seoTitle || page?.title || slug
   const description = page?.seoDescription
   return {
@@ -55,6 +56,8 @@ export default async function SolutionPage({
     getCaseStudies(),
     getFaqItemsForPage(`monday-consulting-solutions/${slug}`),
   ])
+  // Unknown slugs must 404, not render an empty 200 shell.
+  if (!page) notFound()
   // Per-slug overrides
   const slugsWithCalendlyTop = new Set(["solar-crm-solution"])
   const adjustedPage = page
