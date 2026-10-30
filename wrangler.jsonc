@@ -1,6 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
+  // Thin wrapper around the OpenNext worker (.open-next/worker.js) that adds
+  // edge and browser caching for /_next/image. See workers/site-entry.ts.
+  "main": "workers/site-entry.ts",
   "name": "fruition-landing",
   "workers_dev": true,
   "preview_urls": true,

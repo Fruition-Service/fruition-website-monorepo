@@ -58,11 +58,11 @@ const UMAMI_WEBSITE_ID =
 const UMAMI_BEFORE_SEND = `window.umamiBeforeSend=function(t,p){try{if(/^\\/(internal|studio)(\\/|$)/.test(location.pathname))return false;}catch(e){}return p;};`
 const UMAMI_SCRIPT_URL =
   process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://cloud.umami.is/script.js"
-const GTM_LOADER = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_ID}');`
+// Injects gtm.js only. The dataLayer and its gtm.start entry are set up by
+// DEFERRED_ANALYTICS below, which decides when this runs.
+const GTM_LOADER = `(function(d,i){var f=d.getElementsByTagName('script')[0],
+j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;
+f.parentNode.insertBefore(j,f);})(document,'${GTM_ID}');`
 
 
 // OpenAI Ads conversion tracking (oaiq). Base loader sitewide — stubs the
@@ -102,22 +102,35 @@ posthog.init("${POSTHOG_KEY}",{api_host:"https://us.i.posthog.com",ui_host:"http
 })();`
 
 // Everything below is measurement or visitor-identification tooling: no visitor
-// can see any of it, and none of it is needed to paint or hydrate the page. Left
-// to load at parse time it competes with hydration for the main thread during
-// exactly the seconds the hero is trying to appear (Lighthouse mobile on the
-// homepage: 6.9 s of main-thread work, LCP pushed from ~2.4 s out to ~7.4 s).
-// One bootstrap now holds all four back until the load event plus an idle slot,
-// so the page becomes interactive first and the pixels start afterwards. The
-// consent gate and the per-path exclusions still live inside each loader, so
-// nothing about what is or is not tracked changes, only when it begins.
+// can see any of it, and none of it is needed to paint or hydrate the page.
+//
+// #376 held RB2B, the OpenAI pixel, Clarity and PostHog until load plus an idle
+// slot. That was not enough: they and GTM still ran inside Lighthouse's
+// time-to-interactive window, and GTM alone (gtm.js plus three gtag.js builds
+// for two GA4 properties and Google Ads, 696 KiB) cost 533 ms of blocking time
+// on the mobile homepage (TBT 720 ms, perf 68 on 30 Oct 2026).
+//
+// Now one bootstrap holds all five, GTM included, until the visitor first
+// interacts (scroll, pointer, key, touch) or until 7 s after the load event,
+// whichever comes first. Anyone who reads the page triggers it within a second
+// or two, so tracking still covers them; the page is already interactive by
+// then. A visitor who leaves within 7 s without touching the page is no longer
+// recorded by GA4, which is the trade for a fast first load. The dataLayer is
+// created up front, so CTA and lead events pushed before GTM arrives are queued
+// and replayed when it loads, and gtm.start keeps the real page start time.
+// Consent gate and per-path exclusions still live inside each loader.
 const DEFERRED_ANALYTICS = `(function(){
-function start(){${REB2B_LOADER}${OAIQ_LOADER}${CLARITY_LOADER}${POSTHOG_LOADER}}
+window.dataLayer=window.dataLayer||[];
+var t0=new Date().getTime();
+function start(){window.dataLayer.push({'gtm.start':t0,event:'gtm.js'});${GTM_LOADER}${REB2B_LOADER}${OAIQ_LOADER}${CLARITY_LOADER}${POSTHOG_LOADER}}
 var ran=false;
-function arm(){if(ran)return;ran=true;start();}
-function idle(){if("requestIdleCallback" in window)window.requestIdleCallback(arm,{timeout:4000});else setTimeout(arm,200);}
-if(document.readyState==="complete")idle();else window.addEventListener("load",idle,{once:true});
+var EVENTS=["scroll","pointerdown","keydown","touchstart","mousemove","wheel"];
+function arm(){if(ran)return;ran=true;for(var i=0;i<EVENTS.length;i++)window.removeEventListener(EVENTS[i],arm,true);start();}
+for(var i=0;i<EVENTS.length;i++)window.addEventListener(EVENTS[i],arm,{capture:true,passive:true,once:true});
+function later(){setTimeout(arm,7000);}
+if(document.readyState==="complete")later();else window.addEventListener("load",later,{once:true});
 // Last resort: a stalled subresource must not stop analytics loading forever.
-setTimeout(arm,8000);
+setTimeout(arm,15000);
 })();`
 
 const poppins = Poppins({
@@ -377,11 +390,6 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <Script
-          id="gtm-loader"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: GTM_LOADER }}
         />
         {UMAMI_WEBSITE_ID ? (
           <>
