@@ -26,7 +26,7 @@ const MACHINE_KEYS = new Set([
   'variant', 'style', 'theme', 'layout', 'icon', 'iconName', 'color', 'colour',
   'alignment', 'align', 'slug', 'current', 'href', 'url', 'link', 'anchor', 'id',
   'region', 'regions', 'type', 'kind', 'size', 'tone', 'email', 'phone',
-  'calendlyLink', 'videoId', 'youtubeId', 'lang', 'locale', 'alt', 'altText',
+  'calendlyLink', 'videoId', 'cadence', 'youtubeId', 'lang', 'locale', 'alt', 'altText',
 ])
 
 // Fields that only ever hold human copy, so a lowercase single word there

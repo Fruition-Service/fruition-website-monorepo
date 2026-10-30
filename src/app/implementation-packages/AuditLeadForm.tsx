@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { trackLead } from "@/lib/leadTracking"
 import { stashThankYouMessage, THANK_YOU_PATH } from "@/lib/thankYou"
-import { FORM } from "./content"
+import { FORM, type PageContent } from "./content"
 
 /** Sent as the lead's origin; shows up in monday and the GTM generate_lead event. */
 const LEAD_ORIGIN = "implementation-packages"
@@ -18,7 +18,8 @@ const ATTRIBUTION_KEYS = ["gclid", "utm_source", "utm_medium", "utm_campaign"] a
  * the lead lands on the monday CRM board with Slack as the fallback. The
  * qualifying answers and any gclid/UTM values ride along in `fields`.
  */
-export default function AuditLeadForm() {
+/** `copy`: the editable wording (Sanity); the option lists stay in ./content because the CRM maps them. */
+export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle")
@@ -75,7 +76,7 @@ export default function AuditLeadForm() {
       if (r.ok && body.ok) {
         setStatus("done")
         trackLead(LEAD_ORIGIN)
-        stashThankYouMessage(FORM.thanks)
+        stashThankYouMessage(copy.thanks)
         router.push(THANK_YOU_PATH)
       } else {
         setStatus("error")
@@ -90,8 +91,8 @@ export default function AuditLeadForm() {
   if (status === "done") {
     return (
       <div className="rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8" role="status">
-        <h3 className="text-card-title text-body">{FORM.thanksHeading}</h3>
-        <p className="text-body-sm mt-3 text-muted">{FORM.thanks}</p>
+        <h3 className="text-card-title text-body">{copy.thanksHeading}</h3>
+        <p className="text-body-sm mt-3 text-muted">{copy.thanks}</p>
       </div>
     )
   }
@@ -105,8 +106,8 @@ export default function AuditLeadForm() {
       toolname="book_monday_implementation_audit"
       tooldescription="Request a free 30-minute monday.com system audit from Fruition Services, which recommends one of the three implementation packages. Requires name, company and work email; industry, current monday.com plan, product, region and the process to fix are optional. Fruition replies within one business day."
     >
-      <h2 className="text-section-h3 text-body">{FORM.heading}</h2>
-      <p className="text-body-sm mt-2 text-muted">{FORM.intro}</p>
+      <h2 className="text-section-h3 text-body">{copy.heading}</h2>
+      <p className="text-body-sm mt-2 text-muted">{copy.intro}</p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Field id="f-name" name="name" label="Name" autoComplete="name" required />
@@ -147,10 +148,10 @@ export default function AuditLeadForm() {
         disabled={status === "sending"}
         className={`cta-btn cta-btn-primary mt-6 w-full ${status === "sending" ? "opacity-70" : ""}`}
       >
-        <span className="cta-btn-label">{status === "sending" ? "Sending…" : FORM.submit}</span>
+        <span className="cta-btn-label">{status === "sending" ? "Sending…" : copy.submit}</span>
       </button>
       <p className="text-micro mt-3 text-muted">
-        {FORM.footnote}{" "}
+        {copy.footnote}{" "}
         <Link href="/data-privacy" className="underline hover:text-brand">
           Privacy
         </Link>
