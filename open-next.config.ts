@@ -24,7 +24,15 @@ import kvNextTagCache from "@opennextjs/cloudflare/overrides/tag-cache/kv-next-t
 // the token `Account · D1 · Edit` and this becomes a two-line swap to
 // `d1-next-tag-cache` + a NEXT_TAG_CACHE_D1 binding, which is strongly
 // consistent.
+//
+// Cache interception: a request for a page that is already in the ISR cache is
+// answered straight from the routing layer, without importing the Next server
+// bundle. Without it every cache HIT still loaded the multi-MB server handler,
+// and on a cold isolate that alone took seconds: live TTFB on the homepage ran
+// 0.4 to 3.2 s with `x-nextjs-cache: HIT` (30 Oct 2026), and CrUX field TTFB
+// was 2.6 to 3.1 s. Safe here because the site does not use PPR.
 export default defineCloudflareConfig({
   incrementalCache: withRegionalCache(kvIncrementalCache, { mode: "long-lived" }),
   tagCache: kvNextTagCache,
+  enableCacheInterception: true,
 });
