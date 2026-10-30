@@ -128,3 +128,12 @@ jobs:
           NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
           NEXT_PUBLIC_SANITY_API_VERSION: ${{ vars.NEXT_PUBLIC_SANITY_API_VERSION }}
         run: npm run deploy
+
+      # The HTML edge cache in front of the site (workers/edge). Its cache key
+      # carries the Next build id, so redeploying it with the new id makes sure
+      # no visitor gets HTML that points at the previous build's assets.
+      - name: Deploy HTML edge cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy -c workers/edge/wrangler.jsonc --var "BUILD_ID:$(cat .next/BUILD_ID)"
