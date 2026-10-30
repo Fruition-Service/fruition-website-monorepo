@@ -924,47 +924,6 @@ export async function getPageBySlug(slug: string) {
 /*  Full-page singletons (big structured docs)                          */
 /* ================================================================== */
 
-export async function getImplementationPackagesPage() {
-  return client.fetch(`*[_type == "implementationPackagesPage"][0]{
-    title, seoTitle, seoDescription,
-    croSections,
-    heroHeadingPart1, heroHeadingAccent, heroHeadingPart2,
-    heroPartnerBadges[]{ image, alt },
-    heroMondayPartnersImage,
-    heroCertificationBadge, heroImage,
-    heroPrimaryCtaLabel, heroPrimaryCtaUrl,
-    heroSecondaryCtaLabel, heroSecondaryCtaUrl,
-    logoCloudHeadingPart1, logoCloudHeadingAccent,
-    videoEmbedUrl, videoTitle,
-    servicesIntroHeadingPart1, servicesIntroHeadingAccent, servicesIntroHeadingPart2,
-    servicesIntroImage,
-    featureCards,
-    socialProofBannerHtml, socialProofCtaLabel, socialProofCtaUrl,
-    pricingHeading,
-    pricingSubheading,
-    pricingFootnote,
-    packageTiers[]{
-      name,
-      hours,
-      basePrice,
-      pricePrefix,
-      priceLabel,
-      ctaLabel,
-      featured,
-      features
-    },
-    testimonialsHeading, testimonialsCtaLabel, testimonialsCtaUrl,
-    statCardValue, statCardSubtitle, statCardCtaLabel, statCardCtaUrl,
-    calendlyHeading, calendlyUrl,
-    faqHeading, faqTabs,
-    discoverBadge, discoverHeading,
-    discoverPrimaryCtaLabel, discoverPrimaryCtaUrl,
-    discoverSecondaryCtaLabel, discoverSecondaryCtaUrl,
-    methodologyHeading, methodologyHeadingAccent, methodologySteps,
-    securityBadge
-  }`)
-}
-
 export async function getMondayTrainingPage() {
   return client.fetch(`*[_type == "mondayTrainingPage"][0]{
     title, seoTitle, seoDescription,

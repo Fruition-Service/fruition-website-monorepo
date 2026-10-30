@@ -6,11 +6,13 @@
  * fold-out holding the comparison table, the booking CTA directly below the
  * packages, blue CTAs, no package hours.
  *
- * The page used to render from the Sanity singleton `implementationPackagesPage`.
- * That document is no longer read by this route: the redesign's copy, prices
- * and FAQs live here so the visible page and the JSON-LD @graph come from one
- * source and cannot disagree. Edit prices in PACKAGES only; the cards, the
- * comparison table, the summary and the Offer nodes all derive from it.
+ * 30 Oct 2026: editors (Vadim) edit this page in Sanity again, in the
+ * singleton `implementationPackagesPage`, or with the inline editor. The
+ * constants here are the defaults Sanity was seeded from and the fallback for
+ * any blank field (scripts/seed-implementation-packages.ts). The visible page
+ * and the JSON-LD @graph both read the merged PageContent, so they cannot
+ * disagree. Prose that quotes a price (hero answer, FAQs) is plain text in
+ * Sanity: change it there together with the package price.
  *
  * Copy is Josh's, verbatim, except numeric ranges ("1-2 teams") which use a
  * hyphen instead of an en dash, and empty table cells, which read "Not included".
@@ -477,6 +479,71 @@ export const FAQS: Array<{ q: string; a: string }> = [
 ]
 
 /* ------------------------------------------------------------------ */
+/*  The page's content, as one object                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Everything editable on the page. The constants above are the defaults;
+ * `getImplementationPackagesContent()` (./sanityContent) lays the Sanity
+ * singleton `implementationPackagesPage` over them field by field, so a blank
+ * field in Sanity shows the default instead of an empty space.
+ */
+export interface PageContent {
+  seo: { title: string; description: string }
+  hero: typeof HERO
+  overview: typeof OVERVIEW
+  packagesIntro: typeof PACKAGES_INTRO
+  packages: ImplementationPackage[]
+  compareRows: CompareRow[]
+  servicesIntro: typeof SERVICES_INTRO
+  servicePrices: ServiceGroup[]
+  licences: typeof LICENCES
+  howPricingWorks: typeof HOW_PRICING_WORKS
+  method: typeof METHOD
+  why: typeof WHY
+  reviews: typeof REVIEWS
+  atAGlance: { eyebrow: string; heading: string; rows: Array<{ label: string; value: string }> }
+  regions: typeof REGIONS
+  faqIntro: typeof FAQ_INTRO
+  faqs: Array<{ q: string; a: string }>
+  form: Pick<typeof FORM, "heading" | "intro" | "submit" | "footnote" | "thanksHeading" | "thanks">
+  cta: typeof CTA
+}
+
+export const DEFAULT_CONTENT: PageContent = {
+  seo: { title: SEO_TITLE, description: SEO_DESCRIPTION },
+  hero: HERO,
+  overview: OVERVIEW,
+  packagesIntro: PACKAGES_INTRO,
+  packages: PACKAGES,
+  compareRows: COMPARE_ROWS,
+  servicesIntro: SERVICES_INTRO,
+  servicePrices: SERVICE_PRICES,
+  licences: LICENCES,
+  howPricingWorks: HOW_PRICING_WORKS,
+  method: METHOD,
+  why: WHY,
+  reviews: REVIEWS,
+  atAGlance: {
+    eyebrow: "Fact sheet",
+    heading: "Fruition at a glance",
+    rows: AT_A_GLANCE.map(([label, value]) => ({ label, value })),
+  },
+  regions: REGIONS,
+  faqIntro: FAQ_INTRO,
+  faqs: FAQS,
+  form: {
+    heading: FORM.heading,
+    intro: FORM.intro,
+    submit: FORM.submit,
+    footnote: FORM.footnote,
+    thanksHeading: FORM.thanksHeading,
+    thanks: FORM.thanks,
+  },
+  cta: CTA,
+}
+
+/* ------------------------------------------------------------------ */
 /*  JSON-LD: one @graph for the whole page                             */
 /* ------------------------------------------------------------------ */
 
@@ -486,7 +553,7 @@ export const FAQS: Array<{ q: string; a: string }> = [
  * redefined; the breadcrumb trail lives here too, and `Breadcrumbs` skips its
  * own BreadcrumbList for this path (see PAGES_WITH_OWN_BREADCRUMB_SCHEMA).
  */
-export function buildJsonLd() {
+export function buildJsonLd(c: PageContent = DEFAULT_CONTENT) {
   const ORG_ID = `${SITE_URL}/#organization`
   const SERVICE_ID = `${PAGE_URL}#service`
   const COUNTRIES = ["Australia", "New Zealand", "Singapore", "India", "United Arab Emirates", "United Kingdom", "United States", "Canada"]
@@ -498,8 +565,8 @@ export function buildJsonLd() {
         "@type": "WebPage",
         "@id": `${PAGE_URL}#webpage`,
         url: PAGE_URL,
-        name: SEO_TITLE,
-        description: SEO_DESCRIPTION,
+        name: c.seo.title,
+        description: c.seo.description,
         inLanguage: "en",
         isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Fruition Services" },
         about: { "@id": SERVICE_ID },
@@ -528,7 +595,7 @@ export function buildJsonLd() {
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "monday.com implementation packages",
-          itemListElement: PACKAGES.map((p) => ({
+          itemListElement: c.packages.map((p) => ({
             "@type": "Offer",
             name: p.name,
             description: p.offerDescription,
@@ -551,7 +618,7 @@ export function buildJsonLd() {
         "@id": `${PAGE_URL}#services`,
         name: "Fruition services: starting prices",
         url: `${PAGE_URL}#services`,
-        itemListElement: SERVICE_PRICES.flatMap((g) =>
+        itemListElement: c.servicePrices.flatMap((g) =>
           g.items.map((i) => ({
             "@type": "Offer",
             name: `${i.name}: initial phase`,
@@ -573,7 +640,7 @@ export function buildJsonLd() {
       {
         "@type": "FAQPage",
         "@id": `${PAGE_URL}#faq`,
-        mainEntity: FAQS.map(({ q, a }) => ({
+        mainEntity: c.faqs.map(({ q, a }) => ({
           "@type": "Question",
           name: q,
           acceptedAnswer: { "@type": "Answer", text: a },

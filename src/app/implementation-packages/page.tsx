@@ -1,21 +1,27 @@
 import type { Metadata } from "next"
+import { stegaClean } from "@sanity/client/stega"
 import { getCaseStudies } from "@/sanity/queries"
 import { urlFor } from "@/sanity/image"
 import { buildOgMetadata } from "@/lib/metadata"
 import ImplementationPackagesContent, { type ReviewPhotos } from "./ImplementationPackagesContent"
-import { buildJsonLd, PAGE_PATH, REVIEWS, SEO_DESCRIPTION, SEO_TITLE } from "./content"
+import { buildJsonLd, PAGE_PATH } from "./content"
+import { getImplementationPackagesContent } from "./sanityContent"
 
 /*
- * Copy, prices and FAQs live in ./content (not the `implementationPackagesPage`
- * Sanity doc, which this route no longer reads). Sanity is only used for the
- * reviewers' profile photos, matched by name and optional.
+ * Copy, prices, FAQs and the meta title/description come from the Sanity
+ * singleton `implementationPackagesPage`, laid over the defaults in ./content
+ * (./sanityContent). Reviewers' profile photos come from the caseStudy
+ * documents, matched by name and optional.
  */
 
-export const metadata: Metadata = {
-  alternates: { canonical: PAGE_PATH },
-  title: SEO_TITLE,
-  description: SEO_DESCRIPTION,
-  ...buildOgMetadata({ title: SEO_TITLE, description: SEO_DESCRIPTION, path: PAGE_PATH }),
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getImplementationPackagesContent()
+  return {
+    alternates: { canonical: PAGE_PATH },
+    title: seo.title,
+    description: seo.description,
+    ...buildOgMetadata({ title: seo.title, description: seo.description, path: PAGE_PATH }),
+  }
 }
 
 interface CaseStudyPhoto {
@@ -23,8 +29,8 @@ interface CaseStudyPhoto {
   profilePhoto?: unknown
 }
 
-async function loadReviewPhotos(): Promise<ReviewPhotos> {
-  const wanted = new Set(REVIEWS.items.map((r) => r.name))
+async function loadReviewPhotos(names: string[]): Promise<ReviewPhotos> {
+  const wanted = new Set(names)
   const photos: ReviewPhotos = {}
   let studies: CaseStudyPhoto[] = []
   try {
@@ -46,11 +52,12 @@ async function loadReviewPhotos(): Promise<ReviewPhotos> {
 }
 
 export default async function Page() {
-  const reviewPhotos = await loadReviewPhotos()
+  const content = await getImplementationPackagesContent()
+  const reviewPhotos = await loadReviewPhotos(content.reviews.items.map((r) => stegaClean(r.name)))
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd()) }} />
-      <ImplementationPackagesContent reviewPhotos={reviewPhotos} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(content)) }} />
+      <ImplementationPackagesContent content={content} reviewPhotos={reviewPhotos} />
     </>
   )
 }

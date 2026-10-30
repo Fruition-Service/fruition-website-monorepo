@@ -190,10 +190,31 @@ interface PackageTier {
   featured?: boolean
 }
 
+/** The current document shape (since 30 Oct 2026): `packages`, see the implementationPackagesPage schema. */
+interface ImplementationPackageDoc {
+  name?: string
+  team?: string
+  basePriceUsd?: number
+  cadence?: string
+  highlights?: string[]
+}
+
 /** Each implementation package tier becomes its own recommendable offering. */
 function packageRecords(doc: SanityDoc): KnowledgeRecord[] {
-  const tiers = Array.isArray(doc.packageTiers) ? (doc.packageTiers as PackageTier[]) : []
-  const footnote = typeof doc.pricingFootnote === "string" ? doc.pricingFootnote : ""
+  const tiers: PackageTier[] = Array.isArray(doc.packages)
+    ? (doc.packages as ImplementationPackageDoc[]).map((p) => ({
+        name: p.name,
+        hours: p.team,
+        basePrice: p.basePriceUsd,
+        pricePrefix: p.cadence === "per month" ? "From (per month)" : "From",
+        features: p.highlights,
+      }))
+    : Array.isArray(doc.packageTiers)
+      ? (doc.packageTiers as PackageTier[])
+      : []
+  const intro = doc.packagesIntro as { footnote?: unknown } | undefined
+  const footnote =
+    typeof intro?.footnote === "string" ? intro.footnote : typeof doc.pricingFootnote === "string" ? doc.pricingFootnote : ""
   return tiers
     .filter((t) => t.name)
     .map((tier) => {

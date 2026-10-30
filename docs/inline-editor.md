@@ -39,6 +39,9 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
   read 33 slots on `siteSettings.copy` (registry in `src/lib/siteCopy.ts`, client components read
   them with `useSiteText()` from `SiteCopyProvider`); seed with `--site --apply`. The nav and
   footer were already Sanity fields on `siteSettings`.
+  The pricing page (`/implementation-packages`) reads the `implementationPackagesPage` singleton
+  laid over the defaults in its `content.ts` (`contentMerge.ts`), including the meta title and
+  description; seed new fields with `npx tsx scripts/seed-implementation-packages.ts --apply`.
 - Text and images only: links, alt text, adding/removing/reordering blocks still happen in Studio.
 - An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
   untick the ones that should keep the old image. Old assets are not deleted.
