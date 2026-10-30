@@ -6,15 +6,11 @@
   "name": "fruition-landing",
   "workers_dev": true,
   "preview_urls": true,
-  "routes": [
-    { "pattern": "fruitionservices.io/*", "zone_name": "fruitionservices.io" },
-    { "pattern": "www.fruitionservices.io/*", "zone_name": "fruitionservices.io" },
-    // Legacy Wix-era domain, parked on the same Cloudflare account and already
-    // proxied. Routing it here lets src/middleware.ts 301 it to the canonical
-    // host instead of it continuing to serve the retired Wix site.
-    { "pattern": "fruitionmonday.com/*", "zone_name": "fruitionmonday.com" },
-    { "pattern": "www.fruitionmonday.com/*", "zone_name": "fruitionmonday.com" }
-  ],
+  // No routes: the site's hostnames belong to fruition-edge (workers/edge), a
+  // small HTML cache in front of this Worker that reaches it through a service
+  // binding. Do not add routes back here; a route on both Workers fails deploy.
+  // The legacy fruitionmonday.com hosts go through fruition-edge too and still
+  // reach src/middleware.ts here, which 301s them to the canonical host.
   // wrangler bundles with esbuild `keepNames` by default, which injects
   // `__name(fn, "fn")` calls. Libraries that serialise a function into an
   // inline <script> via `.toString()` (next-themes' theme bootstrap, rendered

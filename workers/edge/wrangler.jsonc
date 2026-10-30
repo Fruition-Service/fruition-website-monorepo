@@ -1,0 +1,21 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // HTML edge cache in front of the site Worker. See index.js for why.
+  // It owns the site routes; fruition-landing is reached through the SITE
+  // service binding. /og-card stays on fruition-og-card (more specific route).
+  // BUILD_ID is set at deploy time from .next/BUILD_ID (see deploy.yml).
+  "name": "fruition-edge",
+  "main": "index.js",
+  "compatibility_date": "2026-08-01",
+  "account_id": "f1b68ef3302095898d5eb4ed4a07062d",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "fruitionservices.io/*", "zone_name": "fruitionservices.io" },
+    { "pattern": "www.fruitionservices.io/*", "zone_name": "fruitionservices.io" },
+    { "pattern": "fruitionmonday.com/*", "zone_name": "fruitionmonday.com" },
+    { "pattern": "www.fruitionmonday.com/*", "zone_name": "fruitionmonday.com" }
+  ],
+  "services": [{ "binding": "SITE", "service": "fruition-landing" }],
+  "vars": { "BUILD_ID": "none" },
+  "observability": { "enabled": true }
+}
