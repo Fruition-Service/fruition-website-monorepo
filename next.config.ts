@@ -212,6 +212,10 @@ const auditRedirects: Redirect[] = [
   // The Platinum-partner announcement post; the partnership page covers it.
   { source: "/post/mondaycom-platinum-partner-fruition", destination: "/partnerships/monday-consulting-partner", statusCode: 301 },
 
+  // monday 2894768426: the Quick Implementation Packages post was consolidated
+  // into the implementation/pricing page, so its URL forwards there.
+  { source: "/post/mondaycom-quick-implementation-packages", destination: "/implementation-packages", statusCode: 301 },
+
   // ── Legacy Wix blog tag/hashtag archives (September 2026) ──
   // The old Wix blog had per-tag and per-hashtag archive pages. This site has
   // no tag concept at all (blogPost has categories, not tags), so every one of
