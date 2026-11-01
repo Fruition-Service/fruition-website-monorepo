@@ -27,14 +27,16 @@ Copy one object in `targets.json` and edit it:
 ## Run it
 
 ```bash
-npm run internal-links -- --dry-run                      # default: report only, nothing written
-npm run internal-links -- --dry-run --only my-post-slug  # one post (repeat or comma separate)
-npm run internal-links -- --dry-run --limit 20           # newest 20 posts
-npm run internal-links -- --report /tmp/links.md         # report somewhere else
+npm run internal-links:dry                          # report only, nothing written (same as --dry-run)
+npm run internal-links:dry -- --only my-post-slug   # one post (repeat or comma separate)
+npm run internal-links:dry -- --limit 20            # newest 20 posts
+npm run internal-links:dry -- --report /tmp/links.md # report somewhere else
 ```
 
 The report (`report.md` by default) lists totals, links per target, targets with no matches, documents
 at the cap and every planned link with a short snippet. Read it before applying.
+
+`npm run internal-links` with no flag is the same as `npm run internal-links:dry`.
 
 ## Safety caps
 
@@ -54,7 +56,7 @@ Run a dry run first and check the report. Then, with a Sanity token that has wri
 password manager, never committed), start small:
 
 ```bash
-SANITY_WRITE_TOKEN=<token from the password manager> npm run internal-links -- --apply --limit 10
+SANITY_WRITE_TOKEN=<token from the password manager> npm run internal-links:apply -- --limit 10
 ```
 
 Check those posts on the live site (the page cache refreshes within about 60 seconds), then run again

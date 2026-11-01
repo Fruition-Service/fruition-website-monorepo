@@ -31,7 +31,9 @@
     "migrate:seo-cro": "tsx scripts/sanity-migrate/seo-cro-text.ts",
     "migrate:regional-seo": "tsx scripts/sanity-migrate/regional-seo-refresh.ts",
     "build:region-maps": "node scripts/build-region-maps.mjs",
-    "internal-links": "tsx scripts/internal-links/index.ts"
+    "internal-links": "tsx scripts/internal-links/index.ts",
+    "internal-links:dry": "tsx scripts/internal-links/index.ts --dry-run",
+    "internal-links:apply": "tsx scripts/internal-links/index.ts --apply"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
