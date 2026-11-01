@@ -226,16 +226,27 @@ const blogPortableTextComponents: PortableTextComponents = {
       <strong className="font-bold">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
-    link: ({ children, value }) => (
-      <a
-        href={value?.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-brand-dark underline hover:no-underline"
-      >
-        {children}
-      </a>
-    ),
+    link: ({ children, value }) => {
+      // Relative hrefs stay in-app (same tab), matching CellText below.
+      const href: string | undefined = value?.href
+      if (href && (href.startsWith("/") || href.startsWith("#"))) {
+        return (
+          <Link href={href} className="text-brand-dark underline hover:no-underline">
+            {children}
+          </Link>
+        )
+      }
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-brand-dark underline hover:no-underline"
+        >
+          {children}
+        </a>
+      )
+    },
     internalLink: ({ children, value }) => (
       <Link
         href={value?.slug?.current ? `/${value.slug.current}` : "#"}

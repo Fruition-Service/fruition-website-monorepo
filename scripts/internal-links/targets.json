@@ -1,0 +1,161 @@
+{
+  "_readme": "One object per target. path = internal URL, must start with /. keywords = phrases to link, most specific first. note = why this page matters. Add a row by copying one object and editing it. Generic single words are ignored unless you add \"allowGeneric\": true. Optional aliases = old URLs that redirect to this page; a post that already links to one of them is treated as already linking to the target.",
+  "maxLinksPerDoc": 5,
+  "skipFirstParagraph": false,
+  "targets": [
+    {
+      "path": "/monday-crm-consulting",
+      "keywords": ["monday CRM consulting", "monday CRM consultants", "monday CRM consultant", "monday CRM implementation", "monday sales CRM", "monday CRM"],
+      "aliases": ["/monday-certified-partner-solutions/monday-crm-consultants", "/solutions/monday-crm-partner"],
+      "note": "Money page: monday CRM consulting"
+    },
+    {
+      "path": "/monday-implementation-consultants",
+      "keywords": ["monday.com implementation consultants", "monday.com implementation consultant", "monday implementation consultants", "monday.com implementation", "monday implementation"],
+      "note": "Money page: monday.com implementation"
+    },
+    {
+      "path": "/monday-consulting-solutions/monday-project-management",
+      "keywords": ["monday.com project management", "monday project management", "project management software", "project management tool"],
+      "aliases": ["/monday-certified-partner-solutions/monday-project-management-partner", "/solutions/monday-project-management-partner"],
+      "note": "Money page: monday project management"
+    },
+    {
+      "path": "/monday-consulting-solutions/monday-service",
+      "keywords": ["monday Service"],
+      "note": "Service page: monday Service"
+    },
+    {
+      "path": "/implementation-packages",
+      "keywords": ["monday.com implementation packages", "implementation packages", "implementation package", "consulting packages"],
+      "aliases": ["/packages"],
+      "note": "Money page: fixed-price packages"
+    },
+    {
+      "path": "/training",
+      "keywords": ["monday.com training", "monday training", "monday.com onboarding training"],
+      "aliases": ["/monday-training"],
+      "note": "Training page (old /monday-training redirects here)"
+    },
+    {
+      "path": "/licence-procurement",
+      "keywords": ["monday.com licences", "monday.com licenses", "monday.com licensing", "licence procurement"],
+      "note": "Licence resale page"
+    },
+    {
+      "path": "/partnerships/monday-consulting-partner",
+      "keywords": ["monday.com certified partner", "certified monday.com partner", "monday.com partner"],
+      "note": "Partner credentials page"
+    },
+    {
+      "path": "/customer-testimonials",
+      "keywords": ["customer testimonials", "client testimonials", "customer success stories", "case studies"],
+      "note": "Social proof"
+    },
+    {
+      "path": "/hubspot-consulting/monday-hubspot-integration",
+      "keywords": ["monday HubSpot integration", "HubSpot and monday.com integration", "HubSpot integration", "integrate HubSpot"],
+      "note": "Service page: HubSpot integration"
+    },
+    {
+      "path": "/hubspot-consulting/hubspot-to-monday-migration",
+      "keywords": ["HubSpot to monday CRM migration", "HubSpot to monday.com migration", "HubSpot to monday", "HubSpot migration"],
+      "note": "Service page: HubSpot migration"
+    },
+    {
+      "path": "/atlassian-consulting/jira-to-monday-migration",
+      "keywords": ["Jira to monday.com migration", "Jira to monday"],
+      "note": "Service page: Jira migration"
+    },
+    {
+      "path": "/monday-for-construction",
+      "keywords": ["monday.com for construction", "monday for construction", "construction project management", "construction companies", "construction teams"],
+      "note": "Industry money page: construction"
+    },
+    {
+      "path": "/monday-for-manufacturing",
+      "keywords": ["monday.com for manufacturing", "monday for manufacturing", "manufacturing operations", "manufacturing companies", "manufacturing teams"],
+      "note": "Industry money page: manufacturing"
+    },
+    {
+      "path": "/ai-capability-assessment",
+      "keywords": ["AI capability assessment", "AI maturity assessment", "AI readiness assessment", "AI assessment"],
+      "note": "AI money page: entry offer"
+    },
+    {
+      "path": "/ai-readiness-blueprint",
+      "keywords": ["AI readiness blueprint", "AI readiness", "AI roadmap"],
+      "note": "AI money page: blueprint"
+    },
+    {
+      "path": "/ai-strategy-and-execution",
+      "keywords": ["AI strategy and execution", "AI strategy"],
+      "note": "AI money page: strategy"
+    },
+    {
+      "path": "/ai-consulting",
+      "keywords": ["AI consulting services", "AI consulting firm", "AI consulting", "AI consultants", "AI consultancy"],
+      "note": "AI consulting hub"
+    },
+    {
+      "path": "/ai-consulting/agent-development",
+      "keywords": ["AI agent development", "custom AI agents", "build AI agents", "AI agents"],
+      "note": "AI service page: agent development"
+    },
+    {
+      "path": "/partnerships/make-partners",
+      "keywords": ["Make.com partner", "Make.com consultants", "Make.com"],
+      "note": "Make Gold partner page"
+    },
+    {
+      "path": "/partnerships/n8n-integration-partner",
+      "keywords": ["n8n consultant", "n8n partner", "n8n"],
+      "note": "n8n partner page"
+    },
+    {
+      "path": "/post/mondaycom-enterprise-pricing-plan-vs-pro",
+      "keywords": ["monday.com Enterprise vs Pro", "monday.com Pro vs Enterprise", "Pro vs Enterprise", "Enterprise vs Pro", "monday.com pricing"],
+      "note": "Blog: definitive Pro vs Enterprise pricing guide"
+    },
+    {
+      "path": "/post/monday-ai-pricing-model-2026",
+      "keywords": ["monday AI pricing", "monday AI credits", "AI credits"],
+      "note": "Blog: monday AI pricing and credits"
+    },
+    {
+      "path": "/post/what-is-monday-ai-2026",
+      "keywords": ["monday AI"],
+      "note": "Blog: monday AI pillar guide"
+    },
+    {
+      "path": "/post/what-is-monday-mcp",
+      "keywords": ["monday.com MCP", "monday MCP"],
+      "note": "Blog: monday MCP guide"
+    },
+    {
+      "path": "/post/the-7-step-monday-crm-data-migration-checklist",
+      "keywords": ["monday CRM data migration", "CRM data migration", "data migration"],
+      "note": "Blog: CRM migration checklist"
+    },
+    {
+      "path": "/post/monday-com-crm-integrations",
+      "keywords": ["monday.com CRM integrations", "monday CRM integrations", "CRM integrations"],
+      "note": "Blog: CRM integrations guide"
+    },
+    {
+      "path": "/post/hire-mondaycom-partner-questions",
+      "keywords": ["monday.com implementation partner", "implementation partner"],
+      "note": "Blog: how to vet an implementation partner"
+    },
+    {
+      "path": "/post/fruition-enterprise-agentic-playbook",
+      "keywords": ["agentic AI use cases", "AI agent use cases", "agentic playbook"],
+      "note": "Blog: 72 AI agent use cases playbook"
+    },
+    {
+      "path": "/post/monday-consultants-help-change-management",
+      "keywords": ["change management"],
+      "note": "Blog: change management with monday consultants"
+    }
+  ]
+}
