@@ -1,36 +1,5 @@
-"use client"
-
-import { useState } from "react"
 import Link from "next/link"
 import type { CompareRow, ImplementationPackage, PageContent } from "./content"
-
-/*
- * Currency and team switcher, carried over from the previous page. The server
- * render (what crawlers see) is always USD at the US team rate, so the default
- * HTML carries $2,500 / $5,000 / $2,500 per month. Rates and regional multipliers
- * are unchanged from the live switcher; Josh still has to confirm local rates.
- */
-type CurrencyCode = "USD" | "AUD" | "SGD" | "GBP" | "EUR"
-type TeamCode = "US" | "UK" | "APAC"
-
-const CURRENCIES: Record<CurrencyCode, { symbol: string; rate: number; locale: string }> = {
-  USD: { symbol: "$", rate: 1, locale: "en-US" },
-  AUD: { symbol: "A$", rate: 1.52, locale: "en-AU" },
-  SGD: { symbol: "S$", rate: 1.34, locale: "en-SG" },
-  GBP: { symbol: "£", rate: 0.79, locale: "en-GB" },
-  EUR: { symbol: "€", rate: 0.92, locale: "de-DE" },
-}
-const TEAMS: Record<TeamCode, { label: string; multiplier: number }> = {
-  US: { label: "US team", multiplier: 1 },
-  UK: { label: "UK team", multiplier: 0.95 },
-  APAC: { label: "APAC team", multiplier: 0.85 },
-}
-
-function formatPrice(base: number, currency: CurrencyCode, team: TeamCode): string {
-  const { rate, locale, symbol } = CURRENCIES[currency]
-  const rounded = Math.round((base * TEAMS[team].multiplier * rate) / 100) * 100
-  return `${symbol}${new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(rounded)}`
-}
 
 export default function PackagesSection({
   intro,
@@ -41,10 +10,6 @@ export default function PackagesSection({
   packages: ImplementationPackage[]
   rows: CompareRow[]
 }) {
-  const [currency, setCurrency] = useState<CurrencyCode>("USD")
-  const [team, setTeam] = useState<TeamCode>("US")
-  const price = (p: ImplementationPackage) => formatPrice(p.basePriceUsd, currency, team)
-
   return (
     <section id="packages" className="scroll-mt-24 bg-surface-subtle py-14 md:py-24">
       <div className="mx-auto max-w-[1148px] px-4">
@@ -54,24 +19,6 @@ export default function PackagesSection({
           </p>
           <h2 className="text-section-h2 text-body text-balance">{intro.heading}</h2>
           <p className="text-body-lead mx-auto mt-5 max-w-[62ch] text-muted">{intro.lead}</p>
-        </div>
-
-        {/* Switcher */}
-        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 md:flex-row md:items-end">
-          <Picker
-            id="pkg-currency"
-            label="Currency"
-            value={currency}
-            onChange={(v) => setCurrency(v as CurrencyCode)}
-            options={(Object.keys(CURRENCIES) as CurrencyCode[]).map((c) => ({ value: c, label: c }))}
-          />
-          <Picker
-            id="pkg-team"
-            label="Delivery team"
-            value={team}
-            onChange={(v) => setTeam(v as TeamCode)}
-            options={(Object.keys(TEAMS) as TeamCode[]).map((t) => ({ value: t, label: TEAMS[t].label }))}
-          />
         </div>
 
         {/* Price cards */}
@@ -84,14 +31,7 @@ export default function PackagesSection({
               <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">{p.tag}</p>
               <h3 className="text-card-title mt-3 text-body">{p.name}</h3>
               <p className="mt-2 font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.team}</p>
-              <p className="mt-5 flex flex-wrap items-baseline gap-x-2 border-y border-dashed border-ui py-4 text-body">
-                <span className="text-caption text-muted">From</span>
-                <span className="text-section-h3 font-semibold" aria-live="polite">
-                  {price(p)}
-                </span>
-                <span className="text-caption text-muted">{p.cadence}</span>
-              </p>
-              <p className="text-body-sm mt-5 text-muted">
+              <p className="text-body-sm mt-5 border-t border-dashed border-ui pt-5 text-muted">
                 <b className="font-semibold text-body">Best for:</b> {p.bestFor}
               </p>
               <ul className="mt-5 flex flex-col gap-2.5">
@@ -139,12 +79,6 @@ export default function PackagesSection({
                         </dd>
                       </div>
                     ))}
-                    <div className="grid grid-cols-[42%_1fr] gap-3 py-2.5">
-                      <dt className="text-caption font-semibold text-body">Price</dt>
-                      <dd className="text-body-sm font-semibold text-body">
-                        From {price(p)} {p.cadence}
-                      </dd>
-                    </div>
                   </dl>
                   <Link href="#book" className="cta-btn cta-btn-outline mt-3 w-full">
                     <span className="cta-btn-label">{p.ctaLabel}</span>
@@ -181,16 +115,6 @@ export default function PackagesSection({
                       ))}
                     </tr>
                   ))}
-                  <tr className="border-t border-dashed border-ui">
-                    <th scope="row" className="text-caption py-3 pr-3 align-top font-semibold text-body">
-                      Price
-                    </th>
-                    {packages.map((p) => (
-                      <td key={p.id} className="text-body-sm px-3 py-3 align-top font-semibold text-body">
-                        From {price(p)} {p.cadence}
-                      </td>
-                    ))}
-                  </tr>
                   <tr>
                     <td />
                     {packages.map((p) => (
@@ -228,35 +152,6 @@ export default function PackagesSection({
         </p>
       </div>
     </section>
-  )
-}
-
-function Picker({
-  id,
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  id: string
-  label: string
-  value: string
-  onChange: (v: string) => void
-  options: Array<{ value: string; label: string }>
-}) {
-  return (
-    <div className="flex flex-col gap-1.5 md:w-[200px]">
-      <label htmlFor={id} className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-        {label}
-      </label>
-      <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="form-field min-h-[44px]">
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-    </div>
   )
 }
 
