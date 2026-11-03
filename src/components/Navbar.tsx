@@ -96,6 +96,10 @@ const isDropdown = (item: NavItem) => !!item.sections?.length
  */
 export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsProp | null }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  // Description of the dropdown item under the pointer or focus. Shown in the
+  // panel's bottom bar instead of under each item (Annica's idea, 27 Oct 2026;
+  // layout from Claude Design "Nav Resources.dc.html").
+  const [hoverDesc, setHoverDesc] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
   const navRef = useRef<HTMLElement>(null)
@@ -354,12 +358,16 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                             href={bookingHref(sub.href || '#')}
                             onClick={closeMobile}
                             aria-current={pathname === sub.href ? 'page' : undefined}
-                            className={`flex min-h-11 items-center gap-3 rounded-badge px-2 py-2.5 text-[15px] ${
+                            className={`flex min-h-11 flex-col justify-center rounded-badge px-2 py-2.5 text-[15px] ${
                               pathname === sub.href ? 'bg-tint text-brand' : 'text-body'
                             }`}
                           >
-                            {sub.label}
-                            {sub.tier && <TierPill>{sub.tier}</TierPill>}
+                            <span className="flex items-center gap-3">
+                              {sub.label}
+                              {sub.tier && <TierPill>{sub.tier}</TierPill>}
+                            </span>
+                            {/* No hover on touch: descriptions show under items, only inside the opened group. */}
+                            {sub.description && <span className="mt-0.5 text-[13px] leading-snug text-muted">{sub.description}</span>}
                           </Link>
                         ))}
                       </div>
@@ -408,7 +416,10 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
             role="region"
             aria-label={label}
             onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
+            onMouseLeave={() => {
+              setHoverDesc(null)
+              scheduleClose()
+            }}
             className={`${open ? 'hidden lg:block' : 'hidden'} absolute left-0 right-0 top-full border-t border-ui bg-surface-raised shadow-lg z-50`}
           >
             <div className="site-container pt-8 pb-6">
@@ -449,14 +460,17 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                               key={sub.href}
                               href={bookingHref(sub.href || '#')}
                               aria-current={isActive ? 'page' : undefined}
-                              className={`group flex ${sub.description ? 'items-start' : 'items-center'} gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
-                                isActive ? 'bg-tint' : 'hover:bg-tint'
+                              className={`group flex items-center gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
+                                isActive ? 'bg-tint' : 'hover:bg-tint focus-visible:bg-tint'
                               }`}
                               onClick={() => setOpenMenu(null)}
+                              onMouseEnter={() => setHoverDesc(sub.description || null)}
+                              onFocus={() => setHoverDesc(sub.description || null)}
+                              aria-describedby={sub.description ? `${panelId(label)}-desc` : undefined}
                             >
                               <span
                                 aria-hidden
-                                className={`shrink-0 ${sub.description ? 'mt-0.5' : ''} w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
+                                className={`shrink-0 w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
                                   isActive || sub.featured
                                     ? 'text-brand ring-brand/30'
                                     : 'text-body ring-ui group-hover:text-brand group-hover:ring-brand/30'
@@ -477,9 +491,6 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                                   {sub.label}
                                   {sub.tier && <TierPill>{sub.tier}</TierPill>}
                                 </span>
-                                {sub.description && (
-                                  <span className="mt-1 block text-xs text-muted leading-snug">{sub.description}</span>
-                                )}
                               </span>
                             </Link>
                           )
@@ -515,9 +526,19 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                 )}
               </div>
 
-              {(item.footerNote || item.footerLinks?.length) && (
+              {(item.footerNote || item.footerLinks?.length || hasDescriptions(item)) && (
                 <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-ui pt-4 text-sm">
-                  {item.footerNote && <p className="mr-auto text-muted">{item.footerNote}</p>}
+                  {/* The hovered item's description replaces the note, so the columns never move. */}
+                  <p id={`${panelId(label)}-desc`} aria-live="polite" className="mr-auto min-h-[20px] text-muted">
+                    {open && hoverDesc ? (
+                      <span key={hoverDesc} className="animate-[fadeInSwap_.18s_ease-out]">
+                        <span className="font-semibold text-brand">{hoveredLabel(item, hoverDesc)}</span>{' '}
+                        {hoverDesc}
+                      </span>
+                    ) : (
+                      item.footerNote
+                    )}
+                  </p>
                   {item.footerLinks?.map((l) => (
                     <Link
                       key={l.href}
@@ -536,6 +557,18 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
       })}
     </nav>
   )
+}
+
+function hasDescriptions(item: NavItem): boolean {
+  return Boolean(item.sections?.some((sec) => sec.items?.some((i) => i.description)))
+}
+
+function hoveredLabel(item: NavItem, description: string): string {
+  for (const sec of item.sections ?? []) {
+    const hit = sec.items?.find((i) => i.description === description)
+    if (hit?.label) return hit.label
+  }
+  return ''
 }
 
 function TierPill({ children }: { children: React.ReactNode }) {

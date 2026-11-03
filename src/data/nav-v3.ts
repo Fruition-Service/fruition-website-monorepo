@@ -69,7 +69,7 @@ export interface NavV3Item {
 export const NAV_V3: NavV3Item[] = [
   SERVICES_NAV,
   {
-    label: 'Partners',
+    label: 'Partnerships',
     layout: 'columns',
     sections: [
       {
@@ -80,16 +80,19 @@ export const NAV_V3: NavV3Item[] = [
             href: '/partnerships/openai-chatgpt-partner',
             tier: 'Select',
             icon: 'openai',
+            description: 'ChatGPT Enterprise & custom GPTs',
           },
           {
             label: 'Anthropic Claude',
             href: '/partnerships/anthropic-claude-partner',
             icon: 'anthropic',
+            description: 'Enterprise Claude & Claude Code',
           },
           {
             label: 'AI consulting',
             href: '/ai-consulting',
             icon: 'bulb',
+            description: 'The full AI consulting practice',
           },
         ],
       },
@@ -101,17 +104,20 @@ export const NAV_V3: NavV3Item[] = [
             href: '/partnerships/monday-consulting-partner',
             tier: 'Platinum',
             icon: 'monday',
+            description: 'Platinum Partner · Rising Star 2026 · Advanced Delivery Partner',
           },
           {
             label: 'Atlassian',
             href: '/partnerships/certified-atlassian-partner',
             tier: 'Platinum',
             icon: 'atlassian',
+            description: 'Platinum Partner · Rising Star 2026',
           },
           {
             label: 'HubSpot',
             href: '/partnerships/certified-hubspot-partner',
             icon: 'hubspot',
+            description: 'Certified HubSpot partner',
           },
         ],
       },
@@ -122,16 +128,19 @@ export const NAV_V3: NavV3Item[] = [
             label: 'n8n',
             href: '/partnerships/n8n-integration-partner',
             icon: 'n8n',
+            description: 'Certified n8n partner',
           },
           {
             label: 'Make',
             href: '/partnerships/make-partners',
             icon: 'make',
+            description: 'Certified Make partner',
           },
           {
             label: 'Implementation packages',
             href: '/implementation-packages',
             icon: 'package',
+            description: 'Fixed-fee packages: 900+ delivered',
           },
         ],
       },
@@ -154,31 +163,37 @@ export const NAV_V3: NavV3Item[] = [
             label: 'Construction',
             href: '/monday-for-construction',
             icon: 'building',
+            description: 'Project & site delivery',
           },
           {
             label: 'Manufacturing',
             href: '/monday-for-manufacturing',
             icon: 'factory',
+            description: 'Production planning & ops',
           },
           {
             label: 'Government',
             href: '/monday-for-government',
             icon: 'flag',
+            description: 'Secure public-sector delivery',
           },
           {
             label: 'Professional services',
             href: '/monday-for-professional-services',
             icon: 'briefcase',
+            description: 'Client delivery & resourcing',
           },
           {
             label: 'Real estate',
             href: '/monday-for-real-estate',
             icon: 'home',
+            description: 'Listings, deals & property ops',
           },
           {
             label: 'Financial services',
             href: '/industries/financial-services',
             icon: 'dollar',
+            description: 'APRA/FCA-aligned platforms & AI',
           },
         ],
       },
@@ -189,11 +204,13 @@ export const NAV_V3: NavV3Item[] = [
             label: 'AI use case hub',
             href: '/ai-use-cases',
             icon: 'list',
+            description: 'Browse every prebuilt solution',
           },
           {
             label: 'Project & portfolio management',
             href: '/monday-consulting-solutions/monday-project-management',
             icon: 'layers',
+            description: 'Delivery, portfolios & PMO',
           },
         ],
       },
@@ -205,37 +222,31 @@ export const NAV_V3: NavV3Item[] = [
     ],
   },
   {
-    label: 'Customers',
+    // Customers and Blog folded into one Resources menu (28 Oct 2026 website
+    // call); layout from Claude Design "Nav Resources.dc.html".
+    label: 'Resources',
     layout: 'columns',
     sections: [
       {
+        heading: 'Learn',
+        items: [
+          { label: 'Blog', href: '/consulting-blog', icon: 'document', description: '100+ articles on monday.com, AI & automation' },
+          { label: 'AI Use Case Hub', href: '/ai-use-cases', icon: 'sparkle', description: '279 real AI and monday.com builds across 12 industries' },
+          { label: 'FAQs', href: '/faqs', icon: 'question', description: 'Direct answers to common questions' },
+        ],
+      },
+      {
         heading: 'Proof',
         items: [
-          {
-            label: 'Customer stories',
-            href: '/customer-testimonials',
-            icon: 'users',
-          },
-          {
-            label: 'Case studies',
-            href: '/customer-testimonials#case-studies',
-            icon: 'chart',
-          },
+          { label: 'Customer stories', href: '/customer-testimonials', icon: 'users', description: 'Client results in their own words' },
+          { label: 'Case studies', href: '/customer-testimonials#case-studies', icon: 'chart', description: '8 verified client implementations, filterable' },
         ],
       },
       {
         heading: 'Why Fruition',
         items: [
-          {
-            label: 'Certifications & awards',
-            href: '/certifications-and-awards',
-            icon: 'shield',
-          },
-          {
-            label: 'Our team',
-            href: '/fruition-team',
-            icon: 'user',
-          },
+          { label: 'Certifications & awards', href: '/certifications-and-awards', icon: 'shield', description: 'Platinum x2, Rising Star 2026 & partner tiers' },
+          { label: 'Our team', href: '/fruition-team', icon: 'user', description: 'The consultants behind Fruition' },
         ],
       },
     ],
@@ -247,8 +258,12 @@ export const NAV_V3: NavV3Item[] = [
       label: 'Read customer stories →',
       href: '/customer-testimonials',
     },
+    footerNote: 'Articles, use cases and client proof in one place.',
+    footerLinks: [
+      { label: 'All articles →', href: '/consulting-blog' },
+      { label: 'AI use cases →', href: '/ai-use-cases' },
+    ],
   },
-  { label: 'Blog', href: '/consulting-blog' },
   { label: 'Contact', href: '/contact-us' },
 ]
 

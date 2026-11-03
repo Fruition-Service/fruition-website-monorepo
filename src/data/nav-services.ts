@@ -17,6 +17,8 @@ export interface ServicesNavLink {
   label: string
   href: string
   icon?: string
+  /** Shown on hover in the desktop panel's bottom bar, under the item on mobile. */
+  description?: string
 }
 
 export interface ServicesNavSection {
@@ -42,38 +44,40 @@ export const SERVICES_NAV: ServicesNavItem = {
       heading: 'AI consulting',
       columns: 2,
       items: [
-        { label: 'AI capability assessment', href: '/ai-capability-assessment', icon: 'sparkle' },
-        { label: 'AI consulting', href: '/ai-consulting', icon: 'bulb' },
-        { label: 'Agent development', href: '/ai-consulting/agent-development', icon: 'zap' },
-        { label: 'RAG & knowledge systems', href: '/ai-consulting/rag-knowledge-systems', icon: 'layers' },
+        { label: 'AI capability assessment', href: '/ai-capability-assessment', icon: 'sparkle', description: 'Fixed-fee assessment, your AI roadmap in weeks' },
+        { label: 'AI consulting', href: '/ai-consulting', icon: 'bulb', description: 'The full AI consulting practice' },
+        { label: 'Agent development', href: '/ai-consulting/agent-development', icon: 'zap', description: 'Autonomous agents built for production' },
+        { label: 'RAG & knowledge systems', href: '/ai-consulting/rag-knowledge-systems', icon: 'layers', description: 'Retrieval grounded in your own knowledge' },
         {
           label: 'Governance & compliance',
           href: '/ai-consulting/governance-and-compliance',
           icon: 'shield',
+          description: 'AI policy, risk & compliance frameworks',
         },
-        { label: 'AI readiness blueprint', href: '/ai-readiness-blueprint', icon: 'document' },
+        { label: 'AI readiness blueprint', href: '/ai-readiness-blueprint', icon: 'document', description: 'Free self-assessment of your AI readiness' },
       ],
     },
     {
       heading: 'Work platforms',
       items: [
-        { label: 'monday CRM consulting', href: '/monday-crm-consulting', icon: 'chart' },
+        { label: 'monday CRM consulting', href: '/monday-crm-consulting', icon: 'chart', description: 'Sales pipeline & customer management' },
         {
           label: 'Implementation consultants',
           href: '/monday-implementation-consultants',
           icon: 'wrench',
+          description: 'Certified consultants, end to end',
         },
-        { label: 'monday training', href: '/training', icon: 'graduation' },
-        { label: 'Atlassian consulting', href: '/atlassian-consulting', icon: 'atlassian' },
-        { label: 'HubSpot consulting', href: '/hubspot-consulting', icon: 'hubspot' },
+        { label: 'monday training', href: '/training', icon: 'graduation', description: 'Role-based monday.com enablement' },
+        { label: 'Atlassian consulting', href: '/atlassian-consulting', icon: 'atlassian', description: 'Jira, Confluence & JSM, Platinum practice' },
+        { label: 'HubSpot consulting', href: '/hubspot-consulting', icon: 'hubspot', description: 'HubSpot builds, Breeze AI & integration' },
       ],
     },
     {
       heading: 'Commercial',
       items: [
-        { label: 'Implementation packages', href: '/implementation-packages', icon: 'package' },
-        { label: 'Licence procurement', href: '/licence-procurement', icon: 'dollar' },
-        { label: 'Integrations', href: '/integrations', icon: 'link' },
+        { label: 'Implementation packages', href: '/implementation-packages', icon: 'package', description: 'Fixed-fee packages: 900+ delivered' },
+        { label: 'Licence procurement', href: '/licence-procurement', icon: 'dollar', description: 'Audit, sourcing and renewal management' },
+        { label: 'Integrations', href: '/integrations', icon: 'link', description: 'Connect monday.com, your CRM and the rest of your stack' },
       ],
     },
   ],
