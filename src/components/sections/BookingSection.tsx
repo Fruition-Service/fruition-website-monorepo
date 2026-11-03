@@ -1101,10 +1101,7 @@ export default function BookingSection({
   // Unset band copy reads the `booking-*` shared slots (src/lib/siteCopy.ts).
   const t = useSiteCopy()
   return (
-    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "linear-gradient(-38deg,var(--cta-blue-light) 0%,var(--cta-blue) 42%,var(--cta-blue-deep) 100%)", padding: "84px 0", overflow: "hidden" }}>
-      {/* brand glow motif */}
-      <div aria-hidden="true" style={{ position: "absolute", top: -160, right: -120, width: 620, height: 620, borderRadius: "50%", opacity: 0.5, mixBlendMode: "screen", pointerEvents: "none", background: "radial-gradient(circle, rgba(255,255,255,0.28), rgba(255,255,255,0))" }} />
-
+    <section id="book" className="fr-booking-section" style={{ position: "relative", scrollMarginTop: 90, background: "var(--surface)", padding: "84px 0", overflow: "hidden" }}>
       {/* Three grid items, not two: on a phone the calendar slots between the
           heading and the supporting copy, so someone who came here to book
           reaches the first open slot without scrolling past the pitch. The
@@ -1112,39 +1109,39 @@ export default function BookingSection({
           back in one column with the card alongside. */}
       <div style={{ position: "relative", alignItems: "start" }} className="fr-booking-grid site-container">
         <div className="fr-booking-head">
-          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--cta-blue-pale)" }}>{eyebrow ?? t("booking-eyebrow")}</span>
-          <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "#fff", margin: "16px 0 0", textWrap: "pretty" }}>{heading ?? t("booking-heading")}</Heading>
+          <span style={{ display: "block", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--purple-primary)" }}>{eyebrow ?? t("booking-eyebrow")}</span>
+          <Heading style={{ fontSize: 52, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-.02em", color: "var(--text-body)", margin: "16px 0 0", textWrap: "pretty" }}>{heading ?? t("booking-heading")}</Heading>
         </div>
 
         <div className="fr-booking-body">
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.78)", margin: 0, maxWidth: 460, textWrap: "pretty" }}>{sub ?? t("booking-sub")}</p>
+          <p style={{ fontSize: 18, lineHeight: 1.6, color: "var(--color-text-secondary)", margin: 0, maxWidth: 460, textWrap: "pretty" }}>{sub ?? t("booking-sub")}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 38 }}>
-            <a href={`mailto:${email}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", color: "#fff", fontSize: 15, fontWeight: 500 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta-blue-pale)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
+            <a href={`mailto:${email}`} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none", color: "var(--text-body)", fontSize: 15, fontWeight: 500 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
               {email}
             </a>
-            <span style={{ display: "flex", alignItems: "center", gap: 12, color: "#fff", fontSize: 15, fontWeight: 500 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta-blue-pale)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z" /></svg>
+            <span style={{ display: "flex", alignItems: "center", gap: 12, color: "var(--text-body)", fontSize: 15, fontWeight: 500 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z" /></svg>
               {offices ?? officeStrapText}
             </span>
           </div>
 
-          <div style={{ height: 1, background: "rgba(255,255,255,.18)", margin: "32px 0 20px", maxWidth: 460 }} />
+          <div style={{ height: 1, background: "var(--color-border)", margin: "32px 0 20px", maxWidth: 460 }} />
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ display: "flex", gap: 4 }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#00ca72" }} />
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#fdab3d" }} />
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#e2445c" }} />
             </span>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,.72)", letterSpacing: ".01em" }}>{proof ?? t("booking-proof")}</span>
+            <span style={{ fontSize: 13, color: "var(--color-text-secondary)", letterSpacing: ".01em" }}>{proof ?? t("booking-proof")}</span>
           </div>
         </div>
 
         {/* No padding here — each step sets its own, because the Calendly
             step is flush to the card edge while the picker and form are inset.
             overflow:hidden keeps the flush iframe inside the rounded corners. */}
-        <div className="fr-booking-card" style={{ background: "#fff", borderRadius: 24, boxShadow: "0 34px 70px -26px rgba(4,12,40,.6)", overflow: "hidden", minHeight: 474 }}>
+        <div className="fr-booking-card" style={{ background: "var(--surface)", border: "1px solid var(--color-border)", borderRadius: 24, boxShadow: "var(--shadow-card)", overflow: "hidden", minHeight: 474 }}>
           {mode === "consultant" ? (
             <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} forceRegion={forceRegion} />
           ) : (

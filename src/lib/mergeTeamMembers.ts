@@ -82,6 +82,10 @@ function isPublishable(m: TeamMember): boolean {
  */
 export const REGION_PAGES_ONLY: Record<string, RegionSlug[]> = {
   "Josh Jebathilak": ["monday-partner-australia"],
+  // Josh, 3 Nov 2026: Chloe is Australia only. Her doc is tagged APAC + SG,
+  // and the Singapore and Philippines pages both read APAC, so `regions`
+  // alone put her on all three.
+  "Chloe Jebathilak": ["monday-partner-australia"],
 }
 
 const REGION_PAGES_ONLY_BY_NORM_NAME = new Map(
@@ -122,4 +126,87 @@ export function filterTeamForRegionPage(
     if (allowed === null) return true
     return pageSlug !== undefined && allowed.includes(pageSlug)
   })
+}
+
+/* ------------------------------------------------------------------ */
+/*  /fruition-team region tabs                                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Which /fruition-team tabs a person may appear in, overriding their Sanity
+ * `regions`. Same idea as REGION_PAGES_ONLY, for the other surface.
+ *
+ * Why it is separate and hardcoded: REGION_PAGES_ONLY only ever guarded the
+ * /monday-partner-* pages, so every past fix left the team page alone. Its tabs
+ * read raw `regions`, and several writers keep widening those: the SG/PH
+ * migration tagged Josh and Chloe SG (and Josh PH), Josh's doc carries every
+ * code on purpose, and `scripts/sync-roster-to-sanity.mjs`, the portal edit
+ * form and the monday re-seeds all rewrite the array. Nothing in Sanity can
+ * widen what is listed here.
+ *
+ * Tab codes are the page's `teamRegions[].code` values (APAC is the Australia
+ * tab).
+ */
+export const TEAM_TABS_ONLY: Record<string, string[]> = {
+  "Josh Jebathilak": ["APAC"],
+  "Chloe Jebathilak": ["APAC"],
+}
+
+/**
+ * Who leads each roster, in order, ahead of the role-based sort. Applies to the
+ * /fruition-team tab with that code and to the region page whose team reads
+ * that code. Someone listed here only moves up if they are already in the
+ * roster; this never adds anyone.
+ *
+ * Josh, 3 Nov 2026: Suzzane next to Josh for Australia, Kevin then Bruna for
+ * the UK, Zach then Valeria for the US.
+ */
+export const ROSTER_LEADS: Record<string, string[]> = {
+  APAC: ["Josh Jebathilak", "Suzzane Castro"],
+  UK: ["Kevin Zhao", "Bruna Alves"],
+  US: ["Zach Weller", "Valeria Marin"],
+}
+
+/**
+ * The ROSTER_LEADS list each region page uses. Keyed by page, not by the
+ * page's `teamRegion`, because Singapore and the Philippines read APAC too and
+ * should not take Australia's lead order.
+ */
+export const REGION_PAGE_LEADS: Partial<Record<RegionSlug, string>> = {
+  "monday-partner-australia": "APAC",
+  "monday-partner-uk": "UK",
+  "monday-partner-us": "US",
+}
+
+const TEAM_TABS_ONLY_BY_NORM_NAME = new Map(
+  Object.entries(TEAM_TABS_ONLY).map(([name, tabs]) => [normName(name), tabs]),
+)
+
+/** Members who belong in the /fruition-team tab `code`. */
+export function filterTeamForTab<T extends Pick<TeamMember, "name" | "regions">>(
+  members: T[],
+  code: string,
+): T[] {
+  return members.filter((m) => {
+    const pinned = TEAM_TABS_ONLY_BY_NORM_NAME.get(normName(m.name))
+    if (pinned) return pinned.includes(code)
+    return Array.isArray(m.regions) && m.regions.includes(code)
+  })
+}
+
+/**
+ * Sort comparator: the roster's leads first in their listed order, Edward last,
+ * everyone else by `fallback` (role seniority, then name).
+ */
+export function rosterOrder<T extends Pick<TeamMember, "name" | "role">>(
+  code: string | undefined,
+  fallback: (a: T, b: T) => number,
+): (a: T, b: T) => number {
+  const leads = (code && ROSTER_LEADS[code]) || []
+  const rank = (m: T) => {
+    const i = leads.findIndex((n) => normName(n) === normName(m.name))
+    if (i >= 0) return i - leads.length - 1
+    return normName(m.name) === "edward zhang" ? 1 : 0
+  }
+  return (a, b) => rank(a) - rank(b) || fallback(a, b)
 }

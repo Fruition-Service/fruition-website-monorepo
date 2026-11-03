@@ -26,9 +26,9 @@ const TEAM_REGIONS = [
 ]
 
 // Curated Singapore roster (exact Sanity teamMember names).
+// Not Josh or Chloe: both are Australia only (TEAM_TABS_ONLY in
+// src/lib/mergeTeamMembers.ts). Re-running this used to tag them SG and PH.
 const SG_NAMES = [
-  'Josh Jebathilak',
-  'Chloe Jebathilak',
   'Branson McMahon',
   'Nikhil Tiwari',
   'Nikki Glucksman',
@@ -41,7 +41,6 @@ const SG_NAMES = [
 // Existing Philippines roster (from monday-partner-philippines-team.ts,
 // mapped to exact Sanity names — 'Prince Posadas' not 'Prince Ericson Posadas').
 const PH_NAMES = [
-  'Josh Jebathilak',
   'Suzzane Castro',
   'Annica Galang',
   'Pierre Santos',

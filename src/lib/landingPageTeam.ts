@@ -43,6 +43,8 @@ const PHOTOS = {
     "https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop",
   valeria:
     "https://cdn.sanity.io/images/bt6nb58h/production/4179badfb046d5720f83fc8ed82e088cde8578bc-400x400.jpg?w=560&h=560&fit=crop",
+  thana:
+    "https://cdn.sanity.io/images/bt6nb58h/production/96a2d44d8ae1e2ebe56cd6105b72f6ffbafc0b6e-512x512.jpg?w=560&h=560&fit=crop",
 } as const
 
 const JOSH: LandingTeamMember = {
@@ -120,11 +122,12 @@ const SEA: LandingTeamMember[] = [
     bio: "Business automation specialist connecting monday.com with finance, document and messaging tools.",
     photo: PHOTOS.suzzane,
   },
+  // Not Josh: he appears on Australian rosters only (Josh, 3 Nov 2026).
   {
-    name: "Josh Jebathilak",
-    role: "Founder &amp; Managing Director",
-    bio: "Former monday.com sales leader who founded Fruition. Oversees every regional rollout.",
-    photo: PHOTOS.josh,
+    name: "Thana Witchawut",
+    role: "Principal Consultant",
+    bio: "Builds CRM and workflow operations that help growing teams scale, from strategy through implementation.",
+    photo: PHOTOS.thana,
   },
 ]
 

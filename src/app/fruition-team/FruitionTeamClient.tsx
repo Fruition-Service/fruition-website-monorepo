@@ -12,6 +12,7 @@ import StickyCtaConfig from "@/components/sections/StickyCtaContext"
 import type { PartnerBadge, SanityImageRef } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import CalendlySection from "@/components/sections/CalendlySection"
+import { filterTeamForTab, rosterOrder } from "@/lib/mergeTeamMembers"
 
 export interface TeamMember {
   _id: string
@@ -111,15 +112,11 @@ export default function FruitionTeamClient({
     const codes = hasTabs ? regions.map((r) => r.code) : ["APAC"]
     return codes.map((code) => ({
       code,
-      filteredMembers: members
-        .filter((m) => Array.isArray(m.regions) && m.regions.includes(code))
-        .sort((a, b) => {
-          if (a.name === "Josh Jebathilak") return -1
-          if (b.name === "Josh Jebathilak") return 1
-          if (a.name === "Edward Zhang") return 1
-          if (b.name === "Edward Zhang") return -1
-          return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
-        }),
+      // Placement rules live in src/lib/mergeTeamMembers.ts (TEAM_TABS_ONLY,
+      // ROSTER_LEADS), not here, so Sanity region tags cannot override them.
+      filteredMembers: filterTeamForTab(members, code).sort(
+        rosterOrder(code, (a, b) => roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)),
+      ),
     }))
   }, [members, regions, hasTabs])
 

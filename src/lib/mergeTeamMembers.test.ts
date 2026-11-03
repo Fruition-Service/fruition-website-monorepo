@@ -5,7 +5,11 @@ import type { TeamMember } from "@/components/TeamGridSection"
 import { REGION_PAGES } from "@/data/regionPages"
 import {
   REGION_PAGES_ONLY,
+  REGION_PAGE_LEADS,
+  ROSTER_LEADS,
   allowedRegionPages,
+  filterTeamForTab,
+  rosterOrder,
   filterTeamForRegionPage,
   mergeTeamMembers,
 } from "@/lib/mergeTeamMembers"
@@ -141,5 +145,57 @@ describe("region page flight payload", () => {
     const membersProp = source.match(/members=\{([^}]*)\}/)?.[1]
     expect(membersProp).toBeDefined()
     expect(membersProp).toContain("filterTeamForRegionPage")
+  })
+})
+
+describe("/fruition-team tab placement (Josh, 3 Nov 2026)", () => {
+  // Mirrors the live team-chloe doc, which the SG/PH migration tagged SG.
+  const CHLOE = member("Chloe Jebathilak", { role: "Director of Operations", regions: ["APAC", "SG"] })
+  const TABS = ["APAC", "UK", "US", "SG", "IN", "PH"]
+
+  it("keeps Josh and Chloe in the Australia (APAC) tab only, whatever Sanity tags them", () => {
+    const everywhere = ["APAC", "UK", "US", "IN", "SG", "PH"]
+    for (const person of [JOSH, { ...CHLOE, regions: everywhere }]) {
+      for (const tab of TABS) {
+        const shown = filterTeamForTab([person], tab).length === 1
+        expect(shown, `${person.name} in ${tab}`).toBe(tab === "APAC")
+      }
+    }
+  })
+
+  it("keeps Chloe off every region page but Australia", () => {
+    for (const slug of REGION_SLUGS) {
+      const shown = filterTeamForRegionPage([CHLOE], slug).length === 1
+      expect(shown, slug).toBe(slug === "monday-partner-australia")
+    }
+  })
+
+  it("still filters everyone else on their own regions", () => {
+    const kevin = member("Kevin Zhao", { regions: ["UK"] })
+    expect(filterTeamForTab([kevin], "UK")).toEqual([kevin])
+    expect(filterTeamForTab([kevin], "APAC")).toEqual([])
+  })
+
+  const byRole = (a: TeamMember, b: TeamMember) => a.name.localeCompare(b.name)
+
+  it("orders the named leads first in each roster", () => {
+    const sort = (code: string, names: string[]) =>
+      names.map((n) => member(n)).sort(rosterOrder(code, byRole)).map((m) => m.name)
+    expect(sort("APAC", ["Chloe Jebathilak", "Suzzane Castro", "Alex Twigger", "Josh Jebathilak"]).slice(0, 2))
+      .toEqual(["Josh Jebathilak", "Suzzane Castro"])
+    expect(sort("UK", ["Alex Bordei", "Bruna Alves", "Kevin Zhao"]).slice(0, 2)).toEqual(["Kevin Zhao", "Bruna Alves"])
+    expect(sort("US", ["Clarice Borges", "Valeria Marin", "Zach Weller"]).slice(0, 2)).toEqual(["Zach Weller", "Valeria Marin"])
+    expect(sort("SG", ["Edward Zhang", "Branson McMahon"])).toEqual(["Branson McMahon", "Edward Zhang"])
+  })
+
+  it("never adds a lead who is not already in the roster", () => {
+    const out = [member("Alex Bordei")].sort(rosterOrder("UK", byRole))
+    expect(out.map((m) => m.name)).toEqual(["Alex Bordei"])
+  })
+
+  it("gives Singapore and the Philippines no Australian lead order", () => {
+    expect(REGION_PAGE_LEADS["monday-partner-singapore"]).toBeUndefined()
+    expect(REGION_PAGE_LEADS["monday-partner-philippines"]).toBeUndefined()
+    expect(Object.values(REGION_PAGE_LEADS).every((code) => code && code in ROSTER_LEADS)).toBe(true)
   })
 })
