@@ -17,7 +17,10 @@ function normName(s?: string): string {
  * can be reverted by deleting this array in a single commit — remove the
  * entry once the person should show on the site again.
  */
-const TEMPORARILY_HIDDEN_NAMES: string[] = []
+const TEMPORARILY_HIDDEN_NAMES: string[] = [
+  // Josh, 3 Nov 2026: off every page.
+  "Benjie Belotindos",
+]
 
 /**
  * Filter Sanity team members against the optional site-level exclude
@@ -150,8 +153,6 @@ export function filterTeamForRegionPage(
 export const TEAM_TABS_ONLY: Record<string, string[]> = {
   "Josh Jebathilak": ["APAC"],
   "Chloe Jebathilak": ["APAC"],
-  // An empty list hides the person from every tab. Josh, 3 Nov 2026.
-  "Benjie Belotindos": [],
 }
 
 /**
