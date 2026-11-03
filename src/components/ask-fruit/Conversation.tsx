@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { FileText, Maximize2 } from "lucide-react"
+import { useEffect, useRef, useState, useSyncExternalStore } from "react"
+import { CalendarDays, FileText, Maximize2 } from "lucide-react"
+import { CalendlyEmbed } from "@/components/sections/BookingSection"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
 import { Composer, STARTERS } from "./Composer"
 import { Markdown } from "./Markdown"
@@ -94,6 +95,65 @@ function DocumentCard({ doc, onOpen }: { doc: BriefDocument; onOpen: () => void 
   )
 }
 
+/**
+ * Booking card shown once, after the first answer (Josh's 27 Oct list: "embed
+ * the Calendly booking component in the chat once the first result is
+ * generated"). Layout from Claude Design "Calculator Booking.dc.html": the
+ * calendar is open from tablet up and collapsed to "Pick a time" on mobile, so
+ * it never pushes the answer off a small screen. The calendar is the site's
+ * shared Calendly embed, which also moves the lead to Meeting Booked.
+ */
+const WIDE = "(min-width: 768px)"
+const readWide = () => window.matchMedia(WIDE).matches
+function subscribeWide(onChange: () => void) {
+  const mq = window.matchMedia(WIDE)
+  mq.addEventListener("change", onChange)
+  return () => mq.removeEventListener("change", onChange)
+}
+
+function BookingTurnCard() {
+  // Open from tablet up, collapsed on mobile, until the visitor toggles it.
+  const wide = useSyncExternalStore(subscribeWide, readWide, () => false)
+  const [choice, setChoice] = useState<boolean | null>(null)
+  const open = choice ?? wide
+  const setOpen = setChoice
+  return (
+    <div id="ask-book" className="scroll-mt-4 overflow-hidden rounded-chip border border-ui bg-surface-raised shadow-card">
+      <div className="flex flex-wrap items-center gap-3.5 p-4">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-chip bg-brand-soft text-brand">
+          <CalendarDays aria-hidden className="h-5 w-5" strokeWidth={1.8} />
+        </span>
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <p className="text-[15px] font-semibold text-ink">Talk this through with a consultant</p>
+          <p className="text-[13px] leading-snug text-muted">Free, 30 minutes with a Fruition consultant.</p>
+        </div>
+        {!open ? (
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="min-h-[44px] shrink-0 rounded-pill bg-brand px-4 text-[13px] font-semibold text-white transition-colors hover:bg-brand-dark"
+          >
+            Pick a time
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="min-h-[44px] shrink-0 px-1 text-[13px] font-medium text-muted transition-colors hover:text-brand"
+          >
+            Hide calendar
+          </button>
+        )}
+      </div>
+      {open ? (
+        <div className="border-t border-ui [&_.fr-calendly-host]:h-[660px] [&_.fr-calendly-host]:min-h-[640px] [&_.fr-calendly-host]:w-full [&_iframe]:block [&_iframe]:h-full [&_iframe]:w-full">
+          <CalendlyEmbed />
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 export function Conversation({
   evaluation,
   sending,
@@ -123,6 +183,10 @@ export function Conversation({
   // Briefs appear in the transcript after the reply of the turn that made them.
   const docsByTurn = new Map<number, BriefDocument[]>()
   const assistantIdx = evaluation.messages.map((m, i) => (m.role === "assistant" ? i : -1)).filter((i) => i >= 0)
+  // The booking card follows the first answer once it has finished streaming.
+  const firstAnswer = assistantIdx[0]
+  const showBooking =
+    firstAnswer != null && evaluation.messages[firstAnswer].status === "complete" && Boolean(evaluation.messages[firstAnswer].markdown)
   for (const doc of evaluation.documents) {
     const at = assistantIdx.find((i) => (evaluation.messages[i].created_at ?? "") >= doc.created_at) ?? assistantIdx[assistantIdx.length - 1]
     if (at == null) continue
@@ -159,6 +223,7 @@ export function Conversation({
                 {(docsByTurn.get(i) ?? []).map((doc) => (
                   <DocumentCard key={doc.doc_id} doc={doc} onOpen={() => onOpenBrief(doc)} />
                 ))}
+                {showBooking && i === firstAnswer ? <BookingTurnCard /> : null}
               </div>
             ),
           )}

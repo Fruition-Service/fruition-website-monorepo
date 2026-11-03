@@ -12,6 +12,14 @@ import { useAskFruit } from "./useAskFruit"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 const BOOKING_URL = "/contact-us#book"
+
+/** "Book a call" goes to the in-chat booking card when the conversation has one, else to /contact-us. */
+function toBookingCard(e: React.MouseEvent<HTMLAnchorElement>) {
+  const card = document.getElementById("ask-book")
+  if (!card) return
+  e.preventDefault()
+  card.scrollIntoView({ behavior: "smooth", block: "start" })
+}
 /**
  * A compact booking button sized for the 56px app header. The site's
  * `.cta-btn` is fixed at 53px tall, which filled the header edge to edge.
@@ -106,7 +114,7 @@ function ConversationList({
         )}
       </nav>
       <div className="border-t border-ui p-3 lg:hidden">
-        <a href={BOOKING_URL} className={`${BOOK_BUTTON} flex w-full`}>
+        <a href={BOOKING_URL} onClick={toBookingCard} className={`${BOOK_BUTTON} flex w-full`}>
           Book a call with a consultant
         </a>
       </div>
@@ -293,7 +301,7 @@ export default function AskFruitWorkspace() {
             {active?.matches.length ? `Results ${active.matches.length}` : "Results"}
           </button>
         ) : null}
-        <a href={BOOKING_URL} className={`${BOOK_BUTTON} hidden md:inline-flex`}>
+        <a href={BOOKING_URL} onClick={toBookingCard} className={`${BOOK_BUTTON} hidden md:inline-flex`}>
           Book a call
         </a>
       </header>
