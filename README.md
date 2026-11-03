@@ -116,6 +116,5 @@ docs/               architecture, hosting and topic notes; docs/archive is histo
 | Repo | Relationship |
 |---|---|
 | `marketa-monorepo` (private, Vercel) | The AI blog and outbound pipeline. Publishes blog posts into the same Sanity dataset and shares the portal Supabase `portal_drafts` table. Read [docs/architecture.md §9](docs/architecture.md#9-marketa-contracts) before changing blog schemas or the portal blog editor |
-| `senzo-website-monorepo` | Sister site (senzo.com.au) on the same stack, without CMS |
 | `oglabs-website-monorepo` | Sister site (oglabs.io), being rebuilt on the same stack |
 | `ile-regional-linker`, `supabase-keepalive` | Small Cloudflare Workers around the lead pipeline and Supabase free tier |
