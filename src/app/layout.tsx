@@ -444,7 +444,7 @@ export default async function RootLayout({
               cookie={<CookieNotice key="site-cookie" />}
               stickyCtaHeading={siteSettings?.stickyCtaHeading || undefined}
               stickyCtaDefaults={{
-                label: siteSettings?.stickyCtaLabel || "Book a Free Consultation",
+                label: siteSettings?.stickyCtaLabel || "Explore Your Options",
                 mobileLabel: siteSettings?.stickyCtaMobileLabel || undefined,
                 href: bookingHref(
                   siteSettings?.stickyCtaUrl || siteSettings?.calendlyLink,
