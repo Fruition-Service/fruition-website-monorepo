@@ -89,7 +89,7 @@ export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
 
   if (status === "done") {
     return (
-      <div className="rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8" role="status">
+      <div className="rounded-card border border-ui bg-surface-raised p-6 shadow-form md:p-8" role="status">
         <h3 className="text-card-title text-body">{copy.thanksHeading}</h3>
         <p className="text-body-sm mt-3 text-muted">{copy.thanks}</p>
       </div>
@@ -101,7 +101,7 @@ export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
       id="lead"
       ref={formRef}
       onSubmit={onSubmit}
-      className="rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8"
+      className="rounded-card border border-ui bg-surface-raised p-6 shadow-form md:p-8"
       toolname="book_monday_implementation_audit"
       tooldescription="Request a free 30-minute system audit from Fruition Services for monday.com, Atlassian, HubSpot, AI or automation work. Requires name, company and work email; what you need help with, industry, region and the process to fix are optional. Fruition replies within one business day."
     >

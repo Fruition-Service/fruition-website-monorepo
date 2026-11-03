@@ -40,6 +40,7 @@ const TOKENS = `
 --shadow-whisper:0 4px 24px rgba(0,0,0,.03);
 --shadow-lift:0 12px 30px rgba(0,0,0,.06);
 --shadow-float:0 24px 60px rgba(16,0,58,.10);
+--shadow-form:0 22px 48px -18px rgba(128,21,232,.32),0 4px 18px rgba(128,21,232,.1);
 --cta-glow:0 6px 20px rgba(30,64,175,.25);
 }`
 
@@ -102,7 +103,7 @@ h1 em{font-style:normal;color:var(--brand)}
 .badge{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--ui);border-radius:8px;padding:7px 11px}
 
 /* Lead form card */
-.formcard{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;box-shadow:var(--shadow-float);padding:36px 32px}
+.formcard{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;box-shadow:var(--shadow-form);padding:36px 32px}
 .formcard h2{font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:var(--fg);margin-bottom:6px}
 .formcard .fsub{font-size:14px;color:var(--muted);margin-bottom:12px}
 .formcard label{display:block;font-size:13px;font-weight:500;color:var(--fg);margin:14px 0 6px}
@@ -298,7 +299,7 @@ ${BASE}
 h1{font-size:clamp(32px,4.6vw,52px);font-weight:600;line-height:1.16;letter-spacing:-.02em;color:var(--fg);margin-bottom:24px}
 h1 em{font-style:normal;color:var(--brand)}
 .sub{font-size:clamp(17px,1.5vw,18px);line-height:1.5;color:var(--muted);margin-bottom:32px;max-width:560px}
-.hero-form{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;padding:20px;box-shadow:var(--shadow-float);max-width:520px}
+.hero-form{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;padding:20px;box-shadow:var(--shadow-form);max-width:520px}
 .hf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .hero-form input,.ff input,.ff textarea{width:100%;padding:12px 14px;font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--ui);border-radius:12px;transition:border-color .15s,box-shadow .15s}
 .hero-form input:focus,.ff input:focus,.ff textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(128,21,232,.08)}
