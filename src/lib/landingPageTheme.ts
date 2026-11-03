@@ -170,6 +170,14 @@ h2.sec,.final h2{font-size:clamp(28px,3.6vw,44px);font-weight:600;line-height:1.
 .member .avatar{background:var(--brand-soft);color:var(--brand);font-size:28px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .member .role{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:0 0 12px}
 .member p{font-size:14px;line-height:1.6;color:var(--muted)}
+.team[data-split]+.crew{margin-top:24px}
+.crew{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.crew .member{padding:20px;text-align:left;display:flex;align-items:flex-start;gap:16px}
+.crew .member.nobio{align-items:center}
+.crew .member img,.crew .member .avatar{width:56px;height:56px;margin:0;flex:none;box-shadow:0 0 0 3px var(--brand-soft)}
+.crew .member h3{font-size:17px;margin-bottom:4px}
+.crew .member .role{font-size:11.5px;letter-spacing:.08em;margin:0}
+.crew .member p{font-size:13.5px;line-height:1.55;margin-top:4px}
 
 /* Fixed-price packages (SEA partner page): three cards, the featured one ringed in brand */
 .pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -227,6 +235,9 @@ footer a:hover{color:#fff}
 .hero{padding:56px 0 64px}
 .hero .wrap,.final .inner{grid-template-columns:1fr;gap:40px}
 .grid3,.team,.steps,.ratings{grid-template-columns:repeat(2,1fr)}
+.team[data-split]{grid-template-columns:repeat(3,1fr)}
+.team[data-split] .member{padding:28px 20px}
+.crew{grid-template-columns:repeat(2,1fr)}
 .pkgs{grid-template-columns:1fr;max-width:560px}
 .stats .grid4{grid-template-columns:repeat(2,1fr);row-gap:40px}
 .stats .grid4>div:nth-child(3){border-left:0;padding-left:0}
@@ -241,6 +252,10 @@ body{padding-bottom:68px}
 .hero{padding:40px 0 48px}
 .eyebrow{font-size:12px;margin-bottom:20px}
 .grid3,.team,.steps,.quotes{grid-template-columns:1fr}
+.team[data-split]{grid-template-columns:1fr}
+.team[data-split] .member{display:flex;align-items:flex-start;gap:16px;padding:20px;text-align:left}
+.team[data-split] .member img{width:64px;height:64px;margin:0;flex:none}
+.crew{grid-template-columns:1fr}
 .formcard{padding:28px 20px;border-radius:20px}
 .card,.step,.quote,.pkg{padding:26px 22px}
 .stats .grid4>div{padding:0 16px}

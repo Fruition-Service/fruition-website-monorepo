@@ -188,14 +188,21 @@ Calendly embed &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand tea
 <section class="alt">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
+<h2 class="sec">Work directly with certified monday.com partner consultants</h2>
 <p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
 
-<div class="team">
+<div class="team" data-split>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&w=560&h=560&fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Founder &amp; Managing Director</div><p>Ex-monday.com, personally oversaw system builds for hundreds of organisations before founding Fruition.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&h=560&fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/56b7495c43a5904dc35ac1955f21b6b6461ee780-1000x1000.jpg?w=560&h=560&fit=crop" alt="Suzzane Castro" loading="lazy"><h3>Suzzane Castro</h3><div class="role">Regional Delivery Manager</div><p>Business automation specialist connecting monday.com with Xero, PandaDoc and Slack.</p></div>
-<div class="member"><img src="/images/team-saym-barnham.jpg" alt="Saym Barnham" loading="lazy"><h3>Saym Barnham</h3><div class="role">Project Manager</div><p>Saym is a Project Manager with a passion for solving complex business challenges through technology, process optimisation, and intelligent workflow design. Drawing on experience in digital transformation, enterprise PMO, and operational improvement, she helps organisations turn business requirements into scalable, user-focused solutions.</p></div>
+</div>
+<div class="crew">
+<div class="member"><img src="/images/team-saym-barnham.jpg" alt="Saym Barnham" loading="lazy"><div><h3>Saym Barnham</h3><div class="role">Project Manager</div><p>Saym is a Project Manager with a passion for solving complex business challenges through technology, process optimisation, and intelligent workflow design. Drawing on experience in digital transformation, enterprise PMO, and operational improvement, she helps organisations turn business requirements into scalable, user-focused solutions.</p></div></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/54c16cd7f1656cedb43a3c4e2d718c56e12f2bec-800x800.jpg?w=160&h=160&fit=crop" alt="Branson McMahon" loading="lazy"><div><h3>Branson McMahon</h3><div class="role">Sales Engineer &amp; Project Manager</div><p>Fruition Sales Engineer certified in monday.com with a background in Mechanical Engineering and a keen ability to translate the technical to tangible.</p></div></div>
+<div class="member nobio"><img src="https://cdn.sanity.io/images/bt6nb58h/production/89d040828aded6cad69aaca8c3ce1150b9eeb99a-512x512.png?w=160&h=160&fit=crop" alt="Sarah Wealleans" loading="lazy"><div><h3>Sarah Wealleans</h3><div class="role">Project Manager</div></div></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/1f2c1d402ceab512fc2432a58001cc618fff1fd2-800x800.jpg?w=160&h=160&fit=crop" alt="Benjie Belotindos" loading="lazy"><div><h3>Benjie Belotindos</h3><div class="role">Implementation Consultant</div><p>With 15+ years in digital marketing, Benjie has seen the industry evolve from the ground up and grown with every shift.</p></div></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cc02d63a1ea1c2ac3897a22476aa8e2de180ccb8-800x800.jpg?w=160&h=160&fit=crop" alt="Yash Khowal" loading="lazy"><div><h3>Yash Khowal</h3><div class="role">AI Engineer</div><p>With a background spanning AI engineering, cloud infrastructure, and full-stack development, he turns complex technical challenges into scalable, production-ready systems.</p></div></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/2aefabc1f0c902bf2e43a94d3e7060205bd14158-800x800.jpg?w=160&h=160&fit=crop" alt="Prakriti Chaubey" loading="lazy"><div><h3>Prakriti Chaubey</h3><div class="role">Associate Automation Consultant</div><p>monday.com Partner, Make.com Level-4 certified, AI/ML developer. Prakriti focuses on AI automation, Generative AI, and LLM-powered workflows for Fruition clients.</p></div></div>
 
 </div>
 </div>
