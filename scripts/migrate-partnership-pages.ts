@@ -1,7 +1,6 @@
 import { writeClient } from './sanity-client'
 
 const CALENDLY_DEFAULT = 'https://calendly.com/global-calendar-fruitionservices'
-const CALENDLY_SENZO = 'https://calendly.com/dbidny-senzo/30min'
 
 const imageCache = new Map<string, any>()
 
@@ -1248,7 +1247,7 @@ const pages: PartnerPage[] = [
   },
 
   // ──────────────────────────────────────────────────────────────────
-  // Atlassian (co-branded with Senzo)
+  // Atlassian
   // ──────────────────────────────────────────────────────────────────
   {
     slug: 'certified-atlassian-partner',
@@ -1258,14 +1257,14 @@ const pages: PartnerPage[] = [
     heroImageUrl: 'https://static.wixstatic.com/media/a280a5_e037355191fb41678315271590aac78b~mv2.png',
     heroHeading: 'Atlassian Certified Partner',
     heroSubheading:
-      'Transform your business with seamless Atlassian integration. Automate enterprise workflows and implement powerful API integrations with our certified Atlassian solutions in collaboration with Senzo.',
+      'Transform your business with seamless Atlassian integration. Automate enterprise workflows and implement powerful API integrations with our certified Atlassian solutions.',
     primaryCtaLabel: '🚀 Book a Meeting',
-    primaryCtaUrl: CALENDLY_SENZO,
+    primaryCtaUrl: CALENDLY_DEFAULT,
     secondaryCtaLabel: '📑 See Our Process',
     secondaryCtaUrl: '#our-process',
-    seoTitle: 'Certified Atlassian Partner | Jira, Confluence, ROVO | Fruition x Senzo',
+    seoTitle: 'Certified Atlassian Partner | Jira, Confluence, ROVO | Fruition',
     seoDescription:
-      "Certified Atlassian partner — Jira, Confluence, JSM, ROVO and Atlassian Cloud migration delivered by Fruition in partnership with Senzo, an Atlassian Gold Solution Partner.",
+      "Certified Atlassian partner: Jira, Confluence, JSM, ROVO and Atlassian Cloud migration delivered by Fruition.",
     capabilitiesHeading: 'Accelerate Your Enterprise with Atlassian',
     capabilitiesCards: [
       { emoji: '🤖', title: '#1 in ROVO', description: 'As former Atlassian team members, we build out ROVO AI agents with clear ROI — virtual service management agents, Jira chat support, and search across Confluence and Jira.' },
@@ -1360,7 +1359,7 @@ const pages: PartnerPage[] = [
         body:
           "We stick with you, offering proactive online training (leveraging free Atlassian University resources) and personalised support for your admins and power users. Need help with the details? We've got you covered.",
         ctaLabel: '🚀 Book a Meeting',
-        ctaUrl: CALENDLY_SENZO,
+        ctaUrl: CALENDLY_DEFAULT,
       },
     ],
     calendlyHeading: 'Schedule a personalised Atlassian consult',

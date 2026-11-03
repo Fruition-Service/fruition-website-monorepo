@@ -16,7 +16,7 @@ interface Props {
 /**
  * Homepage client strip, directly under the hero: one self-scrolling row of
  * logos in place of the old 5×5 wall (Josh, 27 Oct 2026: "it saves the real
- * estate", after the Senzo hero strip), so "What we do" sits right below it.
+ * estate"), so "What we do" sits right below it.
  *
  * Same source and rules as before: the first 24 usable entries in
  * `siteSettings.carouselLogos` (reorder in Studio to change who leads), run

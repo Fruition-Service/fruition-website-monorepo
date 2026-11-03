@@ -222,7 +222,7 @@ ${LP_FONTS}
 <p class="lede">We are certified by the platforms we implement, and the results below come from steps one to three, the foundations every AI project stands on.</p>
 <ul class="ticks">
 <li><strong>AI</strong> · Anthropic partner · OpenAI partner</li>
-<li><strong>Work management</strong> · monday.com Platinum partner · Atlassian Platinum partner (Senzo)</li>
+<li><strong>Work management</strong> · monday.com Platinum partner · Atlassian partner</li>
 <li><strong>CRM</strong> · HubSpot partner (Orange Growth Labs) · monday CRM specialists</li>
 <li><strong>Recognition</strong> · 2026 Australian AI Awards finalist · 2026 Rising Star, monday.com and Atlassian</li>
 </ul>

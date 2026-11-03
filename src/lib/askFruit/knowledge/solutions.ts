@@ -682,7 +682,7 @@ export const SOLUTIONS: Solution[] = [
       highlights: [['Scope','Security uplift'],['Users','Ops leaders, CTOs, Compliance'],['Strength','SOC 2 aligned']],
       mermaid: 'flowchart LR\n A[Posture Audit]-->B[Gap Analysis]\n B-->C[Uplift Plan]\n C-->D[Controls Deployed]\n D-->E[Evidence Collection]\n E-->F[Ongoing Monitoring]',
       cap: 'Audit to ongoing monitoring, with evidence collection built in.',
-      useCases: [['Fruition Internal','Our own SOC 2 aligned uplift program.'],['Senzo','Partner organization security uplift.'],['Client retainers','Active across US, APAC, and UK.']] },
+      useCases: [['Fruition Internal','Our own SOC 2 aligned uplift program.'],['Client retainers','Active across US, APAC, and UK.']] },
 
     { key: 'marketing-agent', tag: 'New in 2026', productType: 'new', industries: ['agency','platform','australia','apac','uk'],
       title: 'Marketing Agent',

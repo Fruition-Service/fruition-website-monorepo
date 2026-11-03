@@ -306,7 +306,7 @@ export const HERO = {
   /** Credential tiles: "Practice · status". The text before " · " is the tile title. */
   chips: [
     "monday.com · Platinum Partner",
-    "Atlassian · Platinum Partner (Senzo)",
+    "Atlassian · Partner",
     "HubSpot · Partner",
     "AI · OpenAI & Anthropic partner",
     "Automation · Make & n8n partner",
@@ -342,7 +342,7 @@ export const LOGOS = [
 export const AT_A_GLANCE: Array<[string, string]> = [
   ["Company", "Fruition Services"],
   ["monday.com status", "monday.com Platinum Partner"],
-  ["Other partnerships", "Atlassian Platinum Partner (Senzo) · OpenAI partner · Anthropic Claude partner"],
+  ["Other partnerships", "Atlassian partner · OpenAI partner · Anthropic Claude partner"],
   ["Recognition", "2026 Rising Star awards · Finalist, 2026 Australian AI Awards · NSW Government ICT Services Scheme (SCM0020, Advanced)"],
   ["Clients", "900+ small and mid-sized organisations"],
   ["Implementation packages", PACKAGES.map((p) => `${p.name} (from ${usd(p.basePriceUsd)} ${p.cadence})`).join(" · ")],
@@ -393,7 +393,7 @@ export const WHY = {
     { title: "Process before platform", body: "We map and agree the process before we build. It's why our implementations get adopted instead of abandoned after the first month." },
     { title: "monday.com insiders", body: "Fruition was founded by Josh Jebathilak after about six years in sales leadership at monday.com, and is a monday.com Platinum Partner." },
     { title: "Your time zone, not ours", body: "Consultants working in Sydney, Singapore, India, London and New York hours, with pricing for each region." },
-    { title: "More than monday.com", body: "Our group includes an Atlassian Platinum Partner (Senzo) and a HubSpot practice, and we're OpenAI and Anthropic partners for monday AI and agent work." },
+    { title: "More than monday.com", body: "We're also an Atlassian partner with a HubSpot practice, and we're OpenAI and Anthropic partners for monday AI and agent work." },
   ],
 }
 

@@ -297,7 +297,7 @@
 }
 
 /* ============================================================ */
-/* Page layout primitives (Oct 2026 theme, after senzo.com.au)  */
+/* Page layout primitives (Oct 2026 theme)                       */
 /* One container and one vertical rhythm for every shared       */
 /* section, so pages line up edge to edge instead of each       */
 /* section picking its own max-width and padding.               */
@@ -1466,7 +1466,7 @@ body {
   /* ============================================================ */
   /* Client logo carousel (home/ClientLogoCarousel, all widths).   */
   /* The homepage's compact proof strip directly under the hero,   */
-  /* after the Senzo hero strip: one row of logos sliding at a     */
+  /* one row of logos sliding at a                                */
   /* steady pace per logo (--count is set on the track), feathered */
   /* at both ends. Same loop mechanics as the band above: two      */
   /* copies, slide by half, pause under a pointer or keyboard      */

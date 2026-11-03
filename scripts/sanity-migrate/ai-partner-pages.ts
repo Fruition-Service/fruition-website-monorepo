@@ -176,7 +176,6 @@ const anthropic = {
     'monday.com Platinum Partner',
     'Rising Star Award 2026',
     'Anthropic Claude Practice Lead',
-    'Atlassian Gold (via Senzo)',
     '3 entities · AU / UK / US',
   ],
 
