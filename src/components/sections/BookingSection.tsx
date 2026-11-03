@@ -1141,7 +1141,7 @@ export default function BookingSection({
         {/* No padding here — each step sets its own, because the Calendly
             step is flush to the card edge while the picker and form are inset.
             overflow:hidden keeps the flush iframe inside the rounded corners. */}
-        <div className="fr-booking-card" style={{ background: "var(--surface)", border: "1px solid var(--color-border)", borderRadius: 24, boxShadow: "var(--shadow-card)", overflow: "hidden", minHeight: 474 }}>
+        <div className="fr-booking-card" style={{ background: "var(--surface)", border: "1px solid var(--color-border)", borderRadius: 24, boxShadow: "var(--shadow-form)", overflow: "hidden", minHeight: 474 }}>
           {mode === "consultant" ? (
             <BookingCard duration={duration} askTeamSize={askTeamSize} calendlyUrl={calendlyUrl} forceRegion={forceRegion} />
           ) : (

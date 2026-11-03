@@ -86,6 +86,8 @@
   --shadow-whisper: 0 4px 24px rgba(0, 0, 0, 0.03);
   --shadow-micro: 0 1px 4px rgba(16, 24, 40, 0.04);
   --shadow-card: 0px 1px 12px 0px rgba(16, 24, 40, 0.06);
+  /* Lead and booking form cards: a soft brand-purple lift so the form pops */
+  --shadow-form: 0 22px 48px -18px rgba(128, 21, 232, 0.32), 0 4px 18px rgba(128, 21, 232, 0.1);
 }
 
 @theme inline {
@@ -151,10 +153,11 @@
   --radius-badge: var(--radius-badge);
   --radius-chip: var(--radius-chip);
 
-  /* Shadow tokens → shadow-whisper, shadow-micro, shadow-card */
+  /* Shadow tokens → shadow-whisper, shadow-micro, shadow-card, shadow-form */
   --shadow-whisper: var(--shadow-whisper);
   --shadow-micro: var(--shadow-micro);
   --shadow-card: var(--shadow-card);
+  --shadow-form: var(--shadow-form);
 }
 
 @layer base {

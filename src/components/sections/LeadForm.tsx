@@ -113,7 +113,7 @@ export default function LeadForm({
 
   const card = (
       <div
-        className={`rounded-card bg-surface-raised border border-brand-soft shadow-[0_24px_48px_-32px_rgba(64,12,140,0.28)] dark:shadow-none dark:border dark:border-ui ${
+        className={`rounded-card bg-surface-raised border border-brand-soft shadow-form dark:shadow-none dark:border dark:border-ui ${
           variant === "card" ? "w-full p-6 md:p-8" : "mx-auto max-w-[620px] p-8"
         }`}
       >
