@@ -169,13 +169,14 @@ export default function MondayCrmConsultingContent({
             )}
           </div>
 
-          {/* Hero image - full height, no cropping */}
+          {/* Hero image, whole and uncropped. 720px cap per Claude Design "Monday Imagery.dc.html"
+              (16:9 monday.com press shots, Nov 2026). */}
           {heroImageSrc && (
-            <div className="w-full max-w-[1042px] mt-10">
+            <div className="w-full max-w-[720px] mt-10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={heroImageSrc}
-                alt="Hero"
+                alt={page.heroImage?.alt || "monday CRM deals pipeline"}
                 className="rounded-card w-full h-auto"
               />
             </div>
