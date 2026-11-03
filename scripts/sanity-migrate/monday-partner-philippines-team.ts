@@ -13,7 +13,6 @@ const TEAM_MEMBER_NAMES = [
   'Annica Galang',
   'Pierre Santos',
   'Ronelyn Tabuena',
-  'Benjie Belotindos',
   'Julia Maningas',
   'Prince Ericson Posadas',
   'Nikki Glucksman',

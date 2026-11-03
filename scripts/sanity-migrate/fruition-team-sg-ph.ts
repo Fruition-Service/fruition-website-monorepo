@@ -45,7 +45,6 @@ const PH_NAMES = [
   'Annica Galang',
   'Pierre Santos',
   'Ronelyn Tabuena',
-  'Benjie Belotindos',
   'Julia Maningas',
   'Prince Posadas',
   'Nikki Glucksman',

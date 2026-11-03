@@ -170,9 +170,9 @@ describe("/fruition-team tab placement (Josh, 3 Nov 2026)", () => {
     }
   })
 
-  it("hides Benjie from every tab", () => {
-    const benjie = member("Benjie Belotindos", { regions: ["APAC", "PH"] })
-    for (const tab of TABS) expect(filterTeamForTab([benjie], tab), tab).toEqual([])
+  it("hides Benjie from every team grid", () => {
+    const benjie = member("Benjie Belotindos", { role: "Consultant", photoUrl: "/b.jpg", regions: ["APAC", "PH"] })
+    expect(mergeTeamMembers([benjie])).toEqual([])
   })
 
   it("still filters everyone else on their own regions", () => {
