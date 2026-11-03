@@ -24,19 +24,6 @@ export const SERVICES: ServiceCard[] = [
   { icon: "crosshair", titleSlot: "services-6-title", bodySlot: "services-6-body", href: "/implementation-packages" },
 ]
 
-export interface StatCard {
-  icon: "check" | "globe" | "clock" | "trophy"
-  valueSlot: HomeCopySlot
-  labelSlot: HomeCopySlot
-}
-
-export const STATS: StatCard[] = [
-  { icon: "check", valueSlot: "stats-1-value", labelSlot: "stats-1-label" },
-  { icon: "globe", valueSlot: "stats-2-value", labelSlot: "stats-2-label" },
-  { icon: "clock", valueSlot: "stats-3-value", labelSlot: "stats-3-label" },
-  { icon: "trophy", valueSlot: "stats-4-value", labelSlot: "stats-4-label" },
-]
-
 /**
  * The four delivery phases. `from`/`to` are week numbers on the 12-week
  * timeline and drive both the gantt bars and the step highlight.

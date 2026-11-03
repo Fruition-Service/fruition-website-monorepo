@@ -1348,9 +1348,6 @@ body {
 @keyframes fruRing { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.75); opacity: 0; } }
 @keyframes fruDash { to { stroke-dashoffset: -120; } }
 
-/* Testimonials: two columns rolling in opposite directions */
-@keyframes fruQuoteRoll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-
 /* Industries: energy travelling from each board down into the hub */
 @keyframes fruEnergy0 {
   0% { left: 12.5%; top: -4px; opacity: 0; } 10% { opacity: 1; }
@@ -1396,11 +1393,6 @@ body {
   transform: translateY(26px);
 }
 
-/* Pause the testimonial columns while the reader is hovering a card. */
-.home-quote-track:hover > * {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .home-reveal,
   .home-reveal[data-hidden="true"] {
@@ -1408,8 +1400,7 @@ body {
     transform: none;
     transition: none;
   }
-  [class*="home-anim"],
-  .home-quote-track > * {
+  [class*="home-anim"] {
     animation: none !important;
   }
 }

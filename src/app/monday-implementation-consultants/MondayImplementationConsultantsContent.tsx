@@ -270,7 +270,7 @@ export default function MondayImplementationConsultantsContent({
     .filter((x: ResolvedImage | null): x is ResolvedImage => x !== null)
   const heroPartnerBadges = sanityPartnerBadges.length > 0 ? sanityPartnerBadges : navPartnerBadges
   const heroMondayPartnersImageSrc = imageUrl(data?.heroMondayPartnersImage)
-  const heroDashboardImageSrc = imageUrl(data?.heroImage) || "/images/hero-monday-dashboards.avif"
+  const heroDashboardImageSrc = imageUrl(data?.heroImage) || "/images/hero-monday-board.jpg"
   const heroProductImages: ResolvedImage[] = (data?.heroProductImages ?? [])
     .map((b, i): ResolvedImage | null => {
       const src = imageUrl(b.image)
@@ -439,16 +439,18 @@ export default function MondayImplementationConsultantsContent({
                 className="w-[381px] max-w-full h-auto object-contain"
               />
 
-              {/* Hero dashboard image, capped at half its natural width */}
+              {/* Hero product shot: one full-resolution monday.com board in a
+                  card, replacing the cramped three-screen collage. Kept at the
+                  same 521px cap, so the 2080px source stays sharp on 2x screens. */}
               {heroDashboardImageSrc && (
-                <div className="w-full max-w-[521px]">
+                <div className="w-full max-w-[521px] overflow-hidden rounded-card border border-lilac bg-surface-raised shadow-whisper">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={heroDashboardImageSrc}
-                    alt="monday.com dashboards"
-                    width={1042}
-                    height={312}
-                    className="rounded-card object-contain bg-surface-raised w-full h-auto aspect-[1042/312]"
+                    alt="A monday.com work management board"
+                    width={2080}
+                    height={1180}
+                    className="block h-auto w-full"
                   />
                 </div>
               )}

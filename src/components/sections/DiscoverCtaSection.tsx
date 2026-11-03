@@ -22,7 +22,9 @@ export default function DiscoverCtaSection({
 }: DiscoverCtaSectionProps) {
   const badgeSrc = badge?.asset?._ref
     ? (() => {
-        try { return urlFor(badge).width(325).height(73).url() } catch { return null }
+        // 2x the display width and never cropped, so the strip stays sharp on
+        // retina screens whatever its aspect ratio.
+        try { return urlFor(badge).width(650).fit("max").auto("format").url() } catch { return null }
       })()
     : null
 

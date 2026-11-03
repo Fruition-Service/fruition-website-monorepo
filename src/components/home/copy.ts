@@ -61,18 +61,6 @@ export const HOME_COPY = {
   "testimonials-intro": { label: "Client proof: intro", text: "Operations and IT leaders on what changed after we mapped the process first." },
   "testimonials-cta": { label: "Client proof: button", text: "Book a call" },
 
-  // Stats
-  "stats-eyebrow": { label: "By the numbers: eyebrow", text: "By the numbers" },
-  "stats-heading": { label: "By the numbers: heading", text: "Platinum tier, earned in under two years." },
-  "stats-1-value": { label: "By the numbers: tile 1 figure", text: "900+" },
-  "stats-1-label": { label: "By the numbers: tile 1 label", text: "implementations delivered" },
-  "stats-2-value": { label: "By the numbers: tile 2 figure", text: "6" },
-  "stats-2-label": { label: "By the numbers: tile 2 label", text: "markets · 3 entities" },
-  "stats-3-value": { label: "By the numbers: tile 3 figure", text: "<24m" },
-  "stats-3-label": { label: "By the numbers: tile 3 label", text: "Authorised → Platinum" },
-  "stats-4-value": { label: "By the numbers: tile 4 figure", text: "2026" },
-  "stats-4-label": { label: "By the numbers: tile 4 label", text: "Rising Star winner" },
-
   // Method
   "method-eyebrow": { label: "Method: eyebrow", text: "The Fruition method" },
   "method-heading": { label: "Method: heading", text: "Process before platform." },
