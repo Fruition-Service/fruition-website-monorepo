@@ -6,6 +6,8 @@ import ClosingCtaSection from "@/components/sections/ClosingCtaSection"
 import FaqAccordion from "@/components/sections/FaqAccordion"
 import AuditLeadForm from "./AuditLeadForm"
 import PackagesSection from "./PackagesSection"
+import ServicesCarousel from "./ServicesCarousel"
+import { Award, Kanban, LayoutGrid, Sparkles, Users, Workflow } from "lucide-react"
 import { LOGOS, PHONE_HREF, aud, groupFrom, usd, type PageContent } from "./content"
 
 /**
@@ -35,9 +37,12 @@ function Intro({ eyebrow, heading, lead, center = false }: { eyebrow: string; he
   )
 }
 
+/** Icons for hero.chips, in order: monday.com, Atlassian, HubSpot, AI, automation, awards. */
+const CREDENTIAL_ICONS = [LayoutGrid, Kanban, Users, Sparkles, Workflow, Award]
+
 function Tick() {
   return (
-    <svg aria-hidden viewBox="0 0 20 20" className="mt-[3px] h-4 w-4 shrink-0 text-brand" fill="none" stroke="currentColor" strokeWidth="2.2">
+    <svg aria-hidden viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-brand" fill="none" stroke="currentColor" strokeWidth="2.2">
       <path d="M4 10.5l4 4 8-9" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
@@ -52,9 +57,8 @@ export default function ImplementationPackagesContent({
 }) {
   const jumpLinks = [
     { href: "#packages", label: "monday.com packages" },
-    ...c.servicePrices.map((g) => ({ href: `#${g.id}`, label: g.eyebrow })),
+    { href: "#services", label: "AI, Atlassian, HubSpot & automation" },
     { href: "#licences", label: "Licences" },
-    { href: "#faq", label: "FAQ" },
   ]
   return (
     <div>
@@ -70,40 +74,44 @@ export default function ImplementationPackagesContent({
               <span className="text-brand">{c.hero.h1Accent}</span>
               {c.hero.h1After}
             </h1>
-            <p className="answer text-body-lead mt-6 text-body">{c.hero.answer}</p>
-            <p className="text-body mt-4 text-muted">{c.hero.lead}</p>
-            <ul className="mt-6 flex flex-col gap-3">
+            <p className="answer text-body-lead mt-6 text-muted">{c.hero.answer}</p>
+            {/* Credential tiles: every practice, not just monday.com (Nikki's 3 Nov 2026 review) */}
+            <ul className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-3" aria-label="Partnerships and recognition">
+              {c.hero.chips.map((chip, i) => {
+                const [title, ...rest] = chip.split(" · ")
+                const Icon = CREDENTIAL_ICONS[i % CREDENTIAL_ICONS.length]
+                return (
+                  <li key={chip} className="flex min-w-0 items-center gap-3 rounded-chip border border-ui bg-surface-raised p-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-chip bg-brand-soft text-brand">
+                      <Icon aria-hidden className="h-5 w-5" strokeWidth={1.8} />
+                    </span>
+                    <span className="flex min-w-0 flex-col">
+                      <span className="text-body-sm font-semibold text-body">{title}</span>
+                      {rest.length > 0 && <span className="text-caption text-muted">{rest.join(" · ")}</span>}
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
+            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
               {c.hero.bullets.map((b) => (
-                <li key={b} className="text-body flex gap-3 text-body">
+                <li key={b} className="text-body-sm flex items-center gap-1.5 text-muted">
                   <Tick />
                   <span>{b}</span>
                 </li>
               ))}
             </ul>
-            <ul className="mt-7 flex flex-wrap gap-2" aria-label="Partnerships and recognition">
-              {c.hero.chips.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-pill border border-ui bg-surface-raised px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-muted"
+            <nav aria-label="Pricing sections" className="mt-6 flex flex-wrap items-center gap-2">
+              <p className="mr-1 text-body-sm font-semibold text-muted">{c.hero.jumpLabel}</p>
+              {jumpLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className="inline-flex min-h-[44px] items-center rounded-pill border border-ui bg-surface-raised px-4 text-body-sm font-medium text-body transition-colors hover:border-brand hover:text-brand"
                 >
-                  {c}
-                </li>
+                  {l.label}
+                </a>
               ))}
-            </ul>
-            <nav aria-label="Pricing sections" className="mt-8 border-t border-ui pt-5">
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">{c.hero.jumpLabel}</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {jumpLinks.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="inline-flex min-h-[44px] items-center rounded-pill border border-ui bg-surface-raised px-4 text-caption text-body transition-colors hover:border-brand hover:text-brand"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </nav>
           </div>
           <div className="lg:pt-2">
@@ -165,44 +173,10 @@ export default function ImplementationPackagesContent({
       <PackagesSection intro={c.packagesIntro} packages={c.packages} rows={c.compareRows} />
 
       {/* Starting prices for every other service line */}
-      <section id="services" className="scroll-mt-24 bg-surface py-14 md:py-24">
+      <section id="services" className="scroll-mt-24 bg-brand-soft py-14 md:py-20">
         <div className={SHELL}>
           <Intro eyebrow={c.servicesIntro.eyebrow} heading={c.servicesIntro.heading} lead={c.servicesIntro.lead} />
-          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {c.servicePrices.map((g) => (
-              <article
-                key={g.id}
-                id={g.id}
-                className="flex scroll-mt-24 flex-col rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8"
-              >
-                <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">{g.eyebrow}</p>
-                <h3 className="text-card-title mt-3 text-body">{g.heading}</h3>
-                <p className="text-body-sm mt-2 text-muted">{g.lead}</p>
-                <ul className="mt-5 border-t border-ui">
-                  {g.items.map((i) => (
-                    <li key={i.href}>
-                      <Link
-                        href={i.href}
-                        className="group flex min-h-[52px] items-center justify-between gap-4 border-b border-dashed border-ui py-3"
-                      >
-                        <span className="text-body-sm text-body transition-colors group-hover:text-brand">{i.name}</span>
-                        <span className="flex shrink-0 flex-col items-end">
-                          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-faint">{c.servicesIntro.priceCaption}</span>
-                          <span className="text-body font-semibold text-body">{aud(i.fromAud)}</span>
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={g.href}
-                  className="mt-auto inline-flex min-h-[44px] items-center self-start pt-3 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-brand hover:text-brand-dark"
-                >
-                  {g.linkLabel} →
-                </Link>
-              </article>
-            ))}
-          </div>
+          <ServicesCarousel groups={c.servicePrices} priceCaption={c.servicesIntro.priceCaption} />
           <p className="text-caption mx-auto mt-6 max-w-[80ch] text-center text-muted">{c.servicesIntro.footnote}</p>
         </div>
       </section>

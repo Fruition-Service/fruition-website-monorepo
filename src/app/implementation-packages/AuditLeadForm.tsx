@@ -53,8 +53,7 @@ export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
       if (value) fields[label] = value
     }
     add("Industry", get("industry"))
-    add("monday.com today", get("monday_plan"))
-    add("Product", get("product"))
+    add("Help needed", get("help"))
     add("Region", get("region"))
     add("Process to fix", get("process"))
     for (const key of ATTRIBUTION_KEYS) add(key, get(key))
@@ -104,7 +103,7 @@ export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
       onSubmit={onSubmit}
       className="rounded-card border border-ui bg-surface-raised p-6 shadow-card md:p-8"
       toolname="book_monday_implementation_audit"
-      tooldescription="Request a free 30-minute monday.com system audit from Fruition Services, which recommends one of the three implementation packages. Requires name, company and work email; industry, current monday.com plan, product, region and the process to fix are optional. Fruition replies within one business day."
+      tooldescription="Request a free 30-minute system audit from Fruition Services for monday.com, Atlassian, HubSpot, AI or automation work. Requires name, company and work email; what you need help with, industry, region and the process to fix are optional. Fruition replies within one business day."
     >
       <h2 className="text-section-h3 text-body">{copy.heading}</h2>
       <p className="text-body-sm mt-2 text-muted">{copy.intro}</p>
@@ -115,9 +114,10 @@ export default function AuditLeadForm({ copy }: { copy: PageContent["form"] }) {
         <div className="md:col-span-2">
           <Field id="f-email" name="email" label="Work email" type="email" autoComplete="email" required />
         </div>
+        <div className="md:col-span-2">
+          <Choice id="f-help" name="help" label="What do you need help with?" options={FORM.helpOptions} />
+        </div>
         <Choice id="f-ind" name="industry" label="Industry" options={FORM.industries} />
-        <Choice id="f-plan" name="monday_plan" label="monday.com today" options={FORM.plans} />
-        <Choice id="f-prod" name="product" label="Product" options={FORM.products} />
         <Choice id="f-reg" name="region" label="Region" options={FORM.regions} />
         <div className="md:col-span-2">
           <Field id="f-proc" name="process" label="The process you most want to fix (optional)" />
