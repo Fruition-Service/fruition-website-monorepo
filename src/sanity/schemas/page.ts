@@ -1,5 +1,16 @@
 import { pageBodyField } from './objects/pageBody'
 
+/** Plain paragraphs, bullet/numbered lists and bold: all a case study column needs. */
+const caseStudyBlock = {
+  type: 'block',
+  styles: [{ title: 'Normal', value: 'normal' }],
+  lists: [
+    { title: 'Bullet', value: 'bullet' },
+    { title: 'Numbered', value: 'number' },
+  ],
+  marks: { decorators: [{ title: 'Strong', value: 'strong' }], annotations: [] },
+}
+
 const PAGE_BODY_DESCRIPTION =
   'Rendered as the long-form copy on policy pages (e.g. /data-privacy). On pages built from the section fields below it is unrendered Wix-migration content — kept so the original copy is not lost; do not use "Remove the block" on it.'
 
@@ -388,7 +399,53 @@ export default {
           { name: 'services', title: 'Services Description', type: 'text' },
           { name: 'timeline', title: 'Timeline (e.g. "4 weeks")', type: 'string' },
           { name: 'verifiedSource', title: 'Verified Source (e.g. "G2 Crowd", "Clutch.co")', type: 'string' },
+
+          // Full case study as text. When the challenge, solution or impact is filled in,
+          // the card renders these as real text (readable by search engines) and the
+          // image above is no longer shown.
+          { name: 'clientName', title: 'Client Name', type: 'string' },
+          { name: 'logo', title: 'Client Logo', type: 'image' },
+          { name: 'quote', title: 'Client Quote (without quote marks)', type: 'text', rows: 4 },
+          {
+            name: 'quotePeople',
+            title: 'Quoted People',
+            type: 'array',
+            of: [{
+              type: 'object',
+              name: 'caseStudyPerson',
+              fields: [
+                { name: 'name', title: 'Name', type: 'string' },
+                { name: 'role', title: 'Role', type: 'string' },
+                { name: 'company', title: 'Company', type: 'string' },
+                { name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } },
+              ],
+              preview: { select: { title: 'name', subtitle: 'role', media: 'photo' } },
+            }],
+          },
+          { name: 'challenge', title: 'The Challenge', type: 'array', of: [caseStudyBlock] },
+          { name: 'solution', title: 'The Solution', type: 'array', of: [caseStudyBlock] },
+          {
+            name: 'impactMetrics',
+            title: 'Impact Metrics (e.g. "17x ROI" / "Licences & services")',
+            type: 'array',
+            of: [{
+              type: 'object',
+              name: 'caseStudyMetric',
+              fields: [
+                { name: 'value', title: 'Value', type: 'string' },
+                { name: 'label', title: 'Label', type: 'string' },
+                { name: 'note', title: 'Small print', type: 'string' },
+              ],
+              preview: { select: { title: 'value', subtitle: 'label' } },
+            }],
+          },
+          { name: 'impact', title: 'The Impact (detail)', type: 'array', of: [caseStudyBlock] },
+          { name: 'location', title: 'Location', type: 'string' },
+          { name: 'companySize', title: 'Employees / Company Size', type: 'string' },
+          { name: 'sector', title: 'Industry (as printed on the case study)', type: 'string' },
+          { name: 'useCase', title: 'Use Case', type: 'string' },
         ],
+        preview: { select: { title: 'title', subtitle: 'clientName', media: 'logo' } },
       }],
     },
 

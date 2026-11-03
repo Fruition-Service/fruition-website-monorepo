@@ -2,14 +2,13 @@
 
 import { useMemo, useState } from "react"
 import FramedMedia from "@/components/common/FramedMedia"
+import CaseStudyStory, { CaseStudyLogo, hasCaseStudyStory, type CaseStudyStoryContent } from "./CaseStudyStory"
 
-export interface CaseStudyCard {
+export interface CaseStudyCard extends CaseStudyStoryContent {
   _key?: string
   title?: string
   /** Pre-resolved on the server (RSC can't pass a resolver function across the boundary). */
   imageUrl?: string | null
-  imageSrcSet?: string
-  imageWebpSrcSet?: string
   product?: string
   industry?: string
   services?: string
@@ -64,7 +63,7 @@ function FilterRow({
               type="button"
               onClick={() => onPick(opt)}
               aria-pressed={isActive}
-              className={`cs-filter-pill inline-flex items-center font-semibold px-4 py-2 rounded-full text-sm cursor-pointer border ${
+              className={`cs-filter-pill inline-flex items-center min-h-11 font-semibold px-4 py-2 rounded-full text-sm cursor-pointer border ${
                 isActive
                   ? "border-brand bg-brand text-white"
                   : "border-ui bg-surface-raised text-body"
@@ -142,7 +141,7 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
                     setIndustry(ALL)
                     setSolution(ALL)
                   }}
-                  className="font-semibold text-brand text-[13px] cursor-pointer bg-transparent"
+                  className="min-h-11 font-semibold text-brand text-[13px] cursor-pointer bg-transparent"
                 >
                   Reset filters
                 </button>
@@ -176,75 +175,75 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
                   />
 
                   <div className="relative">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="font-mono text-xs font-semibold text-brand">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span aria-hidden className="inline-block w-7 h-px bg-brand/30" />
-                      <span className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-                        Case Study
-                      </span>
-                      {study.verifiedSource && (
-                        <span
-                          className="inline-flex items-center font-semibold gap-1.5 px-3 py-[5px] rounded-full bg-[#e9f7ee] text-[#1f7a45] text-xs"
-                        >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <path d="M20 6 9 17l-5-5" />
-                          </svg>
-                          Verified · {study.verifiedSource}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="font-bold text-[clamp(28px,6vw,44px)] leading-[1.2] tracking-[-0.015em] text-body mt-[18px] max-w-[880px] text-balance">
-                      {study.title}
-                    </h3>
-
-                    {study.services && (
-                      <p className="text-lg leading-7 text-muted mt-[18px] max-w-[820px]">
-                        {study.services}
-                      </p>
-                    )}
-
-                    <div className="flex flex-wrap items-center gap-3 mt-7">
-                      {study.industry && (
-                        <span className="inline-flex items-center font-semibold gap-2 px-4 py-2 rounded-full bg-brand-soft text-brand-dark text-sm">
-                          {study.industry}
-                        </span>
-                      )}
-                      {study.product && (
-                        <span className="inline-flex items-center font-semibold gap-2 px-4 py-2 rounded-full bg-brand-soft text-brand-dark text-sm">
-                          <span aria-hidden className="w-2 h-2 rounded-full bg-brand" />
-                          {study.product}
-                        </span>
-                      )}
-                      {study.timeline && (
-                        <span className="inline-flex items-center font-medium gap-2 px-4 py-2 rounded-full border border-ui bg-surface-raised text-body text-sm">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-brand">
-                            <circle cx="12" cy="12" r="9" />
-                            <polyline points="12 7 12 12 15 14" />
-                          </svg>
-                          {study.timeline}
-                        </span>
-                      )}
-                    </div>
-
-                    {imgSrc && (
-                      <FramedMedia className="mt-10">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <picture>
-                          {study.imageWebpSrcSet && (
-                            <source type="image/webp" srcSet={study.imageWebpSrcSet} sizes="(max-width: 768px) 100vw, 1088px" />
+                    <div className="flex flex-col-reverse md:flex-row md:items-start md:justify-between gap-6">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="font-mono text-xs font-semibold text-brand">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span aria-hidden className="inline-block w-7 h-px bg-brand/30" />
+                          <span className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+                            Case Study
+                          </span>
+                          {study.verifiedSource && (
+                            <span className="inline-flex items-center font-semibold gap-1.5 px-3 py-[5px] rounded-full bg-emerald/10 text-ink text-xs">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-emerald">
+                                <path d="M20 6 9 17l-5-5" />
+                              </svg>
+                              Verified · {study.verifiedSource}
+                            </span>
                           )}
+                        </div>
+
+                        <h3 className="font-bold text-[clamp(28px,6vw,44px)] leading-[1.2] tracking-[-0.015em] text-ink mt-[18px] max-w-[880px] text-balance">
+                          {study.title}
+                        </h3>
+
+                        {study.services && (
+                          <p className="text-lg leading-7 text-muted mt-[18px] max-w-[820px]">
+                            {study.services}
+                          </p>
+                        )}
+
+                        <div className="flex flex-wrap items-center gap-3 mt-7">
+                          {study.industry && (
+                            <span className="inline-flex items-center font-semibold gap-2 px-4 py-2 rounded-full bg-brand-soft text-brand-dark text-sm">
+                              {study.industry}
+                            </span>
+                          )}
+                          {study.product && (
+                            <span className="inline-flex items-center font-semibold gap-2 px-4 py-2 rounded-full bg-brand-soft text-brand-dark text-sm">
+                              <span aria-hidden className="w-2 h-2 rounded-full bg-brand" />
+                              {study.product}
+                            </span>
+                          )}
+                          {study.timeline && (
+                            <span className="inline-flex items-center font-medium gap-2 px-4 py-2 rounded-full border border-ui bg-surface-raised text-ink text-sm">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-brand">
+                                <circle cx="12" cy="12" r="9" />
+                                <polyline points="12 7 12 12 15 14" />
+                              </svg>
+                              {study.timeline}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <CaseStudyLogo story={study} />
+                    </div>
+
+                    {hasCaseStudyStory(study) ? (
+                      <CaseStudyStory story={study} />
+                    ) : (
+                      imgSrc && (
+                        <FramedMedia className="mt-10">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={imgSrc}
-                            srcSet={study.imageSrcSet}
-                            sizes={study.imageSrcSet ? "(max-width: 768px) 100vw, 1088px" : undefined}
                             alt={study.title || "Case study"}
                             className="w-full h-auto block rounded-[20px]"
                           />
-                        </picture>
-                      </FramedMedia>
+                        </FramedMedia>
+                      )
                     )}
                   </div>
                 </article>

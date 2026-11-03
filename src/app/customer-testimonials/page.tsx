@@ -8,6 +8,7 @@ import TestimonialQuoteGrid from "@/components/hubs/TestimonialQuoteGrid"
 import { buildTestimonialCards, testimonialFilterTags } from "@/lib/testimonials"
 import { buildOgMetadata } from "@/lib/metadata"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import type { CaseStudyStoryContent } from "@/components/sections/CaseStudyStory"
 
 export async function generateMetadata() {
   const page = await getPageBySlug("customer-testimonials")
@@ -25,7 +26,7 @@ export async function generateMetadata() {
   }
 }
 
-interface CaseStudyCard {
+interface CaseStudyCard extends Omit<CaseStudyStoryContent, "logoUrl" | "quotePeople"> {
   _key?: string
   title?: string
   image?: SanityImageRef | string
@@ -34,42 +35,14 @@ interface CaseStudyCard {
   services?: string
   timeline?: string
   verifiedSource?: string
+  logo?: SanityImageRef
+  quotePeople?: { name?: string; role?: string; company?: string; photo?: SanityImageRef }[]
 }
 
-/**
- * The Sanity card images are only 797x421, but the card renders them full-bleed
- * at up to ~1088 CSS px (~2176 device px at 2x), so small in-image text was
- * upscaled and pixelated. Known cards are served from local high-res captures
- * in public/case-studies, keyed by the Sanity card `_key`. Each ships as WebP
- * with a JPEG fallback: the earlier AVIF-only set rendered blank on browsers
- * without AVIF support. Cards without an entry fall back to their Sanity image.
- */
-const HIGH_RES_CASE_STUDY_SLUGS: Record<string, string> = {
-  "cs-bl-air": "bl-air",
-  "cs-clsq": "clsq",
-  "cs-givergy": "givergy",
-  "cs-hvac": "hvac",
-  "cs-popology": "popology",
-  "cs-promotify": "promotify",
-  "cs-r2s": "r2s",
-  "cs-tourism-nt": "tourism-nt",
-}
-
-function highResCaseStudyImage(key?: string) {
-  const slug = key ? HIGH_RES_CASE_STUDY_SLUGS[key] : undefined
-  if (!slug) return undefined
-  const base = `/case-studies/${slug}`
-  return {
-    src: `${base}.jpg`,
-    srcSet: `${base}-1200.jpg 1200w, ${base}.jpg 2400w`,
-    webpSrcSet: `${base}-1200.webp 1200w, ${base}.webp 2400w`,
-  }
-}
-
-function cardImageUrl(ref: SanityImageRef): string | null {
+function imageUrl(ref: SanityImageRef | undefined, width: number): string | null {
   if (!ref?.asset?._ref) return null
   try {
-    return urlFor(ref).width(1600).fit("max").auto("format").url()
+    return urlFor(ref).width(width).fit("max").auto("format").url()
   } catch {
     return null
   }
@@ -79,7 +52,7 @@ function getCaseStudyImageSrc(image?: SanityImageRef | string): string | null {
   if (!image) return null
   // Support both Sanity image refs and legacy string paths
   if (typeof image === "string") return image
-  return cardImageUrl(image)
+  return imageUrl(image, 1600)
 }
 
 export default async function CustomerTestimonialsPage() {
@@ -140,21 +113,33 @@ export default async function CustomerTestimonialsPage() {
       <TestimonialFilterGrid
         heading={page?.caseStudySectionHeading || "Case studies"}
         subheading="Eight verified client implementations, with the problem, the build and the result."
-        cards={caseStudyCards.map((s) => {
-          const highRes = highResCaseStudyImage(s._key)
-          return {
-            _key: s._key,
-            title: s.title,
-            product: s.product,
-            industry: s.industry,
-            services: s.services,
-            timeline: s.timeline,
-            verifiedSource: s.verifiedSource,
-            imageUrl: highRes ? highRes.src : getCaseStudyImageSrc(s.image),
-            imageSrcSet: highRes?.srcSet,
-            imageWebpSrcSet: highRes?.webpSrcSet,
-          }
-        })}
+        cards={caseStudyCards.map((s) => ({
+          _key: s._key,
+          title: s.title,
+          product: s.product,
+          industry: s.industry,
+          services: s.services,
+          timeline: s.timeline,
+          verifiedSource: s.verifiedSource,
+          imageUrl: getCaseStudyImageSrc(s.image),
+          clientName: s.clientName,
+          logoUrl: imageUrl(s.logo, 400),
+          quote: s.quote,
+          quotePeople: s.quotePeople?.map((p) => ({
+            name: p.name,
+            role: p.role,
+            company: p.company,
+            photoUrl: imageUrl(p.photo, 112),
+          })),
+          challenge: s.challenge,
+          solution: s.solution,
+          impactMetrics: s.impactMetrics,
+          impact: s.impact,
+          location: s.location,
+          companySize: s.companySize,
+          sector: s.sector,
+          useCase: s.useCase,
+        }))}
       />
 
       {/* Mid-page conversion banner — shared site-wide */}
