@@ -47,7 +47,7 @@ export interface ImplementationPackage {
   tag: string
   name: string
   team: string
-  /** USD at the US team rate. The currency switcher converts from this. */
+  /** USD at the US team rate. Not shown on the cards; used by the hero, FAQs and JSON-LD. */
   basePriceUsd: number
   cadence: "one-time" | "per month"
   bestFor: string
@@ -361,7 +361,7 @@ export const PACKAGES_INTRO = {
   compareHeading: "What's included in each monday.com implementation package",
   compareToggle: "See what's included",
   footnote:
-    "Prices shown in USD at the US team rate. Local rates apply for Australia & NZ, South-East Asia, India & UAE and UK & Europe. One package is purchased per monday.com product. monday.com licences are paid separately to monday.com.",
+    "One package is purchased per monday.com product. monday.com licences are paid separately to monday.com.",
 }
 
 export const CTA = {
