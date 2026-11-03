@@ -14,7 +14,6 @@
 
 export const HOME_COPY = {
   // Hero
-  "hero-badge": { label: "Hero: award badge", text: "Rising Star 2026" },
   "hero-title": { label: "Hero: title", text: "Implementation, integration and AI advisory for" },
   "hero-title-accent": { label: "Hero: title (purple part)", text: "monday.com, Atlassian and HubSpot." },
   "hero-lead": { label: "Hero: lead paragraph", text: "Fruition is a monday.com Platinum Partner helping small businesses, mid-market and enterprise teams across Australia, India, the Philippines, Singapore, the UK and the US. We design the way work should run \u2014 build it, and help you maintain it." },
