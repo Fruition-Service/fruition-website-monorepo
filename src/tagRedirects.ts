@@ -1005,11 +1005,6 @@ export const tagPostRedirects: Redirect[] = [
     "permanent": true
   },
   {
-    "source": "/consulting-blog/tags/mondaycom-quick-implementation-packages",
-    "destination": "/post/mondaycom-quick-implementation-packages",
-    "permanent": true
-  },
-  {
     "source": "/consulting-blog/tags/mondaycom-vs-autodesk",
     "destination": "/post/mondaycom-vs-autodesk",
     "permanent": true
