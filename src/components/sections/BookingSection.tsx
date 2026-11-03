@@ -472,7 +472,7 @@ const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js"
  * in made the page iframe itself — so anything that isn't an absolute
  * calendly.com URL falls back to the account page.
  */
-function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: string; onScheduled?: () => void }) {
+export function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: string; onScheduled?: () => void }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const src = calendlyUrl && /^https?:\/\/([a-z0-9-]+\.)?calendly\.com\//i.test(calendlyUrl)
     ? calendlyUrl
