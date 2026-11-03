@@ -34,7 +34,7 @@ const getTeamPhotoUrls = cache(async (): Promise<Map<string, string>> => {
  * Adds `authorPhotoUrl` (the author's team headshot) to each post that has one.
  * Typed as a pass-through so callers keep the shape client.fetch gave them.
  */
-async function withAuthorPhotos<T>(posts: T): Promise<T> {
+export async function withAuthorPhotos<T>(posts: T): Promise<T> {
   const list = posts as unknown as { author?: string }[] | null
   if (!Array.isArray(list) || list.length === 0) return posts
   const photos = await getTeamPhotoUrls()
