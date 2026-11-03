@@ -60,7 +60,7 @@ export default {
       name: 'stickyCtaLabel',
       title: 'Sticky CTA Label',
       type: 'string',
-      description: 'Button text on pages that set no override. Defaults to "Book a Free Consultation".',
+      description: 'Button text on pages that set no override. Defaults to "Explore Your Options".',
     },
     {
       name: 'stickyCtaMobileLabel',

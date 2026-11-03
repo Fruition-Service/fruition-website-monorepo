@@ -83,7 +83,7 @@ export default function RegionPageTemplate({
 
   return (
     <div>
-      <StickyCtaConfig label="Book a Free Consultation" href={bookingUrl} />
+      <StickyCtaConfig href={bookingUrl} />
 
       <RegionHero
         hero={region.hero}
