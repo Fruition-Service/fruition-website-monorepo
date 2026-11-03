@@ -150,6 +150,8 @@ export function filterTeamForRegionPage(
 export const TEAM_TABS_ONLY: Record<string, string[]> = {
   "Josh Jebathilak": ["APAC"],
   "Chloe Jebathilak": ["APAC"],
+  // An empty list hides the person from every tab. Josh, 3 Nov 2026.
+  "Benjie Belotindos": [],
 }
 
 /**
