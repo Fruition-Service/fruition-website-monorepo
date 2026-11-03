@@ -634,13 +634,18 @@ export default function MondayImplementationConsultantsContent({
                   </div>
 
                   {/* Image column */}
-                  <div className="flex-1 w-full min-h-[240px] md:min-h-[320px] bg-surface-raised">
+                  {/* Image column: the whole 16:9 product shot, rounded, capped at 600px
+                      (Claude Design "Monday Imagery.dc.html", Nov 2026). */}
+                  <div className="flex flex-1 w-full justify-center px-6 pb-6 md:p-10">
                     {imgSrc && (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={imgSrc}
                         alt={card.heading ?? ""}
-                        className="w-full h-full object-contain min-h-[240px] md:min-h-[320px]"
+                        width={1600}
+                        height={900}
+                        loading="lazy"
+                        className="w-full max-w-[600px] h-auto rounded-card"
                       />
                     )}
                   </div>
