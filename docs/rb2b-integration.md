@@ -31,7 +31,6 @@ embedded on both `/data-privacy` and `/terms-and-conditions`.
 SLACK_BOT_TOKEN=xoxb-…           # existing
 MONDAY_API_TOKEN=…                # existing
 RB2B_WEBHOOK_SECRET=…             # shared secret in webhook URL ?key=
-RB2B_MONDAY_BOARD_ID=5028658425
 SLACK_LEADS_CHANNEL_ID=C0B4HBBHR35
 BRANDFETCH_CLIENT_ID=…            # optional: free key from developers.brandfetch.com
                                   # When set, anonymous-visit Slack alerts
@@ -41,12 +40,20 @@ BRANDFETCH_CLIENT_ID=…            # optional: free key from developers.brandfe
 # REACHLY_CAMPAIGN_ID=…
 ```
 
-Production: set the same vars in Vercel (`vercel env add`).
+The Monday board id is **not** read from the environment. It is hardcoded as
+`RB2B_BOARD_ID` in `src/lib/rb2bColumns.ts` (currently `5028658425`), so changing
+the target board is a code change, not an environment change.
+
+Production secrets live on the `fruition-landing` Cloudflare Worker, set with
+`npx wrangler secret put <NAME>`; the full inventory is in
+[`cloud.md`](./cloud.md) section 5. Note that `NEXT_PUBLIC_*` values are inlined at
+**build** time: they come from GitHub Actions repository variables, not Worker
+secrets. Merging to `production` deploys the Worker.
 
 ## RB2B dashboard setup
 
 1. Open RB2B → Destinations → Webhook.
-2. URL: `https://www.fruitionservices.com/api/webhooks/rb2b?key=<RB2B_WEBHOOK_SECRET>`
+2. URL: `https://www.fruitionservices.io/api/webhooks/rb2b?key=<RB2B_WEBHOOK_SECRET>`
 3. Click "Send test event" — expect HTTP 200, a new Monday item, and a Slack post in #website0leads.
 
 ## Monday board
@@ -111,7 +118,7 @@ curl -X POST 'http://localhost:3000/api/webhooks/rb2b?key=…' \
     "City":"San Francisco","State":"CA","Zipcode":"94107",
     "Seen At":"2026-05-21T12:00:00Z",
     "Referrer":"https://google.com",
-    "Captured URL":"https://www.fruitionservices.com/services/branding",
+    "Captured URL":"https://www.fruitionservices.io/services/branding",
     "Tags":null,"is_repeat_visit":false
   }'
 ```
