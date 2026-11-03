@@ -37,15 +37,8 @@ describe('v3 menu, footer and hub links', () => {
     expect(hasPage(href)).toBe(true)
   })
 
-  it('keeps the menu to six top-level tabs', () => {
-    expect(NAV_V3.map((i) => i.label)).toEqual([
-      'Services',
-      'Partners',
-      'Industries',
-      'Customers',
-      'Blog',
-      'Contact',
-    ])
+  it('keeps the menu to five top-level tabs (Partnerships rename and Resources, 28 Oct 2026 call)', () => {
+    expect(NAV_V3.map((i) => i.label)).toEqual(['Services', 'Partnerships', 'Industries', 'Resources', 'Contact'])
   })
 
   it('opens the menu with the Services dropdown (28 Oct 2026)', () => {
@@ -63,9 +56,9 @@ describe('v3 menu, footer and hub links', () => {
     expect(missing).toEqual([])
   })
 
-  it('carries no per-item descriptions (removed 26 Oct 2026)', () => {
-    const described = NAV_V3.flatMap((i) => i.sections ?? []).flatMap((s) => s.items).filter((l) => l.description)
-    expect(described.map((l) => l.label)).toEqual([])
+  it('describes every dropdown item, for the hover line (3 Nov 2026)', () => {
+    const bare = NAV_V3.flatMap((i) => i.sections ?? []).flatMap((s) => s.items).filter((l) => !l.description)
+    expect(bare.map((l) => l.label)).toEqual([])
   })
 
   it('leaves Lovable and Base44 out until their partner status is confirmed', () => {

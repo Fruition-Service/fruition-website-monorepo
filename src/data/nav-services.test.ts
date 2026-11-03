@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { SERVICES_NAV, servicesNavHrefs, withServicesNav } from './nav-services'
 
 describe('Services nav item', () => {
-  it('is a dropdown with three headed sections and no descriptions', () => {
+  it('is a dropdown with three headed sections, every item described for the hover line', () => {
     expect(SERVICES_NAV.label).toBe('Services')
     expect(SERVICES_NAV.layout).toBe('columns')
     expect(SERVICES_NAV.sections).toHaveLength(3)
@@ -23,7 +23,8 @@ describe('Services nav item', () => {
       'Licence procurement',
       'Integrations',
     ])
-    expect(links.filter((l) => 'description' in l)).toEqual([])
+    // Descriptions came back on 3 Nov 2026 as a hover line, not under each item (Annica's idea, Josh 27 Oct).
+    expect(links.filter((l) => !l.description).map((l) => l.label)).toEqual([])
   })
 
   it('uses only internal, region-free routes', () => {
