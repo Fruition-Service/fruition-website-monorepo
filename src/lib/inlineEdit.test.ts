@@ -9,6 +9,7 @@ import {
   safeReturnPath,
   assetIdFromImageUrl,
   findImagePaths,
+  pickMetaDoc,
 } from "./inlineEdit"
 
 describe("parseStegaHref", () => {
@@ -107,5 +108,25 @@ describe("findImagePaths", () => {
       'logos[_key=="k1"].image',
       "gallery[0]",
     ])
+  })
+})
+
+describe("pickMetaDoc", () => {
+  const home = { id: "homePage", type: "homePage" }
+  const post = (slug: string) => ({ id: `post-${slug}`, type: "blogPost", slug })
+  const faq = { id: "faq-1", type: "faqItem" }
+
+  it("takes the first SEO document found in <head>", () => {
+    expect(pickMetaDoc([{ id: "siteSettings", type: "siteSettings" }, home], [post("a")], "/")).toBe(home)
+  })
+  it("falls back to the single SEO document in the body", () => {
+    expect(pickMetaDoc([], [faq, home, home], "/")).toBe(home)
+  })
+  it("resolves several body documents only by a matching slug", () => {
+    expect(pickMetaDoc([], [post("a"), post("b")], "/post/b?x=1")).toEqual(post("b"))
+    expect(pickMetaDoc([], [post("a"), post("b")], "/consulting-blog")).toBeNull()
+  })
+  it("returns null when nothing on the page is an SEO document", () => {
+    expect(pickMetaDoc([], [faq], "/faqs")).toBeNull()
   })
 })

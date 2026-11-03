@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { vercelStegaClean, vercelStegaDecode } from "@vercel/stega"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { assetIdFromImageUrl, parseStegaHref, type FieldRef } from "@/lib/inlineEdit"
 
@@ -22,6 +23,11 @@ import { assetIdFromImageUrl, parseStegaHref, type FieldRef } from "@/lib/inline
  * Images carry no source map (their URLs are built in code), but a Sanity CDN
  * URL names its asset. Clicking one asks the server which documents use that
  * asset, preselects the ones already on this page, and swaps in an upload.
+ *
+ * Page info (meta title and description) is never on the page, so it has its
+ * own panel. The <title> and meta tags carry stega markers too, which name the
+ * page's document when its SEO fields are set; otherwise the server picks the
+ * page's document from the ones shown in the body.
  */
 
 const MARK = ["fe-editable", "cursor-text", "outline-dashed", "outline-1", "outline-offset-2", "outline-primary/50", "hover:outline-2", "hover:outline-primary"]
@@ -36,6 +42,17 @@ type ImageEditing = {
   asset: string
   places: Place[]
   selected: string[]
+}
+
+type MetaEditing = {
+  id: string
+  type: string
+  name: string | null
+  title: string
+  description: string
+  /** What the page serves now, so an empty field shows the fallback it gets. */
+  shownTitle: string
+  shownDescription: string
 }
 
 type Editing = {
@@ -54,18 +71,48 @@ function isOurUi(node: Node | null): boolean {
   return !!el?.closest("[data-fe-ui]")
 }
 
+function decodeRef(s: string | null | undefined): FieldRef | null {
+  const decoded = s ? vercelStegaDecode<{ href?: string }>(s) : undefined
+  return decoded?.href ? parseStegaHref(decoded.href) : null
+}
+
+// The <title> loses its marker when it is cleaned for the browser tab, so the
+// document it named is kept here for the page info panel.
+let titleDoc: string | null = null
+
+/** Strip the markers from the tab title, remembering which document it came from. */
+function cleanTitle() {
+  const ref = decodeRef(document.title)
+  if (!ref) return
+  titleDoc = ref.id
+  document.title = vercelStegaClean(document.title)
+}
+
+/** Documents named by markers in <head> (title, description, social tags). */
+function headDocs(): string[] {
+  const ids = titleDoc ? [titleDoc] : []
+  for (const meta of Array.from(document.head.querySelectorAll<HTMLMetaElement>("meta[content]"))) {
+    const ref = decodeRef(meta.content)
+    if (ref) ids.push(ref.id)
+  }
+  return Array.from(new Set(ids))
+}
+
+function metaContent(name: string): string {
+  const el = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)
+  return el ? vercelStegaClean(el.content) : ""
+}
+
 /** Tag every element whose text carries a Sanity source map. Returns how many. */
 function scan(): number {
   // Page titles come from Sanity too; keep the markers out of the browser tab.
-  const title = vercelStegaClean(document.title)
-  if (title !== document.title) document.title = title
+  cleanTitle()
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
   for (let n = walker.nextNode(); n; n = walker.nextNode()) {
     const text = n as Text
     const el = text.parentElement
     if (!el || isOurUi(el) || el.closest("script,style,noscript,[contenteditable='plaintext-only']")) continue
-    const decoded = vercelStegaDecode<{ href?: string }>(text.data)
-    const ref = decoded?.href ? parseStegaHref(decoded.href) : null
+    const ref = decodeRef(text.data)
     if (!ref) continue
     el.dataset.feId = ref.id
     el.dataset.feType = ref.type
@@ -99,6 +146,58 @@ export default function EditOverlay() {
   editingRef.current = editing
   const imageRef = useRef<ImageEditing | null>(null)
   imageRef.current = image
+  const [meta, setMeta] = useState<MetaEditing | null>(null)
+  const metaRef = useRef<MetaEditing | null>(null)
+  metaRef.current = meta
+
+  const openMeta = useCallback(async () => {
+    setStatus(null)
+    const body = Array.from(new Set(Array.from(document.querySelectorAll<HTMLElement>("[data-fe-id]"), (e) => e.dataset.feId!)))
+    const qs = new URLSearchParams({ head: headDocs().join(","), body: body.join(","), path: location.pathname })
+    try {
+      const res = await fetch(`/api/internal/edit/meta?${qs}`)
+      const json = (await res.json()) as {
+        doc?: { id: string; type: string; name: string | null; seoTitle: string | null; seoDescription: string | null } | null
+        error?: string
+      }
+      if (!res.ok) throw new Error(json.error || "Could not load this page's info")
+      if (!json.doc) throw new Error("This page's title and description are set in code, so they can't be edited here")
+      const d = json.doc
+      setMeta({
+        id: d.id,
+        type: d.type,
+        name: d.name ? vercelStegaClean(d.name) : null,
+        title: d.seoTitle ?? "",
+        description: d.seoDescription ?? "",
+        shownTitle: vercelStegaClean(document.title),
+        shownDescription: metaContent("description"),
+      })
+    } catch (err) {
+      setStatus({ tone: "error", text: err instanceof Error ? err.message : "Could not load this page's info" })
+    }
+  }, [])
+
+  const saveMeta = useCallback(async () => {
+    const cur = metaRef.current
+    if (!cur) return
+    setSaving(true)
+    try {
+      const res = await fetch("/api/internal/edit/meta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: cur.id, seoTitle: cur.title, seoDescription: cur.description, pagePath: location.pathname }),
+      })
+      const json = (await res.json().catch(() => ({}))) as { error?: string }
+      if (!res.ok) throw new Error(json.error || `Save failed (${res.status})`)
+      try {
+        sessionStorage.setItem(FLASH_KEY, "Page info saved. Search engines and link previews pick it up on their next visit.")
+      } catch {}
+      location.reload()
+    } catch (err) {
+      setSaving(false)
+      setStatus({ tone: "error", text: err instanceof Error ? err.message : "Save failed" })
+    }
+  }, [])
 
   // Object URLs for the chosen file are released when it changes.
   useEffect(() => {
@@ -176,7 +275,7 @@ export default function EditOverlay() {
   useEffect(() => {
     let t: ReturnType<typeof setTimeout> | undefined
     const run = () => {
-      if (editingRef.current || imageRef.current) return
+      if (editingRef.current || imageRef.current || metaRef.current) return
       setCount(scan())
     }
     run()
@@ -187,10 +286,7 @@ export default function EditOverlay() {
     })
     mo.observe(document.body, { childList: true, subtree: true, characterData: true })
     // Next rewrites <title> on re-render; strip the markers again each time.
-    const titleMo = new MutationObserver(() => {
-      const clean = vercelStegaClean(document.title)
-      if (clean !== document.title) document.title = clean
-    })
+    const titleMo = new MutationObserver(cleanTitle)
     titleMo.observe(document.head, { childList: true, subtree: true, characterData: true })
     return () => {
       mo.disconnect()
@@ -287,11 +383,16 @@ export default function EditOverlay() {
       if (!img && !el) return
       e.preventDefault()
       e.stopPropagation()
-      if (cur || imageRef.current) return
+      if (cur || imageRef.current || metaRef.current) return
       if (img) void startImage(img)
       else if (el) void start(el)
     }
     const onKey = (e: KeyboardEvent) => {
+      if (metaRef.current && e.key === "Escape") {
+        e.preventDefault()
+        setMeta(null)
+        return
+      }
       if (imageRef.current && e.key === "Escape") {
         e.preventDefault()
         closeImage()
@@ -390,6 +491,50 @@ export default function EditOverlay() {
         </div>
       )}
 
+      {meta && (
+        <div className="pointer-events-auto max-h-[70vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-border bg-background p-4 text-foreground shadow-xl">
+          <p className="text-sm text-muted-foreground">
+            Page info for {meta.name ?? meta.id} ({meta.type}). Shown in search results, the browser tab and link previews.
+          </p>
+          <label className="mt-3 flex flex-col gap-1 text-sm font-medium">
+            <span className="flex justify-between gap-2">
+              Title
+              <span className={meta.title.length > 60 ? "text-destructive" : "text-muted-foreground"}>{meta.title.length}/60</span>
+            </span>
+            <Input
+              autoFocus
+              value={meta.title}
+              placeholder={meta.shownTitle}
+              onChange={(e) => setMeta((cur) => cur && { ...cur, title: e.target.value })}
+              className="min-h-11 text-base font-normal"
+            />
+          </label>
+          <label className="mt-3 flex flex-col gap-1 text-sm font-medium">
+            <span className="flex justify-between gap-2">
+              Description
+              <span className={meta.description.length > 160 ? "text-destructive" : "text-muted-foreground"}>
+                {meta.description.length}/160
+              </span>
+            </span>
+            <Textarea
+              value={meta.description}
+              placeholder={meta.shownDescription}
+              onChange={(e) => setMeta((cur) => cur && { ...cur, description: e.target.value })}
+              className="min-h-24 text-base font-normal"
+            />
+          </label>
+          <p className="mt-2 text-sm text-muted-foreground">Leave a field empty to use the page&apos;s built-in default (shown greyed out).</p>
+          <div className="mt-3 flex justify-end gap-2">
+            <Button variant="outline" className="min-h-11" onClick={() => setMeta(null)} disabled={saving}>
+              Cancel
+            </Button>
+            <Button className="min-h-11" onClick={() => void saveMeta()} disabled={saving}>
+              {saving ? "Saving…" : "Save"}
+            </Button>
+          </div>
+        </div>
+      )}
+
       {editing?.mode === "panel" && (
         <div className="pointer-events-auto w-full max-w-2xl rounded-lg border border-border bg-background p-4 text-foreground shadow-xl">
           <p className="mb-2 text-sm text-muted-foreground">
@@ -445,6 +590,11 @@ export default function EditOverlay() {
             </a>
             .
           </span>
+        )}
+        {!editing && !image && !meta && (
+          <Button size="sm" variant="outline" className="min-h-11 md:min-h-9" onClick={() => void openMeta()}>
+            Page info
+          </Button>
         )}
         <Button render={<a href={exitHref} />} size="sm" variant="outline" className="min-h-11 md:min-h-9">
           Exit

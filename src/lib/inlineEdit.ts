@@ -130,3 +130,38 @@ export function findImagePaths(doc: unknown, assetId: string): string[] {
   walk(doc, "")
   return out
 }
+
+/** Document types that carry a page's own `seoTitle` + `seoDescription`. */
+export const SEO_DOC_TYPES = new Set([
+  "page", "servicePage", "solutionPage", "industryPage", "partnershipPage", "aiPartnerPage",
+  "locationPage", "blogPost", "homePage", "implementationPackagesPage", "licensingPage",
+  "makePartnersPage", "mondayImplementationConsultantsPage", "mondayTrainingPage",
+])
+
+export interface MetaCandidate {
+  id: string
+  type: string
+  slug?: string | null
+}
+
+/**
+ * Which document holds this page's meta title and description.
+ *
+ * `head` are documents whose strings reached the <title> or meta tags (stega
+ * markers survive into <head>): the first SEO-capable one is the answer. With
+ * no field set the head falls back to code and carries no marker, so the
+ * documents shown in the body are tried next. A listing page shows many
+ * (blog cards, partner tiles), so several candidates only resolve when one
+ * slug matches the URL's last segment; otherwise the answer is "unknown"
+ * rather than a guess that would retitle the wrong page.
+ */
+export function pickMetaDoc<T extends MetaCandidate>(head: T[], body: T[], pagePath: string): T | null {
+  const fromHead = head.find((d) => SEO_DOC_TYPES.has(d.type))
+  if (fromHead) return fromHead
+  const seen = new Set<string>()
+  const cands = body.filter((d) => SEO_DOC_TYPES.has(d.type) && !seen.has(d.id) && seen.add(d.id))
+  if (cands.length === 1) return cands[0]
+  const last = pagePath.split("?")[0].split("/").filter(Boolean).pop()
+  const bySlug = last ? cands.filter((d) => d.slug === last) : []
+  return bySlug.length === 1 ? bySlug[0] : null
+}
