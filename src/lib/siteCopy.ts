@@ -16,7 +16,7 @@
 
 export const SITE_COPY = {
   // Announcement strip above the nav
-  "award-text": { label: "Top banner: announcement", text: "Fruition named OpenAI Select Partner" },
+  "award-text": { label: "Top banner: announcement", text: "Fruition named Claude Certified Partner" },
   "award-link": { label: "Top banner: link", text: "Read the announcement →" },
 
   // Mid-page audit banner (default wording; a page can pass its own)
