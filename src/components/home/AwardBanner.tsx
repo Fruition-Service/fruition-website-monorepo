@@ -12,7 +12,7 @@ export default function AwardBanner({ copy }: { copy?: SiteCopy }) {
     <div className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 bg-surface-dark px-6 py-2.75 text-center text-[13.5px] font-medium text-white">
       <Sparkles size={16} strokeWidth={2} className="hidden flex-none text-amber sm:block" aria-hidden />
       <span>{siteText(copy, "award-text")}</span>
-      <Link href="/post/fruition-open-ai-select-partner" className="font-semibold text-brand-light hover:text-white">
+      <Link href="/post/fruition-claude-partner-network-certification" className="font-semibold text-brand-light hover:text-white">
         {siteText(copy, "award-link")}
       </Link>
     </div>
