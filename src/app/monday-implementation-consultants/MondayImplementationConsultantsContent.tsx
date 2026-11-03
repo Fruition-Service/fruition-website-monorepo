@@ -362,14 +362,14 @@ export default function MondayImplementationConsultantsContent({
       {/* ============================================================ */}
       {/* SECTION 1 — Hero                                             */}
       {/* ============================================================ */}
-      {/* Layout from Claude Design "Consultants Hero.dc.html" (3 Nov 2026 review):
-          badges and H1 span the full width so the H1 fits one line on desktop,
-          lead and CTAs sit left, certification badges and dashboards right. The
-          325px circle badge strip (siteSettings.badgeCertifications) was dropped:
-          it rendered upscaled and blurry on 2x screens. */}
+      {/* Two-column hero: everything you read on the left (partner badges,
+          H1, lead, CTAs), the graphics on the right. #387 had the badges and
+          H1 spanning the full width above the columns; Edward asked on 3 Nov
+          for a plain text-left / graphics-right split instead. */}
       <section className="bg-surface">
-        <div className="mx-auto flex flex-col gap-6 px-4 md:px-8 lg:px-10 py-14 lg:py-20 w-full max-w-[1600px]">
-          <div className="@container flex flex-col gap-6 min-w-0">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-12 lg:gap-14 px-4 md:px-8 lg:px-10 py-14 lg:py-20 w-full max-w-[1600px]">
+          {/* Text column */}
+          <div className="flex flex-col items-start gap-6 min-w-0">
             {/* Partner badges */}
             {heroPartnerBadges.length > 0 && (
               <div className="flex items-center flex-wrap justify-start gap-[22px]">
@@ -387,89 +387,81 @@ export default function MondayImplementationConsultantsContent({
               </div>
             )}
 
-            {/* Heading: one line from lg, sized to the container width */}
-            <h1 className="text-display text-[32px] md:text-[40px] lg:text-[min(48px,calc(100cqw/31.5))] lg:whitespace-nowrap leading-[1.15] tracking-[-0.02em] [text-wrap:balance] lg:[text-wrap:nowrap] w-full break-words">
+            <h1 className="text-display text-[32px] md:text-[40px] lg:text-[clamp(38px,3.4vw,52px)] leading-[1.12] tracking-[-0.02em] [text-wrap:balance] w-full max-w-[680px] break-words">
               {heroHeadingPart1 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart1)}</span>}
               <span className="text-brand">{keepAmpersandAttached(heroHeadingAccent)}</span>
               {heroHeadingPart2 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart2)}</span>}
             </h1>
+
+            {heroSubheading && (
+              <p className="text-body-lead text-muted max-w-[600px] whitespace-pre-line">
+                {heroSubheading}
+              </p>
+            )}
+
+            {/* Dual CTA */}
+            {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
+              <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 mt-2 w-full max-w-[640px]">
+                {heroPrimaryCtaUrl && (
+                  <Link
+                    href={heroPrimaryCtaUrl}
+                    className="cta-btn cta-btn-outline w-full md:w-auto md:px-5"
+                  >
+                    <CtaLabel label={heroPrimaryCtaLabel} />
+                  </Link>
+                )}
+                {heroSecondaryCtaUrl && (
+                  <Link
+                    href={heroSecondaryCtaUrl}
+                    className="cta-btn cta-btn-primary w-full md:w-auto md:px-5"
+                  >
+                    <CtaLabel label={heroSecondaryCtaLabel} />
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] items-center gap-10">
-            {/* Text column */}
-            <div className="flex flex-col items-start gap-6 min-w-0">
-              {heroSubheading && (
-                <p className="text-body-lead text-muted max-w-[640px] whitespace-pre-line">
-                  {heroSubheading}
-                </p>
-              )}
+          {/* Graphics column: the product shot, with the certification badges
+              under it. Both are full-resolution sources shown well below their
+              natural width, so they stay sharp on 2x screens. */}
+          <div className="flex flex-col items-center gap-8 w-full min-w-0">
+            {heroDashboardImageSrc && (
+              <div className="w-full max-w-[640px] overflow-hidden rounded-card border border-lilac bg-surface-raised shadow-whisper">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={heroDashboardImageSrc}
+                  alt="A monday.com work management board"
+                  width={2080}
+                  height={1180}
+                  className="block h-auto w-full"
+                />
+              </div>
+            )}
 
-              {/* Dual CTA */}
-              {(heroPrimaryCtaUrl || heroSecondaryCtaUrl) && (
-                <div className="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4 w-full max-w-[640px]">
-                  {heroPrimaryCtaUrl && (
-                    <Link
-                      href={heroPrimaryCtaUrl}
-                      className="cta-btn cta-btn-outline w-full md:w-auto md:px-5"
-                    >
-                      <CtaLabel label={heroPrimaryCtaLabel} />
-                    </Link>
-                  )}
-                  {heroSecondaryCtaUrl && (
-                    <Link
-                      href={heroSecondaryCtaUrl}
-                      className="cta-btn cta-btn-primary w-full md:w-auto md:px-5"
-                    >
-                      <CtaLabel label={heroSecondaryCtaLabel} />
-                    </Link>
-                  )}
-                </div>
-              )}
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://static.wixstatic.com/media/39b8ef_abd15c5dcf7c4d16a392b5693a6f7923~mv2.png"
+              alt="monday.com certification badges"
+              width={1000}
+              height={250}
+              className="w-[381px] max-w-full h-auto object-contain"
+            />
 
-            {/* Visual column */}
-            <div className="flex flex-col items-center gap-12 w-full min-w-0">
-              {/* monday.com certification badges: the 1000x250 original, shown at 381px so it stays sharp on 2x screens */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://static.wixstatic.com/media/39b8ef_abd15c5dcf7c4d16a392b5693a6f7923~mv2.png"
-                alt="monday.com certification badges"
-                width={1000}
-                height={250}
-                className="w-[381px] max-w-full h-auto object-contain"
-              />
-
-              {/* Hero product shot: one full-resolution monday.com board in a
-                  card, replacing the cramped three-screen collage. Kept at the
-                  same 521px cap, so the 2080px source stays sharp on 2x screens. */}
-              {heroDashboardImageSrc && (
-                <div className="w-full max-w-[521px] overflow-hidden rounded-card border border-lilac bg-surface-raised shadow-whisper">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* Product images row */}
+            {heroProductImages.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-6 w-full">
+                {heroProductImages.map((img) => (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
-                    src={heroDashboardImageSrc}
-                    alt="A monday.com work management board"
-                    width={2080}
-                    height={1180}
-                    className="block h-auto w-full"
+                    key={img._key ?? img.src}
+                    src={img.src}
+                    alt={img.alt}
+                    className="h-auto object-contain w-full max-w-[220px]"
                   />
-                </div>
-              )}
-
-              {/* Product images row */}
-              {heroProductImages.length > 0 && (
-                <div className="flex flex-wrap items-center justify-center gap-6 w-full">
-                  {heroProductImages.map((img) => (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      key={img._key ?? img.src}
-                      src={img.src}
-                      alt={img.alt}
-                      className="h-auto object-contain w-full max-w-[220px]"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
