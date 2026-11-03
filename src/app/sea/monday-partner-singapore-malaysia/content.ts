@@ -195,7 +195,7 @@ ${LP_FONTS}
 <div class="team">
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop" alt="Nikhil Tiwari" loading="lazy"><h3>Nikhil Tiwari</h3><div class="role">Sales &amp; Implementation Lead</div><p>Certified monday.com and Make consultant with an ML and GenAI background, working with South-East Asian clients.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/56b7495c43a5904dc35ac1955f21b6b6461ee780-1000x1000.jpg?w=560&h=560&fit=crop" alt="Suzzane Castro" loading="lazy"><h3>Suzzane Castro</h3><div class="role">Delivery Consultant</div><p>Business automation specialist connecting monday.com with finance, document and messaging tools.</p><!-- TEAM: headshot added; title as supplied, still to confirm --></div>
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&w=560&h=560&fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Founder &amp; Managing Director</div><p>Former monday.com sales leader who founded Fruition. Oversees every regional rollout.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/96a2d44d8ae1e2ebe56cd6105b72f6ffbafc0b6e-512x512.jpg?w=560&h=560&fit=crop" alt="Thana Witchawut" loading="lazy"><h3>Thana Witchawut</h3><div class="role">Principal Consultant</div><p>Builds CRM and workflow operations that help growing teams scale, from strategy through implementation.</p></div>
 </div>
 </div>
 </section>

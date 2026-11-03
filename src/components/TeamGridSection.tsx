@@ -5,7 +5,7 @@ import { urlFor } from "@/sanity/image"
 import BioText from "@/components/BioText"
 import type { SanityImageRef } from "@/components/sections/types"
 import type { RegionSlug } from "@/data/regionPages"
-import { filterTeamForRegionPage } from "@/lib/mergeTeamMembers"
+import { REGION_PAGE_LEADS, filterTeamForRegionPage, rosterOrder } from "@/lib/mergeTeamMembers"
 
 export interface TeamMember {
   _id: string
@@ -166,13 +166,9 @@ export default function TeamGridSection({
     ? inRegion.filter((m) => isDeliveryRoster(m) && hasCardContent(m))
     : inRegion
   if (filtered.length === 0) return null
-  const sorted = [...filtered].sort((a, b) => {
-    if (a.name === "Josh Jebathilak") return -1
-    if (b.name === "Josh Jebathilak") return 1
-    if (a.name === "Edward Zhang") return 1
-    if (b.name === "Edward Zhang") return -1
-    return roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)
-  })
+  const sorted = [...filtered].sort(
+    rosterOrder(regionPageSlug ? REGION_PAGE_LEADS[regionPageSlug] : undefined, (a, b) => roleRank(a.role) - roleRank(b.role) || a.name.localeCompare(b.name)),
+  )
   // Sorted most senior first, so a cap keeps leadership and trims the tail.
   const ordered = limit ? sorted.slice(0, limit) : sorted
   return (

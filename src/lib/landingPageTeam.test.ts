@@ -141,4 +141,11 @@ describe("landing team band", () => {
     expect(html).toContain('alt="Josh Jebathilak, Founder and Managing Director at Fruition"')
     expect(html).toContain('id="team"')
   })
+
+  it("keeps Josh on Australian rosters only", () => {
+    const regions: LeadRegion[] = ["UK", "NA", "SEA", "IND"]
+    for (const region of regions) {
+      expect(landingTeam(region).map((m) => m.name)).not.toContain("Josh Jebathilak")
+    }
+  })
 })
