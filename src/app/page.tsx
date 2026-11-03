@@ -4,7 +4,6 @@ import { homeText, toHomeCopy } from '@/components/home/copy'
 import { buildOgMetadata } from '@/lib/metadata'
 import HeroNetwork from '@/components/home/HeroNetwork'
 import ServicesGrid from '@/components/home/ServicesGrid'
-import ByTheNumbers from '@/components/home/ByTheNumbers'
 import ClientLogoCarousel, { type ClientLogo } from '@/components/home/ClientLogoCarousel'
 import MethodTimeline from '@/components/home/MethodTimeline'
 import WhereWeWork, { type Office } from '@/components/home/WhereWeWork'
@@ -87,7 +86,6 @@ export default async function Home() {
         ctaLabel={homeText(copy, "testimonials-cta")}
       />
 
-      <ByTheNumbers copy={copy} />
       <MethodTimeline copy={copy} />
       <WhereWeWork offices={offices} copy={copy} />
 

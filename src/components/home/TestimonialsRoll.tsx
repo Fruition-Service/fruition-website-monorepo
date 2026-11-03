@@ -16,7 +16,8 @@ export interface HomeTestimonial {
 /** Dot colours cycle so adjacent cards never repeat. */
 const DOTS = ["var(--accent-green)", "var(--accent-blue)", "var(--purple-primary)", "var(--accent-amber)"]
 
-const ROLL_SECONDS = 74
+/** Enough proof to scan in one view; the rest of the pool stays unrendered. */
+const MAX_QUOTES = 6
 
 function initials(name?: string) {
   if (!name) return ", "
@@ -38,13 +39,8 @@ interface Props {
 }
 
 /**
- * Client proof — two columns of quotes rolling in opposite directions behind a
- * soft top/bottom mask. Each column repeats its cards once so the -50% travel
- * loops seamlessly; the duplicate copy is `aria-hidden` so screen readers and
- * crawlers see each quote exactly once.
- *
- * Hovering pauses both columns (`.home-quote-track` in globals). Below `lg` the
- * rolling is dropped for a plain stacked list.
+ * Client proof — the heading and CTA beside up to six customer quotes, each
+ * card shown whole.
  *
  * The homepage renders this with its defaults; `TestimonialsGrid` renders it as
  * the shared testimonials section across the marketing pages, passing their own
@@ -58,16 +54,21 @@ export default function TestimonialsRoll({
   intro = "Operations and IT leaders on what changed after we mapped the process first.",
   ctaLabel = "Book a call",
 }: Props) {
-  const usable = testimonials.filter((t) => t.quote)
+  // Some pages' case-study feeds carry the same quote more than once; the old
+  // rolling columns hid that, a static grid would show it side by side.
+  const seen = new Set<string>()
+  const usable = testimonials.filter((t) => {
+    const key = t.quote?.trim().toLowerCase()
+    if (!key || seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
   if (usable.length === 0) return null
-
-  const columnA = usable.filter((_, i) => i % 2 === 0)
-  const columnB = usable.filter((_, i) => i % 2 === 1)
 
   return (
     <section className="bg-surface py-16 md:py-20 lg:pt-25 lg:pb-26">
       <Reveal className="site-container grid grid-cols-1 items-start gap-10 lg:grid-cols-[400px_1fr] lg:gap-20">
-        <div className="flex flex-col lg:pt-2">
+        <div className="flex flex-col lg:sticky lg:top-28 lg:pt-2">
           {eyebrow && (
             <p className="text-micro font-bold tracking-[0.12em] uppercase text-brand">{eyebrow}</p>
           )}
@@ -85,45 +86,14 @@ export default function TestimonialsRoll({
           <ReviewBadges className="mt-7 max-w-[400px]" />
         </div>
 
-        {/* Rolling columns (lg+) */}
-        <div
-          className="relative hidden h-[660px] overflow-hidden lg:block"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-          }}
-        >
-          <div className="home-quote-track grid grid-cols-2 items-start gap-5">
-            <div style={{ animation: `fruQuoteRoll ${ROLL_SECONDS}s linear infinite` }}>
-              {columnA.map((t, i) => (
-                <QuoteCard key={t._key ?? i} testimonial={t} index={i * 2} />
-              ))}
-              {columnA.map((t, i) => (
-                <QuoteCard key={`dup-${t._key ?? i}`} testimonial={t} index={i * 2} duplicate />
-              ))}
-            </div>
-            <div
-              className="-mt-15"
-              style={{ animation: `fruQuoteRoll ${ROLL_SECONDS}s linear infinite reverse` }}
-            >
-              {columnB.map((t, i) => (
-                <QuoteCard key={t._key ?? i} testimonial={t} index={i * 2 + 1} />
-              ))}
-              {columnB.map((t, i) => (
-                <QuoteCard key={`dup-${t._key ?? i}`} testimonial={t} index={i * 2 + 1} duplicate />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Below lg, no rolling. On a phone the six quotes are a swipe rail:
-            stacked they ran to six screens, and a quote is too long to read
-            two-up. From md it goes back to a plain two-column grid. */}
-        <div className="fr-swipe-rail gap-5 md:grid-cols-2 lg:hidden">
-          {usable.slice(0, 6).map((t, i) => (
-            <QuoteCard key={t._key ?? i} testimonial={t} index={i} railItem />
+        {/* Six quotes, laid out whole. This used to be two columns rolling
+            behind a fade mask, but the mask sliced cards mid-sentence at the
+            top and bottom edges, which read as a broken section. On a phone
+            the quotes are a swipe rail (stacked they ran to six screens);
+            from md they sit in a plain two-column grid. */}
+        <div className="fr-swipe-rail gap-5 md:grid-cols-2">
+          {usable.slice(0, MAX_QUOTES).map((t, i) => (
+            <QuoteCard key={t._key ?? i} testimonial={t} index={i} />
           ))}
         </div>
       </Reveal>
@@ -131,26 +101,10 @@ export default function TestimonialsRoll({
   )
 }
 
-function QuoteCard({
-  testimonial,
-  index,
-  duplicate = false,
-  railItem = false,
-}: {
-  testimonial: HomeTestimonial
-  index: number
-  duplicate?: boolean
-  /** In the phone swipe rail: no bottom margin, and equal-height cards. */
-  railItem?: boolean
-}) {
+function QuoteCard({ testimonial, index }: { testimonial: HomeTestimonial; index: number }) {
   const photoRef = testimonial.profilePhoto?.asset?._ref
   return (
-    <figure
-      aria-hidden={duplicate || undefined}
-      className={`ui-hover-card rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper ${
-        railItem ? "flex h-auto flex-col md:mb-5" : "mb-5"
-      }`}
-    >
+    <figure className="ui-hover-card flex h-auto flex-col rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper">
       {testimonial.company && (
         <div className="flex items-center gap-[9px]">
           <span
@@ -162,10 +116,10 @@ function QuoteCard({
           </span>
         </div>
       )}
-      <blockquote className="mt-4 text-[16.5px] leading-[1.55] text-body" style={{ textWrap: "pretty" }}>
+      <blockquote className="mt-4 mb-5.5 text-[16.5px] leading-[1.55] text-body" style={{ textWrap: "pretty" }}>
         {testimonial.quote}
       </blockquote>
-      <figcaption className="mt-5.5 flex items-center gap-3.5 border-t border-[#f1edfa] pt-4.5">
+      <figcaption className="mt-auto flex items-center gap-3.5 border-t border-[#f1edfa] pt-4.5">
         {photoRef ? (
           <Image
             // Several profile photos are stored as HEIF, which browsers can't

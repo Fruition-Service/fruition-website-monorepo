@@ -1,5 +1,6 @@
 import { cache } from 'react'
 import { client } from '@/sanity/client'
+import { withAuthorPhotos } from '@/sanity/queries'
 
 export async function getHomePage() {
   return client.fetch(
@@ -34,7 +35,7 @@ export const getSiteSettings = cache(async () => {
  * have, even though the blocks are no longer rendered by BlockRenderer.
  */
 export async function getHomeSectionData() {
-  return client.fetch(
+  const data = await client.fetch(
     `{
       "settings": *[_type == "siteSettings"][0]{
         contactEmail,
@@ -65,4 +66,8 @@ export async function getHomeSectionData() {
       }
     }`
   )
+  // Bylines are free text; this adds each author's team headshot, as the
+  // blog pages do, so the Insights cards show a photo rather than initials.
+  if (data?.posts) data.posts = await withAuthorPhotos(data.posts)
+  return data
 }

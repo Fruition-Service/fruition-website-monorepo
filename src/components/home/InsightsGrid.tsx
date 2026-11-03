@@ -10,6 +10,8 @@ export interface HomePost {
   slug?: string
   publishedAt?: string
   author?: string
+  /** The author's team headshot, added by `withAuthorPhotos`. */
+  authorPhotoUrl?: string
   excerpt?: string
   charCount?: number
   coverImage?: { asset?: { _ref?: string } }
@@ -38,6 +40,35 @@ function initials(name?: string) {
     .slice(0, 2)
     .map((w) => w[0]?.toUpperCase() ?? "")
     .join("")
+}
+
+/** Headshot when the byline matches a team member, the Fruition mark for
+ *  brand bylines, initials otherwise. */
+function AuthorAvatar({ name, photoUrl }: { name?: string; photoUrl?: string }) {
+  if (photoUrl) {
+    return (
+      <Image
+        src={`${photoUrl}?w=68&h=68&fit=crop&auto=format`}
+        alt=""
+        width={34}
+        height={34}
+        className="h-8.5 w-8.5 flex-none rounded-full border border-lilac object-cover"
+        unoptimized
+      />
+    )
+  }
+  if (name && /^fruition\b/i.test(name.trim())) {
+    return (
+      <span className="flex h-8.5 w-8.5 flex-none items-center justify-center rounded-full border border-lilac bg-tint">
+        <Image src="/images/logo-fruition-mark.svg" alt="" width={18} height={17} className="h-auto w-[18px]" />
+      </span>
+    )
+  }
+  return (
+    <span className="flex h-8.5 w-8.5 flex-none items-center justify-center rounded-full border border-lilac bg-tint text-[12.5px] font-semibold text-brand">
+      {initials(name)}
+    </span>
+  )
 }
 
 interface Props {
@@ -108,9 +139,7 @@ export default function InsightsGrid({ posts, copy }: Props) {
               )}
               <div className="mt-7 flex items-center justify-between gap-4 border-t border-lilac pt-5.5">
                 <span className="flex items-center gap-3">
-                  <span className="flex h-8.5 w-8.5 flex-none items-center justify-center rounded-full border border-lilac bg-tint text-[12.5px] font-semibold text-brand">
-                    {initials(featured.author)}
-                  </span>
+                  <AuthorAvatar name={featured.author} photoUrl={featured.authorPhotoUrl} />
                   <span className="text-[13.5px] text-muted">
                     {featured.author}
                     <span className="mx-1.75 opacity-50">·</span>
@@ -137,7 +166,7 @@ export default function InsightsGrid({ posts, copy }: Props) {
                   )}
                   <span>{formatDate(post.publishedAt)}</span>
                 </div>
-                <div className="mt-4.5 flex items-start gap-6">
+                <div className="mt-4.5 mb-7 flex items-start gap-6">
                   <div className="flex-1">
                     <h3 className="text-[21px] leading-[1.32] font-semibold text-foreground" style={{ textWrap: "pretty" }}>
                       {post.title}
@@ -161,9 +190,7 @@ export default function InsightsGrid({ posts, copy }: Props) {
                   )}
                 </div>
                 <div className="mt-auto flex items-center gap-3 border-t border-lilac pt-5">
-                  <span className="flex h-8.5 w-8.5 flex-none items-center justify-center rounded-full border border-lilac bg-tint text-[12.5px] font-semibold text-brand">
-                    {initials(post.author)}
-                  </span>
+                  <AuthorAvatar name={post.author} photoUrl={post.authorPhotoUrl} />
                   <span className="text-[13.5px] text-muted">
                     {post.author}
                     <span className="mx-1.75 opacity-50">·</span>
