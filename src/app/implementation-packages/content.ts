@@ -289,25 +289,28 @@ export const HOW_PRICING_WORKS = {
 /* ------------------------------------------------------------------ */
 
 export const HERO = {
-  eyebrow: "Pricing · monday.com Platinum Partner · AU · UK · US · India · Singapore",
+  eyebrow: "Pricing · monday.com · Atlassian · HubSpot · AI · Automation",
   h1Before: "Fruition pricing: ",
   h1Accent: "published up front",
   h1After: ", fixed before work starts.",
   /** Answer-first summary: the WebPage speakable selector points at it. */
-  answer: `Fruition prices monday.com implementation as three packages: Training & Optimisation (from ${usd(TRAINING.basePriceUsd)} one-time), Lock-Step, where we build and deploy together (from ${usd(LOCKSTEP.basePriceUsd)} one-time), and Deployed Engineer (from ${usd(DEPLOYED.basePriceUsd)} per month). AI consulting, Atlassian, HubSpot, automation and integration work starts with a fixed-fee initial phase, from A$3,000 for a Zapier build to A$35,000 for a production AI agent.`,
+  answer: `Three monday.com packages from ${usd(TRAINING.basePriceUsd)} one-time, ${usd(LOCKSTEP.basePriceUsd)} one-time and ${usd(DEPLOYED.basePriceUsd)} per month, and a fixed-fee first phase for every AI, Atlassian, HubSpot and automation project.`,
+  /** No longer shown in the hero (Nikki's 3 Nov 2026 review cut it to one sentence); kept for Studio. */
   lead: "Every engagement is priced per phase and agreed in writing before anything is built. Pick a package, or start with a free 30-minute system audit and we'll recommend one.",
+  /** Short proof points under the credentials, one line on desktop. */
   bullets: [
-    "Three monday.com packages: optimise, build together, or embed an engineer",
-    "Published starting prices for AI, Atlassian, HubSpot and automation work",
-    "Process mapping and solution design before anything is built",
-    "Local pricing for Australia, the UK, the US and Asia",
+    "Fixed price per phase",
+    "Process mapped before build",
+    "Local pricing in AU, UK, US & Asia",
   ],
+  /** Credential tiles: "Practice · status". The text before " · " is the tile title. */
   chips: [
-    "monday.com Platinum Partner",
-    "Atlassian Platinum Partner (Senzo)",
-    "2026 Rising Star awards",
-    "OpenAI & Anthropic partner",
-    "NSW Gov ICT Scheme SCM0020",
+    "monday.com · Platinum Partner",
+    "Atlassian · Platinum Partner (Senzo)",
+    "HubSpot · Partner",
+    "AI · OpenAI & Anthropic partner",
+    "Automation · Make & n8n partner",
+    "2026 Rising Star · NSW Gov ICT SCM0020",
   ],
   jumpLabel: "Jump to",
 }
@@ -317,8 +320,8 @@ export const FORM = {
   intro:
     "We map your workflow, spot the automation wins and recommend the right implementation package. No obligation.",
   industries: ["Construction & trades", "Government", "Manufacturing", "Professional services", "Real estate & property", "Marketing & agencies", "Retail", "Other"],
-  plans: ["Not on monday.com yet", "Basic / Standard", "Pro", "Enterprise"],
-  products: ["Work Management", "monday CRM", "monday Service", "monday dev", "Not sure"],
+  /** One platform-neutral select (replaced the monday.com plan and product selects, 3 Nov 2026). */
+  helpOptions: ["monday.com", "Atlassian / Jira", "HubSpot", "AI & agents", "Automation & integrations", "Not sure"],
   regions: ["Australia & NZ", "South-East Asia", "India & UAE", "UK & Europe", "US & Canada"],
   submit: "Book my system audit",
   footnote: "Reply within one business day, in your time zone.",
