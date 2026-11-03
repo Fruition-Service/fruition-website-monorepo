@@ -25,7 +25,14 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
    those whose text is on the page. `POST` uploads the new file, repoints every matching image field
    in the chosen documents (paths worked out server side; crop and hotspot cleared, alt kept) and
    flushes the cache like a text save.
-6. `POST /api/internal/edit/field` sets the field on the **published** document (and on any open
+6. Page info: *Page info* in the bottom bar edits the page's meta title and description
+   (`seoTitle` / `seoDescription`), which also feed Open Graph and Twitter cards. They are not on
+   the page, so the overlay sends `GET /api/internal/edit/meta` the documents named by stega markers
+   in `<head>` (present when the fields are set) and in the body; `pickMetaDoc` in
+   `src/lib/inlineEdit.ts` picks the page's document (head first, else the only SEO-capable body
+   document, else one whose slug matches the URL). `POST` sets both fields, or unsets an empty one
+   so the page's code default returns. Pages whose metadata is hard-coded say so instead.
+7. `POST /api/internal/edit/field` sets the field on the **published** document (and on any open
    Studio draft of it), then `revalidatePath` on the page and the whole layout, and the overlay
    reloads.
 
@@ -42,7 +49,7 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
   The pricing page (`/implementation-packages`) reads the `implementationPackagesPage` singleton
   laid over the defaults in its `content.ts` (`contentMerge.ts`), including the meta title and
   description; seed new fields with `npx tsx scripts/seed-implementation-packages.ts --apply`.
-- Text and images only: links, alt text, adding/removing/reordering blocks still happen in Studio.
+- Text, images and page info only: social preview images, links, alt text, adding/removing/reordering blocks still happen in Studio.
 - An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
   untick the ones that should keep the old image. Old assets are not deleted.
 - CSS background images and images in code (`public/`) are not editable.
