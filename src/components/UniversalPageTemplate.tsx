@@ -35,6 +35,7 @@ import YouTubeEmbed from "@/components/YouTubeEmbed"
 import type { FaqTab } from "@/components/sections/types"
 import { resolveIndustryLogos } from "@/sanity/industryLogos"
 import { getIndustrySections, type IndustrySections } from "@/data/industrySections"
+import { mergeIndustrySections } from "@/features/content/industrySections"
 import type { CarouselLogo } from "@/components/sections/types"
 
 interface UniversalPageTemplateProps {
@@ -140,13 +141,16 @@ export default function UniversalPageTemplate({
         c.clientName?.toLowerCase().includes("louis stenmark"),
     ) || caseStudies[0]
 
-  /* Long-form industry copy that has no Sanity home yet — see
-     src/data/industrySections.ts. Renders nothing for pages with no entry. */
+  /* Long-form industry copy: the code sections in src/data/industrySections.ts
+     with the page's own Sanity objects merged over them field by field (see
+     src/features/content/industrySections.ts). The /industries leaves pass
+     their own `sections` and have no Sanity doc, so they keep the code copy.
+     Renders nothing for pages with no entry. */
   const {
     capabilityBlocks,
     benefitLedger,
     templateSpec,
-  } = sections ?? getIndustrySections(page.slug)
+  } = mergeIndustrySections(sections ?? getIndustrySections(page.slug), page)
 
   const capabilitiesColumns =
     page.capabilitiesColumns === 2 || page.capabilitiesColumns === 3

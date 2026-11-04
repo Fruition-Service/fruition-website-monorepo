@@ -1,11 +1,14 @@
 import PracticePageTemplate from '@/components/PracticePageTemplate'
 import { ATLASSIAN_PAGES } from '@/data/practicePages/atlassian'
 import { practiceMetadata } from '@/data/practicePages/types'
+import { getPracticePageContent } from '@/features/content/practicePage'
 
 const page = ATLASSIAN_PAGES['jira-to-monday-migration']
 
-export const metadata = practiceMetadata(page)
+export async function generateMetadata() {
+  return practiceMetadata(await getPracticePageContent(page))
+}
 
-export default function Page() {
-  return <PracticePageTemplate page={page} />
+export default async function Page() {
+  return <PracticePageTemplate page={await getPracticePageContent(page)} />
 }

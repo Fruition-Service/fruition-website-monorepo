@@ -49,6 +49,12 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
   The pricing page (`/implementation-packages`) reads the `implementationPackagesPage` singleton
   laid over the defaults in its `content.ts` (`contentMerge.ts`), including the meta title and
   description; seed new fields with `npx tsx scripts/seed-implementation-packages.ts --apply`.
+  Practice pages (every PracticePageTemplate route and the five /industries leaves, listed in
+  `src/data/practicePages/editable.ts`) read one `practicePage` document each, matched on `path`
+  and merged over the code copy (`src/features/content/practicePage.ts`); seed with
+  `npx tsx scripts/seed-practice-pages.ts --apply`. The monday-for-* long-form sections
+  (`capabilityBlocks`, `benefitLedger`, `templateSpec`) are `industryPage` fields merged over
+  `src/data/industrySections.ts`; seed with `npx tsx scripts/seed-industry-sections.ts --apply`.
 - Text, images and page info only: social preview images, links, alt text, adding/removing/reordering blocks still happen in Studio.
 - An image shared by several documents (e.g. one logo on many logo walls) is listed per document;
   untick the ones that should keep the old image. Old assets are not deleted.

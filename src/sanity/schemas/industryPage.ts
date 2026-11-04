@@ -643,6 +643,126 @@ export default {
     { name: 'testimonialsGridStatCtaLabel', title: 'Testimonials Grid Stat CTA Label', type: 'string' },
     { name: 'testimonialsGridStatCtaUrl', title: 'Testimonials Grid Stat CTA URL', type: 'string' },
 
+    // ── Long-form industry sections ─────────────────────────────────
+    // Merged field by field over the code copy in src/data/industrySections.ts
+    // (UniversalPageTemplate). A blank field or an emptied list keeps the code
+    // copy. Every string may use **bold** and [text](/path).
+    {
+      name: 'capabilityBlocks',
+      title: 'Long-form: Capability Blocks',
+      type: 'object',
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+        { name: 'heading', title: 'Heading', type: 'string' },
+        { name: 'headingAccent', title: 'Heading Accent (purple trailing half)', type: 'string' },
+        { name: 'lead', title: 'Lead', type: 'text', rows: 3 },
+        { name: 'columns', title: 'Columns (2 or 3)', type: 'number', options: { list: [2, 3] } },
+        {
+          name: 'blocks',
+          title: 'Blocks',
+          type: 'array',
+          of: [{
+            type: 'object',
+            name: 'industryCapabilityBlock',
+            fields: [
+              { name: 'number', title: 'Number (e.g. "01")', type: 'string' },
+              { name: 'title', title: 'Title', type: 'string' },
+              { name: 'lead', title: 'Lead', type: 'text', rows: 3 },
+              {
+                name: 'points',
+                title: 'Points',
+                type: 'array',
+                of: [{
+                  type: 'object',
+                  name: 'industryPoint',
+                  fields: [
+                    { name: 'label', title: 'Bold lead-in (optional)', type: 'string' },
+                    { name: 'text', title: 'Text', type: 'text', rows: 2 },
+                  ],
+                  preview: { select: { title: 'label', subtitle: 'text' } },
+                }],
+              },
+              { name: 'note', title: 'Closing note', type: 'text', rows: 2 },
+            ],
+            preview: { select: { title: 'title', subtitle: 'lead' } },
+          }],
+        },
+      ],
+    },
+    {
+      name: 'benefitLedger',
+      title: 'Long-form: Benefit Ledger',
+      type: 'object',
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+        { name: 'heading', title: 'Heading', type: 'string' },
+        { name: 'headingAccent', title: 'Heading Accent (purple trailing half)', type: 'string' },
+        { name: 'intro', title: 'Intro', type: 'text', rows: 3 },
+        {
+          name: 'items',
+          title: 'Items',
+          type: 'array',
+          of: [{
+            type: 'object',
+            name: 'industryLedgerItem',
+            fields: [
+              { name: 'label', title: 'Bold lead-in (optional)', type: 'string' },
+              { name: 'text', title: 'Text', type: 'text', rows: 2 },
+            ],
+            preview: { select: { title: 'label', subtitle: 'text' } },
+          }],
+        },
+        { name: 'footnote', title: 'Footnote', type: 'text', rows: 2 },
+      ],
+    },
+    {
+      name: 'templateSpec',
+      title: 'Long-form: Template Spec',
+      type: 'object',
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+        { name: 'heading', title: 'Heading', type: 'string' },
+        { name: 'headingAccent', title: 'Heading Accent (purple trailing half)', type: 'string' },
+        { name: 'lead', title: 'Lead', type: 'text', rows: 3 },
+        { name: 'columns', title: 'Columns (2 or 3)', type: 'number', options: { list: [2, 3] } },
+        {
+          name: 'panels',
+          title: 'Panels',
+          type: 'array',
+          of: [{
+            type: 'object',
+            name: 'industrySpecPanel',
+            fields: [
+              { name: 'title', title: 'Title', type: 'string' },
+              { name: 'lead', title: 'Lead', type: 'text', rows: 2 },
+              { name: 'bullets', title: 'Bullets', type: 'array', of: [{ type: 'string' }] },
+              { name: 'chipsLabel', title: 'Chips Label', type: 'string' },
+              { name: 'chips', title: 'Chips', type: 'array', of: [{ type: 'string' }] },
+              {
+                name: 'groups',
+                title: 'Bullet Groups',
+                type: 'array',
+                of: [{
+                  type: 'object',
+                  name: 'industrySpecGroup',
+                  fields: [
+                    { name: 'label', title: 'Label', type: 'string' },
+                    { name: 'bullets', title: 'Bullets', type: 'array', of: [{ type: 'string' }] },
+                  ],
+                  preview: { select: { title: 'label' } },
+                }],
+              },
+              { name: 'note', title: 'Note', type: 'text', rows: 2 },
+            ],
+            preview: { select: { title: 'title', subtitle: 'lead' } },
+          }],
+        },
+      ],
+    },
+
     // Section visibility toggles
     { name: 'hideDiscoverSection', title: 'Hide Discover CTA Section', type: 'boolean', initialValue: false },
     { name: 'hideJoinStatsSection', title: 'Hide Join Stats Section', type: 'boolean', initialValue: false },
