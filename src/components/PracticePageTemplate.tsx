@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import {
   DISCOVERY_CALL_URL,
-  GEO_REGIONS,
-  PRACTICE_LEADER,
+  withPracticeSharedCopy,
   type PracticePage,
 } from '@/data/practicePages/types'
 import FaqAccordion from '@/components/sections/FaqAccordion'
@@ -56,7 +55,11 @@ function CtaButtons({
   )
 }
 
-export default async function PracticePageTemplate({ page }: { page: PracticePage }) {
+export default async function PracticePageTemplate({ page: content }: { page: PracticePage }) {
+  // The shared blocks (logo wall heading, coverage, leader, booking, FAQ
+  // heading) come from the page's practicePage document when it fills them in,
+  // else the copy every practice page shares.
+  const page = withPracticeSharedCopy(content)
   // Central Sanity FAQs for this route (tagged with the page key in faqItem.pages).
   // Fall back to the page's hardcoded faqs until the migration has seeded them.
   // FAQPage JSON-LD is emitted by FaqAccordion itself.
@@ -123,7 +126,13 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
         </div>
       </section>
 
-      {industryLogos?.length ? <ClientLogoSection logos={industryLogos} /> : null}
+      {industryLogos?.length ? (
+        <ClientLogoSection
+          headingPart1={page.logoHeading}
+          headingAccent={page.logoHeadingAccent}
+          logos={industryLogos}
+        />
+      ) : null}
 
       {/* Approach */}
       <section className="border-b border-ui">
@@ -224,12 +233,12 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
       {/* Geographic coverage */}
       <section className="border-b border-ui">
         <div className="site-container section-y">
-          <Eyebrow>Geographic coverage</Eyebrow>
+          <Eyebrow>{page.coverageEyebrow}</Eyebrow>
           <h2 className="text-section-h2 mb-8 md:mb-10">
-            Delivered locally across three regions.
+            {page.coverageHeading}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {GEO_REGIONS.map((g) => (
+            {page.coverageRegions.map((g) => (
               <div key={g.region} className="rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised p-6">
                 <div className="text-2xl mb-3" aria-hidden>{g.flag}</div>
                 <h3 className="text-card-title">{g.region}</h3>
@@ -246,20 +255,20 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
       {/* Practice leader */}
       <section className="border-b border-ui bg-surface-subtle">
         <div className="site-container section-y">
-          <Eyebrow>Who leads it</Eyebrow>
+          <Eyebrow>{page.leaderEyebrow}</Eyebrow>
           <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 items-start">
             <div>
-              <h2 className="text-section-h2">{PRACTICE_LEADER.heading}</h2>
+              <h2 className="text-section-h2">{page.leaderHeading}</h2>
             </div>
             <div>
               <p className="text-base font-semibold">
-                {PRACTICE_LEADER.name}
-                <span className="text-muted font-normal"> · {PRACTICE_LEADER.title}</span>
+                {page.leaderName}
+                <span className="text-muted font-normal"> · {page.leaderTitle}</span>
               </p>
-              <p className="mt-3 text-body-sm text-muted">{PRACTICE_LEADER.bio}</p>
-              <p className="mt-4 text-base font-medium text-body">{PRACTICE_LEADER.pull}</p>
+              <p className="mt-3 text-body-sm text-muted">{page.leaderBio}</p>
+              <p className="mt-4 text-base font-medium text-body">{page.leaderPull}</p>
               <div className="mt-5 flex flex-wrap gap-2">
-                {PRACTICE_LEADER.badges.map((b) => (
+                {page.leaderBadges.map((b) => (
                   <span
                     key={b}
                     className="inline-flex items-center rounded-full ring-1 ring-ui bg-surface-raised text-xs font-medium px-3 py-1"
@@ -276,13 +285,13 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
       {/* Booking — gives the page its own #book, so every "book a call" CTA
           scrolls here instead of sending the visitor to /contact-us. */}
       <CalendlySection
-        heading="Let's design the way your business should run."
-        subheading="30 minutes. No obligation. Speak to a consultant, not a salesperson."
+        heading={page.bookingHeading}
+        subheading={page.bookingSubheading}
       />
 
       {/* FAQ — shared site-wide accordion (renders its own FAQPage JSON-LD + #faq anchor) */}
       <div className="border-b border-ui">
-        <FaqAccordion heading="Frequently asked questions" tabs={faqTabs} />
+        <FaqAccordion heading={page.faqHeading} tabs={faqTabs} />
       </div>
 
       {/* Closing CTA — shared site-wide banner; Sanity copy wins, previous

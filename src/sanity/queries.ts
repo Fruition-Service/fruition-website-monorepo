@@ -1086,6 +1086,21 @@ export interface PracticePageDoc {
   childrenHeading?: string
   childLinks?: { label?: string; description?: string; href?: string }[]
   faqs?: { q?: string; a?: string }[]
+  logoHeading?: string
+  logoHeadingAccent?: string
+  coverageEyebrow?: string
+  coverageHeading?: string
+  coverageRegions?: { flag?: string; region?: string; cities?: string; body?: string }[]
+  leaderEyebrow?: string
+  leaderHeading?: string
+  leaderName?: string
+  leaderTitle?: string
+  leaderBio?: string
+  leaderPull?: string
+  leaderBadges?: (string | null)[]
+  bookingHeading?: string
+  bookingSubheading?: string
+  faqHeading?: string
 }
 
 export async function getPracticePageDoc(path: string): Promise<PracticePageDoc | null> {
@@ -1100,7 +1115,14 @@ export async function getPracticePageDoc(path: string): Promise<PracticePageDoc 
     services[]{ title, body, href },
     childrenEyebrow, childrenHeading,
     childLinks[]{ label, description, href },
-    faqs[]{ q, a }
+    faqs[]{ q, a },
+    logoHeading, logoHeadingAccent,
+    coverageEyebrow, coverageHeading,
+    coverageRegions[]{ flag, region, cities, body },
+    leaderEyebrow, leaderHeading, leaderName, leaderTitle, leaderBio, leaderPull,
+    leaderBadges,
+    bookingHeading, bookingSubheading,
+    faqHeading
   }`,
     { path },
   )

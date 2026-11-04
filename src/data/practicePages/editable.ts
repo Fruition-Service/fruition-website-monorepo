@@ -1,4 +1,4 @@
-import type { PracticePage } from './types'
+import { withPracticeSharedCopy, type PracticePage, type PracticeSharedField } from './types'
 import { AI_CONSULTING_PAGES } from './aiConsulting'
 import { ATLASSIAN_PAGES } from './atlassian'
 import { HUBSPOT_PAGES } from './hubspot'
@@ -50,7 +50,43 @@ export function practicePageDocId(path: string): string {
   return `practicePage-${path.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')}`
 }
 
-/** A PracticePage as the fields of its `practicePage` document. */
+/**
+ * The /industries leaves render through UniversalPageTemplate, which shows a
+ * client logo wall but not the practice template's coverage, leader, booking
+ * and FAQ heading. Every other route renders PracticePageTemplate, which has
+ * no logo wall on these routes (none of them has an industry logo set).
+ */
+export function rendersThroughIndustryTemplate(page: PracticePage): boolean {
+  return page.path.startsWith('/industries/')
+}
+
+const LOGO_FIELDS: PracticeSharedField[] = ['logoHeading', 'logoHeadingAccent']
+const TEMPLATE_FIELDS: PracticeSharedField[] = [
+  'coverageEyebrow',
+  'coverageHeading',
+  'coverageRegions',
+  'leaderEyebrow',
+  'leaderHeading',
+  'leaderName',
+  'leaderTitle',
+  'leaderBio',
+  'leaderPull',
+  'leaderBadges',
+  'bookingHeading',
+  'bookingSubheading',
+  'faqHeading',
+]
+
+/** The shared-block fields this route actually renders, so only those are seeded. */
+export function renderedSharedFields(page: PracticePage): PracticeSharedField[] {
+  return rendersThroughIndustryTemplate(page) ? LOGO_FIELDS : TEMPLATE_FIELDS
+}
+
+/**
+ * A PracticePage as the fields of its `practicePage` document. The shared
+ * blocks carry the copy the route renders today (its own value, else the
+ * shared copy), limited to the blocks the route shows.
+ */
 export function toPracticePageFields(page: PracticePage): Record<string, unknown> {
   const fields: Record<string, unknown> = {
     title: `${page.heading} (${page.path})`,
@@ -87,6 +123,13 @@ export function toPracticePageFields(page: PracticePage): Record<string, unknown
       ...(c.description ? { description: c.description } : {}),
     })),
     faqs: page.faqs.map((f, i) => ({ _key: `faq-${i}`, _type: 'practiceFaqItem', q: f.q, a: f.a })),
+  }
+  const shared = withPracticeSharedCopy(page)
+  for (const name of renderedSharedFields(page)) {
+    fields[name] =
+      name === 'coverageRegions'
+        ? shared.coverageRegions.map((r, i) => ({ _key: `region-${i}`, _type: 'practiceCoverageRegion', ...r }))
+        : shared[name]
   }
   return Object.fromEntries(Object.entries(fields).filter(([, v]) => v !== undefined))
 }
