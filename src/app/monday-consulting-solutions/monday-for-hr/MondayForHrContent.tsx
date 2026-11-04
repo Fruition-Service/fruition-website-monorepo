@@ -242,11 +242,7 @@ export default function MondayForHrContent({
         heroImage={page.heroImage}
         heroVideoSrc={page.heroLocalVideoSrc}
         certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         primaryCtaLabel={page.primaryCtaLabel}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || rawCalendly)}
         secondaryCtaLabel={page.secondaryCtaLabel}

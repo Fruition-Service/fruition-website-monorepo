@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import Image from "next/image"
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
@@ -254,21 +255,9 @@ export default function MondayImplementationConsultantsContent({
   const joinBadgeSrc = imageUrl(data?.joinSectionBadge)
 
   type ResolvedImage = { _key: string | undefined; src: string; alt: string }
-  const sanityPartnerBadges: ResolvedImage[] = (data?.heroPartnerBadges ?? [])
-    .map((b, i): ResolvedImage | null => {
-      const src = imageUrl(b.image)
-      if (!src) return null
-      return { _key: b._key, src, alt: b.alt ?? `Partner badge ${i + 1}` }
-    })
-    .filter((x): x is ResolvedImage => x !== null)
-  const navPartnerBadges: ResolvedImage[] = (siteSettings?.navbarPartnerBadges ?? [])
-    .map((b: { _key?: string; name?: string; image?: SanityImageRef }, i: number): ResolvedImage | null => {
-      const src = imageUrl(b.image)
-      if (!src) return null
-      return { _key: b._key ?? `nav-badge-${i}`, src, alt: b.name ?? `Partner badge ${i + 1}` }
-    })
-    .filter((x: ResolvedImage | null): x is ResolvedImage => x !== null)
-  const heroPartnerBadges = sanityPartnerBadges.length > 0 ? sanityPartnerBadges : navPartnerBadges
+  // The page's own badges, mapped to the shared row's shape; without them the
+  // row shows the route's service badges (src/data/partnerBadges.ts).
+  const heroPartnerBadges = (data?.heroPartnerBadges ?? []).map((b) => ({ _key: b._key, name: b.alt, image: b.image }))
   const heroMondayPartnersImageSrc = imageUrl(data?.heroMondayPartnersImage)
   const heroDashboardImageSrc = imageUrl(data?.heroImage) || "/images/hero-monday-board.jpg"
   const heroProductImages: ResolvedImage[] = (data?.heroProductImages ?? [])
@@ -371,21 +360,7 @@ export default function MondayImplementationConsultantsContent({
           {/* Text column */}
           <div className="flex flex-col items-start gap-6 min-w-0">
             {/* Partner badges */}
-            {heroPartnerBadges.length > 0 && (
-              <div className="flex items-center flex-wrap justify-start gap-[22px]">
-                {heroPartnerBadges.map((badge) => (
-                  <Image
-                    key={badge._key ?? badge.src}
-                    src={badge.src}
-                    alt={badge.alt}
-                    width={120}
-                    height={44}
-                    className="h-[44px] w-auto rounded-[5px]"
-                    unoptimized
-                  />
-                ))}
-              </div>
-            )}
+            <PartnerBadgeRow badges={heroPartnerBadges} />
 
             <h1 className="text-display text-[32px] md:text-[40px] lg:text-[clamp(38px,3.4vw,52px)] leading-[1.12] tracking-[-0.02em] [text-wrap:balance] w-full max-w-[680px] break-words">
               {heroHeadingPart1 && <span className="text-body">{keepAmpersandAttached(heroHeadingPart1)}</span>}

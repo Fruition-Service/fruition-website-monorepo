@@ -1,15 +1,15 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import Link from "next/link"
 import { useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { urlFor } from "@/sanity/image"
 import CtaLabel from "@/components/CtaLabel"
 import BioText from "@/components/BioText"
-import FramedMedia from "@/components/common/FramedMedia"
 import CroSections, { type CroSectionsData } from "@/components/sections/CroSections"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
-import type { PartnerBadge, SanityImageRef } from "@/components/sections/types"
+import type { SanityImageRef } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import CalendlySection from "@/components/sections/CalendlySection"
 import { filterTeamForTab, rosterOrder } from "@/lib/mergeTeamMembers"
@@ -56,7 +56,6 @@ interface Props {
   heroHeading: string
   heroCtaLabel: string
   calendlyUrl: string
-  partnerBadges: PartnerBadge[]
   certificationBadge?: SanityImageRef
   regions: TeamRegion[]
   heroDescriptionBlocks?: HeroDescriptionBlock[]
@@ -83,21 +82,11 @@ function roleRank(role?: string): number {
   return 4
 }
 
-function safeBadgeUrl(ref: SanityImageRef): string | null {
-  if (!ref?.asset?._ref) return null
-  try {
-    return urlFor(ref).width(800).auto("format").url()
-  } catch {
-    return null
-  }
-}
-
 export default function FruitionTeamClient({
   members,
   heroHeading,
   heroCtaLabel,
   calendlyUrl,
-  partnerBadges,
   regions,
   heroDescriptionBlocks,
   croSections,
@@ -150,33 +139,14 @@ export default function FruitionTeamClient({
             maxWidth: 1100,
           }}
         >
-          {partnerBadges.length > 0 && (
-            <div className="flex items-center flex-wrap justify-center" style={{ gap: 22 }}>
-              {partnerBadges.map((badge, i) => {
-                const src = safeBadgeUrl(badge.image)
-                if (!src) return null
-                return (
-                  <FramedMedia key={badge._key || `badge-${i}`} className="dark:p-1.5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={badge.name || "Partner badge"}
-                      width={120}
-                      height={44}
-                      className="h-[44px] w-auto rounded-[5px]"
-                    />
-                  </FramedMedia>
-                )
-              })}
-            </div>
-          )}
+          <PartnerBadgeRow className="justify-center" />
 
           <h1
             className="text-center font-bold"
             style={{
               fontSize: "clamp(32px, 8vw, 48px)",
               lineHeight: 1.2,
-              marginTop: partnerBadges.length > 0 ? 36 : 0,
+              marginTop: 36,
               maxWidth: 920,
               color: "var(--text-body)",
             }}

@@ -366,11 +366,7 @@ export default function MondayConsultingPartnerContent({ page, siteSettings, cas
         heroImageUrl="/images/partner-hero.avif"
         heroVideoSrc={page.heroLocalVideoSrc}
         certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         primaryCtaLabel={page.primaryCtaLabel || "Book a Consultation"}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || calendlyUrl)}
         secondaryCtaLabel={page.secondaryCtaLabel || "Get Started with monday.com"}

@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import { useState } from "react"
 import Link from "next/link"
@@ -15,7 +16,6 @@ import type {
   CaseStudy,
   SiteSettingsData,
   FaqTab,
-  PartnerBadge,
   SanityImageRef,
 } from "@/components/sections/types"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
@@ -114,7 +114,6 @@ export default function MondayProductManagementContent({
     siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
   const calendlyUrl = bookingHref(rawCalendly)
 
-  const partnerBadges: PartnerBadge[] = siteSettings?.navbarPartnerBadges || []
   const heroVideoEmbedSrc = youtubeEmbedUrl(page.heroVideoUrl)
 
   const featuredTestimonial =
@@ -130,25 +129,7 @@ export default function MondayProductManagementContent({
       <section className="bg-surface">
         <div className="site-container flex flex-col items-center py-14 md:py-24">
           {/* Partner badges */}
-          {partnerBadges.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-[22px]">
-              {partnerBadges.map((badge, i) => {
-                const src = safeImageUrl(badge.image)
-                if (!src) return null
-                return (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={badge._key || `badge-${i}`}
-                    src={src}
-                    alt={badge.name || "Partner badge"}
-                    width={120}
-                    height={44}
-                    className="h-[44px] w-auto rounded-[5px]"
-                  />
-                )
-              })}
-            </div>
-          )}
+          <PartnerBadgeRow className="justify-center" />
 
           {/* Eyebrow */}
           {page.heroEyebrow && (

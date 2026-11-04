@@ -4,6 +4,7 @@ import { urlFor } from "@/sanity/image"
 import type { ReactNode } from "react"
 import CtaButton from "@/components/CtaButton"
 import FramedMedia from "@/components/common/FramedMedia"
+import PartnerBadgeRow from "./PartnerBadgeRow"
 import type { SanityImageRef, PartnerBadge } from "./types"
 
 interface HeroBannerProps {
@@ -24,6 +25,7 @@ interface HeroBannerProps {
   heroVideoSrc?: string
   /** Accepted for older call sites; the hero does not draw it. */
   certificationBadge?: SanityImageRef
+  /** The page's own badges; without them the row shows the route's service badges. */
   partnerBadges?: PartnerBadge[]
   /** When set, hides individual partner badges and shows this image below the hero media instead. */
   partnerImageSrc?: SanityImageRef | string
@@ -74,20 +76,6 @@ export function mediaAspect(ref: SanityImageRef, url?: string | null): number | 
  */
 const BANNER_ASPECT = 3
 
-/** Override specific partner badges with local dark variants */
-const DARK_LOGO_OVERRIDES: Record<string, string> = {
-  n8n: '/images/partner-n8n-dark.avif',
-  aircall: '/images/partner-aircall-dark.avif',
-}
-
-function getDarkBadgeSrc(name: string | undefined, fallbackSrc: string | null): string | null {
-  const n = (name || '').toLowerCase()
-  for (const [key, darkSrc] of Object.entries(DARK_LOGO_OVERRIDES)) {
-    if (n.includes(key)) return darkSrc
-  }
-  return fallbackSrc
-}
-
 export default function HeroBanner({
   eyebrow,
   headingPart1 = "",
@@ -114,7 +102,7 @@ export default function HeroBanner({
   const partnerImageUrl = typeof partnerImageSrc === "string"
     ? partnerImageSrc
     : safeImageUrl(partnerImageSrc as SanityImageRef)
-  const showPartnerBadges = !hidePartnerBadges && !partnerImageUrl && partnerBadges.length > 0
+  const showPartnerBadges = !hidePartnerBadges && !partnerImageUrl
 
   const hasMedia = Boolean(heroVideoSrc || heroImageSrc)
   // Video has no readable size; it used to render in the 1042x312 banner frame.
@@ -124,26 +112,7 @@ export default function HeroBanner({
   // Landscape media (wider than 8:5) gets the larger share of the row.
   const wideMedia = aspect !== null && aspect >= 1.6
 
-  const badges = showPartnerBadges && (
-    <div className="flex items-center flex-wrap gap-3 md:gap-4 mb-6">
-      {partnerBadges.map((badge, i) => {
-        const cmsSrc = safeImageUrl(badge.image)
-        const src = getDarkBadgeSrc(badge.name, cmsSrc)
-        if (!src) return null
-        return (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={badge._key || `badge-${i}`}
-            src={src}
-            alt={badge.name || "Partner badge"}
-            width={120}
-            height={44}
-            className="h-9 md:h-[44px] w-auto rounded-[5px]"
-          />
-        )
-      })}
-    </div>
-  )
+  const badges = showPartnerBadges && <PartnerBadgeRow badges={partnerBadges} className="mb-6" />
 
   const copy = (
     <>

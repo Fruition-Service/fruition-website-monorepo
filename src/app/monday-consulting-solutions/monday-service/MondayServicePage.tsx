@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import { useState } from "react"
 import Link from "next/link"
 import {
@@ -9,7 +10,7 @@ import {
   JoinStatsSection,
   TestimonialCtaBanner,
 } from "@/components/sections"
-import type { SiteSettingsData, PartnerBadge, SanityImageRef } from "@/components/sections/types"
+import type { SiteSettingsData, SanityImageRef } from "@/components/sections/types"
 import { urlFor } from "@/sanity/image"
 import CtaButton from "@/components/CtaButton"
 import CtaLabel from "@/components/CtaLabel"
@@ -120,7 +121,6 @@ function safeImageUrl(ref?: SanityImageRef): string | null {
 export default function MondayServicePage({ page, siteSettings }: Props) {
   const rawCalendly = siteSettings?.calendlyLink || ""
   const calendlyUrl = bookingHref(rawCalendly)
-  const partnerBadges: PartnerBadge[] = siteSettings?.navbarPartnerBadges || []
 
   const heroTitle = page?.heroHeading || page?.title
   const heroSubheading = page?.heroSubheading
@@ -138,25 +138,7 @@ export default function MondayServicePage({ page, siteSettings }: Props) {
         <div
           className="mx-auto flex max-w-[1476px] flex-col items-center px-5 py-14 md:px-16 md:py-20 lg:px-[273px] lg:py-20"
         >
-          {partnerBadges.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-[22px]">
-              {partnerBadges.map((badge, i) => {
-                const src = i === 2 ? "/images/monday-svc-logo.avif" : safeImageUrl(badge.image)
-                if (!src) return null
-                return (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={badge._key || `badge-${i}`}
-                    src={src}
-                    alt={badge.name || "Partner badge"}
-                    width={120}
-                    height={44}
-                    className="h-[44px] w-auto rounded-[5px]"
-                  />
-                )
-              })}
-            </div>
-          )}
+          <PartnerBadgeRow className="justify-center" />
 
           {heroTitle && (
             <h1

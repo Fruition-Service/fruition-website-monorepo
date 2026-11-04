@@ -77,11 +77,7 @@ export default async function Page() {
         headingPart1={page.heroHeading || page.title || ""}
         subheading={page.hideHeroSubheading ? undefined : page.heroSubheading}
         heroImage={page.heroImage}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         primaryCtaLabel={page.primaryCtaLabel}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || calendlyUrl)}
         secondaryCtaLabel={page.secondaryCtaLabel}

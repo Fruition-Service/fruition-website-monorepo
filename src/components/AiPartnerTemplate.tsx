@@ -7,6 +7,7 @@ import ClosingCtaSection, { type ClosingCtaCopy } from "@/components/sections/Cl
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import CalendlySection from "@/components/sections/CalendlySection"
 import type { FaqTab } from "@/components/sections/types"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 
 /**
  * AiPartnerTemplate — renders an `aiPartnerPage` Sanity document.
@@ -108,6 +109,7 @@ export default function AiPartnerTemplate({
         <div className="ap-wrap">
           <div className={`hero-grid ${page.heroSidePanelType === "none" ? "hero-grid-single" : ""}`}>
             <div>
+              <PartnerBadgeRow explicitOnly className="mb-6" />
               {page.heroEyebrow && <div className="eyebrow">{page.heroEyebrow}</div>}
               <h1 className="hero-h1">
                 <Heading

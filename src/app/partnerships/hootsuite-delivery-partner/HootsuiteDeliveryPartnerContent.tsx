@@ -44,11 +44,7 @@ export default function HootsuiteDeliveryPartnerContent({
         heroImage={page.heroImage}
         heroVideoSrc={page.heroLocalVideoSrc}
         certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         primaryCtaLabel={page.primaryCtaLabel || "Book a Consultation"}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || calendlyUrl)}
         secondaryCtaLabel={page.secondaryCtaLabel}
