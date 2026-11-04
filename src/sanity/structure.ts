@@ -18,6 +18,7 @@ import {
   Star,
   HelpCircle,
   ReceiptText,
+  Layers,
 } from 'lucide-react'
 
 export const deskStructure = (S: StructureBuilder) =>
@@ -98,6 +99,14 @@ export const deskStructure = (S: StructureBuilder) =>
                     .id('licensingPage')
                     .schemaType('licensingPage')
                     .documentId('licensingPage')
+                ),
+              S.listItem()
+                .title('Practice pages')
+                .icon(Layers)
+                .child(
+                  S.documentTypeList('practicePage')
+                    .title('Practice pages')
+                    .defaultOrdering([{ field: 'path', direction: 'asc' }])
                 ),
               S.divider(),
               S.listItem()

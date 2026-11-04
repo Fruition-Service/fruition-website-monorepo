@@ -135,7 +135,7 @@ export function findImagePaths(doc: unknown, assetId: string): string[] {
 export const SEO_DOC_TYPES = new Set([
   "page", "servicePage", "solutionPage", "industryPage", "partnershipPage", "aiPartnerPage",
   "locationPage", "blogPost", "homePage", "implementationPackagesPage", "licensingPage",
-  "makePartnersPage", "mondayImplementationConsultantsPage", "mondayTrainingPage",
+  "makePartnersPage", "mondayImplementationConsultantsPage", "mondayTrainingPage", "practicePage",
 ])
 
 export interface MetaCandidate {

@@ -9,6 +9,7 @@ import FeaturedUseCasesSection from '@/components/ai-use-cases/FeaturedUseCasesS
 import { getIndustryLogos } from '@/sanity/industryLogos'
 import { INDUSTRIES_PAGES } from '@/data/practicePages/industries'
 import { practiceMetadata } from '@/data/practicePages/types'
+import { getPracticePageContent } from '@/features/content/practicePage'
 import {
   pageKeyFor,
   practiceFaqTabs,
@@ -16,15 +17,18 @@ import {
   practiceToIndustryPage,
 } from '@/data/practicePages/toIndustryPage'
 
-const practice = INDUSTRIES_PAGES['education']
+const fallback = INDUSTRIES_PAGES['education']
 
-export const metadata = practiceMetadata(practice)
+export async function generateMetadata() {
+  return practiceMetadata(await getPracticePageContent(fallback))
+}
 
 export default async function Page() {
-  const [siteSettings, caseStudies, centralFaqs, industryLogos, featuredUseCases] = await Promise.all([
+  const [practice, siteSettings, caseStudies, centralFaqs, industryLogos, featuredUseCases] = await Promise.all([
+    getPracticePageContent(fallback),
     getSiteSettings(),
     getCaseStudies(),
-    getFaqItemsForPageStrict(pageKeyFor(practice)),
+    getFaqItemsForPageStrict(pageKeyFor(fallback)),
     getIndustryLogos('education'),
     getFeaturedUseCases('/industries/education'),
   ])

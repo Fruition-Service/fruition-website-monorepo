@@ -39,6 +39,7 @@ import mondayTrainingPage from './documents/mondayTrainingPage'
 import mondayImplementationConsultantsPage from './documents/mondayImplementationConsultantsPage'
 import makePartnersPage from './documents/makePartnersPage'
 import licensingPage from './documents/licensingPage'
+import practicePage from './documents/practicePage'
 
 export const schemaTypes = [
   // Existing
@@ -83,4 +84,5 @@ export const schemaTypes = [
   mondayImplementationConsultantsPage,
   makePartnersPage,
   licensingPage,
+  practicePage,
 ]

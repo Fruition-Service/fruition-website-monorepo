@@ -309,6 +309,11 @@ const PAGE_FIELDS = `
   showcaseOverrides,
   orderedSolutionCards,
 
+  // Long-form industry sections, merged over src/data/industrySections.ts
+  capabilityBlocks,
+  benefitLedger,
+  templateSpec,
+
   // Capabilities
   capabilitiesEyebrow,
   capabilitiesHeading,
@@ -1057,4 +1062,46 @@ export async function getLicensingPage(): Promise<LicensingPageDoc | null> {
     childLinks[]{ label, description, href },
     faqs[]{ q, a }
   }`)
+}
+
+/**
+ * A practice page document (`practicePage`), one per route rendered by
+ * PracticePageTemplate or built from PracticePage data. Every field is
+ * optional: the code copy in src/data/practicePages/ is the default and this
+ * is merged over it (src/features/content/practicePage.ts).
+ */
+export interface PracticePageDoc {
+  seoTitle?: string
+  seoDescription?: string
+  primaryCtaLabel?: string
+  heading?: string
+  lead?: string
+  approachEyebrow?: string
+  approachHeading?: string
+  approach?: { title?: string; body?: string }[]
+  servicesEyebrow?: string
+  servicesHeading?: string
+  services?: { title?: string; body?: string; href?: string }[]
+  childrenEyebrow?: string
+  childrenHeading?: string
+  childLinks?: { label?: string; description?: string; href?: string }[]
+  faqs?: { q?: string; a?: string }[]
+}
+
+export async function getPracticePageDoc(path: string): Promise<PracticePageDoc | null> {
+  return client.fetch(
+    `*[_type == "practicePage" && path == $path][0]{
+    seoTitle, seoDescription,
+    primaryCtaLabel,
+    heading, lead,
+    approachEyebrow, approachHeading,
+    approach[]{ title, body },
+    servicesEyebrow, servicesHeading,
+    services[]{ title, body, href },
+    childrenEyebrow, childrenHeading,
+    childLinks[]{ label, description, href },
+    faqs[]{ q, a }
+  }`,
+    { path },
+  )
 }
