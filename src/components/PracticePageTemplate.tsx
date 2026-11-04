@@ -89,9 +89,11 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-10 lg:gap-16 lg:items-center">
             <div className="min-w-0">
               <PartnerBadgeRow explicitOnly className="mb-6" />
-              <span className="inline-flex items-center rounded-full bg-brand-soft text-brand font-mono text-xs font-semibold uppercase tracking-[0.14em] px-3 py-1 mb-5">
-                {page.eyebrow}
-              </span>
+              {page.eyebrow && (
+                <span className="inline-flex items-center rounded-full bg-brand-soft text-brand font-mono text-xs font-semibold uppercase tracking-[0.14em] px-3 py-1 mb-5">
+                  {page.eyebrow}
+                </span>
+              )}
               <h1 className="text-display">
                 {page.heading}
                 <span className="text-brand">.</span>

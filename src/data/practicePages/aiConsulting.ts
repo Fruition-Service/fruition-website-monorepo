@@ -22,7 +22,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition is an AI consulting and implementation firm serving Australia, the UK, and the US. We assess, build, and govern AI systems on the platforms your teams already run, with fixed fees and practitioner-led delivery.',
     breadcrumb: [HUB],
-    eyebrow: '★ AI Consulting Hub',
     heading: 'AI consulting that starts from how your business actually works',
     lead: 'Fruition is an AI consulting and implementation firm serving Australia, the UK, and the US. We assess, build, and govern AI systems on the platforms your teams already run, with fixed fees and practitioner-led delivery.',
     targetQueries: [

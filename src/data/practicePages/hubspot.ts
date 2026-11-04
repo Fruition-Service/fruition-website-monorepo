@@ -16,7 +16,6 @@ export const HUBSPOT_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition delivers HubSpot consulting across Australia, the UK, and the US (implementation, Breeze AI enablement, and integrations) as a multi-platform firm that recommends HubSpot when it fits and says so when it doesn’t.',
     breadcrumb: [HUB],
-    eyebrow: '★ HubSpot Consulting Hub',
     heading: 'HubSpot advice from a partner with nothing to defend',
     lead: 'Fruition delivers HubSpot consulting across Australia, the UK, and the US (implementation, Breeze AI enablement, and integrations) as a multi-platform firm that recommends HubSpot when it fits and says so when it doesn’t.',
     targetQueries: [
