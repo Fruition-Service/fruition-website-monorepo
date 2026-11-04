@@ -32,6 +32,10 @@ export function practiceToIndustryPage(page: PracticePage) {
     secondaryCtaLabel: 'Common questions',
     secondaryCtaUrl: '#faq',
 
+    /* Unset keeps ClientLogoSection's standard heading. */
+    logoCloudHeadingPart1: page.logoHeading,
+    logoCloudHeadingAccent: page.logoHeadingAccent,
+
     /* The approach trio leads, as it does on the practice template; the
        services list follows it through CapabilityBlocksSection below. */
     capabilitiesEyebrow: page.approachEyebrow ?? 'Our approach',

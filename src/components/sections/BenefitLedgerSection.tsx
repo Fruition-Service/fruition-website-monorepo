@@ -6,7 +6,7 @@ interface BenefitLedgerSectionProps {
   eyebrow?: string
   heading?: string
   headingAccent?: string
-  /** Lead copy. Blank lines split it into paragraphs. */
+  /** Lead copy. A blank line starts a new paragraph. */
   intro?: string
   items?: IndustryPoint[]
   /** Closing paragraph below the ledger, separated by a hairline. */
@@ -31,8 +31,6 @@ export default function BenefitLedgerSection({
 }: BenefitLedgerSectionProps) {
   if (items.length === 0) return null
 
-  const paragraphs = (intro ?? "").split("\n\n").filter(Boolean)
-
   return (
     <section
       className={`section-y ${
@@ -47,14 +45,14 @@ export default function BenefitLedgerSection({
             headingAccent={headingAccent}
             align="left"
           />
-          {paragraphs.length > 0 && (
-            <div className="mt-5 flex flex-col gap-4">
-              {paragraphs.map((paragraph) => (
-                <p key={paragraph} className="text-body text-muted">
-                  <RichText text={paragraph} />
-                </p>
-              ))}
-            </div>
+          {/* One element for the whole intro: Sanity's edit marker sits at the
+              end of the stored string, so splitting it into paragraphs would
+              leave every paragraph without one. The blank line between
+              paragraphs renders as the gap. */}
+          {intro?.trim() && (
+            <p className="mt-5 text-body text-muted whitespace-pre-line">
+              <RichText text={intro} />
+            </p>
           )}
         </div>
 

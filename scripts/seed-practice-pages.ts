@@ -14,22 +14,27 @@
  * never overwritten, so edits made in Studio or the inline editor survive
  * re-runs.
  *
+ * The shared blocks are seeded with the copy each route renders today, and
+ * only on the routes that show them: the logo wall heading on the /industries
+ * leaves, and the coverage, practice leader, booking and FAQ headings on the
+ * PracticePageTemplate routes (renderedSharedFields in editable.ts).
+ *
  * Needs NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
  * SANITY_WRITE_TOKEN (from .env.local).
  */
 import { config as loadEnv } from "dotenv"
 import { createClient } from "@sanity/client"
-import {
-  EDITABLE_PRACTICE_PAGES,
-  practicePageDocId,
-  toPracticePageFields,
-} from "../src/data/practicePages/editable"
 
 loadEnv({ path: ".env.local" })
 
 const apply = process.argv.includes("--apply")
 
 async function main() {
+  // Imported after loadEnv: the page data reaches src/sanity/env.ts, which
+  // throws at import time when the Sanity env vars are not set yet.
+  const { EDITABLE_PRACTICE_PAGES, practicePageDocId, toPracticePageFields } = await import(
+    "../src/data/practicePages/editable"
+  )
   const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,

@@ -13,6 +13,10 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
  * Empty or half-filled lists are ignored for the same reason: clearing a list
  * in the Studio must not blank a whole section by accident.
  *
+ * The "Shared blocks" group (coverage, practice leader, booking) renders on
+ * the PracticePageTemplate routes; the /industries leaves use only the logo
+ * wall heading from it.
+ *
  * Seed with `npx tsx scripts/seed-practice-pages.ts --apply`.
  */
 export default defineType({
@@ -26,6 +30,7 @@ export default defineType({
     { name: 'services', title: 'Services' },
     { name: 'children', title: 'Linked pages' },
     { name: 'faqs', title: 'FAQs' },
+    { name: 'shared', title: 'Shared blocks' },
   ],
   fields: [
     defineField({
@@ -143,6 +148,13 @@ export default defineType({
     }),
 
     defineField({
+      name: 'faqHeading',
+      title: 'FAQ Heading',
+      type: 'string',
+      description: 'Not used on the /industries pages.',
+      group: 'faqs',
+    }),
+    defineField({
       name: 'faqs',
       title: 'FAQs',
       type: 'array',
@@ -161,6 +173,54 @@ export default defineType({
         }),
       ],
     }),
+
+    // Blocks every practice page shows with the same copy. Blank fields keep
+    // that copy (PRACTICE_SHARED_COPY in src/data/practicePages/types.ts).
+    // Coverage, leader and booking are not used on the /industries pages.
+    defineField({
+      name: 'logoHeading',
+      title: 'Logo Wall Heading (prefix)',
+      type: 'string',
+      description: 'Shown on pages with a client logo wall (the /industries pages). Keep the trailing space before the accent.',
+      group: 'shared',
+    }),
+    defineField({ name: 'logoHeadingAccent', title: 'Logo Wall Heading (accent)', type: 'string', group: 'shared' }),
+    defineField({ name: 'coverageEyebrow', title: 'Coverage Eyebrow', type: 'string', group: 'shared' }),
+    defineField({ name: 'coverageHeading', title: 'Coverage Heading', type: 'string', group: 'shared' }),
+    defineField({
+      name: 'coverageRegions',
+      title: 'Coverage Regions',
+      type: 'array',
+      group: 'shared',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'practiceCoverageRegion',
+          fields: [
+            { name: 'flag', title: 'Flag emoji', type: 'string' },
+            { name: 'region', title: 'Region', type: 'string' },
+            { name: 'cities', title: 'Cities', type: 'string' },
+            { name: 'body', title: 'Body', type: 'text', rows: 3 },
+          ],
+          preview: { select: { title: 'region', subtitle: 'cities' } },
+        }),
+      ],
+    }),
+    defineField({ name: 'leaderEyebrow', title: 'Leader Eyebrow', type: 'string', group: 'shared' }),
+    defineField({ name: 'leaderHeading', title: 'Leader Heading', type: 'string', group: 'shared' }),
+    defineField({ name: 'leaderName', title: 'Leader Name', type: 'string', group: 'shared' }),
+    defineField({ name: 'leaderTitle', title: 'Leader Job Title', type: 'string', group: 'shared' }),
+    defineField({ name: 'leaderBio', title: 'Leader Bio', type: 'text', rows: 4, group: 'shared' }),
+    defineField({ name: 'leaderPull', title: 'Leader Pull Quote', type: 'string', group: 'shared' }),
+    defineField({
+      name: 'leaderBadges',
+      title: 'Leader Badges',
+      type: 'array',
+      group: 'shared',
+      of: [defineArrayMember({ type: 'string' })],
+    }),
+    defineField({ name: 'bookingHeading', title: 'Booking Heading', type: 'string', group: 'shared' }),
+    defineField({ name: 'bookingSubheading', title: 'Booking Subheading', type: 'string', group: 'shared' }),
   ],
   preview: {
     select: { title: 'title', subtitle: 'path' },

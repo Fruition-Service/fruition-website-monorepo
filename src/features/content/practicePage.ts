@@ -1,6 +1,6 @@
 import { cache } from 'react'
 import { getPracticePageDoc, type PracticePageDoc } from '@/sanity/queries'
-import type { PracticeLink, PracticePage } from '@/data/practicePages/types'
+import type { PracticeLink, PracticePage, PracticeRegion } from '@/data/practicePages/types'
 
 /** Blank strings from the Studio are "not set", not "set to empty". */
 function text(value: string | undefined | null, fallback: string): string
@@ -8,6 +8,16 @@ function text(value: string | undefined | null, fallback: string | undefined): s
 function text(value: string | undefined | null, fallback: string | undefined) {
   const trimmed = value?.trim()
   return trimmed ? trimmed : fallback
+}
+
+/**
+ * Like `text`, but keeps the value as stored. The logo wall heading's plain
+ * part ends in a space that separates it from the accent ("Clients who have
+ * used our " + "monday.com consulting services"), so trimming it would run
+ * the two words together.
+ */
+function untrimmed(value: string | undefined | null, fallback: string | undefined) {
+  return value?.trim() ? value : fallback
 }
 
 /** Hrefs are machine values: trimmed, and left off entirely when blank. */
@@ -36,7 +46,9 @@ function list<TDoc, TOut>(
  * Lays a `practicePage` document over the shipped copy, field by field.
  * `path` and `breadcrumb` stay code-only: the path is the document's lookup
  * key and the breadcrumb is not rendered. `targetQueries` and
- * `preferPageFaqs` are code-only flags.
+ * `preferPageFaqs` are code-only flags. The shared blocks (logo wall heading,
+ * coverage, practice leader, booking, FAQ heading) stay unset when the
+ * document leaves them blank, so the template renders PRACTICE_SHARED_COPY.
  */
 export function mergePracticePage(
   fallback: PracticePage,
@@ -81,7 +93,47 @@ export function mergePracticePage(
     faqs: list(doc.faqs, fallback.faqs, (f) =>
       f.q?.trim() && f.a?.trim() ? { q: f.q.trim(), a: f.a.trim() } : null,
     ),
+    logoHeading: untrimmed(doc.logoHeading, fallback.logoHeading),
+    logoHeadingAccent: text(doc.logoHeadingAccent, fallback.logoHeadingAccent),
+    coverageEyebrow: text(doc.coverageEyebrow, fallback.coverageEyebrow),
+    coverageHeading: text(doc.coverageHeading, fallback.coverageHeading),
+    // The flag is decoration, so a region card only needs its words.
+    coverageRegions: optionalList<NonNullable<PracticePageDoc['coverageRegions']>[number], PracticeRegion>(
+      doc.coverageRegions,
+      fallback.coverageRegions,
+      (r) =>
+        r.region?.trim() && r.cities?.trim() && r.body?.trim()
+          ? {
+              flag: r.flag?.trim() ?? '',
+              region: r.region.trim(),
+              cities: r.cities.trim(),
+              body: r.body.trim(),
+            }
+          : null,
+    ),
+    leaderEyebrow: text(doc.leaderEyebrow, fallback.leaderEyebrow),
+    leaderHeading: text(doc.leaderHeading, fallback.leaderHeading),
+    leaderName: text(doc.leaderName, fallback.leaderName),
+    leaderTitle: text(doc.leaderTitle, fallback.leaderTitle),
+    leaderBio: text(doc.leaderBio, fallback.leaderBio),
+    leaderPull: text(doc.leaderPull, fallback.leaderPull),
+    leaderBadges: optionalList<string, string>(doc.leaderBadges, fallback.leaderBadges, (b) =>
+      b.trim() ? b.trim() : null,
+    ),
+    bookingHeading: text(doc.bookingHeading, fallback.bookingHeading),
+    bookingSubheading: text(doc.bookingSubheading, fallback.bookingSubheading),
+    faqHeading: text(doc.faqHeading, fallback.faqHeading),
   }
+}
+
+/** `list` for a list the code copy may leave unset. */
+function optionalList<TDoc, TOut>(
+  items: (TDoc | null)[] | undefined | null,
+  fallback: TOut[] | undefined,
+  map: (item: TDoc) => TOut | null,
+): TOut[] | undefined {
+  const mapped = list(items, [], map)
+  return mapped.length ? mapped : fallback
 }
 
 /**

@@ -56,6 +56,34 @@ export interface PracticePage {
    * See /sanity-content, "The FAQ two-source trap".
    */
   preferPageFaqs?: boolean
+  /*
+   * Shared blocks. Every page renders the same copy for these
+   * (PRACTICE_SHARED_COPY) unless its `practicePage` document fills them in,
+   * so the page data files leave them unset.
+   */
+  /** Client logo wall heading: plain part, then the brand-coloured part. */
+  logoHeading?: string
+  logoHeadingAccent?: string
+  coverageEyebrow?: string
+  coverageHeading?: string
+  coverageRegions?: PracticeRegion[]
+  leaderEyebrow?: string
+  leaderHeading?: string
+  leaderName?: string
+  leaderTitle?: string
+  leaderBio?: string
+  leaderPull?: string
+  leaderBadges?: string[]
+  bookingHeading?: string
+  bookingSubheading?: string
+  faqHeading?: string
+}
+
+export interface PracticeRegion {
+  flag: string
+  region: string
+  cities: string
+  body: string
 }
 
 /** Same Calendly link the navbar CTA uses (siteSettings.calendlyLink). */
@@ -92,6 +120,68 @@ export const PRACTICE_LEADER = {
   pull: 'The consultant who scopes your engagement is the consultant who delivers it.',
   badges: ['monday.com Platinum Partner', 'Rising Star 2026', '900+ implementations', 'AU · UK · US'],
 } as const
+
+/** The shared blocks' copy, as every practice page rendered it before it moved to Sanity. */
+export const PRACTICE_SHARED_COPY = {
+  // Same words as ClientLogoSection's own default, trailing space included.
+  logoHeading: 'Clients who have used our ',
+  logoHeadingAccent: 'monday.com consulting services',
+  coverageEyebrow: 'Geographic coverage',
+  coverageHeading: 'Delivered locally across three regions.',
+  coverageRegions: GEO_REGIONS.map((g) => ({ ...g })),
+  leaderEyebrow: 'Who leads it',
+  leaderHeading: PRACTICE_LEADER.heading,
+  leaderName: PRACTICE_LEADER.name,
+  leaderTitle: PRACTICE_LEADER.title,
+  leaderBio: PRACTICE_LEADER.bio,
+  leaderPull: PRACTICE_LEADER.pull,
+  leaderBadges: [...PRACTICE_LEADER.badges],
+  bookingHeading: "Let's design the way your business should run.",
+  bookingSubheading: '30 minutes. No obligation. Speak to a consultant, not a salesperson.',
+  faqHeading: 'Frequently asked questions',
+} satisfies Required<Pick<PracticePage, PracticeSharedField>>
+
+export type PracticeSharedField =
+  | 'logoHeading'
+  | 'logoHeadingAccent'
+  | 'coverageEyebrow'
+  | 'coverageHeading'
+  | 'coverageRegions'
+  | 'leaderEyebrow'
+  | 'leaderHeading'
+  | 'leaderName'
+  | 'leaderTitle'
+  | 'leaderBio'
+  | 'leaderPull'
+  | 'leaderBadges'
+  | 'bookingHeading'
+  | 'bookingSubheading'
+  | 'faqHeading'
+
+/** The page with every shared block resolved: its own value, else the shared copy. */
+export function withPracticeSharedCopy(
+  page: PracticePage,
+): PracticePage & Required<Pick<PracticePage, PracticeSharedField>> {
+  const d = PRACTICE_SHARED_COPY
+  return {
+    ...page,
+    logoHeading: page.logoHeading ?? d.logoHeading,
+    logoHeadingAccent: page.logoHeadingAccent ?? d.logoHeadingAccent,
+    coverageEyebrow: page.coverageEyebrow ?? d.coverageEyebrow,
+    coverageHeading: page.coverageHeading ?? d.coverageHeading,
+    coverageRegions: page.coverageRegions ?? d.coverageRegions,
+    leaderEyebrow: page.leaderEyebrow ?? d.leaderEyebrow,
+    leaderHeading: page.leaderHeading ?? d.leaderHeading,
+    leaderName: page.leaderName ?? d.leaderName,
+    leaderTitle: page.leaderTitle ?? d.leaderTitle,
+    leaderBio: page.leaderBio ?? d.leaderBio,
+    leaderPull: page.leaderPull ?? d.leaderPull,
+    leaderBadges: page.leaderBadges ?? d.leaderBadges,
+    bookingHeading: page.bookingHeading ?? d.bookingHeading,
+    bookingSubheading: page.bookingSubheading ?? d.bookingSubheading,
+    faqHeading: page.faqHeading ?? d.faqHeading,
+  }
+}
 
 export function practiceMetadata(page: PracticePage): Metadata {
   return {
