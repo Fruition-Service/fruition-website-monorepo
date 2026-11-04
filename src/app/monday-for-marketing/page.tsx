@@ -25,6 +25,7 @@ import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos, resolveIndustryLogos } from "@/sanity/industryLogos"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import { getIndustrySections } from "@/data/industrySections"
+import { filledText } from "@/features/content/industryPageCopy"
 
 export async function generateMetadata() {
   const page = await getIndustryPageBySlug("monday-for-marketing")
@@ -145,7 +146,13 @@ export default async function Page() {
       />
 
       {/* 5. FAQ */}
-      {effectiveFaqTabs.length > 0 && <FaqAccordion tabs={effectiveFaqTabs} />}
+      {effectiveFaqTabs.length > 0 && (
+        <FaqAccordion
+          heading={filledText(page.faqHeading)}
+          contactLead={filledText(page.faqContactLead)}
+          tabs={effectiveFaqTabs}
+        />
+      )}
 
       {/* Mid-page conversion banner — shared site-wide */}
       <AuditCtaBanner />

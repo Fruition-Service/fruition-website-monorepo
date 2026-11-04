@@ -36,6 +36,7 @@ import type { FaqTab } from "@/components/sections/types"
 import { resolveIndustryLogos } from "@/sanity/industryLogos"
 import { getIndustrySections, type IndustrySections } from "@/data/industrySections"
 import { mergeIndustrySections } from "@/features/content/industrySections"
+import { filledText, testimonialsCopy } from "@/features/content/industryPageCopy"
 import type { CarouselLogo } from "@/components/sections/types"
 
 interface UniversalPageTemplateProps {
@@ -370,9 +371,17 @@ export default function UniversalPageTemplate({
           back to the page's embedded faqTabs when the page hasn't been
           migrated yet. */}
       {!page.hideFaqSection && ((faqTabs && faqTabs.length > 0) ? (
-        <FaqAccordion heading={page.faqHeading || "Frequently asked questions"} tabs={faqTabs} />
+        <FaqAccordion
+          heading={page.faqHeading || "Frequently asked questions"}
+          contactLead={filledText(page.faqContactLead)}
+          tabs={faqTabs}
+        />
       ) : page.faqTabs?.length > 0 ? (
-        <FaqAccordion heading={page.faqHeading || "Frequently asked questions"} tabs={page.faqTabs} />
+        <FaqAccordion
+          heading={page.faqHeading || "Frequently asked questions"}
+          contactLead={filledText(page.faqContactLead)}
+          tabs={page.faqTabs}
+        />
       ) : null)}
 
       {/* 5b. Capabilities Grid (after FAQ) — opt-in via capabilitiesPosition === 'afterFaq' */}
@@ -433,7 +442,9 @@ export default function UniversalPageTemplate({
       )}
 
       {/* 12. Testimonials */}
-      {!page.hideTestimonialsSection && <TestimonialsGrid caseStudies={caseStudies} />}
+      {!page.hideTestimonialsSection && (
+        <TestimonialsGrid {...testimonialsCopy(page)} caseStudies={caseStudies} />
+      )}
 
       {/* 13. Discover CTA */}
       {!page.hideDiscoverSection && (

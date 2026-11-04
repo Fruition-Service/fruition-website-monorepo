@@ -26,6 +26,7 @@ import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
 import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { getIndustrySections } from "@/data/industrySections"
+import { filledText, catalogueCopy } from "@/features/content/industryPageCopy"
 
 export async function generateMetadata() {
   const page = await getIndustryPageBySlug("monday-for-professional-services")
@@ -136,7 +137,7 @@ export default async function Page() {
       )}
 
       {/* Featured AI use cases from the catalogue (/ai-use-cases) */}
-      <FeaturedUseCasesSection featured={featuredUseCases} />
+      <FeaturedUseCasesSection featured={featuredUseCases} copy={catalogueCopy(page)} />
 
       {/* Mid-page conversion banner — shared site-wide */}
       <AuditCtaBanner />
@@ -154,7 +155,13 @@ export default async function Page() {
       />
 
       {/* 8. FAQ */}
-      {effectiveFaqTabs.length > 0 && <FaqAccordion tabs={effectiveFaqTabs} />}
+      {effectiveFaqTabs.length > 0 && (
+        <FaqAccordion
+          heading={filledText(page.faqHeading)}
+          contactLead={filledText(page.faqContactLead)}
+          tabs={effectiveFaqTabs}
+        />
+      )}
 
       {/* 9. Bottom YouTube video */}
       {page.bottomVideoUrl && (

@@ -5,6 +5,7 @@ import { industryHref, caseAnchorHref, USE_CASES_PATH } from "@/features/ai-use-
 import SectionIntro from "@/components/sections/SectionIntro"
 import CtaButton from "@/components/CtaButton"
 import UseCaseCard, { SEE_BUILD } from "./UseCaseCard"
+import { resolveCatalogueCopy, type UseCaseCatalogueCopy } from "@/features/content/industryPageCopy"
 
 /**
  * Featured use cases on an industry landing page: up to six builds from the
@@ -12,6 +13,10 @@ import UseCaseCard, { SEE_BUILD } from "./UseCaseCard"
  * industry page, plus a link to the full list. Load the props with
  * `getFeaturedUseCases()` (features/ai-use-cases/data) in the page's server
  * component; this component renders nothing when they are missing.
+ *
+ * `copy` carries the page document's wording for the block (see
+ * catalogueCopy in features/content/industryPageCopy); anything it
+ * leaves out renders the standard copy.
  */
 
 export interface FeaturedUseCases {
@@ -22,13 +27,16 @@ export interface FeaturedUseCases {
 
 export default function FeaturedUseCasesSection({
   featured,
+  copy,
   theme = "light",
 }: {
   featured?: FeaturedUseCases | null
+  copy?: UseCaseCatalogueCopy
   theme?: "light" | "tint"
 }) {
   if (!featured?.tiles.length) return null
   const { industry, tiles } = featured
+  const words = resolveCatalogueCopy(copy, industry, featured.heading)
 
   return (
     <section
@@ -37,9 +45,9 @@ export default function FeaturedUseCasesSection({
     >
       <div className="site-container">
         <SectionIntro
-          eyebrow="Use case catalogue"
-          heading={featured.heading ?? `${industry.name} use cases`}
-          lead="Every use case comes from a real Fruition client engagement, with the client's name withheld."
+          eyebrow={words.eyebrow}
+          heading={words.heading}
+          lead={words.lead}
         />
         <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {tiles.map((tile) => (
@@ -60,7 +68,7 @@ export default function FeaturedUseCasesSection({
         <div className="mt-10 flex flex-col items-center gap-4 md:flex-row md:justify-center md:gap-8">
           <CtaButton
             href={industryHref(industry.slug)}
-            label={`See all ${industry.count} use cases`}
+            label={words.ctaLabel}
             variant="outline"
             icon={<ArrowRight size={18} aria-hidden />}
           />
@@ -68,7 +76,7 @@ export default function FeaturedUseCasesSection({
             href={USE_CASES_PATH}
             className="inline-flex min-h-11 items-center text-[15px] font-semibold text-brand hover:underline"
           >
-            Browse every industry
+            {words.browseLabel}
           </Link>
         </div>
       </div>

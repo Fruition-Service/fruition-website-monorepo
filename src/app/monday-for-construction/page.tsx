@@ -24,6 +24,7 @@ import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
 import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos } from "@/sanity/industryLogos"
+import { catalogueCopy } from "@/features/content/industryPageCopy"
 
 const SLUG = "monday-for-construction"
 
@@ -60,7 +61,7 @@ export default async function Page() {
   }
   return (
     <MondayForConstructionContent
-      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} />}
+      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} copy={catalogueCopy(page)} />}
       page={page}
       siteSettings={siteSettings}
       industryLogos={industryLogos}

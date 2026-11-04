@@ -15,7 +15,7 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
  *
  * The "Shared blocks" group (coverage, practice leader, booking) renders on
  * the PracticePageTemplate routes; the /industries leaves use only the logo
- * wall heading from it.
+ * wall heading from it. Both use the FAQ heading and contact line.
  *
  * Seed with `npx tsx scripts/seed-practice-pages.ts --apply`.
  */
@@ -151,7 +151,14 @@ export default defineType({
       name: 'faqHeading',
       title: 'FAQ Heading',
       type: 'string',
-      description: 'Not used on the /industries pages.',
+      description: 'Defaults to "Frequently asked questions".',
+      group: 'faqs',
+    }),
+    defineField({
+      name: 'faqContactLead',
+      title: 'FAQ Contact Line',
+      type: 'string',
+      description: 'The line above the contact email beside the questions.',
       group: 'faqs',
     }),
     defineField({

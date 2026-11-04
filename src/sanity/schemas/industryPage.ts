@@ -629,13 +629,43 @@ export default {
 
     // ── Inline copy migrated from per-page Content.tsx ───────────────
     { name: 'faqHeading', title: 'FAQ Heading', type: 'string' },
+    {
+      name: 'faqContactLead',
+      title: 'FAQ Contact Line',
+      type: 'string',
+      description: 'The line above the contact email beside the FAQ. Blank keeps the standard line.',
+    },
     { name: 'introStripBody', title: 'Intro Strip Body (under hero)', type: 'text' },
     { name: 'lifecycleSectionHeading', title: 'Lifecycle Section Heading', type: 'string' },
     { name: 'lifecycleSectionHeadingAccent', title: 'Lifecycle Section Heading Accent', type: 'string' },
     { name: 'industryTestimonialsHeading', title: 'Industry Testimonials Heading', type: 'string' },
     { name: 'industryTestimonialsHeadingAccent', title: 'Industry Testimonials Heading Accent', type: 'string' },
 
-    // Testimonials grid (bottom CTA carousel) props
+    // Use case catalogue block (FeaturedUseCasesSection). Blank keeps the standard copy.
+    { name: 'useCaseCatalogueEyebrow', title: 'Use Case Catalogue Eyebrow', type: 'string' },
+    {
+      name: 'useCaseCatalogueHeading',
+      title: 'Use Case Catalogue Heading',
+      type: 'string',
+      description: 'Blank shows "<industry> use cases".',
+    },
+    { name: 'useCaseCatalogueLead', title: 'Use Case Catalogue Lead', type: 'text', rows: 2 },
+    {
+      name: 'useCaseCatalogueCtaLabel',
+      title: 'Use Case Catalogue Button Label',
+      type: 'string',
+      description: 'Write {count} where the number of use cases goes, e.g. "See all {count} use cases".',
+    },
+    { name: 'useCaseCatalogueBrowseLabel', title: 'Use Case Catalogue Browse Link Label', type: 'string' },
+
+    // Testimonials block (TestimonialsGrid, the "Client proof" section). Blank keeps the standard copy.
+    { name: 'testimonialsEyebrow', title: 'Testimonials Eyebrow', type: 'string' },
+    { name: 'testimonialsHeading', title: 'Testimonials Heading', type: 'string' },
+    { name: 'testimonialsIntro', title: 'Testimonials Intro', type: 'text', rows: 2 },
+    { name: 'testimonialsCtaLabel', title: 'Testimonials CTA Label', type: 'string' },
+
+    // Testimonials grid (bottom CTA carousel) props. Legacy: not read by the
+    // industry pages; the testimonials* fields above are.
     { name: 'testimonialsGridHeading', title: 'Testimonials Grid Heading', type: 'string' },
     { name: 'testimonialsGridCtaLabel', title: 'Testimonials Grid CTA Label', type: 'string' },
     { name: 'testimonialsGridStatValue', title: 'Testimonials Grid Stat Value', type: 'string' },

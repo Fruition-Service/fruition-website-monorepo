@@ -24,6 +24,11 @@ import { resolveIndustryLogos } from "@/sanity/industryLogos"
 import type { CarouselLogo } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
 import { getIndustrySections } from "@/data/industrySections"
+import {
+  CONSTRUCTION_TESTIMONIALS_COPY,
+  filledText,
+  testimonialsCopy,
+} from "@/features/content/industryPageCopy"
 
 interface Props {
   /** This page's own logo wall; falls back to the global carousel. */
@@ -260,7 +265,7 @@ export default function MondayForConstructionContent({
       />
 
       {/* FAQ */}
-      <FaqAccordion heading={page.faqHeading} tabs={resolvedFaqTabs} />
+      <FaqAccordion heading={page.faqHeading} contactLead={filledText(page.faqContactLead)} tabs={resolvedFaqTabs} />
 
       {/* Project Life Cycle stages */}
       <LifecycleSection stages={resolvedLifecycleStages} />
@@ -270,8 +275,9 @@ export default function MondayForConstructionContent({
 
       {/* General customers say testimonials */}
       <TestimonialsGrid
-        heading="What our customers say about us"
-        ctaLabel="Start Your Transformation"
+        heading={CONSTRUCTION_TESTIMONIALS_COPY.heading}
+        ctaLabel={CONSTRUCTION_TESTIMONIALS_COPY.ctaLabel}
+        {...testimonialsCopy(page)}
         ctaUrl={calendlyUrl}
         statCardSubtitle="have maximised their workflows with our monday.com expert support"
         statCardCtaLabel="Read our case studies"

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {
   DISCOVERY_CALL_URL,
   withPracticeSharedCopy,
+  withPracticeTemplateCopy,
   type PracticePage,
 } from '@/data/practicePages/types'
 import FaqAccordion from '@/components/sections/FaqAccordion'
@@ -34,10 +35,10 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 function CtaButtons({
   compact = false,
-  label = 'Book a discovery call',
+  label,
 }: {
   compact?: boolean
-  label?: string
+  label: string
 }) {
   return (
     <div className={`flex flex-wrap items-center gap-4 ${compact ? '' : 'mt-8'}`}>
@@ -57,9 +58,10 @@ function CtaButtons({
 
 export default async function PracticePageTemplate({ page: content }: { page: PracticePage }) {
   // The shared blocks (logo wall heading, coverage, leader, booking, FAQ
-  // heading) come from the page's practicePage document when it fills them in,
-  // else the copy every practice page shares.
-  const page = withPracticeSharedCopy(content)
+  // heading, FAQ contact line) come from the page's practicePage document when
+  // it fills them in, else the copy every practice page shares. The eyebrows,
+  // CTA label and linked-pages heading fall back to PRACTICE_TEMPLATE_FALLBACKS.
+  const page = withPracticeTemplateCopy(withPracticeSharedCopy(content))
   // Central Sanity FAQs for this route (tagged with the page key in faqItem.pages).
   // Fall back to the page's hardcoded faqs until the migration has seeded them.
   // FAQPage JSON-LD is emitted by FaqAccordion itself.
@@ -101,11 +103,11 @@ export default async function PracticePageTemplate({ page: content }: { page: Pr
             </div>
             {page.services.length > 0 && (
               <nav
-                aria-label={page.servicesEyebrow ?? 'Services'}
+                aria-label={page.servicesEyebrow}
                 className="hidden lg:block rounded-card ring-1 ring-ui bg-surface-raised shadow-whisper p-6"
               >
                 <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-2">
-                  {page.servicesEyebrow ?? 'Services'}
+                  {page.servicesEyebrow}
                 </p>
                 <ul className="divide-y divide-dashed divide-ui">
                   {page.services.map((s) => (
@@ -137,7 +139,7 @@ export default async function PracticePageTemplate({ page: content }: { page: Pr
       {/* Approach */}
       <section className="border-b border-ui">
         <div className="site-container section-y">
-          <Eyebrow>{page.approachEyebrow ?? 'Our approach'}</Eyebrow>
+          <Eyebrow>{page.approachEyebrow}</Eyebrow>
           <h2 className="text-section-h2 mb-8 md:mb-10">{page.approachHeading}</h2>
           {/* Four steps read as a 2x2 on tablet and one row on desktop;
               everything else keeps the three-column grid. */}
@@ -162,10 +164,10 @@ export default async function PracticePageTemplate({ page: content }: { page: Pr
       {/* Services */}
       <section id="services" className="border-b border-ui bg-surface-subtle scroll-mt-24">
         <div className="site-container section-y">
-          <Eyebrow>{page.servicesEyebrow ?? 'Services'}</Eyebrow>
+          <Eyebrow>{page.servicesEyebrow}</Eyebrow>
           <h2 className="text-section-h2 mb-8 md:mb-10">{page.servicesHeading}</h2>
           <CardRail
-            label={page.servicesHeading ?? page.servicesEyebrow ?? 'Services'}
+            label={page.servicesHeading ?? page.servicesEyebrow}
             count={page.services.length}
             className="md:grid-cols-2 gap-6"
             stackedClassName="grid md:grid-cols-2 gap-6"
@@ -200,9 +202,9 @@ export default async function PracticePageTemplate({ page: content }: { page: Pr
       {page.children && page.children.length > 0 && (
         <section className="border-b border-ui">
           <div className="site-container section-y">
-            <Eyebrow>{page.childrenEyebrow ?? 'Explore'}</Eyebrow>
+            <Eyebrow>{page.childrenEyebrow}</Eyebrow>
             <h2 className="text-section-h2 mb-8 md:mb-10">
-              {page.childrenHeading ?? 'Go deeper.'}
+              {page.childrenHeading}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {page.children.map((c) => (
@@ -291,7 +293,7 @@ export default async function PracticePageTemplate({ page: content }: { page: Pr
 
       {/* FAQ — shared site-wide accordion (renders its own FAQPage JSON-LD + #faq anchor) */}
       <div className="border-b border-ui">
-        <FaqAccordion heading={page.faqHeading} tabs={faqTabs} />
+        <FaqAccordion heading={page.faqHeading} contactLead={page.faqContactLead} tabs={faqTabs} />
       </div>
 
       {/* Closing CTA — shared site-wide banner; Sanity copy wins, previous
