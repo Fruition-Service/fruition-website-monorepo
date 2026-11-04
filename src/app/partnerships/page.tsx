@@ -26,7 +26,7 @@ export default function PartnershipsHubPage() {
     <div className="bg-surface text-body">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
 
-      <HubHero eyebrow={page.eyebrow} heading={page.heading} accent={page.accent} lead={page.lead} facts={page.facts} />
+      <HubHero heading={page.heading} accent={page.accent} lead={page.lead} facts={page.facts} />
 
       <HubSection eyebrow="Core partners" heading={page.coreHeading} lede={page.coreLede} subtle>
         <HubCardGrid cards={page.core} columns={3} label="Core partners" />

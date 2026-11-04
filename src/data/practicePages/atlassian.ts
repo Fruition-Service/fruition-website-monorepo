@@ -124,7 +124,6 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition delivers Jira consulting across Australia, the UK, and the US: implementations that start clean, rescues that untangle years of configuration debt, and integrations that end the visibility gap.',
     breadcrumb: [HUB, { label: 'Jira', href: '/atlassian-consulting/jira' }],
-    eyebrow: 'Atlassian · Jira',
     heading: 'Jira that developers tolerate and leaders can read',
     lead: 'Fruition delivers Jira consulting across Australia, the UK, and the US: implementations that start clean, rescues that untangle years of configuration debt, and integrations that end the visibility gap.',
     approachHeading: 'Configuration discipline.',
@@ -195,7 +194,6 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition delivers Confluence consulting across Australia, the UK, and the US: space architecture, governance, and content structure that keeps knowledge findable at year three, not just week three.',
     breadcrumb: [HUB, { label: 'Confluence', href: '/atlassian-consulting/confluence' }],
-    eyebrow: 'Atlassian · Confluence',
     heading: 'Confluence as a knowledge base, not a document graveyard',
     lead: 'Fruition delivers Confluence consulting across Australia, the UK, and the US: space architecture, governance, and content structure that keeps knowledge findable at year three, not just week three.',
     approachHeading: 'Architecture beats enthusiasm.',
@@ -266,7 +264,6 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements Jira Service Management for IT and support teams across Australia, the UK, and the US: service desks, SLA automation, asset management, and portals users actually use.',
     breadcrumb: [HUB, { label: 'Jira Service Management', href: '/atlassian-consulting/jira-service-management' }],
-    eyebrow: 'Atlassian · JSM',
     heading: 'ITSM that resolves tickets instead of routing them in circles',
     lead: 'Fruition implements Jira Service Management for IT and support teams across Australia, the UK, and the US: service desks, SLA automation, asset management, and portals users actually use.',
     approachHeading: 'Service design before tool config.',
@@ -337,7 +334,6 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition runs structured Jira-to-monday.com migrations across Australia, the UK, and the US, as the rare partner certified on both platforms, with the Givergy case study to prove the playbook.',
     breadcrumb: [HUB, { label: 'Jira → monday Migration', href: '/atlassian-consulting/jira-to-monday-migration' }],
-    eyebrow: '★ Bridge Page · Atlassian × monday.com',
     heading: 'Leave Jira without leaving your history behind',
     lead: 'Fruition runs structured Jira-to-monday.com migrations across Australia, the UK, and the US, as the rare partner certified on both platforms, with the Givergy case study to prove the playbook.',
     targetQueries: [

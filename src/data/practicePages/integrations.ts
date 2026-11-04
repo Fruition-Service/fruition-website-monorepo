@@ -19,7 +19,6 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds and maintains the integrations that make your stack behave like one system: telephony, automation middleware, and the API-level work packaged connectors can’t do. Australia, the UK, and the US.',
     breadcrumb: [HUB],
-    eyebrow: 'Integrations Hub',
     heading: 'The connective tissue between your platforms',
     lead: 'Fruition builds and maintains the integrations that make your stack behave like one system: telephony, automation middleware, and the API-level work packaged connectors can’t do. Australia, the UK, and the US.',
     approachHeading: 'Integrations as products, not favours.',
@@ -143,7 +142,6 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition integrates Aircall with monday.com, HubSpot, and your service workflows across Australia, the UK, and the US, so calls create records, tickets, and follow-ups automatically.',
     breadcrumb: [HUB, { label: 'Aircall', href: '/partnerships/aircall-partner' }],
-    eyebrow: 'Integrations · Aircall',
     heading: 'Every call, logged where the work happens',
     lead: 'Fruition integrates Aircall with monday.com, HubSpot, and your service workflows across Australia, the UK, and the US, so calls create records, tickets, and follow-ups automatically.',
     approachHeading: 'Telephony as workflow, not hardware.',
@@ -215,7 +213,6 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds Twilio-powered SMS and voice workflows for teams across Australia, the UK, and the US: appointment reminders, status notifications, and customer comms triggered by your actual systems.',
     breadcrumb: [HUB, { label: 'Twilio', href: '/integrations/twilio' }],
-    eyebrow: 'Integrations · Twilio',
     heading: 'Programmable comms wired into your workflows',
     lead: 'Fruition builds Twilio-powered SMS and voice workflows for teams across Australia, the UK, and the US: appointment reminders, status notifications, and customer comms triggered by your actual systems.',
     approachHeading: 'Compliance-aware comms engineering.',
@@ -287,7 +284,6 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition designs and builds Make automation for teams across Australia, the UK, and the US: multi-step scenarios with the error handling, documentation, and governance DIY builds skip.',
     breadcrumb: [HUB, { label: 'Make', href: '/partnerships/make-partners' }],
-    eyebrow: 'Integrations · Make',
     heading: 'Make scenarios that survive contact with production',
     lead: 'Fruition designs and builds Make automation for teams across Australia, the UK, and the US: multi-step scenarios with the error handling, documentation, and governance DIY builds skip.',
     approachHeading: 'Scenarios as maintainable systems.',
@@ -359,7 +355,6 @@ export const INTEGRATIONS_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds Zapier automation for teams across Australia, the UK, and the US, and runs the structured graduations to Make or n8n when volume, cost, or complexity says it’s time.',
     breadcrumb: [HUB, { label: 'Zapier', href: '/integrations/zapier' }],
-    eyebrow: 'Integrations · Zapier',
     heading: 'Zapier for speed. A plan for when you outgrow it',
     lead: 'Fruition builds Zapier automation for teams across Australia, the UK, and the US, and runs the structured graduations to Make or n8n when volume, cost, or complexity says it’s time.',
     approachHeading: 'Right tool, right stage.',

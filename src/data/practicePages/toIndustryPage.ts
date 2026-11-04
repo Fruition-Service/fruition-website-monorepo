@@ -25,7 +25,6 @@ export function practiceToIndustryPage(page: PracticePage) {
     seoTitle: page.seoTitle,
     seoDescription: page.seoDescription,
 
-    heroEyebrow: page.eyebrow,
     heroHeading: page.heading,
     heroSubheading: page.lead,
     primaryCtaLabel: 'Book a discovery call',

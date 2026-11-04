@@ -1031,7 +1031,6 @@ export async function getHomePage() {
 export interface LicensingPageDoc {
   seoTitle?: string
   seoDescription?: string
-  eyebrow?: string
   heading?: string
   lead?: string
   approachEyebrow?: string
@@ -1049,7 +1048,7 @@ export interface LicensingPageDoc {
 export async function getLicensingPage(): Promise<LicensingPageDoc | null> {
   return client.fetch(`*[_type == "licensingPage"][0]{
     seoTitle, seoDescription,
-    eyebrow, heading, lead,
+    heading, lead,
     approachEyebrow, approachHeading,
     approach[]{ title, body },
     servicesEyebrow, servicesHeading,

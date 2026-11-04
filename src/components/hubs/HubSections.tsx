@@ -16,13 +16,11 @@ export function HubEyebrow({ children }: { children: ReactNode }) {
 }
 
 export function HubHero({
-  eyebrow,
   heading,
   accent,
   lead,
   facts = [],
 }: {
-  eyebrow: string
   heading: string
   /** Trailing words of the H1, set in the accent colour. */
   accent?: string
@@ -38,9 +36,6 @@ export function HubHero({
           }`}
         >
           <div className="min-w-0">
-            <span className="mb-5 inline-flex items-center rounded-full bg-brand-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-              {eyebrow}
-            </span>
             <h1 className="text-display max-w-[860px]">
               {heading}
               {accent && (

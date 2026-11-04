@@ -13,7 +13,6 @@ export const PARTNERS_HUB = {
   seoTitle: 'Technology Partners: AI, Work Platforms & Automation | Fruition',
   seoDescription:
     'Fruition is a platform-agnostic consultancy: OpenAI Select Partner, Anthropic Claude partner, monday.com and Atlassian Platinum Partner, n8n and Make partner.',
-  eyebrow: 'Partners',
   heading: 'Technology partners for AI, work platforms',
   accent: 'and automation',
   lead: "Fruition is a platform-agnostic consultancy. We're an OpenAI Select Partner, an Anthropic Claude partner, a monday.com and Atlassian Platinum Partner, and an n8n and Make partner, so we can recommend the stack that fits your process instead of the one we resell.",
