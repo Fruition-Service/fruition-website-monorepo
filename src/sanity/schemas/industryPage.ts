@@ -643,6 +643,95 @@ export default {
     { name: 'testimonialsGridStatCtaLabel', title: 'Testimonials Grid Stat CTA Label', type: 'string' },
     { name: 'testimonialsGridStatCtaUrl', title: 'Testimonials Grid Stat CTA URL', type: 'string' },
 
+    // Long-form sections (currently /monday-for-government). Defaults live in
+    // src/data/industrySections.ts: a blank field shows that wording.
+    {
+      name: 'sections',
+      title: 'Long-form sections',
+      type: 'object',
+      options: { collapsible: true, collapsed: true },
+      description:
+        'The numbered capability blocks and the permission ledger. Leave a field blank to keep the wording built into the site. Easiest to edit on the page itself: open editing.fruitionservices.io/monday-for-government and click the text.',
+      fields: [
+        {
+          name: 'capabilityBlocks',
+          title: 'Capability blocks',
+          type: 'object',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+            { name: 'heading', title: 'Heading', type: 'string' },
+            { name: 'headingAccent', title: 'Heading accent (purple)', type: 'string' },
+            { name: 'lead', title: 'Lead paragraph', type: 'text', rows: 3 },
+            { name: 'columns', title: 'Columns (2 or 3)', type: 'number' },
+            {
+              name: 'blocks',
+              title: 'Blocks',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'capabilityBlock',
+                  fields: [
+                    { name: 'number', title: 'Number (e.g. "01")', type: 'string' },
+                    { name: 'title', title: 'Title', type: 'string' },
+                    { name: 'lead', title: 'Lead paragraph', type: 'text', rows: 3 },
+                    {
+                      name: 'points',
+                      title: 'Points',
+                      type: 'array',
+                      of: [
+                        {
+                          type: 'object',
+                          name: 'industryPoint',
+                          fields: [
+                            { name: 'label', title: 'Label', type: 'string' },
+                            { name: 'text', title: 'Text', type: 'text', rows: 2 },
+                          ],
+                          preview: { select: { title: 'text', subtitle: 'label' } },
+                        },
+                      ],
+                    },
+                    { name: 'note', title: 'Closing note', type: 'text', rows: 2 },
+                  ],
+                  preview: { select: { title: 'title', subtitle: 'number' } },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'benefitLedger',
+          title: 'Permission ledger',
+          type: 'object',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
+            { name: 'heading', title: 'Heading', type: 'string' },
+            { name: 'headingAccent', title: 'Heading accent (purple)', type: 'string' },
+            { name: 'intro', title: 'Intro (blank line between paragraphs)', type: 'text', rows: 4 },
+            {
+              name: 'items',
+              title: 'Rows',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'benefitLedgerItem',
+                  fields: [
+                    { name: 'label', title: 'Label', type: 'string' },
+                    { name: 'text', title: 'Text', type: 'text', rows: 3 },
+                  ],
+                  preview: { select: { title: 'label', subtitle: 'text' } },
+                },
+              ],
+            },
+            { name: 'footnote', title: 'Footnote', type: 'text', rows: 3 },
+          ],
+        },
+      ],
+    },
+
     // Section visibility toggles
     { name: 'hideDiscoverSection', title: 'Hide Discover CTA Section', type: 'boolean', initialValue: false },
     { name: 'hideJoinStatsSection', title: 'Hide Join Stats Section', type: 'boolean', initialValue: false },
