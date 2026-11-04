@@ -19,7 +19,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition delivers AI and platform consulting shaped by sector: the compliance regimes, workflows, and data realities of construction, finance, healthcare, manufacturing, and more, across Australia, the UK, and the US.',
     breadcrumb: [HUB],
-    eyebrow: 'Industries Hub',
     heading: 'We speak your industry’s operational language',
     lead:
       'Fruition delivers AI and platform consulting shaped by sector: the compliance regimes, workflows, and data realities of construction, finance, healthcare, manufacturing, and more, across Australia, the UK, and the US.',
@@ -156,7 +155,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements platforms and AI for financial services firms across Australia, the UK, and the US: client onboarding, compliance workflows, and AI deployments built to APRA, FCA, and SEC expectations.',
     breadcrumb: [HUB, { label: 'Financial Services', href: '/industries/financial-services' }],
-    eyebrow: 'Industries · Financial Services',
     heading: 'Innovation velocity inside a regulatory perimeter',
     lead:
       'Fruition implements platforms and AI for financial services firms across Australia, the UK, and the US: client onboarding, compliance workflows, and AI deployments built to APRA, FCA, and SEC expectations.',
@@ -229,7 +227,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements HIPAA-configured platforms and governed AI for healthcare organisations across Australia, the UK, and the US: patient workflows, referral management, and back-office automation with compliance built in.',
     breadcrumb: [HUB, { label: 'Healthcare', href: '/industries/healthcare' }],
-    eyebrow: 'Industries · Healthcare',
     heading: 'Less admin between clinicians and care',
     lead:
       'Fruition implements HIPAA-configured platforms and governed AI for healthcare organisations across Australia, the UK, and the US: patient workflows, referral management, and back-office automation with compliance built in.',
@@ -302,7 +299,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements CRM and workflow systems for solar and renewables companies across Australia, the UK, and the US: install pipelines, crew scheduling, rebate workflows, and the compliance chain in between.',
     breadcrumb: [HUB, { label: 'Solar & Renewables', href: '/industries/solar-renewables' }],
-    eyebrow: 'Industries · Solar & Renewables',
     heading: 'From lead to grid connection, one pipeline',
     lead:
       'Fruition implements CRM and workflow systems for solar and renewables companies across Australia, the UK, and the US: install pipelines, crew scheduling, rebate workflows, and the compliance chain in between.',
@@ -375,7 +371,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements platforms and governed AI for schools, universities, and training providers across Australia, the UK, and the US: admissions, student services, staff operations, and compliance workflows with privacy built in.',
     breadcrumb: [HUB, { label: 'Education', href: '/industries/education' }],
-    eyebrow: 'Industries · Education',
     heading: 'More time for teaching, less for the paperwork around it',
     lead:
       'Fruition implements platforms and governed AI for schools, universities, and training providers across Australia, the UK, and the US: admissions, student services, staff operations, and compliance workflows with privacy built in.',
@@ -448,7 +443,6 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements platforms and governed AI for nonprofits and charities across Australia, the UK, and the US: donor and grant management, program delivery, volunteer coordination, and regulator-ready reporting.',
     breadcrumb: [HUB, { label: 'Nonprofits', href: '/industries/nonprofits' }],
-    eyebrow: 'Industries · Nonprofits',
     heading: 'More of every dollar reaching the mission',
     lead:
       'Fruition implements platforms and governed AI for nonprofits and charities across Australia, the UK, and the US: donor and grant management, program delivery, volunteer coordination, and regulator-ready reporting.',

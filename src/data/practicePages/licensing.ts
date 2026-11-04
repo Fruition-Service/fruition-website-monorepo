@@ -27,7 +27,6 @@ export const LICENSING_PAGES: Record<string, PracticePage> = {
       'Software licence procurement for SMB and mid-market teams: we audit what you pay for, recommend the right plans, source and negotiate Microsoft, Google, Adobe, Atlassian and monday.com licences, and manage every renewal.',
     breadcrumb: [{ label: 'Licence procurement', href: '/licence-procurement' }],
     primaryCtaLabel: 'Book a consultation',
-    eyebrow: 'Software licence procurement',
     heading: 'Buy and renew software without overpaying for it',
     lead: 'For SMB and mid-market teams buying or renewing software from Microsoft, Google, Adobe, Atlassian, monday.com and similar vendors. We audit what you already pay for, source and negotiate what you need, and manage every renewal after that, so licensing becomes a managed process instead of a scramble before each invoice.',
     targetQueries: [

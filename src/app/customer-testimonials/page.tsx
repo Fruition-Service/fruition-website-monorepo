@@ -87,7 +87,6 @@ export default async function CustomerTestimonialsPage() {
     <div>
       <StickyCtaConfig label={page?.croSections?.stickyCtaLabel} mobileLabel={page?.croSections?.stickyCtaMobileLabel} href={bookingHref(page?.croSections?.stickyCtaUrl || rawCalendly)} />
       <HubHero
-        eyebrow="Customers"
         heading="Customer stories"
         accent="and case studies"
         lead="Read what Fruition's clients say in their own words, then see how the work was done in our verified case studies. Filter by industry or platform to find a team like yours."

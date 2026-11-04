@@ -125,7 +125,6 @@ export const HUBSPOT_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition implements HubSpot for teams across Australia, the UK, and the US: portal architecture, lifecycle design, and automation that make the platform earn its licence fee.',
     breadcrumb: [HUB, { label: 'Implementation', href: '/hubspot-consulting/implementation' }],
-    eyebrow: 'HubSpot · Implementation',
     heading: 'HubSpot set up right the first time',
     lead: 'Fruition implements HubSpot for teams across Australia, the UK, and the US: portal architecture, lifecycle design, and automation that make the platform earn its licence fee.',
     approachHeading: 'Architecture before automation.',
@@ -201,7 +200,6 @@ export const HUBSPOT_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition enables HubSpot’s Breeze AI for teams across Australia, the UK, and the US: agents, copilot, and intelligence features configured with real AI governance, by a firm that builds AI systems beyond HubSpot too.',
     breadcrumb: [HUB, { label: 'Breeze AI', href: '/hubspot-consulting/breeze-ai' }],
-    eyebrow: '★ Bridge Page · HubSpot × AI Consulting',
     heading: 'Breeze AI configured by an actual AI practice',
     lead: 'Fruition enables HubSpot’s Breeze AI for teams across Australia, the UK, and the US: agents, copilot, and intelligence features configured with real AI governance, by a firm that builds AI systems beyond HubSpot too.',
     targetQueries: [
@@ -283,7 +281,6 @@ export const HUBSPOT_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds monday↔HubSpot integrations for teams across Australia, the UK, and the US: certified on both platforms, so the sync architecture respects how each side actually works.',
     breadcrumb: [HUB, { label: 'monday ↔ HubSpot Integration', href: '/hubspot-consulting/monday-hubspot-integration' }],
-    eyebrow: '★ Bridge Page · monday.com × HubSpot',
     heading: 'Marketing in HubSpot. Delivery in monday. One system',
     lead: 'Fruition builds monday↔HubSpot integrations for teams across Australia, the UK, and the US: certified on both platforms, so the sync architecture respects how each side actually works.',
     targetQueries: [
@@ -365,7 +362,6 @@ export const HUBSPOT_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition runs structured HubSpot-to-monday CRM migrations across Australia, the UK, and the US, as the partner certified on both platforms, with a playbook built from dozens of CRM moves.',
     breadcrumb: [HUB, { label: 'HubSpot → monday Migration', href: '/hubspot-consulting/hubspot-to-monday-migration' }],
-    eyebrow: '★ Bridge Page · HubSpot × monday.com',
     heading: 'Leave HubSpot with your pipeline history intact',
     lead: 'Fruition runs structured HubSpot-to-monday CRM migrations across Australia, the UK, and the US, as the partner certified on both platforms, with a playbook built from dozens of CRM moves.',
     targetQueries: [

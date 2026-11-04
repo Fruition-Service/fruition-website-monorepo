@@ -34,7 +34,6 @@ export function mergeLicensingPage(
     ...fallback,
     seoTitle: text(doc.seoTitle, fallback.seoTitle),
     seoDescription: text(doc.seoDescription, fallback.seoDescription),
-    eyebrow: text(doc.eyebrow, fallback.eyebrow),
     heading: text(doc.heading, fallback.heading),
     lead: text(doc.lead, fallback.lead),
     approachEyebrow: text(doc.approachEyebrow, fallback.approachEyebrow),

@@ -85,7 +85,7 @@ function practiceRecord(page: PracticePage, kind: KnowledgeRecord["kind"]): Know
     url: page.path,
     summary: `${page.heading} ${page.lead}`.slice(0, 400),
     text: lines.join("\n").slice(0, MAX_TEXT),
-    tags: unique([page.eyebrow, ...page.breadcrumb.map((b) => b.label)]),
+    tags: unique(page.breadcrumb.map((b) => b.label)),
     facts: { services: page.services.map((s) => s.title) },
   }
 }

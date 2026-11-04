@@ -33,8 +33,6 @@ export interface PracticePage {
   breadcrumb: PracticeLink[]
   /** Hero CTA label. Defaults to "Book a discovery call"; still links to DISCOVERY_CALL_URL. */
   primaryCtaLabel?: string
-  /** Optional pill above the heading; hub pages run without one. */
-  eyebrow?: string
   heading: string
   lead: string
   /** Search queries this page targets — documentation only, never rendered */

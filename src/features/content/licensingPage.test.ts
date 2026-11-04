@@ -18,9 +18,9 @@ describe('mergeLicensingPage', () => {
   })
 
   it('treats a whitespace-only field as unset', () => {
-    const merged = mergeLicensingPage(fallback, { seoTitle: '   ', eyebrow: '\n' })
+    const merged = mergeLicensingPage(fallback, { seoTitle: '   ', heading: '\n' })
     expect(merged.seoTitle).toBe(fallback.seoTitle)
-    expect(merged.eyebrow).toBe(fallback.eyebrow)
+    expect(merged.heading).toBe(fallback.heading)
   })
 
   it('replaces a list once the editor supplies usable rows', () => {

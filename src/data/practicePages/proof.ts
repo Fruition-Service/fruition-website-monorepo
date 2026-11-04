@@ -24,7 +24,6 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition holds formal partnerships across monday.com (Platinum), Atlassian, and HubSpot, and delivers daily across every major AI platform. Multiple partnerships keep our advice honest.',
     breadcrumb: [{ label: 'Certifications & Awards', href: '/certifications-and-awards' }],
-    eyebrow: 'Partners & Certifications',
     heading: 'Certified where it counts. Independent where it matters',
     lead: 'Fruition holds formal partnerships across monday.com (Platinum), Atlassian, and HubSpot, and delivers daily across every major AI platform. Multiple partnerships keep our advice honest.',
     targetQueries: [

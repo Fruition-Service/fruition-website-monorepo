@@ -46,7 +46,7 @@ export default async function IndustriesHubPage() {
     <div className="bg-surface text-body">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
 
-      <HubHero eyebrow={hub.eyebrow} heading={hub.heading} accent={hub.accent} lead={hub.lead} facts={hub.facts} />
+      <HubHero heading={hub.heading} accent={hub.accent} lead={hub.lead} facts={hub.facts} />
 
       <HubSection eyebrow="Sectors" heading={hub.sectorsHeading} subtle>
         <HubCardGrid cards={hub.sectors} columns={3} label="Sectors" />

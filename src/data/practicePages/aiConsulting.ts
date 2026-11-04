@@ -168,7 +168,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition designs and builds production AI agents across Australia, the UK, and the US (customer service, research, operations, and outbound) with evaluation pipelines from day one.',
     breadcrumb: [HUB, { label: 'Agent Development', href: '/ai-consulting/agent-development' }],
-    eyebrow: 'AI Consulting · Agents',
     heading: 'Agents that handle real volume, not demo traffic',
     lead: 'Fruition designs and builds production AI agents across Australia, the UK, and the US (customer service, research, operations, and outbound) with evaluation pipelines from day one.',
     targetQueries: [
@@ -258,7 +257,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds AI governance frameworks for organisations across Australia, the UK, and the US: usage policy, risk classification, evaluation pipelines, and the regulatory overlays your industry demands.',
     breadcrumb: [HUB, { label: 'Governance & Compliance', href: '/ai-consulting/governance-and-compliance' }],
-    eyebrow: 'AI Consulting · Governance',
     heading: 'AI you can defend to a regulator, a board, and an auditor',
     lead: 'Fruition builds AI governance frameworks for organisations across Australia, the UK, and the US: usage policy, risk classification, evaluation pipelines, and the regulatory overlays your industry demands.',
     targetQueries: [
@@ -344,7 +342,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition designs and builds retrieval-augmented generation systems across Australia, the UK, and the US: grounded answers over your documents, tickets, wikis, and CRM, with citations your auditors can follow.',
     breadcrumb: [HUB, { label: 'RAG & Knowledge Systems', href: '/ai-consulting/rag-knowledge-systems' }],
-    eyebrow: 'AI Consulting · RAG',
     heading: 'Make everything your company knows answerable',
     lead: 'Fruition designs and builds retrieval-augmented generation systems across Australia, the UK, and the US: grounded answers over your documents, tickets, wikis, and CRM, with citations your auditors can follow.',
     targetQueries: [
@@ -430,7 +427,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds AI marketing automation for teams across Australia, the UK, and the US: content operations, campaign intelligence, and lead workflows connected to the CRM and platforms you already run.',
     breadcrumb: [HUB, { label: 'Marketing Automation', href: '/ai-consulting/marketing-automation' }],
-    eyebrow: 'AI Consulting · Marketing',
     heading: 'Marketing output that scales without headcount',
     lead: 'Fruition builds AI marketing automation for teams across Australia, the UK, and the US: content operations, campaign intelligence, and lead workflows connected to the CRM and platforms you already run.',
     targetQueries: [
@@ -512,7 +508,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition designs and builds AI outbound and sales systems for teams across Australia, the UK, and the US: lead sourcing, enrichment, genuine personalisation, and sequencing wired into your CRM.',
     breadcrumb: [HUB, { label: 'Sales & Outbound', href: '/ai-consulting/sales-outbound' }],
-    eyebrow: 'AI Consulting · Sales & Outbound',
     heading: 'An outbound engine that researches before it writes',
     lead: 'Fruition designs and builds AI outbound and sales systems for teams across Australia, the UK, and the US: lead sourcing, enrichment, genuine personalisation, and sequencing wired into your CRM.',
     targetQueries: [
@@ -594,7 +589,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition builds AI customer service systems for organisations across Australia, the UK, and the US: grounded support agents, ticket intelligence, and deflection that protects CSAT instead of gaming it.',
     breadcrumb: [HUB, { label: 'Customer Service', href: '/ai-consulting/customer-service' }],
-    eyebrow: 'AI Consulting · Customer Service',
     heading: 'Support that resolves before it queues',
     lead: 'Fruition builds AI customer service systems for organisations across Australia, the UK, and the US: grounded support agents, ticket intelligence, and deflection that protects CSAT instead of gaming it.',
     targetQueries: [
@@ -676,7 +670,6 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition automates operational workflows for organisations across Australia, the UK, and the US: document processing, reconciliation, approvals, and the cross-system glue-work that eats your team’s week.',
     breadcrumb: [HUB, { label: 'Operations & Back-Office', href: '/ai-consulting/operations-back-office' }],
-    eyebrow: 'AI Consulting · Operations',
     heading: 'The back office, minus the re-keying',
     lead: 'Fruition automates operational workflows for organisations across Australia, the UK, and the US: document processing, reconciliation, approvals, and the cross-system glue-work that eats your team’s week.',
     targetQueries: [

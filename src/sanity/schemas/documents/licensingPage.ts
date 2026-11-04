@@ -37,13 +37,6 @@ export default defineType({
     defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text', rows: 3, group: 'seo' }),
 
     defineField({
-      name: 'eyebrow',
-      title: 'Hero Eyebrow',
-      type: 'string',
-      description: 'Small pill above the heading, e.g. "Licensing".',
-      group: 'hero',
-    }),
-    defineField({
       name: 'heading',
       title: 'Hero Heading',
       type: 'string',

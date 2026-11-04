@@ -14,7 +14,6 @@ export const INDUSTRIES_HUB = {
   seoTitle: 'Industry Solutions | Fruition: AI & Platform Consulting by Sector, AU · UK · US',
   seoDescription:
     'Fruition delivers AI and platform consulting shaped by sector: the compliance regimes, workflows, and data realities of construction, finance, healthcare, manufacturing, and more, across Australia, the UK, and the US.',
-  eyebrow: 'Industries',
   heading: 'Workflow and AI consulting',
   accent: 'by industry',
   lead: 'Fruition designs project, CRM and AI workflows for construction, manufacturing, government, professional services, real estate and financial services. Each industry has prebuilt solutions in our use case hub that we adapt to your process.',
