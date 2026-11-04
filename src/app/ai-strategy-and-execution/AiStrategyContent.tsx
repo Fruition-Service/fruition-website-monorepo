@@ -47,11 +47,7 @@ export default function AiStrategyContent({
         heroImageContain
         heroImageMaxHeight={520}
         certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         primaryCtaLabel={page.primaryCtaLabel}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || calendlyUrl)}
         secondaryCtaLabel={page.secondaryCtaLabel}

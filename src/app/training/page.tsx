@@ -44,7 +44,6 @@ export default async function Page() {
       // Central faqItems tagged "monday-training" lead, as they did on
       // /monday-training; the doc's own faqTabs are the fallback.
       faqTabs={groupFaqsIntoTabs(centralFaqs)}
-      navbarPartnerBadges={settings?.navbarPartnerBadges || []}
     />
   )
 }

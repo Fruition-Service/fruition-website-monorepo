@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import { useState } from "react"
 import type { LucideIcon } from "lucide-react"
 import {
@@ -396,7 +397,6 @@ export default function MakePartnersContent({
 }: Props) {
   const rawCalendly = siteSettings?.calendlyLink || ""
   const calendlyUrl = bookingHref(rawCalendly)
-  const partnerBadges = siteSettings?.navbarPartnerBadges || []
 
   void caseStudies
 
@@ -466,26 +466,7 @@ export default function MakePartnersContent({
       {/* 1. Hero */}
       <section className="bg-surface">
         <div className="mx-auto flex flex-col items-center px-6 md:px-16 lg:px-[273px] py-14 md:py-20">
-          {partnerBadges.length > 0 && (
-            <div className="flex items-center flex-wrap justify-center gap-5">
-              {partnerBadges.map((badge, i) => {
-                const src = safeSrc(badge.image)
-                if (!src) return null
-                return (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    key={(badge as any)._key || `badge-${i}`}
-                    src={src}
-                    alt={badge.name || "Partner badge"}
-                    width={120}
-                    height={44}
-                    className="h-[44px] w-auto rounded-[5px]"
-                  />
-                )
-              })}
-            </div>
-          )}
+          <PartnerBadgeRow className="justify-center" />
 
           {(pageData?.heroHeadingPart1 || pageData?.heroHeadingAccent) && (
             <h1 className="text-display text-center mt-10 max-w-[924px]">

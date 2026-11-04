@@ -7,6 +7,7 @@ import {
 } from '@/data/practicePages/types'
 import FaqAccordion from '@/components/sections/FaqAccordion'
 import CardRail from '@/components/common/CardRail'
+import PartnerBadgeRow from '@/components/sections/PartnerBadgeRow'
 import ClosingCtaSection from '@/components/sections/ClosingCtaSection'
 import { getFaqItemsForPageStrict, getClosingCtaForPage } from '@/sanity/queries'
 import { getIndustryLogos, INDUSTRY_LOGO_KEYS } from '@/sanity/industryLogos'
@@ -87,6 +88,7 @@ export default async function PracticePageTemplate({ page }: { page: PracticePag
         <div className="site-container pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-10 lg:gap-16 lg:items-center">
             <div className="min-w-0">
+              <PartnerBadgeRow explicitOnly className="mb-6" />
               <span className="inline-flex items-center rounded-full bg-brand-soft text-brand font-mono text-xs font-semibold uppercase tracking-[0.14em] px-3 py-1 mb-5">
                 {page.eyebrow}
               </span>

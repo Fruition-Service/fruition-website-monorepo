@@ -1,0 +1,53 @@
+import { existsSync } from "node:fs"
+import { join } from "node:path"
+import { describe, expect, it } from "vitest"
+import { PARTNER_BADGES, partnerBadgesForPath } from "./partnerBadges"
+
+const keys = (path: string, opts?: { explicitOnly?: boolean }) =>
+  partnerBadgesForPath(path, opts).map((b) => b.key)
+
+describe("partnerBadgesForPath", () => {
+  it("gives each service page its own badge", () => {
+    expect(keys("/partnerships/certified-hubspot-partner")).toEqual(["hubspot"])
+    expect(keys("/hubspot-consulting/implementation")).toEqual(["hubspot"])
+    expect(keys("/partnerships/certified-atlassian-partner")).toEqual(["atlassian"])
+    expect(keys("/atlassian-consulting/jira")).toEqual(["atlassian"])
+    expect(keys("/partnerships/certified-clickup-partner")).toEqual(["clickup"])
+    expect(keys("/partnerships/make-partners")).toEqual(["make"])
+    expect(keys("/partnerships/aws-partner")).toEqual(["aws"])
+    expect(keys("/partnerships/google-cloud-partner")).toEqual(["googleCloud"])
+    expect(keys("/partnerships/openai-chatgpt-partner")).toEqual(["openai"])
+    expect(keys("/partnerships/anthropic-claude-partner")).toEqual(["claude"])
+    expect(keys("/ai-consulting/agent-development")).toEqual(["claude", "openai", "googleCloud"])
+  })
+
+  it("pairs migration pages with both platforms", () => {
+    expect(keys("/hubspot-consulting/hubspot-to-monday-migration")).toEqual(["hubspot", "monday"])
+    expect(keys("/atlassian-consulting/jira-to-monday-migration")).toEqual(["atlassian", "monday"])
+  })
+
+  it("never shows Make outside the Make page", () => {
+    for (const path of ["/monday-implementation-consultants", "/training", "/industries/healthcare", "/partnerships/aircall-partner"]) {
+      expect(keys(path)).not.toContain("make")
+    }
+  })
+
+  it("defaults monday work to the monday badge", () => {
+    expect(keys("/monday-implementation-consultants")).toEqual(["monday"])
+    expect(keys("/monday-consulting-solutions/monday-for-hr/")).toEqual(["monday"])
+    expect(keys("/partnerships/monday-consulting-partner")).toEqual(["monday"])
+  })
+
+  it("shows nothing on partner pages without a badge, or off-map with explicitOnly", () => {
+    expect(keys("/partnerships/aircall-partner")).toEqual([])
+    expect(keys("/partnerships")).toEqual([])
+    expect(keys("/integrations/zapier", { explicitOnly: true })).toEqual([])
+    expect(keys("/hubspot-consulting", { explicitOnly: true })).toEqual(["hubspot"])
+  })
+
+  it("points at artwork that exists", () => {
+    for (const badge of Object.values(PARTNER_BADGES)) {
+      expect(existsSync(join(process.cwd(), "public", badge.src)), badge.src).toBe(true)
+    }
+  })
+})

@@ -1,6 +1,7 @@
 "use client"
 
 import { bookingHref } from "@/lib/bookingLink"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import { useState } from "react"
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
@@ -10,7 +11,7 @@ import {
   FaqAccordion,
   TestimonialCtaBanner,
 } from "@/components/sections"
-import type { CaseStudy, SiteSettingsData, FaqTab, PartnerBadge, SanityImageRef } from "@/components/sections/types"
+import type { CaseStudy, SiteSettingsData, FaqTab, SanityImageRef } from "@/components/sections/types"
 import YouTubeEmbed from "@/components/YouTubeEmbed"
 import FramedMedia from "@/components/common/FramedMedia"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
@@ -45,7 +46,6 @@ export default function MondayForFinanceContent({
 
   const rawCalendly = siteSettings?.calendlyLink ?? ""
   const calendlyUrl = bookingHref(rawCalendly)
-  const partnerBadges: PartnerBadge[] = siteSettings?.navbarPartnerBadges || []
   const heroImageSrc = safeImageUrl(page.heroImage as SanityImageRef)
   const tabs: FinanceComparisonTab[] = page.comparisonTabs ?? []
   const featureCards: FinanceFeatureCard[] = page.financeFeatureCards ?? []
@@ -56,26 +56,7 @@ export default function MondayForFinanceContent({
       <section className="bg-surface">
         <div className="mx-auto flex w-full max-w-[1148px] flex-col items-center px-4 py-14 md:py-20">
           {/* Three certificate badges */}
-          {partnerBadges.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-[22px]">
-              {partnerBadges.map((badge, i) => {
-                const src = safeImageUrl(badge.image)
-                if (!src) return null
-                return (
-                  <FramedMedia key={badge._key || `badge-${i}`} className="rounded-[5px]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={badge.name || "Partner badge"}
-                      width={120}
-                      height={44}
-                      className="h-[44px] w-auto rounded-[5px]"
-                    />
-                  </FramedMedia>
-                )
-              })}
-            </div>
-          )}
+          <PartnerBadgeRow className="justify-center" />
 
           {/* Eyebrow */}
           {page.heroEyebrow && (

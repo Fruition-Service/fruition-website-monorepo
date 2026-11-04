@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, type KeyboardEvent, type ReactNode } from "react"
+import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import Link from "next/link"
 import { bookingHref } from "@/lib/bookingLink"
 import { urlFor } from "@/sanity/image"
@@ -19,7 +20,6 @@ import type {
   CarouselLogo,
   CaseStudy,
   FaqTab,
-  PartnerBadge,
   SanityImageRef,
   SiteSettingsData,
 } from "@/components/sections/types"
@@ -150,7 +150,6 @@ interface TrainingContentProps {
   siteSettings?: SiteSettingsData | null
   /** Central faqItem tabs; they win over `data.faqTabs` when non-empty. */
   faqTabs?: FaqTab[]
-  navbarPartnerBadges?: PartnerBadge[]
 }
 
 /* ------------------------------------------------------------------ */
@@ -291,7 +290,6 @@ export default function TrainingContent({
   caseStudies = [],
   siteSettings = null,
   faqTabs: centralFaqTabs,
-  navbarPartnerBadges = [],
 }: TrainingContentProps) {
   const t = useSiteCopy()
   if (!data) return null
@@ -300,15 +298,8 @@ export default function TrainingContent({
   const trainingServices = data.trainingServices ?? []
   const faqTabs = centralFaqTabs?.length ? centralFaqTabs : (data.faqTabs ?? [])
 
-  // Partner badges: the page's own, else the site-wide navbar set.
-  const pageBadges = (data.heroPartnerBadges ?? [])
-    .map((b, i) => ({ key: b._key || `badge-${i}`, src: imageUrl(b.image, 240), alt: b.alt ?? `Partner badge ${i + 1}` }))
-    .filter((b) => b.src)
-  const partnerBadges = pageBadges.length
-    ? pageBadges
-    : navbarPartnerBadges
-        .map((b, i) => ({ key: `nav-badge-${i}`, src: imageUrl(b.image, 240), alt: b.name ?? `Partner badge ${i + 1}` }))
-        .filter((b) => b.src)
+  // The page's own badges, else the route's service badges (src/data/partnerBadges.ts).
+  const partnerBadges = (data.heroPartnerBadges ?? []).map((b) => ({ _key: b._key, name: b.alt, image: b.image }))
 
   const certBadgeSrc = imageUrl(data.heroCertificationBadge)
   const mondayPartnersSrc = imageUrl(data.heroMondayPartnersImage, 1068)
@@ -333,14 +324,7 @@ export default function TrainingContent({
             }`}
           >
             <div className="min-w-0">
-              {partnerBadges.length > 0 && (
-                <div className="mb-6 flex flex-wrap items-center gap-3">
-                  {partnerBadges.map((b) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img key={b.key} src={b.src!} alt={b.alt} height={36} className="h-9 w-auto rounded-badge" />
-                  ))}
-                </div>
-              )}
+              <PartnerBadgeRow badges={partnerBadges} className="mb-6" />
               <h1 className="text-display">
                 {data.heroHeadingPart1}
                 {data.heroHeadingAccent && <span className="text-brand">{data.heroHeadingAccent}</span>}

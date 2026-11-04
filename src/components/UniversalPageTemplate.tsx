@@ -165,11 +165,7 @@ export default function UniversalPageTemplate({
         heroImage={page.heroImage}
         heroVideoSrc={page.heroLocalVideoSrc}
         certificationBadge={siteSettings?.badgeCertifications}
-        partnerBadges={
-          page.heroPartnerBadges?.length > 0
-            ? page.heroPartnerBadges
-            : siteSettings?.navbarPartnerBadges || []
-        }
+        partnerBadges={page.heroPartnerBadges ?? []}
         partnerImageSrc={heroPartnerImageSrc}
         primaryCtaLabel={page.primaryCtaLabel}
         primaryCtaUrl={bookingHref(page.primaryCtaUrl || calendlyUrl)}
