@@ -47,7 +47,7 @@ function list<TDoc, TOut>(
  * `path` and `breadcrumb` stay code-only: the path is the document's lookup
  * key and the breadcrumb is not rendered. `targetQueries` and
  * `preferPageFaqs` are code-only flags. The shared blocks (logo wall heading,
- * coverage, practice leader, booking, FAQ heading) stay unset when the
+ * coverage, practice leader, booking, FAQ heading and contact line) stay unset when the
  * document leaves them blank, so the template renders PRACTICE_SHARED_COPY.
  */
 export function mergePracticePage(
@@ -123,6 +123,7 @@ export function mergePracticePage(
     bookingHeading: text(doc.bookingHeading, fallback.bookingHeading),
     bookingSubheading: text(doc.bookingSubheading, fallback.bookingSubheading),
     faqHeading: text(doc.faqHeading, fallback.faqHeading),
+    faqContactLead: text(doc.faqContactLead, fallback.faqContactLead),
   }
 }
 

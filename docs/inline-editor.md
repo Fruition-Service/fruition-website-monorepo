@@ -53,9 +53,14 @@ Esc to cancel. Outlined images: click, choose a file, pick where to replace it, 
   `src/data/practicePages/editable.ts`) read one `practicePage` document each, matched on `path`
   and merged over the code copy (`src/features/content/practicePage.ts`); seed with
   `npx tsx scripts/seed-practice-pages.ts --apply`. That document also holds the shared blocks
-  (logo wall heading, coverage, practice leader, booking and FAQ headings), defaulting to
-  `PRACTICE_SHARED_COPY` in `src/data/practicePages/types.ts`. The logo wall heading on the
-  monday-for-* pages is seeded with `npx tsx scripts/seed-industry-logo-headings.ts --apply`.
+  (logo wall heading, coverage, practice leader, booking and FAQ headings, FAQ contact line),
+  defaulting to `PRACTICE_SHARED_COPY` in `src/data/practicePages/types.ts`; the hero CTA label
+  and the section eyebrows fall back to `PRACTICE_TEMPLATE_FALLBACKS` there. The logo wall
+  heading on the monday-for-* pages is seeded with
+  `npx tsx scripts/seed-industry-logo-headings.ts --apply`; their use case catalogue,
+  testimonials and FAQ copy (`src/features/content/industryPageCopy.ts`) with
+  `npx tsx scripts/seed-industry-section-copy.ts --apply`. The catalogue button label takes
+  `{count}` for the live use case count.
   The monday-for-* long-form sections
   (`capabilityBlocks`, `benefitLedger`, `templateSpec`) are `industryPage` fields merged over
   `src/data/industrySections.ts`; seed with `npx tsx scripts/seed-industry-sections.ts --apply`.

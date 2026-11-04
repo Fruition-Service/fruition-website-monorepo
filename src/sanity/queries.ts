@@ -547,7 +547,14 @@ export async function getLocationPageBySlug(slug: string) {
 
 export async function getIndustryPageBySlug(slug: string) {
   return client.fetch(
-    `*[_type == "industryPage" && slug.current == $slug][0]{${PAGE_FIELDS}, industryName}`,
+    // The use case catalogue, testimonials and FAQ contact copy are industryPage
+    // fields only, projected here rather than in PAGE_FIELDS so the other page
+    // types that share UniversalPageTemplate keep their defaults.
+    `*[_type == "industryPage" && slug.current == $slug][0]{${PAGE_FIELDS}, industryName,
+      useCaseCatalogueEyebrow, useCaseCatalogueHeading, useCaseCatalogueLead,
+      useCaseCatalogueCtaLabel, useCaseCatalogueBrowseLabel,
+      testimonialsEyebrow, testimonialsHeading, testimonialsIntro, testimonialsCtaLabel,
+      faqContactLead}`,
     { slug }
   )
 }
@@ -1101,6 +1108,7 @@ export interface PracticePageDoc {
   bookingHeading?: string
   bookingSubheading?: string
   faqHeading?: string
+  faqContactLead?: string
 }
 
 export async function getPracticePageDoc(path: string): Promise<PracticePageDoc | null> {
@@ -1122,7 +1130,7 @@ export async function getPracticePageDoc(path: string): Promise<PracticePageDoc 
     leaderEyebrow, leaderHeading, leaderName, leaderTitle, leaderBio, leaderPull,
     leaderBadges,
     bookingHeading, bookingSubheading,
-    faqHeading
+    faqHeading, faqContactLead
   }`,
     { path },
   )

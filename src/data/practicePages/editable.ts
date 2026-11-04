@@ -1,4 +1,10 @@
-import { withPracticeSharedCopy, type PracticePage, type PracticeSharedField } from './types'
+import {
+  withPracticeSharedCopy,
+  withPracticeTemplateCopy,
+  type PracticePage,
+  type PracticeSharedField,
+} from './types'
+import { INDUSTRY_TEMPLATE_FALLBACKS } from './toIndustryPage'
 import { AI_CONSULTING_PAGES } from './aiConsulting'
 import { ATLASSIAN_PAGES } from './atlassian'
 import { HUBSPOT_PAGES } from './hubspot'
@@ -52,15 +58,16 @@ export function practicePageDocId(path: string): string {
 
 /**
  * The /industries leaves render through UniversalPageTemplate, which shows a
- * client logo wall but not the practice template's coverage, leader, booking
- * and FAQ heading. Every other route renders PracticePageTemplate, which has
- * no logo wall on these routes (none of them has an industry logo set).
+ * client logo wall and the FAQ block but not the practice template's
+ * coverage, leader and booking blocks. Every other route renders
+ * PracticePageTemplate, which has no logo wall on these routes (none of them
+ * has an industry logo set).
  */
 export function rendersThroughIndustryTemplate(page: PracticePage): boolean {
   return page.path.startsWith('/industries/')
 }
 
-const LOGO_FIELDS: PracticeSharedField[] = ['logoHeading', 'logoHeadingAccent']
+const INDUSTRY_LEAF_FIELDS: PracticeSharedField[] = ['logoHeading', 'logoHeadingAccent', 'faqHeading', 'faqContactLead']
 const TEMPLATE_FIELDS: PracticeSharedField[] = [
   'coverageEyebrow',
   'coverageHeading',
@@ -75,17 +82,44 @@ const TEMPLATE_FIELDS: PracticeSharedField[] = [
   'bookingHeading',
   'bookingSubheading',
   'faqHeading',
+  'faqContactLead',
 ]
+
+/**
+ * The plain string fields this route renders from a code fallback when the
+ * page data leaves them unset (the CTA label, the eyebrows, the linked-pages
+ * heading), with the words it renders today. Seeding them makes the words
+ * clickable without changing them. The linked-pages block only renders on
+ * pages that have child links.
+ */
+export function renderedFallbackFields(page: PracticePage): Record<string, string> {
+  if (rendersThroughIndustryTemplate(page)) {
+    const d = INDUSTRY_TEMPLATE_FALLBACKS
+    return {
+      primaryCtaLabel: page.primaryCtaLabel ?? d.primaryCtaLabel,
+      approachEyebrow: page.approachEyebrow ?? d.approachEyebrow,
+      servicesEyebrow: page.servicesEyebrow ?? d.servicesEyebrow,
+    }
+  }
+  const t = withPracticeTemplateCopy(page)
+  return {
+    primaryCtaLabel: t.primaryCtaLabel,
+    approachEyebrow: t.approachEyebrow,
+    servicesEyebrow: t.servicesEyebrow,
+    ...(page.children?.length ? { childrenEyebrow: t.childrenEyebrow, childrenHeading: t.childrenHeading } : {}),
+  }
+}
 
 /** The shared-block fields this route actually renders, so only those are seeded. */
 export function renderedSharedFields(page: PracticePage): PracticeSharedField[] {
-  return rendersThroughIndustryTemplate(page) ? LOGO_FIELDS : TEMPLATE_FIELDS
+  return rendersThroughIndustryTemplate(page) ? INDUSTRY_LEAF_FIELDS : TEMPLATE_FIELDS
 }
 
 /**
  * A PracticePage as the fields of its `practicePage` document. The shared
- * blocks carry the copy the route renders today (its own value, else the
- * shared copy), limited to the blocks the route shows.
+ * blocks and the template fallbacks carry the copy the route renders today
+ * (its own value, else the shared or fallback copy), limited to the blocks the
+ * route shows.
  */
 export function toPracticePageFields(page: PracticePage): Record<string, unknown> {
   const fields: Record<string, unknown> = {
@@ -124,6 +158,7 @@ export function toPracticePageFields(page: PracticePage): Record<string, unknown
     })),
     faqs: page.faqs.map((f, i) => ({ _key: `faq-${i}`, _type: 'practiceFaqItem', q: f.q, a: f.a })),
   }
+  Object.assign(fields, renderedFallbackFields(page))
   const shared = withPracticeSharedCopy(page)
   for (const name of renderedSharedFields(page)) {
     fields[name] =

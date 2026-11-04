@@ -77,6 +77,8 @@ export interface PracticePage {
   bookingHeading?: string
   bookingSubheading?: string
   faqHeading?: string
+  /** Line above the contact email in the FAQ aside. */
+  faqContactLead?: string
 }
 
 export interface PracticeRegion {
@@ -139,6 +141,9 @@ export const PRACTICE_SHARED_COPY = {
   bookingHeading: "Let's design the way your business should run.",
   bookingSubheading: '30 minutes. No obligation. Speak to a consultant, not a salesperson.',
   faqHeading: 'Frequently asked questions',
+  // Same words as FaqAccordion's DEFAULT_CONTACT_LEAD. Not imported from it:
+  // FaqAccordion is a client module, so a server import gets a reference, not the string.
+  faqContactLead: 'Prefer a person? A consultant will answer in one business day.',
 } satisfies Required<Pick<PracticePage, PracticeSharedField>>
 
 export type PracticeSharedField =
@@ -157,6 +162,7 @@ export type PracticeSharedField =
   | 'bookingHeading'
   | 'bookingSubheading'
   | 'faqHeading'
+  | 'faqContactLead'
 
 /** The page with every shared block resolved: its own value, else the shared copy. */
 export function withPracticeSharedCopy(
@@ -180,6 +186,37 @@ export function withPracticeSharedCopy(
     bookingHeading: page.bookingHeading ?? d.bookingHeading,
     bookingSubheading: page.bookingSubheading ?? d.bookingSubheading,
     faqHeading: page.faqHeading ?? d.faqHeading,
+    faqContactLead: page.faqContactLead ?? d.faqContactLead,
+  }
+}
+
+/**
+ * What PracticePageTemplate renders when a page leaves one of these unset.
+ * The page data files set most of them per page; the template falls back to
+ * these words for the rest.
+ */
+export const PRACTICE_TEMPLATE_FALLBACKS = {
+  primaryCtaLabel: 'Book a discovery call',
+  approachEyebrow: 'Our approach',
+  servicesEyebrow: 'Services',
+  childrenEyebrow: 'Explore',
+  childrenHeading: 'Go deeper.',
+} as const
+
+export type PracticeTemplateField = keyof typeof PRACTICE_TEMPLATE_FALLBACKS
+
+/** The page with the template's own fallbacks resolved, as PracticePageTemplate renders it. */
+export function withPracticeTemplateCopy<T extends PracticePage>(
+  page: T,
+): T & Required<Pick<PracticePage, PracticeTemplateField>> {
+  const d = PRACTICE_TEMPLATE_FALLBACKS
+  return {
+    ...page,
+    primaryCtaLabel: page.primaryCtaLabel ?? d.primaryCtaLabel,
+    approachEyebrow: page.approachEyebrow ?? d.approachEyebrow,
+    servicesEyebrow: page.servicesEyebrow ?? d.servicesEyebrow,
+    childrenEyebrow: page.childrenEyebrow ?? d.childrenEyebrow,
+    childrenHeading: page.childrenHeading ?? d.childrenHeading,
   }
 }
 

@@ -22,7 +22,7 @@ interface FaqAccordionProps {
   jsonLd?: boolean
 }
 
-const DEFAULT_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."
+export const DEFAULT_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."
 
 /**
  * The site's one FAQ section: a sticky heading and contact aside on the left,

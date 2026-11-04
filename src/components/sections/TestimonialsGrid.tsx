@@ -1,9 +1,14 @@
 import { BOOKING_ANCHOR, bookingHref } from "@/lib/bookingLink"
 import TestimonialsRoll, { type HomeTestimonial } from "@/components/home/TestimonialsRoll"
 import type { CaseStudy } from "./types"
+import { TESTIMONIALS_DEFAULTS } from "@/features/content/industryPageCopy"
 
 interface TestimonialsGridProps {
+  /** Small label above the heading. */
+  eyebrow?: string
   heading?: string
+  /** Line under the heading. */
+  intro?: string
   ctaLabel?: string
   ctaUrl?: string
   statCardValue?: string
@@ -26,8 +31,10 @@ interface TestimonialsGridProps {
  * Client proof layout has no stat card and none of them are rendered.
  */
 export default function TestimonialsGrid({
-  heading = "What our customers say about us 🙌",
-  ctaLabel = "Start Your Transformation",
+  eyebrow = TESTIMONIALS_DEFAULTS.eyebrow,
+  heading = TESTIMONIALS_DEFAULTS.heading,
+  intro = TESTIMONIALS_DEFAULTS.intro,
+  ctaLabel = TESTIMONIALS_DEFAULTS.ctaLabel,
   ctaUrl = BOOKING_ANCHOR,
   caseStudies = [],
 }: TestimonialsGridProps) {
@@ -48,7 +55,9 @@ export default function TestimonialsGrid({
     <TestimonialsRoll
       testimonials={testimonials}
       bookingHref={bookingHref(ctaUrl)}
+      eyebrow={eyebrow}
       heading={heading}
+      intro={intro}
       ctaLabel={ctaLabel}
     />
   )

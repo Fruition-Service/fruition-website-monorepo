@@ -10,6 +10,7 @@ import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
 import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getIndustryLogos } from "@/sanity/industryLogos"
+import { catalogueCopy } from "@/features/content/industryPageCopy"
 
 export async function generateMetadata() {
   const page = await getIndustryPageBySlug("monday-for-government")
@@ -38,7 +39,7 @@ export default async function Page() {
   ])
   return (
     <UniversalPageTemplate
-      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} />}
+      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} copy={catalogueCopy(page)} />}
       page={page}
       siteSettings={siteSettings}
       caseStudies={caseStudies || []}

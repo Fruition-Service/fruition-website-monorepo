@@ -1,5 +1,5 @@
 import { BOOKING_ANCHOR } from '@/lib/bookingLink'
-import type { PracticePage } from './types'
+import { PRACTICE_SHARED_COPY, type PracticePage } from './types'
 import { getIndustrySections, type IndustrySections } from '@/data/industrySections'
 import { groupFaqsIntoTabs, type CentralFaqItem } from '@/sanity/groupFaqs'
 import type { FaqTab } from '@/components/sections/types'
@@ -17,6 +17,13 @@ import type { FaqTab } from '@/components/sections/types'
  * page and on /about-us.
  */
 
+/** What a /industries leaf renders when its page leaves one of these unset. */
+export const INDUSTRY_TEMPLATE_FALLBACKS = {
+  primaryCtaLabel: 'Book a discovery call',
+  approachEyebrow: 'Our approach',
+  servicesEyebrow: 'What we build',
+} as const
+
 /** Practice-cluster page → the document shape UniversalPageTemplate reads. */
 export function practiceToIndustryPage(page: PracticePage) {
   return {
@@ -27,7 +34,7 @@ export function practiceToIndustryPage(page: PracticePage) {
 
     heroHeading: page.heading,
     heroSubheading: page.lead,
-    primaryCtaLabel: 'Book a discovery call',
+    primaryCtaLabel: page.primaryCtaLabel ?? INDUSTRY_TEMPLATE_FALLBACKS.primaryCtaLabel,
     primaryCtaUrl: BOOKING_ANCHOR,
     secondaryCtaLabel: 'Common questions',
     secondaryCtaUrl: '#faq',
@@ -38,7 +45,7 @@ export function practiceToIndustryPage(page: PracticePage) {
 
     /* The approach trio leads, as it does on the practice template; the
        services list follows it through CapabilityBlocksSection below. */
-    capabilitiesEyebrow: page.approachEyebrow ?? 'Our approach',
+    capabilitiesEyebrow: page.approachEyebrow ?? INDUSTRY_TEMPLATE_FALLBACKS.approachEyebrow,
     capabilitiesHeading: page.approachHeading,
     capabilitiesColumns: 3 as const,
     capabilitiesCards: page.approach.map((a, i) => ({
@@ -50,6 +57,10 @@ export function practiceToIndustryPage(page: PracticePage) {
     /* Platform-agnostic pages, so the booking CTA does not lead with a
        platform the sector page may not be about. */
     calendlyHeading: 'Book a 30-minute discovery call with a Fruition consultant',
+
+    /* FAQ block: the same words the practice template shows when unset. */
+    faqHeading: page.faqHeading ?? PRACTICE_SHARED_COPY.faqHeading,
+    faqContactLead: page.faqContactLead ?? PRACTICE_SHARED_COPY.faqContactLead,
 
     /* The template's stats banner needs numbers these pages don't carry; the
        closing testimonial banner already says the same thing. */
@@ -82,7 +93,7 @@ export function practiceIndustrySections(page: PracticePage): IndustrySections {
   const mined = getIndustrySections(pageKeyFor(page))
   return {
     capabilityBlocks: {
-      eyebrow: `// ${page.servicesEyebrow ?? 'What we build'}`,
+      eyebrow: `// ${page.servicesEyebrow ?? INDUSTRY_TEMPLATE_FALLBACKS.servicesEyebrow}`,
       heading: page.servicesHeading,
       // Four services land as a clean 2x2 rather than a row of three plus one.
       columns: page.services.length === 4 ? 2 : 3,

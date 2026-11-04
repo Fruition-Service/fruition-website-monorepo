@@ -9,15 +9,20 @@
  * and the five /industries leaves. Ids are deterministic
  * (`practicePage-<path with / replaced by ->`), so re-runs find the same
  * documents. A missing document is created; on an existing one (and any open
- * Studio draft of it) only the fields that are not set yet are filled in from
- * today's wording in src/data/practicePages/. Fields that already exist are
- * never overwritten, so edits made in Studio or the inline editor survive
- * re-runs.
+ * Studio draft of it) only the fields that are not set yet (missing, or a
+ * blank string) are filled in from today's wording in src/data/practicePages/.
+ * Fields with a value are never overwritten, so edits made in Studio or the
+ * inline editor survive re-runs.
  *
  * The shared blocks are seeded with the copy each route renders today, and
  * only on the routes that show them: the logo wall heading on the /industries
  * leaves, and the coverage, practice leader, booking and FAQ headings on the
- * PracticePageTemplate routes (renderedSharedFields in editable.ts).
+ * PracticePageTemplate routes, and the FAQ heading and contact line on both
+ * (renderedSharedFields in editable.ts). The strings a route renders from a
+ * code fallback (hero CTA label, "Our approach" / "Services" eyebrows, the
+ * linked-pages eyebrow and heading where the route has linked pages) are
+ * seeded with those same words (renderedFallbackFields), so they become
+ * clickable without changing.
  *
  * Needs NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
  * SANITY_WRITE_TOKEN (from .env.local).
@@ -28,6 +33,9 @@ import { createClient } from "@sanity/client"
 loadEnv({ path: ".env.local" })
 
 const apply = process.argv.includes("--apply")
+
+/** Missing, or a string the editor left blank (the page renders the code copy for both). */
+const unset = (v: unknown) => v === undefined || v === null || (typeof v === "string" && !v.trim())
 
 async function main() {
   // Imported after loadEnv: the page data reaches src/sanity/env.ts, which
@@ -71,8 +79,8 @@ async function main() {
     }
     for (const doc of [published, byId.get(`drafts.${id}`)]) {
       if (!doc) continue
-      const set = Object.fromEntries(Object.entries(fields).filter(([k]) => doc[k] === undefined))
-      console.log(`${doc._id}: set ${Object.keys(set).join(", ") || "nothing"}`)
+      const set = Object.fromEntries(Object.entries(fields).filter(([k]) => unset(doc[k])))
+      console.log(`${doc._id}: set ${Object.keys(set).length} (${Object.keys(set).join(", ") || "nothing"})`)
       if (Object.keys(set).length) {
         tx.patch(doc._id as string, (p) => p.set(set))
         writes++

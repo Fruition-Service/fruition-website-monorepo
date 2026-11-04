@@ -5,6 +5,7 @@ import { INDUSTRIES_PAGES } from '@/data/practicePages/industries'
 import {
   EDITABLE_PRACTICE_PAGES,
   practicePageDocId,
+  renderedFallbackFields,
   renderedSharedFields,
   rendersThroughIndustryTemplate,
   toPracticePageFields,
@@ -13,15 +14,22 @@ import {
   GEO_REGIONS,
   PRACTICE_LEADER,
   PRACTICE_SHARED_COPY,
+  PRACTICE_TEMPLATE_FALLBACKS,
   withPracticeSharedCopy,
+  withPracticeTemplateCopy,
+  type PracticePage,
   type PracticeSharedField,
 } from '@/data/practicePages/types'
 import { practiceToIndustryPage } from '@/data/practicePages/toIndustryPage'
+import { DEFAULT_CONTACT_LEAD } from '@/components/sections/FaqAccordion'
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const fallback = ATLASSIAN_PAGES['hub']
+
+/** A practice page as PracticePageTemplate renders it: shared blocks and template fallbacks resolved. */
+const asRendered = (page: PracticePage) => withPracticeTemplateCopy(withPracticeSharedCopy(page))
 
 describe('mergePracticePage', () => {
   it('returns the shipped copy when the document does not exist yet', () => {
@@ -31,7 +39,7 @@ describe('mergePracticePage', () => {
 
   it('renders exactly as shipped from a document seeded with the shipped copy', () => {
     const merged = mergePracticePage(fallback, toPracticePageFields(fallback))
-    expect(withPracticeSharedCopy(merged)).toEqual(withPracticeSharedCopy(fallback))
+    expect(asRendered(merged)).toEqual(asRendered(fallback))
   })
 
   it('keeps the shipped copy for fields the editor has not filled in', () => {
@@ -147,6 +155,7 @@ describe('mergePracticePage shared blocks', () => {
       '30 minutes. No obligation. Speak to a consultant, not a salesperson.',
     )
     expect(merged.faqHeading).toBe('Frequently asked questions')
+    expect(merged.faqContactLead).toBe(DEFAULT_CONTACT_LEAD)
     expect(merged.logoHeading).toBe('Clients who have used our ')
     expect(merged.logoHeadingAccent).toBe('monday.com consulting services')
   })
@@ -221,12 +230,78 @@ describe('mergePracticePage shared blocks', () => {
   })
 })
 
+describe('practice FAQ contact line and template fallbacks', () => {
+  it('keeps the FAQ contact line in step with FaqAccordion', () => {
+    expect(PRACTICE_SHARED_COPY.faqContactLead).toBe(DEFAULT_CONTACT_LEAD)
+  })
+
+  it('lets a filled contact line win, trimmed, and ignores a blank one', () => {
+    expect(mergePracticePage(fallback, { faqContactLead: ' Ask us anything. ' }).faqContactLead).toBe(
+      'Ask us anything.',
+    )
+    expect(asRendered(mergePracticePage(fallback, { faqContactLead: '  ' })).faqContactLead).toBe(
+      DEFAULT_CONTACT_LEAD,
+    )
+  })
+
+  it('passes the FAQ heading and contact line to the /industries pages', () => {
+    const leaf = INDUSTRIES_PAGES['healthcare']
+    expect(practiceToIndustryPage(leaf)).toMatchObject({
+      faqHeading: 'Frequently asked questions',
+      faqContactLead: DEFAULT_CONTACT_LEAD,
+      primaryCtaLabel: 'Book a discovery call',
+      capabilitiesEyebrow: leaf.approachEyebrow ?? 'Our approach',
+    })
+    const merged = mergePracticePage(leaf, {
+      faqHeading: 'Healthcare questions',
+      faqContactLead: 'Talk to our health team.',
+      primaryCtaLabel: 'Talk to us',
+      approachEyebrow: 'How we work',
+    })
+    expect(practiceToIndustryPage(merged)).toMatchObject({
+      faqHeading: 'Healthcare questions',
+      faqContactLead: 'Talk to our health team.',
+      primaryCtaLabel: 'Talk to us',
+      capabilitiesEyebrow: 'How we work',
+    })
+  })
+
+  it('renders the template fallbacks until the document fills them, then the filled words', () => {
+    const bare = { ...fallback, approachEyebrow: undefined, servicesEyebrow: undefined }
+    expect(asRendered(mergePracticePage(bare, { approachEyebrow: '  ' }))).toMatchObject({
+      primaryCtaLabel: PRACTICE_TEMPLATE_FALLBACKS.primaryCtaLabel,
+      approachEyebrow: PRACTICE_TEMPLATE_FALLBACKS.approachEyebrow,
+      servicesEyebrow: PRACTICE_TEMPLATE_FALLBACKS.servicesEyebrow,
+    })
+    expect(
+      asRendered(mergePracticePage(bare, { approachEyebrow: ' Our method ', servicesEyebrow: 'What we do' })),
+    ).toMatchObject({ approachEyebrow: 'Our method', servicesEyebrow: 'What we do' })
+  })
+
+  it('seeds every template fallback a route renders with the words it renders today', () => {
+    const ai = EDITABLE_PRACTICE_PAGES.find((p) => p.path === '/ai-consulting')
+    expect(ai).toBeDefined()
+    const fields = toPracticePageFields(ai!)
+    expect(fields.approachEyebrow).toBe(ai!.approachEyebrow ?? 'Our approach')
+    expect(fields.servicesEyebrow).toBe(ai!.servicesEyebrow ?? 'Services')
+    expect(fields.primaryCtaLabel).toBe('Book a discovery call')
+    for (const page of EDITABLE_PRACTICE_PAGES) {
+      const seeded = renderedFallbackFields(page)
+      expect(Object.keys(seeded).includes('childrenEyebrow'), page.path).toBe(
+        !rendersThroughIndustryTemplate(page) && !!page.children?.length,
+      )
+      for (const value of Object.values(seeded)) expect(value.trim(), page.path).not.toBe('')
+      expect(toPracticePageFields(page), page.path).toMatchObject(seeded)
+    }
+  })
+})
+
 describe('EDITABLE_PRACTICE_PAGES', () => {
   it.each(EDITABLE_PRACTICE_PAGES.map((p) => [p.path, p] as const))(
     '%s renders exactly as shipped from its seeded document',
     (_path, page) => {
       const merged = mergePracticePage(page, toPracticePageFields(page))
-      expect(withPracticeSharedCopy(merged)).toEqual(withPracticeSharedCopy(page))
+      expect(asRendered(merged)).toEqual(asRendered(page))
       expect(practiceToIndustryPage(merged)).toEqual({
         ...practiceToIndustryPage(page),
         ...(rendersThroughIndustryTemplate(page)
