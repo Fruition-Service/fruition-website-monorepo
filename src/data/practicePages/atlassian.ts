@@ -15,7 +15,6 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
     seoDescription:
       'Fruition delivers Atlassian consulting across Australia, the UK, and the US: Jira, Confluence, and JSM implementation and optimisation, plus honest advice on when Atlassian is and isn’t your answer.',
     breadcrumb: [HUB],
-    eyebrow: '★ Atlassian Consulting Hub',
     heading: 'Atlassian expertise from a firm that sees both sides',
     lead: 'Fruition delivers Atlassian consulting across Australia, the UK, and the US: Jira, Confluence, and JSM implementation and optimisation, plus honest advice on when Atlassian is and isn’t your answer.',
     targetQueries: [
