@@ -123,8 +123,13 @@ describe("staticRecords", () => {
   })
 
   it("names practice pages by their breadcrumb, not their headline", () => {
-    const hubspot = records.find((r) => r.url === "/hubspot-consulting/monday-hubspot-integration")
-    expect(hubspot?.title).toBe("HubSpot Consulting: monday ↔ HubSpot Integration")
+    // The HubSpot leaves are sections of /hubspot-consulting now (monday
+    // 2900266080), so a nested AI practice page carries this check.
+    const agents = records.find((r) => r.url === "/ai-consulting/agent-development")
+    expect(agents?.title).toBe("AI Consulting: Agent Development")
+    const hubspot = records.find((r) => r.url === "/hubspot-consulting")
+    expect(hubspot?.title).toBe("HubSpot Consulting")
+    expect(records.some((r) => r.url.startsWith("/hubspot-consulting/"))).toBe(false)
   })
 
   it("skips practice pages that redirect elsewhere", () => {

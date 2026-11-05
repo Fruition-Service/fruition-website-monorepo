@@ -53,14 +53,9 @@
       "note": "Social proof"
     },
     {
-      "path": "/hubspot-consulting/monday-hubspot-integration",
-      "keywords": ["monday HubSpot integration", "HubSpot and monday.com integration", "HubSpot integration", "integrate HubSpot"],
-      "note": "Service page: HubSpot integration"
-    },
-    {
-      "path": "/hubspot-consulting/hubspot-to-monday-migration",
-      "keywords": ["HubSpot to monday CRM migration", "HubSpot to monday.com migration", "HubSpot to monday", "HubSpot migration"],
-      "note": "Service page: HubSpot migration"
+      "path": "/hubspot-consulting",
+      "keywords": ["monday HubSpot integration", "HubSpot and monday.com integration", "HubSpot integration", "integrate HubSpot", "HubSpot to monday CRM migration", "HubSpot to monday.com migration", "HubSpot to monday", "HubSpot migration"],
+      "note": "Service page: HubSpot consulting (integration and migration sections)"
     },
     {
       "path": "/atlassian-consulting",

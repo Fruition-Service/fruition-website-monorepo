@@ -37,6 +37,12 @@ const auditRedirects: Redirect[] = [
   { source: "/atlassian-consulting/confluence", destination: "/atlassian-consulting", statusCode: 301 },
   { source: "/atlassian-consulting/jira-service-management", destination: "/atlassian-consulting", statusCode: 301 },
   { source: "/atlassian-consulting/jira-to-monday-migration", destination: "/atlassian-consulting", statusCode: 301 },
+  // HubSpot leaves folded into the hub's in-page sections (monday 2900266080).
+  // The destination carries the section anchor, as /case-studies does.
+  { source: "/hubspot-consulting/implementation", destination: "/hubspot-consulting#implementation", statusCode: 301 },
+  { source: "/hubspot-consulting/breeze-ai", destination: "/hubspot-consulting#breeze-ai", statusCode: 301 },
+  { source: "/hubspot-consulting/monday-hubspot-integration", destination: "/hubspot-consulting#integration", statusCode: 301 },
+  { source: "/hubspot-consulting/hubspot-to-monday-migration", destination: "/hubspot-consulting#migration", statusCode: 301 },
 
   // ── Orphaned Wix pages (September 2026, fruitionmonday.com cutover) ──
   // Found by replaying the retired Wix site's sitemap against this one: of its

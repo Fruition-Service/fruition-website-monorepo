@@ -81,7 +81,7 @@ There are no route groups; everything is flat under `src/app/`.
 | Home | `/` | `src/components/home/data.ts` (code) + Sanity logos, testimonials, offices, latest posts |
 | Core | `/about-us`, `/careers`, `/contact-us`, `/customer-testimonials`, `/faqs`, `/fruition-team`, `/certifications-and-awards`, `/data-privacy`, `/thank-you` | Mixed code + Sanity |
 | AI practice | `/ai-consulting/*`, `/ai-capability-assessment` (the design anchor page), `/ai-readiness-blueprint`, `/ai-strategy-and-execution` | Code (`src/data/practicePages/*`) |
-| Platforms | `/atlassian-consulting`, `/hubspot-consulting/*`, `/monday-*` (consulting solutions, CRM, training, implementation consultants, `monday-for-*` verticals), `/implementation-packages` | Code + Sanity singletons |
+| Platforms | `/atlassian-consulting`, `/hubspot-consulting`, `/monday-*` (consulting solutions, CRM, training, implementation consultants, `monday-for-*` verticals), `/implementation-packages` | Code + Sanity singletons |
 | Industries | `/industries/*` | Code + Sanity |
 | Integrations | `/integrations/*` (WhatsApp, LINE, Viber, Twilio, Zapier) | `src/data/messagingChannels/*` |
 | Regions | `/monday-partner-{australia,india,philippines,singapore,uk,us}` | `src/data/regionPages.ts` merged with Sanity `locationPage` |

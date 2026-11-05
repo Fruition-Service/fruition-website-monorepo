@@ -167,13 +167,13 @@ export const NAV_V2: NavV2Item[] = [
         items: [
           {
             label: 'HubSpot Implementation',
-            href: '/hubspot-consulting/implementation',
+            href: '/hubspot-consulting#implementation',
             icon: 'megaphone',
             description: 'CRM & Marketing Hub, done right',
           },
           {
             label: 'HubSpot Agent Hub',
-            href: '/hubspot-consulting/breeze-ai',
+            href: '/hubspot-consulting#breeze-ai',
             icon: 'sparkle',
             description: 'HubSpot’s AI, deployed with governance',
           },

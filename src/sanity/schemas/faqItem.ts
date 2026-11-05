@@ -61,10 +61,13 @@ export default {
           { value: 'case-studies', title: 'Case Studies' },
           { value: 'certifications-and-awards', title: 'Certifications & Awards' },
           { value: 'hubspot-consulting', title: 'HubSpot Consulting (hub)' },
-          { value: 'hubspot-consulting/breeze-ai', title: 'HubSpot · Breeze AI' },
-          { value: 'hubspot-consulting/hubspot-to-monday-migration', title: 'HubSpot · HubSpot→monday Migration' },
-          { value: 'hubspot-consulting/implementation', title: 'HubSpot · Implementation' },
-          { value: 'hubspot-consulting/monday-hubspot-integration', title: 'HubSpot · monday Integration' },
+          // The four HubSpot leaf pages are sections of the hub now (monday
+          // 2900266080). The hub still reads questions tagged with these keys
+          // (HUBSPOT_FAQ_PAGE_KEYS), after its own, so the values stay.
+          { value: 'hubspot-consulting/breeze-ai', title: 'HubSpot hub · Breeze AI section' },
+          { value: 'hubspot-consulting/hubspot-to-monday-migration', title: 'HubSpot hub · HubSpot→monday Migration section' },
+          { value: 'hubspot-consulting/implementation', title: 'HubSpot hub · Implementation section' },
+          { value: 'hubspot-consulting/monday-hubspot-integration', title: 'HubSpot hub · monday Integration section' },
           { value: 'industries', title: 'Industries (hub)' },
           { value: 'industries/financial-services', title: 'Industries · Financial Services' },
           { value: 'industries/healthcare', title: 'Industries · Healthcare' },

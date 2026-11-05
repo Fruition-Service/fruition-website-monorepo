@@ -45,8 +45,8 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
   {
     heading: 'Platforms',
     links: [
-      { label: 'HubSpot implementation', href: '/hubspot-consulting/implementation' },
-      { label: 'HubSpot Breeze AI', href: '/hubspot-consulting/breeze-ai' },
+      { label: 'HubSpot implementation', href: '/hubspot-consulting#implementation' },
+      { label: 'HubSpot Breeze AI', href: '/hubspot-consulting#breeze-ai' },
       { label: 'All partners', href: '/partnerships' },
       { label: 'Integrations', href: '/integrations' },
     ],

@@ -9,7 +9,8 @@ const keys = (path: string, opts?: { explicitOnly?: boolean }) =>
 describe("partnerBadgesForPath", () => {
   it("gives each service page its own badge", () => {
     expect(keys("/partnerships/certified-hubspot-partner")).toEqual(["hubspot"])
-    expect(keys("/hubspot-consulting/implementation")).toEqual(["hubspot"])
+    expect(keys("/hubspot-consulting")).toEqual(["hubspot"])
+    expect(keys("/hubspot-consulting", { explicitOnly: true })).toEqual(["hubspot"])
     expect(keys("/partnerships/certified-atlassian-partner")).toEqual(["atlassian"])
     expect(keys("/partnerships/certified-atlassian-partner", { explicitOnly: true })).toEqual(["atlassian"])
     expect(keys("/partnerships/certified-clickup-partner")).toEqual(["clickup"])
@@ -22,7 +23,9 @@ describe("partnerBadgesForPath", () => {
   })
 
   it("pairs migration pages with both platforms", () => {
-    expect(keys("/hubspot-consulting/hubspot-to-monday-migration")).toEqual(["hubspot", "monday"])
+    // The HubSpot to monday migration now lives on the HubSpot hub, whose
+    // hero shows the HubSpot badge only (monday 2900266080).
+    expect(keys("/hubspot-consulting")).not.toContain("monday")
     // The Jira to monday.com migration now lives on the Atlassian hub.
     expect(keys("/atlassian-consulting")).toEqual(["atlassian", "monday"])
   })

@@ -209,10 +209,10 @@ export const SERVICE_PRICES: ServiceGroup[] = [
     href: "/hubspot-consulting",
     linkLabel: "HubSpot consulting",
     items: [
-      { name: "HubSpot implementation", href: "/hubspot-consulting/implementation", fromAud: 12000 },
-      { name: "HubSpot Breeze AI", href: "/hubspot-consulting/breeze-ai", fromAud: 8000 },
-      { name: "monday.com and HubSpot integration", href: "/hubspot-consulting/monday-hubspot-integration", fromAud: 8000 },
-      { name: "HubSpot to monday.com migration", href: "/hubspot-consulting/hubspot-to-monday-migration", fromAud: 12000 },
+      { name: "HubSpot implementation", href: "/hubspot-consulting#implementation", fromAud: 12000 },
+      { name: "HubSpot Breeze AI", href: "/hubspot-consulting#breeze-ai", fromAud: 8000 },
+      { name: "monday.com and HubSpot integration", href: "/hubspot-consulting#integration", fromAud: 8000 },
+      { name: "HubSpot to monday.com migration", href: "/hubspot-consulting#migration", fromAud: 12000 },
     ],
   },
   {

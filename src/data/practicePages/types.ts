@@ -25,7 +25,7 @@ export interface PracticeFaq {
 }
 
 export interface PracticePage {
-  /** Route path, also used as canonical, e.g. '/hubspot-consulting/implementation' */
+  /** Route path, also used as canonical, e.g. '/ai-consulting/agent-development' */
   path: string
   seoTitle: string
   seoDescription: string
