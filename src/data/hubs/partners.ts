@@ -104,7 +104,7 @@ export const PARTNERS_HUB = {
     { label: 'HubSpot', href: '/partnerships/certified-hubspot-partner' },
     { label: 'ClickUp', href: '/partnerships/certified-clickup-partner' },
     { label: 'Microsoft Copilot', href: '/partnerships/microsoft-copilot-partner' },
-    { label: 'Google Gemini & Vertex AI', href: '/partnerships/google-gemini-vertex-ai-partner' },
+    { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner' },
     { label: 'Azure', href: '/partnerships/microsoft-azure-partner' },
     { label: 'AWS', href: '/partnerships/aws-partner' },
     { label: 'Google Cloud', href: '/partnerships/google-cloud-partner' },
