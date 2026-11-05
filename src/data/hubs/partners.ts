@@ -69,8 +69,8 @@ export const PARTNERS_HUB = {
       badge: 'Platinum · Rising Star 2026',
       body: 'Jira, Jira Service Management and Confluence implementation, optimisation and rescue.',
       links: [
-        { label: 'Jira', href: '/atlassian-consulting/jira' },
-        { label: 'Jira Service Management', href: '/atlassian-consulting/jira-service-management' },
+        { label: 'Atlassian consulting', href: '/atlassian-consulting' },
+        { label: 'Implementation packages', href: '/implementation-packages' },
       ],
       cta: 'Atlassian services →',
       href: '/partnerships/certified-atlassian-partner',

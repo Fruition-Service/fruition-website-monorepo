@@ -44,7 +44,7 @@ export default defineType({
       title: 'Route path',
       type: 'string',
       description:
-        'The page this document edits, e.g. /atlassian-consulting/jira. Must match the route exactly; changing it detaches the document from the page.',
+        'The page this document edits, e.g. /hubspot-consulting/implementation. Must match the route exactly; changing it detaches the document from the page.',
       validation: (Rule) =>
         Rule.required()
           .regex(/^\/[a-z0-9/-]*$/, { name: 'route path' })
@@ -131,7 +131,7 @@ export default defineType({
       name: 'childLinks',
       title: 'Linked Pages',
       type: 'array',
-      description: 'Internal paths only, e.g. /atlassian-consulting/jira.',
+      description: 'Internal paths only, e.g. /partnerships/certified-atlassian-partner.',
       group: 'children',
       of: [
         defineArrayMember({

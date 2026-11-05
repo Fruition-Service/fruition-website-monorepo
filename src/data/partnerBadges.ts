@@ -50,8 +50,9 @@ const ROUTE_BADGES: Array<[prefix: string, badges: PartnerBadgeKey[]]> = [
   ["/hubspot-consulting/monday-hubspot-integration", ["hubspot", "monday"]],
   ["/hubspot-consulting", ["hubspot"]],
   ["/partnerships/certified-hubspot-partner", ["hubspot"]],
-  ["/atlassian-consulting/jira-to-monday-migration", ["atlassian", "monday"]],
-  ["/atlassian-consulting", ["atlassian"]],
+  // The hub absorbed the Jira to monday.com migration page (monday 2899845035),
+  // so it carries that page's dual-platform pairing.
+  ["/atlassian-consulting", ["atlassian", "monday"]],
   ["/partnerships/certified-atlassian-partner", ["atlassian"]],
   ["/partnerships/certified-clickup-partner", ["clickup"]],
   ["/partnerships/make-partners", ["make"]],

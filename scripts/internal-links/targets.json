@@ -63,9 +63,9 @@
       "note": "Service page: HubSpot migration"
     },
     {
-      "path": "/atlassian-consulting/jira-to-monday-migration",
+      "path": "/atlassian-consulting",
       "keywords": ["Jira to monday.com migration", "Jira to monday"],
-      "note": "Service page: Jira migration"
+      "note": "Service page: Atlassian consulting (Jira migration deep dive)"
     },
     {
       "path": "/monday-for-construction",
