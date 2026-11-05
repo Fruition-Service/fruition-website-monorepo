@@ -46,8 +46,8 @@ const AI_BADGES: PartnerBadgeKey[] = ["claude", "openai", "googleCloud"]
  * itself and anything under it. Routes not listed get DEFAULT_BADGES.
  */
 const ROUTE_BADGES: Array<[prefix: string, badges: PartnerBadgeKey[]]> = [
-  ["/hubspot-consulting/hubspot-to-monday-migration", ["hubspot", "monday"]],
-  ["/hubspot-consulting/monday-hubspot-integration", ["hubspot", "monday"]],
+  // The hub absorbed the integration and migration pages (monday 2900266080);
+  // the design keeps its hero to the HubSpot badge alone.
   ["/hubspot-consulting", ["hubspot"]],
   ["/partnerships/certified-hubspot-partner", ["hubspot"]],
   // The hub absorbed the Jira to monday.com migration page (monday 2899845035),

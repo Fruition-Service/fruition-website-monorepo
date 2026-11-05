@@ -60,10 +60,10 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 
 - [Atlassian consulting](https://www.fruitionservices.io/atlassian-consulting)
 - [HubSpot consulting](https://www.fruitionservices.io/hubspot-consulting)
-- [HubSpot implementation](https://www.fruitionservices.io/hubspot-consulting/implementation)
-- [HubSpot Breeze AI](https://www.fruitionservices.io/hubspot-consulting/breeze-ai)
-- [HubSpot to monday.com migration](https://www.fruitionservices.io/hubspot-consulting/hubspot-to-monday-migration)
-- [monday.com and HubSpot integration](https://www.fruitionservices.io/hubspot-consulting/monday-hubspot-integration)
+- [HubSpot implementation](https://www.fruitionservices.io/hubspot-consulting#implementation)
+- [HubSpot Breeze AI](https://www.fruitionservices.io/hubspot-consulting#breeze-ai)
+- [HubSpot to monday.com migration](https://www.fruitionservices.io/hubspot-consulting#migration)
+- [monday.com and HubSpot integration](https://www.fruitionservices.io/hubspot-consulting#integration)
 
 ## Integrations
 

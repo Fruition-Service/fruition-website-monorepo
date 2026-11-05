@@ -32,10 +32,6 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   AI_CONSULTING_PAGES['operations-back-office'],
   ATLASSIAN_PAGES['hub'],
   HUBSPOT_PAGES['hub'],
-  HUBSPOT_PAGES['implementation'],
-  HUBSPOT_PAGES['breeze-ai'],
-  HUBSPOT_PAGES['monday-hubspot-integration'],
-  HUBSPOT_PAGES['hubspot-to-monday-migration'],
   INTEGRATIONS_PAGES['hub'],
   INTEGRATIONS_PAGES['twilio'],
   INTEGRATIONS_PAGES['zapier'],
@@ -47,7 +43,7 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   INDUSTRIES_PAGES['nonprofits'],
 ]
 
-/** Deterministic Studio document id: '/hubspot-consulting/implementation' to 'practicePage-hubspot-consulting-implementation'. */
+/** Deterministic Studio document id: '/ai-consulting/agent-development' to 'practicePage-ai-consulting-agent-development'. */
 export function practicePageDocId(path: string): string {
   return `practicePage-${path.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')}`
 }
