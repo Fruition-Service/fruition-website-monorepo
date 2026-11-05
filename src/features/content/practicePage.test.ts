@@ -113,8 +113,8 @@ describe('mergePracticePage', () => {
         { title: 'Plain', body: 'Card.', href: '   ' },
       ],
       childLinks: [
-        { label: 'Jira', href: ' /atlassian-consulting/jira ' },
-        { label: 'Confluence', href: '/atlassian-consulting/confluence', description: ' Docs. ' },
+        { label: 'Partner', href: ' /partnerships/certified-atlassian-partner ' },
+        { label: 'Packages', href: '/implementation-packages', description: ' Docs. ' },
         { label: 'Blank description', href: '/x', description: '  ' },
       ],
     })
@@ -124,8 +124,8 @@ describe('mergePracticePage', () => {
     ])
     expect(merged.services[1]).not.toHaveProperty('href')
     expect(merged.children).toEqual([
-      { label: 'Jira', href: '/atlassian-consulting/jira' },
-      { label: 'Confluence', href: '/atlassian-consulting/confluence', description: 'Docs.' },
+      { label: 'Partner', href: '/partnerships/certified-atlassian-partner' },
+      { label: 'Packages', href: '/implementation-packages', description: 'Docs.' },
       { label: 'Blank description', href: '/x' },
     ])
     expect(merged.children?.[2]).not.toHaveProperty('description')
@@ -324,8 +324,8 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
     }
   })
 
-  it('lists 27 routes, each with a page file that reads its document', () => {
-    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(27)
+  it('lists 23 routes, each with a page file that reads its document', () => {
+    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(23)
     for (const page of EDITABLE_PRACTICE_PAGES) {
       const file = join(process.cwd(), 'src/app', page.path, 'page.tsx')
       expect(existsSync(file), file).toBe(true)
@@ -334,7 +334,7 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
   })
 
   it('gives every route a unique deterministic document id', () => {
-    expect(practicePageDocId('/atlassian-consulting/jira')).toBe('practicePage-atlassian-consulting-jira')
+    expect(practicePageDocId('/hubspot-consulting/implementation')).toBe('practicePage-hubspot-consulting-implementation')
     expect(practicePageDocId('/ai-consulting')).toBe('practicePage-ai-consulting')
     const ids = EDITABLE_PRACTICE_PAGES.map((p) => practicePageDocId(p.path))
     expect(new Set(ids).size).toBe(ids.length)

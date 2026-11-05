@@ -136,25 +136,25 @@ export const NAV_V2: NavV2Item[] = [
         items: [
           {
             label: 'Jira',
-            href: '/atlassian-consulting/jira',
+            href: '/atlassian-consulting#jira',
             icon: 'layers',
             description: 'Implementation, optimisation & rescue',
           },
           {
             label: 'Confluence',
-            href: '/atlassian-consulting/confluence',
+            href: '/atlassian-consulting#confluence',
             icon: 'document',
             description: 'Knowledge architecture & governance',
           },
           {
             label: 'Jira Service Management',
-            href: '/atlassian-consulting/jira-service-management',
+            href: '/atlassian-consulting#jsm',
             icon: 'shield',
             description: 'ITSM, service desks & SLAs',
           },
           {
             label: 'Jira → monday Migration',
-            href: '/atlassian-consulting/jira-to-monday-migration',
+            href: '/atlassian-consulting#migration',
             icon: 'zap',
             description: 'The structured migration playbook',
           },

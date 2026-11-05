@@ -59,10 +59,6 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 ## Atlassian and HubSpot
 
 - [Atlassian consulting](https://www.fruitionservices.io/atlassian-consulting)
-- [Jira consulting](https://www.fruitionservices.io/atlassian-consulting/jira)
-- [Confluence consulting](https://www.fruitionservices.io/atlassian-consulting/confluence)
-- [Jira Service Management](https://www.fruitionservices.io/atlassian-consulting/jira-service-management)
-- [Jira to monday.com migration](https://www.fruitionservices.io/atlassian-consulting/jira-to-monday-migration)
 - [HubSpot consulting](https://www.fruitionservices.io/hubspot-consulting)
 - [HubSpot implementation](https://www.fruitionservices.io/hubspot-consulting/implementation)
 - [HubSpot Breeze AI](https://www.fruitionservices.io/hubspot-consulting/breeze-ai)

@@ -1,4 +1,4 @@
-import PracticePageTemplate from '@/components/PracticePageTemplate'
+import AtlassianConsultingPage from '@/components/atlassian/AtlassianConsultingPage'
 import { ATLASSIAN_PAGES } from '@/data/practicePages/atlassian'
 import { practiceMetadata } from '@/data/practicePages/types'
 import { getPracticePageContent } from '@/features/content/practicePage'
@@ -10,5 +10,5 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  return <PracticePageTemplate page={await getPracticePageContent(page)} />
+  return <AtlassianConsultingPage page={await getPracticePageContent(page)} />
 }

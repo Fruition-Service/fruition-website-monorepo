@@ -31,6 +31,12 @@ const auditRedirects: Redirect[] = [
   { source: "/monday-products/dev", destination: "/implementation-packages", permanent: true },
   { source: "/monday-products/ai", destination: "/implementation-packages", permanent: true },
   { source: "/monday-products/enterprise", destination: "/implementation-packages", permanent: true },
+  // Atlassian leaves folded into the hub's in-page deep dives (November 2026
+  // traffic review, monday 2899845035). statusCode 301, not permanent (308).
+  { source: "/atlassian-consulting/jira", destination: "/atlassian-consulting", statusCode: 301 },
+  { source: "/atlassian-consulting/confluence", destination: "/atlassian-consulting", statusCode: 301 },
+  { source: "/atlassian-consulting/jira-service-management", destination: "/atlassian-consulting", statusCode: 301 },
+  { source: "/atlassian-consulting/jira-to-monday-migration", destination: "/atlassian-consulting", statusCode: 301 },
 
   // ── Orphaned Wix pages (September 2026, fruitionmonday.com cutover) ──
   // Found by replaying the retired Wix site's sitemap against this one: of its

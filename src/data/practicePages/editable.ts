@@ -31,10 +31,6 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   AI_CONSULTING_PAGES['customer-service'],
   AI_CONSULTING_PAGES['operations-back-office'],
   ATLASSIAN_PAGES['hub'],
-  ATLASSIAN_PAGES['jira'],
-  ATLASSIAN_PAGES['confluence'],
-  ATLASSIAN_PAGES['jira-service-management'],
-  ATLASSIAN_PAGES['jira-to-monday-migration'],
   HUBSPOT_PAGES['hub'],
   HUBSPOT_PAGES['implementation'],
   HUBSPOT_PAGES['breeze-ai'],
@@ -51,7 +47,7 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   INDUSTRIES_PAGES['nonprofits'],
 ]
 
-/** Deterministic Studio document id: '/atlassian-consulting/jira' → 'practicePage-atlassian-consulting-jira'. */
+/** Deterministic Studio document id: '/hubspot-consulting/implementation' to 'practicePage-hubspot-consulting-implementation'. */
 export function practicePageDocId(path: string): string {
   return `practicePage-${path.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')}`
 }

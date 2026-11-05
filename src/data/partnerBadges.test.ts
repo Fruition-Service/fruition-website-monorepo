@@ -11,7 +11,7 @@ describe("partnerBadgesForPath", () => {
     expect(keys("/partnerships/certified-hubspot-partner")).toEqual(["hubspot"])
     expect(keys("/hubspot-consulting/implementation")).toEqual(["hubspot"])
     expect(keys("/partnerships/certified-atlassian-partner")).toEqual(["atlassian"])
-    expect(keys("/atlassian-consulting/jira")).toEqual(["atlassian"])
+    expect(keys("/partnerships/certified-atlassian-partner", { explicitOnly: true })).toEqual(["atlassian"])
     expect(keys("/partnerships/certified-clickup-partner")).toEqual(["clickup"])
     expect(keys("/partnerships/make-partners")).toEqual(["make"])
     expect(keys("/partnerships/aws-partner")).toEqual(["aws"])
@@ -23,7 +23,8 @@ describe("partnerBadgesForPath", () => {
 
   it("pairs migration pages with both platforms", () => {
     expect(keys("/hubspot-consulting/hubspot-to-monday-migration")).toEqual(["hubspot", "monday"])
-    expect(keys("/atlassian-consulting/jira-to-monday-migration")).toEqual(["atlassian", "monday"])
+    // The Jira to monday.com migration now lives on the Atlassian hub.
+    expect(keys("/atlassian-consulting")).toEqual(["atlassian", "monday"])
   })
 
   it("never shows Make outside the Make page", () => {

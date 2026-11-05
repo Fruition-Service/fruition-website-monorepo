@@ -45,10 +45,6 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
   {
     heading: 'Platforms',
     links: [
-      { label: 'Jira', href: '/atlassian-consulting/jira' },
-      { label: 'Jira Service Management', href: '/atlassian-consulting/jira-service-management' },
-      { label: 'Confluence', href: '/atlassian-consulting/confluence' },
-      { label: 'Jira → monday migration', href: '/atlassian-consulting/jira-to-monday-migration' },
       { label: 'HubSpot implementation', href: '/hubspot-consulting/implementation' },
       { label: 'HubSpot Breeze AI', href: '/hubspot-consulting/breeze-ai' },
       { label: 'All partners', href: '/partnerships' },

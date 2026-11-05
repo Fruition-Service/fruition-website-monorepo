@@ -195,10 +195,10 @@ export const SERVICE_PRICES: ServiceGroup[] = [
     linkLabel: "Atlassian consulting",
     items: [
       { name: "Atlassian consulting", href: "/atlassian-consulting", fromAud: 12000 },
-      { name: "Jira implementation and optimisation", href: "/atlassian-consulting/jira", fromAud: 12000 },
-      { name: "Confluence knowledge systems", href: "/atlassian-consulting/confluence", fromAud: 10000 },
-      { name: "Jira Service Management", href: "/atlassian-consulting/jira-service-management", fromAud: 12000 },
-      { name: "Jira to monday.com migration", href: "/atlassian-consulting/jira-to-monday-migration", fromAud: 15000 },
+      { name: "Jira implementation and optimisation", href: "/atlassian-consulting#jira", fromAud: 12000 },
+      { name: "Confluence knowledge systems", href: "/atlassian-consulting#confluence", fromAud: 10000 },
+      { name: "Jira Service Management", href: "/atlassian-consulting#jsm", fromAud: 12000 },
+      { name: "Jira to monday.com migration", href: "/atlassian-consulting#migration", fromAud: 15000 },
     ],
   },
   {

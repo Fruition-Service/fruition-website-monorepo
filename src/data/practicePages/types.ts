@@ -25,7 +25,7 @@ export interface PracticeFaq {
 }
 
 export interface PracticePage {
-  /** Route path, also used as canonical, e.g. '/atlassian-consulting/jira' */
+  /** Route path, also used as canonical, e.g. '/hubspot-consulting/implementation' */
   path: string
   seoTitle: string
   seoDescription: string

@@ -55,7 +55,6 @@ const LABELS: Record<string, string> = {
   'monday-consulting-solutions': 'monday.com Solutions',
   'rag-knowledge-systems': 'RAG & Knowledge Systems',
   'operations-back-office': 'Operations & Back-office',
-  'jira-to-monday-migration': 'Jira → monday Migration',
   'hubspot-to-monday-migration': 'HubSpot → monday Migration',
   'monday-hubspot-integration': 'monday ↔ HubSpot Integration',
   'work-management': 'Work Management',
@@ -116,7 +115,7 @@ function labelFor(segment: string): string {
     .map((word, i) => {
       if (WORD_FIXUPS[word]) {
         // "monday" only means monday.com when it starts the slug (monday-for-…),
-        // not mid-slug (jira-to-monday-migration is handled by LABELS anyway)
+        // not mid-slug (hubspot-to-monday-migration is handled by LABELS anyway)
         if (word === 'monday' && i > 0) return 'monday'
         return WORD_FIXUPS[word]
       }
