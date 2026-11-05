@@ -98,8 +98,8 @@ export const AI_CONSULTING_PAGES: Record<string, PracticePage> = {
         href: '/partnerships/microsoft-copilot-partner',
       },
       {
-        label: 'Google Gemini · Vertex AI',
-        description: 'Gemini for Workspace and production Vertex AI',
+        label: 'Google Gemini',
+        description: 'Gemini for Workspace and production AI agents',
         href: '/partnerships/google-gemini-vertex-ai-partner',
       },
       {
