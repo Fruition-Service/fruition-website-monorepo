@@ -107,8 +107,8 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
         href: '/partnerships/microsoft-copilot-partner',
       },
       {
-        label: 'Google Gemini & Vertex AI',
-        description: 'Gemini and Vertex AI builds.',
+        label: 'Google Gemini',
+        description: 'Gemini builds.',
         href: '/partnerships/google-gemini-vertex-ai-partner',
       },
       {

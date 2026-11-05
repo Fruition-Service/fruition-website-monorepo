@@ -271,7 +271,7 @@ export const NAV_V2: NavV2Item[] = [
           { label: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', icon: 'anthropic', description: 'Enterprise Claude & Claude Code' },
           { label: 'OpenAI', href: '/partnerships/openai-chatgpt-partner', icon: 'openai', description: 'ChatGPT Enterprise & custom GPTs' },
           { label: 'Microsoft Copilot', href: '/partnerships/microsoft-copilot-partner', icon: 'copilot', description: 'Copilot across Microsoft 365' },
-          { label: 'Google Gemini & Vertex AI', href: '/partnerships/google-gemini-vertex-ai-partner', icon: 'gemini', description: 'Gemini on Google’s AI stack' },
+          { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner', icon: 'gemini', description: 'Gemini on Google’s AI stack' },
         ],
       },
       {
