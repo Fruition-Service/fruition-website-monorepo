@@ -12,6 +12,7 @@ import FaqAccordion from "@/components/sections/FaqAccordion"
 import CroSections, { type CroSectionsData } from "@/components/sections/CroSections"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
 import CtaLabel from "@/components/CtaLabel"
+import YouTubeEmbed from "@/components/YouTubeEmbed"
 import FramedMedia from "@/components/common/FramedMedia"
 import type { FaqTab as SharedFaqTab } from "@/components/sections/types"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
@@ -482,13 +483,7 @@ export default function ImplementationPackagesContent({
         <section className="bg-surface py-14 md:py-24 px-4">
           <div className="mx-auto flex flex-col items-center justify-center">
             <div className="w-full max-w-[979px] aspect-video rounded-card overflow-hidden">
-              <iframe
-                src={videoEmbedUrl}
-                title={videoTitle}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+              <YouTubeEmbed url={videoEmbedUrl} title={videoTitle} />
             </div>
           </div>
         </section>

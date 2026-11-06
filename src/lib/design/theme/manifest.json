@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "od-design-system-project/v1",
+  "id": "fruition-documents",
+  "name": "Fruition — documents & decks",
+  "category": "brand",
+  "description": "The Fruition house style for generated documents and slide decks: tokens, the fr-* class vocabulary, and print geometry for A4 and 16:9.",
+  "source": {
+    "type": "local",
+    "origin": "Fruition Design System (Claude Design export), reconciled against src/app/globals.css"
+  },
+  "files": {
+    "design": "DESIGN.md",
+    "tokens": "tokens.ts"
+  },
+  "notes": "tokens.ts, doc.ts and slides.ts export CSS as TypeScript strings rather than shipping .css files, because the Cloudflare Worker that renders these documents has no filesystem. An imported open-design kit's tokens.css converts by wrapping it in a template literal."
+}
