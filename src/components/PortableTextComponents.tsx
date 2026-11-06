@@ -1,22 +1,23 @@
 import type { PortableTextComponents } from "@portabletext/react"
 import Image from "next/image"
 import Link from "next/link"
-import { urlFor } from "@/sanity/image"
+import { articleImageProps } from "@/sanity/image"
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset?._ref) return null
+      const img = articleImageProps(value)
       return (
         <div className="my-8 relative w-full rounded-xl overflow-hidden">
           <Image
-            src={urlFor(value).auto("format").quality(90).url()}
+            src={img.src}
             alt={value.alt || ""}
-            width={740}
-            height={416}
+            width={img.width}
+            height={img.height}
             quality={90}
-            className="w-full h-auto"
-            sizes="(max-width: 924px) 100vw, 740px"
+            className={img.fillsColumn ? "w-full h-auto" : "h-auto max-w-full"}
+            sizes={img.sizes}
           />
         </div>
       )

@@ -2,6 +2,8 @@ import { writeClient } from './sanity-client.js'
 import { fetchPage, extractSeoDescription, extractOgImage, sleep } from './scrape.js'
 import { htmlElementToPortableText, findPostBodyContainer } from './html-to-portable-text.js'
 import type { PTNode, PTImage } from './html-to-portable-text.js'
+import { imageSize } from '../src/lib/imageSize.js'
+import { WIX_PLACEHOLDER_WIDTH, wixOriginalUrl } from '../src/lib/wixImage.js'
 
 const BASE_URL = 'https://www.fruitionservices.io'
 
@@ -115,14 +117,23 @@ function extractCategoriesFromPage(root: any): string[] {
   return [...new Set(cats)]
 }
 
-/** Download an image URL and upload it to Sanity, returning the asset document. */
+/**
+ * Download an image URL and upload it to Sanity, returning the asset document.
+ *
+ * Anything narrower than `minWidth` is refused: Wix serves a blurred ~49px
+ * lazy-load placeholder from `<img src>`, and uploading those is what left the
+ * older posts with blurred body images. wixOriginalUrl() rewrites a Wix URL to
+ * the full-resolution upload first, so the guard should almost never fire.
+ */
 async function uploadImageToSanity(
   imageUrl: string,
   filename: string,
+  minWidth = WIX_PLACEHOLDER_WIDTH,
 ): Promise<{ _id: string } | null> {
   try {
     // Resolve relative URLs
-    const fullUrl = imageUrl.startsWith('http') ? imageUrl : `${BASE_URL}${imageUrl}`
+    const normalised = wixOriginalUrl(imageUrl)
+    const fullUrl = normalised.startsWith('http') ? normalised : `${BASE_URL}${normalised}`
     const res = await fetch(fullUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0 Chrome/120' },
       signal: AbortSignal.timeout(30000),
@@ -135,6 +146,12 @@ async function uploadImageToSanity(
     const buffer = Buffer.from(await res.arrayBuffer())
     if (buffer.length < 200) {
       // Too small — likely a tracking pixel or placeholder
+      return null
+    }
+
+    const size = imageSize(buffer)
+    if (size && size.width < minWidth) {
+      console.log(`    Skipped ${size.width}x${size.height} placeholder: ${fullUrl.substring(0, 80)}`)
       return null
     }
 

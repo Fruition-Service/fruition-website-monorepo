@@ -1,0 +1,155 @@
+name: Blog image repair
+
+# Re-hosts blog images that were scraped at Wix placeholder resolution
+# (147x83 thumbnails stretched into the 740px article column — see
+# docs/blog-image-repair.md for how they got there).
+#
+# This runs here rather than on a laptop because the repair has to reach the
+# Wayback Machine and Sanity, and because it is worth having an audit trail of
+# what was replaced.
+#
+# Two ways in:
+#   * Run workflow (workflow_dispatch) — pick a mode, optionally scope to one
+#     post. This is the interface to use day to day.
+#   * Push a commit whose message contains "[probe-images]" to a claude/**
+#     branch — always a read-only plan over every post. Lets the repair be
+#     rehearsed from a branch before the workflow reaches production.
+#
+# "plan" resolves replacements and writes nothing; it needs no credentials
+# because the dataset is world-readable. "apply" additionally uploads the
+# recovered originals and re-points the references, which needs:
+#
+#   secret  SANITY_WRITE_TOKEN   Sanity token with write access to `production`
+#
+# Without that secret an apply run fails immediately rather than half-repairing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "plan (read-only) or apply (writes to Sanity)"
+        type: choice
+        options: [plan, apply]
+        default: plan
+      only:
+        description: "Restrict to a single post slug (optional)"
+        type: string
+      target:
+        description: "Width an image needs to count as sharp"
+        type: string
+        default: "1480"
+      source_base:
+        # The old Wix site is still live here and still serves full-resolution
+        # media, which is where essentially every recovery comes from. Blank it
+        # to fall back to the archives.
+        description: "Origin to scrape instead of the archives"
+        type: string
+        default: "https://www.fruition-services.io"
+      before:
+        description: "Newest archive snapshot to consider, YYYYMMDD (blank = the script's default)"
+        type: string
+  push:
+    branches: ["claude/**"]
+
+# Never let two runs patch Sanity at once.
+concurrency:
+  group: blog-image-repair
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    # Static: `inputs` is undefined on the push trigger, and an unevaluated
+    # expression here becomes the check name shown on every PR.
+    name: Blog image repair
+    # The push path is opt-in per commit, so ordinary work on a branch does not
+    # spend ten minutes talking to the Wayback Machine.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, '[probe-images]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Check credentials for an apply run
+        if: inputs.mode == 'apply'
+        env:
+          SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+        run: |
+          if [ -z "$SANITY_WRITE_TOKEN" ]; then
+            echo "::error::apply mode needs the SANITY_WRITE_TOKEN secret (Settings -> Secrets and variables -> Actions). Re-run in plan mode to audit without it."
+            exit 1
+          fi
+
+      # A push-triggered run is always a full read-only plan; only the manual
+      # dispatch can narrow the scope or write. Inputs are passed through the
+      # environment, never interpolated into the command line.
+      - name: Resolve replacements
+        env:
+          SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+          MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'plan' }}
+          ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.only || '' }}
+          TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target || '1480' }}
+          SOURCE_BASE: ${{ github.event_name == 'workflow_dispatch' && inputs.source_base || '' }}
+          BEFORE: ${{ github.event_name == 'workflow_dispatch' && inputs.before || '' }}
+        run: |
+          set -o pipefail
+          # Leave --before unset unless asked for: duplicating the cutoff here
+          # once silently overrode the script's own default and made every post
+          # report "no archived copy".
+          args=( "--${MODE}" --report report.json --target "$TARGET" --delay 1500 )
+          [ -n "$BEFORE" ] && args+=( --before "$BEFORE" )
+          [ -n "$ONLY" ] && args+=( --only "$ONLY" )
+          [ -n "$SOURCE_BASE" ] && args+=( --source-base "$SOURCE_BASE" )
+          echo "running: fix-blurry-blog-images ${args[*]}"
+          npx tsx scripts/fix-blurry-blog-images.ts "${args[@]}" 2>&1 | tee run.log
+
+      # Runs even on failure: a partial report still says which posts were
+      # reached, which is the whole point of a probe.
+      - name: Summarise
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo "## Blog image repair"
+            echo
+            if [ -f report.json ]; then
+              node -e '
+                const r = require("./report.json");
+                const f = Array.isArray(r) ? r : (r.findings ?? []);
+                const by = f.reduce((a, x) => (a[x.outcome] = (a[x.outcome] ?? 0) + 1, a), {});
+                console.log("| outcome | images |");
+                console.log("| --- | --- |");
+                for (const [k, v] of Object.entries(by).sort((a, b) => b[1] - a[1])) {
+                  console.log(`| ${k} | ${v} |`);
+                }
+                const stuck = f.filter(x => x.outcome === "unresolved" || x.outcome === "fetch-failed");
+                if (stuck.length) {
+                  console.log("\n<details><summary>Not recovered (" + stuck.length + ")</summary>\n");
+                  console.log("| post | slot | stored width |");
+                  console.log("| --- | --- | --- |");
+                  for (const x of stuck) console.log(`| ${x.slug} | ${x.kind} ${x.index} | ${x.width}px |`);
+                  console.log("\n</details>");
+                }
+              '
+            else
+              echo "No report produced — see the job log."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-image-report
+          path: |
+            report.json
+            run.log
+          if-no-files-found: warn
+          retention-days: 30
