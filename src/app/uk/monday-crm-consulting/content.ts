@@ -189,6 +189,7 @@ ${LP_FONTS}
 <p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> · GMT/BST business hours</p>
+<p style="margin-top:14px;font-size:14px;color:var(--light)">Or explore our London office: <a href="/contact-us" style="color:var(--purple);font-weight:600;text-decoration:none">Contact Us &#8594;</a></p>
 </div>
 <div class="calendly-box">
 <!-- CALENDLY: Edward &mdash; UK/EMEA round-robin &mdash; UK team ONLY -->
