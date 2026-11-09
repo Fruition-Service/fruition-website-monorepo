@@ -6,6 +6,7 @@ import { REGION_PAGES } from "@/data/regionPages"
 import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
+import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
 
 /**
  * Serving for the Google Ads landing pages under /au, /uk and /us.
@@ -348,7 +349,7 @@ export function withLandingPageTracking(
   { source, region }: { source: string; region: LeadRegion },
 ): string {
   let out = html
-  out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}`)
+  out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}\n${RYZE_LANDING_HEAD}`)
   if (!/<link[^>]+rel="(?:shortcut )?icon"/i.test(out)) {
     out = out.replace(/<\/head>/i, `${ICON_LINKS}\n</head>`)
   }

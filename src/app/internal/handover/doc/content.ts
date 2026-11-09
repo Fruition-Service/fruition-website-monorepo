@@ -799,7 +799,7 @@ npx wrangler whoami          <span class="c"># confirm it is Fruition, not a per
       <div class="card"><h3>Team onboarding</h3><p class="soft">A new item on the monday People board fires <code>/api/webhooks/monday</code>, which creates a Sanity <code>teamMember</code>. Subscriptions are created by <code>scripts/subscribe-monday-webhook.mjs</code>.</p></div>
       <div class="card"><h3>Social (Zernio)</h3><p class="soft">One draft per platform (X, LinkedIn, Instagram, Pinterest, Reddit, YouTube, Google Business Profile AU/UK/US), media hosted on Sanity, a short link per channel. Automatic drafts per blog are off (<code>BLOG_AUTO_SOCIAL_DRAFTS</code>); Marketa's approval flow forces them on for its own posts.</p></div>
       <div class="card"><h3>LLMs</h3><p class="soft">Every call goes through OpenRouter: the Implementation Calculator, design docs, social captions, the lead classifier. Models come from env vars with defaults in code.</p></div>
-      <div class="card"><h3>Analytics + tags</h3><p class="soft">GA4, Google Ads conversions and Calendly conversion live in GTM <code>GTM-PF6XWTL6</code>, not in this repo. The layout loads GTM, Clarity, RB2B, the OpenAI pixel and Umami; Clarity, RB2B and the pixel respect the cookie choice.</p></div>
+      <div class="card"><h3>Analytics + tags</h3><p class="soft">GA4, Google Ads conversions and Calendly conversion live in GTM <code>GTM-PF6XWTL6</code>, not in this repo. The layout loads GTM, Clarity, RB2B, the OpenAI pixel, the Ryze pixel and Umami; Clarity, RB2B and both pixels respect the cookie choice. Ad landing pages load the Ryze pixel too, and Calendly bookings are sent to Ryze as <code>lead</code>.</p></div>
     </div>
   </section>
 
