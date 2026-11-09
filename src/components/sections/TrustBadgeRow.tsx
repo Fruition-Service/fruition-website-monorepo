@@ -11,6 +11,9 @@ interface TrustBadgeRowProps {
  * Text-based credential pills (Platinum Partner, SOC2, GDPR, Ex-monday Staff…).
  * Complements the image-based SecurityBadgeSection; used where the PDF asks for
  * legible, high-visibility trust strips below the hero.
+ *
+ * Kept flat (no drop shadow) on purpose: these are static labels, and the raised
+ * pill read as a button, so visitors clicked them (PostHog dead clicks, Nov 2026).
  */
 export default function TrustBadgeRow({
   badges = [],
@@ -33,7 +36,7 @@ export default function TrustBadgeRow({
             className={`flex items-center rounded-full gap-3 py-3 pl-3.5 pr-[22px] border ${
               dark
                 ? "border-white/18 bg-white/7"
-                : "border-ui bg-surface-raised shadow-[0_8px_22px_-16px_rgba(64,12,140,0.35)]"
+                : "border-ui bg-surface-raised"
             }`}
           >
             {/* Verified mark */}
