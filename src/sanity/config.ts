@@ -8,6 +8,7 @@ const SINGLETON_TYPES = new Set([
   'siteSettings',
   'homePage',
   'implementationPackagesPage',
+  'licensingPage',
   'mondayTrainingPage',
   'mondayImplementationConsultantsPage',
   'makePartnersPage',

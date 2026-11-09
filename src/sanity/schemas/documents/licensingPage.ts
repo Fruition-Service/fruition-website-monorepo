@@ -9,13 +9,18 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
  * shipped copy and a filled one replaces it. Empty arrays are ignored for the
  * same reason: clearing a list in the Studio must not blank a whole section by
  * accident.
+ *
+ * Unlike the other singletons this document has never been seeded, so the
+ * Studio must be allowed to create it on first edit. Without 'create' in the
+ * action list the editor opens read-only ("This page can't be edited") and
+ * the inline editor has no document to patch.
  */
 export default defineType({
   name: 'licensingPage',
   title: 'Licensing & Procurement (/licence-procurement)',
   type: 'document',
   // @ts-expect-error Sanity experimental API (singleton)
-  __experimental_actions: ['update', 'publish'],
+  __experimental_actions: ['create', 'update', 'publish'],
   groups: [
     { name: 'seo', title: 'SEO' },
     { name: 'hero', title: 'Hero', default: true },
