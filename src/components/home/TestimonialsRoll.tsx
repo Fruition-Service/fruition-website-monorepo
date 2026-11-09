@@ -101,10 +101,12 @@ export default function TestimonialsRoll({
   )
 }
 
+// No hover lift: the card is not a link, and the lift made visitors click it
+// (PostHog dead clicks on /monday-crm-consulting, Nov 2026).
 function QuoteCard({ testimonial, index }: { testimonial: HomeTestimonial; index: number }) {
   const photoRef = testimonial.profilePhoto?.asset?._ref
   return (
-    <figure className="ui-hover-card flex h-auto flex-col rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper">
+    <figure className="flex h-auto flex-col rounded-card border border-lilac bg-surface-raised px-7 py-6.5 shadow-whisper">
       {testimonial.company && (
         <div className="flex items-center gap-[9px]">
           <span

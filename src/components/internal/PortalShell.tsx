@@ -3,6 +3,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Separator } from "@/components/ui/separator"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { getPortalAdmin } from "@/lib/portalAuth"
+import MarkInternalVisitor from "./MarkInternalVisitor"
 
 const TITLES: Record<string, string> = {
   dashboard: "Dashboard",
@@ -61,6 +62,7 @@ export default async function PortalShell({ email, active, title, children }: Pr
 
   return (
     <TooltipProvider>
+      <MarkInternalVisitor />
       <SidebarProvider className="portal-theme">
         <AppSidebar email={email} counts={counts} />
         <SidebarInset className="min-w-0 overflow-x-hidden">

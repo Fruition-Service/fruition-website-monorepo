@@ -41,13 +41,16 @@ export default function BuildDialog({ open, onClose, labelledBy, header, childre
       <div className="flex h-full max-h-[inherit] flex-col">
         <div className="flex items-start justify-between gap-4 border-b border-ui bg-surface-raised px-5 py-4 md:px-8 md:py-6">
           <div className="min-w-0">{header}</div>
+          {/* A labelled, bordered pill rather than a bare grey X: visitors were
+              clicking the empty header bar looking for a way out (PostHog dead
+              clicks inside #explore on /ai-use-cases, Nov 2026). */}
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
-            className="-mr-2 inline-flex size-11 shrink-0 items-center justify-center rounded-pill text-muted transition-colors hover:bg-mist hover:text-body focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
+            className="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-pill border border-ui bg-surface px-4 text-sm font-semibold text-body transition-colors hover:border-brand hover:bg-mist focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none"
           >
-            <X size={22} aria-hidden />
+            <X size={18} aria-hidden />
+            Close
           </button>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-5 md:px-8 md:py-7">{children}</div>
