@@ -23,6 +23,9 @@ import { officeStrap } from "@/data/offices"
 import { urlFor } from "@/sanity/image"
 import { buildOgMetadata, defaultOgImage } from "@/lib/metadata"
 import { POSTHOG_INTERNAL_TAG } from "@/lib/internalVisitor"
+// Ryze pixel (key rz_pk_..., public): loader and key live in src/lib/ryzePixel.ts
+// because the ad landing pages load the same pixel.
+import { RYZE_LOADER } from "@/lib/ryzePixel"
 
 
 
@@ -114,19 +117,20 @@ ${POSTHOG_INTERNAL_TAG}
 // for two GA4 properties and Google Ads, 696 KiB) cost 533 ms of blocking time
 // on the mobile homepage (TBT 720 ms, perf 68 on 30 Oct 2026).
 //
-// Now one bootstrap holds all five, GTM included, until the visitor first
+// Now one bootstrap holds all of them (plus the Ryze pixel), GTM included, until the visitor first
 // interacts (scroll, pointer, key, touch) or until 7 s after the load event,
 // whichever comes first. Anyone who reads the page triggers it within a second
 // or two, so tracking still covers them; the page is already interactive by
 // then. A visitor who leaves within 7 s without touching the page is no longer
 // recorded by GA4, which is the trade for a fast first load. The dataLayer is
 // created up front, so CTA and lead events pushed before GTM arrives are queued
-// and replayed when it loads, and gtm.start keeps the real page start time.
+// and replayed when it loads (the Ryze queue window.ryzeq likewise), and gtm.start keeps the real page start time.
 // Consent gate and per-path exclusions still live inside each loader.
 const DEFERRED_ANALYTICS = `(function(){
 window.dataLayer=window.dataLayer||[];
+window.ryzeq=window.ryzeq||[];
 var t0=new Date().getTime();
-function start(){window.dataLayer.push({'gtm.start':t0,event:'gtm.js'});${GTM_LOADER}${REB2B_LOADER}${OAIQ_LOADER}${CLARITY_LOADER}${POSTHOG_LOADER}}
+function start(){window.dataLayer.push({'gtm.start':t0,event:'gtm.js'});${GTM_LOADER}${REB2B_LOADER}${OAIQ_LOADER}${CLARITY_LOADER}${POSTHOG_LOADER}${RYZE_LOADER}}
 var ran=false;
 var EVENTS=["scroll","pointerdown","keydown","touchstart","mousemove","wheel"];
 function arm(){if(ran)return;ran=true;for(var i=0;i<EVENTS.length;i++)window.removeEventListener(EVENTS[i],arm,true);start();}

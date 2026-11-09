@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { withLandingPageTracking } from "./landingPage"
 import { REGION_BOOKING } from "./regionBooking"
+import { RYZE_PIXEL_URL } from "./ryzePixel"
 import { html as legal } from "@/app/au/monday-for-legal-teams/content"
 import { html as aiConsulting } from "@/app/au/ai-business-consulting-services/content"
 
@@ -52,5 +53,23 @@ describe("withLandingPageTracking", () => {
     expect(head).toContain('<link rel="icon" href="/favicon.ico" sizes="any">')
     expect(head).toContain('<link rel="icon" href="/icon.png" type="image/png" sizes="512x512">')
     expect(head).toContain('<link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180">')
+  })
+
+  it("loads the Ryze pixel once in head, behind the consent gate", () => {
+    const out = withLandingPageTracking(legal, opts)
+    const head = out.slice(0, out.indexOf("</head>"))
+    expect(RYZE_PIXEL_URL).toBe("https://px.get-ryze.ai/px.js?key=rz_pk_7654460176d69d2f0bcdc138eca3264f")
+    expect(out.split(RYZE_PIXEL_URL)).toHaveLength(2)
+    expect(head).toContain(RYZE_PIXEL_URL)
+    expect(head).toContain("window.ryzeq=window.ryzeq||[]")
+    expect(head).toContain('"fruition-visitor-consent")==="declined"')
+    expect(head).toContain("s.async=true")
+  })
+
+  it("sends a Calendly booking to Ryze as a lead", () => {
+    const out = withLandingPageTracking(legal, opts)
+    expect(out).toContain('e.origin!=="https://calendly.com"')
+    expect(out).toContain('e.data.event!=="calendly.event_scheduled"')
+    expect(out).toContain('window.ryzeq.push(["track","lead"])')
   })
 })
