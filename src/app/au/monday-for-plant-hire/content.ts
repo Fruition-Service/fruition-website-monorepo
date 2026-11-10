@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Plant & Equipment Hire | Fruition</title>
-<meta name="description" content="monday.com for Australian plant and equipment hire companies. Asset registers, hire schedules, maintenance and utilisation &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com for Australian plant and equipment hire companies. Asset registers, hire schedules, maintenance and utilisation, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -51,9 +51,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🚜 monday.com Platinum Partner · Plant &amp; Equipment Hire · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Plant &amp; Equipment Hire</em> companies</h1>
-<p class="sub">Asset registers, hire schedules, prestarts, maintenance and utilisation in one system &mdash; so you always know where the gear is, what it's earning and what's due for service.</p>
+<p class="sub">Asset registers, hire schedules, prestarts, maintenance and utilisation in one system, so you always know where the gear is, what it's earning and what's due for service.</p>
 <ul class="ticks">
 <li>Live asset register with location, status and hire history</li>
 <li>Hire scheduling with conflicts flagged before they happen</li>
@@ -116,7 +116,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -131,11 +131,11 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">From the yard to the jobsite, every asset accounted for</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">From the yard to the jobsite, <em>every asset accounted for</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
 <div class="card"><h3>Asset register</h3><p>Every machine with rego, serials, attachments, location and current status in one searchable register.</p></div>
-<div class="card"><h3>Hire scheduling</h3><p>Bookings, off-hires and transport movements on a timeline &mdash; double-bookings flagged automatically.</p></div>
+<div class="card"><h3>Hire scheduling</h3><p>Bookings, off-hires and transport movements on a timeline, double-bookings flagged automatically.</p></div>
 <div class="card"><h3>Maintenance &amp; prestarts</h3><p>Services triggered by engine hours or calendar, with prestart checklists completed from the phone.</p></div>
 <div class="card"><h3>Breakdowns &amp; defects</h3><p>Defect reports with photos from site, triaged to workshop queues with downtime tracked.</p></div>
 <div class="card"><h3>Customer &amp; contract hire</h3><p>Client accounts, rates and hire agreements connected to the assets they're running.</p></div>
@@ -147,8 +147,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -162,18 +162,17 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"monday.com has given us the visibility we need to get everyone on the same page and keep track of all the moving parts."</p><div class="who"><b>Jason Doan</b> · VP of Heavy Rental & Sales, HOLT CAT</div></div>
 <div class="quote"><p>"This system will save hundreds of thousands of dollars a year guaranteed."</p><div class="who"><b>Brandon-Lee Horridge</b> · Managing Director, BL Air Conditioning</div></div>
@@ -191,10 +190,10 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Can monday.com track equipment location and status?</summary><div class="a">Yes &mdash; each asset carries live status (on hire, in yard, in workshop, in transit), site location and hire history. Telematics feeds can be integrated where your fleet supports them.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Can monday.com track equipment location and status?</summary><div class="a">Yes, each asset carries live status (on hire, in yard, in workshop, in transit), site location and hire history. Telematics feeds can be integrated where your fleet supports them.</div></details>
 <details><summary>How does maintenance scheduling work?</summary><div class="a">Services are triggered by engine hours or dates, creating workshop jobs automatically. Prestarts and defect reports come in from phones on site with photos attached.</div></details>
-<details><summary>Does it replace dedicated hire software?</summary><div class="a">For many independent hire companies, yes &mdash; and with far more flexibility. Where specialist rental software stays, monday.com becomes the operations and maintenance layer around it.</div></details>
+<details><summary>Does it replace dedicated hire software?</summary><div class="a">For many independent hire companies, yes, and with far more flexibility. Where specialist rental software stays, monday.com becomes the operations and maintenance layer around it.</div></details>
 <details><summary>How quickly can we be live?</summary><div class="a">Typically two to four weeks from kickoff including asset data migration from spreadsheets. Fixed fee agreed before any build starts.</div></details>
 </div>
 </section>

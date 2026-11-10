@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ChatGPT Consultants UK | AI Automation for Business | Fruition</title>
-<meta name="description" content="ChatGPT and OpenAI API consultants in the UK. Internal tools, support automation and AI workflow implementation &mdash; practical AI, fixed fee.">
+<meta name="description" content="ChatGPT and OpenAI API consultants in the UK. Internal tools, support automation and AI workflow implementation, practical AI, fixed fee.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -36,9 +36,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F916; AI Implementation Partner &middot; ChatGPT &middot; OpenAI API &middot; Automation &middot; London &middot; Manchester &middot; Birmingham &middot; Edinburgh</div>
-<h1>ChatGPT consultants &mdash; <em>AI automation for your business</em></h1>
-<p class="sub">Fruition implements ChatGPT and the OpenAI API for internal tools, customer support automation and content workflows &mdash; practical AI that fits into how your team already works.</p>
+<div class="eyebrow">AI Implementation Partner</div>
+<h1>ChatGPT consultants: <em>AI automation for your business</em></h1>
+<p class="sub">Fruition implements ChatGPT and the OpenAI API for internal tools, customer support automation and content workflows, practical AI that fits into how your team already works.</p>
 <ul class="ticks">
 <li>ChatGPT integrated into your existing tools and workflows</li>
 <li>OpenAI API implementations built to your specific requirements</li>
@@ -97,14 +97,14 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Practical AI your team will actually use</h2>
-<p class="lede">Delivered by experienced AI implementation consultants &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">Practical AI your team <em>will actually use</em></h2>
+<p class="lede">Delivered by experienced AI implementation consultants, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>ChatGPT integration</h3><p>ChatGPT connected to your existing tools, documents and data sources for practical, day-to-day use.</p></div>
-<div class="card"><h3>OpenAI API implementation</h3><p>Custom tools built on the OpenAI API &mdash; from internal knowledge bases to customer-facing automation.</p></div>
+<div class="card"><h3>OpenAI API implementation</h3><p>Custom tools built on the OpenAI API, from internal knowledge bases to customer-facing automation.</p></div>
 <div class="card"><h3>Customer support automation</h3><p>AI-powered support flows that handle tier-1 queries and escalate the rest, reducing response times and team load.</p></div>
 <div class="card"><h3>Content workflow tools</h3><p>AI-assisted drafting, summarisation and review tools built into your existing content process.</p></div>
-<div class="card"><h3>Internal chatbots</h3><p>Knowledge bots trained on your documentation, policies and FAQs &mdash; instant answers for your team.</p></div>
+<div class="card"><h3>Internal chatbots</h3><p>Knowledge bots trained on your documentation, policies and FAQs, instant answers for your team.</p></div>
 <div class="card"><h3>Training &amp; adoption</h3><p>Your team trained on the specific tools they will use. Documentation and 30-day post-launch support included.</p></div>
 </div>
 </div>
@@ -113,8 +113,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a ChatGPT implementation works</h2>
-<p class="lede">A structured, fixed-fee methodology &mdash; from use-case scoping to deployed tool.</p>
+<h2 class="sec">How a ChatGPT <em>implementation works</em></h2>
+<p class="lede">A structured, fixed-fee methodology, from use-case scoping to deployed tool.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Use-case scoping</h3><p>We identify the highest-value AI use cases for your team and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Design &amp; architecture</h3><p>The integration, data sources and security model designed before a line of code is written.</p></div>
@@ -128,21 +128,20 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">systems delivered across six offices</div></div>
-<div><div class="v">2&ndash;6 wks</div><div class="l"><!-- FOR EDWARD: confirm typical ChatGPT timeline --> typical build-to-launch timeline</div></div>
+<div><div class="v">2-6 wks</div><div class="l"><!-- FOR EDWARD: confirm typical ChatGPT timeline --> typical build-to-launch timeline</div></div>
 <div><div class="v">Practical AI</div><div class="l">use cases scoped from your actual workflow, not off-the-shelf demos</div></div>
-<div><div class="v">Fixed fee</div><div class="l">agreed before any build starts &mdash; no hourly billing surprises</div></div>
+<div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's ChatGPT consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's ChatGPT consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>&ldquo;Our internal knowledge bot now answers the questions that used to go straight to the support team. It has changed how we operate.&rdquo;</p><div class="who"><b>Head of Operations</b> &middot; Professional services firm</div></div>
-<div class="quote"><p>&ldquo;Fruition understood what we actually needed from AI &mdash; not what was trendy. The implementation was practical and fast.&rdquo;</p><div class="who"><b>Chief Technology Officer</b> &middot; Technology company</div></div>
+<div class="quote"><p>&ldquo;Fruition understood what we actually needed from AI, not what was trendy. The implementation was practical and fast.&rdquo;</p><div class="who"><b>Chief Technology Officer</b> &middot; Technology company</div></div>
 </div>
 <!-- RATINGS: Edward &mdash; add live profile URLs -->
 </div>
@@ -151,10 +150,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with experienced AI implementation consultants</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with experienced <em>AI implementation consultants</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director &mdash; EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director, EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/634ee0c5c7d9e2c0d18d21d8a387822961233fed-512x512.png?w=560&h=560&fit=crop" alt="Alex Bordei" loading="lazy"><h3>Alex Bordei</h3><div class="role">Implementation Manager</div><p>Workflow design, process automation and change management.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/ff248988d44e2d927a796f035b39f8bc5fe7b3f7-512x512.jpg?w=560&h=560&fit=crop" alt="Nevena Gravin" loading="lazy"><h3>Nevena Gravin</h3><div class="role">Implementation Lead</div><p>CRM, work management and ticketing system architecture.</p></div>
 </div>
@@ -164,11 +163,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>What can ChatGPT actually do for our business?</summary><div class="a">The highest-value use cases are internal knowledge and document search, customer support automation (tier-1 query handling), content drafting and review, and data summarisation. The right fit depends on your team and processes &mdash; we scope this in discovery before any build starts.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>What can ChatGPT actually do for our business?</summary><div class="a">The highest-value use cases are internal knowledge and document search, customer support automation (tier-1 query handling), content drafting and review, and data summarisation. The right fit depends on your team and processes, we scope this in discovery before any build starts.</div></details>
 <details><summary>How secure is our data?</summary><div class="a">We design the integration so your data stays in your environment. For most implementations, your documents are retrieved at query time and are not stored in the AI platform. We review the data flow with you in scoping.</div></details>
 <details><summary>How long does implementation take?</summary><div class="a">Most ChatGPT integrations are live in two to six weeks depending on complexity. A single internal tool is typically the smaller end; a multi-tool integration with document pipelines runs longer. The timeline is agreed in scoping.</div></details>
-<details><summary>Do you train our staff?</summary><div class="a">Yes. Training is included in every engagement &mdash; your team is trained on the specific tools they will use, not generic AI awareness sessions. Documentation and 30-day post-launch support are also included.</div></details>
+<details><summary>Do you train our staff?</summary><div class="a">Yes. Training is included in every engagement, your team is trained on the specific tools they will use, not generic AI awareness sessions. Documentation and 30-day post-launch support are also included.</div></details>
 </div>
 </section>
 
@@ -178,7 +177,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on what AI can and can&rsquo;t do for your team, from consultants who implement it every week. No hype, no jargon.</p>
+<p>Book a free consultation, a frank read on what AI can and can&rsquo;t do for your team, from consultants who implement it every week. No hype, no jargon.</p>
 <a class="btn" href="#lead">Book My Free Consultation &rarr;</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> &middot; GMT/BST business hours</p>
 <p style="margin-top:14px;font-size:14px;color:var(--light)">Or explore our London office: <a href="/contact-us" style="color:var(--purple);font-weight:600;text-decoration:none">Contact Us &#8594;</a></p>
@@ -194,7 +193,7 @@ Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
 <footer>
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-white.svg" alt="Fruition Services">
-<div>Fruition Services &middot; 423 Linen Hall, 162&ndash;168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
+<div>Fruition Services &middot; 423 Linen Hall, 162-168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
 <div><a href="https://www.fruitionservices.io/data-privacy">Privacy</a> &middot; <a href="https://www.fruitionservices.io/terms-and-conditions">Terms</a></div>
 </div>
 </footer>

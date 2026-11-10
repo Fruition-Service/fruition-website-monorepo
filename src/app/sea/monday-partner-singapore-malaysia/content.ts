@@ -43,13 +43,13 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇸🇬 🇲🇾 monday.com Platinum Partner · Singapore · Kuala Lumpur · Penang · Johor Bahru</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com Platinum Partner for <em>Singapore &amp; Malaysia</em></h1>
-<p class="sub">monday.com implementation, CRM setup and workflow automation for Singapore and Malaysian businesses — fixed-price, PDPA-ready and delivered by consultants working your hours (GMT+8).</p>
+<p class="sub">monday.com implementation, CRM setup and workflow automation for Singapore and Malaysian businesses, fixed-price, PDPA-ready and delivered by consultants working your hours (GMT+8).</p>
 <ul class="ticks">
 <li>Work Management, monday CRM, monday Service and monday dev</li>
 <li>CRM migration from Salesforce, HubSpot, Pipedrive or spreadsheets</li>
-<li>Fixed-price packages from US$2,500 — agreed before any build</li>
+<li>Fixed-price packages from US$2,500, agreed before any build</li>
 <li>PDPA (SG 2012 · MY 2010) built into permissions and forms</li>
 </ul>
 <div class="badges">
@@ -116,10 +116,10 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">monday.com consulting for Singapore &amp; Malaysian teams</h2>
-<p class="lede">Delivered by certified monday.com consultants working GMT+8 hours — fixed fee agreed before any build starts.</p>
+<h2 class="sec">monday.com consulting for Singapore <em>&amp; Malaysian teams</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working GMT+8 hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
-<div class="card"><h3>monday.com implementation</h3><p>Boards, dashboards, forms, permissions and automations built around your agreed process — one team or several countries.</p></div>
+<div class="card"><h3>monday.com implementation</h3><p>Boards, dashboards, forms, permissions and automations built around your agreed process, one team or several countries.</p></div>
 <div class="card"><h3>CRM system setup</h3><p>monday CRM for Singapore and Malaysia sales teams: pipelines, lead routing, quotes and sales reporting.</p></div>
 <div class="card"><h3>CRM migration</h3><p>Contacts, companies, deals, activities and files moved from Salesforce, HubSpot, Pipedrive or spreadsheets with relationships intact.</p></div>
 <div class="card"><h3>Project management</h3><p>Replace Excel and email with projects, timelines, resourcing and client-ready reporting your managers trust.</p></div>
@@ -132,11 +132,11 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Fixed-price packages</p>
-<h2 class="sec">monday.com implementation pricing for Singapore &amp; Malaysia</h2>
+<h2 class="sec">monday.com implementation pricing for <em>Singapore &amp; Malaysia</em></h2>
 <p class="lede">Choose by team size and what you need done. Your exact fee is confirmed in writing before we start.</p>
 <div class="pkgs">
 <div class="pkg"><span class="dur">Reset and train</span><h3>Training &amp; Optimisation</h3><span class="size">1 team · up to 25 users</span><div class="price">From US$2,500 <small>one-time</small></div><ul><li>Up to 5 boards reviewed and cleaned up</li><li>Up to 10 automations optimised</li><li>2 training sessions</li></ul><a class="btn" href="#lead">Get started</a></div>
-<div class="pkg feat"><span class="dur">We build and deploy together</span><h3>Lock-Step</h3><span class="size">1–2 teams · up to 50 users</span><div class="price">From US$5,000 <small>one-time</small></div><ul><li>1–2 workflows mapped and built</li><li>Up to 8 boards + 2 dashboards</li><li>Up to 15 automations + 1 integration</li></ul><a class="btn" href="#lead">Get quote</a></div>
+<div class="pkg feat"><span class="dur">We build and deploy together</span><h3>Lock-Step</h3><span class="size">1-2 teams · up to 50 users</span><div class="price">From US$5,000 <small>one-time</small></div><ul><li>1-2 workflows mapped and built</li><li>Up to 8 boards + 2 dashboards</li><li>Up to 15 automations + 1 integration</li></ul><a class="btn" href="#lead">Get quote</a></div>
 <div class="pkg"><span class="dur">Ongoing, embedded</span><h3>Deployed Engineer</h3><span class="size">Multiple teams · up to 250 users</span><div class="price">From US$2,500 <small>per month</small></div><ul><li>1 named forward deployed engineer</li><li>Change requests in 2 business days</li><li>Monthly roadmap review</li></ul><a class="btn" href="#lead">Get your options</a></div>
 </div>
 <p class="pnote">Prices in USD; Singapore and Malaysia rates confirmed in your quote. monday.com licences are billed separately by monday.com.</p>
@@ -146,8 +146,8 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework — the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how your Singapore and Malaysia teams actually operate.</p></div>
@@ -161,18 +161,17 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Fruition have been instrumental in moving us to a single source of truth system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
 <div class="quote"><p>"Having experienced working with Josh directly at monday.com, I would have no hesitation recommending Josh in any consulting engagement."</p><div class="who"><b>Brad Cannon</b> · Senior Account Executive, monday.com</div></div>
@@ -190,8 +189,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally, in GMT+8 business hours — no hand-offs.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, in GMT+8 business hours, no hand-offs.</p>
 <div class="team">
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop" alt="Nikhil Tiwari" loading="lazy"><h3>Nikhil Tiwari</h3><div class="role">Sales &amp; Implementation Lead</div><p>Certified monday.com and Make consultant with an ML and GenAI background, working with South-East Asian clients.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/56b7495c43a5904dc35ac1955f21b6b6461ee780-1000x1000.jpg?w=560&h=560&fit=crop" alt="Suzzane Castro" loading="lazy"><h3>Suzzane Castro</h3><div class="role">Delivery Consultant</div><p>Business automation specialist connecting monday.com with finance, document and messaging tools.</p><!-- TEAM: headshot added; title as supplied, still to confirm --></div>
@@ -203,7 +202,7 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions Singapore &amp; Malaysian buyers ask us first</h2>
+<h2 class="sec">The questions Singapore &amp; Malaysian <em>buyers ask us first</em></h2>
 <details open><summary>How much does a monday.com implementation cost in Singapore or Malaysia?</summary><div class="a">Fruition&#x27;s fixed-price packages start from US$2,500 one-time for Training &amp; Optimisation (1 team, up to 25 users), from US$5,000 one-time for a Lock-Step build (up to 50 users) and from US$2,500 per month for a Deployed Engineer. Your exact fee is agreed in writing before any build starts. monday.com licences are billed separately, and we&#x27;ll tell you which plan you actually need.</div></details><details><summary>How long does it take?</summary><div class="a">Most Singapore and Malaysia engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; regional rollouts with CRM migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details><details><summary>Can you set up monday.com as our CRM system?</summary><div class="a">Yes. We build monday CRM for sales teams in Singapore and Malaysia, covering pipelines, lead routing, quotes and reporting, and migrate your history from Salesforce, HubSpot, Pipedrive or spreadsheets with relationships preserved.</div></details><details><summary>Is it PDPA compliant?</summary><div class="a">We design every build around Singapore&#x27;s PDPA 2012 and Malaysia&#x27;s PDPA 2010: restricted boards for personal data, role-based permissions, consent capture in forms and activity logs. We also confirm the data hosting region available on your monday.com plan.</div></details><details><summary>Do you work in our time zone?</summary><div class="a">Yes. Our South-East Asia team works in GMT+8, Singapore and Malaysia business hours, with workshops in Singapore and online delivery across Kuala Lumpur, Penang and Johor Bahru.</div></details>
 </div>
 </section>
@@ -214,7 +213,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation — a frank read on scope, fit and cost from a monday.com Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a monday.com Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" style="max-width:300px" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+6531586808" style="color:var(--purple);font-weight:700;text-decoration:none">+65 3158 6808</a> · Singapore &amp; Malaysia business hours (GMT+8)</p>
 </div>

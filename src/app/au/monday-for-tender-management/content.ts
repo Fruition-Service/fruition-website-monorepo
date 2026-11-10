@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Tender & Bid Management | Fruition</title>
-<meta name="description" content="monday.com tender and bid management for Australian contractors and consultancies. Pipeline, go/no-go, submissions and win analysis &mdash; by a Platinum Partner.">
+<meta name="description" content="monday.com tender and bid management for Australian contractors and consultancies. Pipeline, go/no-go, submissions and win analysis, by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -51,9 +51,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">📑 monday.com Platinum Partner · Tenders &amp; Bids · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Tender &amp; Bid Management</em></h1>
-<p class="sub">Tender pipeline, go/no-go gates, submission deadlines, document control and win/loss analysis in one system &mdash; built by a partner that works through government procurement itself.</p>
+<p class="sub">Tender pipeline, go/no-go gates, submission deadlines, document control and win/loss analysis in one system, built by a partner that works through government procurement itself.</p>
 <ul class="ticks">
 <li>Pipeline from identification to award with go/no-go gates</li>
 <li>Submission checklists, owners and deadline countdowns</li>
@@ -64,7 +64,7 @@ ${LP_FONTS}
 <span class="badge">monday.com Platinum Partner</span>
 <span class="badge">Advanced Delivery Partner</span>
 <span class="badge">900+ implementations</span>
-<span class="badge">NSW Gov ICT Scheme &mdash; Advanced supplier</span>
+<span class="badge">NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
 
@@ -117,7 +117,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -132,15 +132,15 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Never scramble the night before a submission again</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">Never scramble the night before <em>a submission again</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
 <div class="card"><h3>Tender pipeline</h3><p>Every opportunity from portal alert to award, with value, probability and owner visible to leadership.</p></div>
 <div class="card"><h3>Go/no-go gates</h3><p>Structured qualification scoring so estimating effort goes to bids you can actually win.</p></div>
 <div class="card"><h3>Submission management</h3><p>Returnables checklists with owners and deadlines, addenda tracked, nothing missed at 4:55pm.</p></div>
-<div class="card"><h3>Document control</h3><p>Versioned tender documents, clarifications and RFIs in one place per bid &mdash; not inboxes.</p></div>
+<div class="card"><h3>Document control</h3><p>Versioned tender documents, clarifications and RFIs in one place per bid, not inboxes.</p></div>
 <div class="card"><h3>Estimating handoff</h3><p>Clean handoff between BD, estimating and delivery with the full bid history attached.</p></div>
-<div class="card"><h3>Win/loss intelligence</h3><p>Hit rates by client, sector, value band and reviewer &mdash; know where your margin really comes from.</p></div>
+<div class="card"><h3>Win/loss intelligence</h3><p>Hit rates by client, sector, value band and reviewer, know where your margin really comes from.</p></div>
 </div>
 </div>
 </section>
@@ -148,8 +148,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -163,18 +163,17 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Process automation across campaign management, budget management and project approvals has saved significant amounts of time for staff globally."</p><div class="who"><b>Emily Hill</b> · International Markets Manager, Tourism Northern Territory</div></div>
 <div class="quote"><p>"Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
@@ -192,11 +191,11 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Does this suit government tendering?</summary><div class="a">Yes. Fruition is itself an approved Advanced-level supplier on the NSW Government ICT Services Scheme and has delivered through QITC and other government frameworks, so the workflows reflect real procurement &mdash; returnables, compliance matrices, probity and clarification management.</div></details>
-<details><summary>Can it handle our go/no-go process?</summary><div class="a">Yes &mdash; structured scoring gates with required sign-offs before estimating hours are committed, including capacity and margin checks.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Does this suit government tendering?</summary><div class="a">Yes. Fruition is itself an approved Advanced-level supplier on the NSW Government ICT Services Scheme and has delivered through QITC and other government frameworks, so the workflows reflect real procurement, returnables, compliance matrices, probity and clarification management.</div></details>
+<details><summary>Can it handle our go/no-go process?</summary><div class="a">Yes, structured scoring gates with required sign-offs before estimating hours are committed, including capacity and margin checks.</div></details>
 <details><summary>How do deadlines stay visible?</summary><div class="a">Every bid carries countdowns, owner assignments and automated escalations, with a portfolio view showing every live submission across the business.</div></details>
-<details><summary>How fast can we be running?</summary><div class="a">Most tender teams are live inside two to three weeks &mdash; it's one connected workflow, not a company-wide rollout. Fixed fee agreed up front.</div></details>
+<details><summary>How fast can we be running?</summary><div class="a">Most tender teams are live inside two to three weeks, it's one connected workflow, not a company-wide rollout. Fixed fee agreed up front.</div></details>
 </div>
 </section>
 

@@ -51,9 +51,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🤖 monday.com Platinum Partner · OpenAI Partner · Anthropic Partner</div>
-<h1>monday.com <em>AI &amp; Vibe</em> &mdash; with Claude and OpenAI built in</h1>
-<p class="sub">AI Blocks, Sidekick, agents, monday Vibe apps and custom Claude/OpenAI integrations &mdash; deployed with governance by the partner that's certified on both the platform and the AI.</p>
+<div class="eyebrow">monday.com Platinum Partner</div>
+<h1>monday.com <em>AI &amp; Vibe</em>: with Claude and OpenAI built in</h1>
+<p class="sub">AI Blocks, Sidekick, agents, monday Vibe apps and custom Claude/OpenAI integrations, deployed with governance by the partner that's certified on both the platform and the AI.</p>
 <ul class="ticks">
 <li>monday AI setup: AI Blocks, Sidekick and agents done properly</li>
 <li>monday Vibe apps built for your workflows</li>
@@ -117,7 +117,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -132,12 +132,12 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">AI that does work in your workflows, not a chatbot on the side</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">AI that does work in your workflows, <em>not a chatbot on the side</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
-<div class="card"><h3>monday AI enablement</h3><p>AI Blocks, Sidekick and agents configured where they save real hours &mdash; triage, drafting, categorising, summarising.</p></div>
+<div class="card"><h3>monday AI enablement</h3><p>AI Blocks, Sidekick and agents configured where they save real hours, triage, drafting, categorising, summarising.</p></div>
 <div class="card"><h3>monday Vibe apps</h3><p>Custom Vibe applications built for your processes, from quoting tools to client portals.</p></div>
-<div class="card"><h3>Claude &amp; OpenAI integration</h3><p>LLM steps inside your boards via API and Make &mdash; document analysis, extraction, generation &mdash; using the right model for each job.</p></div>
+<div class="card"><h3>Claude &amp; OpenAI integration</h3><p>LLM steps inside your boards via API and Make, document analysis, extraction, generation, using the right model for each job.</p></div>
 <div class="card"><h3>Agentic workflows</h3><p>Agents that watch boards and act: drafting replies, enriching CRM records, chasing approvals.</p></div>
 <div class="card"><h3>AI governance</h3><p>Access, data-handling and human-in-the-loop controls designed in from day one, not bolted on.</p></div>
 <div class="card"><h3>Team enablement</h3><p>Training so your people prompt, supervise and extend the AI rather than ignore it.</p></div>
@@ -148,8 +148,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -163,18 +163,17 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Having experienced working with Josh directly at monday.com, I'd have no hesitation recommending Josh in any consulting engagement."</p><div class="who"><b>Brad Cannon</b> · Senior Account Executive, monday.com</div></div>
 <div class="quote"><p>"This system will save hundreds of thousands of dollars a year guaranteed."</p><div class="who"><b>Brandon-Lee Horridge</b> · Managing Director, BL Air Conditioning</div></div>
@@ -192,10 +191,10 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>What can monday AI actually do today?</summary><div class="a">AI Blocks and Sidekick handle summarising, drafting, categorising, translation and extraction inside boards; agents take multi-step actions. We configure them against your real processes &mdash; the difference between a demo and hours saved every week.</div></details>
-<details><summary>Why add Claude or OpenAI on top of monday AI?</summary><div class="a">Native monday AI covers in-board tasks. Custom Claude/OpenAI integration handles heavier work &mdash; long-document analysis, bespoke generation, cross-system automation &mdash; with the model best suited to each task. Fruition is a partner of both OpenAI and Anthropic.</div></details>
-<details><summary>How is data governed?</summary><div class="a">Every build ships with access controls, data-handling rules and human-in-the-loop checkpoints agreed up front &mdash; AI governance is part of the implementation, not an afterthought.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>What can monday AI actually do today?</summary><div class="a">AI Blocks and Sidekick handle summarising, drafting, categorising, translation and extraction inside boards; agents take multi-step actions. We configure them against your real processes, the difference between a demo and hours saved every week.</div></details>
+<details><summary>Why add Claude or OpenAI on top of monday AI?</summary><div class="a">Native monday AI covers in-board tasks. Custom Claude/OpenAI integration handles heavier work, long-document analysis, bespoke generation, cross-system automation, with the model best suited to each task. Fruition is a partner of both OpenAI and Anthropic.</div></details>
+<details><summary>How is data governed?</summary><div class="a">Every build ships with access controls, data-handling rules and human-in-the-loop checkpoints agreed up front, AI governance is part of the implementation, not an afterthought.</div></details>
 <details><summary>Where should we start?</summary><div class="a">A complimentary process-mapping session identifies the highest-ROI AI targets, then we scope a fixed-fee build. Most first AI workflows are live within weeks.</div></details>
 </div>
 </section>

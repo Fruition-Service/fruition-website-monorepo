@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HubSpot Consultants UK | CRM, Sales Hub &amp; Marketing Hub | Fruition</title>
-<meta name="description" content="HubSpot Solutions Partners in the UK. CRM setup, Sales Hub automation, Marketing Hub campaigns and full-history migrations from Salesforce &mdash; fixed fee.">
+<meta name="description" content="HubSpot Solutions Partners in the UK. CRM setup, Sales Hub automation, Marketing Hub campaigns and full-history migrations from Salesforce, fixed fee.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -36,9 +36,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F4A1; HubSpot Solutions Partner &middot; CRM &middot; Sales Hub &middot; Marketing Hub &middot; London &middot; Manchester &middot; Birmingham &middot; Edinburgh</div>
-<h1>HubSpot consultants &mdash; <em>CRM, Sales Hub &amp; Marketing Hub</em></h1>
-<p class="sub">HubSpot Solutions Partners delivering CRM setup, Sales Hub automation and Marketing Hub campaigns &mdash; including full-history migrations from Salesforce, monday CRM and spreadsheets.</p>
+<div class="eyebrow">HubSpot Solutions Partner</div>
+<h1>HubSpot consultants: <em>CRM, Sales Hub &amp; Marketing Hub</em></h1>
+<p class="sub">HubSpot Solutions Partners delivering CRM setup, Sales Hub automation and Marketing Hub campaigns, including full-history migrations from Salesforce, monday CRM and spreadsheets.</p>
 <ul class="ticks">
 <li>HubSpot CRM built around your actual sales process</li>
 <li>Full-history migration from Salesforce, Pipedrive or spreadsheets</li>
@@ -97,14 +97,14 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">A HubSpot setup that actually fits how you sell</h2>
-<p class="lede">Delivered by HubSpot Solutions Partners &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">A HubSpot setup that actually <em>fits how you sell</em></h2>
+<p class="lede">Delivered by HubSpot Solutions Partners, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>HubSpot CRM setup</h3><p>Pipelines, deal stages, properties and views built around how your sales team actually works.</p></div>
 <div class="card"><h3>Sales Hub automation</h3><p>Email sequences, task queues, meeting scheduling and deal rotation automated so your team sells, not administers.</p></div>
 <div class="card"><h3>Marketing Hub campaigns</h3><p>Landing pages, email workflows, lead scoring and reporting configured to drive and track pipeline.</p></div>
 <div class="card"><h3>Full-history migration</h3><p>Contacts, companies, deals, notes, emails and activities migrated from Salesforce, Pipedrive or spreadsheets.</p></div>
-<div class="card"><h3>Integrations &amp; reporting</h3><p>Your existing tools connected to HubSpot &mdash; and dashboards built so leadership has the view they need.</p></div>
+<div class="card"><h3>Integrations &amp; reporting</h3><p>Your existing tools connected to HubSpot, and dashboards built so leadership has the view they need.</p></div>
 <div class="card"><h3>Onboarding &amp; training</h3><p>Your team trained on their own workflows. 30-day post-launch support so adoption actually sticks.</p></div>
 </div>
 </div>
@@ -113,10 +113,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a HubSpot implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a HubSpot <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
-<div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your current CRM, data and processes &mdash; and agree a fixed quote before any build starts.</p></div>
+<div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your current CRM, data and processes, and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Build &amp; configure</h3><p>Pipelines, properties, sequences and dashboards configured to your actual workflow.</p></div>
 <div class="step"><div class="n">3</div><h3>Migration &amp; test</h3><p>Data migrated, integrations connected, the system validated before go-live.</p></div>
 <div class="step"><div class="n">4</div><h3>Onboarding &amp; handover</h3><p>Team trained on their own setup. 30-day post-launch support so adoption sticks.</p></div>
@@ -128,18 +128,17 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2&ndash;4 wks</div><div class="l">typical kickoff to a live HubSpot system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live HubSpot system</div></div>
 <div><div class="v">Full history</div><div class="l">contacts, deals and activities migrated, relationships preserved</div></div>
 <div><div class="v">30-day</div><div class="l">post-launch support included in every engagement</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's HubSpot consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's HubSpot consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>&ldquo;Our Salesforce migration to HubSpot was flawless. Every contact, deal and activity came across with zero data loss.&rdquo;</p><div class="who"><b>VP Sales</b> &middot; Technology company</div></div>
 <div class="quote"><p>&ldquo;Fruition understood our sales process from day one. The setup was done in two weeks and the team adopted it immediately.&rdquo;</p><div class="who"><b>Head of Revenue</b> &middot; Professional services firm</div></div>
@@ -151,10 +150,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with certified HubSpot consultants</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with certified <em>HubSpot consultants</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director &mdash; EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director, EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/634ee0c5c7d9e2c0d18d21d8a387822961233fed-512x512.png?w=560&h=560&fit=crop" alt="Alex Bordei" loading="lazy"><h3>Alex Bordei</h3><div class="role">Implementation Manager</div><p>Workflow design, process automation and change management.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/ff248988d44e2d927a796f035b39f8bc5fe7b3f7-512x512.jpg?w=560&h=560&fit=crop" alt="Nevena Gravin" loading="lazy"><h3>Nevena Gravin</h3><div class="role">Implementation Lead</div><p>CRM, work management and ticketing system architecture.</p></div>
 </div>
@@ -164,11 +163,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
 <details open><summary>Can you migrate from Salesforce to HubSpot?</summary><div class="a">Yes. We migrate contacts, companies, deals, activities, notes and email history. Field mapping is agreed in discovery, record counts validated before cutover, and the team trained on HubSpot before the old system is switched off.</div></details>
-<details><summary>How long does HubSpot onboarding take?</summary><div class="a">Most CRM implementations go live in two to four weeks from kickoff. Sales Hub or Marketing Hub projects with complex automations or migration can run longer &mdash; the timeline is scoped and agreed before any build starts.</div></details>
+<details><summary>How long does HubSpot onboarding take?</summary><div class="a">Most CRM implementations go live in two to four weeks from kickoff. Sales Hub or Marketing Hub projects with complex automations or migration can run longer, the timeline is scoped and agreed before any build starts.</div></details>
 <details><summary>Do you do ongoing HubSpot support after launch?</summary><div class="a">Yes. Every engagement includes 30 days of post-launch support. For ongoing optimisation, campaigns and reporting, we offer retained support packages.</div></details>
-<details><summary>Do we need to buy HubSpot before engaging you?</summary><div class="a">No. We help you choose the right Hub and tier before purchase &mdash; and as a Solutions Partner we can support introductions to HubSpot&rsquo;s commercial team. We&rsquo;ll tell you exactly what you need and nothing more.</div></details>
+<details><summary>Do we need to buy HubSpot before engaging you?</summary><div class="a">No. We help you choose the right Hub and tier before purchase, and as a Solutions Partner we can support introductions to HubSpot&rsquo;s commercial team. We&rsquo;ll tell you exactly what you need and nothing more.</div></details>
 </div>
 </section>
 
@@ -178,7 +177,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a HubSpot Solutions Partner. If HubSpot isn&rsquo;t the right fit, we&rsquo;ll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a HubSpot Solutions Partner. If HubSpot isn&rsquo;t the right fit, we&rsquo;ll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation &rarr;</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> &middot; GMT/BST business hours</p>
 <p style="margin-top:14px;font-size:14px;color:var(--light)">Or explore our London office: <a href="/contact-us" style="color:var(--purple);font-weight:600;text-decoration:none">Contact Us &#8594;</a></p>
@@ -194,7 +193,7 @@ Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
 <footer>
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-white.svg" alt="Fruition Services">
-<div>Fruition Services &middot; 423 Linen Hall, 162&ndash;168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
+<div>Fruition Services &middot; 423 Linen Hall, 162-168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
 <div><a href="https://www.fruitionservices.io/data-privacy">Privacy</a> &middot; <a href="https://www.fruitionservices.io/terms-and-conditions">Terms</a></div>
 </div>
 </footer>

@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Legal & Contract Management | Fruition</title>
-<meta name="description" content="monday.com for in-house legal and contract teams in Australia. Matter intake, contract lifecycle, approvals and obligations &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com for in-house legal and contract teams in Australia. Matter intake, contract lifecycle, approvals and obligations, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -51,9 +51,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">⚖️ monday.com Platinum Partner · Legal &amp; Contracts · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Legal &amp; Contract Management</em></h1>
-<p class="sub">Matter intake, contract lifecycle, review workflows and obligation tracking in one system &mdash; so the legal team stops being a black box the business emails into.</p>
+<p class="sub">Matter intake, contract lifecycle, review workflows and obligation tracking in one system, so the legal team stops being a black box the business emails into.</p>
 <ul class="ticks">
 <li>Structured intake replacing the legal inbox</li>
 <li>Contract lifecycle from request to execution to renewal</li>
@@ -116,7 +116,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -131,14 +131,14 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">A legal front door, not a legal inbox</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">A legal front door, <em>not a legal inbox</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
-<div class="card"><h3>Matter intake &amp; triage</h3><p>Business requests arrive structured, prioritised and assigned &mdash; with SLAs visible to requesters.</p></div>
-<div class="card"><h3>Contract lifecycle</h3><p>Request, draft, negotiate, approve, execute, store &mdash; each stage tracked with owners and aging.</p></div>
+<div class="card"><h3>Matter intake &amp; triage</h3><p>Business requests arrive structured, prioritised and assigned, with SLAs visible to requesters.</p></div>
+<div class="card"><h3>Contract lifecycle</h3><p>Request, draft, negotiate, approve, execute, store, each stage tracked with owners and aging.</p></div>
 <div class="card"><h3>Review &amp; approval workflows</h3><p>Routing by contract type and value, with execution via your e-signature platform.</p></div>
 <div class="card"><h3>Obligations register</h3><p>Key dates, deliverables and renewal windows extracted and alerted before they lapse.</p></div>
-<div class="card"><h3>Matter &amp; workload reporting</h3><p>Cycle times, volumes by type and team capacity &mdash; evidence for the next headcount conversation.</p></div>
+<div class="card"><h3>Matter &amp; workload reporting</h3><p>Cycle times, volumes by type and team capacity, evidence for the next headcount conversation.</p></div>
 <div class="card"><h3>Document storage links</h3><p>Executed contracts linked to SharePoint, Google Drive or your DMS with consistent naming.</p></div>
 </div>
 </div>
@@ -147,8 +147,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -162,18 +162,17 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"We found monday to be more customisable and transparent for both internal and external stakeholders. It reduced double handling of issues."</p><div class="who"><b>Mairhead McKinley</b> · Delivery Manager, Givergy</div></div>
 <div class="quote"><p>"Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
@@ -191,10 +190,10 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Is monday.com a replacement for a CLM platform?</summary><div class="a">For many in-house teams it covers the 80% that matters &mdash; intake, lifecycle tracking, approvals and obligations &mdash; at a fraction of CLM cost. Where a dedicated CLM or e-signature tool stays, we integrate with it.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Is monday.com a replacement for a CLM platform?</summary><div class="a">For many in-house teams it covers the 80% that matters, intake, lifecycle tracking, approvals and obligations, at a fraction of CLM cost. Where a dedicated CLM or e-signature tool stays, we integrate with it.</div></details>
 <details><summary>How does confidentiality work?</summary><div class="a">Board- and item-level permissions restrict sensitive matters to named users, with the wider business seeing only what you choose to expose (such as request status).</div></details>
-<details><summary>Can obligations and renewals be automated?</summary><div class="a">Yes &mdash; key dates carry automated alerts and escalation, and renewals generate review tasks ahead of notice periods.</div></details>
+<details><summary>Can obligations and renewals be automated?</summary><div class="a">Yes, key dates carry automated alerts and escalation, and renewals generate review tasks ahead of notice periods.</div></details>
 <details><summary>How long does setup take?</summary><div class="a">Legal team builds are typically live in two to three weeks, including migration of your current contract register. Fixed fee agreed before any build starts.</div></details>
 </div>
 </section>

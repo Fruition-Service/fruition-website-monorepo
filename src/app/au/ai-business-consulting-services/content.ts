@@ -8,7 +8,7 @@ export const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Consulting Services Australia | AI Strategy Consultants — Fruition</title>
+<title>AI Consulting Services Australia | AI Strategy Consultants | Fruition</title>
 <meta name="description" content="Enterprise-grade AI consulting services and strategy for Australian businesses. AI management consulting, AI business process automation, and custom LLM deployment. Book a free consultation.">
 <meta name="keywords" content="ai consultants, ai strategy consultants, ai consulting services, ai management consulting, ai for business, ai business process automation">
 <meta name="robots" content="noindex, follow">
@@ -39,43 +39,34 @@ ${LP_FONTS}
 <div>
 <div class="badges">
 <span class="badge badge-dark"><span class="badge-dot"></span> Sydney-Headquartered AI Consultants</span>
-<span class="badge badge-lite">Tool-Agnostic · Enterprise-Grade</span>
 </div>
 <h1>Enterprise-Grade AI Consulting Services &amp; Strategy for <em>Australian Businesses</em></h1>
 <p class="sub">Supercharge your operations, eliminate manual bottlenecks, and unlock rapid scaling. Partner with premier AI strategy consultants in Australia to architect custom large language models (LLMs), intelligent workflow systems, and advanced agentic automations.</p>
-<div class="hero-form">
-<form action="#" method="post">
+<ul class="ticks">
+<li>AI strategy and execution roadmaps</li>
+<li>Process automation with custom APIs and Make.com</li>
+<li>LLM integrations and agentic workflows</li>
+<li>Team training so the new tools get used</li>
+</ul>
+<div class="hero-tags">
+<span>Sydney headquartered</span>
+<span>Anthropic and OpenAI partner</span>
+<span>900+ implementations</span>
+<span>Fixed-fee quotes</span>
+</div>
+</div>
+<div class="form-card hero-card">
+<h2>Book a 20-minute AI readiness call</h2>
+<p class="fsub">An Australian consultant replies within one business day.</p>
+<form action="#" method="post" id="lead">
 <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
-<div class="hf-row">
-<input type="email" name="email" required placeholder="Business Email" aria-label="Business Email">
-<input type="tel" name="phone" required placeholder="Phone Number" aria-label="Phone Number">
-</div>
-<button type="submit" class="hf-btn">Book My Free Consultation</button>
-<div class="hf-note">30 minutes · Australia &amp; New Zealand team · No obligation</div>
+<div class="ff"><label for="h-name">Full Name</label><input type="text" id="h-name" name="name" required placeholder="Your name"></div>
+<div class="ff"><label for="h-email">Business Email</label><input type="email" id="h-email" name="email" required placeholder="you@company.com.au"></div>
+<div class="ff"><label for="h-phone">Phone Number</label><input type="tel" id="h-phone" name="phone" required placeholder="+61 ..."></div>
+<div class="ff"><label for="h-goals">Briefly describe your project or workflow goals</label><textarea id="h-goals" name="goals" placeholder="e.g. We want to automate quote generation and connect our CRM to Xero…"></textarea></div>
+<button type="submit" class="form-btn">Book My Free Consultation</button>
+<div class="form-trust">30 minutes · Australia &amp; New Zealand team · No obligation</div>
 </form>
-</div>
-</div>
-<div class="pipe" aria-hidden="true">
-<div class="pipe-title"><span class="pulse"></span>Agentic Automation Pipeline — Live</div>
-<div class="node-row">
-<div class="node">Inbound Email<small>Customer enquiry received</small></div>
-<span class="arrow">→</span>
-<div class="node hot">LLM Classifier<small>Intent + priority detected</small></div>
-</div>
-<div class="node-row">
-<div class="node hot">AI Agent<small>Drafts response · checks CRM</small></div>
-<span class="arrow">→</span>
-<div class="node">Approval Gate<small>Human review · 8 sec</small></div>
-</div>
-<div class="node-row">
-<div class="node">CRM Updated<small>Deal stage + activity logged</small></div>
-<span class="arrow">→</span>
-<div class="node">Reply Sent<small>4 min end-to-end</small></div>
-</div>
-<div class="node-row" style="margin-bottom:0">
-<div class="node" style="text-align:center"><small style="margin:0">Manual handling time eliminated</small>92%</div>
-<div class="node" style="text-align:center"><small style="margin:0">Processes automated this quarter</small>38</div>
-</div>
 </div>
 </div>
 </div></header>
@@ -93,8 +84,8 @@ ${LP_FONTS}
 <!-- 3. CORE CAPABILITIES -->
 <section><div class="wrap">
 <div class="eyebrow">What we build</div>
-<h2>Tailored AI for Business Transformation &amp; Architecture</h2>
-<p class="lede">Precisely matched to how Australian enterprises adopt AI — strategy, automation, and engineering under one roof.</p>
+<h2>Tailored AI for Business <em>Transformation &amp; Architecture</em></h2>
+<p class="lede">Precisely matched to how Australian enterprises adopt AI, strategy, automation, and engineering under one roof.</p>
 <div class="caps">
 <div class="cap">
 <h3>AI Management Consulting &amp; Strategy</h3>
@@ -108,13 +99,25 @@ ${LP_FONTS}
 <h3>Elite AI Consultants &amp; Engineers</h3>
 <p>Stop looking for off-the-shelf answers. Work directly with certified ai consultants to deploy intelligent virtual assistants, automated data analysis structures, and custom fine-tuned models tailored to your industry.</p>
 </div>
+<div class="cap">
+<h3>AI Governance &amp; ISO/IEC 42001</h3>
+<p>Approval rules, data access controls, output checks and logging, designed to the ISO/IEC 42001 standard so you can certify later without rebuilding.</p>
+</div>
+<div class="cap">
+<h3>Claude &amp; ChatGPT Integrations</h3>
+<p>Internal knowledge search, document processing and support automation on Claude or ChatGPT, with documents retrieved at query time rather than stored in the AI platform.</p>
+</div>
+<div class="cap">
+<h3>monday.com AI</h3>
+<p>monday AI Blocks, Sidekick and agents configured against your real processes, with custom Claude or OpenAI integration for heavier work.</p>
+</div>
 </div>
 </div></section>
 
 <!-- 4. WHY FRUITION -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">The Fruition edge</div>
-<h2>The Fruition Edge: Enterprise Strategy, Local Delivery</h2>
+<h2>The Fruition Edge: <em>Enterprise Strategy, Local Delivery</em></h2>
 <div class="why">
 <div class="why-card">
 <div class="why-num">01</div>
@@ -137,37 +140,19 @@ ${LP_FONTS}
 <!-- 5. TEAM -->
 <section><div class="wrap">
 <div class="eyebrow">Your Australian AI team</div>
-<h2>Work Directly With Leading Australian AI Strategy Consultants</h2>
+<h2>Work Directly With Leading <em>Australian AI Strategy Consultants</em></h2>
 <p class="lede">The people who scope your automation roadmap are the people who engineer it.</p>
 <div class="team">
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?w=800&amp;h=600&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><span>Josh Jebathilak</span></div>
-<div class="tm-body">
-<div class="tm-role">Director, APAC</div>
-<p>Leads AI strategy and delivery across the region. Personally oversaw intelligent system builds and process automations for hundreds of organisations.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img">Natalia Mishenina</div>
-<div class="tm-body">
-<div class="tm-role">Technical Project Manager</div>
-<p>Expert in SaaS implementation and process mapping — guiding AI solution design from discovery and data audit through to secure system handover.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img">AI Integration Specialists</div>
-<div class="tm-body">
-<div class="tm-role">Engineering Squad</div>
-<p>Certified engineers deploying LLM integrations, agentic workflows, and automated data pipelines across enterprise environments Australia-wide.</p>
-</div>
-</div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&amp;w=560&amp;h=560&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Director, APAC</div><p>Leads AI strategy and delivery across the region. Personally oversaw intelligent system builds and process automations for hundreds of organisations.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&amp;h=560&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
+<div class="member"><div class="avatar" aria-hidden="true">AI</div><h3>AI Integration Specialists</h3><div class="role">Engineering Squad</div><p>Certified engineers deploying LLM integrations, agentic workflows, and automated data pipelines across enterprise environments Australia-wide.</p></div>
 </div>
 </div></section>
 
 <!-- 6. METHODOLOGY -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">The blueprint framework</div>
-<h2>From Strategy to Execution</h2>
+<h2>From Strategy <em>to Execution</em></h2>
 <div class="steps">
 <div class="step"><div class="step-n">1</div><h3>Complimentary Process Mapping</h3><p>We evaluate your workflows to find high-impact automation targets.</p></div>
 <div class="step"><div class="step-n">2</div><h3>Detailed Recommendation</h3><p>A precise technical scope of work, selected models, and fixed quoting.</p></div>
@@ -176,22 +161,23 @@ ${LP_FONTS}
 </div>
 </div></section>
 
+<!-- 6b. FAQ -->
+<section><div class="wrap">
+<p class="k">Before you book</p>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details><summary>Where should an AI project start?</summary><div class="a">With a complimentary process-mapping session. We look at how work moves through your business today and pick the automation targets with the highest return, then send a detailed recommendation with the technical scope, the selected models and a fixed quote.</div></details>
+<details><summary>Which AI models and tools do you use?</summary><div class="a">We are tool agnostic and a partner of both Anthropic and OpenAI. We match the model or automation tool, such as Claude, ChatGPT or Make.com, to your data, security and cost profile, and we will tell you if a smaller model does the job.</div></details>
+<details><summary>Is our data used to train AI models?</summary><div class="a">Not by default: business API access to Claude and OpenAI models is not used for model training. We also design integrations so your documents are retrieved at query time rather than stored in the AI platform, and review the data flow with you during scoping.</div></details>
+<details><summary>How long does an AI build take?</summary><div class="a">Most integrations are live in two to six weeks depending on complexity. A focused internal tool sits at the smaller end; a workflow spanning several systems and data sources runs longer. The timeline and the fixed quote are agreed before the build starts.</div></details>
+<details><summary>Do you train our team?</summary><div class="a">Yes. Adoption and team training is the last step of every engagement, on the specific tools your people will use rather than generic AI awareness sessions.</div></details>
+</div></section>
+
 <!-- 7. CLOSING FORM -->
 <section class="close-band" id="book"><div class="wrap">
 <div class="eyebrow" style="color:var(--p3)">Get started</div>
-<h2>Ready to Automate and Scale Your Business Operations?</h2>
+<h2>Ready to Automate and <em>Scale Your Business Operations?</em></h2>
 <p class="lede">Stop letting manual work slow down your growth. Let's build a smarter organisation together. Book a complimentary process session with a certified AI consultant in Australia today.</p>
-<div class="form-card">
-<form action="#" method="post">
-<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
-<div class="ff"><label for="name">Full Name</label><input type="text" id="name" name="name" required placeholder="Your name"></div>
-<div class="ff"><label for="email2">Business Email</label><input type="email" id="email2" name="email" required placeholder="you@company.com.au"></div>
-<div class="ff"><label for="phone2">Phone Number</label><input type="tel" id="phone2" name="phone" required placeholder="+61 ..."></div>
-<div class="ff"><label for="goals">Briefly describe your business process or automation goals</label><textarea id="goals" name="goals" placeholder="e.g. We want to automate quote generation and connect our CRM to Xero…"></textarea></div>
-<button type="submit" class="form-btn">Secure My Free Consultation</button>
-<div class="form-trust">🔒 Secure &amp; 100% Confidential Data Evaluation.</div>
-</form>
-</div>
+<div class="calendly-box"></div>
 </div></section>
 
 <!-- Minimal footer: no links -->

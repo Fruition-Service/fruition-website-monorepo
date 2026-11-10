@@ -19,7 +19,7 @@ const AWAITING_PHOTO = new Set([
 
 /** The team markup, from its opening container to the end of that section. */
 function teamBlock(html: string): string {
-  const start = html.search(/<section class="lp-team"|<div class="team"|<div class="tm"/)
+  const start = html.search(/<section class="lp-team(?: alt)?"|<div class="team"|<div class="tm"/)
   if (start < 0) return ""
   const close = html.indexOf("</section>", start)
   return html.slice(start, close < 0 ? undefined : close)
@@ -39,7 +39,7 @@ describe("landing team band", () => {
       expect(hasTeamSection(out)).toBe(true)
 
       // One band, not a stack of them. The consulting template repeats class="tm" per card.
-      const bands = (out.match(/class="(?:team|lp-team)"/g) ?? []).length
+      const bands = (out.match(/class="(?:team|lp-team)(?: alt)?"/g) ?? []).length
       const tmCards = (out.match(/class="tm"/g) ?? []).length
       expect(Math.max(bands, tmCards > 0 ? 1 : 0)).toBe(1)
 
@@ -59,7 +59,7 @@ describe("landing team band", () => {
     for (const route of routes) {
       const { html } = await import(`@/app/${route.page}/content`)
       const out = withLandingPageLayout(html, [], route.region as LeadRegion)
-      if (!out.includes('class="lp-team"')) continue
+      if (!/class="lp-team(?: alt)?"/.test(out)) continue
       injected += 1
 
       const imgs = teamBlock(out).match(/<img [^>]*>/g) ?? []
@@ -81,7 +81,7 @@ describe("landing team band", () => {
       const { html } = await import(`@/app/${route.page}/content`)
       const own = /\bclass="(?:team|tm)\b/.test(html)
       const out = withLandingPageLayout(html, [], route.region as LeadRegion)
-      expect(out.includes('class="lp-team"')).toBe(!own)
+      expect(/class="lp-team(?: alt)?"/.test(out)).toBe(!own)
     }
   })
 
@@ -89,7 +89,7 @@ describe("landing team band", () => {
     for (const route of routes) {
       const { html } = await import(`@/app/${route.page}/content`)
       const out = withLandingPageLayout(html, [], route.region as LeadRegion)
-      if (!out.includes('class="lp-team"')) continue
+      if (!/class="lp-team(?: alt)?"/.test(out)) continue
       for (const member of landingTeam(route.region as LeadRegion)) {
         expect(out).toContain(member.name)
         expect(out).toContain(member.photo)
@@ -100,8 +100,8 @@ describe("landing team band", () => {
   it("puts the band under the proof band, before the booking band", async () => {
     const { html } = await import("@/app/au/monday-ai-integration/content")
     const out = withLandingPageLayout(html, [], "APAC")
-    const proof = out.search(/<section class="lpp"/)
-    const team = out.search(/<section class="lp-team"/)
+    const proof = out.search(/<section class="lpp\b/)
+    const team = out.search(/<section class="lp-team\b/)
     const booking = out.search(/<section class="final" id="book">/)
     expect(proof).toBeGreaterThanOrEqual(0)
     expect(team).toBeGreaterThan(proof)

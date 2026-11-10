@@ -8,7 +8,7 @@ export const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>monday.com Consulting Services Australia | Certified Platinum Partner — Fruition</title>
+<title>monday.com Consulting Services Australia | Certified Platinum Partner | Fruition</title>
 <meta name="description" content="Expert monday.com consulting services and implementation across Australia. monday CRM consultants, workflow automation and certified Platinum Partner delivery. Book a free consultation.">
 <meta name="keywords" content="monday consulting services, monday CRM consultants, monday implementation consultant, monday.com consulting services, monday.com certified partner, monday com consultant Australia">
 <meta name="robots" content="noindex, follow">
@@ -37,25 +37,34 @@ ${LP_FONTS}
 <div>
 <div class="badges">
 <span class="badge badge-platinum"><span class="badge-dot"></span> monday.com Platinum Partner</span>
-<span class="badge badge-adv">Advanced Delivery Partner</span>
 </div>
 <h1>Expert monday.com Consulting Services &amp; Implementation <em>Across Australia</em></h1>
 <p class="sub">Streamline your workflows, maximise efficiency, and build a system your team loves. Book a session with a monday.com Certified Partner today for custom setups, seamless integrations, and end-to-end automation.</p>
-<div class="cta-row">
-<a href="#book" class="b1">Book a Free Consultation →</a>
-<span class="cta-note">30 minutes · No obligation · Australian team</span>
+<ul class="ticks">
+<li>Custom monday CRM, service and work management builds</li>
+<li>Xero, QuickBooks, Salesforce and HubSpot integrations</li>
+<li>Data migration from spreadsheets and third-party tools</li>
+<li>Champion training for company-wide adoption</li>
+</ul>
+<div class="hero-tags">
+<span>monday.com Platinum Partner</span>
+<span>Advanced Delivery Partner</span>
+<span>900+ implementations</span>
+<span>NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
-<div class="dash" aria-hidden="true">
-<div class="dash-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ttl">Sales Pipeline — Q3</span></div>
-<div class="dash-body">
-<div class="dash-row h"><span>Deal</span><span>Status</span><span>Owner</span><span>Progress</span></div>
-<div class="dash-row"><span class="dash-name">Acme Rollout</span><span class="pill pg">Won</span><span>N. M.</span><span class="bar"><i style="width:100%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Harbour Group CRM</span><span class="pill pa">Proposal</span><span>B. M.</span><span class="bar"><i style="width:64%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Northside Services</span><span class="pill pp">Discovery</span><span>J. J.</span><span class="bar"><i style="width:32%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Coastal Build Co</span><span class="pill pa">Proposal</span><span>N. M.</span><span class="bar"><i style="width:58%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Fieldline Logistics</span><span class="pill pg">Won</span><span>B. M.</span><span class="bar"><i style="width:100%"></i></span></div>
-</div>
+<div class="form-card hero-card">
+<h2>Get your free workflow blueprint</h2>
+<p class="fsub">An Australian consultant replies within one business day.</p>
+<form action="#" method="post" id="lead">
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
+<div class="ff"><label for="h-name">Full Name</label><input type="text" id="h-name" name="name" required placeholder="Your name"></div>
+<div class="ff"><label for="h-email">Business Email</label><input type="email" id="h-email" name="email" required placeholder="you@company.com.au"></div>
+<div class="ff"><label for="h-phone">Phone Number</label><input type="tel" id="h-phone" name="phone" required placeholder="+61 ..."></div>
+<div class="ff"><label for="h-goals">Briefly describe your project or workflow goals</label><textarea id="h-goals" name="goals" placeholder="e.g. We need a CRM and job-tracking system connected to Xero…"></textarea></div>
+<button type="submit" class="form-btn">Book My Free Consultation</button>
+<div class="form-trust">No obligation. 100% confidential.</div>
+</form>
 </div>
 </div>
 </div></header>
@@ -73,8 +82,8 @@ ${LP_FONTS}
 <!-- 3. CORE CAPABILITIES -->
 <section><div class="wrap">
 <div class="eyebrow">What we deliver</div>
-<h2>Tailored monday Implementation Consultant Solutions for Every Workflow</h2>
-<p class="lede">Certified, keyword-deep expertise across the full monday.com product suite — built around how your teams actually work.</p>
+<h2>Tailored monday Implementation Consultant Solutions <em>for Every Workflow</em></h2>
+<p class="lede">Certified, keyword-deep expertise across the full monday.com product suite, built around how your teams actually work.</p>
 <div class="caps">
 <div class="cap">
 <h3>monday CRM Consultants</h3>
@@ -82,11 +91,23 @@ ${LP_FONTS}
 </div>
 <div class="cap">
 <h3>Workflow Automation &amp; Integrations</h3>
-<p>Connect your entire tech stack — Xero, QuickBooks, Salesforce, or HubSpot — using Make.com or custom API developments to reduce manual tasks.</p>
+<p>Connect your entire tech stack, Xero, QuickBooks, Salesforce, or HubSpot, using Make.com or custom API developments to reduce manual tasks.</p>
 </div>
 <div class="cap">
 <h3>monday Service &amp; Work Management</h3>
 <p>Set up IT helpdesks, operational dashboards, customer portals, or employee self-service solutions engineered by a certified monday com consultant in Australia.</p>
+</div>
+<div class="cap">
+<h3>Data Migration</h3>
+<p>Move historical records from spreadsheets, Salesforce, HubSpot or other tools into monday.com with relationships intact and record counts checked before cutover.</p>
+</div>
+<div class="cap">
+<h3>monday AI &amp; Agents</h3>
+<p>Configure monday AI Blocks, Sidekick and agents against your real processes, with Claude or OpenAI integrations for heavier document and workflow tasks.</p>
+</div>
+<div class="cap">
+<h3>Training &amp; Adoption</h3>
+<p>Champion and end-user training on your own boards, not generic templates, so the whole company actually uses what was built.</p>
 </div>
 </div>
 </div></section>
@@ -94,7 +115,7 @@ ${LP_FONTS}
 <!-- 4. WHY FRUITION -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">The insider advantage</div>
-<h2>Why Partner with Our Dedicated monday.com Consulting Services?</h2>
+<h2>Why Partner with Our Dedicated <em>monday.com Consulting Services?</em></h2>
 <div class="why">
 <div class="why-card">
 <div class="why-num">01</div>
@@ -104,7 +125,7 @@ ${LP_FONTS}
 <div class="why-card">
 <div class="why-num">02</div>
 <h3>Proven Scale &amp; Success</h3>
-<p>An Advanced Delivery Partner with a flawless 5.0 CSAT rating and over 700 successful implementations worldwide.</p>
+<p>An Advanced Delivery Partner with a flawless 5.0 CSAT rating and over 900 successful implementations worldwide.</p>
 </div>
 <div class="why-card">
 <div class="why-num">03</div>
@@ -113,7 +134,7 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="stats">
-<div class="stat"><b>700+</b><span>Implementations worldwide</span></div>
+<div class="stat"><b>900+</b><span>Implementations worldwide</span></div>
 <div class="stat"><b>5.0</b><span>CSAT rating</span></div>
 <div class="stat"><b>600+</b><span>Client optimisations</span></div>
 <div class="stat"><b>Platinum</b><span>Partner tier</span></div>
@@ -123,37 +144,19 @@ ${LP_FONTS}
 <!-- 5. TEAM -->
 <section><div class="wrap">
 <div class="eyebrow">Your Australian team</div>
-<h2>Work Directly with a Certified monday.com Partner Consultant</h2>
+<h2>Work Directly with a Certified <em>monday.com Partner Consultant</em></h2>
 <p class="lede">No handoffs, no offshore bench. The people below scope and deliver your build.</p>
 <div class="team">
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?w=800&amp;h=600&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><span>Josh Jebathilak</span></div>
-<div class="tm-body">
-<div class="tm-role">Director, APAC</div>
-<p>Spent 4 years working directly within monday.com prior to launching Fruition. Personally oversaw system builds for hundreds of organisations.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img">Natalia Mishenina</div>
-<div class="tm-body">
-<div class="tm-role">Solution Engineer</div>
-<p>Expert in SaaS implementation, process mapping, and guiding technical solution design from initial discovery through to system handover.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/54c16cd7f1656cedb43a3c4e2d718c56e12f2bec-800x800.jpg?w=800&amp;h=600&amp;fit=crop" alt="Branson McMahon" loading="lazy"><span>Branson McMahon</span></div>
-<div class="tm-body">
-<div class="tm-role">Solution Engineer</div>
-<p>Specialises in translating complex operational requirements into functional capabilities using the full scope of the Work OS platform.</p>
-</div>
-</div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&amp;w=560&amp;h=560&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Director, APAC</div><p>Spent 4 years working directly within monday.com prior to launching Fruition. Personally oversaw system builds for hundreds of organisations.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&amp;h=560&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/54c16cd7f1656cedb43a3c4e2d718c56e12f2bec-800x800.jpg?w=560&amp;h=560&amp;fit=crop" alt="Branson McMahon" loading="lazy"><h3>Branson McMahon</h3><div class="role">Solution Engineer</div><p>Specialises in translating complex operational requirements into functional capabilities using the full scope of the Work OS platform.</p></div>
 </div>
 </div></section>
 
 <!-- 6. METHODOLOGY -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">What to expect</div>
-<h2>A Proven, ROI-Driven Framework</h2>
+<h2>A Proven, <em>ROI-Driven Framework</em></h2>
 <div class="steps">
 <div class="step"><div class="step-n">1</div><h3>Discovery &amp; Scoping</h3><p>Mapping out your operational gaps and technical requirements.</p></div>
 <div class="step"><div class="step-n">2</div><h3>Solution Architecture</h3><p>Designing boards, creating automations, and configuring native features.</p></div>
@@ -162,22 +165,23 @@ ${LP_FONTS}
 </div>
 </div></section>
 
+<!-- 6b. FAQ -->
+<section><div class="wrap">
+<p class="k">Before you book</p>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details><summary>Is Fruition an official monday.com partner?</summary><div class="a">Yes. Fruition is a certified monday.com Platinum Partner and Advanced Delivery Partner, headquartered at 64 York Street, Sydney. Platinum is monday.com's highest partner tier, awarded on delivery volume and customer outcomes.</div></details>
+<details><summary>How much do monday.com consulting services cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately, and we'll tell you which plan tier you actually need.</div></details>
+<details><summary>How long does an implementation take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with data migration and integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
+<details><summary>Can you connect monday.com to Xero, HubSpot or Salesforce?</summary><div class="a">Yes. We connect monday.com to tools such as Xero, QuickBooks, Salesforce and HubSpot through native integrations, Make.com or custom API work, so records move between systems without manual re-keying. The integrations you need are mapped during scoping.</div></details>
+<details><summary>Who will we actually work with?</summary><div class="a">The Australian consultant who scopes your project delivers it. Discovery, build, data migration and champion training are run by the same certified team, with no hand-off to an offshore bench.</div></details>
+</div></section>
+
 <!-- 7. CLOSING + FORM -->
 <section class="close-band" id="book"><div class="wrap">
 <div class="eyebrow" style="color:var(--p3)">Get started</div>
-<h2>Ready to Transform the Way Your Team Works?</h2>
+<h2>Ready to Transform <em>the Way Your Team Works?</em></h2>
 <p class="lede">Stop wrestling with messy spreadsheets and disconnected platforms. Get a customised workflow blueprint engineered by the leading monday com consultant in Australia.</p>
-<div class="form-card">
-<form action="#" method="post">
-<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
-<div class="ff"><label for="name">Full Name</label><input type="text" id="name" name="name" required placeholder="Your name"></div>
-<div class="ff"><label for="email">Business Email</label><input type="email" id="email" name="email" required placeholder="you@company.com.au"></div>
-<div class="ff"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" required placeholder="+61 ..."></div>
-<div class="ff"><label for="goals">Briefly describe your project or workflow goals</label><textarea id="goals" name="goals" placeholder="e.g. We need a CRM and job-tracking system connected to Xero…"></textarea></div>
-<button type="submit" class="form-btn">Book My Free Consultation</button>
-<div class="form-trust">No obligation. 100% confidential.</div>
-</form>
-</div>
+<div class="calendly-box"></div>
 </div></section>
 
 <!-- Minimal footer: no links -->

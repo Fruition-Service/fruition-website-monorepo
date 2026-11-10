@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Labour Hire & Recruitment | Fruition</title>
-<meta name="description" content="monday.com for Australian labour hire and recruitment agencies. Candidate pipelines, compliance, placements and client accounts &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com for Australian labour hire and recruitment agencies. Candidate pipelines, compliance, placements and client accounts, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -51,9 +51,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">👷 monday.com Platinum Partner · Labour Hire &amp; Recruitment · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Labour Hire &amp; Recruitment</em> agencies</h1>
-<p class="sub">Candidate pipelines, tickets and compliance, placements and client accounts in one system &mdash; replacing spreadsheets and ageing ATS tools, live in 2–4 weeks.</p>
+<p class="sub">Candidate pipelines, tickets and compliance, placements and client accounts in one system, replacing spreadsheets and ageing ATS tools, live in 2-4 weeks.</p>
 <ul class="ticks">
 <li>Candidate database with tickets, licences and expiry alerts</li>
 <li>Placement and roster boards per client and site</li>
@@ -116,7 +116,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -131,12 +131,12 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">One system from candidate to placement to invoice</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">One system from candidate to <em>placement to invoice</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
-<div class="card"><h3>Candidate pipeline</h3><p>Structured intake, screening and availability tracking &mdash; searchable by ticket, trade, location and status.</p></div>
+<div class="card"><h3>Candidate pipeline</h3><p>Structured intake, screening and availability tracking, searchable by ticket, trade, location and status.</p></div>
 <div class="card"><h3>Tickets &amp; compliance</h3><p>White cards, licences, medicals and VOCs with automated expiry alerts before they bite.</p></div>
-<div class="card"><h3>Placements &amp; rosters</h3><p>Who's on which site for which client at what rate &mdash; visible to consultants and payroll alike.</p></div>
+<div class="card"><h3>Placements &amp; rosters</h3><p>Who's on which site for which client at what rate, visible to consultants and payroll alike.</p></div>
 <div class="card"><h3>Client accounts &amp; rates</h3><p>A real CRM for client companies: contacts, rate cards, margins and account activity.</p></div>
 <div class="card"><h3>Timesheet &amp; payroll handoff</h3><p>Capture hours against placements and hand clean data to your payroll system.</p></div>
 <div class="card"><h3>Reporting</h3><p>Fill rates, redeployment, margin per client and consultant performance on live dashboards.</p></div>
@@ -147,8 +147,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -162,18 +162,17 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Couldn't be more happier. Thank you Josh for your hard work and commitment. Highly recommend!"</p><div class="who"><b>Bianca Genesio</b> · Central Manager, G8 Education</div></div>
 <div class="quote"><p>"Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
@@ -191,10 +190,10 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Can monday.com replace our ATS?</summary><div class="a">For many labour hire agencies, yes &mdash; candidate pipeline, compliance and placements run well on monday.com, with far more flexibility than a rigid ATS. Where a specialist ATS stays, we integrate rather than replace.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Can monday.com replace our ATS?</summary><div class="a">For many labour hire agencies, yes, candidate pipeline, compliance and placements run well on monday.com, with far more flexibility than a rigid ATS. Where a specialist ATS stays, we integrate rather than replace.</div></details>
 <details><summary>How is compliance handled?</summary><div class="a">Tickets, licences and medicals are stored against each candidate with automated expiry alerts and site-requirement matching, so no one is placed without current documentation.</div></details>
-<details><summary>Does it connect to payroll?</summary><div class="a">We hand off structured timesheet and placement data to payroll platforms via integrations or exports &mdash; no re-keying between systems.</div></details>
+<details><summary>Does it connect to payroll?</summary><div class="a">We hand off structured timesheet and placement data to payroll platforms via integrations or exports, no re-keying between systems.</div></details>
 <details><summary>What does it cost?</summary><div class="a">Fixed fee quoted after a scoping call, agreed before any build starts. monday.com licences are billed separately and we'll tell you which plan tier you actually need.</div></details>
 </div>
 </section>

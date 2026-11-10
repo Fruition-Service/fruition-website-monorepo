@@ -172,7 +172,7 @@ export function renderTeamSection(region?: LeadRegion): string {
   return `<section class="lp-team" id="team">
 <div class="wrap">
 <p class="lp-team-k">Your consultants</p>
-<h2>Work directly with a certified monday.com partner consultant</h2>
+<h2>Work directly with a certified <em>monday.com partner consultant</em></h2>
 <p class="lp-team-lede">Engagements are scoped and delivered personally by the consultant who does the build, not handed to an offshore bench.</p>
 <div class="lp-team-grid">
 ${members.map(card).join("\n")}

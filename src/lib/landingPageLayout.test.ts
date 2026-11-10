@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { withLandingPageLayout } from "./landingPage"
+import { FAQ_CONTACT_EMAIL, withFaq, withLandingPageLayout } from "./landingPage"
 import { extractProof } from "./landingPageProof"
 import { adLandingPages } from "./adLandingPages"
 import type { LeadRegion } from "./leadNotify"
@@ -17,7 +17,7 @@ describe("withLandingPageLayout", () => {
     const out = withLandingPageLayout(html, shared, region)
 
     const hero = out.search(/<(section|header) class="hero"/)
-    const proof = out.search(/<section class="lpp"/)
+    const proof = out.search(/<section class="lpp\b/)
     const booking = out.search(/<section class="final" id="book">/)
     const footer = out.search(/<footer\b/)
 
@@ -38,21 +38,51 @@ describe("withLandingPageLayout", () => {
     // Same design as the site's Client proof section: no rating tiles under the intro.
     expect(out).not.toContain("lpp-rating")
     // Logos only, no links out of the page from the band.
-    const band = out.slice(proof, out.indexOf("</section>", proof))
+    // The proof is two sections: the logo wall, then the client quotes.
+    const band = out.slice(proof, out.indexOf("</section>", out.indexOf('id="reviews"')))
     expect(band.match(/<img [^>]*alt="[^"]+"/g)?.length ?? 0).toBeGreaterThan(0)
     expect(band.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => a.includes('href="#lead"'))).toBe(true)
     expect(band).toContain("Shared quote")
 
-    // Logos first, with the regional title and description under them, then the quotes.
+    // Site section header first (regional title left, description right), then the logos, then the quotes.
+    const title = band.indexOf('class="lpp-h2 lpp-logos-h2"')
+    const lead = band.indexOf('class="lpp-lead lpp-logos-lead"')
     const logos = band.indexOf('class="lpp-grid"')
-    const title = band.indexOf("Trusted by teams across 900+ implementations.")
-    const lead = band.indexOf('class="lpp-lead lpp-center lpp-logos-lead"')
     const quotes = band.indexOf(">Client proof<")
-    expect(logos).toBeGreaterThan(0)
-    expect(title).toBeGreaterThan(logos)
+    expect(band.replace(/<\/?em>/g, "")).toContain("Trusted by teams across 900+ implementations.")
+    expect(title).toBeGreaterThan(0)
     expect(lead).toBeGreaterThan(title)
-    expect(quotes).toBeGreaterThan(lead)
+    expect(logos).toBeGreaterThan(lead)
+    expect(quotes).toBeGreaterThan(logos)
   })
+
+  it.each(routes.map((r) => [r.page, r.source, r.region] as const))(
+    "%s: page-specific banner, booking copy, closing band and social row",
+    async (page, source, region) => {
+      const { html } = await import(`@/app/${page}/content`)
+      const out = withLandingPageLayout(html, shared, region as LeadRegion, source)
+      const audit = out.search(/class="lp-audit-sec\b/)
+      const booking = out.search(/<section class="(?:final|close-band)" id="book">/)
+      const closing = out.indexOf('class="lp-closing"')
+      const footer = out.search(/<footer\b|<div class="foot">/)
+      expect(audit).toBeGreaterThan(out.search(/<section class="lpp\b/))
+      expect(closing).toBeGreaterThan(booking)
+      expect(closing).toBeLessThan(footer)
+      expect(out.slice(footer)).toContain('class="lp-soc"')
+      if (booking >= 0) {
+        const band = out.slice(booking, out.indexOf("</section>", booking))
+        expect(band).not.toContain("Ready to get running in days, not months?")
+      }
+      // Every CTA in the new bands goes back to the lead form (or the phone).
+      const bands = out.slice(audit, out.indexOf("</section>", audit)) + out.slice(closing, footer)
+      expect(bands.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => /href="(#lead|#book|tel:)/.test(a))).toBe(true)
+      // No em or en dashes in the rendered copy (comments, scripts and the Calendly placeholder aside).
+      const text = out
+        .replace(/<!--[\s\S]*?-->|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/g, "")
+        .replace(/<div class="calendly-box">[\s\S]*?<\/div>/g, "")
+      expect(text).not.toMatch(/&mdash;|&ndash;|\u2014|\u2013/)
+    },
+  )
 
   it.each(pages)("%s uses the shared Fruition theme, not its own stylesheet", async (page) => {
     const { html } = await import(`@/app/${page}/content`)
@@ -73,6 +103,38 @@ describe("withLandingPageLayout", () => {
     const { html } = await import("@/app/uk/monday-partner/content")
     const once = withLandingPageLayout(html, shared)
     expect(withLandingPageLayout(once, shared)).toBe(once)
+  })
+})
+
+describe("withFaq", () => {
+  it.each(pages)("%s: has a proper FAQ in the site's split layout", async (page) => {
+    const { html } = await import(`@/app/${page}/content`)
+    const questions = (html.match(/<details\b/g) ?? []).length
+    // Every ad page answers at least four of the questions buyers ask before booking.
+    expect(questions).toBeGreaterThanOrEqual(4)
+    const out = withLandingPageLayout(html, shared, regionOf(page))
+    expect(out.match(/<section class="lp-faq\b[^"]*" id="faq">/g)).toHaveLength(1)
+    const start = out.search(/<section class="lp-faq\b/)
+    const faq = out.slice(start, out.indexOf("</section>", start))
+    const head = faq.indexOf('<div class="lp-faq-head">')
+    const list = faq.indexOf('<div class="lp-faq-list">')
+    expect(head).toBeGreaterThan(0)
+    expect(list).toBeGreaterThan(head)
+    // Heading and contact line on the left, every question on the right, all closed.
+    expect(faq.slice(head, list)).toMatch(/<h2 class="sec">/)
+    expect(faq.slice(head, list)).toContain(`mailto:${FAQ_CONTACT_EMAIL}`)
+    expect(faq.slice(head, list)).not.toContain("<details")
+    expect(faq.slice(list).match(/<details>/g)).toHaveLength(questions)
+    expect(out).not.toContain("<details open")
+    expect(out.match(/<details\b/g)).toHaveLength(questions)
+  })
+
+  it("is idempotent and leaves pages without questions alone", () => {
+    const html = '<section class="alt"><div class="wrap"><p class="k">FAQ</p><h2 class="sec">Q</h2><details open><summary>A?</summary><div class="a">B.</div></details></div></section>'
+    const once = withFaq(html)
+    expect(once).toContain('<section class="lp-faq alt" id="faq">')
+    expect(withFaq(once)).toBe(once)
+    expect(withFaq("<section><div class=\"wrap\"><h2>x</h2></div></section>")).toBe("<section><div class=\"wrap\"><h2>x</h2></div></section>")
   })
 })
 

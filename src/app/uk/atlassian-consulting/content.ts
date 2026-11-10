@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atlassian Consultants UK | Jira &amp; Confluence Implementation | Fruition</title>
-<meta name="description" content="Certified Atlassian consultants in the UK. Jira, Confluence and JSM implementations, data migrations and training &mdash; fixed fee, delivered in 2&ndash;4 weeks.">
+<meta name="description" content="Certified Atlassian consultants in the UK. Jira, Confluence and JSM implementations, data migrations and training, fixed fee, delivered in 2-4 weeks.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -36,9 +36,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F3E2; Atlassian Partner &middot; Jira &middot; Confluence &middot; Trello &middot; JSM &middot; London &middot; Manchester &middot; Birmingham &middot; Edinburgh</div>
-<h1>Atlassian consultants &mdash; <em>Jira, Confluence &amp; JSM implementation</em></h1>
-<p class="sub">Certified Atlassian consultants delivering Jira Software, Jira Service Management, Confluence and Trello implementations &mdash; from initial setup through to enterprise-scale migrations and training.</p>
+<div class="eyebrow">Atlassian Partner</div>
+<h1>Atlassian consultants: <em>Jira, Confluence &amp; JSM implementation</em></h1>
+<p class="sub">Certified Atlassian consultants delivering Jira Software, Jira Service Management, Confluence and Trello implementations, from initial setup through to enterprise-scale migrations and training.</p>
 <ul class="ticks">
 <li>Jira and Confluence set up around your team&rsquo;s actual workflow</li>
 <li>Full data migration from Basecamp, Asana, Trello or spreadsheets</li>
@@ -97,15 +97,15 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">A proper Atlassian implementation, not a default template</h2>
-<p class="lede">Delivered by certified Atlassian consultants &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">A proper Atlassian implementation, <em>not a default template</em></h2>
+<p class="lede">Delivered by certified Atlassian consultants, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>Jira Software setup</h3><p>Boards, workflows, automations and permissions built around how your team actually works.</p></div>
 <div class="card"><h3>Jira Service Management</h3><p>ITSM ticketing, SLAs, approval flows and customer portals configured for your service teams.</p></div>
 <div class="card"><h3>Confluence knowledge base</h3><p>Space structure, templates, macros and permissions set up so your team actually uses it.</p></div>
 <div class="card"><h3>Data migration</h3><p>Projects, issues, comments and attachments migrated from Basecamp, Asana, Trello or spreadsheets.</p></div>
 <div class="card"><h3>Integrations</h3><p>Slack, Microsoft 365, GitHub, Bitbucket, Salesforce and your internal tools connected to Atlassian.</p></div>
-<div class="card"><h3>Training &amp; adoption</h3><p>Champions trained, end users enabled &mdash; your team owns the system before the engagement closes.</p></div>
+<div class="card"><h3>Training &amp; adoption</h3><p>Champions trained, end users enabled, your team owns the system before the engagement closes.</p></div>
 </div>
 </div>
 </section>
@@ -113,10 +113,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How an Atlassian implementation works</h2>
-<p class="lede">A proven, fixed-fee methodology &mdash; the same approach behind 900+ delivered systems.</p>
+<h2 class="sec">How an Atlassian <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee methodology, the same approach behind 900+ delivered systems.</p>
 <div class="steps">
-<div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your existing workflows, tools and data &mdash; and agree a fixed quote before any build starts.</p></div>
+<div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your existing workflows, tools and data, and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution design</h3><p>Boards, workflows, automations and permissions designed around how your team actually operates.</p></div>
 <div class="step"><div class="n">3</div><h3>Migration &amp; build</h3><p>Data moved in, integrations connected, the whole system tested end-to-end.</p></div>
 <div class="step"><div class="n">4</div><h3>Training &amp; handover</h3><p>Champions trained, end users enabled, system owned by your team.</p></div>
@@ -128,20 +128,19 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2&ndash;4 wks</div><div class="l">typical kickoff to a live, working Atlassian system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working Atlassian system</div></div>
 <div><div class="v">30%</div><div class="l"><!-- FOR EDWARD: confirm Atlassian productivity stat --> typical reduction in project admin time reported by clients</div></div>
 <div><div class="v">Full history</div><div class="l">projects, issues and attachments migrated with relationships preserved</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's Atlassian consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's Atlassian consultants</em></h2>
 <div class="quotes">
-<div class="quote"><p>&ldquo;Fruition set up our Jira and Confluence exactly the way we work &mdash; not the way the documentation says you should.&rdquo;</p><div class="who"><b>Head of Delivery</b> &middot; Financial services client</div></div>
+<div class="quote"><p>&ldquo;Fruition set up our Jira and Confluence exactly the way we work, not the way the documentation says you should.&rdquo;</p><div class="who"><b>Head of Delivery</b> &middot; Financial services client</div></div>
 <div class="quote"><p>&ldquo;Migration from our old Basecamp was seamless. Everything came across, all history preserved.&rdquo;</p><div class="who"><b>Operations Director</b> &middot; Professional services firm</div></div>
 </div>
 <!-- RATINGS: Edward &mdash; add live profile URLs -->
@@ -151,10 +150,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with certified Atlassian consultants</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with certified <em>Atlassian consultants</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director &mdash; EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director, EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/634ee0c5c7d9e2c0d18d21d8a387822961233fed-512x512.png?w=560&h=560&fit=crop" alt="Alex Bordei" loading="lazy"><h3>Alex Bordei</h3><div class="role">Implementation Manager</div><p>Workflow design, process automation and change management.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/ff248988d44e2d927a796f035b39f8bc5fe7b3f7-512x512.jpg?w=560&h=560&fit=crop" alt="Nevena Gravin" loading="lazy"><h3>Nevena Gravin</h3><div class="role">Implementation Lead</div><p>CRM, work management and ticketing system architecture.</p></div>
 </div>
@@ -164,7 +163,7 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
 <details open><summary>How long does an Atlassian implementation take?</summary><div class="a">Most Jira or Confluence implementations go live in two to four weeks from kickoff. A single-team Jira board can be running inside a week; a full JSM deployment with Confluence and integrations runs longer. The timeline is scoped and agreed before any build starts.</div></details>
 <details><summary>Do you migrate data from our existing tools?</summary><div class="a">Yes. We migrate projects, issues, attachments, comments and history from Basecamp, Asana, Trello, spreadsheets and other tools. Record counts are validated with you before cutover.</div></details>
 <details><summary>Which Atlassian products do you support?</summary><div class="a">Jira Software, Jira Service Management, Confluence, Trello and the Atlassian Cloud platform. We also connect them to Slack, Microsoft 365, GitHub, Bitbucket and Salesforce.</div></details>
@@ -178,7 +177,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from certified Atlassian consultants. If Atlassian isn&rsquo;t the right fit, we&rsquo;ll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from certified Atlassian consultants. If Atlassian isn&rsquo;t the right fit, we&rsquo;ll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation &rarr;</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> &middot; GMT/BST business hours</p>
 <p style="margin-top:14px;font-size:14px;color:var(--light)">Or explore our London office: <a href="/contact-us" style="color:var(--purple);font-weight:600;text-decoration:none">Contact Us &#8594;</a></p>
@@ -194,7 +193,7 @@ Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
 <footer>
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-white.svg" alt="Fruition Services">
-<div>Fruition Services &middot; 423 Linen Hall, 162&ndash;168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
+<div>Fruition Services &middot; 423 Linen Hall, 162-168 Regent Street, London W1B 5TE &middot; <a href="tel:+447822019548">+44 7822 019548</a></div>
 <div><a href="https://www.fruitionservices.io/data-privacy">Privacy</a> &middot; <a href="https://www.fruitionservices.io/terms-and-conditions">Terms</a></div>
 </div>
 </footer>

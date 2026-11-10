@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday CRM Consultants &amp; Migration US | Fruition</title>
-<meta name="description" content="monday CRM consultants in the US. Full-history migration from Salesforce, HubSpot or Pipedrive, pipelines rebuilt properly &mdash; by a Platinum Partner.">
+<meta name="description" content="monday CRM consultants in the US. Full-history migration from Salesforce, HubSpot or Pipedrive, pipelines rebuilt properly, by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -36,9 +36,9 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇺🇸 monday.com Platinum Partner · monday CRM & Migration · New York · Chicago · Austin · San Francisco</div>
-<h1>monday CRM consultants &mdash; <em>migrate from Salesforce, HubSpot or Pipedrive</em></h1>
-<p class="sub">Full-history CRM migrations and new monday CRM builds &mdash; contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell.</p>
+<div class="eyebrow">monday.com Platinum Partner</div>
+<h1>monday CRM consultants: <em>migrate from Salesforce, HubSpot or Pipedrive</em></h1>
+<p class="sub">Full-history CRM migrations and new monday CRM builds, contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell.</p>
 <ul class="ticks">
 <li>Complete history migrated: contacts, deals, emails, files</li>
 <li>Pipelines rebuilt properly, not copied flaws and all</li>
@@ -99,14 +99,14 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">A CRM migration, not a copy-paste of old problems</h2>
-<p class="lede">Delivered by certified monday.com consultants working your hours &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">A CRM migration, <em>not a copy-paste of old problems</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working your hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
-<div class="card"><h3>Migration audit</h3><p>Your current objects, fields, automations and integrations mapped &mdash; and what's worth leaving behind.</p></div>
+<div class="card"><h3>Migration audit</h3><p>Your current objects, fields, automations and integrations mapped, and what's worth leaving behind.</p></div>
 <div class="card"><h3>Full-history migration</h3><p>Contacts, companies, deals, activities, notes and files moved with relationships intact.</p></div>
 <div class="card"><h3>Pipeline redesign</h3><p>Stages, fields and automations rebuilt around how you sell now.</p></div>
 <div class="card"><h3>Integration reconnection</h3><p>Email, calendar, forms and QuickBooks, Salesforce, HubSpot, Microsoft 365, Teams and Slack reconnected to monday CRM.</p></div>
-<div class="card"><h3>Parallel-run cutover</h3><p>Old and new run side by side through a controlled cutover &mdash; no lost deals.</p></div>
+<div class="card"><h3>Parallel-run cutover</h3><p>Old and new run side by side through a controlled cutover, no lost deals.</p></div>
 <div class="card"><h3>Team enablement</h3><p>Training on your own pipeline plus 30-day post-go-live support.</p></div>
 </div>
 </div>
@@ -115,8 +115,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -130,18 +130,17 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Fruition have been instrumental in moving us to a single source of truth system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
 <div class="quote"><p>"Having experienced working with Josh directly at monday.com, I would have no hesitation recommending Josh in any consulting engagement."</p><div class="who"><b>Brad Cannon</b> · Senior Account Executive, monday.com</div></div>
@@ -159,10 +158,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800.jpg?w=560&h=560&fit=crop" alt="Zach Weller" loading="lazy"><h3>Zach Weller</h3><div class="role">Director &mdash; North America</div><p>Leads US delivery from New York &mdash; hands-on through scoping, build and training.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800.jpg?w=560&h=560&fit=crop" alt="Zach Weller" loading="lazy"><h3>Zach Weller</h3><div class="role">Director, North America</div><p>Leads US delivery from New York, hands-on through scoping, build and training.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop" alt="Nikhil Tiwari" loading="lazy"><h3>Nikhil Tiwari</h3><div class="role">Sales &amp; Implementation Lead</div><p>Certified monday.com and Make consultant with an ML and GenAI background.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/4179badfb046d5720f83fc8ed82e088cde8578bc-400x400.jpg?w=560&h=560&fit=crop" alt="Valeria Marin" loading="lazy"><h3>Valeria Marin</h3><div class="role">Implementation Consultant</div><p>Optimizes business processes and ensures seamless project transitions for US clients.</p></div>
 
@@ -173,10 +172,10 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
 <details open><summary>Do we lose history when migrating?</summary><div class="a">No. Contacts, companies, deals, activities, notes and attachments migrate with relationships preserved. Record counts are validated with you before cutover.</div></details>
 <details><summary>How long does it take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
-<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licenses are billed separately &mdash; and we'll tell you which plan tier you actually need.</div></details>
+<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licenses are billed separately, and we'll tell you which plan tier you actually need.</div></details>
 <details><summary>Why move to monday CRM?</summary><div class="a">Flexibility, adoption and cost: pipelines your team will actually update, automations without admin overhead, and licensing that doesn't punish growth. If your current CRM is the better fit, we'll say so.</div></details>
 </div>
 </section>
@@ -187,9 +186,9 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET–PT business hours</p>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET-PT business hours</p>
 <p style="margin-top:14px;font-size:14px;color:var(--light)">Or explore our New York office: <a href="/contact-us" style="color:var(--purple);font-weight:600;text-decoration:none">Contact Us &#8594;</a></p>
 </div>
 <div class="calendly-box">

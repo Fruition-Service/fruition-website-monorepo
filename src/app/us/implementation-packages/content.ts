@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com Implementation Packages US | Fruition</title>
-<meta name="description" content="Fixed-fee monday.com implementation packages from a Platinum Partner. Starter workspace, CRM package or department rollout &mdash; live in 2–4 weeks.">
+<meta name="description" content="Fixed-fee monday.com implementation packages from a Platinum Partner. Starter workspace, CRM package or department rollout, live in 2-4 weeks.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -36,11 +36,11 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇺🇸 monday.com Platinum Partner · Implementation Packages · New York · Chicago · Austin · San Francisco</div>
-<h1>monday.com <em>Implementation Packages</em> &mdash; fixed fee, fast</h1>
-<p class="sub">Pick a package, get a fixed price, go live in 2–4 weeks. No hourly billing, no scope drift &mdash; just a working system built by a Platinum Partner.</p>
+<div class="eyebrow">monday.com Platinum Partner</div>
+<h1>monday.com <em>Implementation Packages</em>: fixed fee, fast</h1>
+<p class="sub">Pick a package, get a fixed price, go live in 2-4 weeks. No hourly billing, no scope drift, just a working system built by a Platinum Partner.</p>
 <ul class="ticks">
-<li>Three packaged tiers &mdash; know the price before you commit</li>
+<li>Three packaged tiers, know the price before you commit</li>
 <li>Platinum &amp; Advanced Delivery Partner</li>
 <li>900+ implementations delivered</li>
 <li>Every package includes training and 30-day support</li>
@@ -69,7 +69,7 @@ ${LP_FONTS}
 <option>CRM package</option>
 <option>Department rollout</option>
 <option>Migration / integration add-on</option>
-<option>Not sure &mdash; recommend one</option>
+<option>Not sure, recommend one</option>
 </select>
 <input type="hidden" name="gclid" id="f-gclid">
 <input type="hidden" name="utm_campaign" id="f-utmc">
@@ -99,15 +99,15 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Pick the package that matches your rollout</h2>
-<p class="lede">Delivered by certified monday.com consultants working your hours &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">Pick the package that <em>matches your rollout</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working your hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
-<div class="card"><h3>Starter workspace</h3><p>One team, one workflow: boards, automations and a dashboard &mdash; running inside two weeks.</p></div>
+<div class="card"><h3>Starter workspace</h3><p>One team, one workflow: boards, automations and a dashboard, running inside two weeks.</p></div>
 <div class="card"><h3>CRM package</h3><p>monday CRM configured to your pipeline, migrated from your current CRM or spreadsheets.</p></div>
 <div class="card"><h3>Department rollout</h3><p>Multi-team build with cross-department workflows, permissions and executive dashboards.</p></div>
 <div class="card"><h3>Migration add-on</h3><p>Full-history moves from Salesforce, HubSpot, Asana, Jira or Excel.</p></div>
 <div class="card"><h3>Integration add-on</h3><p>QuickBooks, Salesforce, HubSpot, Microsoft 365, Teams and Slack connected so data stops being re-keyed.</p></div>
-<div class="card"><h3>Managed support</h3><p>Monthly optimization retainer &mdash; new automations, boards and monday AI enablement.</p></div>
+<div class="card"><h3>Managed support</h3><p>Monthly optimization retainer, new automations, boards and monday AI enablement.</p></div>
 </div>
 </div>
 </section>
@@ -115,8 +115,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -130,21 +130,20 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"monday.com has given us the visibility we need to get everyone on the same page and keep track of all the moving parts."</p><div class="who"><b>Jason Doan</b> · VP of Heavy Rental &amp; Sales, HOLT CAT</div></div>
-<div class="quote"><p>"The Fruition team helped me get the most out of monday.com &mdash; in-depth instruction, custom templates and solutions unique to our needs."</p><div class="who"><b>Louis Stenmark</b> · Co-Founder, Windfall Bio</div></div>
+<div class="quote"><p>"The Fruition team helped me get the most out of monday.com, in-depth instruction, custom templates and solutions unique to our needs."</p><div class="who"><b>Louis Stenmark</b> · Co-Founder, Windfall Bio</div></div>
 </div>
 <!-- RATINGS: Edward &mdash; add live profile URLs. Real linked values only; no review counts. -->
 <div class="ratings">
@@ -159,10 +158,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800.jpg?w=560&h=560&fit=crop" alt="Zach Weller" loading="lazy"><h3>Zach Weller</h3><div class="role">Director &mdash; North America</div><p>Leads US delivery from New York &mdash; hands-on through scoping, build and training.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800.jpg?w=560&h=560&fit=crop" alt="Zach Weller" loading="lazy"><h3>Zach Weller</h3><div class="role">Director, North America</div><p>Leads US delivery from New York, hands-on through scoping, build and training.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/194c9ab129a70bab635384976fc43ecc0661b587-500x500.jpg?w=560&h=560&fit=crop" alt="Nikhil Tiwari" loading="lazy"><h3>Nikhil Tiwari</h3><div class="role">Sales &amp; Implementation Lead</div><p>Certified monday.com and Make consultant with an ML and GenAI background.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/4179badfb046d5720f83fc8ed82e088cde8578bc-400x400.jpg?w=560&h=560&fit=crop" alt="Valeria Marin" loading="lazy"><h3>Valeria Marin</h3><div class="role">Implementation Consultant</div><p>Optimizes business processes and ensures seamless project transitions for US clients.</p></div>
 
@@ -173,11 +172,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>What does each package cost?</summary><div class="a">Each package carries a fixed fee confirmed after a short scoping call &mdash; the price is agreed on before any build starts. monday.com licenses are billed separately and we'll tell you which plan tier you actually need.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>What does each package cost?</summary><div class="a">Each package carries a fixed fee confirmed after a short scoping call, the price is agreed on before any build starts. monday.com licenses are billed separately and we'll tell you which plan tier you actually need.</div></details>
 <details><summary>How long does it take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
 <details><summary>What's included in every package?</summary><div class="a">Discovery, build, one data migration, admin and end-user training, handover documentation and 30 days of post-go-live support.</div></details>
-<details><summary>Can a package be customized?</summary><div class="a">Yes &mdash; packages are starting points. Scoping confirms what's in and out, and the fixed quote reflects your actual requirements.</div></details>
+<details><summary>Can a package be customized?</summary><div class="a">Yes, packages are starting points. Scoping confirms what's in and out, and the fixed quote reflects your actual requirements.</div></details>
 </div>
 </section>
 
@@ -187,9 +186,9 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
-<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET–PT business hours</p>
+<p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+13023302496" style="color:var(--purple);font-weight:700;text-decoration:none">+1 302 330 2496</a> · ET-PT business hours</p>
 </div>
 <div class="calendly-box">
 <!-- CALENDLY: Edward &mdash; US/North America round-robin &mdash; North America team ONLY -->

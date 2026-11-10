@@ -1,12 +1,14 @@
 import type { LeadRegion } from "@/lib/leadNotify"
 import { ogCardUrl } from "@/lib/metadata"
-import { extractProof, mergeQuotes, renderProof, type ProofQuote } from "@/lib/landingPageProof"
+import { extractProof, mergeQuotes, renderProof, type ProofLogo, type ProofQuote } from "@/lib/landingPageProof"
+import { getRegionLogos, REGION_LOGO_KEYS } from "@/sanity/regionLogos"
 import { getCaseStudies } from "@/sanity/queries"
 import { REGION_PAGES } from "@/data/regionPages"
 import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
+import { bandCopy, renderAuditBand, renderClosingBand, renderSocialRow } from "@/lib/landingPageBands"
 
 /**
  * Serving for the Google Ads landing pages under /au, /uk and /us.
@@ -279,8 +281,10 @@ export function withLandingPageLayout(
   html: string,
   sharedQuotes: ProofQuote[] = [],
   region?: LeadRegion,
+  source?: string,
+  fillLogos: ProofLogo[] = [],
 ): string {
-  if (html.includes('class="lpp"')) return html
+  if (html.includes('class="lpp"') || html.includes('class="lpp ')) return html
   const proof = extractProof(html)
 
   // 1. The logo strip right under the hero becomes the proof band.
@@ -300,11 +304,19 @@ export function withLandingPageLayout(
   }
 
   const clients = region ? REGION_PAGES[REGION_CLIENTS[region]].clients : undefined
+  // Two full rows of logos: the page's own first, topped up from the region's curated wall.
+  const logos = [...proof.logos]
+  for (const l of fillLogos) {
+    if (logos.length >= 12) break
+    if (!logos.some((x) => x.alt.toLowerCase() === l.alt.toLowerCase())) logos.push(l)
+  }
   const band = renderProof({
     ...proof,
+    logos,
     quotes: mergeQuotes(proof.quotes, sharedQuotes),
     logosHeading: clients?.heading,
-    logosLead: clients?.lead,
+    // Ad pages follow the no-dash writing rule; the shared region data keeps its own punctuation.
+    logosLead: clients?.lead?.replace(/\s*[\u2014\u2013]\s*/g, ", "),
   })
   if (anchor < 0) {
     // No logo strip: put the band straight after the hero.
@@ -341,10 +353,144 @@ export function withLandingPageLayout(
         ? `${booking.html.slice(0, footer)}${booking.removed}\n\n${booking.html.slice(footer)}`
         : booking.html.replace(/<\/body>/i, `${booking.removed}\n</body>`)
   }
+  return withRhythm(withBands(withFaq(out), region, source))
+}
+
+export const FAQ_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."
+export const FAQ_CONTACT_EMAIL = "contact@fruitionservices.io"
+
+/**
+ * 4b. The FAQ, laid out as the site's FaqAccordion: the page's own eyebrow,
+ *     heading and lede in a sticky left column with the "prefer a person"
+ *     contact line under them, and its questions in a numbered list on the
+ *     right, all closed. Pure transform, exported for tests; idempotent.
+ */
+export function withFaq(html: string): string {
+  if (html.includes('class="lp-faq-head"')) return html
+  const first = html.indexOf("<details")
+  if (first < 0) return html
+  const at = html.lastIndexOf("<section", first)
+  const end = at < 0 ? -1 : elementEnd(html, at, "section")
+  if (end < 0) return html
+  const m = /^<section([^>]*)>\s*<div class="wrap">([\s\S]*?)(<details[\s\S]*<\/details>)\s*<\/div>\s*<\/section>$/.exec(
+    html.slice(at, end),
+  )
+  if (!m) return html
+  const cls = /class="([^"]*)"/.exec(m[1])?.[1] ?? ""
+  const classes = ["lp-faq", ...cls.split(/\s+/).filter(Boolean)].join(" ")
+  const head = m[2]
+    .trim()
+    .replace(/<p class="k">/, '<p class="lp-faq-k">')
+    .replace(/<p class="lede">/, '<p class="lp-faq-lede">')
+  const list = m[3].replace(/<details open>/g, "<details>")
+  const section = `<section class="${classes}" id="faq">
+<div class="wrap">
+<div class="lp-faq-head">
+${head}
+<div class="lp-faq-ask"><p>${FAQ_CONTACT_LEAD}</p><a href="mailto:${FAQ_CONTACT_EMAIL}">${FAQ_CONTACT_EMAIL} \u2192</a></div>
+</div>
+<div class="lp-faq-list">
+${list}
+</div>
+</div>
+</section>`
+  return html.slice(0, at) + section + html.slice(end)
+}
+
+/**
+ * 5. The shared bands (landingPageBands.ts): the dark banner after the stats
+ *    strip, page-specific booking copy, the purple closing band before the
+ *    footer and the footer's social row. Pages without a copy entry are left as
+ *    they are.
+ */
+function withBands(html: string, region?: LeadRegion, source?: string): string {
+  const copy = region && source ? bandCopy(source, region) : undefined
+  if (!copy) return html
+  let out = html
+  const BOOK = /<section class="(?:final|close-band)" id="book">/
+  // Band CTAs go back to the lead form; the consulting template's forms sit in the booking band.
+  const target = out.includes('id="lead"') ? "#lead" : "#book"
+
+  // Dark banner: after the stats strip, or else before the last section ahead of the booking band.
+  const stats = /<section class="stats">/.exec(out)
+  let auditAt = stats ? elementEnd(out, stats.index, "section") : -1
+  if (auditAt < 0) {
+    const book = out.search(BOOK)
+    const before = book >= 0 ? out.slice(0, book) : out
+    auditAt = before.lastIndexOf("<section")
+  }
+  if (auditAt > 0) out = out.slice(0, auditAt) + renderAuditBand(copy, target) + out.slice(auditAt)
+
+  const book = BOOK.exec(out)
+  if (book) {
+    const end = elementEnd(out, book.index, "section")
+    let band = out.slice(book.index, end)
+    const [plain, acc, lead] = copy.booking
+    band = band.replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/, `<h2>${plain} <em>${acc}</em></h2>`)
+    band = band.replace(/(<\/h2>\s*)<p\b[^>]*>[\s\S]*?<\/p>/, `$1<p class="lede">${lead}</p>`)
+    out = out.slice(0, book.index) + band + out.slice(end)
+  }
+
+  const phone = /<a class="phone" href="(tel:[^"]+)">([^<]+)<\/a>/.exec(out)
+  const closing = renderClosingBand(copy, phone ? { href: phone[1], label: phone[2] } : undefined, target)
+  const FOOT = /<footer\b|<div class="foot">/
+  const footer = out.search(FOOT)
+  if (footer >= 0) {
+    out = `${out.slice(0, footer)}${closing}\n${out.slice(footer)}`
+    const f = out.search(FOOT)
+    const tag = out.startsWith("<footer", f) ? "footer" : "div"
+    const close = elementEnd(out, f, tag)
+    const inner = out.lastIndexOf("</div>", close - (tag === "div" ? 7 : 1))
+    const at = tag === "footer" ? inner : close - "</div>".length
+    if (at > f) out = out.slice(0, at) + renderSocialRow() + out.slice(at)
+  }
   return out
 }
 
 /** Pure transform, exported for tests. */
+/**
+ * 6. Alternating section backgrounds, as on the site: after the hero the
+ *    sections alternate tinted and white. The stats strip and the dark banner
+ *    take the colour of the section before them, and the pages' own inline
+ *    tint (with its squeezed 46px padding) gives way to the shared rhythm.
+ */
+function withRhythm(html: string): string {
+  const hero = /<(section|header) class="hero"/.exec(html)
+  if (!hero) return html
+  const stopIn = (doc: string) => {
+    const b = doc.search(/<section class="(?:final|close-band)" id="book">/)
+    return b >= 0 ? b : doc.search(/<footer\b|<div class="foot">/)
+  }
+  let out = html
+  let pos = elementEnd(out, hero.index, hero[1])
+  let alt = false
+  let first = true
+  for (;;) {
+    const at = out.indexOf("<section", pos)
+    const stop = stopIn(out)
+    if (at < 0 || (stop >= 0 && at >= stop)) break
+    const tagEnd = out.indexOf(">", at) + 1
+    let tag = out.slice(at, tagEnd)
+    const cls = /class="([^"]*)"/.exec(tag)?.[1] ?? ""
+    const inherit = /\b(stats|lp-audit-sec)\b/.test(cls)
+    if (!inherit) alt = first ? true : !alt
+    first = false
+    tag = tag.replace(/\sstyle="[^"]*background:var\(--tint\)[^"]*"/, "")
+    const classes = cls.split(/\s+/).filter((c) => c && c !== "alt")
+    if (alt) classes.push("alt")
+    tag = /class="/.test(tag)
+      ? tag.replace(/class="[^"]*"/, classes.length ? `class="${classes.join(" ")}"` : "")
+      : classes.length
+        ? tag.replace("<section", `<section class="${classes.join(" ")}"`)
+        : tag
+    tag = tag.replace(/\s+>/, ">")
+    out = out.slice(0, at) + tag + out.slice(tagEnd)
+    pos = elementEnd(out, at, "section")
+    if (pos < 0) break
+  }
+  return out
+}
+
 export function withLandingPageTracking(
   html: string,
   { source, region }: { source: string; region: LeadRegion },
@@ -409,11 +555,38 @@ async function sharedQuotes(): Promise<ProofQuote[]> {
   }
 }
 
+const REGION_LOGO_TTL = 10 * 60 * 1000
+const regionLogoCache = new Map<LeadRegion, { at: number; logos: ProofLogo[] }>()
+
+/** The region's curated client wall from Sanity, as plain image URLs for the ad pages' logo grid. */
+async function regionFillLogos(region: LeadRegion): Promise<ProofLogo[]> {
+  const hit = regionLogoCache.get(region)
+  if (hit && Date.now() - hit.at < REGION_LOGO_TTL) return hit.logos
+  try {
+    // The region's own wall first, then the other regions' walls (all real, approved
+    // client logos) so every page can fill two full rows.
+    const own = REGION_CLIENTS[region]
+    const keys = [own, ...REGION_LOGO_KEYS.filter((k) => k !== own)]
+    const sets = await Promise.all(keys.map((k) => getRegionLogos(k).catch(() => null)))
+    const logos: ProofLogo[] = []
+    for (const l of sets.flatMap((s) => s?.logos ?? [])) {
+      if (!l.alt || !l.image || logos.some((x) => x.alt.toLowerCase() === l.alt!.toLowerCase())) continue
+      logos.push({ src: urlFor(l.image).width(260).fit("max").auto("format").url(), alt: l.alt })
+    }
+    regionLogoCache.set(region, { at: Date.now(), logos })
+    return logos
+  } catch (err) {
+    console.error("[landing-page] region logos unavailable", err)
+    return hit?.logos ?? []
+  }
+}
+
 export async function landingPageResponse(
   html: string,
   opts: { source: string; region: LeadRegion },
 ): Promise<Response> {
-  const laidOut = withLandingPageLayout(html, await sharedQuotes(), opts.region)
+  const [quotes, fill] = await Promise.all([sharedQuotes(), regionFillLogos(opts.region)])
+  const laidOut = withLandingPageLayout(html, quotes, opts.region, opts.source, fill)
   return new Response(withLandingPageTracking(laidOut, opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
