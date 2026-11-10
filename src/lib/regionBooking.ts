@@ -29,7 +29,11 @@ export interface RegionBooking {
   eventTypeUuid: string
   /** Public scheduling page, deep-linked to the chosen slot. */
   calendlyUrl: string
-  /** Fallback zone for the deep link; the visitor's own zone wins. */
+  /**
+   * Fallback zone for the deep link, set to the region's own local zone so a
+   * visitor whose zone is unknown sees times that make sense for that desk.
+   * The visitor's own zone wins whenever it is known.
+   */
   availabilityTimezone: string
   prefill: ConsultantPrefill
   /** The event type refuses a booking without a company name. */
@@ -88,7 +92,7 @@ export const REGION_BOOKING: Record<LeadRegion, RegionBooking> = {
   UK: {
     eventTypeUuid: "24539274-650a-47ec-994b-a19bc1026437",
     calendlyUrl: `${BASE}/30-minute-consultation`,
-    availabilityTimezone: "Australia/Sydney",
+    availabilityTimezone: "Europe/London",
     prefill: { company: 1, phone: 2, message: 4, service: 5 },
     companyRequired: false,
   },
@@ -96,7 +100,7 @@ export const REGION_BOOKING: Record<LeadRegion, RegionBooking> = {
   NA: {
     eventTypeUuid: "e5644214-e726-4cc7-865b-6fcc9f992139",
     calendlyUrl: `${BASE}/30-minute-consultation-apac-clone-1`,
-    availabilityTimezone: "Australia/Sydney",
+    availabilityTimezone: "America/New_York",
     prefill: { company: 1, phone: 2, message: 3, service: 4 },
     companyRequired: false,
   },

@@ -80,6 +80,19 @@ describe("regional booking links", () => {
     expect(FALLBACK_BOOKING_URL).not.toMatch(/global-calendar-fruitionservices\/?$/)
   })
 
+  it("falls back to each desk's own local zone for UK and North America", () => {
+    expect(REGION_BOOKING.UK.availabilityTimezone).toBe("Europe/London")
+    expect(REGION_BOOKING.NA.availabilityTimezone).toBe("America/New_York")
+  })
+
+  it("deep-links NA in New York time when the visitor's zone is unknown", () => {
+    const u = buildBookingUrl(REGION_BOOKING.NA, {
+      name: "Sam Lee", email: "sam@acme.com", message: "Need help",
+      startUtc: "2026-09-10T15:00:00Z",
+    })
+    expect(u.split("?")[0]).toMatch(/\/2026-09-10T11:00:00-04:00$/)
+  })
+
   it("only offers service answers Calendly actually accepts", () => {
     expect(SERVICE_CHOICES.has("Other")).toBe(false)
     expect(SERVICE_CHOICES.has("monday.com")).toBe(true)
