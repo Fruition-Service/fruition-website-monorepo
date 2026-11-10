@@ -1,5 +1,7 @@
 import { BOOKING_ANCHOR } from "@/lib/bookingLink"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import ArticleBodyImage from "@/components/ArticleBodyImage"
+import { midCtaCopyFor, splitBodyForMidCta } from "@/lib/blogMidCta"
 
 import type { PortableTextBlock, PortableTextComponents } from "@portabletext/react"
 import { PortableText } from "@portabletext/react"
@@ -262,17 +264,19 @@ const blogPortableTextComponents: PortableTextComponents = {
       const src = urlFor(value).auto("format").quality(90).url()
       return (
         <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
-          <div className="relative w-full overflow-hidden">
-            <Image
-              src={src}
-              alt={value.alt || ""}
-              width={740}
-              height={416}
-              quality={90}
-              className="w-full h-auto"
-              sizes="(max-width: 924px) 100vw, 740px"
-            />
-          </div>
+          <ArticleBodyImage value={value}>
+            <div className="relative w-full overflow-hidden">
+              <Image
+                src={src}
+                alt={value.alt || ""}
+                width={740}
+                height={416}
+                quality={90}
+                className="w-full h-auto"
+                sizes="(max-width: 924px) 100vw, 740px"
+              />
+            </div>
+          </ArticleBodyImage>
           {value.caption && (
             <figcaption className="w-full flex items-center justify-center p-[16px]">
               <span className="font-normal text-[14px] leading-[27px] text-body text-center">
@@ -510,18 +514,20 @@ function CoverFigure({
   const src = urlFor(image).auto("format").quality(90).url()
   return (
     <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
-      <div className="relative w-full overflow-hidden">
-        <Image
-          src={src}
-          alt={alt}
-          width={740}
-          height={416}
-          priority
-          quality={90}
-          className="w-full h-auto"
-          sizes="(max-width: 924px) 100vw, 740px"
-        />
-      </div>
+      <ArticleBodyImage value={{ ...image, alt }}>
+        <div className="relative w-full overflow-hidden">
+          <Image
+            src={src}
+            alt={alt}
+            width={740}
+            height={416}
+            priority
+            quality={90}
+            className="w-full h-auto"
+            sizes="(max-width: 924px) 100vw, 740px"
+          />
+        </div>
+      </ArticleBodyImage>
     </figure>
   )
 }
@@ -655,6 +661,8 @@ export default function BlogPostTemplate({
 }: BlogPostTemplateProps) {
   const readingTime = estimateReadingTime(post.body)
   const headings = extractHeadings(post.body)
+  const { before: bodyBefore, after: bodyAfter, hasMidCta } = splitBodyForMidCta(post.body)
+  const midCopy = hasMidCta ? midCtaCopyFor(post) : null
 
   const articleLd = {
     "@context": "https://schema.org",
@@ -701,11 +709,31 @@ export default function BlogPostTemplate({
             )}
 
             {/* Portable text */}
-            {post.body && (
+            {bodyBefore.length > 0 && (
               <PortableText
-                value={post.body}
+                value={bodyBefore}
                 components={blogPortableTextComponents}
               />
+            )}
+
+            {/* Mid-article conversion CTA, between top-level blocks, long posts only */}
+            {hasMidCta && (
+              <>
+                <AuditCtaBanner
+                  bookingUrl={calendlyUrl}
+                  contained={false}
+                  className="mt-[45px]"
+                  heading={midCopy?.heading}
+                  body={midCopy?.body}
+                  ctaLabel={midCopy?.ctaLabel}
+                />
+                <div className="w-full pt-[45px]">
+                  <PortableText
+                    value={bodyAfter}
+                    components={blogPortableTextComponents}
+                  />
+                </div>
+              </>
             )}
 
             {/* Video embeds */}

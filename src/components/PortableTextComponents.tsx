@@ -2,6 +2,7 @@ import type { PortableTextComponents } from "@portabletext/react"
 import Image from "next/image"
 import Link from "next/link"
 import { urlFor } from "@/sanity/image"
+import ArticleBodyImage from "@/components/ArticleBodyImage"
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
@@ -9,15 +10,17 @@ export const portableTextComponents: PortableTextComponents = {
       if (!value?.asset?._ref) return null
       return (
         <div className="my-8 relative w-full rounded-xl overflow-hidden">
-          <Image
-            src={urlFor(value).auto("format").quality(90).url()}
-            alt={value.alt || ""}
-            width={740}
-            height={416}
-            quality={90}
-            className="w-full h-auto"
-            sizes="(max-width: 924px) 100vw, 740px"
-          />
+          <ArticleBodyImage value={value}>
+            <Image
+              src={urlFor(value).auto("format").quality(90).url()}
+              alt={value.alt || ""}
+              width={740}
+              height={416}
+              quality={90}
+              className="w-full h-auto"
+              sizes="(max-width: 924px) 100vw, 740px"
+            />
+          </ArticleBodyImage>
         </div>
       )
     },
