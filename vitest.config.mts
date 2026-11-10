@@ -16,6 +16,6 @@ export default defineConfig({
       NEXT_PUBLIC_SANITY_PROJECT_ID: "test-project",
       NEXT_PUBLIC_SANITY_DATASET: "test",
     },
-    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+    include: ["src/**/*.test.ts", "src/**/*.test.tsx", "workers/**/*.test.js"],
   },
 })
