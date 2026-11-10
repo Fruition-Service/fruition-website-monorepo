@@ -65,7 +65,7 @@ interface Props {
 function safeImageUrl(ref: SanityImageRef): string | null {
   if (!ref?.asset?._ref) return null
   try {
-    return urlFor(ref).width(560).height(560).fit("crop").url()
+    return urlFor(ref).width(560).height(560).fit("crop").auto("format").url()
   } catch {
     return null
   }

@@ -1,4 +1,5 @@
 import SectionIntro from "@/components/sections/SectionIntro"
+import RegionOfficeMap from "./RegionOfficeMap"
 import type { RegionContent } from "./types"
 
 /**
@@ -44,15 +45,7 @@ export default function RegionCoverageSection({
           </div>
 
           <div className="overflow-hidden rounded-card border border-lilac bg-surface-raised p-3 pb-1 shadow-whisper">
-            <div className="relative h-[320px] overflow-hidden rounded-[16px] bg-surface-subtle md:h-[420px]">
-              <iframe
-                title={`Fruition Services — ${coverage.office.address}`}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(coverage.office.mapQuery)}&output=embed`}
-                className="block size-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            <RegionOfficeMap address={coverage.office.address} mapQuery={coverage.office.mapQuery} />
             <a
               href={coverage.office.mapUrl}
               target="_blank"

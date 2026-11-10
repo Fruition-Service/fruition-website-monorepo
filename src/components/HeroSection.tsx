@@ -11,7 +11,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ heading, subheading, primaryCta, secondaryCta, heroImage }: HeroSectionProps) {
-  const imageUrl = heroImage?.asset ? urlFor(heroImage).width(1400).height(500).fit("crop").url() : null
+  const imageUrl = heroImage?.asset ? urlFor(heroImage).width(1400).height(500).fit("crop").auto("format").url() : null
 
   return (
     <section className="relative bg-gradient-to-br from-blue-700 to-blue-900 text-white py-20 px-4 overflow-hidden">

@@ -18,7 +18,14 @@
 // deploy never serves HTML that points at the previous build's JS and CSS.
 
 const FRESH_SECONDS = 60
-const KEEP_SECONDS = 86400
+// How long a colo keeps a page it has not been asked for. This used to be one
+// day, so a low-traffic route (a region or industry page seen less than daily
+// in a given colo) was almost always a MISS and woke the big Worker cold: 0.7
+// to 2.6 s TTFB against 0.06 to 0.14 s on a HIT (Nov 2026 UX review). A week
+// keeps those pages warm between deploys. It does not loosen freshness: any
+// entry older than FRESH_SECONDS is still refreshed in the background on its
+// next request, and a deploy changes BUILD_ID, which empties the cache anyway.
+const KEEP_SECONDS = 7 * 86400
 
 const PASS_PREFIXES = ["/internal", "/api/", "/studio", "/_next/", "/login", "/og-card"]
 const PASS_COOKIES = /(?:^|;\s*)(__prerender_bypass|__next_preview_data|fruition-edit[a-z-]*|sb-[^=]*)=/
