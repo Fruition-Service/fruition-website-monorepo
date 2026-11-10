@@ -71,7 +71,7 @@ function authorInitials(name: string): string {
 /* ------------------------------------------------------------------ */
 
 function AuthorAvatar({ name, photo }: { name: string; photo?: SanityImage }) {
-  const photoSrc = photo?.asset?._ref ? urlFor(photo).width(224).height(224).fit("crop").url() : null
+  const photoSrc = photo?.asset?._ref ? urlFor(photo).width(224).height(224).fit("crop").auto("format").url() : null
 
   if (photoSrc) {
     return (

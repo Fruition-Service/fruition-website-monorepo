@@ -91,7 +91,7 @@ must already exist on the Worker.
   (`npx wrangler deployments list` to see versions). Then revert in git so the next deploy does not
   reintroduce the change.
 - ISR pages cached in KV may keep serving the bad render for up to 60s after a rollback.
-- `fruition-edge` also holds HTML per build for up to 60s fresh (stale up to a day, refreshed in the background). After a rollback, redeploy it with the rolled-back build's id (`npx wrangler deploy -c workers/edge/wrangler.jsonc --var BUILD_ID:<id>`, the id is the `"b"` value in any page's HTML) so it stops serving the bad build's pages. To take it out of the path entirely, point the four zone routes back at `fruition-landing` in the Cloudflare dashboard.
+- `fruition-edge` also holds HTML per build for up to 60s fresh (stale up to a week, refreshed in the background). After a rollback, redeploy it with the rolled-back build's id (`npx wrangler deploy -c workers/edge/wrangler.jsonc --var BUILD_ID:<id>`, the id is the `"b"` value in any page's HTML) so it stops serving the bad build's pages. To take it out of the path entirely, point the four zone routes back at `fruition-landing` in the Cloudflare dashboard.
 
 ### 3.5 Things CI does not deploy
 - **`fruition-og-card` Worker**: `cd workers/og-card && npm install && npx wrangler deploy` with a

@@ -78,7 +78,7 @@ type Props = RegionScope & {
 function safeImageUrl(ref: SanityImageRef): string | null {
   if (!ref?.asset?._ref) return null
   try {
-    return urlFor(ref).width(560).height(560).fit("crop").url()
+    return urlFor(ref).width(560).height(560).fit("crop").auto("format").url()
   } catch {
     return null
   }
@@ -207,7 +207,7 @@ export default function TeamGridSection({
                 <div className="flex aspect-square items-center justify-center bg-brand-soft">
                   {photo ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={photo} alt={m.name} className="w-full h-full object-cover" />
+                    <img src={photo} alt={m.name} width={560} height={560} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   ) : (
                     <span className="text-[40px] md:text-[80px]">{m.emoji || "🍎"}</span>
                   )}
