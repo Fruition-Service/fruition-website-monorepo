@@ -47,7 +47,7 @@ as a **single Cloudflare Worker** (`fruition-landing`). It serves six surfaces:
 Tagging (GA4, Google Ads conversions, Calendly conversion) lives in **GTM `GTM-PF6XWTL6`**, not in
 this repo. The layout loads GTM, Microsoft Clarity, RB2B, the OpenAI ads pixel and (if configured)
 Umami; Clarity, RB2B and the pixel are skipped when the visitor declines cookies
-(`src/components/CookieNotice.tsx`).
+(`src/components/CookieNotice.tsx`), and Clarity records only on the live hosts (`src/lib/clarity.ts`).
 
 ---
 

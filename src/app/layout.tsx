@@ -26,6 +26,7 @@ import { POSTHOG_INTERNAL_TAG } from "@/lib/internalVisitor"
 // Ryze pixel (key rz_pk_..., public): loader and key live in src/lib/ryzePixel.ts
 // because the ad landing pages load the same pixel.
 import { RYZE_LOADER } from "@/lib/ryzePixel"
+import { CLARITY_LOADER } from "@/lib/clarity"
 
 
 
@@ -80,16 +81,9 @@ const OAIQ_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-vi
 oaiq("init", { pixelId: "RNJ1b2hooXBRHiYSWb3K6h" });
 })();`
 
-// Microsoft Clarity (project "Fruition Website2", owned by Josh): heatmaps and
-// session recordings. Honours the same fruition-visitor-consent gate as REB2B,
-// keep in sync with src/components/CookieNotice.tsx. Never loads on the portal
-// or the embedded Studio, so recordings can't capture client names, invoices or
-// draft content.
-const CLARITY_PROJECT_ID = "yp5rx7pre1"
-const CLARITY_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-visitor-consent")==="declined")return;}catch(e){}
-if(/^\\/(internal|studio)(\\/|$)/.test(window.location.pathname))return;
-(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_PROJECT_ID}");
-})();`
+// Microsoft Clarity: CLARITY_LOADER lives in src/lib/clarity.ts. It records
+// only on the live hosts (www.fruitionservices.io and the apex), honours the
+// fruition-visitor-consent gate and never loads on the portal or the Studio.
 // PostHog (org "Fruition Services", project "fruitionservices.io" 693212, US
 // cloud, owner edward@fruitionservices.io): product analytics, session replay,
 // heatmaps and web vitals. The phc_ key is a public ingestion key (it ships in

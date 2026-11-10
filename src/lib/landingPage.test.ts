@@ -4,6 +4,7 @@ import { REGION_BOOKING } from "./regionBooking"
 import { RYZE_PIXEL_URL } from "./ryzePixel"
 import { html as legal } from "@/app/au/monday-for-legal-teams/content"
 import { html as aiConsulting } from "@/app/au/ai-business-consulting-services/content"
+import { html as monday } from "@/app/au/monday-consulting-services/content"
 
 const opts = { source: "adwords-lp-au-test", region: "APAC" as const }
 
@@ -26,6 +27,27 @@ describe("withLandingPageTracking", () => {
     expect(out).toContain("fetch('/api/leads'")
     expect(out).toContain("event:'generate_lead'")
     expect(out).toContain('var SOURCE="adwords-lp-au-test"')
+  })
+
+  it("fires the guarded Clarity enquiry event only after the lead is accepted", () => {
+    const out = withLandingPageTracking(legal, opts)
+    const guarded =
+      "try{if(window.clarity){clarity('event','enquiry_submitted');clarity('set','form_source',SOURCE);}}catch(_){}"
+    expect(out.split(guarded)).toHaveLength(2)
+    const okCheck = out.indexOf("if(!j.ok)throw")
+    expect(okCheck).toBeGreaterThan(-1)
+    expect(out.indexOf(guarded)).toBeGreaterThan(okCheck)
+    expect(out.indexOf(guarded)).toBeLessThan(out.indexOf(".catch(function(){", okCheck))
+    expect(out).not.toContain("clarity.ms/tag")
+  })
+
+  it("hand-written lead handlers fire the guarded Clarity event after j.ok", () => {
+    for (const page of [aiConsulting, monday]) {
+      const out = withLandingPageTracking(page, opts)
+      const guarded = 'try { if (window.clarity) { clarity("event", "enquiry_submitted"); clarity("set", "form_source", SOURCE); } } catch (_) {}'
+      expect(out.split(guarded)).toHaveLength(2)
+      expect(out.indexOf(guarded)).toBeGreaterThan(out.indexOf("if (!j.ok) throw"))
+    }
   })
 
   it("leaves pages with their own /api/leads handler alone", () => {
