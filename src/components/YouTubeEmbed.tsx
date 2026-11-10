@@ -20,6 +20,23 @@ interface YouTubeEmbedProps {
   uploadDate?: string
   description?: string
   duration?: string
+  /**
+   * Where the poster fallback chain starts. "maxres" (default) starts at the
+   * 1280x720 maxresdefault.jpg. "sd" starts at the 640x480 sddefault.jpg, about a
+   * third of the bytes; its baked-in letterbox bars sit exactly where
+   * object-cover crops a 16:9 box, so it looks the same at up to ~640px wide.
+   */
+  posterQuality?: "maxres" | "sd"
+}
+
+/** Poster URLs to try in order, best first. */
+export function youTubePosterChain(id: string, quality: "maxres" | "sd" = "maxres"): string[] {
+  const chain = [
+    `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${id}/sddefault.jpg`,
+    `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+  ]
+  return quality === "sd" ? chain.slice(1) : chain
 }
 
 function extractVideoId(input?: string): string | null {
@@ -55,6 +72,7 @@ export default function YouTubeEmbed({
   uploadDate,
   description,
   duration,
+  posterQuality = "maxres",
 }: YouTubeEmbedProps) {
   const id = videoId || extractVideoId(url)
   const [playing, setPlaying] = useState(false)
@@ -63,11 +81,7 @@ export default function YouTubeEmbed({
   // (so onError never fires) — onLoad checks naturalWidth to catch it.
   const [posterIdx, setPosterIdx] = useState(0)
   if (!id) return null
-  const posters = [
-    `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
-    `https://i.ytimg.com/vi/${id}/sddefault.jpg`,
-    `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-  ]
+  const posters = youTubePosterChain(id, posterQuality)
   const poster = posters[posterIdx]
   const nextPoster = () => setPosterIdx((i) => Math.min(i + 1, posters.length - 1))
 

@@ -27,3 +27,26 @@ export function thumbnailImage(source: any, size = 200) {
 export function ogImage(source: any) {
   return urlFor(source).width(1200).height(630).fit("crop").auto("format").url()
 }
+
+/**
+ * Logo marquee preset. Logos are drawn at a fixed height (65px), so size the
+ * request by height at 2x DPR rather than by width: very wide wordmarks keep
+ * their sharpness and small logos are never upscaled (fit max).
+ */
+export function logoImageUrl(source: Parameters<typeof urlFor>[0], height = 130) {
+  return urlFor(source).height(height).fit("max").auto("format").url()
+}
+
+/**
+ * Intrinsic width and height of a Sanity image, read from its asset ref
+ * ("image-<id>-<w>x<h>-<ext>"). Null when the ref does not carry dimensions.
+ */
+export function sanityImageDimensions(
+  ref: string | undefined | null,
+): { width: number; height: number } | null {
+  const m = ref?.match(/-(\d+)x(\d+)-[a-z0-9]+$/i)
+  if (!m) return null
+  const width = Number(m[1])
+  const height = Number(m[2])
+  return width > 0 && height > 0 ? { width, height } : null
+}
