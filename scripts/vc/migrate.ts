@@ -65,6 +65,12 @@ export const PAGES: Record<string, [string, string]> = {
   'monday-for-marketing': ['/monday-for-marketing', 'industry'],
   'industries-education': ['/industries/education', 'industry'],
   'industries-nonprofits': ['/industries/nonprofits', 'industry'],
+  'monday-crm-consulting': ['/monday-crm-consulting', 'msol'],
+  'monday-project-management': ['/monday-consulting-solutions/monday-project-management', 'msol'],
+  'monday-service': ['/monday-consulting-solutions/monday-service', 'msol'],
+  'monday-for-hr': ['/monday-consulting-solutions/monday-for-hr', 'msol'],
+  'monday-training': ['/training', 'msol'],
+  'monday-implementation-consultants': ['/monday-implementation-consultants', 'msol'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -254,6 +260,7 @@ function useCaseByTitle(title: string) {
 /* ------------------------------------------------------------ sections */
 
 interface Ctx {
+  scripts: string[]
   /** Use case catalogue industry of this page, learned from its "See the build" cards. */
   catalogueSlug?: string
   slug: string
@@ -262,10 +269,16 @@ interface Ctx {
   live: HTMLElement | null
 }
 
+/** Labels whose target is fixed site-wide, for buttons the live page does not carry. */
+const KNOWN_LINKS: Record<string, string> = { 'see pricing': '/implementation-packages' }
+
 function liveHref(ctx: Ctx, label: string): string | undefined {
-  if (!ctx.live) return undefined
-  const a = ctx.live.querySelectorAll('a').find((x) => text(x).toLowerCase() === label.toLowerCase())
-  return a?.getAttribute('href') ?? undefined
+  const norm = (t: string) => t.toLowerCase().replace(/[^a-z0-9.+ ]+/g, ' ').replace(/\s+/g, ' ').trim()
+  const want = norm(label)
+  const a = ctx.live?.querySelectorAll('a').find((x) => norm(text(x)) === want)
+  const href = a?.getAttribute('href') ?? KNOWN_LINKS[want]
+  // The booking band is on the page itself; in-page anchors scroll instead of leaving.
+  return href === '/contact-us#book' ? '#book' : href
 }
 
 function cta(a: HTMLElement, ctx: Ctx) {
@@ -363,6 +376,8 @@ function item(card: HTMLElement, ctx: Ctx) {
     it.ai = !!top.querySelector('.ai')
   } else it.title = text(card.querySelector('h3')) || undefined
   it.body = text(card.querySelector('p.body, p.small')) || undefined
+  const ticks = card.querySelectorAll('ul.ticks li')
+  if (ticks.length) it.bullets = ticks.map((li) => text(li))
   const tg = card.querySelectorAll('.tags span, .pills span')
   if (tg.length) it.tags = tg.map((t) => text(t))
   const last = card.querySelectorAll(':scope > span.label').pop()
@@ -495,10 +510,12 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
   const steps = sec.querySelector('.steps, .steps4, .steps5')
   if (steps) {
     return {
-      _type: 'vcSteps', ...base, head: headOf(sec), layout: cls(steps)[0],
+      _type: 'vcSteps', ...base, head: headOf(sec), layout: cls(steps).join(' '),
       items: steps.querySelectorAll('.step').map((st) => ({
-        _type: 'vcStep', _key: key(), n: text(st.querySelector('.n')) || undefined, title: text(st.querySelector('h3')) || undefined,
-        body: text(st.querySelector('.body')) || undefined, meta: text(st.querySelector(':scope > .label')) || undefined,
+        _type: 'vcStep', _key: key(), n: text(st.querySelector('.n')) || undefined,
+        bar: st.querySelector('.bar i') ? Number((st.querySelector('.bar i')!.getAttribute('style') ?? '').match(/width:\s*([\d.]+)%/)?.[1] ?? 0) : undefined, title: text(st.querySelector('h3')) || undefined,
+        body: text(st.querySelector('.body')) || undefined,
+        bullets: st.querySelectorAll('ul.ticks li').map((li) => text(li)), meta: text(st.querySelector(':scope > .label')) || undefined,
       })),
     }
   }
@@ -519,6 +536,127 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
     }
   }
   if (sec.querySelector('.josh')) return { _type: 'vcPractitioners', ...base }
+  return null
+}
+
+
+/** The 11-character YouTube id the live page uses for a video with this name, if any. */
+const STAR_AVIATION = '7vtrtlfC1Zg'
+function liveVideoId(ctx: Ctx, alt: string): string | undefined {
+  const html = ctx.live?.toString() ?? ''
+  const ids = [...new Set([...html.matchAll(/(?:youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=)|youtu\.be\/|ytimg\.com\/vi\/)([A-Za-z0-9_-]{11})/g)].map((m) => m[1]))]
+  if (/star aviation/i.test(alt)) return STAR_AVIATION
+  return ids[0]
+}
+
+const paras = (els: HTMLElement[]) =>
+  els.map((p) => ({ _type: 'vcPara', _key: key(), text: text(p), style: has(p, 'lead') ? 'lead' : 'body' })).filter((p) => p.text)
+
+/** Live-page data for the interactive sections whose other states the mock-ups do not show. */
+const CRM_FIXES = [
+  { title: 'Lead Routing', problem: 'Leads sit unassigned or land with the wrong rep.', steps: ['Automated round-robin and rule-based assignment', 'Instant Slack / email alerts on new leads', 'SLA timers that escalate stalled leads'], outcome: 'Every lead reaches the right rep in seconds, not days.' },
+  { title: 'Forecasting', problem: 'Forecasts live in stale spreadsheets nobody trusts.', steps: ['Weighted pipeline stages with automated probability', 'Real-time executive dashboards by rep and region', 'Snapshot reporting to track forecast vs actual'], outcome: 'A live forecast leadership can actually act on.' },
+  { title: 'ERP Integration', problem: 'Sales and finance data never reconcile.', steps: ['Two-way sync between monday CRM and your ERP', 'Automated order and invoice status mirroring', 'Custom field mapping with zero double entry'], outcome: 'One source of truth from first touch to paid invoice.' },
+]
+
+async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, unknown> | null> {
+  const base = { _key: key(), tone: tone(sec) }
+  const ds = sec.getAttribute('data-sec')
+  const video = sec.querySelector('.video')
+  if (video && sec.querySelector('.case')) {
+    const left = sec.querySelector('.case > div')!
+    const img = video.querySelector('img')
+    const alt = decode(img?.getAttribute('alt') ?? '')
+    const id = liveVideoId(ctx, alt)
+    if (!id) warnings.push(`${ctx.slug}: no YouTube id for video "${alt}"`)
+    const dts = left.querySelectorAll('dl dt')
+    return {
+      _type: 'vcVideo', ...base, badge: text(left.querySelector('.badge')) || undefined, heading: rich(left.querySelector('h2')),
+      paragraphs: paras(left.querySelectorAll(':scope > p')),
+      facts: dts.map((dt) => ({ _type: 'vcVideoFact', _key: key(), label: text(dt), value: text(dt.nextElementSibling as HTMLElement) })),
+      youtubeId: id, poster: imageFromSrc(img?.getAttribute('src'), ctx.file, alt), caption: text(video.querySelector('.cap')) || undefined,
+    }
+  }
+  if (sec.querySelector('.txt2')) {
+    const t = sec.querySelector('.txt2')!
+    return { _type: 'vcTextPair', ...base, badge: text(t.querySelector('.badge')) || undefined, heading: rich(t.querySelector('h2')), paragraphs: paras(t.querySelectorAll('.txt2-b p')) }
+  }
+  if (sec.querySelector('.fix')) {
+    const first = text(sec.querySelector('.fix-detail h3'))
+    if (first !== CRM_FIXES[0].title) warnings.push(`${ctx.slug}: fix picker first item "${first}" differs from live data`)
+    return {
+      _type: 'vcFix', ...base, head: headOf(sec), detailLabel: text(sec.querySelector('.fix-detail .label')) || undefined,
+      items: CRM_FIXES.map((f, i) => i === 0
+        ? { _type: 'vcFixItem', _key: key(), title: first, problem: text(sec.querySelector('.frow .small')), steps: sec.querySelectorAll('.fix-detail .tl li').map((li) => text(li)), outcome: text(sec.querySelector('.fix-detail .out')) }
+        : { _type: 'vcFixItem', _key: key(), ...f }),
+      cta: sec.querySelector('.fix-detail a.btn') ? { ...cta(sec.querySelector('.fix-detail a.btn')!, ctx), _key: undefined } : undefined,
+    }
+  }
+  if (sec.querySelector('.inds')) {
+    // First tab as approved in the mock-up; the others from the live page's solutionPage.industryTabs.
+    const live: { title?: string; description?: string; benefits?: { text?: string }[] }[] =
+      (await client.fetch(`*[_type == "solutionPage" && slug.current == $s][0].industryTabs`, { s: ctx.slug })) ?? []
+    const labels = sec.querySelectorAll('.inds span').map((x) => text(x))
+    const ind = sec.querySelector('.ind')!
+    const strip = (t?: string) => (t ?? '').replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, '').trim()
+    return {
+      _type: 'vcIndustryTabs', ...base, head: headOf(sec), benefitsLabel: text(ind.querySelector('.label')) || undefined,
+      tabs: labels.map((label, i) => i === 0
+        ? { _type: 'vcIndTab', _key: key(), label, title: text(ind.querySelector('h3')), body: text(ind.querySelector('.body')), benefits: ind.querySelectorAll('.tl li').map((li) => text(li)) }
+        : { _type: 'vcIndTab', _key: key(), label, title: live[i]?.title, body: live[i]?.description, benefits: (live[i]?.benefits ?? []).map((b) => strip(b.text)).filter(Boolean) }),
+      cta: ind.querySelector('a.btn') ? { ...cta(ind.querySelector('a.btn')!, ctx), _key: undefined } : undefined,
+    }
+  }
+  if (sec.querySelector('.track')) {
+    const script = ctx.scripts.find((x) => x.includes('const TR='))
+    const tr = script ? (new Function(`return ${script.match(/const TR=(\[[\s\S]*?\]\]);/)![1]}`)() as string[][]) : []
+    if (!tr.length) warnings.push(`${ctx.slug}: track data not found`)
+    const rec = sec.querySelector('.rec')!
+    return {
+      _type: 'vcTrack', ...base, head: headOf(sec), sizeLabel: text(sec.querySelector('.tcard .row b')),
+      complexityLabel: text(sec.querySelectorAll('.tcard > div')[1]?.querySelector('b')),
+      complexity: sec.querySelectorAll('.opts3 button').map((b) => text(b)), recLabel: text(rec.querySelector('.label')),
+      tracks: tr.map(([title, body, fit]) => ({ _type: 'vcTrackItem', _key: key(), title, body, fit })),
+      cta: rec.querySelector('a.btn') ? { ...cta(rec.querySelector('a.btn')!, ctx), _key: undefined } : undefined,
+      pills: sec.querySelectorAll('.pills .badge').map((b) => text(b)),
+    }
+  }
+  if (sec.querySelector('.table')) {
+    const th = sec.querySelectorAll('.tr.th > div').map((d) => text(d))
+    return {
+      _type: 'vcTable', ...base, head: headOf(sec), columns: th,
+      rows: sec.querySelectorAll('.tr:not(.th)').map((r) => {
+        const c = r.querySelectorAll(':scope > div')
+        return { _type: 'vcRow', _key: key(), label: text(c[0]), no: text(c[1]), yes: text(c[2]) }
+      }),
+    }
+  }
+  if (ds === 'faq' && sec.querySelector('#qas')) {
+    // FAQ rendered from a script bank in this mock-up (c.html).
+    const script = ctx.scripts.find((x) => /bank=\{/.test(x))!
+    const lit = script.slice(script.indexOf('bank=') + 5, script.indexOf('function render'))
+    const bank = new Function(`return ${lit.trim().replace(/;\s*$/, '')}`)() as Record<string, [string, string][]>
+    const tabs = sec.querySelectorAll('#tabs button').map((b) => text(b))
+    const pageKey = ctx.path.replace(/^\//, '')
+    return {
+      _type: 'vcFaq', ...base, badge: text(sec.querySelector('.badge')) || undefined, heading: rich(sec.querySelector('h2')) || undefined,
+      tabs: await Promise.all(tabs.map(async (label, i) => {
+        if (bank[i]) {
+          return { _type: 'vcFaqTab', _key: key(), label, items: bank[i].map(([q, a]) => faqRef(q, parse(`<div>${a}</div>`).querySelector('div')!, label, pageKey, true)) }
+        }
+        // The mock-up has no questions for this tab (its script falls back to
+        // tab 1); use the live page's central questions in the same category.
+        const live: { _id: string; question: string }[] = await client.fetch(
+          `*[_type == "faqItem" && $p in pages && lower(category) match $c && !(_id in path("drafts.**"))] | order(order asc){ _id, question }`,
+          { p: pageKey, c: `${label.toLowerCase().split(' ')[0]}*` },
+        )
+        const seen = new Set<string>()
+        const items = live.filter((f) => !seen.has(normQ(f.question)) && seen.add(normQ(f.question)))
+        if (!items.length) warnings.push(`${ctx.slug}: no live questions for FAQ tab "${label}"`)
+        return { _type: 'vcFaqTab', _key: key(), label, items: items.map((f) => ({ _type: 'reference', _ref: f._id, _key: key() })) }
+      })),
+    }
+  }
   return null
 }
 
@@ -549,11 +687,13 @@ async function main() {
     const file = slug === 'monday-implementation-consultants' ? join(MOCKUPS, 'c.html') : join(MOCKUPS, 'p', `${slug}.html`)
     const root = parse(readFileSync(file, 'utf8'))
     const live = await fetchLive(path)
-    const ctx: Ctx = { slug, file, path, live }
+    const html = readFileSync(file, 'utf8')
+    const ctx: Ctx = { slug, file, path, live, scripts: [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]) }
     const secs = root.querySelectorAll('body > section, main > section')
     const out: Record<string, unknown>[] = []
     for (const sec of secs) {
-      const s = section(sec, ctx)
+      const s = section(sec, ctx) ?? (await extraSection(sec, ctx))
+      if (!s && process.env.VC_LIST_UNKNOWN) { console.log(`UNKNOWN ${slug}: ${sec.getAttribute('class') ?? ''} ${sec.getAttribute('data-sec')} :: ${sec.outerHTML.replace(/<svg[\s\S]*?<\/svg>/g, '').slice(0, 300).replace(/\s+/g, ' ')}`); continue }
       if (!s) throw new Error(`${slug}: unknown section ${sec.getAttribute('class') ?? ''} data-sec=${sec.getAttribute('data-sec')}\n${sec.outerHTML.slice(0, 400)}`)
       out.push(JSON.parse(JSON.stringify(s)))
     }

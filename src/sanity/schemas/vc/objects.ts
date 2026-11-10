@@ -78,6 +78,7 @@ export const vcItem = defineType({
     defineField({ name: 'label', title: 'Small label above the title', type: 'string' }),
     defineField({ name: 'title', title: 'Title', type: 'string' }),
     defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
+    defineField({ name: 'bullets', title: 'Ticked list', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'meta', title: 'Footer label', type: 'string', description: 'Mono line at the bottom of the card.' }),
     tags,
     image('image', 'Image'),

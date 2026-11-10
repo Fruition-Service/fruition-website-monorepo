@@ -17,6 +17,7 @@ import {
 } from "./sections/basic"
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import VcBooking from "./sections/VcBooking"
+import { VcFix, VcIndustryTabs, VcTable, VcTextPair, VcTrack, VcVideo } from "./sections/more"
 
 /**
  * Renders a Version C page (vcPage document) section by section.
@@ -43,6 +44,12 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcBooking": return <VcBooking s={s} email={shared?.bookingEmail} />
     case "vcFaq": return <VcFaq s={s} />
     case "vcClosing": return <VcClosing s={s} />
+    case "vcVideo": return <VcVideo s={s} />
+    case "vcTextPair": return <VcTextPair s={s} />
+    case "vcFix": return <VcFix s={s} />
+    case "vcIndustryTabs": return <VcIndustryTabs s={s} />
+    case "vcTrack": return <VcTrack s={s} />
+    case "vcTable": return <VcTable s={s} />
     default: return null
   }
 }

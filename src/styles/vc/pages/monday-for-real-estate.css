@@ -671,6 +671,15 @@
  */
   .vc .mt24 { margin-top: 24px; }
   .vc .go-card { grid-column: 1 / -1; }
+  .vc .bar i { width: var(--w, 0%); }
+  .vc .vc-ink { color: var(--ink); }
+  .vc .vc-spacer { height: var(--sec); }
+  /* FAQ answers stored as lists render one line per item, spaced like the answer paragraphs. */
+  .vc .qa .ans .vc-ans-p { margin-top: 10px; }
+  .vc .tabs.vc-mt0 { margin-top: 0; }
+  .vc .video .cap { color: #fff; }
+  .vc .video .vc-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .vc .case dl .vc-contents { display: contents; }
   .vc #book, .vc #faq, .vc [id] { scroll-margin-top: 90px; }
   .vc .contact a { display: flex; gap: 12px; align-items: center; }
   .vc .logos .more { display: flex; align-items: center; justify-content: center; font: 500 20px/1 var(--sans); letter-spacing: -.02em; }

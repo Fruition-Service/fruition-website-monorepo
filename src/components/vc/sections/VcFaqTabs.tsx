@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { PortableText } from "@portabletext/react"
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import type { PortableTextBlock } from "@portabletext/types"
 import type { VcFaqTabData } from "../types"
 
@@ -31,6 +31,13 @@ export function VcFaqTabsList({ tabs, active, onPick }: { tabs: VcFaqTabData[]; 
   )
 }
 
+/** Answers render as plain paragraphs, list lines included, as in the mock-ups. */
+const ANSWER: PortableTextComponents = {
+  list: ({ children }) => <>{children}</>,
+  // A div, not a <p>: list items can hold nested lists, and <p> cannot nest.
+  listItem: ({ children }) => <div className="vc-ans-p">{children}</div>,
+}
+
 function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: number; startOpen: boolean }) {
   const [open, setOpen] = useState(startOpen)
   return (
@@ -42,7 +49,7 @@ function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: nu
           <path d="M12 5v14M5 12h14" />
         </svg>
       </button>
-      <div className="ans">{a && <PortableText value={a} />}</div>
+      <div className="ans">{a && <PortableText value={a} components={ANSWER} />}</div>
     </div>
   )
 }
@@ -60,7 +67,7 @@ export default function VcFaqTabs({ badge, heading, tabs }: { badge?: React.Reac
         {tabs.map((t, ti) => (
           <div className="fxpanel" key={t._key ?? ti} hidden={ti !== active} role="tabpanel">
             {(t.items ?? []).map((it, i) => (
-              <Qa key={it._id} q={it.question} a={it.answer} n={i + 1} startOpen={i === 0} />
+              <Qa key={`${it._id}-${i}`} q={it.question} a={it.answer} n={i + 1} startOpen={i === 0} />
             ))}
           </div>
         ))}

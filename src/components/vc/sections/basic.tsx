@@ -16,6 +16,23 @@ import type {
   VcStepsData,
 } from "../types"
 
+/** Ticked list used inside steps and cards. */
+function Ticks({ items }: { items?: string[] }) {
+  if (!items?.length) return null
+  return (
+    <ul className="ticks">
+      {items.map((x, i) => (
+        <li key={i}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>
+          <span>{x}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 /* ------------------------------------------------------------------ hero */
 
 function Stats({ stats, cls }: { stats: NonNullable<VcHeroData["stats"]>; cls: string }) {
@@ -144,9 +161,15 @@ export function VcSteps({ s }: { s: VcStepsData }) {
       <div className={layout}>
         {(s.items ?? []).map((it, i) => (
           <div className="step" key={it._key ?? i}>
+            {typeof it.bar === "number" && (
+              <div className="bar">
+                <i style={{ "--w": `${Math.max(0, Math.min(100, it.bar))}%` } as React.CSSProperties} />
+              </div>
+            )}
             {it.n && <span className="n">{it.n}</span>}
             {it.title && <h3 className="h3">{it.title}</h3>}
             {it.body && <p className="body">{it.body}</p>}
+            <Ticks items={it.bullets} />
             {it.meta && <span className="label">{it.meta}</span>}
           </div>
         ))}
@@ -285,6 +308,7 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
       {it.label && <span className="label">{it.label}</span>}
       {it.title && <h3 className="h3">{it.title}</h3>}
       {it.body && <p className="body">{it.body}</p>}
+      <Ticks items={it.bullets} />
       {!!it.tags?.length && (
         <div className="tags">
           {it.tags.map((t, i) => (
