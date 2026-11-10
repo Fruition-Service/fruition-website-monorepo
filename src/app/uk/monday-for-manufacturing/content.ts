@@ -133,7 +133,6 @@ ${LP_FONTS}
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
 <div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 

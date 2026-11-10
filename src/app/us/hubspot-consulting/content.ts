@@ -132,7 +132,6 @@ ${LP_FONTS}
 <div><div class="v">Full history</div><div class="l">contacts, deals and activities migrated, relationships preserved</div></div>
 <div><div class="v">30-day</div><div class="l">post-launch support included in every engagement</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 

@@ -132,7 +132,6 @@ ${LP_FONTS}
 <div><div class="v">Full-stack</div><div class="l">frontend, backend, auth and integrations all handled</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 

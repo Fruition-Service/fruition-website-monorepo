@@ -132,7 +132,6 @@ ${LP_FONTS}
 <div><div class="v">Enterprise-grade</div><div class="l">data governance built into every Claude AI deployment</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 

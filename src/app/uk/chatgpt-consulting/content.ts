@@ -132,7 +132,6 @@ ${LP_FONTS}
 <div><div class="v">Practical AI</div><div class="l">use cases scoped from your actual workflow, not off-the-shelf demos</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 

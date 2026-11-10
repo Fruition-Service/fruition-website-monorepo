@@ -132,7 +132,6 @@ ${LP_FONTS}
 <div><div class="v">30%</div><div class="l"><!-- FOR EDWARD: confirm Atlassian productivity stat --> typical reduction in project admin time reported by clients</div></div>
 <div><div class="v">Full history</div><div class="l">projects, issues and attachments migrated with relationships preserved</div></div>
 </div>
-<p class="note">Figures are typical outcomes drawn from Fruition engagements and published research. Individual results vary with scope, team size and adoption.</p>
 </div>
 </section>
 
