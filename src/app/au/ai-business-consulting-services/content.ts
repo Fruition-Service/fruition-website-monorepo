@@ -137,6 +137,17 @@ ${LP_FONTS}
 </div>
 </div></section>
 
+<!-- 6b. FAQ -->
+<section><div class="wrap">
+<p class="k">Before you book</p>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details><summary>Where should an AI project start?</summary><div class="a">With a complimentary process-mapping session. We look at how work moves through your business today and pick the automation targets with the highest return, then send a detailed recommendation with the technical scope, the selected models and a fixed quote.</div></details>
+<details><summary>Which AI models and tools do you use?</summary><div class="a">We are tool agnostic and a partner of both Anthropic and OpenAI. We match the model or automation tool, such as Claude, ChatGPT or Make.com, to your data, security and cost profile, and we will tell you if a smaller model does the job.</div></details>
+<details><summary>Is our data used to train AI models?</summary><div class="a">Not by default: business API access to Claude and OpenAI models is not used for model training. We also design integrations so your documents are retrieved at query time rather than stored in the AI platform, and review the data flow with you during scoping.</div></details>
+<details><summary>How long does an AI build take?</summary><div class="a">Most integrations are live in two to six weeks depending on complexity. A focused internal tool sits at the smaller end; a workflow spanning several systems and data sources runs longer. The timeline and the fixed quote are agreed before the build starts.</div></details>
+<details><summary>Do you train our team?</summary><div class="a">Yes. Adoption and team training is the last step of every engagement, on the specific tools your people will use rather than generic AI awareness sessions.</div></details>
+</div></section>
+
 <!-- 7. CLOSING FORM -->
 <section class="close-band" id="book"><div class="wrap">
 <div class="eyebrow" style="color:var(--p3)">Get started</div>

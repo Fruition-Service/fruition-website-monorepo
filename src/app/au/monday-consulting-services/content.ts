@@ -145,6 +145,17 @@ ${LP_FONTS}
 </div>
 </div></section>
 
+<!-- 6b. FAQ -->
+<section><div class="wrap">
+<p class="k">Before you book</p>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details><summary>Is Fruition an official monday.com partner?</summary><div class="a">Yes. Fruition is a certified monday.com Platinum Partner and Advanced Delivery Partner, headquartered at 64 York Street, Sydney. Platinum is monday.com's highest partner tier, awarded on delivery volume and customer outcomes.</div></details>
+<details><summary>How much do monday.com consulting services cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately, and we'll tell you which plan tier you actually need.</div></details>
+<details><summary>How long does an implementation take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with data migration and integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
+<details><summary>Can you connect monday.com to Xero, HubSpot or Salesforce?</summary><div class="a">Yes. We connect monday.com to tools such as Xero, QuickBooks, Salesforce and HubSpot through native integrations, Make.com or custom API work, so records move between systems without manual re-keying. The integrations you need are mapped during scoping.</div></details>
+<details><summary>Who will we actually work with?</summary><div class="a">The Australian consultant who scopes your project delivers it. Discovery, build, data migration and champion training are run by the same certified team, with no hand-off to an offshore bench.</div></details>
+</div></section>
+
 <!-- 7. CLOSING + FORM -->
 <section class="close-band" id="book"><div class="wrap">
 <div class="eyebrow" style="color:var(--p3)">Get started</div>

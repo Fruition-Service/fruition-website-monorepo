@@ -107,14 +107,12 @@ describe("withLandingPageLayout", () => {
 })
 
 describe("withFaq", () => {
-  it.each(pages)("%s: FAQ uses the site's split layout with every question kept", async (page) => {
+  it.each(pages)("%s: has a proper FAQ in the site's split layout", async (page) => {
     const { html } = await import(`@/app/${page}/content`)
     const questions = (html.match(/<details\b/g) ?? []).length
+    // Every ad page answers at least four of the questions buyers ask before booking.
+    expect(questions).toBeGreaterThanOrEqual(4)
     const out = withLandingPageLayout(html, shared, regionOf(page))
-    if (questions === 0) {
-      expect(out).not.toContain("lp-faq")
-      return
-    }
     expect(out.match(/<section class="lp-faq\b[^"]*" id="faq">/g)).toHaveLength(1)
     const start = out.search(/<section class="lp-faq\b/)
     const faq = out.slice(start, out.indexOf("</section>", start))
