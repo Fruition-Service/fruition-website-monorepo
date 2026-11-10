@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { trackClarityEnquiry } from "@/lib/clarity"
 import { trackRyzeLead } from "@/lib/ryzePixel"
 
 /**
@@ -33,6 +34,8 @@ export default function BookingEventTracker() {
       } catch {
         // Same rule for Ryze.
       }
+      // A booking is an enquiry: tag the Clarity recording like a lead form does.
+      trackClarityEnquiry("calendly_booking")
     }
     window.addEventListener("message", onMessage)
     return () => window.removeEventListener("message", onMessage)
