@@ -95,7 +95,7 @@ describe("midCtaCopyFor", () => {
   it("never uses dashes in copy", () => {
     for (const title of ["AI adoption", "monday.com", "ChatGPT"]) {
       const c = midCtaCopyFor({ title })
-      expect(JSON.stringify(c)).not.toMatch(/[–—]/)
+      expect(JSON.stringify(c)).not.toMatch(/[\u2013\u2014]/)
     }
   })
 })
