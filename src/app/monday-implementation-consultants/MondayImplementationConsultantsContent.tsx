@@ -4,7 +4,7 @@ import { bookingHref } from "@/lib/bookingLink"
 import PartnerBadgeRow from "@/components/sections/PartnerBadgeRow"
 import Image from "next/image"
 import Link from "next/link"
-import { urlFor } from "@/sanity/image"
+import { logoImageUrl, sanityImageDimensions, urlFor } from "@/sanity/image"
 import TestimonialsGrid from "@/components/sections/TestimonialsGrid"
 import CalendlySection from "@/components/sections/CalendlySection"
 import StatsBlockView from "@/components/sections/StatsBlockView"
@@ -200,6 +200,19 @@ function imageUrl(ref: SanityImageRef): string | null {
   }
 }
 
+/**
+ * Marquee logos are drawn 65px high, so request them by height (see
+ * logoImageUrl) instead of the 1600px-wide default above.
+ */
+function marqueeLogoUrl(ref: SanityImageRef): string | null {
+  if (!ref || !ref.asset?._ref) return null
+  try {
+    return logoImageUrl(ref)
+  } catch {
+    return null
+  }
+}
+
 /** Bind " &" to the preceding word so a heading line never starts with "&". */
 function keepAmpersandAttached(text?: string): string | undefined {
   return text?.replace(/ &/g, " &")
@@ -238,8 +251,14 @@ export default function MondayImplementationConsultantsContent({
   const normalizedLogos = carouselLogos
     .map((logo, i) => ({
       key: logo._key || `logo-${i}`,
-      src: imageUrl(logo.image),
+      src: marqueeLogoUrl(logo.image),
       alt: logo.alt || `Client ${i + 1}`,
+      // Reserve each logo's width before it loads (the images are lazy), so the
+      // marquee track never reflows as they arrive.
+      width: (() => {
+        const dims = sanityImageDimensions(logo.image?.asset?._ref)
+        return dims ? Math.round((dims.width / dims.height) * 65) : undefined
+      })(),
     }))
     .filter((l) => l.src)
   const duplicatedLogos = [...normalizedLogos, ...normalizedLogos]
@@ -416,10 +435,10 @@ export default function MondayImplementationConsultantsContent({
 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://static.wixstatic.com/media/39b8ef_abd15c5dcf7c4d16a392b5693a6f7923~mv2.png"
+              src="/images/monday-certification-badges.webp"
               alt="monday.com certification badges"
-              width={1000}
-              height={250}
+              width={764}
+              height={191}
               className="w-[381px] max-w-full h-auto object-contain"
             />
 
@@ -447,16 +466,20 @@ export default function MondayImplementationConsultantsContent({
       <section className="px-4 py-10 bg-gradient-to-b from-surface to-brand-soft">
         <div className="mx-auto flex flex-wrap items-center justify-center gap-x-[56px] gap-y-6 max-w-[1100px]">
           {[
-            { src: "/images/monday-crm-logo.avif", alt: "monday CRM" },
-            { src: "/images/monday-wm-logo.avif", alt: "monday work management" },
-            { src: "/images/monday-svc-logo.avif", alt: "monday service" },
-            { src: "/images/monday-dev-logo.avif", alt: "monday dev" },
+            // Intrinsic sizes, so each logo's width is reserved before it loads.
+            { src: "/images/monday-crm-logo.avif", alt: "monday CRM", width: 188, height: 60 },
+            { src: "/images/monday-wm-logo.avif", alt: "monday work management", width: 248, height: 60 },
+            { src: "/images/monday-svc-logo.avif", alt: "monday service", width: 185, height: 61 },
+            { src: "/images/monday-dev-logo.avif", alt: "monday dev", width: 193, height: 60 },
           ].map((logo) => (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               key={logo.src}
               src={logo.src}
               alt={logo.alt}
+              width={logo.width}
+              height={logo.height}
+              decoding="async"
               className="h-[40px] w-auto object-contain"
             />
           ))}
@@ -485,7 +508,10 @@ export default function MondayImplementationConsultantsContent({
                     <img
                       src={logo.src!}
                       alt={logo.alt}
+                      width={logo.width}
                       height={65}
+                      loading="lazy"
+                      decoding="async"
                       className="h-full w-auto object-contain"
                     />
                   </div>
@@ -503,7 +529,7 @@ export default function MondayImplementationConsultantsContent({
         <section className="bg-surface pb-14 md:pb-20">
           <div className="mx-auto px-4 max-w-[1042px]">
             <div className="rounded-card overflow-hidden aspect-video">
-              <YouTubeEmbed url={videoEmbedUrl} title={videoTitle} />
+              <YouTubeEmbed url={videoEmbedUrl} title={videoTitle} posterQuality="sd" />
             </div>
           </div>
         </section>
@@ -668,10 +694,12 @@ export default function MondayImplementationConsultantsContent({
         <div className="mx-auto max-w-[976px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://static.wixstatic.com/media/d6e205_dd894a9db73241b2a6b8e6bdb4ee7585~mv2.png/v1/fill/w_976,h_94,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Security.png"
+            src="/images/security-partners.webp"
             alt="Security partners"
             width={976}
             height={94}
+            loading="lazy"
+            decoding="async"
             className="w-full h-auto"
           />
         </div>

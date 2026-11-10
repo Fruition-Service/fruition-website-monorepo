@@ -531,9 +531,13 @@ body {
   animation: pageFadeIn 480ms ease-out both;
 }
 
+/* Starts at 0.01, not 0: Chrome never counts content first painted at opacity 0
+   as a Largest Contentful Paint candidate, so a fade from 0 hid the H1 and hero
+   from LCP and left it on whatever rendered after hydration (5s+ on mobile).
+   1% opacity on the page background is invisible, so the fade looks the same. */
 @keyframes pageFadeIn {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
   to {
     opacity: 1;
