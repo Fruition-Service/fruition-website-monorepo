@@ -16,6 +16,11 @@
     { "pattern": "www.fruitionmonday.com/*", "zone_name": "fruitionmonday.com" }
   ],
   "services": [{ "binding": "SITE", "service": "fruition-landing" }],
+  // Global second tier for the HTML cache (see index.js). It shares the site's
+  // ISR namespace (NEXT_INC_CACHE_KV in ../../wrangler.jsonc) so no new
+  // namespace has to be created by hand; every key here starts with
+  // "edge-html/<BUILD_ID>/", which OpenNext never uses, and expires after 3 days.
+  "kv_namespaces": [{ "binding": "HTML_KV", "id": "74a7eb0e0e4542e8a9acdbc178a849af" }],
   "vars": { "BUILD_ID": "none" },
   "observability": { "enabled": true }
 }

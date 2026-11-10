@@ -16,6 +16,24 @@
 // (stale-while-revalidate), the same contract the site's own ISR cache has.
 // The cache key carries BUILD_ID, which the deploy sets to the new build, so a
 // deploy never serves HTML that points at the previous build's JS and CSS.
+//
+// Two tiers (Nov 2026, monday 2904361390). The colo cache above is per data
+// centre, so a page nobody in that colo had asked for since the last deploy was
+// a MISS that woke the big Worker cold: 1 to 3 s TTFB, which is what PageSpeed
+// Insights measured on the partner pages (its test servers rarely share a colo
+// with real visitors). Every stored page is now also written to Workers KV,
+// which is global: a colo MISS reads the KV copy (tens of ms) instead of
+// starting the site Worker, and the deploy warms KV once for every sitemap URL
+// (.github/workflows/deploy.yml). The KV copy follows the same freshness rule:
+// older than FRESH_SECONDS means served once, then refreshed in the background.
+//
+// Ad and campaign parameters (gclid, utm_*, srsltid, ...) are left out of the
+// cache key. Only static/ISR pages are stored and those render the same HTML
+// whatever the query string says, but each click carried a unique gclid, so
+// every paid or tagged visit was a MISS. The request the site Worker sees is
+// unchanged; only the key ignores them.
+
+import { keyUrl, kvKey } from "./keys.js"
 
 const FRESH_SECONDS = 60
 // How long a colo keeps a page it has not been asked for. This used to be one
@@ -26,6 +44,33 @@ const FRESH_SECONDS = 60
 // entry older than FRESH_SECONDS is still refreshed in the background on its
 // next request, and a deploy changes BUILD_ID, which empties the cache anyway.
 const KEEP_SECONDS = 7 * 86400
+
+// The colo copy only rewrites the KV copy when the KV one is at least this old,
+// so busy pages do not write KV on every background refresh.
+const KV_REWRITE_SECONDS = 300
+// A KV copy only serves its own build, and production deploys several times a
+// day, so it does not need the colo's week. Three days covers a quiet weekend.
+// Copies are gzipped (about 400 KB of HTML becomes about 80 KB), which keeps
+// KV storage small and makes a cold KV read faster.
+const KV_KEEP_SECONDS = 3 * 86400
+// Headers the site sends that a KV copy must replay. Everything else (date,
+// server-timing, cf-*, report-to, ...) is per response and set by Cloudflare.
+const KV_HEADERS = [
+  "content-type",
+  "vary",
+  "x-nextjs-cache",
+  "x-nextjs-prerender",
+  "x-nextjs-stale-time",
+  "x-opennext",
+  "x-powered-by",
+  "strict-transport-security",
+  "content-security-policy",
+  "content-security-policy-report-only",
+  "referrer-policy",
+  "x-content-type-options",
+  "x-frame-options",
+  "permissions-policy",
+]
 
 const PASS_PREFIXES = ["/internal", "/api/", "/studio", "/_next/", "/login", "/og-card"]
 const PASS_COOKIES = /(?:^|;\s*)(__prerender_bypass|__next_preview_data|fruition-edit[a-z-]*|sb-[^=]*)=/
@@ -51,26 +96,84 @@ function storable(res) {
 }
 
 function cacheKey(url, env) {
-  const k = new URL(url)
+  const k = keyUrl(url)
   k.searchParams.set("__build", env.BUILD_ID || "none")
   return new Request(k.toString(), { method: "GET" })
 }
 
-async function refresh(request, url, env) {
+function kvHeaders(res) {
+  const out = []
+  for (const name of KV_HEADERS) {
+    const v = res.headers.get(name)
+    if (v !== null) out.push([name, v])
+  }
+  // KV metadata is capped at 1024 bytes. Content-Type alone always fits.
+  return JSON.stringify(out).length <= 900 ? out : out.filter(([n]) => n === "content-type")
+}
+
+const gzip = (text) =>
+  new Response(new Blob([text]).stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer()
+const gunzip = (buf) =>
+  new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text()
+
+async function kvWrite(env, key, html, res, storedAt) {
+  if (!env.HTML_KV || !key) return
+  await env.HTML_KV.put(key, await gzip(html), {
+    expirationTtl: KV_KEEP_SECONDS,
+    metadata: { t: storedAt, z: 1, h: kvHeaders(res) },
+  })
+}
+
+async function kvRead(env, key) {
+  if (!env.HTML_KV || !key) return null
+  try {
+    const { value, metadata } = await env.HTML_KV.getWithMetadata(key, { type: "arrayBuffer" })
+    if (value === null || !metadata || !Number(metadata.t) || metadata.z !== 1) return null
+    const html = await gunzip(value)
+    const headers = new Headers(Array.isArray(metadata.h) ? metadata.h : [])
+    if (!headers.has("Content-Type")) headers.set("Content-Type", "text/html; charset=utf-8")
+    return { html, headers, storedAt: Number(metadata.t) }
+  } catch {
+    return null
+  }
+}
+
+// What goes into the colo cache: the page, when it was rendered, and when the
+// KV copy was last written (so a refresh knows whether KV needs a new copy).
+function coloCopy(body, init, storedAt, kvAt) {
+  const stored = new Response(body, init)
+  stored.headers.set("X-Edge-Stored-At", String(storedAt))
+  if (kvAt) stored.headers.set("X-Edge-KV-At", String(kvAt))
+  stored.headers.set("Cache-Control", `public, max-age=${KEEP_SECONDS}`)
+  return stored
+}
+
+// Store a page the site Worker just rendered in both tiers.
+async function storeBoth(res, url, env, writeKv) {
+  const html = await res.text()
+  const now = Date.now()
+  if (writeKv) await kvWrite(env, kvKey(url, env), html, res, now).catch(() => null)
+  const kvAt = writeKv && env.HTML_KV ? now : null
+  await caches.default.put(cacheKey(url, env), coloCopy(html, res, now, kvAt))
+}
+
+async function refresh(request, url, env, kvAt) {
   const fresh = await env.SITE.fetch(new Request(url.toString(), { headers: request.headers, method: "GET" }))
   if (!storable(fresh)) return null
-  const stored = new Response(fresh.body, fresh)
-  stored.headers.set("X-Edge-Stored-At", String(Date.now()))
-  stored.headers.set("Cache-Control", `public, max-age=${KEEP_SECONDS}`)
-  await caches.default.put(cacheKey(url, env), stored)
+  const kvDue = !kvAt || (Date.now() - kvAt) / 1000 > KV_REWRITE_SECONDS
+  await storeBoth(fresh, url, env, kvDue)
   return null
 }
 
-function forClient(res, state, siteCacheControl) {
+function forClient(res, state, siteCacheControl, env) {
   const out = new Response(res.body, res)
   out.headers.set("X-Edge-Cache", state)
+  // Which build's cache answered. The id is public (it is in every page's
+  // HTML); the post-deploy warm-up waits for it to match the new build.
+  out.headers.set("X-Edge-Build", env.BUILD_ID || "none")
   if (siteCacheControl) out.headers.set("Cache-Control", siteCacheControl)
   out.headers.delete("X-Edge-Stored-At")
+  out.headers.delete("X-Edge-KV-At")
   return out
 }
 
@@ -84,22 +187,34 @@ export default {
     if (hit) {
       const age = (Date.now() - Number(hit.headers.get("X-Edge-Stored-At") || 0)) / 1000
       const stale = age > FRESH_SECONDS
-      if (stale) ctx.waitUntil(refresh(request, url, env).catch(() => null))
-      return forClient(hit, stale ? "STALE" : "HIT", "public, max-age=0, must-revalidate")
+      const kvAt = Number(hit.headers.get("X-Edge-KV-At") || 0) || null
+      if (stale) ctx.waitUntil(refresh(request, url, env, kvAt).catch(() => null))
+      return forClient(hit, stale ? "STALE" : "HIT", "public, max-age=0, must-revalidate", env)
+    }
+
+    // Not in this colo yet: the global KV copy beats starting the site Worker.
+    const copy = await kvRead(env, kvKey(url, env))
+    if (copy) {
+      const stale = (Date.now() - copy.storedAt) / 1000 > FRESH_SECONDS
+      ctx.waitUntil(
+        (async () => {
+          await caches.default.put(key, coloCopy(copy.html, { status: 200, headers: copy.headers }, copy.storedAt, copy.storedAt))
+          if (stale) await refresh(request, url, env, copy.storedAt)
+        })().catch(() => null),
+      )
+      const res = new Response(copy.html, { status: 200, headers: copy.headers })
+      return forClient(res, stale ? "KV-STALE" : "KV", "public, max-age=0, must-revalidate", env)
     }
 
     const res = await env.SITE.fetch(request)
     if (request.method === "GET" && storable(res)) {
       const siteCc = res.headers.get("Cache-Control")
       const copy = res.clone()
-      ctx.waitUntil((async () => {
-        const stored = new Response(copy.body, copy)
-        stored.headers.set("X-Edge-Stored-At", String(Date.now()))
-        stored.headers.set("Cache-Control", `public, max-age=${KEEP_SECONDS}`)
-        await caches.default.put(key, stored)
-      })().catch(() => null))
-      return forClient(res, "MISS", siteCc)
+      ctx.waitUntil(storeBoth(copy, url, env, true).catch(() => null))
+      return forClient(res, "MISS", siteCc, env)
     }
-    return res
+    const out = new Response(res.body, res)
+    out.headers.set("X-Edge-Build", env.BUILD_ID || "none")
+    return out
   },
 }
