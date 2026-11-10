@@ -44,9 +44,7 @@ export default function RegionHero({
   hero,
   flag,
   slug,
-  // Lossless WebP of partner-platinum.png: the same pixels at half the bytes
-  // (14 KB against 28 KB). React preloads it, so it sits on the first-paint path.
-  partnerBadgeSrc = "/images/partner-platinum.webp",
+  partnerBadgeSrc = "/images/partner-platinum.png",
   flagCode,
   countryName,
   primaryCtaLabel = "Book a Free Consultation",
