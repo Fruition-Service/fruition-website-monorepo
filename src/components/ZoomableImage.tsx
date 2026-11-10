@@ -72,6 +72,7 @@ export default function ZoomableImage({
 
       <dialog
         ref={dialogRef}
+        aria-modal="true"
         aria-label={alt ? `Enlarged image: ${alt}` : "Enlarged image"}
         onClose={() => {
           setOpen(false)
