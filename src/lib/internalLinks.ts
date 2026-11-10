@@ -68,6 +68,7 @@ export type SkipReason =
   | "cta-list-item"
   | "first-paragraph"
   | "inside-existing-link"
+  | "inside-url"
   | "cross-span"
   | "target-used"
   | "anchor-used"
@@ -212,6 +213,38 @@ export function keywordRegExp(keyword: string): RegExp {
   return new RegExp(`(?<![\\p{L}\\p{N}_])${body}(?![\\p{L}\\p{N}_])`, "giu")
 }
 
+/** Characters that glue a match to a longer URL, domain, path or email token. */
+const URL_GLUE = /[/\\\-.:@=?&#%_~+]/u
+
+/**
+ * True when the match at text[start, end) sits inside URL-like text: a
+ * whitespace-delimited token that carries a scheme ("://"), starts with
+ * "www.", is an email address, or where the keyword is glued to more URL
+ * characters ("monday.com/pricing", "Fruition-Earns-monday.com-Platinum").
+ * A sentence-ending "." or "," after the keyword ("we use monday.com.") does
+ * not count, so plain prose mentions stay linkable.
+ */
+export function isInsideUrlText(text: string, start: number, end: number): boolean {
+  let tokenStart = start
+  while (tokenStart > 0 && !/\s/u.test(text[tokenStart - 1])) tokenStart--
+  let tokenEnd = end
+  while (tokenEnd < text.length && !/\s/u.test(text[tokenEnd])) tokenEnd++
+  const token = text.slice(tokenStart, tokenEnd).replace(/^[("'\[<{\u2018\u201c]+/u, "")
+  if (token.includes("://")) return true
+  if (/^www\./iu.test(token)) return true
+  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/u.test(token.replace(/[)"'\]>}.,;:!?\u2019\u201d]+$/u, ""))) return true
+  const before = start > 0 ? text[start - 1] : ""
+  if (before && URL_GLUE.test(before)) return true
+  const after = end < text.length ? text[end] : ""
+  const afterNext = end + 1 < text.length ? text[end + 1] : ""
+  if (after && URL_GLUE.test(after)) {
+    // Trailing punctuation that ends a sentence or clause is fine.
+    if (/[.,:;?!]/u.test(after) && (afterNext === "" || /[\s)"'\]\u2019\u201d]/u.test(afterNext))) return false
+    return true
+  }
+  return false
+}
+
 function isGeneric(keyword: string): boolean {
   return GENERIC_KEYWORDS.has(keyword.trim().toLowerCase().replace(/\s+/g, " "))
 }
@@ -301,7 +334,7 @@ function collectKeys(blocks: PtBlock[]): Set<string> {
  * Rules: whole-word case-insensitive matches with the original casing kept as
  * anchor text; longest match first, then earliest; at most one link per
  * target and per anchor text; a capped total; never in headings, blockquotes,
- * tables, images, existing links or CTA-like list items; never to the
+ * tables, images, existing links, URL-like text or CTA-like list items; never to the
  * document itself or to a target the body already links to. Links the body
  * already has to configured targets count toward the cap.
  */
@@ -396,6 +429,10 @@ export function planInternalLinks(opts: PlanOptions): PlanResult {
           const span = children[range.childIndex] as PtSpan
           if ((span.marks ?? []).some((mk) => linkKeys.has(mk))) {
             skip("inside-existing-link")
+            continue
+          }
+          if (isInsideUrlText(text, start, end)) {
+            skip("inside-url")
             continue
           }
           candidates.push({

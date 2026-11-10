@@ -61,3 +61,33 @@ SANITY_WRITE_TOKEN=<token from the password manager> npm run internal-links:appl
 
 Check those posts on the live site (the page cache refreshes within about 60 seconds), then run again
 without `--limit`. Without `SANITY_WRITE_TOKEN`, `--apply` exits with an error and changes nothing.
+
+## URL-like text is never linked
+
+A keyword match inside URL-like text is skipped (`inside-url` in the report): a token with `://`, one
+starting with `www.`, an email address, or a keyword glued to more URL characters
+(`monday.com/pricing`, `Fruition-Earns-monday.com-Platinum`). A plain `monday.com` in prose, including
+one before a full stop or comma, still links. The tool only adds new `link` annotations and never edits
+an existing href. This guards against the February 2026 BusinessWire link that ended up as
+`.../Fruition-Earns-https://www.fruitionservices.io/partnerships/monday-consulting-partner.com-Platinum-...`
+(monday 2904193295).
+
+## Scan for malformed hrefs (read-only)
+
+```bash
+npm run scan:malformed-hrefs                       # markdown table to stdout
+npm run scan:malformed-hrefs -- --json             # JSON
+npm run scan:malformed-hrefs -- --out /tmp/x.md    # also write to a file
+```
+
+Walks every document of every type (not only `blogPost`) and checks link `markDefs` plus any string
+field named `href`, `url`, `link` or ending in `Url`/`Href`/`Link`. Each hit shows the doc `_id`,
+`_type`, the Sanity path to the value (usable in a `patch().set()`) and the href.
+
+- `embedded-scheme`: `http://` or `https://` appears twice, or not at the start
+  (`/monday-partner-ukhttps://...`, Google Docs `google.com/url?q=https://...` wrappers). Fix these.
+- `domain-in-path`: our own domain, or another `host.tld/path`, inside this URL's path or query. Often
+  legitimate (`semrush.com/website/chatgpt.com/overview/`), so check by hand.
+
+It never writes. With `SANITY_WRITE_TOKEN` or `SANITY_API_READ_TOKEN` set it also scans drafts;
+without one it sees published documents only. Rules: `src/lib/malformedHrefs.ts`.

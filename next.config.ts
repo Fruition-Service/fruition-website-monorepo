@@ -276,6 +276,13 @@ const auditRedirects: Redirect[] = [
   // versions and is deleted. `:path*` matches zero or more segments, so the
   // bare URL and anything under it land on the real contact page.
   { source: "/contactustest/:path*", destination: "/contact-us", permanent: true },
+
+  // monday 2904193295: a malformed link (relative href glued to an absolute
+  // URL) reached /monday-partner-ukhttps:/www.fruitionservices.io/... and
+  // chained to a 404. The colon is escaped so path-to-regexp reads it as a
+  // literal; the second entry covers the percent-encoded colon.
+  { source: "/monday-partner-ukhttps\\::rest(.*)", destination: "/monday-partner-uk", permanent: true },
+  { source: "/monday-partner-ukhttps%3A:rest(.*)", destination: "/monday-partner-uk", permanent: true },
 ];
 
 const nextConfig: NextConfig = {
