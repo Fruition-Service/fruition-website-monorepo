@@ -81,52 +81,36 @@ export function splitBodyForMidCta<T extends BodyNode>(
 
 export interface MidCtaCopy {
   heading: string
-  body: string
+  /** Omitted so the banner keeps its shared body copy. */
+  body?: string
   ctaLabel: string
 }
 
 interface PostTopic {
-  title?: string
-  categories?: { title?: string; slug?: string }[] | null
+  slug?: string
 }
 
-const COPY = {
-  aiAdoption: {
-    heading: "Is your team ready to adopt AI?",
-    body: "Book a free AI adoption readiness audit. A Fruition consultant will look at how your team works today and show you where AI will save time first.",
-    ctaLabel: "Book an AI readiness audit",
-  },
-  ai: {
-    heading: "Not sure where AI fits in your business?",
-    body: "Book a free 30-minute AI audit. A Fruition consultant will map your workflows and point out the tasks AI can take off your team's plate.",
-    ctaLabel: "Book a free AI audit",
-  },
-  monday: {
-    heading: "Getting the most out of monday.com?",
-    body: "Book a free 30-minute monday.com audit. A Fruition consultant will review your boards and automations and show you what to fix first.",
-    ctaLabel: "Book a monday.com audit",
-  },
-} satisfies Record<string, MidCtaCopy>
-
 /**
- * Topic-relevant banner copy from the post's title and categories, or null to
- * fall back to the banner's shared default copy.
+ * Per-post heading and button label (Claude Design spec, monday 2904218621).
+ * Every other post keeps the shared banner copy. The body stays the shared
+ * `audit-body` copy on all posts.
  */
-export function midCtaCopyFor(post: PostTopic): MidCtaCopy | null {
-  const cats = (post.categories ?? [])
-    .map((c) => `${c?.title ?? ""} ${c?.slug ?? ""}`)
-    .join(" ")
-  const title = post.title ?? ""
-  const text = `${title} ${cats}`.toLowerCase().replace(/[-_]+/g, " ")
+const COPY_BY_SLUG: Record<string, MidCtaCopy> = {
+  "monday-ai-pricing-model-2026": {
+    heading: "Get a monday.com pricing review",
+    ctaLabel: "Get a monday.com pricing review",
+  },
+  "mondaycom-and-whatsapp-integration": {
+    heading: "Plan your WhatsApp integration",
+    ctaLabel: "Plan your WhatsApp integration",
+  },
+  "ai-adoption-framework": {
+    heading: "Book an AI readiness session",
+    ctaLabel: "Book an AI readiness session",
+  },
+}
 
-  if (/\bai (adoption|readiness|ready|maturity|transformation)\b|\badopt(ing)? ai\b/.test(text)) {
-    return COPY.aiAdoption
-  }
-  // The title decides first: a monday.com AI pricing post is about monday.com.
-  const t = title.toLowerCase()
-  if (/\bmonday(\.com)?\b/.test(t)) return COPY.monday
-  if (/\b(ai|chatgpt|claude|copilot|gpt|llm|agentic|agents?)\b/.test(t)) return COPY.ai
-  if (/\bmonday(\.com|com)?\b/.test(text)) return COPY.monday
-  if (/\b(ai|artificial intelligence|chatgpt|claude|copilot|automation)\b/.test(text)) return COPY.ai
-  return null
+/** Topic copy for the post's slug, or null to fall back to the banner's shared default copy. */
+export function midCtaCopyFor(post: PostTopic): MidCtaCopy | null {
+  return (post.slug && COPY_BY_SLUG[post.slug]) || null
 }

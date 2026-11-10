@@ -12,7 +12,7 @@ import { X, ZoomIn } from "lucide-react"
  * opens a native modal <dialog> with a larger rendition.
  *
  * `showModal()` gives the focus trap, Escape-to-close and an inert page for
- * free. A click anywhere outside the image closes it, focus goes back to the
+ * free. A click on the scrim closes it, focus goes back to the
  * trigger, and page scroll is locked by the `html:has(dialog.img-lightbox[open])`
  * rule in globals.css. The large image is only requested once the dialog opens.
  */
@@ -59,53 +59,64 @@ export default function ZoomableImage({
         onClick={() => setOpen(true)}
         aria-label={label}
         aria-haspopup="dialog"
-        className="group relative block w-full cursor-zoom-in p-0 text-left outline-none transition-shadow hover:ring-2 hover:ring-brand/30 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+        className="group relative block w-full cursor-zoom-in p-0 text-left focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-brand"
       >
         {children}
         <span
           aria-hidden
-          className="pointer-events-none absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-pill bg-surface-dark/70 text-white opacity-80 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+          className="pointer-events-none absolute right-3 bottom-3 inline-flex size-9 items-center justify-center rounded-pill border border-ui bg-surface text-body opacity-0 shadow-card transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
         >
-          <ZoomIn size={18} />
+          <ZoomIn size={16} />
         </span>
       </button>
 
       <dialog
         ref={dialogRef}
+        aria-modal="true"
         aria-label={alt ? `Enlarged image: ${alt}` : "Enlarged image"}
         onClose={() => {
           setOpen(false)
           triggerRef.current?.focus()
         }}
         onClick={(e) => {
-          // Close on any click outside the picture itself (backdrop, padding, caption area).
-          if (!(e.target instanceof HTMLImageElement)) close()
+          // Scrim click closes. Clicks inside the panel bubble up with a different target.
+          if (e.target === e.currentTarget) close()
         }}
-        className="img-lightbox m-0 h-dvh max-h-none w-screen max-w-none cursor-zoom-out bg-transparent p-0 backdrop:bg-surface-dark/85"
+        className="img-lightbox m-0 h-dvh max-h-none w-screen max-w-none bg-transparent p-0 backdrop:bg-surface-dark/70"
       >
         {open && (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-4 md:p-8">
-            <button
-              type="button"
-              onClick={close}
-              autoFocus
-              className="absolute top-3 right-3 inline-flex h-11 items-center justify-center gap-1.5 rounded-pill border border-white/30 bg-surface-dark/70 px-4 text-sm font-semibold text-white transition-colors hover:bg-surface-dark focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none md:top-5 md:right-5"
-            >
-              <X size={18} aria-hidden />
-              Close
-            </button>
-            {/* eslint-disable-next-line @next/next/no-img-element -- Sanity CDN already serves a sized, format-negotiated rendition; next/image would re-proxy it. */}
-            <img
-              src={largeSrc}
-              alt={alt}
-              width={width}
-              height={height}
-              decoding="async"
-              className="h-auto max-h-[calc(100dvh-7rem)] w-auto max-w-full cursor-default rounded-card object-contain"
-            />
-            {caption && (
-              <p className="max-w-[740px] text-center text-[14px] leading-[22px] text-white/85">{caption}</p>
-            )}
+          <div
+            onClick={(e) => {
+              if (e.target === e.currentTarget) close()
+            }}
+            className="flex h-full w-full items-center justify-center p-4 md:p-6 lg:p-12"
+          >
+            <div className="flex max-h-full w-full max-w-[1200px] flex-col gap-4 overflow-y-auto rounded-tile bg-surface p-4 shadow-card md:p-5 lg:p-6">
+              <div className="flex items-center justify-end gap-4">
+                <span className="hidden font-mono text-[12px] leading-[16px] text-muted lg:inline">Esc to close</span>
+                <button
+                  type="button"
+                  onClick={close}
+                  autoFocus
+                  className="cta-btn cta-btn-outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                >
+                  Close
+                  <X size={16} aria-hidden />
+                </button>
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element -- Sanity CDN already serves a sized, format-negotiated rendition; next/image would re-proxy it. */}
+              <img
+                src={largeSrc}
+                alt={alt}
+                width={width}
+                height={height}
+                decoding="async"
+                className="mx-auto h-auto max-h-[calc(100dvh-12rem)] w-auto max-w-full object-contain"
+              />
+              {(caption || alt) && (
+                <p className="text-center text-[14px] leading-[21px] text-muted text-pretty">{caption || alt}</p>
+              )}
+            </div>
           </div>
         )}
       </dialog>

@@ -68,34 +68,36 @@ describe("splitBodyForMidCta", () => {
 })
 
 describe("midCtaCopyFor", () => {
-  it("uses AI adoption readiness copy for AI adoption posts", () => {
-    const copy = midCtaCopyFor({ title: "The AI Adoption Framework: a step by step guide" })
-    expect(copy?.body).toMatch(/AI adoption readiness audit/)
+  it("uses the pricing review copy for the monday AI pricing post", () => {
+    const c = midCtaCopyFor({ slug: "monday-ai-pricing-model-2026" })
+    expect(c?.heading).toBe("Get a monday.com pricing review")
+    expect(c?.ctaLabel).toBe("Get a monday.com pricing review")
   })
 
-  it("matches AI adoption from a category slug", () => {
-    const copy = midCtaCopyFor({ title: "Where to start", categories: [{ title: "Guides", slug: "ai-adoption" }] })
-    expect(copy?.body).toMatch(/AI adoption readiness audit/)
+  it("uses the WhatsApp copy for the WhatsApp integration post", () => {
+    const c = midCtaCopyFor({ slug: "mondaycom-and-whatsapp-integration" })
+    expect(c?.heading).toBe("Plan your WhatsApp integration")
+    expect(c?.ctaLabel).toBe("Plan your WhatsApp integration")
   })
 
-  it("uses monday.com copy for monday posts, even AI pricing ones", () => {
-    expect(midCtaCopyFor({ title: "monday.com and WhatsApp Integration" })?.ctaLabel).toMatch(/monday\.com/)
-    expect(midCtaCopyFor({ title: "monday AI Pricing Model 2026" })?.ctaLabel).toMatch(/monday\.com/)
+  it("uses the AI readiness copy for the AI adoption framework post", () => {
+    const c = midCtaCopyFor({ slug: "ai-adoption-framework" })
+    expect(c?.heading).toBe("Book an AI readiness session")
+    expect(c?.ctaLabel).toBe("Book an AI readiness session")
   })
 
-  it("uses general AI copy for other AI posts", () => {
-    expect(midCtaCopyFor({ title: "ChatGPT vs Claude for sales teams" })?.ctaLabel).toMatch(/AI audit/)
+  it("keeps the shared body copy (no body override)", () => {
+    expect(midCtaCopyFor({ slug: "ai-adoption-framework" })?.body).toBeUndefined()
   })
 
-  it("falls back to the default banner copy", () => {
-    expect(midCtaCopyFor({ title: "Hiring your first operations manager" })).toBeNull()
+  it("falls back to the default banner copy for every other post", () => {
+    expect(midCtaCopyFor({ slug: "hiring-your-first-operations-manager" })).toBeNull()
     expect(midCtaCopyFor({})).toBeNull()
   })
 
   it("never uses dashes in copy", () => {
-    for (const title of ["AI adoption", "monday.com", "ChatGPT"]) {
-      const c = midCtaCopyFor({ title })
-      expect(JSON.stringify(c)).not.toMatch(/[\u2013\u2014]/)
+    for (const slug of ["monday-ai-pricing-model-2026", "mondaycom-and-whatsapp-integration", "ai-adoption-framework"]) {
+      expect(JSON.stringify(midCtaCopyFor({ slug }))).not.toMatch(/[\u2013\u2014]/)
     }
   })
 })

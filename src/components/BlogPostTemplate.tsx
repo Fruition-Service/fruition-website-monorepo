@@ -43,6 +43,7 @@ export interface BlogCategoryRef {
 
 export interface BlogPostData {
   title: string
+  slug?: string
   author?: string
   authorPhotoUrl?: string
   publishedAt?: string
