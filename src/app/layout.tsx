@@ -396,9 +396,14 @@ export default async function RootLayout({
         {UMAMI_WEBSITE_ID ? (
           <>
             <script dangerouslySetInnerHTML={{ __html: UMAMI_BEFORE_SEND }} />
+            {/* lazyOnload, not afterInteractive: afterInteractive makes Next
+                emit a high-priority <link rel="preload"> for it in <head>, so
+                a third-party connection and download competed with the
+                stylesheet for first paint on mobile. It still records the
+                pageview, just after the load event. */}
             <Script
               id="umami-loader"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               src={UMAMI_SCRIPT_URL}
               data-website-id={UMAMI_WEBSITE_ID}
               data-domains="www.fruitionservices.io,fruitionservices.io"
