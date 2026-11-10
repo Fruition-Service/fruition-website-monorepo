@@ -42,6 +42,18 @@ ${LP_FONTS}
 </div>
 <h1>Enterprise-Grade AI Consulting Services &amp; Strategy for <em>Australian Businesses</em></h1>
 <p class="sub">Supercharge your operations, eliminate manual bottlenecks, and unlock rapid scaling. Partner with premier AI strategy consultants in Australia to architect custom large language models (LLMs), intelligent workflow systems, and advanced agentic automations.</p>
+<ul class="ticks">
+<li>AI strategy and execution roadmaps</li>
+<li>Process automation with custom APIs and Make.com</li>
+<li>LLM integrations and agentic workflows</li>
+<li>Team training so the new tools get used</li>
+</ul>
+<div class="hero-tags">
+<span>Sydney headquartered</span>
+<span>Anthropic and OpenAI partner</span>
+<span>900+ implementations</span>
+<span>Fixed-fee quotes</span>
+</div>
 </div>
 <div class="form-card hero-card">
 <h2>Book a 20-minute AI readiness call</h2>
@@ -72,7 +84,7 @@ ${LP_FONTS}
 <!-- 3. CORE CAPABILITIES -->
 <section><div class="wrap">
 <div class="eyebrow">What we build</div>
-<h2>Tailored AI for Business Transformation &amp; Architecture</h2>
+<h2>Tailored AI for Business <em>Transformation &amp; Architecture</em></h2>
 <p class="lede">Precisely matched to how Australian enterprises adopt AI, strategy, automation, and engineering under one roof.</p>
 <div class="caps">
 <div class="cap">
@@ -87,13 +99,25 @@ ${LP_FONTS}
 <h3>Elite AI Consultants &amp; Engineers</h3>
 <p>Stop looking for off-the-shelf answers. Work directly with certified ai consultants to deploy intelligent virtual assistants, automated data analysis structures, and custom fine-tuned models tailored to your industry.</p>
 </div>
+<div class="cap">
+<h3>AI Governance &amp; ISO/IEC 42001</h3>
+<p>Approval rules, data access controls, output checks and logging, designed to the ISO/IEC 42001 standard so you can certify later without rebuilding.</p>
+</div>
+<div class="cap">
+<h3>Claude &amp; ChatGPT Integrations</h3>
+<p>Internal knowledge search, document processing and support automation on Claude or ChatGPT, with documents retrieved at query time rather than stored in the AI platform.</p>
+</div>
+<div class="cap">
+<h3>monday.com AI</h3>
+<p>monday AI Blocks, Sidekick and agents configured against your real processes, with custom Claude or OpenAI integration for heavier work.</p>
+</div>
 </div>
 </div></section>
 
 <!-- 4. WHY FRUITION -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">The Fruition edge</div>
-<h2>The Fruition Edge: Enterprise Strategy, Local Delivery</h2>
+<h2>The Fruition Edge: <em>Enterprise Strategy, Local Delivery</em></h2>
 <div class="why">
 <div class="why-card">
 <div class="why-num">01</div>
@@ -128,7 +152,7 @@ ${LP_FONTS}
 <!-- 6. METHODOLOGY -->
 <section class="alt"><div class="wrap">
 <div class="eyebrow">The blueprint framework</div>
-<h2>From Strategy to Execution</h2>
+<h2>From Strategy <em>to Execution</em></h2>
 <div class="steps">
 <div class="step"><div class="step-n">1</div><h3>Complimentary Process Mapping</h3><p>We evaluate your workflows to find high-impact automation targets.</p></div>
 <div class="step"><div class="step-n">2</div><h3>Detailed Recommendation</h3><p>A precise technical scope of work, selected models, and fixed quoting.</p></div>
@@ -151,19 +175,9 @@ ${LP_FONTS}
 <!-- 7. CLOSING FORM -->
 <section class="close-band" id="book"><div class="wrap">
 <div class="eyebrow" style="color:var(--p3)">Get started</div>
-<h2>Ready to Automate and Scale Your Business Operations?</h2>
+<h2>Ready to Automate and <em>Scale Your Business Operations?</em></h2>
 <p class="lede">Stop letting manual work slow down your growth. Let's build a smarter organisation together. Book a complimentary process session with a certified AI consultant in Australia today.</p>
-<div class="form-card">
-<form action="#" method="post">
-<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
-<div class="ff"><label for="name">Full Name</label><input type="text" id="name" name="name" required placeholder="Your name"></div>
-<div class="ff"><label for="email2">Business Email</label><input type="email" id="email2" name="email" required placeholder="you@company.com.au"></div>
-<div class="ff"><label for="phone2">Phone Number</label><input type="tel" id="phone2" name="phone" required placeholder="+61 ..."></div>
-<div class="ff"><label for="goals">Briefly describe your business process or automation goals</label><textarea id="goals" name="goals" placeholder="e.g. We want to automate quote generation and connect our CRM to Xero…"></textarea></div>
-<button type="submit" class="form-btn">Secure My Free Consultation</button>
-<div class="form-trust">🔒 Secure &amp; 100% Confidential Data Evaluation.</div>
-</form>
-</div>
+<div class="calendly-box"></div>
 </div></section>
 
 <!-- Minimal footer: no links -->

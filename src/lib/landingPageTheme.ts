@@ -547,6 +547,7 @@ h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:0}
 .close-band>.wrap{display:grid;grid-template-columns:1fr 1fr;column-gap:64px;align-items:center}
 .close-band>.wrap>*{grid-column:1}
 .close-band>.wrap>.form-card{grid-column:2;grid-row:1/span 4;margin:0;max-width:none;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+.close-band>.wrap>.lp-calendly{grid-column:2;grid-row:1/span 4;min-width:0;border-radius:var(--r4);box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
 .close-band .eyebrow{justify-self:start;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);color:#fff}
 .close-band .eyebrow::before{background:#fff}
 .close-band h2{margin-bottom:20px}
@@ -563,6 +564,7 @@ section:not(.close-band):not(.lp-closing)>.wrap:has(>h2){grid-template-columns:1
 section:not(.close-band):not(.lp-closing)>.wrap:has(>h2)>.lede{grid-column:1;grid-row:auto;margin-top:-22px}
 .close-band>.wrap{grid-template-columns:1fr}
 .close-band>.wrap>.form-card{grid-column:1;grid-row:auto;margin-top:40px}
+.close-band>.wrap>.lp-calendly{grid-column:1;grid-row:auto;margin-top:40px;min-width:0}
 .stat:nth-child(3){border-left:0;padding-left:0}
 .stat:nth-child(n+3){border-top:1px solid var(--lilac)}
 .topbar-in{padding:0 32px}
@@ -588,6 +590,13 @@ h2{font-size:32px;line-height:1.1}
 .hero-form input,.ff input{height:48px}
 .form-btn{margin-top:24px}
 @media(max-width:767px){.hero .hero-card{padding:24px 20px}}
+/* Hero ticks and tags: the conversion template's hero list (as on /au/monday-crm-consulting) */
+.hero .sub{margin-bottom:28px}
+.ticks{list-style:none;margin:0 0 32px;padding:0;display:grid;gap:12px}
+.ticks li{position:relative;padding-left:30px;font-size:15px;line-height:1.5;color:var(--fg)}
+.ticks li::before{content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;background:var(--brand-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238015e8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") no-repeat center/11px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap}
+.hero-tags span{font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--fg);background:var(--surface);border:1px solid var(--lilac);border-radius:var(--pill);padding:7px 12px}
 /* Team: the conversion template's square-portrait cards (as on /au/monday-crm-consulting) */
 .team{gap:24px}
 h2+.lede+.team{margin-top:0}
