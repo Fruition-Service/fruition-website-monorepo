@@ -60,7 +60,10 @@ input,select,textarea,button{font-family:inherit}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 /* Team photos (consultants band, shared by both templates).
    Injected by landingPage.ts on any ad page without a team section of its own. */
-.lp-team{padding:120px 0;background:var(--tint-bg)}
+.lp-team{padding:120px 0;background:var(--surface)}
+.lp-team.alt{background:var(--tint-bg)}
+.lp-team:not(.alt) .lp-team-card{background:var(--tint-bg)}
+.lp-team:not(.alt) .lp-team-k{background:var(--tint-bg)}
 .lp-team .wrap{display:grid;grid-template-columns:3fr 2fr;column-gap:48px;align-items:end}
 .lp-team .wrap>*{grid-column:1/-1}
 .lp-team-k{grid-column:1!important;grid-row:1;justify-self:start;display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 14px 0 10px;border-radius:var(--pill);background:var(--surface);border:1px solid var(--lilac);font:400 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--fg);margin-bottom:24px}
@@ -117,7 +120,7 @@ ${BASE}
 .topbar .book:hover,.btn:hover,.mcta .book:hover{background:var(--brand-press);border-color:var(--brand-press)}
 
 /* Hero: badge, display heading with accent, lead, ticks; lead form on the right */
-.hero{position:relative;padding:96px 0 104px;background:var(--surface)}
+.hero{position:relative;padding:96px 0;background:var(--surface)}
 .hero .wrap{display:grid;grid-template-columns:1.12fr .88fr;gap:64px;align-items:center}
 .hero .wrap>*,.final .inner>*{min-width:0}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;min-height:32px;padding:6px 14px 6px 10px;border-radius:var(--pill);background:var(--tint-bg);border:1px solid var(--lilac);font:400 12px/1.35 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--fg);margin-bottom:28px}
@@ -167,7 +170,8 @@ h2.sec{margin-bottom:42px;max-width:820px}
 
 /* Cards: mono number, hairline border, quiet surface */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:cap}
-.card,.step,.member,.quote{background:var(--surface);border:1px solid var(--lilac);border-radius:var(--r3);transition:border-color .2s}
+.card,.step,.member,.quote{background:var(--tint-bg);border:1px solid var(--lilac);border-radius:var(--r3);transition:border-color .2s}
+.alt .card,.alt .step,.alt .member,.alt .quote,.alt .pkg,.alt .rating{background:var(--surface)}
 section[style*="--tint"] .card,.alt .card,section[style*="--tint"] .step,.alt .step{background:var(--surface)}
 .card:hover,.step:hover,.member:hover{border-color:var(--ui-strong)}
 .card{padding:28px}
@@ -182,7 +186,8 @@ section[style*="--tint"] .card,.alt .card,section[style*="--tint"] .step,.alt .s
 .step .n::before{content:"0"}
 
 /* Proof numbers: the site's hairline stats strip */
-.stats{padding:0;background:var(--surface);border-top:1px solid var(--lilac);border-bottom:1px solid var(--lilac)}
+.stats{padding:0;border-top:1px solid var(--lilac);border-bottom:1px solid var(--lilac)}
+.alt+.stats.alt{border-top:0}
 .stats .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
 .stats .grid4>div{padding:40px 32px 36px;border-left:1px solid var(--lilac)}
 .stats .grid4>div:first-child{border-left:0;padding-left:0}
@@ -493,7 +498,7 @@ body{padding-bottom:68px}
 .sticky-cta:hover,.b1:hover,.hf-btn:hover,.form-btn:hover,.mob-cta a:hover{background:var(--brand-press);border-color:var(--brand-press);transform:none}
 .sticky-cta{display:inline-flex;align-items:center;height:40px;padding:0 18px}
 .hf-btn,.form-btn,.b1{min-height:52px}
-.hero{padding:96px 0 104px;background:var(--surface)}
+.hero{padding:96px 0;background:var(--surface)}
 .hero-grid{grid-template-columns:1.12fr .88fr}
 .badge{font:400 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.02em;padding:7px 14px}
 .badge-dark,.badge-platinum{background:var(--tint-bg);border:1px solid var(--lilac);color:var(--fg)}
@@ -516,7 +521,8 @@ section:not(.close-band):not(.lp-closing)>.wrap:has(>h2)>h2{grid-column:1;grid-r
 section:not(.close-band):not(.lp-closing)>.wrap:has(>h2)>.lede{grid-column:2;grid-row:1/3;align-self:end;max-width:none}
 h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:0}
 .caps,.why,.team,.steps{gap:24px}
-.cap,.why-card,.tm,.step{border-radius:var(--r3);box-shadow:none;transition:border-color .2s}
+.cap,.why-card,.tm,.step{border-radius:var(--r3);box-shadow:none;transition:border-color .2s;background:var(--tint-bg)}
+.alt .cap,.alt .why-card,.alt .tm,.alt .step{background:var(--surface)}
 .cap:hover,.why-card:hover,.tm:hover,.step:hover{transform:none;box-shadow:none;border-color:var(--lilac-strong)}
 .cap,.why-card,.step{padding:28px}
 .cap::before{font-weight:400;letter-spacing:.02em}
@@ -566,4 +572,12 @@ h2{font-size:32px;line-height:1.1}
 .stat b{font-size:36px}
 .foot{padding:32px 16px;flex-direction:column;align-items:flex-start}
 }
+.hero .hero-card{max-width:none;margin:0;padding:32px;border:1px solid var(--lilac);box-shadow:0 24px 60px -24px rgba(16,0,58,.22)}
+.hero-card h2{font-size:24px;line-height:1.2;letter-spacing:-.02em;margin:0 0 6px;max-width:none}
+.hero-card .fsub{font-size:14px;color:var(--muted);margin-bottom:12px}
+.ff label{font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.ff{margin-bottom:0}
+.hero-form input,.ff input{height:48px}
+.form-btn{margin-top:24px}
+@media(max-width:767px){.hero .hero-card{padding:24px 20px}}
 `

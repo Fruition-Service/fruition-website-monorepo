@@ -17,7 +17,7 @@ describe("withLandingPageLayout", () => {
     const out = withLandingPageLayout(html, shared, region)
 
     const hero = out.search(/<(section|header) class="hero"/)
-    const proof = out.search(/<section class="lpp"/)
+    const proof = out.search(/<section class="lpp\b/)
     const booking = out.search(/<section class="final" id="book">/)
     const footer = out.search(/<footer\b/)
 
@@ -38,7 +38,8 @@ describe("withLandingPageLayout", () => {
     // Same design as the site's Client proof section: no rating tiles under the intro.
     expect(out).not.toContain("lpp-rating")
     // Logos only, no links out of the page from the band.
-    const band = out.slice(proof, out.indexOf("</section>", proof))
+    // The proof is two sections: the logo wall, then the client quotes.
+    const band = out.slice(proof, out.indexOf("</section>", out.indexOf('id="reviews"')))
     expect(band.match(/<img [^>]*alt="[^"]+"/g)?.length ?? 0).toBeGreaterThan(0)
     expect(band.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => a.includes('href="#lead"'))).toBe(true)
     expect(band).toContain("Shared quote")
@@ -60,11 +61,11 @@ describe("withLandingPageLayout", () => {
     async (page, source, region) => {
       const { html } = await import(`@/app/${page}/content`)
       const out = withLandingPageLayout(html, shared, region as LeadRegion, source)
-      const audit = out.indexOf('class="lp-audit-sec"')
+      const audit = out.search(/class="lp-audit-sec\b/)
       const booking = out.search(/<section class="(?:final|close-band)" id="book">/)
       const closing = out.indexOf('class="lp-closing"')
       const footer = out.search(/<footer\b|<div class="foot">/)
-      expect(audit).toBeGreaterThan(out.search(/<section class="lpp"/))
+      expect(audit).toBeGreaterThan(out.search(/<section class="lpp\b/))
       expect(closing).toBeGreaterThan(booking)
       expect(closing).toBeLessThan(footer)
       expect(out.slice(footer)).toContain('class="lp-soc"')

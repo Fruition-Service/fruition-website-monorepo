@@ -43,39 +43,19 @@ ${LP_FONTS}
 </div>
 <h1>Enterprise-Grade AI Consulting Services &amp; Strategy for <em>Australian Businesses</em></h1>
 <p class="sub">Supercharge your operations, eliminate manual bottlenecks, and unlock rapid scaling. Partner with premier AI strategy consultants in Australia to architect custom large language models (LLMs), intelligent workflow systems, and advanced agentic automations.</p>
-<div class="hero-form">
-<form action="#" method="post">
+</div>
+<div class="form-card hero-card">
+<h2>Book a 20-minute AI readiness call</h2>
+<p class="fsub">An Australian consultant replies within one business day.</p>
+<form action="#" method="post" id="lead">
 <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
-<div class="hf-row">
-<input type="email" name="email" required placeholder="Business Email" aria-label="Business Email">
-<input type="tel" name="phone" required placeholder="Phone Number" aria-label="Phone Number">
-</div>
-<button type="submit" class="hf-btn">Book My Free Consultation</button>
-<div class="hf-note">30 minutes · Australia &amp; New Zealand team · No obligation</div>
+<div class="ff"><label for="h-name">Full Name</label><input type="text" id="h-name" name="name" required placeholder="Your name"></div>
+<div class="ff"><label for="h-email">Business Email</label><input type="email" id="h-email" name="email" required placeholder="you@company.com.au"></div>
+<div class="ff"><label for="h-phone">Phone Number</label><input type="tel" id="h-phone" name="phone" required placeholder="+61 ..."></div>
+<div class="ff"><label for="h-goals">Briefly describe your project or workflow goals</label><textarea id="h-goals" name="goals" placeholder="e.g. We want to automate quote generation and connect our CRM to Xero…"></textarea></div>
+<button type="submit" class="form-btn">Book My Free Consultation</button>
+<div class="form-trust">30 minutes · Australia &amp; New Zealand team · No obligation</div>
 </form>
-</div>
-</div>
-<div class="pipe" aria-hidden="true">
-<div class="pipe-title"><span class="pulse"></span>Agentic Automation Pipeline, Live</div>
-<div class="node-row">
-<div class="node">Inbound Email<small>Customer enquiry received</small></div>
-<span class="arrow">→</span>
-<div class="node hot">LLM Classifier<small>Intent + priority detected</small></div>
-</div>
-<div class="node-row">
-<div class="node hot">AI Agent<small>Drafts response · checks CRM</small></div>
-<span class="arrow">→</span>
-<div class="node">Approval Gate<small>Human review · 8 sec</small></div>
-</div>
-<div class="node-row">
-<div class="node">CRM Updated<small>Deal stage + activity logged</small></div>
-<span class="arrow">→</span>
-<div class="node">Reply Sent<small>4 min end-to-end</small></div>
-</div>
-<div class="node-row" style="margin-bottom:0">
-<div class="node" style="text-align:center"><small style="margin:0">Manual handling time eliminated</small>92%</div>
-<div class="node" style="text-align:center"><small style="margin:0">Processes automated this quarter</small>38</div>
-</div>
 </div>
 </div>
 </div></header>
@@ -148,10 +128,10 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="tm">
-<div class="tm-img">Natalia Mishenina</div>
+<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=800&amp;h=600&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><span>Nikki Glucksman</span></div>
 <div class="tm-body">
-<div class="tm-role">Technical Project Manager</div>
-<p>Expert in SaaS implementation and process mapping, guiding AI solution design from discovery and data audit through to secure system handover.</p>
+<div class="tm-role">Principal Consultant</div>
+<p>UX-driven product strategist translating business requirements into streamlined workflows.</p>
 </div>
 </div>
 <div class="tm">

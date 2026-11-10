@@ -205,6 +205,8 @@ export function renderProof(content: ProofContent): string {
       .join("")}</div>`
 
   const logos = content.logos
+  // Two full rows of six on desktop; the counter only fills a short wall.
+  const counter = logos.length < 12 ? `<div class="lpp-counter">${COUNTER}</div>` : ""
   const run = (clone: boolean) =>
     `<div class="lpp-band-run"${clone ? ' aria-hidden="true"' : ""}>${logos
       .map((l) => logoTile(l, clone, true))
@@ -212,18 +214,20 @@ export function renderProof(content: ProofContent): string {
 
   const heading = content.logosHeading ?? LOGOS_HEADING
   const logoWall = logos.length
-    ? `<div class="lpp-wrap lpp-logos">
+    ? `<section class="lpp lpp-logos-sec" id="clients">
+<div class="lpp-wrap lpp-logos">
 <div class="lpp-shead"><div><p class="lpp-eyebrow">${esc(content.logosLabel)}</p>
 <h2 class="lpp-h2 lpp-logos-h2">${accent(heading)}</h2></div>
 ${content.logosLead ? `<p class="lpp-lead lpp-logos-lead">${esc(content.logosLead)}</p>` : ""}</div>
 <div class="lpp-band"><div class="lpp-band-track">${run(false)}${run(true)}</div></div>
-<div class="lpp-grid" style="--lpp-n:${Math.min(logos.length + 1, 7)}">${logos.map((l) => logoTile(l)).join("")}<div class="lpp-counter">${COUNTER}</div></div>
-</div>`
+<div class="lpp-grid">${logos.map((l) => logoTile(l)).join("")}${counter}</div>
+</div>
+</section>
+`
     : ""
 
   return `<style>${LP_PROOF_CSS}</style>
-<section class="lpp" id="reviews">
-${logoWall}
+${logoWall}<section class="lpp" id="reviews">
 <div class="lpp-wrap lpp-roll">
 <div class="lpp-intro">
 <p class="lpp-eyebrow">Client proof</p>
@@ -278,7 +282,11 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:0 16px}
 .lpp-rail::-webkit-scrollbar{display:none}
 .lpp-rail>.lpp-card{flex:0 0 86%;scroll-snap-align:start;margin:0}
-.lpp-logos{margin-bottom:64px}
+.lpp-logos{margin-bottom:0}
+.lpp.alt{background:var(--lpp-mist)}
+.lpp.alt .lpp-tile{background:#fff}
+.lpp.alt .lpp-eyebrow{background:#fff}
+.lpp.alt .lpp-card{background:#fff}
 .lpp-tile{display:flex;align-items:center;justify-content:center;height:88px;border-radius:12px;background:var(--lpp-mist);padding:16px 20px;transition:background-color .2s}
 .lpp-tile:hover{background:var(--lpp-mist-hover)}
 .lpp-tile img{max-height:40px;max-width:72%;width:auto;object-fit:contain}
@@ -303,6 +311,7 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 }
 @media(min-width:1024px){
 .lpp{padding:120px 0}
+.lpp-logos-sec{padding:96px 0}
 .lpp-wrap{padding:0 48px}
 .lpp-shead{grid-template-columns:3fr 2fr;gap:48px;align-items:end;margin-bottom:42px}
 .lpp-roll{grid-template-columns:1fr 2fr;gap:64px;align-items:center}
@@ -314,7 +323,7 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-col{animation:lppRoll 74s linear infinite}
 .lpp-col-b{margin-top:-60px;animation-direction:reverse}
 .lpp-track:hover>.lpp-col{animation-play-state:paused}
-.lpp-grid{grid-template-columns:repeat(var(--lpp-n,7),minmax(0,1fr));gap:12px}
+.lpp-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 .lpp-tile,.lpp-counter{height:104px}
 .lpp-tile{padding:24px}
 .lpp-counter{font-size:22px}

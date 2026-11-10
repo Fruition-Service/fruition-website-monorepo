@@ -46,16 +46,18 @@ ${LP_FONTS}
 <span class="cta-note">30 minutes · No obligation · Australian team</span>
 </div>
 </div>
-<div class="dash" aria-hidden="true">
-<div class="dash-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ttl">Sales Pipeline, Q3</span></div>
-<div class="dash-body">
-<div class="dash-row h"><span>Deal</span><span>Status</span><span>Owner</span><span>Progress</span></div>
-<div class="dash-row"><span class="dash-name">Acme Rollout</span><span class="pill pg">Won</span><span>N. M.</span><span class="bar"><i style="width:100%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Harbour Group CRM</span><span class="pill pa">Proposal</span><span>B. M.</span><span class="bar"><i style="width:64%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Northside Services</span><span class="pill pp">Discovery</span><span>J. J.</span><span class="bar"><i style="width:32%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Coastal Build Co</span><span class="pill pa">Proposal</span><span>N. M.</span><span class="bar"><i style="width:58%"></i></span></div>
-<div class="dash-row"><span class="dash-name">Fieldline Logistics</span><span class="pill pg">Won</span><span>B. M.</span><span class="bar"><i style="width:100%"></i></span></div>
-</div>
+<div class="form-card hero-card">
+<h2>Get your free workflow blueprint</h2>
+<p class="fsub">An Australian consultant replies within one business day.</p>
+<form action="#" method="post" id="lead">
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden">
+<div class="ff"><label for="h-name">Full Name</label><input type="text" id="h-name" name="name" required placeholder="Your name"></div>
+<div class="ff"><label for="h-email">Business Email</label><input type="email" id="h-email" name="email" required placeholder="you@company.com.au"></div>
+<div class="ff"><label for="h-phone">Phone Number</label><input type="tel" id="h-phone" name="phone" required placeholder="+61 ..."></div>
+<div class="ff"><label for="h-goals">Briefly describe your project or workflow goals</label><textarea id="h-goals" name="goals" placeholder="e.g. We need a CRM and job-tracking system connected to Xero…"></textarea></div>
+<button type="submit" class="form-btn">Book My Free Consultation</button>
+<div class="form-trust">No obligation. 100% confidential.</div>
+</form>
 </div>
 </div>
 </div></header>
@@ -134,10 +136,10 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="tm">
-<div class="tm-img">Natalia Mishenina</div>
+<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=800&amp;h=600&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><span>Nikki Glucksman</span></div>
 <div class="tm-body">
-<div class="tm-role">Solution Engineer</div>
-<p>Expert in SaaS implementation, process mapping, and guiding technical solution design from initial discovery through to system handover.</p>
+<div class="tm-role">Principal Consultant</div>
+<p>UX-driven product strategist translating business requirements into streamlined workflows.</p>
 </div>
 </div>
 <div class="tm">
