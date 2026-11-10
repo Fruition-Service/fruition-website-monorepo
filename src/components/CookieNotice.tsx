@@ -93,6 +93,7 @@ export default function CookieNotice() {
               we identify business visitors to this site. You can opt out, and it
               never affects how the site works.{" "}
               <Link
+                prefetch={false}
                 href="/data-privacy"
                 className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
               >

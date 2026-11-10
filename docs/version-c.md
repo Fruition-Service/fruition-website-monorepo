@@ -29,3 +29,43 @@ is click-to-edit on editing.fruitionservices.io.
 3. Route: replace `page.tsx` with the three-line Version C route (see `src/app/monday-for-retail`).
 4. Check: `node scripts/vc/compare.mjs --page <slug>:<path>` screenshots the page next to its
    mock-up at 1440 and 390 and reports section heights, overflow, broken images and console errors.
+
+## Site chrome: announcement bar, header and footer
+
+Every site page (not the ad landing pages, `/internal` or `/studio`) renders the Version C chrome from
+Sanity `siteSettings`; nothing about it is in code copy.
+
+| Part | Component | Sanity fields |
+|---|---|---|
+| Announcement bar | `components/home/AwardBanner.tsx` | shared copy slots `award-text`, `award-link`; `announcementHref` |
+| Header (tabs, dropdowns, call popover, CTA, mobile sheet) | `components/Navbar.tsx`, `RegionalCallPopover.tsx` | `navigation` (tab, `sections[]`, `items[]` with `logo` image, `tier`, `description`; `footerNote`, `footerLinks`, `feature`), `offices`, `navbarCtaLabel`, `calendlyLink` |
+| Footer | `components/Footer.tsx`, `FooterBookingCta.tsx` | `footerColumns`, `footerTagline`, `footerBadges` (chips, empty in the approved design), `socialLinks` (`icon` image, `row` 1 or 2), `footerLegalLinks`, `footerCopyrightText`, `footerCtaLabel`, `contactEmail`, `phone` |
+
+Styles are one hand-written file, `src/styles/vc/chrome.css`, imported by the root layout: everything in
+`@layer components`, every selector under `.vcn-ann`, `.vcn` or `.vcf`, colours from the `--vc-*` tokens,
+fonts from the next/font variables, three widths (767 / 1023). Behaviour kept from the old header:
+the CTA is a same-tab link that `InPageBookingLinks` turns into a scroll to `#book`; Escape, outside click,
+focus leaving a panel and navigation close dropdowns; ArrowDown or Enter on a tab moves focus into its panel;
+all dropdown links are in the server HTML; the header is `position: sticky` (the layout renders the bar and
+header as siblings, not in a wrapper div, so it can stick).
+
+### Seeding and rollback
+
+`src/data/nav-vc.ts` and `src/data/footer-vc.ts` are the approved menu and footer; the icons are the SVG
+files in `scripts/nav-icons/` (brand marks in their own colours, line icons in the accent colour).
+
+```bash
+npx tsx scripts/seed-nav-vc.ts                 # dry run: menu tree, icon check
+npx tsx scripts/seed-nav-vc.ts --check-urls    # every href must be a 200 on the live site
+npx tsx scripts/seed-nav-vc.ts --apply         # back up, upload icons, write the fields
+npx tsx scripts/seed-nav-vc.ts --preview-file /tmp/nav-vc.json   # then NAV_VC_PREVIEW_FILE=/tmp/nav-vc.json npm run dev
+```
+
+`--apply` writes `navigation`, `footerTagline`, `footerBadges`, `footerColumns`, `footerCopyrightText`,
+`socialLinks` and `announcementHref`, after saving their current values to
+`scripts/nav-backups/nav-vc-backup-<timestamp>.json`. The values from before the 11 Nov 2026 rollout are
+committed as `scripts/nav-backups/nav-vc-backup-2026-11-10T23-01-48-518Z.json`. Rollback: revert the code
+PR, then `npx tsx scripts/seed-nav-vc.ts --restore scripts/nav-backups/nav-vc-backup-2026-11-10T23-01-48-518Z.json`
+(fields that did not exist before are unset; the old Services tab comes back with the old code, because it
+lived in `src/data/nav-services.ts`). The schema additions (`announcementHref`, `navSection.grow`, `navLink.logo`,
+`feature.plain`, `socialLink.row`) are additive and can stay.

@@ -1,31 +1,38 @@
 /**
- * Footer v3 (Josh, 21 Oct 2026). With the menu cut to five tabs, the footer
- * carries every page that left it, so each page that gets traffic is still one
- * click from anywhere. Copy is the prototype's, verbatim; "Implementation
- * calculator" points at /ask-fruit, its real route.
+ * Version C footer (approved November 2026). The columns, tagline, copyright
+ * line and social icons are the approved mock-up's
+ * (vc-mockups/review/p/*.html footer), with every link pointing at its live
+ * route.
  *
- * Written to Sanity siteSettings (footerTagline, footerBadges, footerColumns,
- * footerCopyrightText) by scripts/seed-nav-v3.ts, so editors own it after that.
+ * This file is the seed: scripts/seed-nav-vc.ts writes it to Sanity
+ * siteSettings (footerColumns, footerTagline, footerBadges, footerCopyrightText,
+ * socialLinks), and from then on editors own the footer. Nothing renders from
+ * this file at runtime.
  */
 
-export interface FooterV3Column {
+export interface FooterVcColumn {
   heading: string
   links: { label: string; href: string }[]
 }
 
-export const FOOTER_V3_TAGLINE = 'Platform-agnostic AI and workflow consultancy. Process before platform.'
+export interface FooterVcSocial {
+  label: string
+  href: string
+  /** 1 or 2: the mock-up shows the social networks on row 1, WhatsApp and email on row 2. */
+  row: number
+  /** File name (without .svg) in scripts/nav-icons/. */
+  icon: string
+}
 
-export const FOOTER_V3_BADGES = [
-  'OpenAI Select Partner',
-  'monday.com Platinum',
-  'Atlassian Platinum',
-  'Rising Star 2026 ×2',
-]
+export const FOOTER_VC_TAGLINE = 'Platform-agnostic AI and workflow consultancy. Process before platform.'
 
-export const FOOTER_V3_COPYRIGHT =
+/** The approved footer carries no credential chips; the field stays editable in Studio. */
+export const FOOTER_VC_BADGES: string[] = []
+
+export const FOOTER_VC_COPYRIGHT =
   '© 2026 Fruition Services · ABN 12 667 454 006 · Level 12, 64 York Street, Sydney NSW 2000'
 
-export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
+export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
   {
     heading: 'Services',
     links: [
@@ -34,12 +41,18 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'Implementation consultants', href: '/monday-implementation-consultants' },
       { label: 'CRM consulting', href: '/monday-crm-consulting' },
       { label: 'Training', href: '/training' },
+      { label: 'monday Service (ITSM)', href: '/monday-consulting-solutions/monday-service' },
+      { label: 'HR operations', href: '/monday-consulting-solutions/monday-for-hr' },
       { label: 'AI consulting', href: '/ai-consulting' },
       { label: 'AI capability assessment', href: '/ai-capability-assessment' },
       { label: 'AI strategy & execution', href: '/ai-strategy-and-execution' },
       { label: 'Agent development', href: '/ai-consulting/agent-development' },
       { label: 'RAG & knowledge systems', href: '/ai-consulting/rag-knowledge-systems' },
       { label: 'AI governance', href: '/ai-consulting/governance-and-compliance' },
+      { label: 'AI customer service', href: '/ai-consulting/customer-service' },
+      { label: 'AI marketing automation', href: '/ai-consulting/marketing-automation' },
+      { label: 'AI sales & outbound', href: '/ai-consulting/sales-outbound' },
+      { label: 'AI operations', href: '/ai-consulting/operations-back-office' },
     ],
   },
   {
@@ -47,6 +60,11 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
     links: [
       { label: 'HubSpot implementation', href: '/hubspot-consulting#implementation' },
       { label: 'HubSpot Breeze AI', href: '/hubspot-consulting#breeze-ai' },
+      { label: 'ClickUp', href: '/partnerships/certified-clickup-partner' },
+      { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner' },
+      { label: 'Aircall', href: '/partnerships/aircall-partner' },
+      { label: 'OpenClaw', href: '/partnerships/openclaw-partner' },
+      { label: 'Vapi', href: '/partnerships/vapi-partner' },
       { label: 'All partners', href: '/partnerships' },
       { label: 'Integrations', href: '/integrations' },
       { label: 'WhatsApp', href: '/integrations/whatsapp' },
@@ -68,6 +86,9 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'Retail', href: '/monday-for-retail' },
       { label: 'Healthcare', href: '/industries/healthcare' },
       { label: 'Solar & renewables', href: '/industries/solar-renewables' },
+      { label: 'Marketing & creative', href: '/monday-for-marketing' },
+      { label: 'Education', href: '/industries/education' },
+      { label: 'Nonprofits', href: '/industries/nonprofits' },
       { label: 'AI use case hub', href: '/ai-use-cases' },
       { label: 'Implementation calculator', href: '/ask-fruit' },
     ],
@@ -98,6 +119,18 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
   },
 ]
 
-export function footerV3Hrefs(): string[] {
-  return [...new Set(FOOTER_V3_COLUMNS.flatMap((c) => c.links.map((l) => l.href)))]
+export const FOOTER_VC_SOCIALS: FooterVcSocial[] = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/fruition-services', row: 1, icon: 'social-linkedin' },
+  { label: 'Instagram', href: 'https://instagram.com/fruition.monday', row: 1, icon: 'social-instagram' },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=100092289551680', row: 1, icon: 'social-facebook' },
+  { label: 'YouTube', href: 'https://youtube.com/@fruitionservices', row: 1, icon: 'social-youtube' },
+  { label: 'X', href: 'https://x.com/Fruitionservic', row: 1, icon: 'social-x' },
+  { label: 'Reddit', href: 'https://reddit.com/user/Professional_Act2302', row: 1, icon: 'social-reddit' },
+  { label: 'Pinterest', href: 'https://pinterest.com/fruitionservice', row: 1, icon: 'social-pinterest' },
+  { label: 'WhatsApp', href: 'https://wa.me/61435520959', row: 2, icon: 'social-whatsapp' },
+  { label: 'Email', href: 'mailto:contact@fruitionservices.io', row: 2, icon: 'social-email' },
+]
+
+export function footerVcHrefs(): string[] {
+  return [...new Set(FOOTER_VC_COLUMNS.flatMap((c) => c.links.map((l) => l.href)))]
 }

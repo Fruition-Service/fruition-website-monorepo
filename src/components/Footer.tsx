@@ -1,7 +1,6 @@
 import { bookingHref } from "@/lib/bookingLink"
 import Link from 'next/link'
 import FooterBookingCta from '@/components/FooterBookingCta'
-import FooterColumn from '@/components/FooterColumn'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
 
@@ -15,22 +14,18 @@ interface FooterColumnData {
   links?: FooterLink[]
 }
 
-interface Office {
-  phone?: string
-  phoneTel?: string
-}
-
 interface SocialLink {
   label?: string
   href?: string
   icon?: unknown
+  /** Footer row, 1 or 2 (the approved footer puts WhatsApp and email on row 2). */
+  row?: number
 }
 
 interface SiteSettingsProp {
   contactEmail?: string
   phone?: string
   calendlyLink?: string
-  offices?: Office[]
   socialLinks?: SocialLink[]
   footerCtaLabel?: string
   footerTagline?: string
@@ -38,13 +33,6 @@ interface SiteSettingsProp {
   footerColumns?: FooterColumnData[]
   footerLegalLinks?: FooterLink[]
   footerCopyrightText?: string
-  // Pre-v3 columns: rendered only until footerColumns is seeded.
-  footerServicesLinks?: FooterLink[]
-  footerDepartmentLinks?: FooterLink[]
-  footerIndustryLinks?: FooterLink[]
-  footerServicesHeading?: string
-  footerDepartmentSolutionsHeading?: string
-  footerIndustrySolutionsHeading?: string
 }
 
 /** Placeholder numbers seeded as all zeros (e.g. "+91 00000 00000") are never rendered. */
@@ -58,120 +46,104 @@ function telHref(phone: string) {
 }
 
 /**
- * Site footer (v3). With the menu cut to five tabs, the footer carries every
- * other page: Services, Platforms, Industries, Locations and Company. All copy
- * and links come from Sanity siteSettings (seeded by scripts/seed-nav-v3.ts).
+ * Site footer (Version C). It carries every page the five-tab menu does not:
+ * Services, Platforms, Industries, Locations and Company. All text, links,
+ * social icons and the copyright line come from Sanity siteSettings (seeded by
+ * scripts/seed-nav-vc.ts) as plain text nodes, so the inline editor can click
+ * them. Styles: src/styles/vc/chrome.css, scoped under `.vcf`.
  */
 export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsProp | null }) {
   const calendlyUrl = siteSettings?.calendlyLink ? bookingHref(siteSettings.calendlyLink) : ''
-  const socials = siteSettings?.socialLinks ?? []
+  const socials = (siteSettings?.socialLinks ?? []).filter((s) => s.icon && s.href)
+  const socialRows = [1, 2, 3]
+    .map((row) => socials.filter((s) => Math.min(3, Math.max(1, s.row ?? 1)) === row))
+    .filter((r) => r.length > 0)
   const legalLinks = siteSettings?.footerLegalLinks ?? []
   const badges = siteSettings?.footerBadges ?? []
   const ctaLabel = siteSettings?.footerCtaLabel || ''
   const contactEmail = siteSettings?.contactEmail
   const phone = isRealPhone(siteSettings?.phone) ? siteSettings?.phone : undefined
-
-  const columns: FooterColumnData[] = siteSettings?.footerColumns?.length
-    ? siteSettings.footerColumns
-    : [
-        { heading: siteSettings?.footerServicesHeading, links: siteSettings?.footerServicesLinks },
-        { heading: siteSettings?.footerDepartmentSolutionsHeading, links: siteSettings?.footerDepartmentLinks },
-        { heading: siteSettings?.footerIndustrySolutionsHeading, links: siteSettings?.footerIndustryLinks },
-      ].filter((c) => c.links?.length)
+  const columns = siteSettings?.footerColumns ?? []
 
   return (
-    <footer className="bg-surface-dark text-white">
-      <div className="site-container pt-14 pb-8 lg:pt-16">
-        <div className="grid grid-cols-1 gap-y-2 md:grid-cols-3 md:gap-x-8 md:gap-y-10 lg:grid-cols-[1.5fr_repeat(5,minmax(0,1fr))]">
-          {/* Brand */}
-          <div className="pb-8 md:col-span-3 md:pb-0 lg:col-span-1">
-            <Link href="/" aria-label="Fruition home" className="inline-block">
-              <Image
-                src="/images/logo-fruition-white.svg"
-                alt="Fruition"
-                width={1241}
-                height={255}
-                className="h-7 w-auto"
-                unoptimized
-              />
+    <footer className="vcf">
+      <div className="wrap">
+        <div className="cols">
+          <div className="brand">
+            <Link prefetch={false} href="/" aria-label="Fruition home" className="logo">
+              <Image src="/images/logo-fruition-white.svg" alt="Fruition" width={1241} height={255} unoptimized />
             </Link>
-            {siteSettings?.footerTagline && (
-              <p className="mt-4 max-w-[280px] text-sm leading-relaxed text-white/75">{siteSettings.footerTagline}</p>
-            )}
+            {siteSettings?.footerTagline && <p>{siteSettings.footerTagline}</p>}
             {badges.length > 0 && (
-              <ul className="mt-4 flex flex-wrap gap-1.5">
+              <ul className="chips">
                 {badges.map((b) => (
-                  <li
-                    key={b}
-                    className="rounded-full border border-white/25 px-2.5 py-0.5 text-[11px] font-semibold text-white"
-                  >
-                    {b}
-                  </li>
+                  <li key={b}>{b}</li>
                 ))}
               </ul>
             )}
-            {ctaLabel && calendlyUrl && (
-              <FooterBookingCta url={calendlyUrl} label={ctaLabel} className="mt-6 h-11 px-6 text-sm" />
-            )}
+            {ctaLabel && calendlyUrl && <FooterBookingCta url={calendlyUrl} label={ctaLabel} />}
             {contactEmail && (
-              <a
-                href={`mailto:${contactEmail}`}
-                className="mt-6 block text-sm text-white/75 transition-colors hover:text-white"
-              >
+              <a href={`mailto:${contactEmail}`} className="mail">
                 {contactEmail}
               </a>
             )}
-            {socials.length > 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                {socials.map((s, i) => {
-                  const src = s.icon ? urlFor(s.icon).width(52).height(52).url() : null
-                  if (!src) return null
-                  return (
-                    <a
-                      key={`${s.label}-${i}`}
-                      href={s.href || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.label || 'Social'}
-                      className="flex h-11 w-11 items-center justify-center opacity-90 transition-opacity hover:opacity-100"
-                    >
-                      <Image src={src} alt="" width={26} height={26} className="h-[26px] w-[26px]" unoptimized />
-                    </a>
-                  )
-                })}
+            {socialRows.length > 0 && (
+              <div className="soc">
+                {socialRows.map((row, r) => (
+                  <div className="soc-row" key={r}>
+                    {row.map((s, i) => {
+                      const external = /^https?:/i.test(s.href ?? '')
+                      return (
+                        <a
+                          key={`${s.label}-${i}`}
+                          href={s.href}
+                          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          aria-label={s.label || 'Social'}
+                          title={s.label}
+                        >
+                          <Image src={urlFor(s.icon).width(48).url()} alt="" width={12} height={12} unoptimized />
+                        </a>
+                      )
+                    })}
+                  </div>
+                ))}
               </div>
             )}
           </div>
 
           {columns.map((col, i) => (
-            <FooterColumn key={`${col.heading}-${i}`} heading={col.heading} links={col.links ?? []} />
+            <div className="col" key={`${col.heading}-${i}`}>
+              <h2>{col.heading}</h2>
+              <ul>
+                {(col.links ?? []).map((link, j) => (
+                  <li key={`${link.href}-${j}`}>
+                    <Link prefetch={false} href={link.href || '#'}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/15 pt-6 text-xs text-white/70 md:flex-row md:items-center md:justify-between">
-          <p>
+        <div className="base">
+          <span>
             {siteSettings?.footerCopyrightText}
             {phone && (
               <>
                 {siteSettings?.footerCopyrightText ? ' · ' : ''}
-                <a href={telHref(phone)} className="transition-colors hover:text-white">
-                  {phone}
-                </a>
+                <a href={telHref(phone)}>{phone}</a>
               </>
             )}
-          </p>
+          </span>
           {legalLinks.length > 0 && (
-            <div className="flex items-center gap-4">
+            <span className="legal">
               {legalLinks.map((link, i) => (
-                <Link
-                  key={`${link.href}-${i}`}
-                  href={link.href || '#'}
-                  className="whitespace-nowrap py-2 transition-colors hover:text-white"
-                >
-                  {link.label}
-                </Link>
+                <span key={`${link.href}-${i}`}>
+                  {i > 0 && <span aria-hidden>· </span>}
+                  <Link prefetch={false} href={link.href || '#'}>{link.label}</Link>
+                </span>
               ))}
-            </div>
+            </span>
           )}
         </div>
       </div>

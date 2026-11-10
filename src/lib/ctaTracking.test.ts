@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
-import { trackCtaClick, ctaEventFromAnchor } from "./ctaTracking"
+import { trackCtaClick, ctaEventFromAnchor, CTA_SELECTOR } from "./ctaTracking"
 import { normalisePath } from "./googleAnalytics"
 
 describe("trackCtaClick", () => {
@@ -91,6 +91,15 @@ describe("ctaEventFromAnchor", () => {
       variant: "primary",
       location: "inline",
     })
+  })
+
+  // The Version C footer button is not a `cta-btn`; it names its variant in a
+  // data attribute and is matched by CTA_SELECTOR through it.
+  it("reads a data-cta-variant anchor and matches it by CTA_SELECTOR", () => {
+    const el = anchor('<a href="/contact-us#book" data-cta-variant="primary" class="btn inverse sm"><span class="roll"><span>Book a Meeting</span><span aria-hidden="true">Book a Meeting</span></span></a>')
+    expect(el.matches(CTA_SELECTOR)).toBe(true)
+    expect(ctaEventFromAnchor(el).variant).toBe("primary")
+    expect(ctaEventFromAnchor(el).href).toBe("/contact-us#book")
   })
 
   // CtaButton wraps its text in .cta-btn-label next to an icon span; taking the

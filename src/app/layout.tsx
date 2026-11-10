@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import Script from "next/script"
 import { Poppins, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
+import "@/styles/vc/chrome.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { OfficeStrapProvider } from "@/components/OfficeStrapProvider"
@@ -19,6 +20,7 @@ import { ThemeProvider } from "@/components/ThemeProvider"
 import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
 import { getSiteSettings } from "@/sanity/queries"
 import { bookingHref } from "@/lib/bookingLink"
+import { applyNavPreview } from "@/lib/navPreview"
 import { officeStrap } from "@/data/offices"
 import { urlFor } from "@/sanity/image"
 import { buildOgMetadata, defaultOgImage } from "@/lib/metadata"
@@ -215,17 +217,9 @@ export default async function RootLayout({
 }>) {
   const siteSettings = await getSiteSettings()
 
-  // Local preview of the v3 menu and footer without writing to Sanity:
-  // NAV_V3_PREVIEW=1 npm run dev  (see scripts/seed-nav-v3.ts for the real rollout)
-  if (process.env.NAV_V3_PREVIEW === '1' && siteSettings) {
-    const { NAV_V3 } = await import('@/data/nav-v3')
-    const footer = await import('@/data/footer-v3')
-    siteSettings.navigation = NAV_V3
-    siteSettings.footerTagline = footer.FOOTER_V3_TAGLINE
-    siteSettings.footerBadges = footer.FOOTER_V3_BADGES
-    siteSettings.footerColumns = footer.FOOTER_V3_COLUMNS
-    siteSettings.footerCopyrightText = footer.FOOTER_V3_COPYRIGHT
-  }
+  // Local preview of the Version C menu and footer without writing to Sanity
+  // (dev only, see src/lib/navPreview.ts and scripts/seed-nav-vc.ts).
+  await applyNavPreview(siteSettings)
 
   const siteCopy = toSiteCopy(siteSettings?.copy)
 
@@ -241,7 +235,7 @@ export default async function RootLayout({
       ...(Array.isArray(siteSettings?.socialLinks)
         ? (siteSettings.socialLinks as Array<{ href?: string }>)
             .map((l) => l?.href)
-            .filter((h): h is string => Boolean(h))
+            .filter((h): h is string => Boolean(h) && /^https?:/i.test(h as string))
         : []),
       ...AUTHORITY_PROFILES,
     ]),
@@ -441,11 +435,13 @@ export default async function RootLayout({
           <OfficeStrapProvider value={officeStrap(siteSettings?.offices)}>
           <SiteCopyProvider copy={siteCopy}>
             <SiteFrame
+              // A fragment, not a wrapper div: the header is position:sticky and
+              // would otherwise stick only inside a box as tall as itself.
               header={
-                <div key="site-header">
-                  <AwardBanner copy={siteCopy} />
+                <>
+                  <AwardBanner copy={siteCopy} href={siteSettings?.announcementHref} />
                   <Navbar siteSettings={siteSettings} />
-                </div>
+                </>
               }
               footer={<Footer key="site-footer" siteSettings={siteSettings} />}
               cookie={<CookieNotice key="site-cookie" />}

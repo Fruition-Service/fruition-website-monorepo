@@ -43,6 +43,14 @@ export default {
       ],
     },
 
+    {
+      name: 'announcementHref',
+      title: 'Top banner link URL',
+      type: 'string',
+      description:
+        'Where the top banner link goes, e.g. /post/fruition-claude-partner-network-certification. The banner text and link label are in Shared copy.',
+    },
+
     // Reusable button labels
     { name: 'navbarCtaLabel', title: 'Navbar CTA Label', type: 'string' },
     { name: 'footerCtaLabel', title: 'Footer CTA Label', type: 'string' },
@@ -167,6 +175,12 @@ export default {
                       description: 'Small pill rendered next to the heading, e.g. "Platinum Partner".',
                     },
                     {
+                      name: 'grow',
+                      title: 'Width share',
+                      type: 'number',
+                      description: 'Share of the dropdown width in the "columns" layout. Defaults to the number of item columns.',
+                    },
+                    {
                       name: 'items',
                       title: 'Items',
                       type: 'array',
@@ -191,10 +205,17 @@ export default {
                               description: 'Emphasised card styling within its column.',
                             },
                             {
+                              name: 'logo',
+                              title: 'Logo',
+                              type: 'image',
+                              description:
+                                'Mark shown beside the link, in its own colours (SVG or PNG, square works best). Replaces the icon key.',
+                            },
+                            {
                               name: 'icon',
                               title: 'Icon (key)',
                               type: 'string',
-                              description: 'Icon key — see Navbar nav-icons set',
+                              description: 'Fallback icon key, used only when no logo is set. See Navbar nav-icons set',
                             },
                           ],
                         },
@@ -234,6 +255,12 @@ export default {
               fields: [
                 { name: 'kicker', title: 'Kicker', type: 'string' },
                 { name: 'quote', title: 'Quote', type: 'text', rows: 3 },
+                {
+                  name: 'plain',
+                  title: 'Plain text (no quotation marks)',
+                  type: 'boolean',
+                  description: 'Turn on when the card is a plain blurb rather than a client quote.',
+                },
                 { name: 'attribution', title: 'Attribution', type: 'string' },
                 { name: 'label', title: 'Link label', type: 'string' },
                 { name: 'href', title: 'Link href', type: 'string' },
@@ -335,6 +362,12 @@ export default {
             { name: 'label', title: 'Label', type: 'string' },
             { name: 'href', title: 'URL', type: 'string' },
             { name: 'icon', title: 'Icon', type: 'image' },
+            {
+              name: 'row',
+              title: 'Footer row',
+              type: 'number',
+              description: 'Row in the footer, 1 or 2. Defaults to 1.',
+            },
           ],
         },
       ],
