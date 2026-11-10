@@ -236,3 +236,35 @@ function tileSrc(image: import("../types").VcImage) {
   const m = ref.match(/^image-([a-f0-9]+)-(\d+x\d+)-(\w+)$/)
   return m ? `https://cdn.sanity.io/images/${projectId}/${dataset}/${m[1]}-${m[2]}.${m[3]}?h=160&fit=max&auto=format` : undefined
 }
+
+/* ------------------------------------------------------------ team card */
+
+/** Team member card with the "Read more" bio toggle from the mock-ups. */
+export function VcTeamCard({ m, photo }: { m: import("../types").VcTeamMember; photo?: React.ReactNode }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <article className={`pc${open ? " open" : ""}`}>
+      <div className="ph">{photo}</div>
+      <div className="pb">
+        {m.role && <span className="label">{m.role}</span>}
+        {m.name && <h3 className="title">{m.name}</h3>}
+        {m.bio && <p className="bio">{m.bio}</p>}
+        <div className="pf">
+          {m.bio && (
+            <button className="more" type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+              {open ? "Show less" : "Read more"}
+            </button>
+          )}
+          {m.linkedinUrl && (
+            <a className="link" href={vercelStegaClean(m.linkedinUrl)} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  )
+}

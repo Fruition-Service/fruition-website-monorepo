@@ -17,7 +17,7 @@ import {
 } from "./sections/basic"
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import VcBooking from "./sections/VcBooking"
-import { VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
+import { VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
 /**
  * Renders a Version C page (vcPage document) section by section.
@@ -53,6 +53,10 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcPartnerStatus": return <VcPartnerStatus s={s} />
     case "vcDirectory": return <VcDirectory s={s} />
     case "vcToolkit": return <VcToolkit s={s} />
+    case "vcStatsRow": return <VcStatsRow s={s} />
+    case "vcTeam": return <VcTeam s={s} />
+    case "vcAnswer": return <VcAnswer s={s} />
+    case "vcCoverage": return <VcCoverage s={s} />
     default: return null
   }
 }
@@ -72,7 +76,7 @@ export async function VcPage({ path, slug, page: given }: { path: string; slug: 
 /** Page metadata from the vcPage document, with the route's own fallbacks. */
 export async function vcMetadata(
   path: string,
-  fallback: { title?: string | null; description?: string | null } = {},
+  fallback: { title?: string | null; description?: string | null; locale?: string } = {},
 ): Promise<Metadata> {
   const page = await getVcPage(path)
   const title = page?.seoTitle || fallback.title || undefined
@@ -86,6 +90,7 @@ export async function vcMetadata(
       description: description ? vercelStegaClean(description) : description,
       path,
       ogImageSource: page?.ogImage?.asset ? page.ogImage : undefined,
+      locale: fallback.locale,
     }),
   }
 }

@@ -92,6 +92,12 @@ export const PAGES: Record<string, [string, string]> = {
   'governance-and-compliance': ['/ai-consulting/governance-and-compliance', 'ai'],
   'ai-readiness-blueprint': ['/ai-readiness-blueprint', 'ai'],
   'ai-strategy-and-execution': ['/ai-strategy-and-execution', 'ai'],
+  'monday-partner-australia': ['/monday-partner-australia', 'region'],
+  'monday-partner-uk': ['/monday-partner-uk', 'region'],
+  'monday-partner-us': ['/monday-partner-us', 'region'],
+  'monday-partner-singapore': ['/monday-partner-singapore', 'region'],
+  'monday-partner-india': ['/monday-partner-india', 'region'],
+  'monday-partner-philippines': ['/monday-partner-philippines', 'region'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -382,6 +388,25 @@ function hero(sec: HTMLElement, ctx: Ctx) {
     const run = trust.querySelector('.hm-run')
     s.trustLogos = run?.querySelectorAll('img').map((i) => logo(i, ctx))
   }
+  const rmap = art?.querySelector('.rmap')
+  const amap = art?.querySelector('.art.map')
+  if (rmap || amap) {
+    delete s.frameImage; delete s.creds; delete s.chipValue; delete s.chipLabel
+    const host = (rmap ?? amap)!
+    s.mapKind = rmap ? 'rmap' : 'art'
+    s.mapSvg = host.querySelector('svg')!.outerHTML
+    s.mapAspect = rmap ? (rmap.getAttribute('style') ?? '').match(/--ar:\s*([\d.]+)/)?.[1] : (amap!.getAttribute('style') ?? '').match(/aspect-ratio:\s*([^;]+)/)?.[1]?.trim()
+    s.mapAria = decode(amap?.getAttribute('aria-label') ?? '') || undefined
+    if (rmap) s.pins = rmap.querySelectorAll('.pin').map((p) => {
+      const st = p.getAttribute('style') ?? ''
+      return { _type: 'vcPin', _key: key(), label: text(p.querySelector('b')), left: Number(st.match(/left:\s*([\d.]+)%/)?.[1]), top: Number(st.match(/top:\s*([\d.]+)%/)?.[1]), side: p.getAttribute('data-s') ?? 'r', on: has(p, 'on') }
+    })
+    if (amap) {
+      s.mapFlag = text(amap.querySelector('.maplabel .flag')) || undefined
+      const ml = amap.querySelector('.maplabel')
+      s.mapLabel = ml ? text(parse(`<b>${ml.innerHTML.replace(ml.querySelector('.flag')?.outerHTML ?? '', '')}</b>`).querySelector('b')) : undefined
+    }
+  }
   if (!img3d && !frame) warnings.push(`${ctx.slug}: hero has no 3D graphic or frame`)
   return s
 }
@@ -618,6 +643,8 @@ function liveVideoId(ctx: Ctx, alt: string): string | undefined {
   if (/star aviation/i.test(alt)) return STAR_AVIATION
   // The region pages' walkthrough, reused on the partner pages in the mock-ups.
   if (/how fruition builds monday\.com systems/i.test(alt)) return 'eoOCR6OjJhI'
+  const scripted = ctx.scripts.join('\n').match(/youtube(?:-nocookie)?\.com\/embed\/([A-Za-z0-9_-]{11})/)
+  if (scripted) return scripted[1]
   return ids[0]
 }
 
@@ -640,9 +667,56 @@ function pageLink(ctx: Ctx, href: string | undefined, name: string): string | un
   return liveHref(ctx, name)
 }
 
+let teamMembers: { _id: string; name: string; bio?: string }[] | null = null
+
 async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, unknown> | null> {
   const base = { _key: key(), tone: tone(sec) }
   const ds = sec.getAttribute('data-sec')
+  if (ds === 'numbers' && sec.querySelector('.stats')) {
+    return {
+      _type: 'vcStatsRow', ...base, head: headOf(sec),
+      stats: sec.querySelectorAll('.stats .stat').map((st) => ({ _type: 'vcStat', _key: key(), value: rich(st.querySelector('b')), label: text(st.querySelector('p')) })),
+      note: text(sec.querySelector('.foot-note')) || undefined,
+      statsClass: cls(sec.querySelector('.stats')).filter((c) => c !== 'stats').join(' ') || undefined,
+      noteBelow: !sec.querySelector('.stats .foot-note') && !!sec.querySelector('.foot-note'),
+    }
+  }
+  if (sec.querySelector('.tgrid .pc')) {
+    teamMembers ??= await client.fetch(`*[_type == "teamMember" && !(_id in path("drafts.**"))]{ _id, name, bio }`)
+    const compact = !sec.querySelector('.tgrid .pc .more')
+    const members = sec.querySelectorAll('.tgrid .pc').map((pc) => {
+      const name = text(pc.querySelector('h3'))
+      const hit = teamMembers!.find((m) => m.name?.trim().toLowerCase() === name.toLowerCase())
+      if (!hit) warnings.push(`${ctx.slug}: team member not in Sanity: ${name}`)
+      const shown = text(pc.querySelector('p.bio, p.small'))
+      return hit ? { _type: 'vcTeamRef', _key: key(), person: { _type: 'reference', _ref: hit._id }, bio: shown && shown !== hit.bio ? shown : undefined } : null
+    }).filter(Boolean)
+    return { _type: 'vcTeam', ...base, head: headOf(sec), layout: compact ? 'compact' : 'full', members }
+  }
+  if (sec.querySelector('.answer')) {
+    const a = sec.querySelector('.answer')!
+    return { _type: 'vcAnswer', ...base, badge: text(a.querySelector('.badge')) || undefined, heading: rich(a.querySelector('h2')), body: text(a.querySelector('p.body')) }
+  }
+  if (sec.querySelector('.ogrid')) {
+    const src = sec.querySelector('.omap iframe')?.getAttribute('src') ?? ''
+    const q = decodeURIComponent((src.match(/[?&]q=([^&]+)/)?.[1] ?? '').replace(/\+/g, ' '))
+    const v = sec.querySelector('.ovisit')
+    return {
+      _type: 'vcCoverage', ...base, head: headOf(sec), mapQuery: q, mapTitle: decode(sec.querySelector('.omap iframe')?.getAttribute('title') ?? ''),
+      visitLabel: text(v?.querySelector('.label')), visitHeading: text(v?.querySelector('h3')), visitAddress: text(v?.querySelector('p')),
+      visitLinkLabel: text(v?.querySelector('a.link')), visitHref: v?.querySelector('a.link')?.getAttribute('href') ?? undefined,
+      cityStyle: sec.querySelector('.ocards .city') ? 'city' : 'card',
+      cities: sec.querySelectorAll('.ocards > article').map((c) => {
+        const h = c.querySelector('h3')
+        const flag = h?.querySelector('.flag')
+        return {
+          _type: 'vcCity', _key: key(), label: text(c.querySelector(':scope > .label')) || undefined,
+          title: h ? text(parse(`<b>${h.innerHTML.replace(flag?.outerHTML ?? '', '')}</b>`).querySelector('b')) : '',
+          flag: flag ? text(flag) : undefined, hq: !!c.querySelector('.dot'), body: text(c.querySelector('p')),
+        }
+      }),
+    }
+  }
   if (sec.querySelector('.pst')) {
     return {
       _type: 'vcPartnerStatus', ...base,

@@ -77,6 +77,49 @@ function Trust({ label, logos }: { label?: string; logos: VcLogoData[] }) {
   )
 }
 
+/** Region hero map: the generated dotted SVG (inline, its dots are styled by CSS) with pins or a label. */
+function RegionMap({ s }: { s: VcHeroData }) {
+  const kind = vercelStegaClean(s.mapKind ?? "rmap")
+  // Only plain SVG artwork is injected: no scripts, event handlers or foreign content.
+  const raw = vercelStegaClean(s.mapSvg ?? "").trim()
+  const safe = /^<svg[\s>]/.test(raw) && !/<script|<foreignObject|\son\w+\s*=|javascript:/i.test(raw)
+  const svg = safe ? <span className="vc-svg" dangerouslySetInnerHTML={{ __html: raw }} /> : null
+  if (kind === "art") {
+    return (
+      <div className="hero-art">
+        <div className="frame bare">
+          <div className="art map" role="img" aria-label={vercelStegaClean(s.mapAria ?? "")} style={{ aspectRatio: vercelStegaClean(s.mapAspect ?? "") || undefined }}>
+            {svg}
+            {s.mapLabel && (
+              <span className="maplabel label">
+                {s.mapFlag && <span className="flag" aria-hidden="true">{vercelStegaClean(s.mapFlag)}</span>} {s.mapLabel}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="hero-art">
+      <div className="frame bare">
+        <div className="mapbox">
+          <div className="rmap" style={{ "--ar": vercelStegaClean(s.mapAspect ?? "1") } as React.CSSProperties}>
+            {svg}
+            {(s.pins ?? []).map((p, i) => (
+              <span key={p._key ?? i} className={`pin${p.on ? " on" : ""}`} data-s={vercelStegaClean(p.side ?? "r")} style={{ left: `${p.left}%`, top: `${p.top}%` }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vc/fruit-mark.svg" alt="" />
+                <b>{p.label}</b>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function VcHero({ s }: { s: VcHeroData }) {
   const variant = vercelStegaClean(s.variant ?? "")
   const artClass = vercelStegaClean(s.artClass ?? "")
@@ -93,7 +136,9 @@ export function VcHero({ s }: { s: VcHeroData }) {
           {s.lead && <p className="lead">{s.lead}</p>}
           <Ctas ctas={s.ctas} />
         </div>
-        {s.frameImage?.asset ? (
+        {s.mapSvg ? (
+          <RegionMap s={s} />
+        ) : s.frameImage?.asset ? (
           <div className="hero-art">
             <div className="frame">
               {!!s.creds?.length && (

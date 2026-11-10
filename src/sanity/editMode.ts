@@ -27,6 +27,8 @@ const MACHINE_KEYS = new Set([
   'alignment', 'align', 'slug', 'current', 'href', 'url', 'link', 'anchor', 'id',
   'region', 'regions', 'type', 'kind', 'size', 'tone', 'email', 'phone',
   'calendlyLink', 'videoId', 'cadence', 'youtubeId', 'lang', 'locale', 'alt', 'altText',
+  // Version C machine values: map artwork markup and design-system classes.
+  'mapSvg', 'mapKind', 'mapAspect', 'artClass', 'gridClass', 'tagClass', 'titleClass', 'sectionClass', 'imageFrame', 'shape', 'logoShape', 'floatBadgeClass', 'cityStyle', 'side', 'source', 'groups',
 ])
 
 // Fields that only ever hold human copy, so a lowercase single word there
