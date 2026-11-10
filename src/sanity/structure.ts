@@ -38,6 +38,30 @@ export const deskStructure = (S: StructureBuilder) =>
 
       S.divider(),
 
+      // ── Version C redesign (Nov 2026) ───────────────────────────
+      S.listItem()
+        .title('Website pages (Version C)')
+        .icon(Layers)
+        .child(
+          S.list()
+            .title('Website pages (Version C)')
+            .items([
+              S.listItem()
+                .title('Pages')
+                .child(S.documentTypeList('vcPage').title('Pages').defaultOrdering([{ field: 'path', direction: 'asc' }])),
+              S.listItem()
+                .title('Case studies')
+                .child(S.documentTypeList('vcCase').title('Case studies').defaultOrdering([{ field: 'client', direction: 'asc' }])),
+              S.listItem()
+                .title('Client quotes')
+                .child(S.documentTypeList('vcQuote').title('Client quotes').defaultOrdering([{ field: 'org', direction: 'asc' }])),
+              S.listItem()
+                .title('Shared blocks')
+                .child(S.editor().id('vcShared').schemaType('vcShared').documentId('vcShared')),
+            ])
+        ),
+      S.divider(),
+
       // ── Pages ───────────────────────────────────────────────────
       S.listItem()
         .title('Pages')

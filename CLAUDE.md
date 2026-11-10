@@ -91,6 +91,9 @@ by a hook on every edit under `src/`:
   shipped 30 ad pages with agency CSS; PR #299 had to redo them). Google Ads landing pages under
   `src/app/{au,uk,us}/` use the shared theme in `src/lib/landingPageTheme.ts` and must pass
   `src/lib/landingPageLayout.test.ts`.
+  The one exception is the approved **Version C** design system (Nov 2026): its stylesheet is
+  generated into `src/styles/vc/` by `scripts/vc/build-css.mjs` (scoped, layered, tokenised) and
+  its copy lives in `vcPage` documents. See [docs/version-c.md](docs/version-c.md).
 - **A UI change is not done until it works at 375, 768 and 1440 wide**: one column on mobile, no
   horizontal overflow (`scrollWidth <= innerWidth`), 44px tap targets. Check all three, not just
   desktop.

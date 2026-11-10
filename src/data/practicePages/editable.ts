@@ -10,7 +10,6 @@ import { ATLASSIAN_PAGES } from './atlassian'
 import { HUBSPOT_PAGES } from './hubspot'
 import { INTEGRATIONS_PAGES } from './integrations'
 import { PROOF_PAGES } from './proof'
-import { INDUSTRIES_PAGES } from './industries'
 
 /**
  * Every live route whose PracticePage copy is merged with a `practicePage`
@@ -36,11 +35,7 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   INTEGRATIONS_PAGES['twilio'],
   INTEGRATIONS_PAGES['zapier'],
   PROOF_PAGES['certifications-and-awards'],
-  INDUSTRIES_PAGES['healthcare'],
-  INDUSTRIES_PAGES['financial-services'],
-  INDUSTRIES_PAGES['solar-renewables'],
-  INDUSTRIES_PAGES['education'],
-  INDUSTRIES_PAGES['nonprofits'],
+  // The five /industries leaves moved to Version C vcPage documents (Nov 2026).
 ]
 
 /** Deterministic Studio document id: '/ai-consulting/agent-development' to 'practicePage-ai-consulting-agent-development'. */

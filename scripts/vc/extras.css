@@ -1,0 +1,59 @@
+/*
+ * Version C: hand-written additions to the generated base.css.
+ *
+ * 1. Utilities standing in for the mock-ups' inline style attributes.
+ * 2. The booking card skin. The card is BookingCard (src/components/sections/
+ *    BookingSection.tsx), whose atoms read the site's CTA and text variables
+ *    from inline styles. Re-pointing those variables inside `.vc .cal` gives
+ *    it the Version C look without touching the booking logic.
+ * 3. The responsive rules BookingSection ships in its own <style> block,
+ *    which do not come along when the card is used on its own.
+ */
+  .vc .mt24 { margin-top: 24px; }
+  .vc .go-card { grid-column: 1 / -1; }
+  .vc #book, .vc #faq, .vc [id] { scroll-margin-top: 90px; }
+  .vc .contact a { display: flex; gap: 12px; align-items: center; }
+  .vc .logos .more { display: flex; align-items: center; justify-content: center; font: 500 20px/1 var(--sans); letter-spacing: -.02em; }
+
+  /* 2. booking card skin */
+  .vc .cal {
+    padding: 0;
+    overflow: hidden;
+    --text-dark: var(--ink);
+    --text-body: var(--ink);
+    --color-text-secondary: var(--ink-2);
+    --color-border: var(--line-2);
+    --border-ui: var(--line);
+    --cta-blue: var(--accent);
+    --cta-blue-light: var(--accent);
+    --cta-blue-dark: var(--accent-press);
+    --cta-blue-soft: var(--paper-2);
+    --color-brand-soft: var(--paper-2);
+    --font-sans: var(--sans);
+  }
+  .vc .cal .fr-booking-cta {
+    height: 48px !important;
+    font: 500 13px/1 var(--mono) !important;
+    text-transform: uppercase;
+    letter-spacing: .02em !important;
+  }
+
+  /* 3. layout rules from BookingSection's own stylesheet */
+  .vc .cal .fr-calendly-host { width: 100%; height: 700px; min-height: 700px; }
+  .vc .cal .fr-calendly-host iframe { display: block; width: 100%; height: 100%; }
+  @media (max-width: 767px) {
+    .vc .cal .fr-booking-nav { width: 40px !important; height: 40px !important; }
+    .vc .cal .fr-booking-day { height: 44px !important; }
+    .vc .cal .fr-booking-pad { padding: 20px !important; }
+    .vc .cal .fr-booking-card-grid { grid-template-columns: 1fr !important; }
+    .vc .cal .fr-booking-pickers { width: 100%; gap: 8px; }
+    .vc .cal .fr-booking-picker { flex: 1 1 0 !important; min-width: 0; }
+    .vc .cal .fr-booking-picker select { min-width: 0; width: 100%; }
+    .vc .cal .fr-booking-times {
+      padding-left: 0 !important;
+      border-left: none !important;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      min-height: 0 !important;
+    }
+  }

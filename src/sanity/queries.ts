@@ -686,8 +686,10 @@ export async function getCaseStudies() {
 }
 
 export async function getFaqItems() {
+  // faqItem-vc-* are page-specific questions added with the Version C pages;
+  // they stay off the /faqs hub until that page's own redesign lists them.
   return client.fetch(
-    `*[_type == "faqItem"] | order(coalesce(categoryOrder, 99) asc, order asc) [0...500] {
+    `*[_type == "faqItem" && !(_id match "faqItem-vc-*")] | order(coalesce(categoryOrder, 99) asc, order asc) [0...500] {
       _id, question, answer, category, categoryOrder, order, pages
     }`
   )

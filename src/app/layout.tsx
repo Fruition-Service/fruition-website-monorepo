@@ -145,7 +145,7 @@ const poppins = Poppins({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 })
 
 // Light-only: declaring a single scheme also stops browsers (notably mobile

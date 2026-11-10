@@ -5,6 +5,7 @@ import { schemaTypes } from './schemas'
 import { deskStructure } from './structure'
 
 const SINGLETON_TYPES = new Set([
+  'vcShared',
   'siteSettings',
   'homePage',
   'implementationPackagesPage',

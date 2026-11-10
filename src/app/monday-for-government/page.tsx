@@ -1,50 +1,12 @@
-import {
-  getIndustryPageBySlug,
-  getSiteSettings,
-  getCaseStudies,
-  getFaqItemsForPage,
-} from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import UniversalPageTemplate from "@/components/UniversalPageTemplate"
-import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
-import FeaturedUseCasesSection from "@/components/ai-use-cases/FeaturedUseCasesSection"
-import { buildOgMetadata } from "@/lib/metadata"
-import { getIndustryLogos } from "@/sanity/industryLogos"
-import { catalogueCopy } from "@/features/content/industryPageCopy"
+import "@/styles/vc/pages/monday-for-government.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-export async function generateMetadata() {
-  const page = await getIndustryPageBySlug("monday-for-government")
-  const title = page?.seoTitle
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/monday-for-government" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/monday-for-government",
-    }),
-  }
+const PATH = "/monday-for-government"
+
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs, industryLogos, featuredUseCases] = await Promise.all([
-    getIndustryPageBySlug("monday-for-government"),
-    getSiteSettings(),
-    getCaseStudies(),
-    getFaqItemsForPage("monday-for-government"),
-    getIndustryLogos("government"),
-    getFeaturedUseCases("/monday-for-government"),
-  ])
-  return (
-    <UniversalPageTemplate
-      useCasesSlot={<FeaturedUseCasesSection featured={featuredUseCases} copy={catalogueCopy(page)} />}
-      page={page}
-      siteSettings={siteSettings}
-      caseStudies={caseStudies || []}
-      industryLogos={industryLogos}
-      faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="monday-for-government" />
 }

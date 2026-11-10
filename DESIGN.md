@@ -223,3 +223,24 @@ The system is flat-by-default: depth is drawn with 1px hairline borders and surf
 - **Don't** use JetBrains Mono for sentences, or purple for more than ~10% of a screen.
 - **Don't** use the legacy `#4674FB` blue hover, `#579bfc` hovers, or any color not in the palette above.
 - **Don't** exceed a 6rem display size or track tighter than -0.04em — big is confident, shouting is not.
+
+## 7. Version C (approved redesign, November 2026)
+
+Edward approved the "Version C" redesign of every marketing page in November 2026 (mock-ups:
+claude.ai artifact 8oeZE8GBnhtDAVC4xGRjjC). Pages move to it group by group; a migrated page is
+rendered by `src/components/vc/` from a `vcPage` Sanity document, never from code copy.
+
+- **One component stylesheet.** `scripts/vc/build-css.mjs` turns the approved design system
+  (`sys.css`) into `src/styles/vc/pages/<slug>.css`: every selector scoped under `.vc`, wrapped in
+  `@layer components`, colours resolved to the `--vc-*` tokens in `globals.css`, fonts to the
+  next/font variables. Each page file also carries that page's own tuned rules (scoped
+  `.vc-p-<slug>`) so it matches its approved mock-up exactly. Regenerate, never hand-edit; the
+  hand-written part (booking card skin, utilities) is `scripts/vc/extras.css`.
+- **Look.** Ink `--vc-ink` on white and `--vc-paper-2`, one accent (`--vc-accent`, voltage purple),
+  midnight bands for booking and audit. Display and headings are Poppins 500 with tight tracking;
+  badges, buttons and labels are JetBrains Mono uppercase. Buttons are pills with a roll-up label.
+  Accented words in a heading are written `*like this*` in Sanity.
+- **Same three breakpoints** (767 / 1023), same reduced-motion rules, same no-raw-hex rule in TSX.
+- **Behaviour is never re-implemented.** The booking band wraps `BookingCard` (restyled only through
+  CSS variables), FAQ JSON-LD is built from the rendered tabs, metadata comes from the page
+  document. See `docs/version-c.md` for adding a page.

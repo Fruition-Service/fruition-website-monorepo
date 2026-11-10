@@ -41,6 +41,10 @@ import makePartnersPage from './documents/makePartnersPage'
 import licensingPage from './documents/licensingPage'
 import practicePage from './documents/practicePage'
 
+import { vcObjects } from './vc/objects'
+import { vcSections } from './vc/sections'
+import { vcDocuments } from './vc/documents'
+
 export const schemaTypes = [
   // Existing
   siteSettings,
@@ -85,4 +89,9 @@ export const schemaTypes = [
   makePartnersPage,
   licensingPage,
   practicePage,
+
+  // Version C redesign (Nov 2026)
+  ...vcObjects,
+  ...vcSections,
+  ...vcDocuments,
 ]
