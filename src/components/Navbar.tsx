@@ -219,7 +219,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
   return (
     <header ref={headerRef} className="vcn">
       <div className="wrap">
-        <Link href="/" className="nav-logo" aria-label="Fruition home">
+        <Link prefetch={false} href="/" className="nav-logo" aria-label="Fruition home">
           <Image
             src="/images/logo-fruition-black.svg"
             alt="Fruition Services"
@@ -345,7 +345,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                         )}
                         <div className={`nd-items c${cols}`}>
                           {section.items?.map((sub) => (
-                            <Link
+                            <Link prefetch={false}
                               key={sub.href}
                               href={bookingHref(sub.href || '#')}
                               className="nd-a"
@@ -377,7 +377,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                       </blockquote>
                       {item.feature.attribution && <p className="nd-who">{item.feature.attribution}</p>}
                       {item.feature.href && item.feature.label && (
-                        <Link href={item.feature.href} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
+                        <Link prefetch={false} href={item.feature.href} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
                           {item.feature.label} <span aria-hidden>&rarr;</span>
                         </Link>
                       )}
@@ -397,7 +397,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     )}
                   </p>
                   {item.footerLinks?.map((l) => (
-                    <Link key={l.href} href={l.href || '#'} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
+                    <Link prefetch={false} key={l.href} href={l.href || '#'} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
                       {l.label} <span aria-hidden>&rarr;</span>
                     </Link>
                   ))}
@@ -437,7 +437,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     <div key={`${section.heading}-${sIdx}`}>
                       {section.heading && <p className="nd-h">{section.heading}</p>}
                       {section.items?.map((sub) => (
-                        <Link
+                        <Link prefetch={false}
                           key={sub.href}
                           href={bookingHref(sub.href || '#')}
                           onClick={closeMobile}
@@ -455,7 +455,7 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     </div>
                   ))}
                   {item.footerLinks?.map((l) => (
-                    <Link key={l.href} href={l.href || '#'} onClick={closeMobile} className="nd-dfoot">
+                    <Link prefetch={false} key={l.href} href={l.href || '#'} onClick={closeMobile} className="nd-dfoot">
                       {l.label}
                     </Link>
                   ))}

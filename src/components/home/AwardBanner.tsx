@@ -15,7 +15,7 @@ export default function AwardBanner({ copy, href }: { copy?: SiteCopy; href?: st
   return (
     <div className="vcn-ann">
       <span>{siteText(copy, "award-text")}</span>
-      <Link href={href || DEFAULT_ANNOUNCEMENT_HREF}>{siteText(copy, "award-link")}</Link>
+      <Link prefetch={false} href={href || DEFAULT_ANNOUNCEMENT_HREF}>{siteText(copy, "award-link")}</Link>
     </div>
   )
 }

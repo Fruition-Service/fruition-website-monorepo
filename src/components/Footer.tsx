@@ -70,7 +70,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
       <div className="wrap">
         <div className="cols">
           <div className="brand">
-            <Link href="/" aria-label="Fruition home" className="logo">
+            <Link prefetch={false} href="/" aria-label="Fruition home" className="logo">
               <Image src="/images/logo-fruition-white.svg" alt="Fruition" width={1241} height={255} unoptimized />
             </Link>
             {siteSettings?.footerTagline && <p>{siteSettings.footerTagline}</p>}
@@ -117,7 +117,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               <ul>
                 {(col.links ?? []).map((link, j) => (
                   <li key={`${link.href}-${j}`}>
-                    <Link href={link.href || '#'}>{link.label}</Link>
+                    <Link prefetch={false} href={link.href || '#'}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -140,7 +140,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               {legalLinks.map((link, i) => (
                 <span key={`${link.href}-${i}`}>
                   {i > 0 && <span aria-hidden>· </span>}
-                  <Link href={link.href || '#'}>{link.label}</Link>
+                  <Link prefetch={false} href={link.href || '#'}>{link.label}</Link>
                 </span>
               ))}
             </span>

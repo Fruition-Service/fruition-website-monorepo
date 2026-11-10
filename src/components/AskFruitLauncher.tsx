@@ -91,6 +91,7 @@ export default function AskFruitLauncher() {
       style={lift}
     >
       <Link
+        prefetch={false}
         href="/ask-fruit/workspace"
         aria-label="Implementation Calculator, Fruition's AI assistant"
         data-cta-location="ask-fruit-launcher"
