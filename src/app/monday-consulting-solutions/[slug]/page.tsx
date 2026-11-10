@@ -58,19 +58,9 @@ export default async function SolutionPage({
   ])
   // Unknown slugs must 404, not render an empty 200 shell.
   if (!page) notFound()
-  // Per-slug overrides
-  const slugsWithCalendlyTop = new Set(["solar-crm-solution"])
-  const adjustedPage = page
-    ? {
-        ...page,
-        calendlyPosition: slugsWithCalendlyTop.has(slug)
-          ? "top"
-          : page.calendlyPosition,
-      }
-    : page
   return (
     <UniversalPageTemplate
-      page={adjustedPage}
+      page={page}
       siteSettings={siteSettings}
       caseStudies={caseStudies || []}
       faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)}

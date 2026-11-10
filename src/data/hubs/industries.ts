@@ -77,10 +77,8 @@ export const INDUSTRIES_HUB = {
   useCasesLede: 'Filter prebuilt solutions by team. Every one can be adapted to your industry.',
   useCases: [
     { label: 'Project management', href: '/monday-consulting-solutions/monday-project-management' },
-    { label: 'Finance', href: '/monday-consulting-solutions/monday-for-finance' },
     { label: 'HR', href: '/monday-consulting-solutions/monday-for-hr' },
     { label: 'Service', href: '/monday-consulting-solutions/monday-service' },
-    { label: 'Product management', href: '/monday-consulting-solutions/monday-product-management' },
     { label: 'Marketing & creative', href: '/monday-for-marketing' },
     { label: 'All AI use cases →', href: '/ai-use-cases', primary: true },
   ],

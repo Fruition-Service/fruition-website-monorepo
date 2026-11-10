@@ -110,7 +110,6 @@ export const PARTNERS_HUB = {
     { label: 'Google Cloud', href: '/partnerships/google-cloud-partner' },
     { label: 'Supabase', href: '/partnerships/supabase-partner' },
     { label: 'Zapier', href: '/integrations/zapier' },
-    { label: 'LangGraph', href: '/partnerships/langgraph-partner' },
     { label: 'Clay', href: '/partnerships/clay-partner' },
     { label: 'ElevenLabs', href: '/partnerships/elevenlabs-partner' },
     { label: 'Aircall', href: '/partnerships/aircall-partner' },

@@ -1,5 +1,6 @@
 import { getPageBySlug } from "@/sanity/queries"
 import { GOVERNING_DOCS } from "./documents"
+import Link from "next/link"
 import { buildOgMetadata } from "@/lib/metadata"
 
 export async function generateMetadata() {
@@ -17,6 +18,12 @@ export async function generateMetadata() {
     }),
   }
 }
+
+const SERVICE_AGREEMENTS = [
+  { label: "Australia (AU)", href: "/legal/services-agreement-au" },
+  { label: "United Kingdom (UK)", href: "/legal/services-agreement-uk" },
+  { label: "United States (US)", href: "/legal/services-agreement-us" },
+]
 
 interface SanityDoc {
   _key?: string
@@ -91,6 +98,27 @@ export default async function TermsPage() {
           })}
         </div>
       )}
+
+      <section className="mt-16" aria-labelledby="service-agreements-heading">
+        <h2
+          id="service-agreements-heading"
+          className="mb-4 text-2xl font-bold tracking-tight text-body"
+        >
+          Service agreements
+        </h2>
+        <ul className="list-disc space-y-2 pl-6 text-muted">
+          {SERVICE_AGREEMENTS.map((agreement) => (
+            <li key={agreement.href}>
+              <Link
+                href={agreement.href}
+                className="font-medium text-body underline underline-offset-4 hover:text-muted"
+              >
+                {agreement.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

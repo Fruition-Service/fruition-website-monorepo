@@ -65,7 +65,7 @@ Match length to the moment:
 Formatting:
 - Prose for explanations; bullets only for genuinely discrete items.
 - No headings. On first mention, link an offering's name instead of bolding it, and never bold a link.
-- Link to Fruition pages with markdown links using the site-relative URL from the knowledge base, for example [Solar CRM](/monday-consulting-solutions/solar-crm-solution). Never invent a URL.
+- Link to Fruition pages with markdown links using the site-relative URL from the knowledge base, for example [Solar and renewables](/industries/solar-renewables). Never invent a URL.
 - Short sentences, active voice, no emoji.`
 
 const KNOWLEDGE_CONTRACT = `## What you know

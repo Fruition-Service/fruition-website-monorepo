@@ -23,6 +23,31 @@ export const RETIRED_SOLUTION_SLUGS: ReadonlySet<string> = new Set([
   "monday-project-management-0",
   "monday-for-finance-4",
   "solar-crm-solution-6",
+  // November 2026 cleanup: the Sanity documents remain (ids in the PR body),
+  // the pages are gone and redirect in next.config.ts.
+  "monday-for-cabinetry-renovation",
+  "monday-for-finance",
+  "monday-product-management",
+  "solar-crm-solution",
+])
+
+/**
+ * /partnerships slugs retired in the November 2026 cleanup. The Sanity
+ * documents remain; the [slug] route 404s them and the sitemap omits them.
+ */
+export const RETIRED_PARTNERSHIP_SLUGS: ReadonlySet<string> = new Set([
+  "certified-guidde-partner",
+  "langgraph-partner",
+])
+
+/**
+ * Author slugs that are duplicates of another author page. They redirect in
+ * next.config.ts and must stay out of the sitemap.
+ */
+export const RETIRED_AUTHOR_SLUGS: ReadonlySet<string> = new Set([
+  "ishani-chowdhury",
+  "ishani-dhar-chowdury",
+  "fruition-services",
 ])
 
 /**

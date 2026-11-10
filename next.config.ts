@@ -252,11 +252,25 @@ const auditRedirects: Redirect[] = [
   // implementation consultants page; each duplicate redirects to its clean sibling.
   { source: "/monday-consulting-solutions", destination: "/monday-implementation-consultants", permanent: true },
   { source: "/monday-consulting-solutions/monday-service-1", destination: "/monday-implementation-consultants", permanent: true },
-  { source: "/monday-consulting-solutions/monday-product-management-5", destination: "/monday-consulting-solutions/monday-product-management", permanent: true },
+  { source: "/monday-consulting-solutions/monday-product-management-5", destination: "/monday-implementation-consultants", permanent: true },
   { source: "/monday-consulting-solutions/monday-for-hr-2", destination: "/monday-consulting-solutions/monday-for-hr", permanent: true },
   { source: "/monday-consulting-solutions/monday-project-management-0", destination: "/monday-consulting-solutions/monday-project-management", permanent: true },
-  { source: "/monday-consulting-solutions/monday-for-finance-4", destination: "/monday-consulting-solutions/monday-for-finance", permanent: true },
-  { source: "/monday-consulting-solutions/solar-crm-solution-6", destination: "/monday-consulting-solutions/solar-crm-solution", permanent: true },
+  { source: "/monday-consulting-solutions/monday-for-finance-4", destination: "/industries/financial-services", permanent: true },
+  { source: "/monday-consulting-solutions/solar-crm-solution-6", destination: "/industries/solar-renewables", permanent: true },
+
+
+  // November 2026 site cleanup: thin or duplicate pages removed, each sent to
+  // the closest live page. Sanity documents are kept (ids in the PR body).
+  { source: "/monday-consulting-solutions/monday-for-cabinetry-renovation", destination: "/monday-implementation-consultants", permanent: true },
+  { source: "/partnerships/certified-guidde-partner", destination: "/training", permanent: true },
+  { source: "/partnerships/langgraph-partner", destination: "/ai-consulting/agent-development", permanent: true },
+  { source: "/monday-consulting-solutions/monday-for-finance", destination: "/industries/financial-services", permanent: true },
+  { source: "/monday-consulting-solutions/solar-crm-solution", destination: "/industries/solar-renewables", permanent: true },
+  { source: "/monday-consulting-solutions/monday-product-management", destination: "/monday-implementation-consultants", permanent: true },
+  // Duplicate author pages.
+  { source: "/author/ishani-chowdhury", destination: "/author/ishani-dhar-chowdhury", permanent: true },
+  { source: "/author/ishani-dhar-chowdury", destination: "/author/ishani-dhar-chowdhury", permanent: true },
+  { source: "/author/fruition-services", destination: "/author/fruition-editorial", permanent: true },
 
   // monday 2893694816: /contactustest was a staff sandbox of past booking-card
   // versions and is deleted. `:path*` matches zero or more segments, so the
@@ -358,6 +372,11 @@ const nextConfig: NextConfig = {
             ].join(", "),
           },
         ],
+      },
+      // The embedded Sanity Studio is staff-only: keep it out of search.
+      {
+        source: "/studio/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
       {
         source: "/licence-procurement",
