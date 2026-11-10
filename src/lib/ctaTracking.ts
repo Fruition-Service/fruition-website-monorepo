@@ -4,14 +4,14 @@
  * Pushes a `cta_click` event onto the GTM dataLayer (container GTM-PF6XWTL6,
  * mounted in `src/app/layout.tsx`). A GTM Custom Event trigger on `cta_click`
  * forwards it to GA4, where the portal reads it back per page via the GA4 Data
- * API — see `getCtaClicksByPath()` in `src/lib/googleAnalytics.ts`.
+ * API, see `getCtaClicksByPath()` in `src/lib/googleAnalytics.ts`.
  *
  * Capture is delegated (see `CtaClickTracker`) rather than wired per component:
  * only a handful of the site's ~55 CTAs render through `CtaButton`; the rest are
  * raw `<a class="cta-btn">` in individual sections. One document-level listener
  * covers all of them, and every CTA added later, with no per-component work.
  *
- * Nothing here talks to the network, and every path is guarded — a CTA must
+ * Nothing here talks to the network, and every path is guarded, a CTA must
  * never fail to navigate because analytics is unavailable.
  */
 
@@ -22,7 +22,7 @@ export interface CtaClickEvent {
   href: string
   /** Visual variant, so primary vs outline performance is separable. */
   variant: string
-  /** Where on the page the CTA lives — "inline" for body CTAs, "sticky" for the bar. */
+  /** Where on the page the CTA lives, "inline" for body CTAs, "sticky" for the bar. */
   location: "inline" | "sticky"
 }
 
@@ -37,7 +37,7 @@ declare global {
 }
 
 /** The class every CTA on the site carries, whatever renders it. */
-export const CTA_SELECTOR = "a.cta-btn"
+export const CTA_SELECTOR = "a.cta-btn, a[data-cta-variant]"
 
 /**
  * Build the event for a clicked CTA anchor. Pure, so the payload shape the GA4
@@ -59,7 +59,7 @@ function isHidden(el: HTMLElement): boolean {
  * The visible text of a CTA.
  *
  * CtaButton renders a mobile and a desktop label side by side and hides one with
- * a breakpoint class, so `textContent` yields both concatenated — GA4 was seeing
+ * a breakpoint class, so `textContent` yields both concatenated, GA4 was seeing
  * labels like "Schedule a callBook a Free Consultation". Read only what is
  * actually on screen at click time.
  */
@@ -79,10 +79,14 @@ function readLabel(anchor: HTMLAnchorElement): string {
 }
 
 export function ctaEventFromAnchor(anchor: HTMLAnchorElement): CtaClickEvent {
+  // Links that are not `cta-btn` (the Version C footer button) name their
+  // variant in a data attribute.
   const variant =
+    anchor.dataset.ctaVariant ??
     Array.from(anchor.classList)
       .find((c) => c.startsWith("cta-btn-") && c !== "cta-btn-label" && c !== "cta-btn-icon")
-      ?.replace("cta-btn-", "") ?? ""
+      ?.replace("cta-btn-", "") ??
+    ""
 
   const label = readLabel(anchor)
 

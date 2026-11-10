@@ -240,6 +240,9 @@ rendered by `src/components/vc/` from a `vcPage` Sanity document, never from cod
   midnight bands for booking and audit. Display and headings are Poppins 500 with tight tracking;
   badges, buttons and labels are JetBrains Mono uppercase. Buttons are pills with a roll-up label.
   Accented words in a heading are written `*like this*` in Sanity.
+- **Site chrome.** The announcement bar, header and footer are Version C too: `src/styles/vc/chrome.css`
+  (hand-written, layered, scoped under `.vcn-ann` / `.vcn` / `.vcf`), content from Sanity `siteSettings`.
+  See docs/version-c.md, "Site chrome".
 - **Same three breakpoints** (767 / 1023), same reduced-motion rules, same no-raw-hex rule in TSX.
 - **Behaviour is never re-implemented.** The booking band wraps `BookingCard` (restyled only through
   CSS variables), FAQ JSON-LD is built from the rendered tabs, metadata comes from the page

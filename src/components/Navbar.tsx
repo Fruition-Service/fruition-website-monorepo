@@ -4,34 +4,37 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import PaperPlaneIcon from '@/components/common/icons/PaperPlaneIcon'
+import { vercelStegaClean } from '@vercel/stega'
 import { NavIcon } from '@/components/common/icons/NavIcons'
 import RegionalCallPopover, { MobileCallList, type CallOffice } from '@/components/RegionalCallPopover'
-import { withServicesNav } from '@/data/nav-services'
+import { urlFor } from '@/sanity/image'
 
 interface NavLink {
   label?: string
   href?: string
   description?: string
+  /** Mark shown beside the link, a Sanity image (SVG or PNG) in its own colours. */
+  logo?: unknown
+  /** Fallback line icon, used only when there is no logo. */
   icon?: string
   /** Short partner-tier pill after the label, e.g. "Platinum". */
   tier?: string
-  featured?: boolean
 }
 
 interface NavSubSection {
   heading?: string
-  /** Partner mark shown beside the heading (path under /public). */
-  logo?: string
-  items?: NavLink[]
+  /** Item columns inside the section (1 to 3). */
   columns?: number
-  highlight?: boolean
-  badge?: string
+  /** The section's share of the dropdown width (1 to 3). */
+  grow?: number
+  items?: NavLink[]
 }
 
 interface NavFeature {
   kicker?: string
   quote?: string
+  /** Render the quote as a plain blurb, without quotation marks. */
+  plain?: boolean
   attribution?: string
   label?: string
   href?: string
@@ -40,42 +43,18 @@ interface NavFeature {
 interface NavItem {
   label?: string
   href?: string
-  layout?: 'stacked' | 'columns'
   sections?: NavSubSection[]
   footerNote?: string
   footerLinks?: { label?: string; href?: string }[]
   feature?: NavFeature
 }
 
-interface PartnerBadge {
-  name?: string
-  image?: unknown
-  width?: number
-  height?: number
-}
-
 interface SiteSettingsProp {
   phone?: string
   calendlyLink?: string
-  logo?: unknown
   navigation?: NavItem[]
-  navbarPartnerBadges?: PartnerBadge[]
   navbarCtaLabel?: string
   offices?: CallOffice[]
-}
-
-/** Grid columns for the links inside a section. */
-const ITEM_COLS: Record<number, string> = {
-  1: 'grid-cols-1',
-  2: 'grid-cols-2',
-  3: 'grid-cols-3',
-}
-
-/** A section's share of the dropdown width in the "columns" layout. */
-const SECTION_GROW: Record<number, string> = {
-  1: 'flex-1',
-  2: 'flex-[2]',
-  3: 'flex-[3]',
 }
 
 /** How long the pointer may leave a tab or its dropdown before it closes. */
@@ -83,39 +62,74 @@ const HOVER_CLOSE_MS = 180
 /** A click this soon after hover-open keeps the dropdown open instead of closing it. */
 const HOVER_CLICK_GRACE_MS = 400
 
-const panelId = (label?: string) => `nav-panel-${(label || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+const panelId = (label?: string) => `nav-panel-${vercelStegaClean(label || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 
 const isDropdown = (item: NavItem) => !!item.sections?.length
 
+/** Small Sanity numbers (1 to 3) to the CSS classes that size a column or grid. */
+const clamp3 = (n: number | undefined, fallback: number) => Math.min(3, Math.max(1, Math.round(n || fallback)))
+
+/** SVG or PNG straight from the Sanity CDN; 3x the 18px display size keeps PNGs sharp. */
+function logoSrc(logo: unknown): string | null {
+  if (!logo) return null
+  try {
+    return urlFor(logo).width(72).url()
+  } catch {
+    return null
+  }
+}
+
+function Chevron() {
+  return (
+    <svg className="chev" viewBox="0 0 24 24" aria-hidden>
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
+
+function Pill({ children }: { children?: string }) {
+  return children ? <span className="nd-pill">{children}</span> : null
+}
+
+function ItemMark({ link }: { link: NavLink }) {
+  const src = logoSrc(link.logo)
+  if (src) return <Image src={src} alt="" width={18} height={18} unoptimized />
+  if (link.icon || link.href) return <NavIcon iconKey={link.icon} href={link.href} className="h-[18px] w-[18px]" />
+  return null
+}
+
 /**
- * Site header. Every dropdown is rendered into the HTML on the server and only
- * shown or hidden on the client, so crawlers and AI agents can follow every
- * menu link without running JavaScript. Dropdowns open on hover or click and
- * close on Esc, an outside click or navigation; the mobile menu is a list of
- * native details/summary disclosures.
+ * Site header (Version C): announcement bar sits above it, then the tabs,
+ * dropdowns, regional call popover, booking CTA and the mobile sheet. Every
+ * dropdown is rendered into the HTML on the server and only shown or hidden
+ * on the client, so crawlers and AI agents can follow every menu link without
+ * running JavaScript. Dropdowns open on hover or click and close on Esc, an
+ * outside click, focus leaving them or navigation; the mobile sheet is a list
+ * of native details/summary disclosures.
+ *
+ * All text is a plain Sanity text node (siteSettings.navigation) so the inline
+ * editor can click it. Styles: src/styles/vc/chrome.css, scoped under `.vcn`.
  */
 export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsProp | null }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
-  // Description of the dropdown item under the pointer or focus. Shown in the
-  // panel's bottom bar instead of under each item (Annica's idea, 27 Oct 2026;
-  // layout from Claude Design "Nav Resources.dc.html").
-  const [hoverDesc, setHoverDesc] = useState<string | null>(null)
+  // The dropdown item under the pointer or focus. Its description replaces the
+  // panel's bottom note so the columns never move.
+  const [hovered, setHovered] = useState<NavLink | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
-  const navRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
+  const burgerRef = useRef<HTMLButtonElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const hoverOpenedAt = useRef(0)
+  // Event timestamp (ms since page load) of the hover that last opened a dropdown.
+  const hoverOpenedAt = useRef(-Infinity)
 
   // Path-aware: on the location pages the booking form is on the page itself,
   // so the header CTA points at this page's own #book rather than /contact-us.
+  // Same tab, never target=_blank: InPageBookingLinks only scrolls for that.
   const calendlyUrl = siteSettings?.calendlyLink
     ? bookingHrefForPath(siteSettings.calendlyLink, pathname)
     : ''
-  const phoneAu = siteSettings?.phone
-  // Services is defined in code (src/data/nav-services.ts) so the tab ships
-  // with the deploy; a Sanity navigation entry of the same name wins if one
-  // is added in Studio later.
-  const navItems: NavItem[] = withServicesNav(siteSettings?.navigation || [])
+  const navItems: NavItem[] = siteSettings?.navigation || []
   const ctaLabel = siteSettings?.navbarCtaLabel || ''
   const offices: CallOffice[] = siteSettings?.offices || []
 
@@ -127,19 +141,23 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
     cancelClose()
     closeTimer.current = setTimeout(() => setOpenMenu(null), HOVER_CLOSE_MS)
   }
-  const openOnHover = (label: string) => {
+  // Handlers read `openMenu` from this render's closure and keep their state
+  // updaters pure: React runs updaters twice in dev, so a ref write inside one
+  // would make the second run disagree with the first.
+  const openOnHover = (label: string, at: number) => {
     cancelClose()
-    setOpenMenu((current) => {
-      if (current !== label) hoverOpenedAt.current = Date.now()
-      return label
-    })
+    if (openMenu !== label) hoverOpenedAt.current = at
+    setOpenMenu(label)
   }
-  const toggleOnClick = (label: string) => {
+  const toggleOnClick = (label: string, at: number) => {
     cancelClose()
-    setOpenMenu((current) => {
-      if (current === label && Date.now() - hoverOpenedAt.current > HOVER_CLICK_GRACE_MS) return null
-      hoverOpenedAt.current = 0
-      return label
+    const justHoverOpened = at - hoverOpenedAt.current <= HOVER_CLICK_GRACE_MS
+    hoverOpenedAt.current = -Infinity
+    setOpenMenu((current) => (current === label && !justHoverOpened ? null : label))
+  }
+  const focusFirstLink = (label: string) => {
+    requestAnimationFrame(() => {
+      document.getElementById(panelId(label))?.querySelector<HTMLAnchorElement>('a[href]')?.focus()
     })
   }
 
@@ -153,17 +171,27 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
     setMobileOpen(false)
   }
 
-  // Esc closes and returns focus to the tab; a click outside the header closes.
+  // Esc closes and returns focus to what opened it; a click outside the header closes.
+  const anyOpen = openMenu !== null || mobileOpen
   useEffect(() => {
-    if (!openMenu) return
+    if (!anyOpen) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      const tab = navRef.current?.querySelector<HTMLButtonElement>(`[aria-controls="${panelId(openMenu)}"]`)
-      setOpenMenu(null)
-      tab?.focus()
+      if (openMenu) {
+        const tab = headerRef.current?.querySelector<HTMLButtonElement>(`[aria-controls="${panelId(openMenu)}"]`)
+        setOpenMenu(null)
+        tab?.focus()
+      }
+      if (mobileOpen) {
+        setMobileOpen(false)
+        burgerRef.current?.focus()
+      }
     }
     const onClick = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null)
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpenMenu(null)
+        setMobileOpen(false)
+      }
     }
     document.addEventListener('keydown', onKey)
     document.addEventListener('click', onClick)
@@ -171,410 +199,276 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('click', onClick)
     }
-  }, [openMenu])
+  }, [anyOpen, openMenu, mobileOpen])
 
   useEffect(() => () => cancelClose(), [])
 
   const isNavItemActive = (item: NavItem) =>
     item.sections?.some((s) => s.items?.some((link) => link.href && pathname === link.href)) ?? false
 
+  const cta = (extra: string, onClick?: () => void) =>
+    ctaLabel && calendlyUrl ? (
+      <a href={calendlyUrl} onClick={onClick} className={`btn ${extra}`}>
+        <span className="roll">
+          <span>{ctaLabel}</span>
+          <span aria-hidden>{vercelStegaClean(ctaLabel)}</span>
+        </span>
+      </a>
+    ) : null
+
   return (
-    <nav ref={navRef} aria-label="Primary" className="bg-surface sticky top-0 z-50 shadow-sm">
-      <div className="site-container">
-        <div className="flex justify-between items-center gap-4 h-[85px]">
-          {/* Logo — black on light, white in dark mode (prefers-color-scheme) */}
-          <Link href="/" className="shrink-0" aria-label="Fruition home">
-            <Image
-              src="/images/logo-fruition-black.svg"
-              alt="Fruition Services"
-              width={1366}
-              height={280}
-              className="h-8 w-auto -translate-y-0.5 block dark:hidden"
-              priority
-              unoptimized
-            />
-            <Image
-              src="/images/logo-fruition-white.svg"
-              alt="Fruition Services"
-              width={1366}
-              height={280}
-              className="h-8 w-auto -translate-y-0.5 hidden dark:block"
-              priority
-              unoptimized
-            />
-          </Link>
+    <header ref={headerRef} className="vcn">
+      <div className="wrap">
+        <Link href="/" className="nav-logo" aria-label="Fruition home">
+          <Image
+            src="/images/logo-fruition-black.svg"
+            alt="Fruition Services"
+            width={1366}
+            height={280}
+            priority
+            unoptimized
+          />
+        </Link>
 
-          {/* Desktop tabs */}
-          <div className="hidden lg:flex items-center gap-3">
-            <ul className="flex items-center gap-1">
-              {navItems.map((item) => {
-                const label = item.label || ''
-                if (!isDropdown(item)) {
-                  const linkActive = pathname === item.href
-                  return (
-                    <li key={label} onMouseEnter={scheduleClose}>
-                      <Link
-                        href={bookingHref(item.href)}
-                        aria-current={linkActive ? 'page' : undefined}
-                        className={`block rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
-                          linkActive ? 'text-brand' : 'text-body'
-                        }`}
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  )
-                }
-                const open = openMenu === label
-                const active = isNavItemActive(item)
-                return (
-                  <li key={label} onMouseEnter={() => openOnHover(label)} onMouseLeave={scheduleClose}>
-                    <button
-                      type="button"
-                      aria-expanded={open}
-                      aria-controls={panelId(label)}
-                      onClick={() => toggleOnClick(label)}
-                      onKeyDown={(e) => {
-                        // The panels sit at the end of the header's DOM, so Tab
-                        // from a tab walks the other tabs first. ArrowDown opens
-                        // the panel and moves focus straight into it.
-                        if (e.key !== 'ArrowDown') return
-                        e.preventDefault()
-                        cancelClose()
-                        setOpenMenu(label)
-                        requestAnimationFrame(() => {
-                          document
-                            .getElementById(panelId(label))
-                            ?.querySelector<HTMLAnchorElement>('a[href]')
-                            ?.focus()
-                        })
-                      }}
-                      className={`flex items-center gap-1.5 rounded-badge px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors hover:bg-tint hover:text-brand ${
-                        open ? 'bg-tint text-brand' : active ? 'text-brand' : 'text-body'
-                      }`}
-                    >
-                      {label}
-                      <svg
-                        aria-hidden
-                        className={`shrink-0 opacity-60 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-                        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-
-            {/* Phone + CTA */}
-            <div className="flex items-center gap-2 border-l border-ui pl-3" onMouseEnter={scheduleClose}>
-              {/* Opens the regional numbers rather than dialling the Sydney
-                  office for every visitor. */}
-              <RegionalCallPopover offices={offices} fallbackPhone={phoneAu} />
-
-              {ctaLabel && calendlyUrl && (
-                // Same tab: a `target` opts out of InPageBookingLinks, so on a
-                // page with its own #book this opened /contact-us in a new tab.
-                <a
-                  href={calendlyUrl}
-                  className="inline-flex items-center gap-2 whitespace-nowrap bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-md"
-                >
-                  <PaperPlaneIcon size={16} />
-                  {ctaLabel}
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            className="lg:hidden flex h-11 w-11 items-center justify-center text-body"
-            aria-expanded={mobileOpen}
-            aria-controls="nav-mobile"
-            onClick={() => setMobileOpen((o) => !o)}
-          >
-            <span className="sr-only">{mobileOpen ? 'Close menu' : 'Open menu'}</span>
-            {mobileOpen ? (
-              <svg aria-hidden className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg aria-hidden className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-
-        {/* Mobile menu: one native disclosure per dropdown tab */}
-        {mobileOpen && (
-          <div id="nav-mobile" className="lg:hidden border-t border-ui max-h-[calc(100vh-85px)] overflow-y-auto pb-8">
+        <nav aria-label="Primary">
+          <ul className="nd-tabs">
             {navItems.map((item) => {
               const label = item.label || ''
               if (!isDropdown(item)) {
                 return (
-                  <Link
-                    key={label}
-                    href={bookingHref(item.href)}
-                    onClick={closeMobile}
-                    aria-current={pathname === item.href ? 'page' : undefined}
-                    className={`block border-b border-ui px-2 py-4 text-[17px] font-semibold ${
-                      pathname === item.href ? 'text-brand' : 'text-body'
-                    }`}
-                  >
-                    {label}
-                  </Link>
+                  <li key={label} onMouseEnter={scheduleClose}>
+                    <Link
+                      href={bookingHref(item.href)}
+                      aria-current={pathname === item.href ? 'page' : undefined}
+                      className="nd-tab"
+                    >
+                      {label}
+                    </Link>
+                  </li>
                 )
               }
+              const open = openMenu === label
               return (
-                <details key={label} className="group border-b border-ui">
-                  <summary
-                    className={`flex cursor-pointer list-none items-center justify-between px-2 py-4 text-[17px] font-semibold [&::-webkit-details-marker]:hidden ${
-                      isNavItemActive(item) ? 'text-brand' : 'text-body'
-                    }`}
+                <li
+                  key={label}
+                  className={`nd-item${open ? ' open' : ''}`}
+                  onMouseEnter={(e) => openOnHover(label, e.timeStamp)}
+                  onMouseLeave={scheduleClose}
+                >
+                  <button
+                    type="button"
+                    className="nd-tab"
+                    aria-expanded={open}
+                    aria-controls={panelId(label)}
+                    aria-current={isNavItemActive(item) ? 'true' : undefined}
+                    onClick={(e) => {
+                      toggleOnClick(label, e.timeStamp)
+                      // A keyboard activation (detail 0) moves focus into the
+                      // panel: the panels sit at the end of the header's DOM,
+                      // so Tab would otherwise walk every other tab first.
+                      if (e.detail === 0) focusFirstLink(label)
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key !== 'ArrowDown') return
+                      e.preventDefault()
+                      cancelClose()
+                      setOpenMenu(label)
+                      focusFirstLink(label)
+                    }}
                   >
                     {label}
-                    <svg
-                      aria-hidden
-                      className="shrink-0 text-brand transition-transform duration-200 group-open:rotate-180"
-                      width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                    >
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
-                  </summary>
-                  <div className="pb-3">
-                    {item.sections?.map((section, sIdx) => (
-                      <div key={`${section.heading}-${sIdx}`} className="mb-2">
-                        {section.heading && (
-                          <p className="px-2 pt-2 pb-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                            {section.heading}
-                          </p>
-                        )}
-                        {section.items?.map((sub) => (
-                          <Link
-                            key={sub.href}
-                            href={bookingHref(sub.href || '#')}
-                            onClick={closeMobile}
-                            aria-current={pathname === sub.href ? 'page' : undefined}
-                            className={`flex min-h-11 flex-col justify-center rounded-badge px-2 py-2.5 text-[15px] ${
-                              pathname === sub.href ? 'bg-tint text-brand' : 'text-body'
-                            }`}
-                          >
-                            <span className="flex items-center gap-3">
-                              {sub.label}
-                              {sub.tier && <TierPill>{sub.tier}</TierPill>}
-                            </span>
-                            {/* No hover on touch: descriptions show under items, only inside the opened group. */}
-                            {sub.description && <span className="mt-0.5 text-[13px] leading-snug text-muted">{sub.description}</span>}
-                          </Link>
-                        ))}
-                      </div>
-                    ))}
-                    {item.footerLinks?.map((l) => (
-                      <Link
-                        key={l.href}
-                        href={l.href || '#'}
-                        onClick={closeMobile}
-                        className="flex min-h-11 items-center px-2 py-2.5 text-[15px] font-semibold text-brand"
-                      >
-                        {l.label}
-                      </Link>
-                    ))}
-                  </div>
-                </details>
+                    <Chevron />
+                  </button>
+                </li>
               )
             })}
-            {ctaLabel && calendlyUrl && (
-              <a
-                href={calendlyUrl}
-                onClick={closeMobile}
-                className="mt-6 flex items-center justify-center gap-2 bg-gradient-to-r from-cta-blue to-cta-blue-light hover:bg-cta-blue-dark hover:bg-none text-white text-center px-6 py-3 rounded-full text-sm font-semibold transition-colors"
-              >
-                <PaperPlaneIcon size={16} />
-                {ctaLabel}
-              </a>
-            )}
+          </ul>
+        </nav>
 
-            {/* Regional numbers — the phone icon is desktop-only, and calling is
-                the more likely action on a phone. */}
-            <MobileCallList offices={offices} fallbackPhone={phoneAu} onNavigate={closeMobile} />
-          </div>
-        )}
+        {/* Phone + CTA */}
+        <div className="nav-right" onMouseEnter={scheduleClose}>
+          <RegionalCallPopover offices={offices} fallbackPhone={siteSettings?.phone} />
+          {cta('sm')}
+        </div>
+
+        <button
+          ref={burgerRef}
+          type="button"
+          className="burger"
+          aria-expanded={mobileOpen}
+          aria-controls="nav-mobile"
+          onClick={() => setMobileOpen((o) => !o)}
+        >
+          <span className="sr-only">{mobileOpen ? 'Close menu' : 'Open menu'}</span>
+          <svg viewBox="0 0 24 24" aria-hidden>
+            {mobileOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 8h16M4 16h16" />}
+          </svg>
+        </button>
       </div>
 
       {/* Desktop dropdowns. All of them are in the HTML; only the open one shows. */}
-      {navItems.filter(isDropdown).map((item) => {
-        const label = item.label || ''
-        const open = openMenu === label
-        const columnsLayout = item.layout === 'columns'
-        return (
-          <div
-            key={label}
-            id={panelId(label)}
-            role="region"
-            aria-label={label}
-            onMouseEnter={cancelClose}
-            onMouseLeave={() => {
-              setHoverDesc(null)
-              scheduleClose()
-            }}
-            className={`${open ? 'hidden lg:block' : 'hidden'} absolute left-0 right-0 top-full border-t border-ui bg-surface-raised shadow-lg z-50`}
-          >
-            <div className="site-container pt-8 pb-6">
-              <div className={columnsLayout ? 'flex flex-row items-stretch gap-8' : 'flex flex-col gap-6'}>
-                {item.sections?.map((section, sIdx) => {
-                  const cols = section.columns ?? (columnsLayout ? 1 : 3)
-                  return (
-                    <div
-                      key={`${section.heading}-${sIdx}`}
-                      className={`min-w-0 ${columnsLayout ? SECTION_GROW[cols] ?? 'flex-1' : ''}`}
-                    >
-                      {section.heading && (
-                        <p className="mb-3 border-b border-ui pb-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                          {/* Fixed row height (the partner logo's) so headings with
-                              and without a logo share one baseline and one rule. */}
-                          <span className="flex items-center gap-2 min-h-[26px]">
-                            {section.heading}
-                            {section.logo ? (
-                              <Image
-                                src={section.logo}
-                                alt={section.badge ?? ''}
-                                width={150}
-                                height={38}
-                                className="h-[26px] w-auto shrink-0 rounded-[4px] object-contain"
-                                unoptimized
-                              />
-                            ) : (
-                              section.badge && <TierPill>{section.badge}</TierPill>
-                            )}
-                          </span>
-                        </p>
-                      )}
-                      <div className={`grid gap-x-6 gap-y-1 ${ITEM_COLS[cols] ?? 'grid-cols-1'}`}>
-                        {section.items?.map((sub) => {
-                          const isActive = sub.href && pathname === sub.href
-                          return (
+      <div className="nd-panels">
+        {navItems.filter(isDropdown).map((item) => {
+          const label = item.label || ''
+          const open = openMenu === label
+          const descId = `${panelId(label)}-desc`
+          return (
+            <div
+              key={label}
+              id={panelId(label)}
+              className={`nd-panel${open ? ' open' : ''}`}
+              role="region"
+              aria-label={vercelStegaClean(label)}
+              onMouseEnter={cancelClose}
+              onMouseLeave={() => {
+                setHovered(null)
+                scheduleClose()
+              }}
+              onBlur={(e) => {
+                // Focus left the panel (Tab past the last link): close it.
+                const next = e.relatedTarget as Node | null
+                if (open && next && !e.currentTarget.contains(next) && !headerRef.current?.querySelector(`[aria-controls="${panelId(label)}"]`)?.contains(next)) {
+                  setOpenMenu(null)
+                }
+              }}
+            >
+              <div className="nd-in">
+                <div className="nd-grid">
+                  {item.sections?.map((section, sIdx) => {
+                    const cols = clamp3(section.columns, 1)
+                    return (
+                      <div key={`${section.heading}-${sIdx}`} className={`nd-col g${clamp3(section.grow, cols)}`}>
+                        {section.heading && (
+                          <p className="nd-h">
+                            <span>{section.heading}</span>
+                          </p>
+                        )}
+                        <div className={`nd-items c${cols}`}>
+                          {section.items?.map((sub) => (
                             <Link
                               key={sub.href}
                               href={bookingHref(sub.href || '#')}
-                              aria-current={isActive ? 'page' : undefined}
-                              className={`group flex items-center gap-3 rounded-badge p-2.5 -mx-2.5 transition-colors ${
-                                isActive ? 'bg-tint' : 'hover:bg-tint focus-visible:bg-tint'
-                              }`}
+                              className="nd-a"
+                              aria-current={sub.href && pathname === sub.href ? 'page' : undefined}
+                              aria-describedby={sub.description ? descId : undefined}
                               onClick={() => setOpenMenu(null)}
-                              onMouseEnter={() => setHoverDesc(sub.description || null)}
-                              onFocus={() => setHoverDesc(sub.description || null)}
-                              aria-describedby={sub.description ? `${panelId(label)}-desc` : undefined}
+                              onMouseEnter={() => setHovered(sub)}
+                              onFocus={() => setHovered(sub)}
                             >
-                              <span
-                                aria-hidden
-                                className={`shrink-0 w-9 h-9 rounded-badge ring-1 bg-surface-raised flex items-center justify-center transition-colors ${
-                                  isActive || sub.featured
-                                    ? 'text-brand ring-brand/30'
-                                    : 'text-body ring-ui group-hover:text-brand group-hover:ring-brand/30'
-                                }`}
-                              >
-                                {sub.icon || sub.href ? (
-                                  <NavIcon iconKey={sub.icon} href={sub.href} className="h-[18px] w-[18px]" />
-                                ) : (
-                                  <span className="block h-2 w-2 rounded-full bg-ui" />
-                                )}
+                              <span className="nd-ic" aria-hidden>
+                                <ItemMark link={sub} />
                               </span>
-                              <span className="min-w-0">
-                                <span
-                                  className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold leading-tight ${
-                                    isActive || sub.featured ? 'text-brand' : 'text-body group-hover:text-brand'
-                                  }`}
-                                >
-                                  {sub.label}
-                                  {sub.tier && <TierPill>{sub.tier}</TierPill>}
-                                </span>
+                              <span className="nd-lb">
+                                {sub.label}
+                                <Pill>{sub.tier}</Pill>
                               </span>
                             </Link>
-                          )
-                        })}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
 
-                {item.feature?.quote && (
-                  <figure className="flex-1 min-w-0 rounded-card bg-tint p-6 flex flex-col">
-                    {item.feature.kicker && (
-                      <figcaption className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-                        {item.feature.kicker}
-                      </figcaption>
-                    )}
-                    <blockquote className="mt-3 text-[15px] italic leading-relaxed text-body">
-                      &ldquo;{item.feature.quote}&rdquo;
-                    </blockquote>
-                    {item.feature.attribution && (
-                      <p className="mt-3 text-xs text-muted">{item.feature.attribution}</p>
-                    )}
-                    {item.feature.href && item.feature.label && (
-                      <Link
-                        href={item.feature.href}
-                        onClick={() => setOpenMenu(null)}
-                        className="mt-auto pt-4 text-sm font-semibold text-brand hover:text-brand-dark"
-                      >
-                        {item.feature.label}
-                      </Link>
-                    )}
-                  </figure>
-                )}
-              </div>
+                  {item.feature?.quote && (
+                    <figure className="nd-feat">
+                      {item.feature.kicker && <figcaption>{item.feature.kicker}</figcaption>}
+                      <blockquote>
+                        {item.feature.plain ? item.feature.quote : <>&ldquo;{item.feature.quote}&rdquo;</>}
+                      </blockquote>
+                      {item.feature.attribution && <p className="nd-who">{item.feature.attribution}</p>}
+                      {item.feature.href && item.feature.label && (
+                        <Link href={item.feature.href} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
+                          {item.feature.label} <span aria-hidden>&rarr;</span>
+                        </Link>
+                      )}
+                    </figure>
+                  )}
+                </div>
 
-              {(item.footerNote || item.footerLinks?.length || hasDescriptions(item)) && (
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-ui pt-4 text-sm">
-                  {/* The hovered item's description replaces the note, so the columns never move. */}
-                  <p id={`${panelId(label)}-desc`} aria-live="polite" className="mr-auto min-h-[20px] text-muted">
-                    {open && hoverDesc ? (
-                      <span key={hoverDesc} className="animate-[fadeInSwap_.18s_ease-out]">
-                        <span className="font-semibold text-brand">{hoveredLabel(item, hoverDesc)}</span>{' '}
-                        {hoverDesc}
-                      </span>
+                <div className="nd-foot">
+                  {/* The hovered item's description replaces the note. */}
+                  <p id={descId} className="nd-desc" aria-live="polite">
+                    {open && hovered?.description && item.sections?.some((s) => s.items?.includes(hovered)) ? (
+                      <>
+                        <span className="nd-dl">{hovered.label}</span> {hovered.description}
+                      </>
                     ) : (
                       item.footerNote
                     )}
                   </p>
                   {item.footerLinks?.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href || '#'}
-                      onClick={() => setOpenMenu(null)}
-                      className="font-semibold text-brand hover:text-brand-dark"
-                    >
+                    <Link key={l.href} href={l.href || '#'} className="nd-fl-a" onClick={() => setOpenMenu(null)}>
+                      {l.label} <span aria-hidden>&rarr;</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Mobile sheet: one native disclosure per dropdown tab */}
+      {mobileOpen && (
+        <div id="nav-mobile" className="nd-drawer">
+          {navItems.map((item) => {
+            const label = item.label || ''
+            if (!isDropdown(item)) {
+              return (
+                <Link
+                  key={label}
+                  href={bookingHref(item.href)}
+                  onClick={closeMobile}
+                  aria-current={pathname === item.href ? 'page' : undefined}
+                  className="nd-dtop"
+                >
+                  {label}
+                </Link>
+              )
+            }
+            return (
+              <details key={label}>
+                <summary>
+                  {label}
+                  <Chevron />
+                </summary>
+                <div className="nd-dbody">
+                  {item.sections?.map((section, sIdx) => (
+                    <div key={`${section.heading}-${sIdx}`}>
+                      {section.heading && <p className="nd-h">{section.heading}</p>}
+                      {section.items?.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={bookingHref(sub.href || '#')}
+                          onClick={closeMobile}
+                          aria-current={sub.href && pathname === sub.href ? 'page' : undefined}
+                          className="nd-dl-a"
+                        >
+                          <span className="nd-dlab">
+                            {sub.label}
+                            <Pill>{sub.tier}</Pill>
+                          </span>
+                          {/* No hover on touch: the description sits under the link. */}
+                          {sub.description && <span className="nd-dd">{sub.description}</span>}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                  {item.footerLinks?.map((l) => (
+                    <Link key={l.href} href={l.href || '#'} onClick={closeMobile} className="nd-dfoot">
                       {l.label}
                     </Link>
                   ))}
                 </div>
-              )}
-            </div>
-          </div>
-        )
-      })}
-    </nav>
-  )
-}
-
-function hasDescriptions(item: NavItem): boolean {
-  return Boolean(item.sections?.some((sec) => sec.items?.some((i) => i.description)))
-}
-
-function hoveredLabel(item: NavItem, description: string): string {
-  for (const sec of item.sections ?? []) {
-    const hit = sec.items?.find((i) => i.description === description)
-    if (hit?.label) return hit.label
-  }
-  return ''
-}
-
-function TierPill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full bg-brand-soft px-2 py-px font-mono text-[10px] font-semibold uppercase tracking-wider text-brand whitespace-nowrap">
-      {children}
-    </span>
+              </details>
+            )
+          })}
+          {cta('nd-dcta', closeMobile)}
+          {/* Regional numbers: the phone icon is desktop-only, and calling is
+              the more likely action on a phone. */}
+          <MobileCallList offices={offices} fallbackPhone={siteSettings?.phone} onNavigate={closeMobile} />
+        </div>
+      )}
+    </header>
   )
 }
