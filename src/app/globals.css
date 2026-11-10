@@ -88,6 +88,31 @@
   --shadow-card: 0px 1px 12px 0px rgba(16, 24, 40, 0.06);
   /* Lead and booking form cards: a soft brand-purple lift so the form pops */
   --shadow-form: 0 22px 48px -18px rgba(128, 21, 232, 0.32), 0 4px 18px rgba(128, 21, 232, 0.1);
+
+  /* Version C palette (approved redesign, Nov 2026). Consumed by the Version C
+     component stylesheet in src/styles/vc/ through its own short names
+     (--ink, --accent, ...), scoped under `.vc`. */
+  --vc-ink: #0f0d14;
+  --vc-paper-2: #f3f2f6;
+  --vc-dark: #17141f;
+  --vc-dark-2: #221e2c;
+  --vc-accent: #8015e8;
+  --vc-accent-press: #6a11c2;
+  --vc-accent-on-dark: #c79cf6;
+  --vc-accent-tint: #e9d7fd;
+  --vc-midnight: #10003a;
+  --vc-midnight-2: #22074d;
+  --vc-good: #1f9d55;
+  --vc-press-light: #ece9f2;
+  --vc-day-hover: #e7e4ee;
+  --vc-lilac: #c9a3fa;
+  --vc-plum: #4a3670;
+  --vc-tint-1: #f5eefe;
+  --vc-tint-2: #f6f1fe;
+  --vc-tint-3: #f3ebfd;
+  --vc-tint-4: #f0e4fd;
+  --vc-tint-5: #ece6f7;
+  --vc-tint-6: #f6f0ff;
 }
 
 @theme inline {
@@ -161,12 +186,9 @@
 }
 
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  /* Version C pages (.vc) set their own heading weights (Poppins 500), which an
+     !important here would override from any layer. */
+  :is(h1, h2, h3, h4, h5, h6):not(.vc *) {
     font-weight: 600 !important;
   }
 

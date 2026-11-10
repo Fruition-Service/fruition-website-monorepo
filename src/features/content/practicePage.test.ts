@@ -325,8 +325,9 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
   })
 
   // 23 to 19 when the four HubSpot leaves became sections of the hub (monday 2900266080).
-  it('lists 19 routes, each with a page file that reads its document', () => {
-    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(19)
+  // 19 to 14 when the five /industries leaves moved to Version C vcPage documents.
+  it('lists 14 routes, each with a page file that reads its document', () => {
+    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(14)
     for (const page of EDITABLE_PRACTICE_PAGES) {
       const file = join(process.cwd(), 'src/app', page.path, 'page.tsx')
       expect(existsSync(file), file).toBe(true)

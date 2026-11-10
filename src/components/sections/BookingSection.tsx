@@ -384,7 +384,7 @@ function Cta({ children, disabled, onClick, type = "button" }: {
   const [hover, setHover] = useState(false)
   return (
     <button
-      type={type} disabled={disabled} onClick={onClick}
+      type={type} disabled={disabled} onClick={onClick} className="fr-booking-cta"
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       style={ctaStyle(hover, disabled)}
     >
@@ -396,7 +396,7 @@ function CtaLink({ children, href }: { children: ReactNode; href: string }) {
   const [hover, setHover] = useState(false)
   return (
     <a
-      href={href} target="_blank" rel="noopener noreferrer"
+      href={href} target="_blank" rel="noopener noreferrer" className="fr-booking-cta"
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       style={{ ...ctaStyle(hover), width: undefined, display: "inline-flex", textDecoration: "none" }}
     >
@@ -561,7 +561,9 @@ export function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: stri
   return <div ref={hostRef} className="fr-calendly-host" />
 }
 
-function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
+export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, title }: {
+  /** Overrides the card title ("Discovery call"), e.g. "Marketing call" on a Version C page. */
+  title?: string
   duration: number
   askTeamSize: boolean
   calendlyUrl: string
@@ -990,7 +992,7 @@ function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion }: {
               truncates instead of wrapping the timezone picker onto its own
               line. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
-            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>{t("card-title")} · {duration} min</span>
+            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>{title || t("card-title")} · {duration} min</span>
             <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {activeRegion
                 ? `with a consultant in ${REGION_DESK[activeRegion].country}`

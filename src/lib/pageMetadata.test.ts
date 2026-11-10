@@ -16,7 +16,7 @@ const APP = path.join(__dirname, "..", "app")
 const SKIP = new Set(["internal", "studio", "api"])
 
 /** Helpers that return buildOgMetadata() output (openGraph + twitter). */
-const OG_HELPERS = /\b(buildOgMetadata|practiceMetadata|channelMetadata)\(/
+const OG_HELPERS = /\b(buildOgMetadata|practiceMetadata|channelMetadata|vcMetadata)\(/
 
 function pageFiles(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
