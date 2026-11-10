@@ -327,8 +327,9 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
   // 23 to 19 when the four HubSpot leaves became sections of the hub (monday 2900266080).
   // 19 to 14 when the five /industries leaves moved to Version C vcPage documents.
   // 14 to 7 when the AI, Atlassian, HubSpot and integrations hubs moved to Version C.
-  it('lists 7 routes, each with a page file that reads its document', () => {
-    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(7)
+  // 7 to 6 when /certifications-and-awards moved to Version C.
+  it('lists 6 routes, each with a page file that reads its document', () => {
+    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(6)
     for (const page of EDITABLE_PRACTICE_PAGES) {
       const file = join(process.cwd(), 'src/app', page.path, 'page.tsx')
       expect(existsSync(file), file).toBe(true)

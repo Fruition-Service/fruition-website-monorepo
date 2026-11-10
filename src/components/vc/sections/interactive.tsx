@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { vercelStegaClean } from "@vercel/stega"
 import { Btn, Head } from "../primitives"
 import { dataset, projectId } from "@/sanity/env"
@@ -186,6 +186,7 @@ export function VcTrackFinder({ s }: { s: VcTrackData }) {
 export function VcDirectoryGrid({ s }: { s: import("../types").VcDirectoryData }) {
   const [f, setF] = useState("all")
   const filters = s.filters ?? []
+  const cards = vercelStegaClean(s.variant ?? "") === "pcards"
   return (
     <>
       <Head head={s.head} />
@@ -201,30 +202,40 @@ export function VcDirectoryGrid({ s }: { s: import("../types").VcDirectoryData }
           })}
         </div>
       )}
-      <div className="pgrid">
+      <div className={cards ? "pcards" : "pgrid"}>
         {(s.tiles ?? [])
           .filter((t) => f === "all" || (t.groups ?? []).map((g) => vercelStegaClean(g)).includes(f))
-          .map((t, i) => (
-            <article className="ptile" key={t._key ?? i}>
-              <div className="logo">
-                {t.logo?.asset && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className={vercelStegaClean(t.logoShape ?? "")} src={tileSrc(t.logo)} alt={vercelStegaClean(t.title ?? "")} loading="lazy" />
-                )}
-              </div>
-              <div className="pt">
+          .map((t, i) => {
+            const img = t.logo?.asset ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className={vercelStegaClean(t.logoShape ?? "") || undefined} src={tileSrc(t.logo)} alt={vercelStegaClean(t.title ?? "")} loading="lazy" />
+            ) : null
+            const link = t.href ? (
+              <a className="link" href={vercelStegaClean(t.href)} aria-label={vercelStegaClean(t.title ?? "")}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            ) : null
+            return cards ? (
+              <article className="card" key={t._key ?? i}>
+                <div className="logo">{img}</div>
                 {t.tag && <span className="gtag">{t.tag}</span>}
                 {t.title && <h3 className="h3">{t.title}</h3>}
-              </div>
-              {t.href && (
-                <a className="link" href={vercelStegaClean(t.href)} aria-label={vercelStegaClean(t.title ?? "")}>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </a>
-              )}
-            </article>
-          ))}
+                {t.body && <p className="body">{t.body}</p>}
+                {link}
+              </article>
+            ) : (
+              <article className="ptile" key={t._key ?? i}>
+                <div className="logo">{img}</div>
+                <div className="pt">
+                  {t.tag && <span className="gtag">{t.tag}</span>}
+                  {t.title && <h3 className="h3">{t.title}</h3>}
+                </div>
+                {link}
+              </article>
+            )
+          })}
       </div>
     </>
   )
@@ -240,10 +251,10 @@ function tileSrc(image: import("../types").VcImage) {
 /* ------------------------------------------------------------ team card */
 
 /** Team member card with the "Read more" bio toggle from the mock-ups. */
-export function VcTeamCard({ m, photo }: { m: import("../types").VcTeamMember; photo?: React.ReactNode }) {
+export function VcTeamCard({ m, photo, cls = "pc" }: { m: import("../types").VcTeamMember; photo?: React.ReactNode; cls?: string }) {
   const [open, setOpen] = useState(false)
   return (
-    <article className={`pc${open ? " open" : ""}`}>
+    <article className={`${cls}${open ? " open" : ""}`}>
       <div className="ph">{photo}</div>
       <div className="pb">
         {m.role && <span className="label">{m.role}</span>}
@@ -266,5 +277,132 @@ export function VcTeamCard({ m, photo }: { m: import("../types").VcTeamMember; p
         </div>
       </div>
     </article>
+  )
+}
+
+/* ------------------------------------------------------- team by region */
+
+export function VcTeamTabsShell({
+  badge,
+  prefix,
+  tabs,
+  panels,
+}: {
+  badge?: React.ReactNode
+  prefix?: string
+  tabs: { label?: string; flag?: string; title?: string }[]
+  panels: React.ReactNode[]
+}) {
+  const [active, setActive] = useState(0)
+  return (
+    <>
+      <div className="shead">
+        <div>
+          {badge}
+          <h2 className="h2">
+            {prefix} <span className="acc">{tabs[active]?.title}</span>
+          </h2>
+        </div>
+        <div />
+      </div>
+      <div className="tabs" role="tablist" aria-label="Region">
+        {tabs.map((t, i) => (
+          <button key={i} type="button" role="tab" aria-selected={i === active} className={i === active ? "on" : ""} onClick={() => setActive(i)}>
+            {t.label}{" "}
+            {t.flag && (
+              <span className="flag" aria-hidden="true">
+                {vercelStegaClean(t.flag)}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+      {panels.map((p, i) => (
+        <div className="panel" role="tabpanel" key={i} hidden={i !== active}>
+          {p}
+        </div>
+      ))}
+    </>
+  )
+}
+
+/* ------------------------------------------------------------ live clock */
+
+/** Local time in an office's time zone, refreshed every 30 seconds (as in the mock-up). */
+export function VcClock({ tz }: { tz?: string }) {
+  const zone = vercelStegaClean(tz ?? "")
+  const [now, setNow] = useState<string>("--:--")
+  useEffect(() => {
+    const tick = () => {
+      try {
+        setNow(new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: zone }))
+      } catch {
+        /* unknown zone: keep the placeholder */
+      }
+    }
+    tick()
+    const id = setInterval(tick, 30000)
+    return () => clearInterval(id)
+  }, [zone])
+  return <span className="clock">{now}</span>
+}
+
+/* ------------------------------------------------------ filtered quotes */
+
+/** Client quotes with filter tabs under the heading (customer stories page). */
+export function VcFilteredProof({
+  badge,
+  heading,
+  filters,
+  quotes,
+}: {
+  badge?: React.ReactNode
+  heading?: React.ReactNode
+  filters: { label?: string; key?: string }[]
+  quotes: import("../types").VcQuoteData[]
+}) {
+  const [f, setF] = useState("")
+  const list = quotes.filter((q) => !f || vercelStegaClean(q.tag ?? "") === f)
+  const half = Math.ceil(list.length / 2)
+  const col = (qs: typeof list, dir: string) => (
+    <div className={`mq-col ${dir}`}>
+      <div className="mq-track">
+        {[...qs, ...qs].map((q, i) => (
+          <figure className="q" key={`${q._id}-${i}`} aria-hidden={i >= qs.length || undefined}>
+            {q.org && <span className="label">{q.org}</span>}
+            <blockquote>&ldquo;{q.quote}&rdquo;</blockquote>
+            <figcaption className="who">
+              <span className="av">{vercelStegaClean(q.initials ?? "")}</span>
+              <div>
+                <b>{q.name}</b>
+                <span className="small">{q.role}</span>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  )
+  return (
+    <>
+      <div className="sticky">
+        {badge}
+        {heading}
+        <div className="tabs">
+          {filters.map((x, i) => {
+            const k = vercelStegaClean(x.key ?? "")
+            return (
+              <button key={i} type="button" className={k === f ? "on" : ""} onClick={() => setF(k)}>
+                {x.label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+      <div className="quotes mq" key={f}>
+        {col(list.slice(0, half), "up")}
+        {col(list.slice(half), "down")}
+      </div>
+    </>
   )
 }

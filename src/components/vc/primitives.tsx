@@ -171,6 +171,7 @@ export function Sec({
   children,
   inner = "wrap",
   dataSec,
+  cls: extra,
 }: {
   tone?: string
   anchor?: string
@@ -178,11 +179,29 @@ export function Sec({
   children: React.ReactNode
   inner?: string
   dataSec?: string
+  /** Section-level design class stored on the section (sectionClass). */
+  cls?: string
 }) {
-  const cls = `${vercelStegaClean(tone ?? "") === "alt" ? "alt" : ""} ${className}`.trim()
+  const cls = `${vercelStegaClean(tone ?? "") === "alt" ? "alt" : ""} ${className} ${vercelStegaClean(extra ?? "")}`.replace(/\s+/g, " ").trim()
   return (
     <section className={cls || undefined} id={anchor ? vercelStegaClean(anchor) : undefined} data-sec={dataSec}>
       <div className={inner}>{children}</div>
     </section>
   )
+}
+
+/**
+ * Inline SVG artwork stored in Sanity (line icons, generated maps). Only plain
+ * SVG is injected: no scripts, event handlers, foreign content or JS URLs.
+ */
+export function safeSvg(raw?: string | null): string | null {
+  const svg = vercelStegaClean(raw ?? "").trim()
+  if (!/^<svg[\s>]/.test(svg) || /<script|<foreignObject|\son\w+\s*=|javascript:/i.test(svg)) return null
+  return svg
+}
+
+export function SvgIcon({ svg, className }: { svg?: string | null; className?: string }) {
+  const html = safeSvg(svg)
+  if (!html) return null
+  return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />
 }

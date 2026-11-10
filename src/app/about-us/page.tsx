@@ -1,98 +1,12 @@
-import { bookingHref } from "@/lib/bookingLink"
-import {
-  getPageBySlug,
-  getSiteSettings,
-  getFaqItemsForPage,
-} from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AboutModern from "./AboutModern"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/about-us.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-export async function generateMetadata() {
-  const page = await getPageBySlug("about-us")
-  const title = page?.seoTitle
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/about-us" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/about-us",
-    }),
-  }
+const PATH = "/about-us"
+
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, centralFaqs] = await Promise.all([
-    getPageBySlug("about-us"),
-    getSiteSettings(),
-    getFaqItemsForPage("about-us"),
-  ])
-
-  if (!page) return null
-
-  const rawCalendly = siteSettings?.calendlyLink ?? ""
-  const calendlyUrl = bookingHref(rawCalendly)
-
-  const faqTabs = resolveFaqTabs(page.faqTabs, centralFaqs)
-
-  return (
-    <AboutModern
-      heroEyebrow={page.heroEyebrow}
-      heroHeadingPart1={page.heroHeadingPart1}
-      heroHeadingAccent={page.heroHeadingAccent}
-      heroHeadingPart2={page.heroHeadingPart2}
-      heroSubheading={page.heroSubheading}
-      heroImage={page.heroImage}
-      heroPartnerBadgesLabel={page.heroPartnerBadgesLabel}
-      heroCalloutBadgeLabel={page.heroCalloutBadgeLabel}
-      heroCalloutBadgeText={page.heroCalloutBadgeText}
-      heroCalloutOfficesText={page.heroCalloutOfficesText}
-      primaryCtaLabel={page.primaryCtaLabel}
-      primaryCtaUrl={page.primaryCtaUrl}
-      secondaryCtaLabel={page.secondaryCtaLabel}
-      secondaryCtaUrl={page.secondaryCtaUrl}
-      partnerBadges={page.heroPartnerBadges}
-      stats={page.joinStats}
-      textSections={page.textContentSections}
-      storyEyebrow={page.storyEyebrow}
-      storyHeading={page.storyHeading}
-      storyHeadingAccent={page.storyHeadingAccent}
-      storyCardEyebrowPrefix={page.storyCardEyebrowPrefix}
-      capabilitiesEyebrow={page.capabilitiesEyebrow}
-      capabilitiesHeading={page.capabilitiesHeading}
-      capabilityCards={page.capabilitiesCards}
-      methodologyEyebrow={page.methodologyEyebrow}
-      methodologyStepLabel={page.methodologyStepLabel}
-      methodologyHeading={page.methodologyHeading}
-      methodologySteps={page.methodologySteps}
-      approachEyebrow={page.approachEyebrow}
-      approachHeading={page.approachHeading}
-      approachHeadingAccent={page.approachHeadingAccent}
-      comparisonTabs={page.comparisonTabs}
-      globalPresenceEyebrow={page.globalPresenceEyebrow}
-      globalPresenceHeading={page.globalPresenceHeading}
-      globalPresenceHeadingAccent={page.globalPresenceHeadingAccent}
-      globalPresenceBody={page.globalPresenceBody}
-      offices={page.offices}
-      partnerStackEyebrow={page.partnerStackEyebrow}
-      faqHeading={page.faqHeading}
-      faqTabs={faqTabs}
-      calendlyHeading={page.calendlyHeading}
-      calendlySubheading={page.calendlySubheading}
-      calendlyUrl={calendlyUrl}
-      closingCtaHeading={page.closingCtaHeading}
-      closingCtaBody={page.closingCtaBody}
-      closingCtaPrimaryLabel={page.closingCtaPrimaryLabel}
-      closingCtaSecondaryLabel={page.closingCtaSecondaryLabel}
-      closingCtaSecondaryUrl={page.closingCtaSecondaryUrl}
-      croSections={page.croSections}
-      leadershipNote={page.leadershipNote}
-      leadershipSignatureName={page.leadershipSignatureName}
-      leadershipSignatureTitle={page.leadershipSignatureTitle}
-      siteSettings={siteSettings}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="about-us" />
 }

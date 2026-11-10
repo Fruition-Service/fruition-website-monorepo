@@ -1,6 +1,9 @@
 import { vercelStegaClean } from "@vercel/stega"
 import Link from "next/link"
-import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec } from "../primitives"
+import LeadForm from "@/components/sections/LeadForm"
+import { VcFilteredProof } from "./interactive"
+import { VcHeroSearch } from "./hubs"
+import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
 import type {
   VcAuditData,
   VcCardsData,
@@ -17,10 +20,10 @@ import type {
 } from "../types"
 
 /** Ticked list used inside steps and cards. */
-function Ticks({ items }: { items?: string[] }) {
+function Ticks({ items, cls = "ticks" }: { items?: string[]; cls?: string }) {
   if (!items?.length) return null
   return (
-    <ul className="ticks">
+    <ul className={cls || undefined}>
       {items.map((x, i) => (
         <li key={i}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -80,10 +83,8 @@ function Trust({ label, logos }: { label?: string; logos: VcLogoData[] }) {
 /** Region hero map: the generated dotted SVG (inline, its dots are styled by CSS) with pins or a label. */
 function RegionMap({ s }: { s: VcHeroData }) {
   const kind = vercelStegaClean(s.mapKind ?? "rmap")
-  // Only plain SVG artwork is injected: no scripts, event handlers or foreign content.
-  const raw = vercelStegaClean(s.mapSvg ?? "").trim()
-  const safe = /^<svg[\s>]/.test(raw) && !/<script|<foreignObject|\son\w+\s*=|javascript:/i.test(raw)
-  const svg = safe ? <span className="vc-svg" dangerouslySetInnerHTML={{ __html: raw }} /> : null
+  const raw = safeSvg(s.mapSvg)
+  const svg = raw ? <span className="vc-svg" dangerouslySetInnerHTML={{ __html: raw }} /> : null
   if (kind === "art") {
     return (
       <div className="hero-art">
@@ -125,6 +126,46 @@ export function VcHero({ s }: { s: VcHeroData }) {
   const artClass = vercelStegaClean(s.artClass ?? "")
   const isPh = variant === "ph"
   const stats = s.stats?.length ? s.stats : null
+  const frameBox = s.frameImage?.asset ? (
+    <div className={`frame${variant.includes("hc") ? " hc-shot" : ""}`}>
+      {!!s.creds?.length && (
+        <div className={`creds${s.creds.length === 1 ? " one" : ""}`}>
+          {s.creds.map((c, i) => (
+            <SImg key={c._key ?? i} image={c.image} width={160} height={50} fit="max" alt={c.alt} lazy={false} />
+          ))}
+        </div>
+      )}
+      <SImg image={s.frameImage} width={variant.includes("hc") ? 1100 : 720} priority />
+      {s.chipValue && (
+        <div className="chip">
+          <span className="dot" />
+          <div>
+            <b>{s.chipValue}</b>
+            {s.chipLabel && <div className="label">{s.chipLabel}</div>}
+          </div>
+        </div>
+      )}
+    </div>
+  ) : null
+  if (variant.includes("hc")) {
+    // Centred hero (careers, blog, FAQs): copy above, optional wide photo below.
+    return (
+      <section className={`hero ${variant}`.trim()} data-sec="hero">
+        <div className="wrap">
+          <div className="hc-in">
+            <Badge>{s.badge}</Badge>
+            <h1 className="display">
+              <Acc text={s.heading} />
+            </h1>
+            {s.lead && <p className="lead">{s.lead}</p>}
+            <Ctas ctas={s.ctas} />
+            {s.searchPlaceholder && <VcHeroSearch placeholder={s.searchPlaceholder} clearable={!!s.searchClear} />}
+          </div>
+          {frameBox}
+        </div>
+      </section>
+    )
+  }
   return (
     <section className={`hero ${variant}`.trim()} data-sec="hero">
       <div className="wrap hero-grid">
@@ -136,7 +177,24 @@ export function VcHero({ s }: { s: VcHeroData }) {
           {s.lead && <p className="lead">{s.lead}</p>}
           <Ctas ctas={s.ctas} />
         </div>
-        {s.mapSvg ? (
+        {s.form ? (
+          <div className="frame">
+            <LeadForm
+              variant="vc"
+              source="contact-us"
+              showCompany={false}
+              heading={s.form.heading}
+              subheading={s.form.subheading}
+              submitLabel={s.form.submitLabel}
+              successMessage={s.form.successMessage}
+              fields={[
+                // Keys the monday sink reads: "Phone" fills the phone column, "Message" the enquiry.
+                { label: s.form.phoneLabel ?? "Phone", name: "Phone", inputType: "tel", autoComplete: "tel" },
+                { label: s.form.messageLabel ?? "Message", name: "Message", type: "textarea", required: true, placeholder: s.form.messagePlaceholder },
+              ]}
+            />
+          </div>
+        ) : s.mapSvg ? (
           <RegionMap s={s} />
         ) : s.frameImage?.asset ? (
           <div className="hero-art">
@@ -185,7 +243,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
 
 export function VcLogos({ s }: { s: VcLogosData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="clients">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="clients">
       <Head head={s.head} />
       <div className={`logos ${vercelStegaClean(s.gridClass ?? "")}`.trim()}>
         {(s.logos ?? []).map((l, i) => (
@@ -204,7 +262,7 @@ export function VcLogos({ s }: { s: VcLogosData }) {
 export function VcSteps({ s }: { s: VcStepsData }) {
   const layout = vercelStegaClean(s.layout ?? "steps")
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="why">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="why">
       <Head head={s.head} />
       <div className={layout}>
         {(s.items ?? []).map((it, i) => (
@@ -230,7 +288,7 @@ export function VcSteps({ s }: { s: VcStepsData }) {
 
 export function VcCases({ s }: { s: VcCasesData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="cases">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="cases">
       <Head head={s.head} />
       <div className="cs2">
         {(s.cases ?? []).filter(Boolean).map((c, ci) => (
@@ -313,7 +371,7 @@ function CardLink({ it }: { it: VcItemData }) {
   )
 }
 
-export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass, titleClass }: { it: VcItemData; cls?: string; frame?: string; pills?: boolean; tagClass?: string; titleClass?: string }) {
+export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass, titleClass, listClass = "ticks" }: { it: VcItemData; cls?: string; frame?: string; pills?: boolean; tagClass?: string; titleClass?: string; listClass?: string }) {
   if (it.cardLink && it.href) {
     // A full-width "see all" card: the whole tile is the link.
     return (
@@ -355,18 +413,25 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
           <SImg image={it.image} width={640} />
         </div>
       )}
+      {it.icon && <SvgIcon svg={it.icon} className="ico" />}
       {it.num && <span className="num">{it.num}</span>}
       {it.label && <span className="label">{it.label}</span>}
       {it.title && <h3 className={titleClass || "h3"}>{it.title}</h3>}
       {it.kicker && <span className="label">{it.kicker}</span>}
-      {it.body && <p className="body">{it.body}</p>}
+      {/* A blank line in the body starts a new paragraph. */}
+      {it.body &&
+        it.body.split(/\n\s*\n/).map((para, pi) => (
+          <p className="body" key={pi}>
+            {para}
+          </p>
+        ))}
       {it.aiNote && (
         <p className="uc-ai">
           {it.aiLabel && <b>{it.aiLabel}</b>}
           {it.aiNote}
         </p>
       )}
-      <Ticks items={it.bullets} />
+      <Ticks items={it.bullets} cls={listClass} />
       {it.metric && (
         <div className="oc-n">
           <b>{it.metric}</b>
@@ -400,12 +465,13 @@ export function VcCards({ s }: { s: VcCardsData }) {
   const gridCls = layout === "uc2" ? "cards2" : ["oc", "uc", "ucpills"].includes(layout) ? "cards3" : layout
   const tagClass = vercelStegaClean(s.tagClass ?? "")
   const titleClass = vercelStegaClean(s.titleClass ?? "")
+  const listClass = s.listClass === undefined ? "ticks" : vercelStegaClean(s.listClass)
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="cards" className={vercelStegaClean(s.sectionClass ?? "")}>
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="cards">
       <Head head={s.head} />
       <div className={gridCls}>
         {(s.items ?? []).map((it, i) => (
-          <Card key={it._key ?? i} it={it} cls={itemCls} frame={frame} pills={layout === "ucpills"} tagClass={tagClass} titleClass={titleClass} />
+          <Card key={it._key ?? i} it={it} cls={itemCls} frame={frame} pills={layout === "ucpills"} tagClass={tagClass} titleClass={titleClass} listClass={listClass} />
         ))}
       </div>
     </Sec>
@@ -416,7 +482,7 @@ export function VcCards({ s }: { s: VcCardsData }) {
 
 export function VcProducts({ s }: { s: VcProductsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="product">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="product">
       <Head head={s.head} />
       <div className="prod2">
         {(s.items ?? []).map((it, i) => (
@@ -475,16 +541,32 @@ export function VcProof({ s }: { s: VcProofData }) {
       <QuoteCol quotes={quotes.slice(half)} dir="down" />
     </div>
   )
+  if (s.filters?.length) {
+    return (
+      <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
+        <VcFilteredProof
+          badge={<Badge>{s.badge}</Badge>}
+          heading={
+            <h2 className="h2 mt24">
+              <Acc text={s.heading} />
+            </h2>
+          }
+          filters={s.filters}
+          quotes={quotes}
+        />
+      </Sec>
+    )
+  }
   if (vercelStegaClean(s.layout ?? "") === "stacked") {
     return (
-      <Sec tone={s.tone} anchor={s.anchor} dataSec="proof">
+      <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="proof">
         <Head head={{ badge: s.badge, heading: s.heading, lead: s.lead }} />
         {columns}
       </Sec>
     )
   }
   return (
-    <Sec tone={s.tone} anchor={s.anchor} inner="wrap proof" dataSec="proof">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
       <div className="sticky">
         <Badge>{s.badge}</Badge>
         <h2 className="h2 mt24">

@@ -16,21 +16,22 @@ export interface VcStatData { _key?: string; value?: string; label?: string }
 export interface VcItemData {
   _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]
   image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; bullets?: string[]
-  aiLabel?: string; aiNote?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean
+  aiLabel?: string; aiNote?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean; icon?: string
 }
 export interface VcCaseData { _id: string; client?: string; label?: string; body?: string; tags?: string[]; results?: { _key?: string; value?: string; label?: string }[]; photo?: VcImage; logo?: VcImage; href?: string }
-export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string }
+export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string; tag?: string }
 export interface VcFaqItemData { _id: string; question?: string; answer?: PortableTextBlock[] }
 export interface VcFaqTabData { _key?: string; label?: string; items?: VcFaqItemData[] }
 
-interface Base { _key: string; _type: string; tone?: "plain" | "alt"; anchor?: string }
+interface Base { _key: string; _type: string; tone?: "plain" | "alt"; anchor?: string; sectionClass?: string }
 
 export interface VcHeroData extends Base {
   _type: "vcHero"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]
   art?: VcImage; variant?: string; artClass?: string; frameImage?: VcImage; creds?: VcLogoData[]; chipValue?: string; chipLabel?: string; floatBadges?: VcLogoData[]; floatBadgeClass?: string
   mapKind?: string; mapSvg?: string; mapAspect?: string; mapAria?: string; mapFlag?: string; mapLabel?: string
   pins?: { _key?: string; label?: string; left?: number; top?: number; side?: string; on?: boolean }[]
-  stats?: VcStatData[]; statsNote?: string; spacer?: boolean; trustLabel?: string; trustLogos?: VcLogoData[]
+  stats?: VcStatData[]; statsNote?: string; spacer?: boolean; trustLabel?: string; searchPlaceholder?: string; searchClear?: boolean
+  form?: { heading?: string; subheading?: string; phoneLabel?: string; messageLabel?: string; messagePlaceholder?: string; submitLabel?: string; successMessage?: string }; trustLogos?: VcLogoData[]
 }
 export interface VcLogosData extends Base { _type: "vcLogos"; head?: VcHeadData; gridClass?: string; logos?: VcLogoData[]; more?: string }
 export interface VcStepsData extends Base {
@@ -39,14 +40,14 @@ export interface VcStepsData extends Base {
 }
 export interface VcCasesData extends Base { _type: "vcCases"; head?: VcHeadData; cases?: VcCaseData[] }
 export interface VcAuditData extends Base { _type: "vcAudit"; heading?: string; text?: string; cta?: VcCtaData }
-export interface VcCardsData extends Base { _type: "vcCards"; head?: VcHeadData; layout?: string; imageFrame?: string; titleClass?: string; tagClass?: string; sectionClass?: string; items?: VcItemData[] }
+export interface VcCardsData extends Base { _type: "vcCards"; head?: VcHeadData; layout?: string; imageFrame?: string; listClass?: string; titleClass?: string; tagClass?: string; sectionClass?: string; items?: VcItemData[] }
 export interface VcProductsData extends Base { _type: "vcProducts"; head?: VcHeadData; items?: VcItemData[] }
 export interface VcUseCasesData extends Base { _type: "vcUseCases"; head?: VcHeadData; source?: string; linkLabel?: string }
 export interface VcProofData extends Base {
-  _type: "vcProof"; layout?: string; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]; quotes?: VcQuoteData[]
+  _type: "vcProof"; layout?: string; filters?: { _key?: string; label?: string; key?: string }[]; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]; quotes?: VcQuoteData[]
 }
 export interface VcPractitionersData extends Base { _type: "vcPractitioners"; paragraphs?: VcPara[] }
-export interface VcBookingData extends Base { _type: "vcBooking"; badge?: string; heading?: string; lead?: string; calTitle?: string }
+export interface VcBookingData extends Base { _type: "vcBooking"; badge?: string; heading?: string; lead?: string; calTitle?: string; tag?: string }
 export interface VcFaqData extends Base { _type: "vcFaq"; badge?: string; heading?: string; tabs?: VcFaqTabData[] }
 export interface VcClosingData extends Base { _type: "vcClosing"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[] }
 
@@ -69,7 +70,7 @@ export interface VcTrackData extends Base {
   recLabel?: string; tracks?: { _key?: string; title?: string; body?: string; fit?: string }[]; cta?: VcCtaData; pills?: string[]
 }
 export interface VcTableData extends Base {
-  _type: "vcTable"; head?: VcHeadData; columns?: string[]; rows?: { _key?: string; label?: string; no?: string; yes?: string }[]
+  _type: "vcTable"; head?: VcHeadData; variant?: string; columns?: string[]; rows?: { _key?: string; label?: string; no?: string; yes?: string }[]
 }
 
 export interface VcPartnerStatusData extends Base {
@@ -77,15 +78,15 @@ export interface VcPartnerStatusData extends Base {
   points?: { _key?: string; n?: string; title?: string; body?: string }[]
 }
 export interface VcDirectoryData extends Base {
-  _type: "vcDirectory"; head?: VcHeadData; filters?: { _key?: string; label?: string; key?: string }[]
-  tiles?: { _key?: string; logo?: VcImage; logoShape?: string; tag?: string; title?: string; href?: string; groups?: string[] }[]
+  _type: "vcDirectory"; head?: VcHeadData; variant?: string; filters?: { _key?: string; label?: string; key?: string }[]
+  tiles?: { _key?: string; logo?: VcImage; logoShape?: string; tag?: string; title?: string; body?: string; href?: string; groups?: string[] }[]
 }
 export interface VcToolkitData extends Base {
   _type: "vcToolkit"; head?: VcHeadData; tiles?: { _key?: string; logo?: VcImage; logoShape?: string; title?: string; body?: string }[]
 }
 
 export interface VcStatsRowData extends Base { _type: "vcStatsRow"; head?: VcHeadData; stats?: VcStatData[]; note?: string; statsClass?: string; noteBelow?: boolean }
-export interface VcTeamMember { _id: string; name?: string; role?: string; bio?: string; override?: string; photo?: VcImage; linkedinUrl?: string }
+export interface VcTeamMember { _id: string; name?: string; role?: string; bio?: string; override?: string; roleOverride?: string; photo?: VcImage; linkedinUrl?: string }
 export interface VcTeamData extends Base { _type: "vcTeam"; head?: VcHeadData; layout?: string; members?: VcTeamMember[] }
 export interface VcAnswerData extends Base { _type: "vcAnswer"; badge?: string; heading?: string; body?: string }
 export interface VcCoverageData extends Base {
@@ -94,11 +95,46 @@ export interface VcCoverageData extends Base {
   cities?: { _key?: string; label?: string; title?: string; flag?: string; hq?: boolean; body?: string }[]
 }
 
+export interface VcLeadershipData extends Base { _type: "vcLeadership"; head?: VcHeadData; ceo?: VcTeamMember; quote?: string; caption?: string; people?: VcTeamMember[] }
+export interface VcOfficesData extends Base { _type: "vcOffices"; head?: VcHeadData }
+export interface VcTeamTabsData extends Base {
+  _type: "vcTeamTabs"; badge?: string; headingPrefix?: string
+  tabs?: { _key?: string; label?: string; flag?: string; title?: string; leaders?: VcTeamMember[]; members?: VcTeamMember[] }[]
+}
+export interface VcOffice { _key?: string; city?: string; label?: string; flag?: string; address?: string; addressUrl?: string; phone?: string; phoneTel?: string; href?: string }
+
+export interface VcChannelsData extends Base {
+  _type: "vcChannels"; badge?: string; heading?: string; rows?: { _key?: string; label?: string; value?: string; href?: string }[]
+  followLabel?: string; socials?: { _key?: string; network?: string; label?: string; href?: string }[]
+  tilesLabel?: string; tilesLink?: VcCtaData; tiles?: VcLogoData[]; security?: VcLogoData[]
+}
+
+export interface VcRemoteData extends Base {
+  _type: "vcRemote"; badge?: string; heading?: string; lead?: string; perks?: { _key?: string; icon?: string; text?: string }[]
+  listLabel?: string; timeLabel?: string; places?: { _key?: string; flag?: string; title?: string; line?: string; label?: string; tz?: string }[]
+}
+export interface VcFormEmbedData extends Base { _type: "vcFormEmbed"; head?: VcHeadData; src?: string; title?: string; note?: string }
+
+export interface VcStoryData {
+  _id: string; num?: string; client?: string; sub?: string; solution?: string; weeks?: string; logo?: VcImage
+  metrics?: { _key?: string; value?: string; label?: string; sub?: string }[]; quote?: string; people?: { _key?: string; name?: string; role?: string }[]
+  challenge?: PortableTextBlock[]; solutionText?: PortableTextBlock[]; impact?: PortableTextBlock[]
+  location?: string; employees?: string; industry?: string; useCase?: string; tags?: string[]
+}
+export interface VcStoriesData extends Base { _type: "vcStories"; head?: VcHeadData; filterLabel?: string; countText?: string; stories?: VcStoryData[] }
+
+export interface VcBlogListData extends Base { _type: "vcBlogList"; allLabel?: string; otherLabel?: string; emptyText?: string }
+export interface VcFaqHubData extends Base {
+  _type: "vcFaqHub"; sideLabel?: string; allLabel?: string
+  categories?: { _key?: string; key?: string; name?: string; description?: string; groups?: { _key?: string; name?: string; items?: VcFaqItemData[] }[] }[]
+}
+
 export type VcSection =
   | VcHeroData | VcLogosData | VcStepsData | VcCasesData | VcAuditData | VcCardsData | VcProductsData
   | VcUseCasesData | VcProofData | VcPractitionersData | VcBookingData | VcFaqData | VcClosingData
   | VcVideoData | VcTextPairData | VcFixData | VcIndustryTabsData | VcTrackData | VcTableData
   | VcPartnerStatusData | VcDirectoryData | VcToolkitData | VcStatsRowData | VcTeamData | VcAnswerData | VcCoverageData
+  | VcLeadershipData | VcOfficesData | VcTeamTabsData | VcChannelsData | VcRemoteData | VcFormEmbedData | VcStoriesData | VcBlogListData | VcFaqHubData
 
 export interface VcPageData {
   _id: string; title?: string; path: string; group?: string
@@ -113,4 +149,5 @@ export interface VcSharedData {
   }
   bookingCalTitle?: string
   bookingEmail?: string
+  offices?: VcOffice[]
 }

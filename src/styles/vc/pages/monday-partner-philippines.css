@@ -673,6 +673,8 @@
   .vc .go-card { grid-column: 1 / -1; }
   .vc .bar i { width: var(--w, 0%); }
   .vc .vc-ink { color: var(--ink); }
+  .vc .vc-mt8 { margin-top: 8px; }
+  .vc .empty.vc-show { display: block; }
   .vc .vc-spacer { height: var(--sec); }
   .vc .vc-svg { display: contents; }
   .vc .case > div > .lead { margin-top: 20px; }

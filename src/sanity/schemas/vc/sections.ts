@@ -56,6 +56,23 @@ export const vcHero = defineType({
     defineField({ name: 'stats', title: 'Stats row', type: 'array', of: [defineArrayMember({ type: 'vcStat' })] }),
     defineField({ name: 'statsNote', title: 'Note under the stats', type: 'string' }),
     defineField({ name: 'spacer', title: 'Space above the logo marquee', type: 'boolean', initialValue: false }),
+    defineField({
+      name: 'form',
+      title: 'Message form (contact page)',
+      type: 'object',
+      description: 'Shows the enquiry form beside the hero. Submissions go to the lead pipeline exactly as before.',
+      fields: [
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'subheading', title: 'Line under the heading', type: 'text', rows: 2 }),
+        defineField({ name: 'phoneLabel', title: 'Phone label', type: 'string' }),
+        defineField({ name: 'messageLabel', title: 'Message label', type: 'string' }),
+        defineField({ name: 'messagePlaceholder', title: 'Message placeholder', type: 'string' }),
+        defineField({ name: 'submitLabel', title: 'Button', type: 'string' }),
+        defineField({ name: 'successMessage', title: 'Thank-you message', type: 'string' }),
+      ],
+    }),
+    defineField({ name: 'searchPlaceholder', title: 'Search box placeholder', type: 'string', description: 'Shows a search box in the hero (blog and FAQ pages); it filters the list below.' }),
+    defineField({ name: 'searchClear', title: 'Search box has a clear button', type: 'boolean', initialValue: false }),
     defineField({ name: 'trustLabel', title: 'Logo marquee label', type: 'string' }),
     defineField({ name: 'trustLogos', title: 'Logo marquee', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
   ],
@@ -173,9 +190,9 @@ export const vcCards = defineType({
       },
       initialValue: 'cards3',
     }),
+    defineField({ name: 'listClass', title: 'List style', type: 'string', description: 'Design-system value: "ticks" or empty. Leave as is.' }),
     defineField({ name: 'titleClass', title: 'Card title style', type: 'string', description: 'Design-system value: empty (h3) or "title" (smaller). Leave as is.' }),
     defineField({ name: 'tagClass', title: 'Tag style', type: 'string', description: 'Design-system value from the mock-up ("label" or empty). Leave as is.' }),
-    defineField({ name: 'sectionClass', title: 'Section style', type: 'string', description: 'Design-system value from the mock-up. Leave as is.' }),
     defineField({
       name: 'imageFrame',
       title: 'Card image style',
@@ -228,6 +245,12 @@ export const vcProof = defineType({
     defineField({ name: 'lead', title: 'Lead', type: 'text', rows: 2 }),
     ctas,
     defineField({
+      name: 'filters',
+      title: 'Filter tabs',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcQuoteFilter', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'key', title: 'Quote tag', type: 'string', description: 'Empty shows all.' })], preview: { select: { title: 'label' } } })],
+    }),
+    defineField({
       name: 'quotes',
       title: 'Quotes',
       type: 'array',
@@ -274,6 +297,7 @@ export const vcBooking = defineType({
     defineField({ name: 'badge', title: 'Badge', type: 'string' }),
     heading(),
     defineField({ name: 'lead', title: 'Lead', type: 'text', rows: 2 }),
+    defineField({ name: 'tag', title: 'Tag under the contact lines', type: 'string' }),
     defineField({
       name: 'calTitle',
       title: 'Calendar title',
@@ -464,6 +488,7 @@ export const vcTable = defineType({
   fields: [
     ...sectionBase,
     head(),
+    defineField({ name: 'variant', title: 'Row style', type: 'string', options: { list: [{ title: 'Without us vs with us', value: 'compare' }, { title: 'Challenge, what we do, how we help', value: 'help' }] }, initialValue: 'compare' }),
     listOfStrings('columns', 'Column headings (three)'),
     defineField({
       name: 'rows',
@@ -512,6 +537,7 @@ export const vcDirectory = defineType({
   fields: [
     ...sectionBase,
     head(),
+    defineField({ name: 'variant', title: 'Tile style', type: 'string', options: { list: [{ title: 'Partner tiles', value: 'pgrid' }, { title: 'Certification cards', value: 'pcards' }] }, initialValue: 'pgrid' }),
     defineField({
       name: 'filters',
       title: 'Filter tabs',
@@ -531,6 +557,7 @@ export const vcDirectory = defineType({
             defineField({ name: 'logoShape', title: 'Logo shape', type: 'string', description: 'Design-system value: empty, "sq" or "mk".' }),
             defineField({ name: 'tag', title: 'Tag line', type: 'string' }),
             defineField({ name: 'title', title: 'Name', type: 'string' }),
+            defineField({ name: 'body', title: 'Line under the name', type: 'string' }),
             defineField({ name: 'href', title: 'Link', type: 'string' }),
             defineField({ name: 'groups', title: 'Group keys', type: 'array', of: [{ type: 'string' }] }),
           ],
@@ -600,15 +627,7 @@ export const vcTeam = defineType({
       title: 'People',
       type: 'array',
       of: [
-        defineArrayMember({
-          type: 'object',
-          name: 'vcTeamRef',
-          fields: [
-            defineField({ name: 'person', title: 'Team member', type: 'reference', to: [{ type: 'teamMember' }] }),
-            defineField({ name: 'bio', title: 'Short bio for this page (optional)', type: 'text', rows: 3, description: 'Empty shows the bio from Team Members.' }),
-          ],
-          preview: { select: { title: 'person.name', subtitle: 'bio' } },
-        }),
+        defineArrayMember({ type: 'vcTeamRef' }),
       ],
     }),
   ],
@@ -654,9 +673,223 @@ export const vcCoverage = defineType({
   preview: preview('Offices and coverage'),
 })
 
+const teamRefs = (name: string, title: string) =>
+  defineField({ name, title, type: 'array', of: [defineArrayMember({ type: 'vcTeamRef' })] })
+
+export const vcTeamRef = defineType({
+  name: 'vcTeamRef',
+  title: 'Team member',
+  type: 'object',
+  fields: [
+    defineField({ name: 'person', title: 'Team member', type: 'reference', to: [{ type: 'teamMember' }] }),
+    defineField({ name: 'role', title: 'Role for this page (optional)', type: 'string' }),
+    defineField({ name: 'bio', title: 'Short bio for this page (optional)', type: 'text', rows: 3 }),
+  ],
+  preview: { select: { title: 'person.name', subtitle: 'role' } },
+})
+
+export const vcLeadership = defineType({
+  name: 'vcLeadership',
+  title: 'Leadership',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'ceo', title: 'Quoted leader', type: 'vcTeamRef' }),
+    defineField({ name: 'quote', title: 'Quote', type: 'text', rows: 5 }),
+    defineField({ name: 'caption', title: 'Caption under the name', type: 'string' }),
+    teamRefs('people', 'Leadership team'),
+  ],
+  preview: preview('Leadership'),
+})
+
+export const vcOffices = defineType({
+  name: 'vcOffices',
+  title: 'Office cards',
+  type: 'object',
+  description: 'Offices come from Site Settings > Offices (the same list the booking band uses).',
+  fields: [...sectionBase, head()],
+  preview: preview('Office cards'),
+})
+
+export const vcTeamTabs = defineType({
+  name: 'vcTeamTabs',
+  title: 'Team by region',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'badge', title: 'Badge', type: 'string' }),
+    defineField({ name: 'headingPrefix', title: 'Heading before the region name', type: 'string', initialValue: 'Meet the' }),
+    defineField({
+      name: 'tabs',
+      title: 'Regions',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcTeamTab',
+          fields: [
+            defineField({ name: 'label', title: 'Tab label', type: 'string' }),
+            defineField({ name: 'flag', title: 'Flag', type: 'string' }),
+            defineField({ name: 'title', title: 'Heading accent', type: 'string', description: 'e.g. "APAC Team"' }),
+            teamRefs('leaders', 'Leads (large cards)'),
+            teamRefs('members', 'Team'),
+          ],
+          preview: { select: { title: 'label' } },
+        }),
+      ],
+    }),
+  ],
+  preview: preview('Team by region', 'badge'),
+})
+
+export const vcChannels = defineType({
+  name: 'vcChannels',
+  title: 'Contact channels',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'badge', title: 'Badge', type: 'string' }),
+    heading(),
+    defineField({
+      name: 'rows',
+      title: 'Channels',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcChannelRow', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'value', title: 'Shown as', type: 'string' }), defineField({ name: 'href', title: 'Link', type: 'string' })], preview: { select: { title: 'label', subtitle: 'value' } } })],
+    }),
+    defineField({ name: 'followLabel', title: 'Social label', type: 'string' }),
+    defineField({
+      name: 'socials',
+      title: 'Social links',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcSocial', fields: [
+        defineField({ name: 'network', title: 'Network', type: 'string', options: { list: ['linkedin', 'instagram', 'facebook', 'youtube', 'x', 'reddit', 'pinterest', 'whatsapp'] } }),
+        defineField({ name: 'label', title: 'Accessible name', type: 'string' }),
+        defineField({ name: 'href', title: 'Link', type: 'string' }),
+      ], preview: { select: { title: 'network', subtitle: 'href' } } })],
+    }),
+    defineField({ name: 'tilesLabel', title: 'Accreditations label', type: 'string' }),
+    defineField({ name: 'tilesLink', title: 'Accreditations link', type: 'vcCta' }),
+    defineField({ name: 'tiles', title: 'Accreditation badges', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
+    defineField({ name: 'security', title: 'Security badges row', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
+  ],
+  preview: preview('Contact channels', 'heading'),
+})
+
+export const vcRemote = defineType({
+  name: 'vcRemote',
+  title: 'Where we work',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'badge', title: 'Badge', type: 'string' }),
+    heading(),
+    defineField({ name: 'lead', title: 'Lead', type: 'text', rows: 2 }),
+    defineField({
+      name: 'perks',
+      title: 'Perks',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcPerk', fields: [defineField({ name: 'icon', title: 'Icon (SVG markup)', type: 'text', rows: 2 }), defineField({ name: 'text', title: 'Text', type: 'string' })], preview: { select: { title: 'text' } } })],
+    }),
+    defineField({ name: 'listLabel', title: 'List label', type: 'string' }),
+    defineField({ name: 'timeLabel', title: 'Time column label', type: 'string' }),
+    defineField({
+      name: 'places',
+      title: 'Places',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcPlace', fields: [
+        defineField({ name: 'flag', title: 'Flag', type: 'string' }),
+        defineField({ name: 'title', title: 'City', type: 'string' }),
+        defineField({ name: 'line', title: 'Line', type: 'string' }),
+        defineField({ name: 'label', title: 'Label', type: 'string' }),
+        defineField({ name: 'tz', title: 'Time zone', type: 'string', description: 'IANA name, e.g. Australia/Sydney (shows the live local time).' }),
+      ], preview: { select: { title: 'title', subtitle: 'label' } } })],
+    }),
+  ],
+  preview: preview('Where we work', 'heading'),
+})
+
+export const vcFormEmbed = defineType({
+  name: 'vcFormEmbed',
+  title: 'Embedded form',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'src', title: 'Form URL', type: 'string', description: 'Embed URL of the monday.com form.' }),
+    defineField({ name: 'title', title: 'Form title (accessibility)', type: 'string' }),
+    defineField({ name: 'note', title: 'Note under the form', type: 'string' }),
+  ],
+  preview: preview('Embedded form'),
+})
+
+export const vcStories = defineType({
+  name: 'vcStories',
+  title: 'Customer stories grid',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'filterLabel', title: 'Filter label', type: 'string' }),
+    defineField({ name: 'countText', title: 'Count line', type: 'string', description: 'Use {shown} and {total}, e.g. "Showing {shown} of {total} success stories".' }),
+    defineField({ name: 'stories', title: 'Stories', type: 'array', of: [defineArrayMember({ type: 'reference', to: [{ type: 'vcStory' }] })] }),
+  ],
+  preview: preview('Customer stories grid'),
+})
+
+export const vcBlogList = defineType({
+  name: 'vcBlogList',
+  title: 'Blog post list',
+  type: 'object',
+  description: 'Lists every published blog post (newest first) with category tabs, the hero search and pages of 12.',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'allLabel', title: 'All tab label', type: 'string', initialValue: 'All Posts' }),
+    defineField({ name: 'otherLabel', title: 'Label for posts without a category', type: 'string', initialValue: 'General' }),
+    defineField({ name: 'emptyText', title: 'No results text', type: 'string' }),
+  ],
+  preview: { prepare: () => ({ title: 'Blog post list' }) },
+})
+
+export const vcFaqHub = defineType({
+  name: 'vcFaqHub',
+  title: 'FAQ help centre',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'sideLabel', title: 'Topic list label', type: 'string' }),
+    defineField({ name: 'allLabel', title: 'All topics label', type: 'string', initialValue: 'All topics' }),
+    defineField({
+      name: 'categories',
+      title: 'Topics',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcFaqCategory',
+          fields: [
+            defineField({ name: 'key', title: 'Key', type: 'string' }),
+            defineField({ name: 'name', title: 'Name', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'string' }),
+            defineField({
+              name: 'groups',
+              title: 'Groups',
+              type: 'array',
+              of: [defineArrayMember({ type: 'object', name: 'vcFaqGroup', fields: [defineField({ name: 'name', title: 'Name', type: 'string' }), defineField({ name: 'items', title: 'Questions', type: 'array', of: [defineArrayMember({ type: 'reference', to: [{ type: 'faqItem' }] })] })], preview: { select: { title: 'name' } } })],
+            }),
+          ],
+          preview: { select: { title: 'name' } },
+        }),
+      ],
+    }),
+  ],
+  preview: { prepare: () => ({ title: 'FAQ help centre' }) },
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub,
 ]
 
-export const VC_SECTION_TYPES = vcSections.map((s) => s.name)
+/** Section types a page may contain (vcTeamRef is an object used inside sections). */
+export const VC_SECTION_TYPES = vcSections.map((s) => s.name).filter((n) => n !== 'vcTeamRef')

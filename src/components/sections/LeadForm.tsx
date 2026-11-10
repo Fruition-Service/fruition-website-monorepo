@@ -41,7 +41,8 @@ interface LeadFormProps {
    * "section" (default) wraps the card in its own full-width page section.
    * "card" renders only the card, for pages that place it in their own layout.
    */
-  variant?: "section" | "card"
+  /** "vc": the Version C markup (same submit path, fields, honeypot and tracking). */
+  variant?: "section" | "card" | "vc"
 }
 
 /**
@@ -184,6 +185,65 @@ export default function LeadForm({
         )}
       </div>
   )
+
+  if (variant === "vc") {
+    return (
+      <div className="msg">
+        <h2>{heading}</h2>
+        {subheading && <p className="small">{subheading}</p>}
+        {status === "done" ? (
+          <div className="done" role="status" aria-live="polite">
+            <p>{successMessage}</p>
+          </div>
+        ) : (
+          <form
+            onSubmit={onSubmit}
+            noValidate={false}
+            toolname="contact_fruition"
+            tooldescription="Submit a consulting enquiry to Fruition Services about monday.com, monday CRM, AI and automation, Atlassian or HubSpot work. Requires the visitor's name and work email; company and any page-specific qualifying questions are optional. Fruition replies within one business day."
+          >
+            <div className="fld">
+              <label className="label" htmlFor="lf-name">Full name</label>
+              <input id="lf-name" name="name" type="text" autoComplete="name" required />
+            </div>
+            <div className="fld">
+              <label className="label" htmlFor="lf-email">Work email</label>
+              <input id="lf-email" name="email" type="email" autoComplete="email" required />
+            </div>
+            {showCompany && (
+              <div className="fld">
+                <label className="label" htmlFor="lf-company">Company</label>
+                <input id="lf-company" name="company" type="text" autoComplete="organization" />
+              </div>
+            )}
+            {fields.map((f, i) => {
+              const name = f.name || f.label || `field-${i}`
+              const id = `lf-${i}`
+              return (
+                <div className="fld" key={i}>
+                  {f.label && <label className="label" htmlFor={id}>{f.label}</label>}
+                  {f.type === "textarea" ? (
+                    <textarea id={id} name={name} required={f.required} placeholder={f.placeholder} />
+                  ) : (
+                    <input id={id} name={name} type={f.inputType ?? "text"} autoComplete={f.autoComplete} placeholder={f.placeholder} required={f.required} />
+                  )}
+                </div>
+              )
+            })}
+            {/* Honeypot, hidden from users */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] w-px h-px opacity-0" />
+            {status === "error" && <p role="alert" className="small">{error}</p>}
+            <button className="btn" type="submit" disabled={status === "sending"}>
+              <span className="roll">
+                <span>{status === "sending" ? "Sending…" : submitLabel}</span>
+                <span aria-hidden="true">{status === "sending" ? "Sending…" : submitLabel}</span>
+              </span>
+            </button>
+          </form>
+        )}
+      </div>
+    )
+  }
 
   if (variant === "card") return card
 
