@@ -34,7 +34,8 @@ export function VcFaqTabsList({ tabs, active, onPick }: { tabs: VcFaqTabData[]; 
 /** Answers render as plain paragraphs, list lines included, as in the mock-ups. */
 const ANSWER: PortableTextComponents = {
   list: ({ children }) => <>{children}</>,
-  listItem: ({ children }) => <p>{children}</p>,
+  // A div, not a <p>: list items can hold nested lists, and <p> cannot nest.
+  listItem: ({ children }) => <div className="vc-ans-p">{children}</div>,
 }
 
 function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: number; startOpen: boolean }) {
@@ -66,7 +67,7 @@ export default function VcFaqTabs({ badge, heading, tabs }: { badge?: React.Reac
         {tabs.map((t, ti) => (
           <div className="fxpanel" key={t._key ?? ti} hidden={ti !== active} role="tabpanel">
             {(t.items ?? []).map((it, i) => (
-              <Qa key={it._id} q={it.question} a={it.answer} n={i + 1} startOpen={i === 0} />
+              <Qa key={`${it._id}-${i}`} q={it.question} a={it.answer} n={i + 1} startOpen={i === 0} />
             ))}
           </div>
         ))}
