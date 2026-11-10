@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · Construction & Trades · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Construction &amp; Trades</em></h1>
 <p class="sub">Jobsites, RFIs, variations, subcontractors and progress claims in one system your site teams will actually use, phone-first, office-visible.</p>
 <ul class="ticks">

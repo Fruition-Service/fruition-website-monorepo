@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🏗️ monday.com Platinum Partner · Engineering &amp; Architecture · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Engineering &amp; Architecture</em> firms</h1>
 <p class="sub">Project phases, drawing registers, RFIs, approvals and resource planning in one system, built by a certified monday.com partner and live in 2-4 weeks.</p>
 <ul class="ticks">

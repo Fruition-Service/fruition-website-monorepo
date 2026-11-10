@@ -39,7 +39,6 @@ ${LP_FONTS}
 <div>
 <div class="badges">
 <span class="badge badge-dark"><span class="badge-dot"></span> Sydney-Headquartered AI Consultants</span>
-<span class="badge badge-lite">Tool-Agnostic · Enterprise-Grade</span>
 </div>
 <h1>Enterprise-Grade AI Consulting Services &amp; Strategy for <em>Australian Businesses</em></h1>
 <p class="sub">Supercharge your operations, eliminate manual bottlenecks, and unlock rapid scaling. Partner with premier AI strategy consultants in Australia to architect custom large language models (LLMs), intelligent workflow systems, and advanced agentic automations.</p>

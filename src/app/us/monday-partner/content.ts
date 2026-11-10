@@ -47,7 +47,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇺🇸 monday.com Platinum Partner · New York · Chicago · Austin · San Francisco</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>Your monday.com <em>Platinum Partner</em> in the US</h1>
 <p class="sub">Fixed-fee monday.com implementation, CRM builds, integrations and training, scoped by a certified US-hours consultant and live in 2-4 weeks, not months.</p>
 <ul class="ticks">

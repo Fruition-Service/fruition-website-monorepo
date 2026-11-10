@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F6E0; base44 Implementation Partner &middot; Custom Apps &middot; No-Code Workflows &middot; New York &middot; Chicago &middot; Austin &middot; San Francisco</div>
+<div class="eyebrow">base44 Implementation Partner</div>
 <h1>base44 consultants: <em>custom apps and workflows, delivered</em></h1>
 <p class="sub">Fruition implements base44 for teams who need custom apps and workflows without the overhead of traditional development, from initial build through to integrations, training and ongoing changes.</p>
 <ul class="ticks">

@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇦🇺 monday.com Platinum Partner · Project & Portfolio Mgmt · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Project &amp; Portfolio Management</em></h1>
 <p class="sub">Projects, programs and the whole portfolio in one system, dependencies, resourcing and dashboards your PMO can actually govern with.</p>
 <ul class="ticks">

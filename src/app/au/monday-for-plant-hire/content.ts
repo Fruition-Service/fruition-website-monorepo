@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🚜 monday.com Platinum Partner · Plant &amp; Equipment Hire · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Plant &amp; Equipment Hire</em> companies</h1>
 <p class="sub">Asset registers, hire schedules, prestarts, maintenance and utilisation in one system, so you always know where the gear is, what it's earning and what's due for service.</p>
 <ul class="ticks">

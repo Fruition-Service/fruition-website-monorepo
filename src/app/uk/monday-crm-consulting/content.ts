@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · monday CRM & Migration · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday CRM consultants: <em>migrate from Salesforce, HubSpot or Pipedrive</em></h1>
 <p class="sub">Full-history CRM migrations and new monday CRM builds, contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell.</p>
 <ul class="ticks">

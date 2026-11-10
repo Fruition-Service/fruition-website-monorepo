@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🎯 monday.com Platinum Partner · Executive &amp; Strategy · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>Executive <em>OKRs &amp; Dashboards</em> on monday.com</h1>
 <p class="sub">Company objectives connected to the work that delivers them, with live dashboards for the leadership table, not a quarterly slide that's stale by week two.</p>
 <ul class="ticks">

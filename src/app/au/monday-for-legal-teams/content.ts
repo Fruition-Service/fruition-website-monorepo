@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">⚖️ monday.com Platinum Partner · Legal &amp; Contracts · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Legal &amp; Contract Management</em></h1>
 <p class="sub">Matter intake, contract lifecycle, review workflows and obligation tracking in one system, so the legal team stops being a black box the business emails into.</p>
 <ul class="ticks">

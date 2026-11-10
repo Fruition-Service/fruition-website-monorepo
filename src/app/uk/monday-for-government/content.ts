@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · Government · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Government</em> teams</h1>
 <p class="sub">Compliant workflows, registers, approvals and program reporting, delivered by a partner that works through government procurement itself.</p>
 <ul class="ticks">

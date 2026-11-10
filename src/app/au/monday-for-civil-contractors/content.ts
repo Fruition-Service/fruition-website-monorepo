@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🚧 monday.com Platinum Partner · Civil &amp; Concrete · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Civil, Formwork &amp; Concreting</em> contractors</h1>
 <p class="sub">Jobsites, pour schedules, ITPs, subbie coordination and progress claims in one system your site teams will actually use, phone-first, built by a Platinum Partner.</p>
 <ul class="ticks">

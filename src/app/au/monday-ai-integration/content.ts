@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🤖 monday.com Platinum Partner · OpenAI Partner · Anthropic Partner</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com <em>AI &amp; Vibe</em>: with Claude and OpenAI built in</h1>
 <p class="sub">AI Blocks, Sidekick, agents, monday Vibe apps and custom Claude/OpenAI integrations, deployed with governance by the partner that's certified on both the platform and the AI.</p>
 <ul class="ticks">

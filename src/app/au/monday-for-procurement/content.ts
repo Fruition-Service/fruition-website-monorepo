@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">📦 monday.com Platinum Partner · Procurement · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Procurement &amp; Supplier Management</em></h1>
 <p class="sub">Supplier onboarding, purchase approvals, vendor performance and contract renewals in one controlled workflow, with the audit trail your auditors keep asking for.</p>
 <ul class="ticks">

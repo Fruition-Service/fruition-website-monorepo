@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">💰 monday.com Platinum Partner · Finance · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Finance Teams</em></h1>
 <p class="sub">Month-end close, AP approvals, budget cycles and finance requests in controlled workflows, connected to Xero, MYOB or your ERP so nothing is re-keyed.</p>
 <ul class="ticks">

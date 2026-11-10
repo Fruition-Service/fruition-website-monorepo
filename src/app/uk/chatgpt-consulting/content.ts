@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F916; AI Implementation Partner &middot; ChatGPT &middot; OpenAI API &middot; Automation &middot; London &middot; Manchester &middot; Birmingham &middot; Edinburgh</div>
+<div class="eyebrow">AI Implementation Partner</div>
 <h1>ChatGPT consultants: <em>AI automation for your business</em></h1>
 <p class="sub">Fruition implements ChatGPT and the OpenAI API for internal tools, customer support automation and content workflows, practical AI that fits into how your team already works.</p>
 <ul class="ticks">

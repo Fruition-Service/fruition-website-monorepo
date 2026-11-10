@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F3E2; Atlassian Partner &middot; Jira &middot; Confluence &middot; Trello &middot; JSM &middot; Sydney &middot; Melbourne &middot; Brisbane &middot; Perth &middot; Adelaide</div>
+<div class="eyebrow">Atlassian Partner</div>
 <h1>Atlassian consultants: <em>Jira, Confluence &amp; JSM implementation</em></h1>
 <p class="sub">Certified Atlassian consultants delivering Jira Software, Jira Service Management, Confluence and Trello implementations, from initial setup through to enterprise-scale migrations and training.</p>
 <ul class="ticks">

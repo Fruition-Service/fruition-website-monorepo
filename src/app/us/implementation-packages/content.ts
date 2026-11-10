@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇺🇸 monday.com Platinum Partner · Implementation Packages · New York · Chicago · Austin · San Francisco</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com <em>Implementation Packages</em>: fixed fee, fast</h1>
 <p class="sub">Pick a package, get a fixed price, go live in 2-4 weeks. No hourly billing, no scope drift, just a working system built by a Platinum Partner.</p>
 <ul class="ticks">

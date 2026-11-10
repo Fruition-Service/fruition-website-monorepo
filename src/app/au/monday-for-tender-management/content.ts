@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">📑 monday.com Platinum Partner · Tenders &amp; Bids · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Tender &amp; Bid Management</em></h1>
 <p class="sub">Tender pipeline, go/no-go gates, submission deadlines, document control and win/loss analysis in one system, built by a partner that works through government procurement itself.</p>
 <ul class="ticks">

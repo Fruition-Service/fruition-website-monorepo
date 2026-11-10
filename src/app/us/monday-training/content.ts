@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇺🇸 monday.com Platinum Partner · Team Training · New York · Chicago · Austin · San Francisco</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1><em>monday.com Training</em> for your team</h1>
 <p class="sub">Admin and end-user training delivered on your own boards by certified consultants, not generic demos, with champion programs that make adoption stick.</p>
 <ul class="ticks">

@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇦🇺 monday.com Platinum Partner · Real Estate & Property · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Real Estate &amp; Property</em></h1>
 <p class="sub">Listings, leasing pipelines, deals and property maintenance in one system, so nothing falls between the CRM, the spreadsheet and the inbox.</p>
 <ul class="ticks">

@@ -39,7 +39,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">Anthropic partner · OpenAI partner · monday.com Platinum partner</div>
+<div class="eyebrow">Anthropic partner</div>
 <h1>AI implementation and governance consultants who <em>build the foundations first</em></h1>
 <p class="sub">Claude, ChatGPT and Gemini only work when your processes, data and systems are ready for them. Fruition takes you through the five steps, from digitised process to agents that act, with an ISO/IEC 42001 governance framework so your board, auditors and customers can trust what the AI does.</p>
 <ul class="ticks">

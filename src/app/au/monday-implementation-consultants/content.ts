@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇦🇺 monday.com Platinum Partner · Implementation Services · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com <em>Implementation Consultants</em> in Australia</h1>
 <p class="sub">Certified monday implementation consultants who scope, build, migrate and train, fixed fee agreed up front, system live in 2-4 weeks.</p>
 <ul class="ticks">

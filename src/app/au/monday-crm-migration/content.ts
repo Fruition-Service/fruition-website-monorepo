@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🔁 monday.com Platinum Partner · CRM Migrations · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>Migrate <em>Salesforce, HubSpot or Pipedrive</em> to monday CRM</h1>
 <p class="sub">Full-history migrations to monday CRM, contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell, team trained on day one.</p>
 <ul class="ticks">

@@ -37,7 +37,6 @@ ${LP_FONTS}
 <div>
 <div class="badges">
 <span class="badge badge-platinum"><span class="badge-dot"></span> monday.com Platinum Partner</span>
-<span class="badge badge-adv">Advanced Delivery Partner</span>
 </div>
 <h1>Expert monday.com Consulting Services &amp; Implementation <em>Across Australia</em></h1>
 <p class="sub">Streamline your workflows, maximise efficiency, and build a system your team loves. Book a session with a monday.com Certified Partner today for custom setups, seamless integrations, and end-to-end automation.</p>

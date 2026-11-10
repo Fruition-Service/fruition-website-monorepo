@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · Marketing Teams · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Marketing Teams</em></h1>
 <p class="sub">Campaigns, content calendars, creative requests and approvals in one system, so the work stops living in six tools and nobody's head.</p>
 <ul class="ticks">

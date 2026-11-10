@@ -51,7 +51,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">👷 monday.com Platinum Partner · Labour Hire &amp; Recruitment · Australia</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Labour Hire &amp; Recruitment</em> agencies</h1>
 <p class="sub">Candidate pipelines, tickets and compliance, placements and client accounts in one system, replacing spreadsheets and ageing ATS tools, live in 2-4 weeks.</p>
 <ul class="ticks">

@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F4A1; HubSpot Solutions Partner &middot; CRM &middot; Sales Hub &middot; Marketing Hub &middot; New York &middot; Chicago &middot; Austin &middot; San Francisco</div>
+<div class="eyebrow">HubSpot Solutions Partner</div>
 <h1>HubSpot consultants: <em>CRM, Sales Hub &amp; Marketing Hub</em></h1>
 <p class="sub">HubSpot Solutions Partners delivering CRM setup, Sales Hub automation and Marketing Hub campaigns, including full-history migrations from Salesforce, monday CRM and spreadsheets.</p>
 <ul class="ticks">

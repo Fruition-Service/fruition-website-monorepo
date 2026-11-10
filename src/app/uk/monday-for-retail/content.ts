@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · Retail · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Retail</em> teams</h1>
 <p class="sub">Store operations, campaign launches, visual merchandising and new-store openings coordinated in one system, head office to shop floor.</p>
 <ul class="ticks">

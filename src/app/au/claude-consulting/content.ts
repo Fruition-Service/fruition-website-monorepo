@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x1F9E0; Claude AI Implementation &middot; Enterprise Automation &middot; Anthropic Partner &middot; Sydney &middot; Melbourne &middot; Brisbane &middot; Perth &middot; Adelaide</div>
+<div class="eyebrow">Claude AI Implementation</div>
 <h1>Claude AI consultants: <em>enterprise AI implementation</em></h1>
 <p class="sub">Fruition implements Claude AI for enterprise workflows, document processing and intelligent automation, compliance-aware deployments designed for teams where data governance matters.</p>
 <ul class="ticks">

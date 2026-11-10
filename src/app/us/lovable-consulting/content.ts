@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">&#x26A1; Lovable Development Partner &middot; Web Apps &middot; Full-Stack &middot; Fast &middot; New York &middot; Chicago &middot; Austin &middot; San Francisco</div>
+<div class="eyebrow">Lovable Development Partner</div>
 <h1>Lovable consultants: <em>ship your web app in days, not months</em></h1>
 <p class="sub">Fruition builds production-ready web apps with Lovable, from spec to shipped fast, with real developers handling the architecture, integrations and edge cases that AI alone misses.</p>
 <ul class="ticks">

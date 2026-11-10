@@ -36,7 +36,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇦🇺 monday.com Platinum Partner · Manufacturing · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com for <em>Manufacturing</em></h1>
 <p class="sub">Production schedules, work orders, quality and maintenance in one connected system, visible from the floor to the boardroom.</p>
 <ul class="ticks">

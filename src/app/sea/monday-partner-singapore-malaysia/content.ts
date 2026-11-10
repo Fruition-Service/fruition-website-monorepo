@@ -43,7 +43,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇸🇬 🇲🇾 monday.com Platinum Partner · Singapore · Kuala Lumpur · Penang · Johor Bahru</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>monday.com Platinum Partner for <em>Singapore &amp; Malaysia</em></h1>
 <p class="sub">monday.com implementation, CRM setup and workflow automation for Singapore and Malaysian businesses, fixed-price, PDPA-ready and delivered by consultants working your hours (GMT+8).</p>
 <ul class="ticks">

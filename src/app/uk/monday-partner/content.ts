@@ -47,7 +47,7 @@ ${LP_FONTS}
 <section class="hero">
 <div class="wrap">
 <div>
-<div class="eyebrow">🇬🇧 monday.com Platinum Partner · London · Manchester · Birmingham · Edinburgh</div>
+<div class="eyebrow">monday.com Platinum Partner</div>
 <h1>Your monday.com <em>Platinum Partner</em> in the UK</h1>
 <p class="sub">Fixed-fee monday.com implementation, CRM builds, integrations and training, scoped by a certified UK consultant and live in 2-4 weeks, not months.</p>
 <ul class="ticks">
