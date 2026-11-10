@@ -245,22 +245,27 @@ section[style*="--tint"] .card,.alt .card,section[style*="--tint"] .step,.alt .s
 .pkg li::before{content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;background:var(--brand-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238015e8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") no-repeat center/11px}
 .pnote{font-size:13px;color:var(--faint);margin-top:20px}
 
-/* FAQ: heading left, ruled list right, as on the site */
-section:has(details){counter-reset:faq}
-section:has(details) .wrap{display:grid;grid-template-columns:1fr 2fr;column-gap:64px;align-items:start}
-section:has(details) .wrap>*{grid-column:2}
-section:has(details) .wrap>.k{grid-column:1;grid-row:1;justify-self:start}
-section:has(details) .wrap>h2.sec{grid-column:1;grid-row:2/span 30;align-self:start;margin-bottom:0}
-section:has(details) .wrap>.lede{grid-column:2;grid-row:auto;margin-bottom:24px}
-details{border-bottom:1px solid var(--lilac);counter-increment:faq}
-details:first-of-type{border-top:1px solid var(--lilac)}
-summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:16px;padding:22px 0;font-size:18px;font-weight:500;line-height:1.4;letter-spacing:-.01em;color:var(--fg);transition:color .2s}
-summary:hover{color:var(--brand)}
-summary::-webkit-details-marker{display:none}
-summary::before{content:counter(faq,decimal-leading-zero);flex:none;width:28px;font:400 12px/1 var(--mono);color:var(--brand)}
-summary::after{content:"";flex:none;margin-left:auto;width:20px;height:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0d14' stroke-width='1.75' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") no-repeat center/contain;transition:transform .2s}
-details[open] summary::after{transform:rotate(45deg)}
-details .a{padding:0 36px 24px 44px;font-size:16px;line-height:1.65;color:var(--muted)}
+/* FAQ: the site's FaqAccordion. Sticky heading and "prefer a person" aside on
+   the left, numbered questions with a chevron on the right. landingPage.ts
+   (withFaq) builds the two columns from the page's own heading and questions. */
+.lp-faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;column-gap:88px;align-items:start}
+.lp-faq-head{position:sticky;top:112px}
+.lp-faq-k{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:0 0 16px}
+.lp-faq-head h2.sec{margin:0}
+.lp-faq-lede{margin-top:20px;max-width:340px;font-size:16px;line-height:1.6;color:var(--muted)}
+.lp-faq-ask{margin-top:36px;padding-top:28px;border-top:1px solid var(--lilac)}
+.lp-faq-ask p{max-width:300px;margin:0 0 16px;font-size:15px;line-height:1.55;color:var(--muted)}
+.lp-faq-ask a{display:inline-block;padding:10px 0;margin:-10px 0;font-size:15px;font-weight:600;color:var(--brand);text-decoration:none;transition:color .2s}
+.lp-faq-ask a:hover{color:var(--brand-dark)}
+.lp-faq-list{min-width:0;counter-reset:faq}
+.lp-faq details{border-bottom:1px solid var(--lilac);counter-increment:faq}
+.lp-faq summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;gap:20px;padding:24px 0;font-size:19px;font-weight:500;line-height:1.45;letter-spacing:-.01em;color:var(--fg);text-wrap:pretty;transition:color .2s}
+.lp-faq summary:hover{color:var(--brand)}
+.lp-faq summary::-webkit-details-marker{display:none}
+.lp-faq summary::before{content:counter(faq,decimal-leading-zero);flex:none;width:24px;padding-top:6px;font:600 13px/1 var(--mono);color:var(--brand-mid)}
+.lp-faq summary::after{content:"";flex:none;margin-left:auto;margin-top:5px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238015e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat center/contain;transition:transform .2s}
+.lp-faq details[open] summary::after{transform:rotate(180deg)}
+.lp-faq details .a{padding:0 0 28px 44px;font-size:16px;line-height:1.7;color:var(--muted);text-wrap:pretty}
 
 /* Booking band: the site's midnight booking section */
 .final{--light:rgba(255,255,255,.72);--purple:#fff;color:#fff;background:var(--navy)}
@@ -296,10 +301,9 @@ h1{font-size:48px}
 h2.sec,.final h2{font-size:40px}
 .hero .wrap,.final .inner{grid-template-columns:1fr;gap:48px}
 .wrap:has(>h2.sec){grid-template-columns:1fr}
+.lp-faq .wrap{grid-template-columns:1fr;row-gap:40px}
+.lp-faq-head{position:static}
 .wrap:has(>h2.sec)>.lede{grid-column:1;grid-row:auto;margin-top:-22px}
-section:has(details) .wrap{grid-template-columns:1fr}
-section:has(details) .wrap>*,section:has(details) .wrap>h2.sec{grid-column:1;grid-row:auto}
-section:has(details) .wrap>h2.sec{margin-bottom:32px}
 .grid3,.team,.steps,.ratings{grid-template-columns:repeat(2,1fr)}
 .team[data-split]{grid-template-columns:repeat(3,1fr)}
 .crew{grid-template-columns:repeat(2,1fr)}
@@ -333,13 +337,13 @@ h2.sec,.final h2{font-size:32px;line-height:1.1}
 .stats .l{font-size:13px}
 .clients{padding:40px 0}
 .logo-row img{width:140px;height:64px;padding:12px 16px}
-summary{font-size:16px}
-details .a{padding:0 0 20px 44px}
 footer .wrap{flex-direction:column;align-items:flex-start}
 .topbar .phone{font-size:12px}
 .final .btn{display:flex;width:100%}
 .mcta{gap:8px;padding:10px 12px}
 .mcta a{font-size:12px;padding:0 10px}
+.lp-faq summary{font-size:17px;gap:16px}
+.lp-faq details .a{padding-left:0}
 }
 `
 
@@ -580,4 +584,17 @@ h2{font-size:32px;line-height:1.1}
 .hero-form input,.ff input{height:48px}
 .form-btn{margin-top:24px}
 @media(max-width:767px){.hero .hero-card{padding:24px 20px}}
+/* Team: the conversion template's square-portrait cards (as on /au/monday-crm-consulting) */
+.team{gap:24px}
+h2+.lede+.team{margin-top:0}
+.member{display:flex;flex-direction:column;overflow:hidden;text-align:left;background:var(--tint-bg);border:1px solid var(--lilac);border-radius:var(--r3);transition:border-color .2s}
+.alt .member{background:var(--surface)}
+.member:hover{border-color:var(--ui-strong)}
+.member img,.member .avatar{display:block;width:100%;height:auto;aspect-ratio:1/1;margin:0}
+.member img{object-fit:cover;object-position:center 20%}
+.member .avatar{display:flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand);font-size:44px;font-weight:500;letter-spacing:-.02em}
+.alt .member .avatar{background:var(--brand-soft)}
+.member h3{padding:22px 24px 0;margin:0 0 10px;font-size:20px;font-weight:500;line-height:1.25;letter-spacing:-.015em;color:var(--fg)}
+.member .role{margin:0 24px 12px;font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.member p{padding:0 24px 24px;font-size:14px;line-height:1.6;color:var(--muted)}
 `

@@ -116,30 +116,12 @@ ${LP_FONTS}
 <!-- 5. TEAM -->
 <section><div class="wrap">
 <div class="eyebrow">Your Australian AI team</div>
-<h2>Work Directly With Leading Australian AI Strategy Consultants</h2>
+<h2>Work Directly With Leading <em>Australian AI Strategy Consultants</em></h2>
 <p class="lede">The people who scope your automation roadmap are the people who engineer it.</p>
 <div class="team">
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?w=800&amp;h=600&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><span>Josh Jebathilak</span></div>
-<div class="tm-body">
-<div class="tm-role">Director, APAC</div>
-<p>Leads AI strategy and delivery across the region. Personally oversaw intelligent system builds and process automations for hundreds of organisations.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=800&amp;h=600&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><span>Nikki Glucksman</span></div>
-<div class="tm-body">
-<div class="tm-role">Principal Consultant</div>
-<p>UX-driven product strategist translating business requirements into streamlined workflows.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img">AI Integration Specialists</div>
-<div class="tm-body">
-<div class="tm-role">Engineering Squad</div>
-<p>Certified engineers deploying LLM integrations, agentic workflows, and automated data pipelines across enterprise environments Australia-wide.</p>
-</div>
-</div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&amp;w=560&amp;h=560&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Director, APAC</div><p>Leads AI strategy and delivery across the region. Personally oversaw intelligent system builds and process automations for hundreds of organisations.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&amp;h=560&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
+<div class="member"><div class="avatar" aria-hidden="true">AI</div><h3>AI Integration Specialists</h3><div class="role">Engineering Squad</div><p>Certified engineers deploying LLM integrations, agentic workflows, and automated data pipelines across enterprise environments Australia-wide.</p></div>
 </div>
 </div></section>
 

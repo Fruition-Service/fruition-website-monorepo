@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { withLandingPageLayout } from "./landingPage"
+import { FAQ_CONTACT_EMAIL, withFaq, withLandingPageLayout } from "./landingPage"
 import { extractProof } from "./landingPageProof"
 import { adLandingPages } from "./adLandingPages"
 import type { LeadRegion } from "./leadNotify"
@@ -103,6 +103,40 @@ describe("withLandingPageLayout", () => {
     const { html } = await import("@/app/uk/monday-partner/content")
     const once = withLandingPageLayout(html, shared)
     expect(withLandingPageLayout(once, shared)).toBe(once)
+  })
+})
+
+describe("withFaq", () => {
+  it.each(pages)("%s: FAQ uses the site's split layout with every question kept", async (page) => {
+    const { html } = await import(`@/app/${page}/content`)
+    const questions = (html.match(/<details\b/g) ?? []).length
+    const out = withLandingPageLayout(html, shared, regionOf(page))
+    if (questions === 0) {
+      expect(out).not.toContain("lp-faq")
+      return
+    }
+    expect(out.match(/<section class="lp-faq\b[^"]*" id="faq">/g)).toHaveLength(1)
+    const start = out.search(/<section class="lp-faq\b/)
+    const faq = out.slice(start, out.indexOf("</section>", start))
+    const head = faq.indexOf('<div class="lp-faq-head">')
+    const list = faq.indexOf('<div class="lp-faq-list">')
+    expect(head).toBeGreaterThan(0)
+    expect(list).toBeGreaterThan(head)
+    // Heading and contact line on the left, every question on the right, all closed.
+    expect(faq.slice(head, list)).toMatch(/<h2 class="sec">/)
+    expect(faq.slice(head, list)).toContain(`mailto:${FAQ_CONTACT_EMAIL}`)
+    expect(faq.slice(head, list)).not.toContain("<details")
+    expect(faq.slice(list).match(/<details>/g)).toHaveLength(questions)
+    expect(out).not.toContain("<details open")
+    expect(out.match(/<details\b/g)).toHaveLength(questions)
+  })
+
+  it("is idempotent and leaves pages without questions alone", () => {
+    const html = '<section class="alt"><div class="wrap"><p class="k">FAQ</p><h2 class="sec">Q</h2><details open><summary>A?</summary><div class="a">B.</div></details></div></section>'
+    const once = withFaq(html)
+    expect(once).toContain('<section class="lp-faq alt" id="faq">')
+    expect(withFaq(once)).toBe(once)
+    expect(withFaq("<section><div class=\"wrap\"><h2>x</h2></div></section>")).toBe("<section><div class=\"wrap\"><h2>x</h2></div></section>")
   })
 })
 

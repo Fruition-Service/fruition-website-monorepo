@@ -353,7 +353,48 @@ export function withLandingPageLayout(
         ? `${booking.html.slice(0, footer)}${booking.removed}\n\n${booking.html.slice(footer)}`
         : booking.html.replace(/<\/body>/i, `${booking.removed}\n</body>`)
   }
-  return withRhythm(withBands(out, region, source))
+  return withRhythm(withBands(withFaq(out), region, source))
+}
+
+export const FAQ_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."
+export const FAQ_CONTACT_EMAIL = "contact@fruitionservices.io"
+
+/**
+ * 4b. The FAQ, laid out as the site's FaqAccordion: the page's own eyebrow,
+ *     heading and lede in a sticky left column with the "prefer a person"
+ *     contact line under them, and its questions in a numbered list on the
+ *     right, all closed. Pure transform, exported for tests; idempotent.
+ */
+export function withFaq(html: string): string {
+  if (html.includes('class="lp-faq-head"')) return html
+  const first = html.indexOf("<details")
+  if (first < 0) return html
+  const at = html.lastIndexOf("<section", first)
+  const end = at < 0 ? -1 : elementEnd(html, at, "section")
+  if (end < 0) return html
+  const m = /^<section([^>]*)>\s*<div class="wrap">([\s\S]*?)(<details[\s\S]*<\/details>)\s*<\/div>\s*<\/section>$/.exec(
+    html.slice(at, end),
+  )
+  if (!m) return html
+  const cls = /class="([^"]*)"/.exec(m[1])?.[1] ?? ""
+  const classes = ["lp-faq", ...cls.split(/\s+/).filter(Boolean)].join(" ")
+  const head = m[2]
+    .trim()
+    .replace(/<p class="k">/, '<p class="lp-faq-k">')
+    .replace(/<p class="lede">/, '<p class="lp-faq-lede">')
+  const list = m[3].replace(/<details open>/g, "<details>")
+  const section = `<section class="${classes}" id="faq">
+<div class="wrap">
+<div class="lp-faq-head">
+${head}
+<div class="lp-faq-ask"><p>${FAQ_CONTACT_LEAD}</p><a href="mailto:${FAQ_CONTACT_EMAIL}">${FAQ_CONTACT_EMAIL} \u2192</a></div>
+</div>
+<div class="lp-faq-list">
+${list}
+</div>
+</div>
+</section>`
+  return html.slice(0, at) + section + html.slice(end)
 }
 
 /**

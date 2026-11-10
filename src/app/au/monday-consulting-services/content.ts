@@ -124,30 +124,12 @@ ${LP_FONTS}
 <!-- 5. TEAM -->
 <section><div class="wrap">
 <div class="eyebrow">Your Australian team</div>
-<h2>Work Directly with a Certified monday.com Partner Consultant</h2>
+<h2>Work Directly with a Certified <em>monday.com Partner Consultant</em></h2>
 <p class="lede">No handoffs, no offshore bench. The people below scope and deliver your build.</p>
 <div class="team">
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?w=800&amp;h=600&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><span>Josh Jebathilak</span></div>
-<div class="tm-body">
-<div class="tm-role">Director, APAC</div>
-<p>Spent 4 years working directly within monday.com prior to launching Fruition. Personally oversaw system builds for hundreds of organisations.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=800&amp;h=600&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><span>Nikki Glucksman</span></div>
-<div class="tm-body">
-<div class="tm-role">Principal Consultant</div>
-<p>UX-driven product strategist translating business requirements into streamlined workflows.</p>
-</div>
-</div>
-<div class="tm">
-<div class="tm-img has-photo"><img src="https://cdn.sanity.io/images/bt6nb58h/production/54c16cd7f1656cedb43a3c4e2d718c56e12f2bec-800x800.jpg?w=800&amp;h=600&amp;fit=crop" alt="Branson McMahon" loading="lazy"><span>Branson McMahon</span></div>
-<div class="tm-body">
-<div class="tm-role">Solution Engineer</div>
-<p>Specialises in translating complex operational requirements into functional capabilities using the full scope of the Work OS platform.</p>
-</div>
-</div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&amp;w=560&amp;h=560&amp;fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Director, APAC</div><p>Spent 4 years working directly within monday.com prior to launching Fruition. Personally oversaw system builds for hundreds of organisations.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&amp;h=560&amp;fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/54c16cd7f1656cedb43a3c4e2d718c56e12f2bec-800x800.jpg?w=560&amp;h=560&amp;fit=crop" alt="Branson McMahon" loading="lazy"><h3>Branson McMahon</h3><div class="role">Solution Engineer</div><p>Specialises in translating complex operational requirements into functional capabilities using the full scope of the Work OS platform.</p></div>
 </div>
 </div></section>
 
