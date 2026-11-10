@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { PortableText } from "@portabletext/react"
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import type { PortableTextBlock } from "@portabletext/types"
 import type { VcFaqTabData } from "../types"
 
@@ -31,6 +31,12 @@ export function VcFaqTabsList({ tabs, active, onPick }: { tabs: VcFaqTabData[]; 
   )
 }
 
+/** Answers render as plain paragraphs, list lines included, as in the mock-ups. */
+const ANSWER: PortableTextComponents = {
+  list: ({ children }) => <>{children}</>,
+  listItem: ({ children }) => <p>{children}</p>,
+}
+
 function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: number; startOpen: boolean }) {
   const [open, setOpen] = useState(startOpen)
   return (
@@ -42,7 +48,7 @@ function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: nu
           <path d="M12 5v14M5 12h14" />
         </svg>
       </button>
-      <div className="ans">{a && <PortableText value={a} />}</div>
+      <div className="ans">{a && <PortableText value={a} components={ANSWER} />}</div>
     </div>
   )
 }

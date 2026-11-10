@@ -15,7 +15,7 @@ export interface VcLogoData { _key?: string; image?: VcImage; alt?: string; href
 export interface VcStatData { _key?: string; value?: string; label?: string }
 export interface VcItemData {
   _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]
-  image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean
+  image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; bullets?: string[]
 }
 export interface VcCaseData { _id: string; client?: string; label?: string; body?: string; tags?: string[]; results?: { _key?: string; value?: string; label?: string }[]; photo?: VcImage; logo?: VcImage; href?: string }
 export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string }
@@ -32,7 +32,7 @@ export interface VcHeroData extends Base {
 export interface VcLogosData extends Base { _type: "vcLogos"; head?: VcHeadData; logos?: VcLogoData[]; more?: string }
 export interface VcStepsData extends Base {
   _type: "vcSteps"; head?: VcHeadData; layout?: string
-  items?: { _key?: string; n?: string; title?: string; body?: string; meta?: string }[]
+  items?: { _key?: string; n?: string; bar?: number; title?: string; body?: string; bullets?: string[]; meta?: string }[]
 }
 export interface VcCasesData extends Base { _type: "vcCases"; head?: VcHeadData; cases?: VcCaseData[] }
 export interface VcAuditData extends Base { _type: "vcAudit"; heading?: string; text?: string; cta?: VcCtaData }
@@ -47,9 +47,32 @@ export interface VcBookingData extends Base { _type: "vcBooking"; badge?: string
 export interface VcFaqData extends Base { _type: "vcFaq"; badge?: string; heading?: string; tabs?: VcFaqTabData[] }
 export interface VcClosingData extends Base { _type: "vcClosing"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[] }
 
+export interface VcPara { _key?: string; text?: string; style?: string }
+export interface VcVideoData extends Base {
+  _type: "vcVideo"; badge?: string; heading?: string; paragraphs?: VcPara[]
+  facts?: { _key?: string; label?: string; value?: string }[]; youtubeId?: string; poster?: VcImage; caption?: string
+}
+export interface VcTextPairData extends Base { _type: "vcTextPair"; badge?: string; heading?: string; paragraphs?: VcPara[] }
+export interface VcFixData extends Base {
+  _type: "vcFix"; head?: VcHeadData; detailLabel?: string; cta?: VcCtaData
+  items?: { _key?: string; title?: string; problem?: string; steps?: string[]; outcome?: string }[]
+}
+export interface VcIndustryTabsData extends Base {
+  _type: "vcIndustryTabs"; head?: VcHeadData; benefitsLabel?: string; cta?: VcCtaData
+  tabs?: { _key?: string; label?: string; title?: string; body?: string; benefits?: string[] }[]
+}
+export interface VcTrackData extends Base {
+  _type: "vcTrack"; head?: VcHeadData; sizeLabel?: string; complexityLabel?: string; complexity?: string[]
+  recLabel?: string; tracks?: { _key?: string; title?: string; body?: string; fit?: string }[]; cta?: VcCtaData; pills?: string[]
+}
+export interface VcTableData extends Base {
+  _type: "vcTable"; head?: VcHeadData; columns?: string[]; rows?: { _key?: string; label?: string; no?: string; yes?: string }[]
+}
+
 export type VcSection =
   | VcHeroData | VcLogosData | VcStepsData | VcCasesData | VcAuditData | VcCardsData | VcProductsData
   | VcUseCasesData | VcProofData | VcPractitionersData | VcBookingData | VcFaqData | VcClosingData
+  | VcVideoData | VcTextPairData | VcFixData | VcIndustryTabsData | VcTrackData | VcTableData
 
 export interface VcPageData {
   _id: string; title?: string; path: string; group?: string

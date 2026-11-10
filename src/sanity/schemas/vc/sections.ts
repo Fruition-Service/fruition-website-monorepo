@@ -67,7 +67,7 @@ export const vcSteps = defineType({
       name: 'layout',
       title: 'Columns',
       type: 'string',
-      options: { list: [{ title: 'Three', value: 'steps' }, { title: 'Four', value: 'steps4' }, { title: 'Five', value: 'steps5' }] },
+      description: 'Design-system class from the mock-up, e.g. "steps", "steps four", "steps4".',
       initialValue: 'steps',
     }),
     defineField({
@@ -80,8 +80,10 @@ export const vcSteps = defineType({
           name: 'vcStep',
           fields: [
             defineField({ name: 'n', title: 'Number', type: 'string' }),
+            defineField({ name: 'bar', title: 'Progress bar (%)', type: 'number', description: 'Optional bar above the number, 0 to 100.' }),
             defineField({ name: 'title', title: 'Title', type: 'string' }),
             defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
+            defineField({ name: 'bullets', title: 'Ticked list', type: 'array', of: [{ type: 'string' }] }),
             defineField({ name: 'meta', title: 'Footer label', type: 'string' }),
           ],
           preview: { select: { title: 'title', subtitle: 'n' } },
@@ -269,9 +271,185 @@ export const vcClosing = defineType({
   preview: preview('Closing band', 'heading'),
 })
 
+
+const paragraphs = defineField({
+  name: 'paragraphs',
+  title: 'Paragraphs',
+  type: 'array',
+  of: [
+    defineArrayMember({
+      type: 'object',
+      name: 'vcPara',
+      fields: [
+        defineField({ name: 'text', title: 'Text', type: 'text', rows: 3 }),
+        defineField({ name: 'style', title: 'Style', type: 'string', options: { list: [{ title: 'Large', value: 'lead' }, { title: 'Normal', value: 'body' }] }, initialValue: 'body' }),
+      ],
+      preview: { select: { title: 'text', subtitle: 'style' } },
+    }),
+  ],
+})
+
+const listOfStrings = (name: string, title: string) => defineField({ name, title, type: 'array', of: [{ type: 'string' }] })
+
+export const vcVideo = defineType({
+  name: 'vcVideo',
+  title: 'Video',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'badge', title: 'Badge', type: 'string' }),
+    heading(),
+    paragraphs,
+    defineField({
+      name: 'facts',
+      title: 'Facts (label / value rows)',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcVideoFact', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'value', title: 'Value', type: 'string' })] })],
+    }),
+    defineField({ name: 'youtubeId', title: 'YouTube video id', type: 'string', description: 'The 11-character id from the YouTube URL.' }),
+    image('poster', 'Poster image'),
+    defineField({ name: 'caption', title: 'Caption on the video', type: 'string' }),
+  ],
+  preview: preview('Video', 'heading'),
+})
+
+export const vcTextPair = defineType({
+  name: 'vcTextPair',
+  title: 'Heading + text',
+  type: 'object',
+  fields: [...sectionBase, defineField({ name: 'badge', title: 'Badge', type: 'string' }), heading(), paragraphs],
+  preview: preview('Heading + text', 'heading'),
+})
+
+export const vcFix = defineType({
+  name: 'vcFix',
+  title: 'Find your fix (picker)',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'detailLabel', title: 'Label above the detail', type: 'string', initialValue: 'How we solve it' }),
+    defineField({
+      name: 'items',
+      title: 'Problems',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcFixItem',
+          fields: [
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'problem', title: 'Problem', type: 'string' }),
+            listOfStrings('steps', 'What we configure'),
+            defineField({ name: 'outcome', title: 'Outcome', type: 'string' }),
+          ],
+          preview: { select: { title: 'title', subtitle: 'problem' } },
+        }),
+      ],
+    }),
+    defineField({ name: 'cta', title: 'Button', type: 'vcCta' }),
+  ],
+  preview: preview('Find your fix'),
+})
+
+export const vcIndustryTabs = defineType({
+  name: 'vcIndustryTabs',
+  title: 'Industry tabs',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'benefitsLabel', title: 'Label above the list', type: 'string', initialValue: 'Benefits' }),
+    defineField({
+      name: 'tabs',
+      title: 'Tabs',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcIndTab',
+          fields: [
+            defineField({ name: 'label', title: 'Tab label', type: 'string' }),
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'body', title: 'Body', type: 'text', rows: 4 }),
+            listOfStrings('benefits', 'Benefits'),
+          ],
+          preview: { select: { title: 'label' } },
+        }),
+      ],
+    }),
+    defineField({ name: 'cta', title: 'Button', type: 'vcCta' }),
+  ],
+  preview: preview('Industry tabs'),
+})
+
+export const vcTrack = defineType({
+  name: 'vcTrack',
+  title: 'Training track finder',
+  type: 'object',
+  description: 'Team size slider + complexity choice recommend one of three tracks (rules in code).',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'sizeLabel', title: 'Slider label', type: 'string', initialValue: 'Team size' }),
+    defineField({ name: 'complexityLabel', title: 'Choice label', type: 'string', initialValue: 'Workflow complexity' }),
+    listOfStrings('complexity', 'Complexity options (three: simple, connected, many departments)'),
+    defineField({ name: 'recLabel', title: 'Label above the recommendation', type: 'string', initialValue: 'Recommended track' }),
+    defineField({
+      name: 'tracks',
+      title: 'Tracks (three: small teams, one department, enterprise)',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcTrackItem',
+          fields: [
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'body', title: 'What it is', type: 'string' }),
+            defineField({ name: 'fit', title: 'Who it suits', type: 'string' }),
+          ],
+          preview: { select: { title: 'title' } },
+        }),
+      ],
+    }),
+    defineField({ name: 'cta', title: 'Button', type: 'vcCta' }),
+    listOfStrings('pills', 'Badges under the finder'),
+  ],
+  preview: preview('Training track finder'),
+})
+
+export const vcTable = defineType({
+  name: 'vcTable',
+  title: 'Comparison table',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    listOfStrings('columns', 'Column headings (three)'),
+    defineField({
+      name: 'rows',
+      title: 'Rows',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcRow',
+          fields: [
+            defineField({ name: 'label', title: 'Row label', type: 'string' }),
+            defineField({ name: 'no', title: 'Without us', type: 'string' }),
+            defineField({ name: 'yes', title: 'With Fruition', type: 'string' }),
+          ],
+          preview: { select: { title: 'label' } },
+        }),
+      ],
+    }),
+  ],
+  preview: preview('Comparison table'),
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable,
 ]
 
 export const VC_SECTION_TYPES = vcSections.map((s) => s.name)
