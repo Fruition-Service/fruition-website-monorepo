@@ -80,7 +80,7 @@ function LifecycleSection({ stages }: { stages: LifecycleStage[] }) {
   )
 }
 
-function ConstructionTestimonialsSection({ testimonials }: { testimonials: ConstructionTestimonial[] }) {
+export function ConstructionTestimonialsSection({ testimonials }: { testimonials: ConstructionTestimonial[] }) {
   return (
     <section className="px-4 py-14 md:py-24 bg-gradient-to-b from-brand-soft/30 to-brand-soft">
       <div className="mx-auto w-full max-w-[1100px]">
@@ -91,8 +91,10 @@ function ConstructionTestimonialsSection({ testimonials }: { testimonials: Const
           {testimonials.map((t, i) => (
             <figure key={t.title || i} className="bg-surface-raised overflow-hidden flex flex-col rounded-card ring-1 ring-ui shadow-whisper">
               <div className="aspect-[16/10] overflow-hidden bg-brand-soft">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={t.image} alt={t.title} className="w-full h-full object-cover" />
+                {t.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={t.image} alt={t.title || t.name || "Customer testimonial"} className="w-full h-full object-cover" />
+                ) : null}
               </div>
               <div className="p-7">
                 <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand mb-3.5">{t.title}</p>

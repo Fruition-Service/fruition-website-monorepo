@@ -4,6 +4,7 @@ import {
   RETIRED_PARTNERSHIP_SLUGS,
   RETIRED_AUTHOR_SLUGS,
 } from "@/lib/retiredLinks"
+import { REDIRECTED_POST_SLUGS } from "@/lib/redirectedPostSlugs"
 import {
   getBlogPosts,
   getBlogAuthors,
@@ -150,7 +151,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   for (const p of STATIC_PATHS) add(p)
-  for (const p of posts) if (p?.slug) add(`/post/${p.slug}`, p.publishedAt)
+  // A post whose URL redirects is not a canonical page, so keep it out.
+  for (const p of posts) if (p?.slug && !REDIRECTED_POST_SLUGS.has(p.slug)) add(`/post/${p.slug}`, p.publishedAt)
   for (const a of authors) if (a?.slug && !RETIRED_AUTHOR_SLUGS.has(a.slug)) add(`/author/${a.slug}`, a.latestPublishedAt)
   for (const s of solutions) if (s?.slug && !RETIRED_SOLUTION_SLUGS.has(s.slug)) add(`/monday-consulting-solutions/${s.slug}`)
   for (const p of partnerships) if (p?.slug && !RETIRED_PARTNERSHIP_SLUGS.has(p.slug)) add(`/partnerships/${p.slug}`)
