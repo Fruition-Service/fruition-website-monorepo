@@ -1,14 +1,12 @@
-import PracticePageTemplate from '@/components/PracticePageTemplate'
-import { AI_CONSULTING_PAGES } from '@/data/practicePages/aiConsulting'
-import { practiceMetadata } from '@/data/practicePages/types'
-import { getPracticePageContent } from '@/features/content/practicePage'
+import "@/styles/vc/pages/rag-knowledge-systems.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const page = AI_CONSULTING_PAGES['rag-knowledge-systems']
+const PATH = "/ai-consulting/rag-knowledge-systems"
 
-export async function generateMetadata() {
-  return practiceMetadata(await getPracticePageContent(page))
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  return <PracticePageTemplate page={await getPracticePageContent(page)} />
+export default function Page() {
+  return <VcPage path={PATH} slug="rag-knowledge-systems" />
 }

@@ -1,8 +1,8 @@
 import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
-import { Acc, Badge, Head, Sec } from "../primitives"
-import type { VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
-import { VcFixPicker, VcIndustryTabsView, VcTrackFinder } from "./interactive"
+import { Acc, Badge, Head, SImg, Sec } from "../primitives"
+import type { VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
+import { VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTrackFinder } from "./interactive"
 import VcVideoPlayer from "./VcVideoPlayer"
 
 function Paras({ paras }: { paras?: VcPara[] }) {
@@ -131,6 +131,71 @@ export function VcTable({ s }: { s: VcTableData }) {
             </div>
           </div>
         ))}
+      </div>
+    </Sec>
+  )
+}
+
+export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} dataSec="status">
+      <div className="pst">
+        <div className="pst-badge">
+          {(s.badgeImages ?? []).map((b, i) => (
+            <SImg key={b._key ?? i} image={b.image} width={240} className={vercelStegaClean(b.shape ?? "") || undefined} alt={b.alt} />
+          ))}
+        </div>
+        <div className="pst-copy">
+          <Badge>{s.badge}</Badge>
+          {s.heading && (
+            <h2 className="h2">
+              <Acc text={s.heading} />
+            </h2>
+          )}
+          <div className="pst-pts">
+            {(s.points ?? []).map((p, i) => (
+              <div className="pst-pt" key={p._key ?? i}>
+                {p.n && <span className="label">{p.n}</span>}
+                {p.title && <b>{p.title}</b>}
+                {p.body && <span className="small">{p.body}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Sec>
+  )
+}
+
+export function VcDirectory({ s }: { s: VcDirectoryData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} dataSec="directory">
+      <VcDirectoryGrid s={s} />
+    </Sec>
+  )
+}
+
+/** Auto-scrolling tool tiles (the track is doubled for the loop; the copy is hidden from assistive tech). */
+export function VcToolkit({ s }: { s: VcToolkitData }) {
+  const tiles = s.tiles ?? []
+  const run = (hidden: boolean) =>
+    tiles.map((t, i) => (
+      <div className="tile" key={`${hidden ? "h" : "v"}${t._key ?? i}`} aria-hidden={hidden || undefined}>
+        <span className="logo">
+          <SImg image={t.logo} width={172} className={vercelStegaClean(t.logoShape ?? "")} alt={hidden ? "" : `${vercelStegaClean(t.title ?? "")} logo`} />
+        </span>
+        <b>{hidden ? vercelStegaClean(t.title ?? "") : t.title}</b>
+        <span className="small">{hidden ? vercelStegaClean(t.body ?? "") : t.body}</span>
+      </div>
+    ))
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} dataSec="toolkit">
+      <Head head={s.head} />
+      <div className="accr">
+        <div className="accr-track">
+          {run(false)}
+          {run(true)}
+        </div>
       </div>
     </Sec>
   )

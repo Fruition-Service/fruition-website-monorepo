@@ -1,32 +1,12 @@
-import { getAiPartnerPageBySlug, getSiteSettings, getFaqItemsForPageStrict, getClosingCtaForPage } from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AiPartnerTemplate from "@/components/AiPartnerTemplate"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/vapi-partner.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const SLUG = "vapi-partner"
+const PATH = "/partnerships/vapi-partner"
 
-export async function generateMetadata() {
-  const page = await getAiPartnerPageBySlug(SLUG)
-  const title = page?.seoTitle || page?.title || SLUG
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/partnerships/vapi-partner" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/partnerships/vapi-partner",
-    }),
-  }
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, centralFaqs, closingCta] = await Promise.all([
-    getAiPartnerPageBySlug(SLUG),
-    getSiteSettings(),
-    getFaqItemsForPageStrict("partnerships/vapi-partner"),
-    getClosingCtaForPage("partnerships/vapi-partner"),
-  ])
-  return <AiPartnerTemplate page={page} siteSettings={siteSettings} faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)} closingCta={closingCta} />
+export default function Page() {
+  return <VcPage path={PATH} slug="vapi-partner" />
 }

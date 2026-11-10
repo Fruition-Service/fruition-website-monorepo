@@ -17,7 +17,7 @@ import {
 } from "./sections/basic"
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import VcBooking from "./sections/VcBooking"
-import { VcFix, VcIndustryTabs, VcTable, VcTextPair, VcTrack, VcVideo } from "./sections/more"
+import { VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
 /**
  * Renders a Version C page (vcPage document) section by section.
@@ -50,6 +50,9 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcIndustryTabs": return <VcIndustryTabs s={s} />
     case "vcTrack": return <VcTrack s={s} />
     case "vcTable": return <VcTable s={s} />
+    case "vcPartnerStatus": return <VcPartnerStatus s={s} />
+    case "vcDirectory": return <VcDirectory s={s} />
+    case "vcToolkit": return <VcToolkit s={s} />
     default: return null
   }
 }

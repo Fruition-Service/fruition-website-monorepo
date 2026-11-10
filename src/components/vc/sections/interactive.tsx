@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { vercelStegaClean } from "@vercel/stega"
 import { Btn, Head } from "../primitives"
+import { dataset, projectId } from "@/sanity/env"
 import type { VcFixData, VcIndustryTabsData, VcTrackData } from "../types"
 
 /** Tick used in the solution and benefit lists. */
@@ -178,4 +179,60 @@ export function VcTrackFinder({ s }: { s: VcTrackData }) {
       )}
     </>
   )
+}
+
+/* ---------------------------------------------------- partner directory */
+
+export function VcDirectoryGrid({ s }: { s: import("../types").VcDirectoryData }) {
+  const [f, setF] = useState("all")
+  const filters = s.filters ?? []
+  return (
+    <>
+      <Head head={s.head} />
+      {filters.length > 1 && (
+        <div className="tabs vc-mt0" role="tablist">
+          {filters.map((x, i) => {
+            const k = vercelStegaClean(x.key ?? "all")
+            return (
+              <button key={x._key ?? i} type="button" role="tab" aria-selected={k === f} className={k === f ? "on" : ""} onClick={() => setF(k)}>
+                {x.label}
+              </button>
+            )
+          })}
+        </div>
+      )}
+      <div className="pgrid">
+        {(s.tiles ?? [])
+          .filter((t) => f === "all" || (t.groups ?? []).map((g) => vercelStegaClean(g)).includes(f))
+          .map((t, i) => (
+            <article className="ptile" key={t._key ?? i}>
+              <div className="logo">
+                {t.logo?.asset && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img className={vercelStegaClean(t.logoShape ?? "")} src={tileSrc(t.logo)} alt={vercelStegaClean(t.title ?? "")} loading="lazy" />
+                )}
+              </div>
+              <div className="pt">
+                {t.tag && <span className="gtag">{t.tag}</span>}
+                {t.title && <h3 className="h3">{t.title}</h3>}
+              </div>
+              {t.href && (
+                <a className="link" href={vercelStegaClean(t.href)} aria-label={vercelStegaClean(t.title ?? "")}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+              )}
+            </article>
+          ))}
+      </div>
+    </>
+  )
+}
+
+/** Client-side Sanity URL (the server SImg helper is not importable in a client island). */
+function tileSrc(image: import("../types").VcImage) {
+  const ref = image.asset?._ref ?? ""
+  const m = ref.match(/^image-([a-f0-9]+)-(\d+x\d+)-(\w+)$/)
+  return m ? `https://cdn.sanity.io/images/${projectId}/${dataset}/${m[1]}-${m[2]}.${m[3]}?h=160&fit=max&auto=format` : undefined
 }

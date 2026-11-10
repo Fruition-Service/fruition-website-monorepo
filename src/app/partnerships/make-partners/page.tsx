@@ -1,34 +1,12 @@
-import { getSiteSettings, getCaseStudies, getMakePartnersPage } from "@/sanity/queries"
-import MakePartnersContent from "./MakePartnersContent"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/make-partners.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-export async function generateMetadata() {
-  const page = await getMakePartnersPage()
-  const title = page?.seoTitle
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/partnerships/make-partners" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/partnerships/make-partners",
-    }),
-  }
+const PATH = "/partnerships/make-partners"
+
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function MakePartnersPage() {
-  const [siteSettings, caseStudies, pageData] = await Promise.all([
-    getSiteSettings(),
-    getCaseStudies(),
-    getMakePartnersPage(),
-  ])
-  return (
-    <MakePartnersContent
-      siteSettings={siteSettings}
-      caseStudies={caseStudies || []}
-      pageData={pageData}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="make-partners" />
 }
