@@ -3,6 +3,7 @@ import {
   clampMaxLinks,
   countLinksPerTarget,
   isCtaListItem,
+  isInsideUrlText,
   keywordRegExp,
   normalizePath,
   planInternalLinks,
@@ -288,5 +289,74 @@ describe("insertion", () => {
   it("reports a snippet around the anchor", () => {
     const res = run([block("We love monday CRM a lot")], [T("/crm", "monday CRM")])
     expect(res.added[0]).toMatchObject({ keyword: "monday CRM", targetPath: "/crm", style: "normal", before: "We love [monday CRM] a lot" })
+  })
+})
+
+describe("URL-like text (monday 2904193295)", () => {
+  const partner = T("/partnerships/monday-consulting-partner", "monday.com partner", "monday.com")
+
+  it("never links a keyword inside a plain-text URL", () => {
+    const url =
+      "Source: https://www.businesswire.com/news/home/20260223954640/en/Fruition-Earns-monday.com-Platinum-Partner-Status-in-APAC today."
+    const res = run([block(url)], [partner])
+    expect(res.added).toHaveLength(0)
+    expect(res.skipped["inside-url"]).toBeGreaterThan(0)
+    expect(spans(res.blocks[0]).map((s) => s.text).join("")).toBe(url)
+  })
+
+  it("skips hyphenated slugs, paths, www. hosts and emails", () => {
+    for (const text of [
+      "See Fruition-Earns-monday.com-Platinum-Partner for details.",
+      "Pricing lives at monday.com/pricing for now.",
+      "Visit www.monday.com for the app.",
+      "Email support@monday.com about it.",
+      "Open (https://monday.com) in a tab.",
+    ]) {
+      const res = run([block(text)], [partner])
+      expect(res.added, text).toHaveLength(0)
+      expect(res.skipped["inside-url"], text).toBeGreaterThan(0)
+    }
+  })
+
+  it("does not link inside an existing link's anchor text or change its href", () => {
+    const href = "https://www.businesswire.com/news/home/20260223954640/en/Fruition-Earns-monday.com-Platinum-Partner-Status-in-APAC"
+    const b = block("", {
+      markDefs: [{ _key: "bw", _type: "link", href }],
+      children: [
+        { _type: "span", _key: "a1", text: "Fruition Earns monday.com Platinum Partner Status", marks: ["bw"] },
+        { _type: "span", _key: "a2", text: " as a monday.com partner in APAC.", marks: [] },
+      ],
+    })
+    const res = run([b], [partner])
+    expect(res.skipped["inside-existing-link"]).toBeGreaterThan(0)
+    expect(res.blocks[0].markDefs!.find((d) => d._key === "bw")).toEqual({ _key: "bw", _type: "link", href })
+    // The new link lands only in the unlinked prose span.
+    expect(linkedTexts(res.blocks).filter((l) => l.href.startsWith("/"))).toEqual([
+      { text: "monday.com partner", href: "/partnerships/monday-consulting-partner" },
+    ])
+  })
+
+  it("still links monday.com as a normal prose word", () => {
+    for (const text of [
+      "We are a monday.com partner in APAC.",
+      "Teams love monday.com.",
+      "Teams love monday.com, and so do we.",
+      "(monday.com) is where we work.",
+    ]) {
+      const res = run([block(text)], [partner])
+      expect(res.added, text).toHaveLength(1)
+      expect(res.skipped["inside-url"], text).toBeUndefined()
+    }
+  })
+
+  it("isInsideUrlText flags only URL-like tokens", () => {
+    const at = (text: string, kw: string) => {
+      const i = text.indexOf(kw)
+      return isInsideUrlText(text, i, i + kw.length)
+    }
+    expect(at("go to http://x.io/monday.com now", "monday.com")).toBe(true)
+    expect(at("a monday.com-Platinum b", "monday.com")).toBe(true)
+    expect(at("we use monday.com daily", "monday.com")).toBe(false)
+    expect(at("we use monday.com.", "monday.com")).toBe(false)
   })
 })
