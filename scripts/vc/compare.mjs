@@ -68,7 +68,8 @@ for (const spec of pages) {
     const errors = []
     page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 200)))
     page.on('pageerror', (e) => errors.push(String(e).slice(0, 200)))
-    await page.goto(`${base}${path}`, { waitUntil: 'networkidle', timeout: 120000 })
+    await page.goto(`${base}${path}`, { waitUntil: 'load', timeout: 120000 })
+    await page.waitForTimeout(2500)
     await page.addStyleTag({ content: HIDE_SITE })
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)) }

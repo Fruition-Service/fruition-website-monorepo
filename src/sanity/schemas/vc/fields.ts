@@ -30,6 +30,12 @@ export const sectionBase = [
     initialValue: 'plain',
   }),
   defineField({
+    name: 'sectionClass',
+    title: 'Section style',
+    type: 'string',
+    description: 'Design-system class from the mock-up (e.g. "story"). Leave as is.',
+  }),
+  defineField({
     name: 'anchor',
     title: 'Anchor id',
     type: 'string',

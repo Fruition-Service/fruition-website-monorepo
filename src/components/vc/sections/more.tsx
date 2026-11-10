@@ -1,9 +1,14 @@
 import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
-import { Acc, Badge, Head, SImg, Sec } from "../primitives"
-import type { VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
-import { VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTrackFinder } from "./interactive"
+import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
+import { Acc, Badge, Head, SImg, Sec, SvgIcon } from "../primitives"
+import { SOCIAL_ICONS } from "../socialIcons"
+import type { VcBlogListData, VcFaqHubData, VcStoriesData, VcFormEmbedData, VcRemoteData, VcChannelsData, VcLeadershipData, VcOfficesData, VcTeamTabsData, VcSharedData, VcTeamMember, VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
+import { VcClock, VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTeamTabsShell, VcTrackFinder } from "./interactive"
 import VcVideoPlayer from "./VcVideoPlayer"
+import VcStoriesGrid from "./VcStoriesGrid"
+import { VcBlogGrid, VcFaqHubView } from "./hubs"
+import { getVcBlogCards } from "@/sanity/vcQueries"
 
 function Paras({ paras }: { paras?: VcPara[] }) {
   return (
@@ -22,7 +27,7 @@ export function VcVideo({ s }: { s: VcVideoData }) {
   const id = vercelStegaClean(s.youtubeId ?? "")
   const ld = id ? buildVideoObject({ id }) : null
   return (
-    <Sec tone={s.tone} anchor={s.anchor} inner="wrap case" dataSec="video">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap case" dataSec="video">
       {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />}
       <div>
         <Badge>{s.badge}</Badge>
@@ -50,7 +55,7 @@ export function VcVideo({ s }: { s: VcVideoData }) {
 
 export function VcTextPair({ s }: { s: VcTextPairData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="text">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="text">
       <div className="txt2">
         <div>
           <Badge>{s.badge}</Badge>
@@ -70,7 +75,7 @@ export function VcTextPair({ s }: { s: VcTextPairData }) {
 
 export function VcFix({ s }: { s: VcFixData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="fix">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="fix">
       <VcFixPicker s={s} />
     </Sec>
   )
@@ -78,7 +83,7 @@ export function VcFix({ s }: { s: VcFixData }) {
 
 export function VcIndustryTabs({ s }: { s: VcIndustryTabsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="industry">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="industry">
       <VcIndustryTabsView s={s} />
     </Sec>
   )
@@ -86,7 +91,7 @@ export function VcIndustryTabs({ s }: { s: VcIndustryTabsData }) {
 
 export function VcTrack({ s }: { s: VcTrackData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "track"} dataSec="track">
+    <Sec tone={s.tone} anchor={s.anchor ?? "track"} cls={s.sectionClass} dataSec="track">
       <VcTrackFinder s={s} />
     </Sec>
   )
@@ -106,7 +111,7 @@ const Chk = () => (
 export function VcTable({ s }: { s: VcTableData }) {
   const [a, b, c] = s.columns ?? []
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="compare">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="compare">
       <Head head={s.head} />
       <div className="table" role="table">
         <div className="tr th" role="row">
@@ -121,14 +126,26 @@ export function VcTable({ s }: { s: VcTableData }) {
             <div className="k" role="cell">
               {r.label}
             </div>
-            <div className="no" role="cell">
-              <X />
-              {r.no}
-            </div>
-            <div className="yes" role="cell">
-              <Chk />
-              {r.yes}
-            </div>
+            {vercelStegaClean(s.variant ?? "") === "help" ? (
+              <>
+                <div role="cell">{r.no}</div>
+                <div className="help" role="cell">
+                  <Chk />
+                  {r.yes}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="no" role="cell">
+                  <X />
+                  {r.no}
+                </div>
+                <div className="yes" role="cell">
+                  <Chk />
+                  {r.yes}
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -138,7 +155,7 @@ export function VcTable({ s }: { s: VcTableData }) {
 
 export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="status">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="status">
       <div className="pst">
         <div className="pst-badge">
           {(s.badgeImages ?? []).map((b, i) => (
@@ -169,7 +186,7 @@ export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
 
 export function VcDirectory({ s }: { s: VcDirectoryData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="directory">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="directory">
       <VcDirectoryGrid s={s} />
     </Sec>
   )
@@ -189,7 +206,7 @@ export function VcToolkit({ s }: { s: VcToolkitData }) {
       </div>
     ))
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="toolkit">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="toolkit">
       <Head head={s.head} />
       <div className="accr">
         <div className="accr-track">
@@ -231,7 +248,7 @@ export function VcStatsRow({ s }: { s: VcStatsRowData }) {
 
 export function VcTeam({ s }: { s: VcTeamData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="team">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="team">
       <Head head={s.head} />
       <div className="tgrid">
         {(s.members ?? []).filter((m) => m?._id).map((m, i) =>
@@ -241,7 +258,7 @@ export function VcTeam({ s }: { s: VcTeamData }) {
                 <SImg image={m.photo} width={360} alt={m.name} />
               </div>
               <div className="pb">
-                {m.role && <span className="label">{m.role}</span>}
+                {(m.roleOverride || m.role) && <span className="label">{m.roleOverride || m.role}</span>}
                 {m.name && <h3 className="h3">{m.name}</h3>}
                 {(m.override || m.bio) && <p className="small">{m.override || m.bio}</p>}
                 {m.linkedinUrl && (
@@ -252,7 +269,7 @@ export function VcTeam({ s }: { s: VcTeamData }) {
               </div>
             </article>
           ) : (
-            <VcTeamCard key={`${m._id}-${i}`} m={{ ...m, bio: m.override || m.bio }} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
+            <VcTeamCard key={`${m._id}-${i}`} m={withOverrides(m)} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
           ),
         )}
       </div>
@@ -262,7 +279,7 @@ export function VcTeam({ s }: { s: VcTeamData }) {
 
 export function VcAnswer({ s }: { s: VcAnswerData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} inner="wrap answer" dataSec="answer">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap answer" dataSec="answer">
       <div>
         <Badge>{s.badge}</Badge>
         {s.heading && (
@@ -279,7 +296,7 @@ export function VcAnswer({ s }: { s: VcAnswerData }) {
 export function VcCoverage({ s }: { s: VcCoverageData }) {
   const q = vercelStegaClean(s.mapQuery ?? "")
   return (
-    <Sec tone={s.tone} anchor={s.anchor} dataSec="coverage">
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="coverage">
       <Head head={s.head} />
       <div className="ogrid">
         <div className="omap">
@@ -337,6 +354,291 @@ export function VcCoverage({ s }: { s: VcCoverageData }) {
           </div>
         </div>
       </div>
+    </Sec>
+  )
+}
+
+const withOverrides = (m: VcTeamMember): VcTeamMember => ({ ...m, role: m.roleOverride || m.role, bio: m.override || m.bio })
+
+export function VcLeadership({ s }: { s: VcLeadershipData }) {
+  const ceo = s.ceo ? withOverrides(s.ceo) : null
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="leadership">
+      <Head head={s.head} />
+      {ceo && (
+        <figure className="ceo">
+          <div className="ceo-ph">
+            <SImg image={ceo.photo} width={520} alt={ceo.name} />
+          </div>
+          <div className="ceo-q">
+            {ceo.role && <span className="label">{ceo.role}</span>}
+            {s.quote && <blockquote>{s.quote}</blockquote>}
+            <figcaption>
+              <b>{ceo.name}</b>
+              {s.caption && <span className="small">{s.caption}</span>}
+            </figcaption>
+          </div>
+        </figure>
+      )}
+      <div className="lgrid five">
+        {(s.people ?? []).filter((m) => m?._id).map((raw, i) => {
+          const m = withOverrides(raw)
+          return (
+            <article className="lc" key={`${m._id}-${i}`}>
+              <div className="ph">
+                <SImg image={m.photo} width={300} alt={m.name} />
+              </div>
+              <div className="pb">
+                {m.role && <span className="label">{m.role}</span>}
+                {m.name && <b className="title">{m.name}</b>}
+                {m.bio && <p className="small">{m.bio}</p>}
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </Sec>
+  )
+}
+
+export function VcOffices({ s, shared }: { s: VcOfficesData; shared?: VcSharedData | null }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="offices">
+      <Head head={s.head} />
+      <div className="offices">
+        {(shared?.offices ?? []).map((o, i) => (
+          <article className="card office" key={o._key ?? i}>
+            <div className="top">
+              {o.flag && (
+                <span className="flag" aria-hidden="true">
+                  {vercelStegaClean(o.flag)}
+                </span>
+              )}
+              {o.label && <span className="label">{o.label}</span>}
+            </div>
+            {o.city && <h3 className="h3">{o.city}</h3>}
+            {o.address && (
+              <address>
+                {o.addressUrl ? <a href={vercelStegaClean(o.addressUrl)}>{o.address}</a> : o.address}
+              </address>
+            )}
+            {o.phone && (
+              <a className="tel" href={`tel:${vercelStegaClean(o.phoneTel ?? o.phone).replace(/\s+/g, "")}`}>
+                {o.phone}
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </Sec>
+  )
+}
+
+function TeamCards({ members, cls }: { members?: VcTeamMember[]; cls: string }) {
+  return (
+    <>
+      {(members ?? []).filter((m) => m?._id).map((raw, i) => {
+        const m = withOverrides(raw)
+        return <VcTeamCard key={`${m._id}-${i}`} m={m} cls={cls} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
+      })}
+    </>
+  )
+}
+
+export function VcTeamTabs({ s }: { s: VcTeamTabsData }) {
+  const tabs = s.tabs ?? []
+  return (
+    <Sec tone={s.tone} anchor={s.anchor ?? "team"} cls={s.sectionClass} dataSec="team">
+      <VcTeamTabsShell
+        badge={<Badge>{s.badge}</Badge>}
+        prefix={s.headingPrefix}
+        tabs={tabs.map((t) => ({ label: t.label, flag: t.flag, title: t.title }))}
+        panels={tabs.map((t, i) => (
+          <div key={i} className="vc-contents">
+            {!!t.leaders?.length && (
+              <div className="lgrid">
+                <TeamCards members={t.leaders} cls="pc lc" />
+              </div>
+            )}
+            {!!t.members?.length && (
+              <div className="tgrid">
+                <TeamCards members={t.members} cls="pc" />
+              </div>
+            )}
+          </div>
+        ))}
+      />
+    </Sec>
+  )
+}
+
+export function VcChannels({ s }: { s: VcChannelsData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap chan" dataSec="channels">
+      <div>
+        <Badge>{s.badge}</Badge>
+        {s.heading && (
+          <h2 className="h2">
+            <Acc text={s.heading} />
+          </h2>
+        )}
+        <div className="rows">
+          {(s.rows ?? []).map((r, i) => (
+            <a key={r._key ?? i} href={vercelStegaClean(r.href ?? "#")}>
+              <span className="label">{r.label}</span>
+              <b>{r.value}</b>
+            </a>
+          ))}
+          {!!s.socials?.length && (
+            <div className="srow">
+              {s.followLabel && <span className="label">{s.followLabel}</span>}
+              <div className="sicons">
+                {s.socials.map((x, i) => {
+                  const icon = SOCIAL_ICONS[vercelStegaClean(x.network ?? "")]
+                  const label = vercelStegaClean(x.label ?? x.network ?? "")
+                  return (
+                    <a key={x._key ?? i} href={vercelStegaClean(x.href ?? "#")} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}>
+                      {icon && (
+                        <svg viewBox={icon.viewBox} aria-hidden="true">
+                          {icon.d.map((d, j) => (
+                            <path key={j} d={d} />
+                          ))}
+                        </svg>
+                      )}
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div>
+        <div className="acc-h">
+          {s.tilesLabel && <span className="label">{s.tilesLabel}</span>}
+          {s.tilesLink?.href && (
+            <a className="link" href={vercelStegaClean(s.tilesLink.href)}>
+              {s.tilesLink.label}
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          )}
+        </div>
+        <div className="tiles">
+          {(s.tiles ?? []).map((t, i) => (
+            <div key={t._key ?? i} className={vercelStegaClean(t.shape ?? "")}>
+              <SImg image={t.image} width={160} alt={t.alt} />
+            </div>
+          ))}
+          {!!s.security?.length && (
+            <div className="wide secw">
+              <div className="secrow">
+                {s.security.map((t, i) => (
+                  <SImg key={t._key ?? i} image={t.image} width={90} alt={t.alt} className={vercelStegaClean(t.shape ?? "")} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </Sec>
+  )
+}
+
+export function VcRemote({ s }: { s: VcRemoteData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor ?? "remote"} cls={s.sectionClass} dataSec="remote">
+      <div className="rgrid">
+        <div className="rl">
+          <Badge>{s.badge}</Badge>
+          {s.heading && (
+            <h2 className="h2">
+              <Acc text={s.heading} />
+            </h2>
+          )}
+          {s.lead && <p className="lead">{s.lead}</p>}
+          <ul className="rperks">
+            {(s.perks ?? []).map((p, i) => (
+              <li key={p._key ?? i}>
+                <SvgIcon svg={p.icon} className="ico" />
+                <span>{p.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rbox">
+          <div className="rhead">
+            {s.listLabel && <span className="label">{s.listLabel}</span>}
+            {s.timeLabel && <span className="label">{s.timeLabel}</span>}
+          </div>
+          <ul className="roffices">
+            {(s.places ?? []).map((p, i) => (
+              <li className="ro" key={p._key ?? i}>
+                {p.flag && (
+                  <span className="flag" aria-hidden="true">
+                    {vercelStegaClean(p.flag)}
+                  </span>
+                )}
+                <div className="rt">
+                  <b>{p.title}</b>
+                  {p.line && <span className="small">{p.line}</span>}
+                </div>
+                <div className="rr">
+                  {p.label && <span className="label">{p.label}</span>}
+                  <VcClock tz={p.tz} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Sec>
+  )
+}
+
+/** Third-party form embed (the monday.com job application form on /careers). */
+export function VcFormEmbed({ s }: { s: VcFormEmbedData }) {
+  const src = vercelStegaClean(s.src ?? "")
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="apply">
+      <Head head={s.head} />
+      {/^https:\/\/forms\.monday\.com\//.test(src) && (
+        <div className="mform">
+          <iframe src={src} title={vercelStegaClean(s.title ?? "Form")} loading="lazy" />
+        </div>
+      )}
+      {s.note && <p className="small mform-note">{s.note}</p>}
+    </Sec>
+  )
+}
+
+export function VcStories({ s }: { s: VcStoriesData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor ?? "case-studies"} cls={s.sectionClass} dataSec="case-studies">
+      <Head head={s.head} />
+      <VcStoriesGrid s={s} />
+    </Sec>
+  )
+}
+
+export async function VcBlogList({ s }: { s: VcBlogListData }) {
+  const posts = await getVcBlogCards()
+  return (
+    <Sec tone={s.tone} anchor={s.anchor ?? "posts"} cls={s.sectionClass} dataSec="posts">
+      <VcBlogGrid s={s} posts={posts} />
+    </Sec>
+  )
+}
+
+/** FAQ help centre. FAQPage JSON-LD lists every question in it (all are on the page, under their topics). */
+export function VcFaqHub({ s }: { s: VcFaqHubData }) {
+  const pairs = (s.categories ?? []).flatMap((c) => (c.groups ?? []).flatMap((g) => (g.items ?? []).filter(Boolean)))
+  const ld = generateFaqJsonLdFromPairs(pairs.map((it) => ({ question: vercelStegaClean(it.question ?? ""), answer: vercelStegaClean(answerToPlainText(it.answer)) })))
+  return (
+    <Sec tone={s.tone} anchor={s.anchor ?? "faq"} cls={s.sectionClass} inner="wrap help" dataSec="faq">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <VcFaqHubView s={s} />
     </Sec>
   )
 }

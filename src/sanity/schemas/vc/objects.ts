@@ -76,6 +76,7 @@ export const vcItem = defineType({
   title: 'Card',
   type: 'object',
   fields: [
+    defineField({ name: 'icon', title: 'Icon (SVG markup)', type: 'text', rows: 2, description: 'Line icon from the design system. Leave as is.' }),
     defineField({ name: 'num', title: 'Large number', type: 'string', description: 'e.g. "01", shown large above the title.' }),
     defineField({ name: 'label', title: 'Small label above the title', type: 'string' }),
     defineField({ name: 'title', title: 'Title', type: 'string' }),

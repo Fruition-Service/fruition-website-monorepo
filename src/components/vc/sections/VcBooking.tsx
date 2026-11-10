@@ -43,6 +43,11 @@ export default function VcBooking({ s, email }: { s: VcBookingData; email?: stri
               {offices}
             </div>
           </div>
+          {s.tag && (
+            <div className="tag">
+              <span className="label">{s.tag}</span>
+            </div>
+          )}
         </div>
         <div className="cal">
           <BookingCard duration={30} askTeamSize calendlyUrl={FALLBACK_BOOKING_URL} title={s.calTitle} />

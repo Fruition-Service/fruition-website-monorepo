@@ -98,6 +98,14 @@ export const PAGES: Record<string, [string, string]> = {
   'monday-partner-singapore': ['/monday-partner-singapore', 'region'],
   'monday-partner-india': ['/monday-partner-india', 'region'],
   'monday-partner-philippines': ['/monday-partner-philippines', 'region'],
+  'about-us': ['/about-us', 'company'],
+  'fruition-team': ['/fruition-team', 'company'],
+  careers: ['/careers', 'company'],
+  'certifications-and-awards': ['/certifications-and-awards', 'company'],
+  'customer-testimonials': ['/customer-testimonials', 'company'],
+  'consulting-blog': ['/consulting-blog', 'company'],
+  faqs: ['/faqs', 'company'],
+  'contact-us': ['/contact-us', 'company'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -306,12 +314,16 @@ const KNOWN_LINKS: Record<string, string> = {
   'monday.com': '/partnerships/monday-consulting-partner',
   atlassian: '/atlassian-consulting',
   langgraph: '/ai-consulting/agent-development',
+  'monday.com platinum partner': '/partnerships/monday-consulting-partner',
+  'google cloud': '/partnerships/google-cloud-partner',
+  aws: '/partnerships/aws-partner',
 }
 
 function liveHref(ctx: Ctx, label: string): string | undefined {
   const norm = (t: string) => t.toLowerCase().replace(/[^a-z0-9.+ ]+/g, ' ').replace(/\s+/g, ' ').trim()
   const want = norm(label)
-  const a = ctx.live?.querySelectorAll('a').find((x) => norm(text(x)) === want)
+  // In-page anchors of the old layout (#services) mean nothing on the new page; #book does.
+  const a = ctx.live?.querySelectorAll('a').find((x) => norm(text(x)) === want && !/^#(?!book$)/.test(x.getAttribute('href') ?? ''))
   const href = a?.getAttribute('href') ?? KNOWN_LINKS[want]
   // The booking band is on the page itself; in-page anchors scroll instead of leaving.
   return href === '/contact-us#book' ? '#book' : href
@@ -347,10 +359,13 @@ function logo(img: HTMLElement, ctx: Ctx) {
 }
 
 const tone = (sec: HTMLElement) => (has(sec, 'alt') ? 'alt' : 'plain')
+/** Section classes beyond the ones the renderer sets itself. */
+const RENDERER_CLASSES = new Set(['alt', 'hero', 'cta-band', 'book-sec', 'closing', 'on-dark'])
+const secClass = (sec: HTMLElement) => cls(sec).filter((c) => !RENDERER_CLASSES.has(c)).join(' ') || undefined
 
 function hero(sec: HTMLElement, ctx: Ctx) {
-  const left = sec.querySelector('.hero-grid > div')!
-  const art = sec.querySelector('.hero-art')
+  const left = (sec.querySelector('.hero-grid > div') ?? sec.querySelector('.hc-in'))!
+  const art = sec.querySelector('.hero-art') ?? (sec.querySelector('.frame.hc-shot') ? sec.querySelector('.wrap') : null)
   const s: Record<string, unknown> = {
     _type: 'vcHero',
     _key: key(),
@@ -407,7 +422,25 @@ function hero(sec: HTMLElement, ctx: Ctx) {
       s.mapLabel = ml ? text(parse(`<b>${ml.innerHTML.replace(ml.querySelector('.flag')?.outerHTML ?? '', '')}</b>`).querySelector('b')) : undefined
     }
   }
-  if (!img3d && !frame) warnings.push(`${ctx.slug}: hero has no 3D graphic or frame`)
+  const msg = sec.querySelector('.frame .msg')
+  if (msg) {
+    delete s.frameImage; delete s.creds; delete s.chipValue; delete s.chipLabel
+    const flds = msg.querySelectorAll('.fld')
+    const lab = (n: string) => text(flds.find((f) => f.querySelector(`[name=${n}]`))?.querySelector('label'))
+    s.form = {
+      heading: text(msg.querySelector('h2')), subheading: text(msg.querySelector(':scope > p.small')) || undefined,
+      phoneLabel: lab('phone') || undefined, messageLabel: lab('need') || undefined,
+      messagePlaceholder: decode(msg.querySelector('textarea')?.getAttribute('placeholder') ?? '') || undefined,
+      submitLabel: text(msg.querySelector('button .roll > span')) || undefined, successMessage: text(msg.querySelector('.done p')) || undefined,
+    }
+  }
+  const hs = sec.querySelector('.hsearch input')
+  if (hs) {
+    s.searchPlaceholder = decode(hs.getAttribute('placeholder') ?? '') || 'Search'
+    s.searchClear = !!sec.querySelector('.hsearch .clr')
+  }
+  const heroFrame = sec.querySelector('.hero-grid > .frame, .hc-in')
+  if (!img3d && !frame && !msg && !heroFrame) warnings.push(`${ctx.slug}: hero has no 3D graphic or frame`)
   return s
 }
 
@@ -438,7 +471,8 @@ function item(card: HTMLElement, ctx: Ctx) {
     it.title = text(top.querySelector('h3')) || undefined
     it.ai = !!top.querySelector('.ai')
   } else it.title = text(card.querySelector('h3')) || undefined
-  it.body = text(card.querySelector('p.body, p.small')) || undefined
+  const bodies = card.querySelectorAll(':scope > p.body')
+  it.body = (bodies.length > 1 ? bodies.map((b) => text(b)).join('\n\n') : text(card.querySelector('p.body, p.small'))) || undefined
   const ucAi = card.querySelector('p.uc-ai')
   if (ucAi) {
     it.aiLabel = text(ucAi.querySelector('b')) || undefined
@@ -450,8 +484,10 @@ function item(card: HTMLElement, ctx: Ctx) {
     it.metric = text(ocn.querySelector('b')) || undefined
     it.metricLabel = text(ocn.querySelector('span')) || undefined
   }
-  const ticks = card.querySelectorAll('ul.ticks li')
+  const ticks = card.querySelectorAll(':scope > ul li')
   if (ticks.length) it.bullets = ticks.map((li) => text(li))
+  const ico = card.querySelector(':scope > .ico svg')
+  if (ico) it.icon = ico.outerHTML
   const tg = card.querySelectorAll('.tags span, .pills span')
   if (tg.length) it.tags = tg.map((t) => text(t))
   const last = card.querySelectorAll(':scope > span.label').pop()
@@ -476,7 +512,7 @@ function item(card: HTMLElement, ctx: Ctx) {
 }
 
 function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
-  const base = { _key: key(), tone: tone(sec), ...(sec.getAttribute('id') && sec.getAttribute('id') !== 'book' && sec.getAttribute('id') !== 'faq' ? { anchor: sec.getAttribute('id') } : {}) }
+  const base = { _key: key(), tone: tone(sec), sectionClass: secClass(sec), ...(sec.getAttribute('id') && sec.getAttribute('id') !== 'book' && sec.getAttribute('id') !== 'faq' ? { anchor: sec.getAttribute('id') } : {}) }
   if (has(sec, 'hero')) return hero(sec, ctx)
   if (has(sec, 'cta-band')) {
     const a = sec.querySelector('.audit')!
@@ -489,9 +525,10 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
   if (sec.getAttribute('id') === 'book' || has(sec, 'book-sec')) {
     const l = sec.querySelector('.book > div')!
     const calTitle = text(sec.querySelector('.cal-h b')).replace(/\s*\u00b7\s*\d+\s*min$/, '')
+    const tag = text(l.querySelector('.tag .label')) || undefined
     return {
       _type: 'vcBooking', _key: key(), badge: text(l.querySelector('.badge')), heading: rich(l.querySelector('h2')),
-      lead: text(l.querySelector('.lead')) || undefined, ...(calTitle && calTitle !== 'Discovery call' ? { calTitle } : {}),
+      lead: text(l.querySelector('.lead')) || undefined, tag, ...(calTitle && calTitle !== 'Discovery call' ? { calTitle } : {}),
     }
   }
   if (has(sec, 'closing')) {
@@ -514,7 +551,7 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
       })),
     }
   }
-  if (sec.querySelector('.quotes.mq')) {
+  if (sec.querySelector('.quotes.mq') && sec.querySelector('figure.q')) {
     const st = sec.querySelector('.sticky') ?? sec.querySelector('.shead')!
     const figs = sec.querySelectorAll('.mq-col').flatMap((c) => c.querySelectorAll('figure.q').filter((f) => f.getAttribute('aria-hidden') !== 'true'))
     return {
@@ -605,9 +642,10 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
     const imageFrame = grid.querySelector('.pichd') ? 'pichd' : grid.querySelector('.w4-img') ? 'w4-img' : undefined
     const tagClass = grid.querySelector('.tags span.label') ? 'label' : undefined
     const titleClass = grid.querySelector(':scope > * > h3.title') ? 'title' : undefined
-    const sectionClass = cls(sec).filter((c) => c !== 'alt').join(' ') || undefined
+    const plainList = grid.querySelector(':scope > * > ul:not(.ticks)')
+    const listClass = plainList ? '' : undefined
     return {
-      _type: 'vcCards', ...base, head: headOf(sec), layout, imageFrame, titleClass, tagClass, sectionClass,
+      _type: 'vcCards', ...base, head: headOf(sec), layout, imageFrame, titleClass, tagClass, listClass,
       items: grid.querySelectorAll(':scope > article, :scope > div, :scope > a').map((x) => item(x, ctx)),
     }
   }
@@ -667,10 +705,25 @@ function pageLink(ctx: Ctx, href: string | undefined, name: string): string | un
   return liveHref(ctx, name)
 }
 
-let teamMembers: { _id: string; name: string; bio?: string }[] | null = null
+let teamMembers: { _id: string; name: string; bio?: string; role?: string }[] | null = null
+
+/** A team card from the mock-up as a reference to its Team Member, with page overrides where the card differs. */
+async function teamRef(pc: HTMLElement, ctx: Ctx) {
+  teamMembers ??= await client.fetch(`*[_type == "teamMember" && !(_id in path("drafts.**"))]{ _id, name, bio, role }`)
+  const name = text(pc.querySelector('h3, b.title, figcaption b'))
+  const hit = teamMembers!.find((m) => m.name?.trim().toLowerCase() === name.toLowerCase())
+  if (!hit) { warnings.push(`${ctx.slug}: team member not in Sanity: ${name}`); return null }
+  const role = text(pc.querySelector('.label'))
+  const bio = text(pc.querySelector('p.bio, p.small'))
+  return {
+    _type: 'vcTeamRef', _key: key(), person: { _type: 'reference', _ref: hit._id },
+    role: role && role.toLowerCase() !== (hit.role ?? '').toLowerCase() ? role : undefined,
+    bio: bio && bio !== hit.bio ? bio : undefined,
+  }
+}
 
 async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, unknown> | null> {
-  const base = { _key: key(), tone: tone(sec) }
+  const base = { _key: key(), tone: tone(sec), sectionClass: secClass(sec) }
   const ds = sec.getAttribute('data-sec')
   if (ds === 'numbers' && sec.querySelector('.stats')) {
     return {
@@ -679,6 +732,149 @@ async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, 
       note: text(sec.querySelector('.foot-note')) || undefined,
       statsClass: cls(sec.querySelector('.stats')).filter((c) => c !== 'stats').join(' ') || undefined,
       noteBelow: !sec.querySelector('.stats .foot-note') && !!sec.querySelector('.foot-note'),
+    }
+  }
+  if (sec.querySelector('#posts-grid, .posts')) {
+    return {
+      _type: 'vcBlogList', ...base, anchor: undefined, allLabel: text(sec.querySelector('.pbar .tabs button')) || undefined,
+      otherLabel: 'General', emptyText: text(sec.querySelector('#empty, .empty')) || undefined,
+    }
+  }
+  if (sec.querySelector('.help #side, .help .side')) {
+    const root = parse(readFileSync(ctx.file, 'utf8'))
+    const data = JSON.parse(root.querySelector('#faqdata')!.textContent) as { id: string; n: string; d: string; g: { n: string; i: { q: string; a: string }[] }[] }[]
+    const pageKey = ctx.path.replace(/^\//, '')
+    return {
+      _type: 'vcFaqHub', ...base, anchor: undefined, sideLabel: text(sec.querySelector('.side .label')) || undefined, allLabel: 'All topics',
+      categories: data.map((c) => ({
+        _type: 'vcFaqCategory', _key: key(), key: c.id, name: c.n, description: c.d,
+        groups: c.g.map((g) => ({
+          _type: 'vcFaqGroup', _key: key(), name: g.n,
+          items: g.i.map((it) => faqRef(it.q, parse(`<div>${it.a}</div>`).querySelector('div')!, g.n, pageKey, false)),
+        })),
+      })),
+    }
+  }
+  if (sec.querySelector('.csgrid')) {
+    const script = ctx.scripts.find((x) => x.includes('const CASES='))!
+    const cases = JSON.parse(script.match(/const CASES=(\[[\s\S]*?\]);\s*\n/)![1]) as {
+      num: string; client: string; sub: string; sol: string; weeks: string; logo: string; m: { v: string; l: string; s: string }[]
+      q: string; people: { n: string; r: string }[]; ch: string; so: string; im: string; kv: Record<string, string>
+    }[]
+    const cards = sec.querySelectorAll('.csgrid .cs')
+    const toBlocks = (html: string) => {
+      const root = parse(`<div>${html}</div>`).querySelector('div')!
+      const out: unknown[] = []
+      for (const el of root.childNodes as HTMLElement[]) {
+        if (!el.tagName) continue
+        const mk = (t: string, listItem?: string) => ({ _type: 'block', _key: key(), style: 'normal', markDefs: [], ...(listItem ? { listItem, level: 1 } : {}), children: [{ _type: 'span', _key: key(), text: t, marks: [] }] })
+        if (el.tagName === 'UL') el.querySelectorAll('li').forEach((li) => out.push(mk(text(li), 'bullet')))
+        else out.push(mk(text(el)))
+      }
+      return out
+    }
+    const refs = cases.map((c, i) => {
+      const doc = {
+        _type: 'vcStory', num: c.num, client: c.client, sub: c.sub, solution: c.sol, weeks: c.weeks,
+        logo: imageFromSrc(c.logo, ctx.file, `${c.client} logo`),
+        metrics: c.m.map((m) => ({ _type: 'vcMetric', _key: key(), value: m.v, label: m.l, sub: m.s || undefined })),
+        quote: c.q.replace(/^[\u201c"]|[\u201d"]$/g, ''), people: c.people.map((p) => ({ _type: 'vcPerson', _key: key(), name: p.n, role: p.r })),
+        challenge: toBlocks(c.ch), solutionText: toBlocks(c.so), impact: toBlocks(c.im),
+        location: c.kv.LOCATION, employees: c.kv.EMPLOYEES, industry: c.kv.INDUSTRY, useCase: c.kv['USE CASE'],
+        tags: cards[i] ? cards[i].querySelectorAll('.cs-tags .tag').map((t) => text(t)) : [],
+      }
+      dashCheck(JSON.stringify(doc), `story ${c.client}`)
+      return { _type: 'reference', _key: key(), _ref: upsertShared('vcStory', slugify(c.client), doc) }
+    })
+    return {
+      _type: 'vcStories', ...base, anchor: undefined, head: headOf(sec), filterLabel: text(sec.querySelector('.filters > .label')) || undefined,
+      countText: 'Showing {shown} of {total} success stories', stories: refs,
+    }
+  }
+  if (sec.querySelector('#mq') && ctx.scripts.some((x) => x.includes('const TEST='))) {
+    const script = ctx.scripts.find((x) => x.includes('const TEST='))!
+    const test = JSON.parse(script.match(/const TEST=(\[[\s\S]*?\]);/)![1]) as { q: string; name: string; role: string; comp: string; tag: string; ini: string }[]
+    const st = sec.querySelector('.sticky')!
+    return {
+      _type: 'vcProof', ...base, layout: 'sticky', badge: text(st.querySelector('.badge')) || undefined, heading: rich(st.querySelector('h2')),
+      filters: st.querySelectorAll('.tabs button').map((b) => ({ _type: 'vcQuoteFilter', _key: key(), label: text(b), key: b.getAttribute('data-t') ?? '' })),
+      quotes: test.map((t) => {
+        const doc = { _type: 'vcQuote', org: t.comp, quote: t.q.replace(/^[\u201c"]|[\u201d"]$/g, ''), name: t.name, role: t.role, initials: t.ini, tag: t.tag || undefined }
+        return { _type: 'reference', _key: key(), _ref: upsertShared('vcQuote', slugify(`${t.name} ${t.comp}`), doc) }
+      }),
+    }
+  }
+  if (sec.querySelector('.mform iframe')) {
+    const mock = sec.querySelector('.mform iframe')!.getAttribute('src') ?? ''
+    const live: string | null = await client.fetch(`*[_type == "page" && slug.current == "careers"][0].applicationFormEmbedUrl`)
+    if (live && live !== mock) warnings.push(`${ctx.slug}: form URL differs from live; using live ${live}`)
+    return {
+      _type: 'vcFormEmbed', ...base, anchor: sec.getAttribute('id') ?? undefined, head: headOf(sec), src: live || mock,
+      title: decode(sec.querySelector('.mform iframe')!.getAttribute('title') ?? ''), note: text(sec.querySelector('.mform-note')) || undefined,
+    }
+  }
+  if (sec.querySelector('.rgrid .rbox')) {
+    const rl = sec.querySelector('.rl')!
+    return {
+      _type: 'vcRemote', ...base, anchor: sec.getAttribute('id') ?? undefined, badge: text(rl.querySelector('.badge')) || undefined,
+      heading: rich(rl.querySelector('h2')), lead: text(rl.querySelector('.lead')) || undefined,
+      perks: rl.querySelectorAll('.rperks li').map((li) => ({ _type: 'vcPerk', _key: key(), icon: li.querySelector('.ico svg')?.outerHTML, text: text(li.querySelector(':scope > span:last-child')) })),
+      listLabel: text(sec.querySelectorAll('.rhead .label')[0]) || undefined, timeLabel: text(sec.querySelectorAll('.rhead .label')[1]) || undefined,
+      places: sec.querySelectorAll('.roffices .ro').map((li) => ({
+        _type: 'vcPlace', _key: key(), flag: text(li.querySelector('.flag')) || undefined, title: text(li.querySelector('.rt b')),
+        line: text(li.querySelector('.rt .small')) || undefined, label: text(li.querySelector('.rr .label')) || undefined,
+        tz: li.querySelector('.clock')?.getAttribute('data-tz') ?? undefined,
+      })),
+    }
+  }
+  if (sec.querySelector('.chan .rows')) {
+    const left = sec.querySelector('.chan > div')!
+    const right = sec.querySelectorAll('.chan > div')[1]
+    const allLink = right?.querySelector('.acc-h a.link')
+    return {
+      _type: 'vcChannels', ...base, badge: text(left.querySelector('.badge')) || undefined, heading: rich(left.querySelector('h2')),
+      rows: left.querySelectorAll('.rows > a').map((a) => ({ _type: 'vcChannelRow', _key: key(), label: text(a.querySelector('.label')), value: text(a.querySelector('b')), href: a.getAttribute('href') })),
+      followLabel: text(left.querySelector('.srow .label')) || undefined,
+      socials: left.querySelectorAll('.sicons a').map((a) => ({ _type: 'vcSocial', _key: key(), network: (a.getAttribute('title') ?? '').toLowerCase(), label: decode(a.getAttribute('aria-label') ?? ''), href: a.getAttribute('href') })),
+      tilesLabel: text(right?.querySelector('.acc-h .label')) || undefined,
+      tilesLink: allLink ? { _type: 'vcCta', label: text(allLink), href: allLink.getAttribute('href') === '#' ? '/certifications-and-awards' : allLink.getAttribute('href'), style: 'primary' } : undefined,
+      tiles: (right?.querySelectorAll('.tiles > div:not(.wide)') ?? []).map((d) => ({ ...logo(d.querySelector('img')!, ctx), shape: cls(d).join(' ') || undefined })),
+      security: (right?.querySelectorAll('.secrow img') ?? []).map((i) => logo(i, ctx)),
+    }
+  }
+  if (sec.querySelector('.ceo')) {
+    const ceo = sec.querySelector('.ceo')!
+    const ceoRef = await teamRef(ceo, ctx)
+    return {
+      _type: 'vcLeadership', ...base, head: headOf(sec), ceo: ceoRef ? { ...ceoRef, _key: undefined, bio: undefined } : undefined,
+      quote: text(ceo.querySelector('blockquote')), caption: text(ceo.querySelector('figcaption .small')) || undefined,
+      people: (await Promise.all(sec.querySelectorAll('.lgrid .lc').map((lc) => teamRef(lc, ctx)))).filter(Boolean),
+    }
+  }
+  if (sec.querySelector('.offices .office')) {
+    const live: { city?: string }[] = (await client.fetch(`*[_id == "siteSettings"][0].offices`)) ?? []
+    const mock = sec.querySelectorAll('.office h3').map((h) => text(h))
+    const missing = mock.filter((c) => !live.some((o) => o.city === c))
+    if (missing.length) warnings.push(`${ctx.slug}: offices not in siteSettings: ${missing.join(', ')}`)
+    return { _type: 'vcOffices', ...base, head: headOf(sec) }
+  }
+  if (sec.querySelector('.panel .pc') && sec.querySelector('.tabs button[data-r]')) {
+    const btns = sec.querySelectorAll('.tabs button')
+    const panels = sec.querySelectorAll('.panel')
+    return {
+      _type: 'vcTeamTabs', ...base, badge: text(sec.querySelector('.shead .badge')) || undefined,
+      headingPrefix: text(parse(`<b>${sec.querySelector('.shead h2')!.innerHTML.replace(/<span class="acc"[\s\S]*$/, '')}</b>`).querySelector('b')),
+      tabs: await Promise.all(btns.map(async (b, i) => {
+        const flag = b.querySelector('.flag')
+        const p = panels[i]
+        return {
+          _type: 'vcTeamTab', _key: key(),
+          label: text(parse(`<b>${b.innerHTML.replace(flag?.outerHTML ?? '', '')}</b>`).querySelector('b')),
+          flag: flag ? text(flag) : undefined, title: `${b.getAttribute('data-h')} Team`,
+          leaders: (await Promise.all(p.querySelectorAll('.lgrid .pc').map((pc) => teamRef(pc, ctx)))).filter(Boolean),
+          members: (await Promise.all(p.querySelectorAll('.tgrid .pc').map((pc) => teamRef(pc, ctx)))).filter(Boolean),
+        }
+      })),
     }
   }
   if (sec.querySelector('.tgrid .pc')) {
@@ -725,18 +921,19 @@ async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, 
       points: sec.querySelectorAll('.pst-pt').map((pt) => ({ _type: 'vcPoint', _key: key(), n: text(pt.querySelector('.label')), title: text(pt.querySelector('b')), body: text(pt.querySelector('.small')) })),
     }
   }
-  if (sec.querySelector('.pgrid')) {
+  if (sec.querySelector('.pgrid, .pcards')) {
+    const isCards = !!sec.querySelector('.pcards')
     return {
-      _type: 'vcDirectory', ...base, head: headOf(sec),
+      _type: 'vcDirectory', ...base, head: headOf(sec), variant: isCards ? 'pcards' : 'pgrid',
       filters: sec.querySelectorAll('.tabs button').map((b) => ({ _type: 'vcFilter', _key: key(), label: text(b), key: b.getAttribute('data-f') ?? 'all' })),
-      tiles: sec.querySelectorAll('.ptile').map((t) => {
+      tiles: sec.querySelectorAll('.ptile, .pcards > .card').map((t) => {
         const img = t.querySelector('.logo img')
         const title = text(t.querySelector('h3'))
         const href = pageLink(ctx, t.querySelector('a.link')?.getAttribute('href') ?? undefined, title)
         if (!href) warnings.push(`${ctx.slug}: no link for partner tile "${title}"`)
         return {
           _type: 'vcTile', _key: key(), logo: imageFromSrc(img?.getAttribute('src'), ctx.file, title), logoShape: cls(img).join(' ') || undefined,
-          tag: text(t.querySelector('.gtag')), title, href, groups: (t.getAttribute('data-g') ?? '').split(/\s+/).filter(Boolean),
+          tag: text(t.querySelector('.gtag')), title, body: text(t.querySelector('p.body')) || undefined, href, groups: (t.getAttribute('data-g') ?? '').split(/\s+/).filter(Boolean),
         }
       }),
     }
@@ -812,7 +1009,7 @@ async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, 
   if (sec.querySelector('.table')) {
     const th = sec.querySelectorAll('.tr.th > div').map((d) => text(d))
     return {
-      _type: 'vcTable', ...base, head: headOf(sec), columns: th,
+      _type: 'vcTable', ...base, head: headOf(sec), variant: sec.querySelector('.tr .help') ? 'help' : 'compare', columns: th,
       rows: sec.querySelectorAll('.tr:not(.th)').map((r) => {
         const c = r.querySelectorAll(':scope > div')
         return { _type: 'vcRow', _key: key(), label: text(c[0]), no: text(c[1]), yes: text(c[2]) }
@@ -862,7 +1059,7 @@ async function fetchLive(path: string) {
 
 async function main() {
   if (!SLUGS.length) throw new Error('--slugs required')
-  const shared: Doc[] = await client.fetch(`*[_type in ["vcCase", "vcQuote"] && !(_id in path("drafts.**"))]`)
+  const shared: Doc[] = await client.fetch(`*[_type in ["vcCase", "vcQuote", "vcStory"] && !(_id in path("drafts.**"))]`)
   // Asset refs in Sanity are real ids; map them back to the placeholder form the parser emits.
   const back = new Map(Object.entries(assetCache).map(([h, id]) => [id, `__asset:${h}`]))
   existingShared = new Map(shared.map((d) => [d._id, canon(JSON.parse(JSON.stringify(d), (k, v) => (k === '_ref' && back.has(v) ? back.get(v) : v)))]))

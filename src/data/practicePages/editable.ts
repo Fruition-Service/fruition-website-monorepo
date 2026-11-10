@@ -9,7 +9,6 @@ import { AI_CONSULTING_PAGES } from './aiConsulting'
 import { ATLASSIAN_PAGES } from './atlassian'
 import { HUBSPOT_PAGES } from './hubspot'
 import { INTEGRATIONS_PAGES } from './integrations'
-import { PROOF_PAGES } from './proof'
 
 /**
  * Every live route whose PracticePage copy is merged with a `practicePage`
@@ -27,7 +26,6 @@ export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
   AI_CONSULTING_PAGES['operations-back-office'],
   INTEGRATIONS_PAGES['twilio'],
   INTEGRATIONS_PAGES['zapier'],
-  PROOF_PAGES['certifications-and-awards'],
   // Moved to Version C vcPage documents (Nov 2026): the five /industries leaves,
   // the AI consulting hub, agent development, governance, RAG, and the Atlassian,
   // HubSpot and integrations hubs.

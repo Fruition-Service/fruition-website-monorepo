@@ -17,7 +17,7 @@ import {
 } from "./sections/basic"
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import VcBooking from "./sections/VcBooking"
-import { VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
+import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcLeadership, VcOffices, VcTeamTabs, VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
 /**
  * Renders a Version C page (vcPage document) section by section.
@@ -57,6 +57,15 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcTeam": return <VcTeam s={s} />
     case "vcAnswer": return <VcAnswer s={s} />
     case "vcCoverage": return <VcCoverage s={s} />
+    case "vcLeadership": return <VcLeadership s={s} />
+    case "vcOffices": return <VcOffices s={s} shared={shared} />
+    case "vcTeamTabs": return <VcTeamTabs s={s} />
+    case "vcChannels": return <VcChannels s={s} />
+    case "vcRemote": return <VcRemote s={s} />
+    case "vcFormEmbed": return <VcFormEmbed s={s} />
+    case "vcStories": return <VcStories s={s} />
+    case "vcBlogList": return <VcBlogList s={s} />
+    case "vcFaqHub": return <VcFaqHub s={s} />
     default: return null
   }
 }

@@ -1,14 +1,12 @@
-import PracticePageTemplate from '@/components/PracticePageTemplate'
-import { PROOF_PAGES } from '@/data/practicePages/proof'
-import { practiceMetadata } from '@/data/practicePages/types'
-import { getPracticePageContent } from '@/features/content/practicePage'
+import "@/styles/vc/pages/certifications-and-awards.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const page = PROOF_PAGES['certifications-and-awards']
+const PATH = "/certifications-and-awards"
 
-export async function generateMetadata() {
-  return practiceMetadata(await getPracticePageContent(page))
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  return <PracticePageTemplate page={await getPracticePageContent(page)} />
+export default function Page() {
+  return <VcPage path={PATH} slug="certifications-and-awards" />
 }

@@ -96,6 +96,7 @@ export const vcQuote = defineType({
     defineField({ name: 'name', title: 'Name', type: 'string' }),
     defineField({ name: 'role', title: 'Role', type: 'string' }),
     defineField({ name: 'initials', title: 'Initials', type: 'string' }),
+    defineField({ name: 'tag', title: 'Filter tag', type: 'string', description: 'e.g. MONDAY CRM (used by quote filters).' }),
   ],
   preview: { select: { title: 'name', subtitle: 'org' } },
 })
@@ -145,4 +146,45 @@ export const vcShared = defineType({
   preview: { prepare: () => ({ title: 'Version C shared blocks' }) },
 })
 
-export const vcDocuments = [vcPage, vcCase, vcQuote, vcShared]
+const richText = (name: string, title: string) =>
+  defineField({ name, title, type: 'array', of: [defineArrayMember({ type: 'block', styles: [{ title: 'Normal', value: 'normal' }], lists: [{ title: 'Bullet', value: 'bullet' }] })] })
+
+/** A full customer story (the /customer-testimonials grid and its detail dialog). */
+export const vcStory = defineType({
+  name: 'vcStory',
+  title: 'Customer story (Version C)',
+  type: 'document',
+  fields: [
+    defineField({ name: 'num', title: 'Number', type: 'string' }),
+    defineField({ name: 'client', title: 'Client', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'sub', title: 'One-line summary', type: 'string' }),
+    defineField({ name: 'solution', title: 'Solution (filter)', type: 'string' }),
+    defineField({ name: 'weeks', title: 'Time to live', type: 'string' }),
+    image('logo', 'Logo'),
+    defineField({
+      name: 'metrics',
+      title: 'Results',
+      type: 'array',
+      description: "From the client's verified case study only.",
+      of: [defineArrayMember({ type: 'object', name: 'vcMetric', fields: [defineField({ name: 'value', title: 'Figure', type: 'string' }), defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'sub', title: 'Note', type: 'string' })], preview: { select: { title: 'value', subtitle: 'label' } } })],
+    }),
+    defineField({ name: 'quote', title: 'Quote', type: 'text', rows: 3 }),
+    defineField({
+      name: 'people',
+      title: 'Quoted people',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcPerson', fields: [defineField({ name: 'name', title: 'Name', type: 'string' }), defineField({ name: 'role', title: 'Role', type: 'string' })], preview: { select: { title: 'name', subtitle: 'role' } } })],
+    }),
+    richText('challenge', 'The challenge'),
+    richText('solutionText', 'The solution'),
+    richText('impact', 'The impact'),
+    defineField({ name: 'location', title: 'Location', type: 'string' }),
+    defineField({ name: 'employees', title: 'Employees', type: 'string' }),
+    defineField({ name: 'industry', title: 'Industry', type: 'string' }),
+    defineField({ name: 'useCase', title: 'Use case', type: 'string' }),
+    tags,
+  ],
+  preview: { select: { title: 'client', subtitle: 'sub', media: 'logo' } },
+})
+
+export const vcDocuments = [vcPage, vcCase, vcQuote, vcShared, vcStory]

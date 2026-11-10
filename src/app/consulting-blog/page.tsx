@@ -1,55 +1,12 @@
-import { getBlogPosts, getBlogCategories, getPageBySlug } from "@/sanity/queries"
-import { buildOgMetadata } from "@/lib/metadata"
-import BlogFilterableList from "@/components/BlogFilterableList"
-import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import "@/styles/vc/pages/consulting-blog.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-interface BlogCategory {
-  slug: string
-  title: string
+const PATH = "/consulting-blog"
+
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-const INITIAL_PAGE_SIZE = 12
-
-export async function generateMetadata() {
-  const page = await getPageBySlug("consulting-blog")
-  const title = page?.seoTitle ?? "Consulting Blog: Fruition"
-  const description = page?.seoDescription ?? "Expert insights on monday.com, AI consulting, Atlassian, HubSpot, and workflow automation."
-  return {
-    alternates: { canonical: "/consulting-blog" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/consulting-blog",
-    }),
-  }
-}
-
-export default async function BlogPage() {
-  const [posts, categories, page] = await Promise.all([
-    getBlogPosts(INITIAL_PAGE_SIZE, 0),
-    getBlogCategories(),
-    getPageBySlug("consulting-blog"),
-  ])
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
-      {page?.heroHeading && (
-        <h1 className="text-4xl font-bold text-body mb-4">{page.heroHeading}</h1>
-      )}
-      {page?.heroSubheading && (
-        <p className="text-lg text-muted mb-8">{page.heroSubheading}</p>
-      )}
-
-      <BlogFilterableList
-        initialPosts={posts}
-        categories={categories as BlogCategory[]}
-        pageSize={INITIAL_PAGE_SIZE}
-      />
-
-      {/* Mid-page conversion banner — shared site-wide */}
-      <AuditCtaBanner contained={false} className="mt-16" />
-    </div>
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="consulting-blog" />
 }
