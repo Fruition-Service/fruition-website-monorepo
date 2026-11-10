@@ -1,44 +1,12 @@
-import {
-  getPartnershipPageBySlug,
-  getSiteSettings,
-  getCaseStudies,
-  getFaqItemsForPage,
-} from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AircallPartnerContent from "./AircallPartnerContent"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/aircall-partner.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const SLUG = "aircall-partner"
+const PATH = "/partnerships/aircall-partner"
 
-export async function generateMetadata() {
-  const page = await getPartnershipPageBySlug(SLUG)
-  const title = page?.seoTitle || page?.title || SLUG
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/partnerships/aircall-partner" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/partnerships/aircall-partner",
-    }),
-  }
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs] = await Promise.all([
-    getPartnershipPageBySlug(SLUG),
-    getSiteSettings(),
-    getCaseStudies(),
-    getFaqItemsForPage(`partnerships/${SLUG}`),
-  ])
-  return (
-    <AircallPartnerContent
-      page={page}
-      siteSettings={siteSettings}
-      caseStudies={caseStudies || []}
-      faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="aircall-partner" />
 }

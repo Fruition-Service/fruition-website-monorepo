@@ -118,9 +118,11 @@ export function VcHero({ s }: { s: VcHeroData }) {
         ) : (
           <div className={`hero-art${isPh ? " ph-art" : ""}`}>
             <SImg image={s.art} width={560} className={`hero-3d ${artClass}`.trim()} alt="" priority />
-            {s.floatBadge?.asset && (
-              <div className="ph-badge">
-                <SImg image={s.floatBadge} width={200} alt={s.floatBadgeAlt} lazy={false} />
+            {!!s.floatBadges?.length && (
+              <div className={`ph-badge ${vercelStegaClean(s.floatBadgeClass ?? "")}`.trim()}>
+                {s.floatBadges.map((b, i) => (
+                  <SImg key={b._key ?? i} image={b.image} width={200} alt={b.alt} lazy={false} className={vercelStegaClean(b.shape ?? "") || undefined} />
+                ))}
               </div>
             )}
           </div>
@@ -128,6 +130,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
       </div>
       {stats && <Stats stats={stats} cls={`stats${stats.length === 3 ? " n3" : ""}`} />}
       {s.statsNote && <p className="label foot-note wrap">{s.statsNote}</p>}
+      {s.spacer && <div className="vc-spacer" />}
       {!!s.trustLogos?.length && <Trust label={s.trustLabel} logos={s.trustLogos} />}
     </section>
   )
@@ -139,10 +142,10 @@ export function VcLogos({ s }: { s: VcLogosData }) {
   return (
     <Sec tone={s.tone} anchor={s.anchor} dataSec="clients">
       <Head head={s.head} />
-      <div className="logos">
+      <div className={`logos ${vercelStegaClean(s.gridClass ?? "")}`.trim()}>
         {(s.logos ?? []).map((l, i) => (
           <div key={l._key ?? i}>
-            <SImg image={l.image} width={200} height={40} fit="max" alt={l.alt} />
+            <SImg image={l.image} width={200} height={40} fit="max" alt={l.alt} className={vercelStegaClean(l.shape ?? "") || undefined} />
           </div>
         ))}
         {s.more && <div className="more">{s.more}</div>}
@@ -185,8 +188,8 @@ export function VcCases({ s }: { s: VcCasesData }) {
     <Sec tone={s.tone} anchor={s.anchor} dataSec="cases">
       <Head head={s.head} />
       <div className="cs2">
-        {(s.cases ?? []).filter(Boolean).map((c) => (
-          <article className="csc" key={c._id}>
+        {(s.cases ?? []).filter(Boolean).map((c, ci) => (
+          <article className="csc" key={`${c._id}-${ci}`}>
             <div className="csc-img">
               <SImg image={c.photo} width={660} alt="" />
               <SImg image={c.logo} width={220} className="csc-mark" alt={c.logo?.alt ?? `${vercelStegaClean(c.client ?? "")} logo`} />
@@ -244,8 +247,10 @@ export function VcAudit({ s }: { s: VcAuditData }) {
 /* ----------------------------------------------------------------- cards */
 
 function CardLink({ it }: { it: VcItemData }) {
-  if (!it.href || !it.linkLabel) return null
+  if (!it.href) return null
   const href = vercelStegaClean(it.href)
+  // No label: an arrow-only link, named for screen readers by the card title.
+  const aria = it.linkLabel ? undefined : vercelStegaClean(it.title ?? "")
   const inner = (
     <>
       {it.linkLabel}
@@ -253,17 +258,17 @@ function CardLink({ it }: { it: VcItemData }) {
     </>
   )
   return href.startsWith("/") ? (
-    <Link className="link" href={href}>
+    <Link className="link" href={href} aria-label={aria}>
       {inner}
     </Link>
   ) : (
-    <a className="link" href={href}>
+    <a className="link" href={href} aria-label={aria}>
       {inner}
     </a>
   )
 }
 
-export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass }: { it: VcItemData; cls?: string; frame?: string; pills?: boolean; tagClass?: string }) {
+export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass, titleClass }: { it: VcItemData; cls?: string; frame?: string; pills?: boolean; tagClass?: string; titleClass?: string }) {
   if (it.cardLink && it.href) {
     // A full-width "see all" card: the whole tile is the link.
     return (
@@ -301,14 +306,28 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
   return (
     <article className={cls}>
       {it.image?.asset && (
-        <div className={frame === "pichd" ? "pichd" : "shot"}>
+        <div className={["pichd", "w4-img"].includes(frame) ? frame : "shot"}>
           <SImg image={it.image} width={640} />
         </div>
       )}
+      {it.num && <span className="num">{it.num}</span>}
       {it.label && <span className="label">{it.label}</span>}
-      {it.title && <h3 className="h3">{it.title}</h3>}
+      {it.title && <h3 className={titleClass || "h3"}>{it.title}</h3>}
+      {it.kicker && <span className="label">{it.kicker}</span>}
       {it.body && <p className="body">{it.body}</p>}
+      {it.aiNote && (
+        <p className="uc-ai">
+          {it.aiLabel && <b>{it.aiLabel}</b>}
+          {it.aiNote}
+        </p>
+      )}
       <Ticks items={it.bullets} />
+      {it.metric && (
+        <div className="oc-n">
+          <b>{it.metric}</b>
+          {it.metricLabel && <span>{it.metricLabel}</span>}
+        </div>
+      )}
       {!!it.tags?.length && (
         <div className="tags">
           {it.tags.map((t, i) => (
@@ -320,6 +339,11 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
       )}
       {it.meta && <span className="label">{it.meta}</span>}
       <CardLink it={it} />
+      {it.arrow && !it.href && (
+        <span className="link">
+          <Arrow />
+        </span>
+      )}
     </article>
   )
 }
@@ -330,12 +354,13 @@ export function VcCards({ s }: { s: VcCardsData }) {
   const itemCls = layout === "why4" ? "w4" : layout === "oc" ? "oc" : layout === "uc" || layout === "uc2" ? "card uc" : "card"
   const gridCls = layout === "uc2" ? "cards2" : ["oc", "uc", "ucpills"].includes(layout) ? "cards3" : layout
   const tagClass = vercelStegaClean(s.tagClass ?? "")
+  const titleClass = vercelStegaClean(s.titleClass ?? "")
   return (
     <Sec tone={s.tone} anchor={s.anchor} dataSec="cards" className={vercelStegaClean(s.sectionClass ?? "")}>
       <Head head={s.head} />
       <div className={gridCls}>
         {(s.items ?? []).map((it, i) => (
-          <Card key={it._key ?? i} it={it} cls={itemCls} frame={frame} pills={layout === "ucpills"} tagClass={tagClass} />
+          <Card key={it._key ?? i} it={it} cls={itemCls} frame={frame} pills={layout === "ucpills"} tagClass={tagClass} titleClass={titleClass} />
         ))}
       </div>
     </Sec>
@@ -385,11 +410,11 @@ function QuoteCol({ quotes, dir }: { quotes: VcQuoteData[]; dir: "up" | "down" }
   return (
     <div className={`mq-col ${dir}`}>
       <div className="mq-track">
-        {quotes.map((q) => (
-          <Quote key={q._id} q={q} />
+        {quotes.map((q, i) => (
+          <Quote key={`${q._id}-${i}`} q={q} />
         ))}
-        {quotes.map((q) => (
-          <Quote key={`${q._id}-dup`} q={q} hidden />
+        {quotes.map((q, i) => (
+          <Quote key={`${q._id}-${i}-dup`} q={q} hidden />
         ))}
       </div>
     </div>

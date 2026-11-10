@@ -1,32 +1,12 @@
-import { getAiPartnerPageBySlug, getSiteSettings, getFaqItemsForPageStrict, getClosingCtaForPage } from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AiPartnerTemplate from "@/components/AiPartnerTemplate"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/ai-capability-assessment.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const SLUG = "ai-capability-assessment"
+const PATH = "/ai-capability-assessment"
 
-export async function generateMetadata() {
-  const page = await getAiPartnerPageBySlug(SLUG)
-  const title = page?.seoTitle || page?.title || SLUG
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/ai-capability-assessment" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/ai-capability-assessment",
-    }),
-  }
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, centralFaqs, closingCta] = await Promise.all([
-    getAiPartnerPageBySlug(SLUG),
-    getSiteSettings(),
-    getFaqItemsForPageStrict("ai-capability-assessment"),
-    getClosingCtaForPage("ai-capability-assessment"),
-  ])
-  return <AiPartnerTemplate page={page} siteSettings={siteSettings} faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)} closingCta={closingCta} />
+export default function Page() {
+  return <VcPage path={PATH} slug="ai-capability-assessment" />
 }

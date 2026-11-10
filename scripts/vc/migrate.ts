@@ -71,6 +71,27 @@ export const PAGES: Record<string, [string, string]> = {
   'monday-for-hr': ['/monday-consulting-solutions/monday-for-hr', 'msol'],
   'monday-training': ['/training', 'msol'],
   'monday-implementation-consultants': ['/monday-implementation-consultants', 'msol'],
+  partnerships: ['/partnerships', 'partner'],
+  'openai-chatgpt-partner': ['/partnerships/openai-chatgpt-partner', 'partner'],
+  'anthropic-claude-partner': ['/partnerships/anthropic-claude-partner', 'partner'],
+  'gemini-partner': ['/partnerships/google-gemini-vertex-ai-partner', 'partner'],
+  'openclaw-partner': ['/partnerships/openclaw-partner', 'partner'],
+  'vapi-partner': ['/partnerships/vapi-partner', 'partner'],
+  'monday-consulting-partner': ['/partnerships/monday-consulting-partner', 'partner'],
+  'atlassian-consulting': ['/atlassian-consulting', 'partner'],
+  'hubspot-consulting': ['/hubspot-consulting', 'partner'],
+  'clickup-partner': ['/partnerships/certified-clickup-partner', 'partner'],
+  'aircall-partner': ['/partnerships/aircall-partner', 'partner'],
+  'n8n-integration-partner': ['/partnerships/n8n-integration-partner', 'partner'],
+  'make-partners': ['/partnerships/make-partners', 'partner'],
+  integrations: ['/integrations', 'partner'],
+  'ai-capability-assessment': ['/ai-capability-assessment', 'ai'],
+  'ai-consulting': ['/ai-consulting', 'ai'],
+  'agent-development': ['/ai-consulting/agent-development', 'ai'],
+  'rag-knowledge-systems': ['/ai-consulting/rag-knowledge-systems', 'ai'],
+  'governance-and-compliance': ['/ai-consulting/governance-and-compliance', 'ai'],
+  'ai-readiness-blueprint': ['/ai-readiness-blueprint', 'ai'],
+  'ai-strategy-and-execution': ['/ai-strategy-and-execution', 'ai'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -164,6 +185,8 @@ function resolveAssets<T>(value: T): T {
 
 type Doc = Record<string, unknown> & { _id: string; _type: string }
 const sharedDocs = new Map<string, Doc>()
+let practitionerSig: string | undefined
+let practitionerShared: Record<string, unknown> | undefined
 const faqPatches: { id: string; answer: unknown[]; was: string; now: string }[] = []
 const newFaqs: Doc[] = []
 let liveFaqs: { _id: string; question?: string; pages?: string[]; answer?: { children?: { text?: string }[] }[] }[] = []
@@ -270,7 +293,14 @@ interface Ctx {
 }
 
 /** Labels whose target is fixed site-wide, for buttons the live page does not carry. */
-const KNOWN_LINKS: Record<string, string> = { 'see pricing': '/implementation-packages' }
+const KNOWN_LINKS: Record<string, string> = {
+  'see pricing': '/implementation-packages',
+  // Partner directory tiles whose mock-up link was a placeholder.
+  openai: '/partnerships/openai-chatgpt-partner',
+  'monday.com': '/partnerships/monday-consulting-partner',
+  atlassian: '/atlassian-consulting',
+  langgraph: '/ai-consulting/agent-development',
+}
 
 function liveHref(ctx: Ctx, label: string): string | undefined {
   const norm = (t: string) => t.toLowerCase().replace(/[^a-z0-9.+ ]+/g, ' ').replace(/\s+/g, ' ').trim()
@@ -307,7 +337,7 @@ function headOf(sec: HTMLElement) {
 
 function logo(img: HTMLElement, ctx: Ctx) {
   const alt = decode(img.getAttribute('alt') ?? '')
-  return { _type: 'vcLogo', _key: key(), image: imageFromSrc(img.getAttribute('src'), ctx.file), alt }
+  return { _type: 'vcLogo', _key: key(), image: imageFromSrc(img.getAttribute('src'), ctx.file), alt, shape: cls(img).join(' ') || undefined }
 }
 
 const tone = (sec: HTMLElement) => (has(sec, 'alt') ? 'alt' : 'plain')
@@ -329,10 +359,10 @@ function hero(sec: HTMLElement, ctx: Ctx) {
     s.art = imageFromSrc(img3d.getAttribute('src'), ctx.file)
     s.artClass = cls(img3d).filter((c) => c !== 'hero-3d').join(' ') || undefined
   }
-  const badge = art?.querySelector('.ph-badge img')
-  if (badge) {
-    s.floatBadge = imageFromSrc(badge.getAttribute('src'), ctx.file)
-    s.floatBadgeAlt = decode(badge.getAttribute('alt') ?? '')
+  const badges = art?.querySelectorAll('.ph-badge img') ?? []
+  if (badges.length) {
+    s.floatBadges = badges.map((b) => logo(b, ctx))
+    s.floatBadgeClass = cls(art!.querySelector('.ph-badge')).filter((c) => c !== 'ph-badge').join(' ') || undefined
   }
   const frame = art?.querySelector('.frame')
   if (frame) {
@@ -346,6 +376,7 @@ function hero(sec: HTMLElement, ctx: Ctx) {
   if (stats.length)
     s.stats = stats.map((st) => ({ _type: 'vcStat', _key: key(), value: rich(st.querySelector('b')), label: text(st.querySelector('p')) }))
   const trust = sec.querySelector('.hm-trust')
+  if (trust && /height:\s*var\(--sec\)/.test(trust.previousElementSibling?.getAttribute('style') ?? '')) s.spacer = true
   if (trust) {
     s.trustLabel = text(trust.querySelector('.hm-trust-h .label')) || undefined
     const run = trust.querySelector('.hm-run')
@@ -366,25 +397,43 @@ function item(card: HTMLElement, ctx: Ctx) {
     it.href = href && href !== '#' ? href : ctx.catalogueSlug ? `/ai-use-cases/${ctx.catalogueSlug}` : '/ai-use-cases'
     return it
   }
-  const shot = card.querySelector('.shot img, .pc2-img img, .pichd img')
+  const shot = card.querySelector('.shot img, .pc2-img img, .pichd img, .w4-img img')
   if (shot) it.image = imageFromSrc(shot.getAttribute('src'), ctx.file, decode(shot.getAttribute('alt') ?? '') || undefined)
-  const first = card.childNodes.find((n) => (n as HTMLElement).tagName && !has(n as HTMLElement, 'shot') && !has(n as HTMLElement, 'pichd') && !has(n as HTMLElement, 'pc2-img')) as HTMLElement | undefined
+  const kids = card.childNodes.filter((n) => (n as HTMLElement).tagName && !['shot', 'pichd', 'pc2-img', 'w4-img'].some((c) => has(n as HTMLElement, c))) as HTMLElement[]
+  const num = kids.find((k) => has(k, 'num'))
+  if (num) it.num = text(num)
+  const hIdx = kids.findIndex((k) => k.tagName === 'H3')
+  const first = kids.find((k) => !has(k, 'num'))
   if (first && has(first, 'label')) it.label = text(first)
+  const afterTitle = hIdx >= 0 ? kids[hIdx + 1] : undefined
+  if (afterTitle && has(afterTitle, 'label') && afterTitle.tagName === 'SPAN') it.kicker = text(afterTitle)
+  if (!card.querySelector('a.link') && card.querySelector(':scope > span.link')) it.arrow = true
   const top = card.querySelector('.top')
   if (top) {
     it.title = text(top.querySelector('h3')) || undefined
     it.ai = !!top.querySelector('.ai')
   } else it.title = text(card.querySelector('h3')) || undefined
   it.body = text(card.querySelector('p.body, p.small')) || undefined
+  const ucAi = card.querySelector('p.uc-ai')
+  if (ucAi) {
+    it.aiLabel = text(ucAi.querySelector('b')) || undefined
+    const b = ucAi.querySelector('b')
+    it.aiNote = text(parse(`<p>${ucAi.innerHTML.replace(b ? b.outerHTML : '', '')}</p>`).querySelector('p')) || undefined
+  }
+  const ocn = card.querySelector('.oc-n')
+  if (ocn) {
+    it.metric = text(ocn.querySelector('b')) || undefined
+    it.metricLabel = text(ocn.querySelector('span')) || undefined
+  }
   const ticks = card.querySelectorAll('ul.ticks li')
   if (ticks.length) it.bullets = ticks.map((li) => text(li))
   const tg = card.querySelectorAll('.tags span, .pills span')
   if (tg.length) it.tags = tg.map((t) => text(t))
   const last = card.querySelectorAll(':scope > span.label').pop()
-  if (last && last !== first) it.meta = text(last)
+  if (last && last !== first && last !== afterTitle) it.meta = text(last)
   const link = card.querySelector('a.link')
   if (link) {
-    it.linkLabel = text(link)
+    it.linkLabel = text(link) || undefined
     const href = link.getAttribute('href')
     if (href && href !== '#') it.href = href
     else {
@@ -393,7 +442,7 @@ function item(card: HTMLElement, ctx: Ctx) {
         it.href = `/ai-use-cases/${hit.slug}#${hit.id}`
         ctx.catalogueSlug ??= hit.slug
       } else {
-        it.href = liveHref(ctx, text(link)) ?? '#'
+        it.href = liveHref(ctx, text(link) || String(it.title ?? '')) ?? KNOWN_LINKS[String(it.title ?? '').toLowerCase()] ?? '#'
         if (it.href === '#') warnings.push(`${ctx.slug}: no link for card "${it.title}"`)
       }
     }
@@ -494,6 +543,7 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
       const link = c.querySelector('a.link')
       return {
         _type: 'vcItem', _key: key(), title, body: text(c.querySelector('p.body')) || undefined,
+        ...(c.querySelector('p.uc-ai') ? { aiLabel: text(c.querySelector('p.uc-ai b')) || undefined, aiNote: text(parse(`<p>${c.querySelector('p.uc-ai')!.innerHTML.replace(c.querySelector('p.uc-ai b')?.outerHTML ?? '', '')}</p>`).querySelector('p')) } : {}),
         tags: c.querySelectorAll('.tags span').map((t) => text(t)),
         ...(link ? { linkLabel: text(link) || 'See the build', href: hit ? `/ai-use-cases/${hit.slug}#${hit.id}` : '/ai-use-cases' } : {}),
       }
@@ -505,7 +555,7 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
     }
   }
   if (sec.querySelector('.logos')) {
-    return { _type: 'vcLogos', ...base, head: headOf(sec), logos: sec.querySelectorAll('.logos img').map((i) => logo(i, ctx)), more: text(sec.querySelector('.logos .more')) || undefined }
+    return { _type: 'vcLogos', ...base, head: headOf(sec), gridClass: cls(sec.querySelector('.logos')).filter((c) => c !== 'logos').join(' ') || undefined, logos: sec.querySelectorAll('.logos img').map((i) => logo(i, ctx)), more: text(sec.querySelector('.logos .more')) || undefined }
   }
   const steps = sec.querySelector('.steps, .steps4, .steps5')
   if (steps) {
@@ -527,15 +577,35 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
     const c = cls(grid)[0]
     const first = grid.querySelector('article, div')
     const layout = c === 'cards3' && has(first, 'oc') ? 'oc' : grid.querySelector('.card .top') ? 'ucpills' : c
-    const imageFrame = grid.querySelector('.pichd') ? 'pichd' : undefined
+    const imageFrame = grid.querySelector('.pichd') ? 'pichd' : grid.querySelector('.w4-img') ? 'w4-img' : undefined
     const tagClass = grid.querySelector('.tags span.label') ? 'label' : undefined
+    const titleClass = grid.querySelector(':scope > * > h3.title') ? 'title' : undefined
     const sectionClass = cls(sec).filter((c) => c !== 'alt').join(' ') || undefined
     return {
-      _type: 'vcCards', ...base, head: headOf(sec), layout, imageFrame, tagClass, sectionClass,
+      _type: 'vcCards', ...base, head: headOf(sec), layout, imageFrame, titleClass, tagClass, sectionClass,
       items: grid.querySelectorAll(':scope > article, :scope > div, :scope > a').map((x) => item(x, ctx)),
     }
   }
-  if (sec.querySelector('.josh')) return { _type: 'vcPractitioners', ...base }
+  if (sec.querySelector('.josh')) {
+    const copy = sec.querySelector('.josh-copy')!
+    const j = sec.querySelector('.josh')!
+    const photo = j.querySelector('.josh-photo img')
+    const shared = {
+      badge: text(copy.querySelector('.badge')), heading: rich(copy.querySelector('h2')),
+      photo: imageFromSrc(photo?.getAttribute('src'), ctx.file, decode(photo?.getAttribute('alt') ?? '')),
+      name: text(j.querySelector('.josh-name')), role: text(j.querySelector('.josh-body > div > .label')),
+      facts: j.querySelectorAll('.josh-facts > div').map((d) => ({ _type: 'vcFact', _key: key(), label: text(d.querySelector('dt')), value: text(d.querySelector('dd')) })),
+      pills: j.querySelectorAll('.josh-pills .badge').map((b) => text(b)),
+    }
+    const sig = canon(shared)
+    if (practitionerSig && practitionerSig !== sig) warnings.push(`${ctx.slug}: practitioner block differs from the shared one`)
+    practitionerSig ??= sig
+    practitionerShared ??= shared
+    return {
+      _type: 'vcPractitioners', ...base,
+      paragraphs: copy.querySelectorAll(':scope > p').map((p) => ({ _type: 'vcLeadPara', _key: key(), text: text(p), style: /color:\s*var\(--ink\)/.test(p.getAttribute('style') ?? '') ? 'ink' : 'body' })),
+    }
+  }
   return null
 }
 
@@ -546,6 +616,8 @@ function liveVideoId(ctx: Ctx, alt: string): string | undefined {
   const html = ctx.live?.toString() ?? ''
   const ids = [...new Set([...html.matchAll(/(?:youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=)|youtu\.be\/|ytimg\.com\/vi\/)([A-Za-z0-9_-]{11})/g)].map((m) => m[1]))]
   if (/star aviation/i.test(alt)) return STAR_AVIATION
+  // The region pages' walkthrough, reused on the partner pages in the mock-ups.
+  if (/how fruition builds monday\.com systems/i.test(alt)) return 'eoOCR6OjJhI'
   return ids[0]
 }
 
@@ -559,9 +631,51 @@ const CRM_FIXES = [
   { title: 'ERP Integration', problem: 'Sales and finance data never reconcile.', steps: ['Two-way sync between monday CRM and your ERP', 'Automated order and invoice status mirroring', 'Custom field mapping with zero double entry'], outcome: 'One source of truth from first touch to paid invoice.' },
 ]
 
+function pageLink(ctx: Ctx, href: string | undefined, name: string): string | undefined {
+  if (href && href !== '#') {
+    const m = href.match(/^([a-z0-9-]+)\.html$/)
+    if (m) return PAGES[m[1]]?.[0] ?? (m[1] === 'c' ? '/monday-implementation-consultants' : undefined)
+    return href
+  }
+  return liveHref(ctx, name)
+}
+
 async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, unknown> | null> {
   const base = { _key: key(), tone: tone(sec) }
   const ds = sec.getAttribute('data-sec')
+  if (sec.querySelector('.pst')) {
+    return {
+      _type: 'vcPartnerStatus', ...base,
+      badgeImages: sec.querySelectorAll('.pst-badge img').map((i) => logo(i, ctx)),
+      badge: text(sec.querySelector('.pst-copy .badge')) || undefined, heading: rich(sec.querySelector('.pst-copy h2')),
+      points: sec.querySelectorAll('.pst-pt').map((pt) => ({ _type: 'vcPoint', _key: key(), n: text(pt.querySelector('.label')), title: text(pt.querySelector('b')), body: text(pt.querySelector('.small')) })),
+    }
+  }
+  if (sec.querySelector('.pgrid')) {
+    return {
+      _type: 'vcDirectory', ...base, head: headOf(sec),
+      filters: sec.querySelectorAll('.tabs button').map((b) => ({ _type: 'vcFilter', _key: key(), label: text(b), key: b.getAttribute('data-f') ?? 'all' })),
+      tiles: sec.querySelectorAll('.ptile').map((t) => {
+        const img = t.querySelector('.logo img')
+        const title = text(t.querySelector('h3'))
+        const href = pageLink(ctx, t.querySelector('a.link')?.getAttribute('href') ?? undefined, title)
+        if (!href) warnings.push(`${ctx.slug}: no link for partner tile "${title}"`)
+        return {
+          _type: 'vcTile', _key: key(), logo: imageFromSrc(img?.getAttribute('src'), ctx.file, title), logoShape: cls(img).join(' ') || undefined,
+          tag: text(t.querySelector('.gtag')), title, href, groups: (t.getAttribute('data-g') ?? '').split(/\s+/).filter(Boolean),
+        }
+      }),
+    }
+  }
+  if (sec.querySelector('.accr .tile')) {
+    return {
+      _type: 'vcToolkit', ...base, head: headOf(sec),
+      tiles: sec.querySelectorAll('.accr .tile').filter((t) => t.getAttribute('aria-hidden') !== 'true').map((t) => {
+        const img = t.querySelector('.logo img')
+        return { _type: 'vcTool', _key: key(), logo: imageFromSrc(img?.getAttribute('src'), ctx.file), logoShape: cls(img).join(' ') || undefined, title: text(t.querySelector('b')), body: text(t.querySelector('.small')) }
+      }),
+    }
+  }
   const video = sec.querySelector('.video')
   if (video && sec.querySelector('.case')) {
     const left = sec.querySelector('.case > div')!
@@ -715,6 +829,7 @@ async function main() {
     newFaqs: newFaqs.map((f) => f.question),
     faqPatches: faqPatches.map((p) => ({ id: p.id, was: p.was.slice(0, 160), now: p.now.slice(0, 160) })),
     uploads: new Set(pendingUploads.map((p) => p.file)).size,
+    practitioner: practitionerShared ? { name: practitionerShared.name, facts: (practitionerShared.facts as unknown[]).length } : undefined,
     warnings,
   }
   writeFileSync(OUT, JSON.stringify({ report, pages, shared: [...sharedDocs.values()], newFaqs, faqPatches }, null, 1))
@@ -726,6 +841,10 @@ async function main() {
   const tx = client.transaction()
   for (const d of [...sharedDocs.values(), ...newFaqs, ...pages]) tx.createOrReplace(resolveAssets(d) as Doc)
   for (const p of faqPatches) tx.patch(p.id, (q) => q.set({ answer: p.answer }))
+  if (practitionerShared) {
+    tx.createIfNotExists({ _id: 'vcShared', _type: 'vcShared' })
+    tx.patch('vcShared', (q) => q.set({ practitioners: resolveAssets({ _type: 'object', ...practitionerShared }) }))
+  }
   const res = await tx.commit()
   console.log(`committed ${res.results.length} mutations`)
 }

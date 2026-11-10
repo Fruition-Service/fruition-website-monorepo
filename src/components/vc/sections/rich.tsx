@@ -94,11 +94,17 @@ export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?
             <Acc text={p.heading} />
           </h2>
         )}
-        {(p.body ?? []).map((b, i) => (
-          <p className="body" key={i}>
-            {b}
-          </p>
-        ))}
+        {s.paragraphs?.length
+          ? s.paragraphs.map((b, i) => (
+              <p className={vercelStegaClean(b.style ?? "") === "ink" ? "body vc-ink" : "body"} key={b._key ?? i}>
+                {b.text}
+              </p>
+            ))
+          : (p.body ?? []).map((b, i) => (
+              <p className="body" key={i}>
+                {b}
+              </p>
+            ))}
       </div>
       <div className="josh">
         <div className="josh-photo">
@@ -113,7 +119,7 @@ export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?
             <dl className="josh-facts">
               {p.facts.map((f, i) => (
                 <div key={f._key ?? i}>
-                  <dt>{f.label}</dt>
+                  <dt className="label">{f.label}</dt>
                   <dd>{f.value}</dd>
                 </div>
               ))}
@@ -123,6 +129,7 @@ export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?
             <div className="josh-pills">
               {p.pills.map((x, i) => (
                 <span className="badge" key={i}>
+                  <i />
                   {x}
                 </span>
               ))}

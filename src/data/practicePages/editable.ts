@@ -21,21 +21,16 @@ import { PROOF_PAGES } from './proof'
  * here either.
  */
 export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
-  AI_CONSULTING_PAGES['hub'],
-  AI_CONSULTING_PAGES['agent-development'],
-  AI_CONSULTING_PAGES['governance-and-compliance'],
-  AI_CONSULTING_PAGES['rag-knowledge-systems'],
   AI_CONSULTING_PAGES['marketing-automation'],
   AI_CONSULTING_PAGES['sales-outbound'],
   AI_CONSULTING_PAGES['customer-service'],
   AI_CONSULTING_PAGES['operations-back-office'],
-  ATLASSIAN_PAGES['hub'],
-  HUBSPOT_PAGES['hub'],
-  INTEGRATIONS_PAGES['hub'],
   INTEGRATIONS_PAGES['twilio'],
   INTEGRATIONS_PAGES['zapier'],
   PROOF_PAGES['certifications-and-awards'],
-  // The five /industries leaves moved to Version C vcPage documents (Nov 2026).
+  // Moved to Version C vcPage documents (Nov 2026): the five /industries leaves,
+  // the AI consulting hub, agent development, governance, RAG, and the Atlassian,
+  // HubSpot and integrations hubs.
 ]
 
 /** Deterministic Studio document id: '/ai-consulting/agent-development' to 'practicePage-ai-consulting-agent-development'. */

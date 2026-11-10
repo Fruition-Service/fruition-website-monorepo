@@ -279,7 +279,7 @@ describe('practice FAQ contact line and template fallbacks', () => {
   })
 
   it('seeds every template fallback a route renders with the words it renders today', () => {
-    const ai = EDITABLE_PRACTICE_PAGES.find((p) => p.path === '/ai-consulting')
+    const ai = EDITABLE_PRACTICE_PAGES.find((p) => p.path === '/ai-consulting/marketing-automation')
     expect(ai).toBeDefined()
     const fields = toPracticePageFields(ai!)
     expect(fields.approachEyebrow).toBe(ai!.approachEyebrow ?? 'Our approach')
@@ -326,8 +326,9 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
 
   // 23 to 19 when the four HubSpot leaves became sections of the hub (monday 2900266080).
   // 19 to 14 when the five /industries leaves moved to Version C vcPage documents.
-  it('lists 14 routes, each with a page file that reads its document', () => {
-    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(14)
+  // 14 to 7 when the AI, Atlassian, HubSpot and integrations hubs moved to Version C.
+  it('lists 7 routes, each with a page file that reads its document', () => {
+    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(7)
     for (const page of EDITABLE_PRACTICE_PAGES) {
       const file = join(process.cwd(), 'src/app', page.path, 'page.tsx')
       expect(existsSync(file), file).toBe(true)

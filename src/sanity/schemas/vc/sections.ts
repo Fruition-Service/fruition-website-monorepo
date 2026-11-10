@@ -33,10 +33,11 @@ export const vcHero = defineType({
     defineField({ name: 'creds', title: 'Badges on the frame', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
     defineField({ name: 'chipValue', title: 'Frame chip value', type: 'string' }),
     defineField({ name: 'chipLabel', title: 'Frame chip label', type: 'string' }),
-    defineField({ name: 'floatBadge', title: 'Floating badge image', type: 'image', description: 'Partner badge pinned to the graphic (partner pages).' }),
-    defineField({ name: 'floatBadgeAlt', title: 'Floating badge alt text', type: 'string' }),
+    defineField({ name: 'floatBadges', title: 'Floating partner badges', type: 'array', description: 'Badges pinned under the graphic (partner pages).', of: [defineArrayMember({ type: 'vcLogo' })] }),
+    defineField({ name: 'floatBadgeClass', title: 'Badge group style', type: 'string', description: 'Design-system value, e.g. "two". Leave as is.' }),
     defineField({ name: 'stats', title: 'Stats row', type: 'array', of: [defineArrayMember({ type: 'vcStat' })] }),
     defineField({ name: 'statsNote', title: 'Note under the stats', type: 'string' }),
+    defineField({ name: 'spacer', title: 'Space above the logo marquee', type: 'boolean', initialValue: false }),
     defineField({ name: 'trustLabel', title: 'Logo marquee label', type: 'string' }),
     defineField({ name: 'trustLogos', title: 'Logo marquee', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
   ],
@@ -50,6 +51,7 @@ export const vcLogos = defineType({
   fields: [
     ...sectionBase,
     head(),
+    defineField({ name: 'gridClass', title: 'Grid style', type: 'string', description: 'Design-system value from the mock-up, e.g. "ten". Leave as is.' }),
     defineField({ name: 'logos', title: 'Logos', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
     defineField({ name: 'more', title: 'Counter tile text', type: 'string', description: 'Optional last tile, e.g. "900+ more".' }),
   ],
@@ -153,13 +155,14 @@ export const vcCards = defineType({
       },
       initialValue: 'cards3',
     }),
+    defineField({ name: 'titleClass', title: 'Card title style', type: 'string', description: 'Design-system value: empty (h3) or "title" (smaller). Leave as is.' }),
     defineField({ name: 'tagClass', title: 'Tag style', type: 'string', description: 'Design-system value from the mock-up ("label" or empty). Leave as is.' }),
     defineField({ name: 'sectionClass', title: 'Section style', type: 'string', description: 'Design-system value from the mock-up. Leave as is.' }),
     defineField({
       name: 'imageFrame',
       title: 'Card image style',
       type: 'string',
-      options: { list: [{ title: 'Framed screenshot', value: 'shot' }, { title: 'Full-bleed header', value: 'pichd' }] },
+      options: { list: [{ title: 'Framed screenshot', value: 'shot' }, { title: 'Full-bleed header', value: 'pichd' }, { title: 'Product shot on tint', value: 'w4-img' }] },
       initialValue: 'shot',
     }),
     defineField({ name: 'items', title: 'Cards', type: 'array', of: [defineArrayMember({ type: 'vcItem' })] }),
@@ -221,8 +224,26 @@ export const vcPractitioners = defineType({
   name: 'vcPractitioners',
   title: 'Led by practitioners',
   type: 'object',
-  description: 'The shared block. Its copy lives on "Version C shared blocks" so it is identical on every page.',
-  fields: [...sectionBase],
+  description: 'Photo, name, facts and badges come from "Version C shared blocks" so they are identical on every page. The paragraphs are this page\'s own (they name the platform).',
+  fields: [
+    ...sectionBase,
+    defineField({
+      name: 'paragraphs',
+      title: 'Paragraphs',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcLeadPara',
+          fields: [
+            defineField({ name: 'text', title: 'Text', type: 'text', rows: 3 }),
+            defineField({ name: 'style', title: 'Style', type: 'string', options: { list: [{ title: 'Normal', value: 'body' }, { title: 'Dark (emphasis)', value: 'ink' }] }, initialValue: 'body' }),
+          ],
+          preview: { select: { title: 'text' } },
+        }),
+      ],
+    }),
+  ],
   preview: { prepare: () => ({ title: 'Led by practitioners', subtitle: 'Shared block' }) },
 })
 
@@ -447,9 +468,94 @@ export const vcTable = defineType({
   preview: preview('Comparison table'),
 })
 
+export const vcPartnerStatus = defineType({
+  name: 'vcPartnerStatus',
+  title: 'Partner status',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    defineField({ name: 'badgeImages', title: 'Partner badges', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })], description: 'Logo shape: "sq" (square) or "wd" (wide).' }),
+    defineField({ name: 'badge', title: 'Badge', type: 'string' }),
+    heading(),
+    defineField({
+      name: 'points',
+      title: 'Points',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcPoint', fields: [defineField({ name: 'n', title: 'Number', type: 'string' }), defineField({ name: 'title', title: 'Title', type: 'string' }), defineField({ name: 'body', title: 'Body', type: 'text', rows: 2 })], preview: { select: { title: 'title' } } })],
+    }),
+  ],
+  preview: preview('Partner status', 'heading'),
+})
+
+export const vcDirectory = defineType({
+  name: 'vcDirectory',
+  title: 'Partner directory',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({
+      name: 'filters',
+      title: 'Filter tabs',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcFilter', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'key', title: 'Group key', type: 'string', description: 'Machine value; "all" shows every tile.' })], preview: { select: { title: 'label', subtitle: 'key' } } })],
+    }),
+    defineField({
+      name: 'tiles',
+      title: 'Partners',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcTile',
+          fields: [
+            image('logo', 'Logo'),
+            defineField({ name: 'logoShape', title: 'Logo shape', type: 'string', description: 'Design-system value: empty, "sq" or "mk".' }),
+            defineField({ name: 'tag', title: 'Tag line', type: 'string' }),
+            defineField({ name: 'title', title: 'Name', type: 'string' }),
+            defineField({ name: 'href', title: 'Link', type: 'string' }),
+            defineField({ name: 'groups', title: 'Group keys', type: 'array', of: [{ type: 'string' }] }),
+          ],
+          preview: { select: { title: 'title', subtitle: 'tag', media: 'logo' } },
+        }),
+      ],
+    }),
+  ],
+  preview: preview('Partner directory'),
+})
+
+export const vcToolkit = defineType({
+  name: 'vcToolkit',
+  title: 'Tool marquee',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({
+      name: 'tiles',
+      title: 'Tools',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcTool',
+          fields: [
+            image('logo', 'Logo'),
+            defineField({ name: 'logoShape', title: 'Logo shape', type: 'string', description: 'Design-system value: "wm-img", "sq", "card-b" or "logo-b".' }),
+            defineField({ name: 'title', title: 'Name', type: 'string' }),
+            defineField({ name: 'body', title: 'Body', type: 'text', rows: 2 }),
+          ],
+          preview: { select: { title: 'title', media: 'logo' } },
+        }),
+      ],
+    }),
+  ],
+  preview: preview('Tool marquee'),
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit,
 ]
 
 export const VC_SECTION_TYPES = vcSections.map((s) => s.name)

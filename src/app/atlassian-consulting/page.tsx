@@ -1,14 +1,12 @@
-import AtlassianConsultingPage from '@/components/atlassian/AtlassianConsultingPage'
-import { ATLASSIAN_PAGES } from '@/data/practicePages/atlassian'
-import { practiceMetadata } from '@/data/practicePages/types'
-import { getPracticePageContent } from '@/features/content/practicePage'
+import "@/styles/vc/pages/atlassian-consulting.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const page = ATLASSIAN_PAGES['hub']
+const PATH = "/atlassian-consulting"
 
-export async function generateMetadata() {
-  return practiceMetadata(await getPracticePageContent(page))
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  return <AtlassianConsultingPage page={await getPracticePageContent(page)} />
+export default function Page() {
+  return <VcPage path={PATH} slug="atlassian-consulting" />
 }

@@ -1,42 +1,12 @@
-import {
-  getServicePageBySlug,
-  getSiteSettings,
-  getCaseStudies,
-  getFaqItemsForPage,
-} from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AiStrategyContent from "./AiStrategyContent"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/ai-strategy-and-execution.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-export async function generateMetadata() {
-  const page = await getServicePageBySlug("ai-strategy-and-execution")
-  const title = page?.seoTitle
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/ai-strategy-and-execution" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/ai-strategy-and-execution",
-    }),
-  }
+const PATH = "/ai-strategy-and-execution"
+
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, caseStudies, centralFaqs] = await Promise.all([
-    getServicePageBySlug("ai-strategy-and-execution"),
-    getSiteSettings(),
-    getCaseStudies(),
-    getFaqItemsForPage("ai-strategy-and-execution"),
-  ])
-  return (
-    <AiStrategyContent
-      page={page}
-      siteSettings={siteSettings}
-      caseStudies={caseStudies || []}
-      faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="ai-strategy-and-execution" />
 }
