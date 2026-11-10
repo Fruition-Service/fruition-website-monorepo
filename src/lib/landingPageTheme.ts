@@ -506,6 +506,7 @@ body{padding-bottom:68px}
 .hf-btn,.form-btn,.b1{min-height:52px}
 .hero{padding:96px 0;background:var(--surface)}
 .hero-grid{grid-template-columns:1.12fr .88fr}
+.hero-grid>*{min-width:0}
 .badge{font:400 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.02em;padding:7px 14px}
 .badge-dark,.badge-platinum{background:var(--tint-bg);border:1px solid var(--lilac);color:var(--fg)}
 .badge-lite,.badge-adv{background:var(--surface);border:1px solid var(--lilac);color:var(--fg)}
@@ -553,6 +554,7 @@ h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:0}
 .close-band .lede{color:rgba(255,255,255,.84);margin-bottom:0}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:40px 48px;background:var(--navy);text-align:left;font:400 12px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:rgba(255,255,255,.72)}
 @media(max-width:1023px){
+.hero-grid{grid-template-columns:1fr;gap:48px}
 section{padding:80px 0}
 .hero{padding:64px 0 72px}
 h1{font-size:48px}
