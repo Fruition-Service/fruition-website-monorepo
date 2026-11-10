@@ -1,52 +1,12 @@
-import {
-  getLocationPageBySlug,
-  getSiteSettings,
-  getCaseStudies,
-  getTeamMembers,
-} from "@/sanity/queries"
-import { getRegionLogos, resolveRegionLogos } from "@/sanity/regionLogos"
-import { mergeTeamMembers } from "@/lib/mergeTeamMembers"
-import RegionPageTemplate from "@/components/RegionPageTemplate"
-import { REGION_PAGES } from "@/data/regionPages"
-import { buildOgMetadata } from "@/lib/metadata"
+import "@/styles/vc/pages/monday-partner-australia.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const SLUG = "monday-partner-australia"
-const CONTENT = REGION_PAGES[SLUG]
+const PATH = "/monday-partner-australia"
 
-export async function generateMetadata() {
-  const page = await getLocationPageBySlug(SLUG)
-  const title = page?.seoTitle
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/monday-partner-australia" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/monday-partner-australia",
-      locale: "en_AU",
-    }),
-  }
+export function generateMetadata() {
+  return vcMetadata(PATH, { locale: "en_AU" })
 }
 
-export default async function Page() {
-  const [page, siteSettings, caseStudies, teamMembers, regionLogos] = await Promise.all([
-    getLocationPageBySlug(SLUG),
-    getSiteSettings(),
-    getCaseStudies(),
-    getTeamMembers(),
-    getRegionLogos(SLUG),
-  ])
-  return (
-    <RegionPageTemplate
-      content={CONTENT}
-      page={page}
-      siteSettings={siteSettings}
-      caseStudies={caseStudies || []}
-      teamMembers={mergeTeamMembers(teamMembers || [], siteSettings?.excludedTeamMemberNames || [])}
-      clientLogos={resolveRegionLogos(regionLogos?.logos, siteSettings?.carouselLogos)}
-      clientLogosLead={regionLogos?.lead}
-    />
-  )
+export default function Page() {
+  return <VcPage path={PATH} slug="monday-partner-australia" />
 }

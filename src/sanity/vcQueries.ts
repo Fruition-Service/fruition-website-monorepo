@@ -11,7 +11,8 @@ const SECTIONS = `sections[]{
   ...,
   _type == "vcCases" => { cases[]->{ _id, client, label, body, tags, results, photo, logo, href } },
   _type == "vcProof" => { quotes[]->{ _id, org, quote, name, role, initials } },
-  _type == "vcFaq" => { tabs[]{ _key, label, items[]->{ _id, question, answer } } }
+  _type == "vcFaq" => { tabs[]{ _key, label, items[]->{ _id, question, answer } } },
+  _type == "vcTeam" => { members[]{ "override": bio, ...person->{ _id, name, role, bio, photo, linkedinUrl } } }
 }`
 
 export async function getVcPage(path: string): Promise<VcPageData | null> {

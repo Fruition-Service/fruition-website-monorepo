@@ -57,7 +57,8 @@ describe("page metadata", () => {
     ["monday-partner-singapore", "en_SG"],
   ])("/%s sets og:locale %s", (page, locale) => {
     const code = readFileSync(path.join(APP, page, "page.tsx"), "utf8")
-    const call = code.match(/buildOgMetadata\(\{[\s\S]*?\}\)/)?.[0]
+    // buildOgMetadata({...}) or, on Version C pages, vcMetadata(PATH, {...}).
+    const call = code.match(/(buildOgMetadata\(\{|vcMetadata\(PATH, \{)[\s\S]*?\}\)/)?.[0]
     expect(call).toBeTruthy()
     expect(call).toContain(`locale: "${locale}"`)
   })

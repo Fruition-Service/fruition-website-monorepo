@@ -28,6 +28,8 @@ interface Base { _key: string; _type: string; tone?: "plain" | "alt"; anchor?: s
 export interface VcHeroData extends Base {
   _type: "vcHero"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]
   art?: VcImage; variant?: string; artClass?: string; frameImage?: VcImage; creds?: VcLogoData[]; chipValue?: string; chipLabel?: string; floatBadges?: VcLogoData[]; floatBadgeClass?: string
+  mapKind?: string; mapSvg?: string; mapAspect?: string; mapAria?: string; mapFlag?: string; mapLabel?: string
+  pins?: { _key?: string; label?: string; left?: number; top?: number; side?: string; on?: boolean }[]
   stats?: VcStatData[]; statsNote?: string; spacer?: boolean; trustLabel?: string; trustLogos?: VcLogoData[]
 }
 export interface VcLogosData extends Base { _type: "vcLogos"; head?: VcHeadData; gridClass?: string; logos?: VcLogoData[]; more?: string }
@@ -82,11 +84,21 @@ export interface VcToolkitData extends Base {
   _type: "vcToolkit"; head?: VcHeadData; tiles?: { _key?: string; logo?: VcImage; logoShape?: string; title?: string; body?: string }[]
 }
 
+export interface VcStatsRowData extends Base { _type: "vcStatsRow"; head?: VcHeadData; stats?: VcStatData[]; note?: string; statsClass?: string; noteBelow?: boolean }
+export interface VcTeamMember { _id: string; name?: string; role?: string; bio?: string; override?: string; photo?: VcImage; linkedinUrl?: string }
+export interface VcTeamData extends Base { _type: "vcTeam"; head?: VcHeadData; layout?: string; members?: VcTeamMember[] }
+export interface VcAnswerData extends Base { _type: "vcAnswer"; badge?: string; heading?: string; body?: string }
+export interface VcCoverageData extends Base {
+  _type: "vcCoverage"; head?: VcHeadData; mapQuery?: string; mapTitle?: string; visitLabel?: string; visitHeading?: string
+  visitAddress?: string; visitLinkLabel?: string; visitHref?: string; cityStyle?: string
+  cities?: { _key?: string; label?: string; title?: string; flag?: string; hq?: boolean; body?: string }[]
+}
+
 export type VcSection =
   | VcHeroData | VcLogosData | VcStepsData | VcCasesData | VcAuditData | VcCardsData | VcProductsData
   | VcUseCasesData | VcProofData | VcPractitionersData | VcBookingData | VcFaqData | VcClosingData
   | VcVideoData | VcTextPairData | VcFixData | VcIndustryTabsData | VcTrackData | VcTableData
-  | VcPartnerStatusData | VcDirectoryData | VcToolkitData
+  | VcPartnerStatusData | VcDirectoryData | VcToolkitData | VcStatsRowData | VcTeamData | VcAnswerData | VcCoverageData
 
 export interface VcPageData {
   _id: string; title?: string; path: string; group?: string

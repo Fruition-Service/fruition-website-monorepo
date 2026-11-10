@@ -1,8 +1,8 @@
 import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
 import { Acc, Badge, Head, SImg, Sec } from "../primitives"
-import type { VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
-import { VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTrackFinder } from "./interactive"
+import type { VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
+import { VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTrackFinder } from "./interactive"
 import VcVideoPlayer from "./VcVideoPlayer"
 
 function Paras({ paras }: { paras?: VcPara[] }) {
@@ -195,6 +195,146 @@ export function VcToolkit({ s }: { s: VcToolkitData }) {
         <div className="accr-track">
           {run(false)}
           {run(true)}
+        </div>
+      </div>
+    </Sec>
+  )
+}
+
+export function VcStatsRow({ s }: { s: VcStatsRowData }) {
+  return (
+    <section className={vercelStegaClean(s.tone ?? "") === "alt" ? "alt" : undefined} id={s.anchor ? vercelStegaClean(s.anchor) : undefined} data-sec="numbers">
+      <div className="wrap">
+        <Head head={s.head} />
+      </div>
+      <div className={`stats ${vercelStegaClean(s.statsClass ?? "")}`.trim()}>
+        <div className="wrap">
+          {(s.stats ?? []).map((st, i) => (
+            <div className="stat" key={st._key ?? i}>
+              <b>
+                <Acc text={st.value} em />
+              </b>
+              {st.label && <p className="small">{st.label}</p>}
+            </div>
+          ))}
+          {s.note && !s.noteBelow && <p className="small foot-note">{s.note}</p>}
+        </div>
+      </div>
+      {s.note && s.noteBelow && (
+        <div className="wrap">
+          <p className="small foot-note">{s.note}</p>
+        </div>
+      )}
+    </section>
+  )
+}
+
+export function VcTeam({ s }: { s: VcTeamData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} dataSec="team">
+      <Head head={s.head} />
+      <div className="tgrid">
+        {(s.members ?? []).filter((m) => m?._id).map((m, i) =>
+          vercelStegaClean(s.layout ?? "") === "compact" ? (
+            <article className="pc" key={`${m._id}-${i}`}>
+              <div className="ph">
+                <SImg image={m.photo} width={360} alt={m.name} />
+              </div>
+              <div className="pb">
+                {m.role && <span className="label">{m.role}</span>}
+                {m.name && <h3 className="h3">{m.name}</h3>}
+                {(m.override || m.bio) && <p className="small">{m.override || m.bio}</p>}
+                {m.linkedinUrl && (
+                  <a className="link" href={vercelStegaClean(m.linkedinUrl)} target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            </article>
+          ) : (
+            <VcTeamCard key={`${m._id}-${i}`} m={{ ...m, bio: m.override || m.bio }} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
+          ),
+        )}
+      </div>
+    </Sec>
+  )
+}
+
+export function VcAnswer({ s }: { s: VcAnswerData }) {
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} inner="wrap answer" dataSec="answer">
+      <div>
+        <Badge>{s.badge}</Badge>
+        {s.heading && (
+          <h2 className="h2 mt24">
+            <Acc text={s.heading} />
+          </h2>
+        )}
+      </div>
+      {s.body && <p className="body">{s.body}</p>}
+    </Sec>
+  )
+}
+
+export function VcCoverage({ s }: { s: VcCoverageData }) {
+  const q = vercelStegaClean(s.mapQuery ?? "")
+  return (
+    <Sec tone={s.tone} anchor={s.anchor} dataSec="coverage">
+      <Head head={s.head} />
+      <div className="ogrid">
+        <div className="omap">
+          {q && (
+            <iframe
+              src={`https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed`}
+              title={vercelStegaClean(s.mapTitle ?? "Office map")}
+              referrerPolicy="no-referrer-when-downgrade"
+              loading="lazy"
+              allowFullScreen
+            />
+          )}
+        </div>
+        <div className="oside">
+          <div className="ovisit">
+            <div>
+              {s.visitLabel && <span className="label">{s.visitLabel}</span>}
+              {s.visitHeading && <h3>{s.visitHeading}</h3>}
+              {s.visitAddress && <p>{s.visitAddress}</p>}
+            </div>
+            {s.visitHref && (
+              <a className="link" href={vercelStegaClean(s.visitHref)} target="_blank" rel="noopener noreferrer">
+                {s.visitLinkLabel}
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            )}
+          </div>
+          <div className="ocards">
+            {(s.cities ?? []).map((c, i) =>
+              vercelStegaClean(s.cityStyle ?? "") === "card" ? (
+                <article className="card" key={c._key ?? i}>
+                  {c.label && <span className="label">{c.label}</span>}
+                  <h3 className="h3">
+                    {c.title}{" "}
+                    {c.flag && (
+                      <span className="flag" aria-hidden="true">
+                        {vercelStegaClean(c.flag)}
+                      </span>
+                    )}
+                  </h3>
+                  {c.body && <p className="body">{c.body}</p>}
+                </article>
+              ) : (
+                <article className="card city" key={c._key ?? i}>
+                  <h3 className="title">
+                    {c.title}
+                    {c.hq && <span className="dot" aria-label="Headquarters" />}
+                  </h3>
+                  {c.body && <p className="small">{c.body}</p>}
+                </article>
+              ),
+            )}
+          </div>
         </div>
       </div>
     </Sec>

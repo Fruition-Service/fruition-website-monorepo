@@ -33,6 +33,24 @@ export const vcHero = defineType({
     defineField({ name: 'creds', title: 'Badges on the frame', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
     defineField({ name: 'chipValue', title: 'Frame chip value', type: 'string' }),
     defineField({ name: 'chipLabel', title: 'Frame chip label', type: 'string' }),
+    defineField({ name: 'mapKind', title: 'Map style', type: 'string', description: 'Region pages: "rmap" (pins) or "art" (labelled map). Leave as is.' }),
+    defineField({ name: 'mapSvg', title: 'Map artwork (SVG markup)', type: 'text', rows: 3, description: 'Generated dotted map. Do not edit by hand.' }),
+    defineField({ name: 'mapAspect', title: 'Map aspect ratio', type: 'string', description: 'e.g. "1.07" (pins) or "43.3/41.77" (labelled).' }),
+    defineField({ name: 'mapAria', title: 'Map description (accessibility)', type: 'string' }),
+    defineField({
+      name: 'pins',
+      title: 'Map pins',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcPin', fields: [
+        defineField({ name: 'label', title: 'City', type: 'string' }),
+        defineField({ name: 'left', title: 'Left (%)', type: 'number' }),
+        defineField({ name: 'top', title: 'Top (%)', type: 'number' }),
+        defineField({ name: 'side', title: 'Label side', type: 'string', options: { list: ['r', 'l', 't', 'b'] } }),
+        defineField({ name: 'on', title: 'Highlighted', type: 'boolean' }),
+      ], preview: { select: { title: 'label' } } })],
+    }),
+    defineField({ name: 'mapFlag', title: 'Map label flag', type: 'string' }),
+    defineField({ name: 'mapLabel', title: 'Map label', type: 'string' }),
     defineField({ name: 'floatBadges', title: 'Floating partner badges', type: 'array', description: 'Badges pinned under the graphic (partner pages).', of: [defineArrayMember({ type: 'vcLogo' })] }),
     defineField({ name: 'floatBadgeClass', title: 'Badge group style', type: 'string', description: 'Design-system value, e.g. "two". Leave as is.' }),
     defineField({ name: 'stats', title: 'Stats row', type: 'array', of: [defineArrayMember({ type: 'vcStat' })] }),
@@ -553,9 +571,92 @@ export const vcToolkit = defineType({
   preview: preview('Tool marquee'),
 })
 
+export const vcStatsRow = defineType({
+  name: 'vcStatsRow',
+  title: 'Numbers row',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'stats', title: 'Numbers', type: 'array', of: [defineArrayMember({ type: 'vcStat' })] }),
+    defineField({ name: 'note', title: 'Footnote', type: 'text', rows: 2 }),
+    defineField({ name: 'statsClass', title: 'Row style', type: 'string', description: 'Design-system value, e.g. "in". Leave as is.' }),
+    defineField({ name: 'noteBelow', title: 'Footnote below the row', type: 'boolean', initialValue: false }),
+  ],
+  preview: preview('Numbers row'),
+})
+
+export const vcTeam = defineType({
+  name: 'vcTeam',
+  title: 'Team grid',
+  type: 'object',
+  description: 'People come from Team Members, so a bio or photo edit there updates every page.',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'layout', title: 'Card style', type: 'string', options: { list: [{ title: 'Full bio with Read more', value: 'full' }, { title: 'Compact', value: 'compact' }] }, initialValue: 'full' }),
+    defineField({
+      name: 'members',
+      title: 'People',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcTeamRef',
+          fields: [
+            defineField({ name: 'person', title: 'Team member', type: 'reference', to: [{ type: 'teamMember' }] }),
+            defineField({ name: 'bio', title: 'Short bio for this page (optional)', type: 'text', rows: 3, description: 'Empty shows the bio from Team Members.' }),
+          ],
+          preview: { select: { title: 'person.name', subtitle: 'bio' } },
+        }),
+      ],
+    }),
+  ],
+  preview: preview('Team grid'),
+})
+
+export const vcAnswer = defineType({
+  name: 'vcAnswer',
+  title: 'Quick answer',
+  type: 'object',
+  fields: [...sectionBase, defineField({ name: 'badge', title: 'Badge', type: 'string' }), heading(), defineField({ name: 'body', title: 'Answer', type: 'text', rows: 5 })],
+  preview: preview('Quick answer', 'heading'),
+})
+
+export const vcCoverage = defineType({
+  name: 'vcCoverage',
+  title: 'Offices and coverage',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'mapQuery', title: 'Map address', type: 'string', description: 'Address shown on the embedded Google map.' }),
+    defineField({ name: 'mapTitle', title: 'Map title (accessibility)', type: 'string' }),
+    defineField({ name: 'visitLabel', title: 'Visit label', type: 'string' }),
+    defineField({ name: 'visitHeading', title: 'Visit heading', type: 'string' }),
+    defineField({ name: 'visitAddress', title: 'Visit address', type: 'string' }),
+    defineField({ name: 'visitLinkLabel', title: 'Map link label', type: 'string' }),
+    defineField({ name: 'visitHref', title: 'Map link', type: 'string' }),
+    defineField({ name: 'cityStyle', title: 'City card style', type: 'string', options: { list: [{ title: 'City list', value: 'city' }, { title: 'Market cards', value: 'card' }] }, initialValue: 'city' }),
+    defineField({
+      name: 'cities',
+      title: 'Cities',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcCity', fields: [
+        defineField({ name: 'label', title: 'Small label (time zone)', type: 'string' }),
+        defineField({ name: 'title', title: 'City', type: 'string' }),
+        defineField({ name: 'flag', title: 'Flag', type: 'string' }),
+        defineField({ name: 'hq', title: 'Headquarters', type: 'boolean' }),
+        defineField({ name: 'body', title: 'Line', type: 'string' }),
+      ], preview: { select: { title: 'title', subtitle: 'body' } } })],
+    }),
+  ],
+  preview: preview('Offices and coverage'),
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage,
 ]
 
 export const VC_SECTION_TYPES = vcSections.map((s) => s.name)
