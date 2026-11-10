@@ -49,6 +49,11 @@ export const FOOTER_V3_COLUMNS: FooterV3Column[] = [
       { label: 'HubSpot Breeze AI', href: '/hubspot-consulting#breeze-ai' },
       { label: 'All partners', href: '/partnerships' },
       { label: 'Integrations', href: '/integrations' },
+      { label: 'WhatsApp', href: '/integrations/whatsapp' },
+      { label: 'LINE', href: '/integrations/line' },
+      { label: 'Viber', href: '/integrations/viber' },
+      { label: 'Twilio', href: '/integrations/twilio' },
+      { label: 'Zapier', href: '/integrations/zapier' },
     ],
   },
   {

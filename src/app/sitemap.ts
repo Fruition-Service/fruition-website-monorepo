@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next"
-import { RETIRED_SOLUTION_SLUGS } from "@/lib/retiredLinks"
+import {
+  RETIRED_SOLUTION_SLUGS,
+  RETIRED_PARTNERSHIP_SLUGS,
+  RETIRED_AUTHOR_SLUGS,
+} from "@/lib/retiredLinks"
 import {
   getBlogPosts,
   getBlogAuthors,
@@ -64,13 +68,9 @@ const STATIC_PATHS: string[] = [
   "/faqs",
   "/fruition-team",
   "/implementation-packages",
-  "/monday-consulting-solutions/monday-for-cabinetry-renovation",
-  "/monday-consulting-solutions/monday-for-finance",
   "/monday-consulting-solutions/monday-for-hr",
-  "/monday-consulting-solutions/monday-product-management",
   "/monday-consulting-solutions/monday-project-management",
   "/monday-consulting-solutions/monday-service",
-  "/monday-consulting-solutions/solar-crm-solution",
   "/monday-crm-consulting",
   "/monday-for-construction",
   "/monday-for-government",
@@ -97,7 +97,6 @@ const STATIC_PATHS: string[] = [
   "/partnerships/google-cloud-partner",
   "/partnerships/google-gemini-vertex-ai-partner",
   "/partnerships/hootsuite-delivery-partner",
-  "/partnerships/langgraph-partner",
   "/partnerships/make-partners",
   "/partnerships/microsoft-azure-partner",
   "/partnerships/microsoft-copilot-partner",
@@ -152,9 +151,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const p of STATIC_PATHS) add(p)
   for (const p of posts) if (p?.slug) add(`/post/${p.slug}`, p.publishedAt)
-  for (const a of authors) if (a?.slug) add(`/author/${a.slug}`, a.latestPublishedAt)
+  for (const a of authors) if (a?.slug && !RETIRED_AUTHOR_SLUGS.has(a.slug)) add(`/author/${a.slug}`, a.latestPublishedAt)
   for (const s of solutions) if (s?.slug && !RETIRED_SOLUTION_SLUGS.has(s.slug)) add(`/monday-consulting-solutions/${s.slug}`)
-  for (const p of partnerships) if (p?.slug) add(`/partnerships/${p.slug}`)
+  for (const p of partnerships) if (p?.slug && !RETIRED_PARTNERSHIP_SLUGS.has(p.slug)) add(`/partnerships/${p.slug}`)
 
   return entries
 }

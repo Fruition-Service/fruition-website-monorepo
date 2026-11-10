@@ -20,7 +20,7 @@ Six practices, one operating model, designed to make platforms fit your business
 - Platform implementation: monday.com, Atlassian and HubSpot discovery, solution design, build, data migration and go-live. See [monday.com implementation consultants](https://www.fruitionservices.io/monday-implementation-consultants).
 - Integrations and automation: native integrations, API and middleware work on n8n, and migrations off current tools or spreadsheets. See [integrations](https://www.fruitionservices.io/integrations).
 - AI advisory and implementation: readiness, adoption frameworks and agent builds on Claude, OpenAI and Copilot, plus platform-native AI. See [AI consulting](https://www.fruitionservices.io/ai-consulting).
-- Change management and adoption: stakeholder engagement, training, comms and measurement, the reason implementations stick. See [monday.com training](https://www.fruitionservices.io/monday-training).
+- Change management and adoption: stakeholder engagement, training, comms and measurement, the reason implementations stick. See [monday.com training](https://www.fruitionservices.io/training).
 - Partner and licensing advisory: licensing, plan and procurement guidance, plus managed services as the long-term partner of record. See [certifications and awards](https://www.fruitionservices.io/certifications-and-awards).
 - Managed services: ongoing optimisation and managed support that keeps platforms running long after go-live. See [implementation packages](https://www.fruitionservices.io/implementation-packages).
 

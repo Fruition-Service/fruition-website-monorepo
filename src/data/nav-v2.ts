@@ -123,7 +123,7 @@ export const NAV_V2: NavV2Item[] = [
           },
           {
             label: 'Licence procurement',
-            href: '/pricing',
+            href: '/licence-procurement',
             icon: 'dollar',
             description: 'Audit, sourcing and renewal management',
           },
@@ -196,12 +196,6 @@ export const NAV_V2: NavV2Item[] = [
             description: 'Delivery, portfolios & PMO',
           },
           {
-            label: 'Finance',
-            href: '/monday-consulting-solutions/monday-for-finance',
-            icon: 'dollar',
-            description: 'Approvals, budgeting & reporting',
-          },
-          {
             label: 'HR',
             href: '/monday-consulting-solutions/monday-for-hr',
             icon: 'users',
@@ -212,12 +206,6 @@ export const NAV_V2: NavV2Item[] = [
             href: '/monday-consulting-solutions/monday-service',
             icon: 'heart',
             description: 'Service desks & ticketing',
-          },
-          {
-            label: 'Product Management',
-            href: '/monday-consulting-solutions/monday-product-management',
-            icon: 'bulb',
-            description: 'Roadmaps & product ops',
           },
           {
             label: 'Marketing & Creative',
@@ -289,7 +277,6 @@ export const NAV_V2: NavV2Item[] = [
           { label: 'Make', href: '/partnerships/make-partners', icon: 'make', description: 'Certified Make partner' },
           { label: 'n8n', href: '/partnerships/n8n-integration-partner', icon: 'n8n', description: 'Certified n8n partner' },
           { label: 'Zapier', href: '/integrations/zapier', icon: 'zapier', description: 'Quick connections between tools' },
-          { label: 'LangGraph', href: '/partnerships/langgraph-partner', icon: 'langgraph', description: 'Agent orchestration & stateful graphs' },
           { label: 'Clay', href: '/partnerships/clay-partner', icon: 'clay', description: 'GTM data enrichment & prospecting' },
           { label: 'ElevenLabs', href: '/partnerships/elevenlabs-partner', icon: 'elevenlabs', description: 'Voice AI & speech generation' },
           { label: 'Vapi', href: '/partnerships/vapi-partner', icon: 'vapi', description: 'Voice agents for inbound & outbound calls' },

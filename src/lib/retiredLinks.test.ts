@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest"
 import {
   RETIRED_HUB_DESTINATION,
   RETIRED_SOLUTION_SLUGS,
+  RETIRED_PARTNERSHIP_SLUGS,
+  RETIRED_AUTHOR_SLUGS,
   dropRetiredHubNavLinks,
   retiredLinkHref,
   rewriteRetiredLinks,
@@ -162,26 +164,33 @@ describe("dropRetiredHubNavLinks", () => {
 })
 
 describe("RETIRED_SOLUTION_SLUGS", () => {
-  it("lists the six suffix-numbered duplicates and none of the real pages", () => {
+  it("lists the retired duplicates and cleaned-up pages, and none of the live pages", () => {
     expect([...RETIRED_SOLUTION_SLUGS].sort()).toEqual([
+      "monday-for-cabinetry-renovation",
+      "monday-for-finance",
       "monday-for-finance-4",
       "monday-for-hr-2",
+      "monday-product-management",
       "monday-product-management-5",
       "monday-project-management-0",
       "monday-service-1",
+      "solar-crm-solution",
       "solar-crm-solution-6",
     ])
-    for (const real of [
-      "catalog",
-      "monday-for-finance",
-      "monday-for-hr",
-      "monday-service",
-      "monday-product-management",
-      "monday-project-management",
-      "solar-crm-solution",
-      "monday-for-cabinetry-renovation",
-    ]) {
+    for (const real of ["catalog", "monday-for-hr", "monday-service", "monday-project-management"]) {
       expect(RETIRED_SOLUTION_SLUGS.has(real)).toBe(false)
     }
+  })
+})
+
+describe("RETIRED_PARTNERSHIP_SLUGS and RETIRED_AUTHOR_SLUGS", () => {
+  it("cover only the cleaned-up pages", () => {
+    expect([...RETIRED_PARTNERSHIP_SLUGS].sort()).toEqual(["certified-guidde-partner", "langgraph-partner"])
+    expect([...RETIRED_AUTHOR_SLUGS].sort()).toEqual([
+      "fruition-services",
+      "ishani-chowdhury",
+      "ishani-dhar-chowdury",
+    ])
+    expect(RETIRED_AUTHOR_SLUGS.has("fruition-editorial")).toBe(false)
   })
 })

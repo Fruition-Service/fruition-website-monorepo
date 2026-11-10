@@ -9,10 +9,13 @@ import { resolveFaqTabs } from "@/sanity/groupFaqs"
 import UniversalPageTemplate from "@/components/UniversalPageTemplate"
 import { buildOgMetadata } from "@/lib/metadata"
 import { notFound } from "next/navigation"
+import { RETIRED_PARTNERSHIP_SLUGS } from "@/lib/retiredLinks"
 
 export async function generateStaticParams() {
   const pages = await getAllPartnershipPages()
-  return pages.map((p: { slug: string }) => ({ slug: p.slug }))
+  return pages
+    .filter((p: { slug: string }) => !RETIRED_PARTNERSHIP_SLUGS.has(p.slug))
+    .map((p: { slug: string }) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({
@@ -21,6 +24,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  // Retired pages are redirected in next.config.ts; never render them.
+  if (RETIRED_PARTNERSHIP_SLUGS.has(slug)) notFound()
   const page = await getPartnershipPageBySlug(slug)
   if (!page) return {}
   const title = page?.seoTitle || page?.title || slug
@@ -43,6 +48,7 @@ export default async function PartnershipPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  if (RETIRED_PARTNERSHIP_SLUGS.has(slug)) notFound()
   const [page, siteSettings, caseStudies, centralFaqs] = await Promise.all([
     getPartnershipPageBySlug(slug),
     getSiteSettings(),

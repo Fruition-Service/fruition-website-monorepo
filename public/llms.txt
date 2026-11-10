@@ -36,11 +36,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 - [monday.com project management](https://www.fruitionservices.io/monday-consulting-solutions/monday-project-management)
 - [monday Service](https://www.fruitionservices.io/monday-consulting-solutions/monday-service)
 - [monday.com for HR](https://www.fruitionservices.io/monday-consulting-solutions/monday-for-hr)
-- [monday.com for finance](https://www.fruitionservices.io/monday-consulting-solutions/monday-for-finance)
-- [monday.com product management](https://www.fruitionservices.io/monday-consulting-solutions/monday-product-management)
-- [Solar CRM and work management solution](https://www.fruitionservices.io/monday-consulting-solutions/solar-crm-solution)
-- [monday.com for cabinetry and renovation](https://www.fruitionservices.io/monday-consulting-solutions/monday-for-cabinetry-renovation)
-- [monday.com training](https://www.fruitionservices.io/monday-training): team workshops and structured enablement.
+- [monday.com training](https://www.fruitionservices.io/training): team workshops and structured enablement.
 
 ## AI and automation
 
