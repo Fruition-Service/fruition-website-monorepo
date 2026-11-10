@@ -12,7 +12,12 @@
  * (GTM listens for Calendly's `calendly.event_scheduled` message), so the
  * booking card's details step deliberately does not call this: one booking
  * would otherwise count as both a lead and an appointment.
+ *
+ * It also tags the Clarity recording with `enquiry_submitted` (see
+ * src/lib/clarity.ts), so every caller covers both exactly once.
  */
+
+import { trackClarityEnquiry } from "./clarity"
 
 export function trackLead(source: string | undefined): void {
   if (typeof window === "undefined") return
@@ -26,4 +31,5 @@ export function trackLead(source: string | undefined): void {
   } catch {
     // Analytics must never break the form.
   }
+  trackClarityEnquiry(source)
 }
