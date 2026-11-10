@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Civil, Formwork & Concreting Contractors | Fruition</title>
-<meta name="description" content="monday.com built for Australian civil, formwork and concreting contractors. Jobsites, pour schedules, ITPs, subbies and claims &mdash; delivered by a Platinum Partner.">
+<meta name="description" content="monday.com built for Australian civil, formwork and concreting contractors. Jobsites, pour schedules, ITPs, subbies and claims, delivered by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -53,7 +53,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">🚧 monday.com Platinum Partner · Civil &amp; Concrete · Australia</div>
 <h1>monday.com for <em>Civil, Formwork &amp; Concreting</em> contractors</h1>
-<p class="sub">Jobsites, pour schedules, ITPs, subbie coordination and progress claims in one system your site teams will actually use &mdash; phone-first, built by a Platinum Partner.</p>
+<p class="sub">Jobsites, pour schedules, ITPs, subbie coordination and progress claims in one system your site teams will actually use, phone-first, built by a Platinum Partner.</p>
 <ul class="ticks">
 <li>Pour schedules and lookaheads visible to site and office</li>
 <li>ITPs, QA checklists and NCR tracking with photo evidence</li>
@@ -117,7 +117,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -132,15 +132,15 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Built for how civil and concrete crews actually work</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">Built for how civil and <em>concrete crews actually work</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
 <div class="card"><h3>Job &amp; pour scheduling</h3><p>Lookaheads, pour bookings and crew allocation that update from the ute, not just the site office.</p></div>
 <div class="card"><h3>QA, ITPs &amp; NCRs</h3><p>Inspection test plans, hold points and non-conformances with photos attached from the phone.</p></div>
 <div class="card"><h3>Subbie coordination</h3><p>Dockets, SWMS status, insurances and performance tracked per subcontractor per job.</p></div>
 <div class="card"><h3>Variations &amp; progress claims</h3><p>Capture site instructions as they happen and roll them into monthly claims without re-keying.</p></div>
 <div class="card"><h3>Plant &amp; crew allocation</h3><p>See which gear and gangs are where, and what's free for the next pour.</p></div>
-<div class="card"><h3>Head-contract reporting</h3><p>Dashboards per project and portfolio for PMs, CMs and directors &mdash; live, not Friday-night Excel.</p></div>
+<div class="card"><h3>Head-contract reporting</h3><p>Dashboards per project and portfolio for PMs, CMs and directors, live, not Friday-night Excel.</p></div>
 </div>
 </div>
 </section>
@@ -148,8 +148,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -163,9 +163,9 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -174,7 +174,7 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"The monday.com mobile app gives our technicians on raw construction sites instant access to the project information they need and makes connecting with the team at HQ easy."</p><div class="who"><b>Allie Swindlehurst</b> · Operations Manager, Falkbuilt</div></div>
 <div class="quote"><p>"This system will save hundreds of thousands of dollars a year guaranteed."</p><div class="who"><b>Brandon-Lee Horridge</b> · Managing Director, BL Air Conditioning</div></div>
@@ -192,8 +192,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Will site crews actually use it?</summary><div class="a">That's the design goal. We build phone-first boards &mdash; big buttons, photo uploads, minimal typing &mdash; and train supervisors on their own jobs. The monday.com mobile app is the front end; the office gets the dashboards.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Will site crews actually use it?</summary><div class="a">That's the design goal. We build phone-first boards, big buttons, photo uploads, minimal typing, and train supervisors on their own jobs. The monday.com mobile app is the front end; the office gets the dashboards.</div></details>
 <details><summary>Can it handle ITPs and QA records?</summary><div class="a">Yes. ITPs, hold/witness points, checklists and NCRs are built as structured workflows with photo evidence and sign-offs, exportable when the superintendent asks.</div></details>
 <details><summary>How does it work with our claims process?</summary><div class="a">Site instructions and variations are captured at the source and flow into a claims register, so monthly progress claims are assembled from live data rather than rebuilt from emails.</div></details>
 <details><summary>How fast can we be live?</summary><div class="a">Most contractors run their first jobs on monday.com within two to four weeks. Fixed fee agreed up front; licences billed separately by monday.com.</div></details>

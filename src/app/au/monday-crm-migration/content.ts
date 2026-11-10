@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Migrate Salesforce, HubSpot or Pipedrive to monday CRM | Fruition</title>
-<meta name="description" content="CRM migration to monday.com by a Platinum Partner. Salesforce, HubSpot or Pipedrive moved with full history preserved &mdash; pipelines rebuilt better, live in weeks.">
+<meta name="description" content="CRM migration to monday.com by a Platinum Partner. Salesforce, HubSpot or Pipedrive moved with full history preserved, pipelines rebuilt better, live in weeks.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -53,7 +53,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">🔁 monday.com Platinum Partner · CRM Migrations · Australia</div>
 <h1>Migrate <em>Salesforce, HubSpot or Pipedrive</em> to monday CRM</h1>
-<p class="sub">Full-history migrations to monday CRM &mdash; contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell, team trained on day one.</p>
+<p class="sub">Full-history migrations to monday CRM, contacts, deals, activities and files preserved, pipelines rebuilt around how you actually sell, team trained on day one.</p>
 <ul class="ticks">
 <li>Complete history migrated: contacts, deals, emails, files</li>
 <li>Pipelines rebuilt properly, not copied flaws and all</li>
@@ -117,7 +117,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -132,14 +132,14 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">A migration, not a copy-paste of old problems</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">A migration, <em>not a copy-paste of old problems</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
-<div class="card"><h3>Migration audit</h3><p>We map your current objects, fields, automations and integrations &mdash; and what's worth leaving behind.</p></div>
+<div class="card"><h3>Migration audit</h3><p>We map your current objects, fields, automations and integrations, and what's worth leaving behind.</p></div>
 <div class="card"><h3>Full-history data migration</h3><p>Contacts, companies, deals, activities, notes and files moved with relationships intact.</p></div>
 <div class="card"><h3>Pipeline redesign</h3><p>Stages, fields and automations rebuilt around how you sell now, not how the old CRM forced you to.</p></div>
 <div class="card"><h3>Integration reconnection</h3><p>Email, calendar, forms, Xero/MYOB and marketing tools reconnected to monday CRM.</p></div>
-<div class="card"><h3>Parallel-run cutover</h3><p>Old and new run side by side through a controlled cutover &mdash; no lost deals, no blackout week.</p></div>
+<div class="card"><h3>Parallel-run cutover</h3><p>Old and new run side by side through a controlled cutover, no lost deals, no blackout week.</p></div>
 <div class="card"><h3>Team enablement</h3><p>Training on your own pipeline plus 30-day post-go-live support while habits form.</p></div>
 </div>
 </div>
@@ -148,8 +148,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -163,9 +163,9 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -174,7 +174,7 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
 <div class="quote"><p>"Having experienced working with Josh directly at monday.com, I'd have no hesitation recommending Josh in any consulting engagement."</p><div class="who"><b>Brad Cannon</b> · Senior Account Executive, monday.com</div></div>
@@ -192,11 +192,11 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Do we lose history when migrating?</summary><div class="a">No. Contacts, companies, deals, activities, notes and attachments migrate with relationships preserved. We validate record counts with you before cutover &mdash; nothing is 'close enough'.</div></details>
-<details><summary>How long does a CRM migration take?</summary><div class="a">Most Salesforce, HubSpot or Pipedrive migrations complete in two to four weeks including pipeline redesign and training. Complex multi-object Salesforce orgs run longer &mdash; the timeline is fixed during scoping.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Do we lose history when migrating?</summary><div class="a">No. Contacts, companies, deals, activities, notes and attachments migrate with relationships preserved. We validate record counts with you before cutover, nothing is 'close enough'.</div></details>
+<details><summary>How long does a CRM migration take?</summary><div class="a">Most Salesforce, HubSpot or Pipedrive migrations complete in two to four weeks including pipeline redesign and training. Complex multi-object Salesforce orgs run longer, the timeline is fixed during scoping.</div></details>
 <details><summary>Why move to monday CRM at all?</summary><div class="a">Teams switch for flexibility, adoption and cost: pipelines your team will actually update, automations without admin overhead, and licensing that doesn't punish growth. We'll tell you honestly if your current CRM is the better fit.</div></details>
-<details><summary>Can you keep some tools connected?</summary><div class="a">Yes &mdash; Outlook/Gmail, calendars, website forms, Xero/MYOB and marketing platforms are reconnected to monday CRM as part of the build.</div></details>
+<details><summary>Can you keep some tools connected?</summary><div class="a">Yes, Outlook/Gmail, calendars, website forms, Xero/MYOB and marketing platforms are reconnected to monday CRM as part of the build.</div></details>
 </div>
 </section>
 

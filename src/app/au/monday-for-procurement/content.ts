@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Procurement & Supplier Management | Fruition</title>
-<meta name="description" content="monday.com procurement and supplier management for Australian businesses. Supplier onboarding, PO approvals, vendor scorecards and contracts &mdash; Platinum Partner.">
+<meta name="description" content="monday.com procurement and supplier management for Australian businesses. Supplier onboarding, PO approvals, vendor scorecards and contracts, Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -53,7 +53,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">📦 monday.com Platinum Partner · Procurement · Australia</div>
 <h1>monday.com for <em>Procurement &amp; Supplier Management</em></h1>
-<p class="sub">Supplier onboarding, purchase approvals, vendor performance and contract renewals in one controlled workflow &mdash; with the audit trail your auditors keep asking for.</p>
+<p class="sub">Supplier onboarding, purchase approvals, vendor performance and contract renewals in one controlled workflow, with the audit trail your auditors keep asking for.</p>
 <ul class="ticks">
 <li>Supplier onboarding with insurances and compliance checks</li>
 <li>Purchase request → approval → PO with delegation limits</li>
@@ -64,7 +64,7 @@ ${LP_FONTS}
 <span class="badge">monday.com Platinum Partner</span>
 <span class="badge">Advanced Delivery Partner</span>
 <span class="badge">900+ implementations</span>
-<span class="badge">NSW Gov ICT Scheme &mdash; Advanced supplier</span>
+<span class="badge">NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
 
@@ -117,7 +117,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -132,12 +132,12 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Procurement that's controlled without being slow</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">Procurement that's controlled without <em>being slow</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
 <div class="card"><h3>Supplier onboarding</h3><p>Structured intake with ABN checks, insurances, certifications and approval before first PO.</p></div>
-<div class="card"><h3>Purchase approvals</h3><p>Requests routed by value and category against delegation limits &mdash; approved from the phone.</p></div>
-<div class="card"><h3>PO &amp; delivery tracking</h3><p>Raised, sent, received and reconciled &mdash; with exceptions flagged, not discovered at month end.</p></div>
+<div class="card"><h3>Purchase approvals</h3><p>Requests routed by value and category against delegation limits, approved from the phone.</p></div>
+<div class="card"><h3>PO &amp; delivery tracking</h3><p>Raised, sent, received and reconciled, with exceptions flagged, not discovered at month end.</p></div>
 <div class="card"><h3>Vendor scorecards</h3><p>On-time, quality and commercial performance per supplier, reviewed on a cadence.</p></div>
 <div class="card"><h3>Contract &amp; compliance register</h3><p>Expiry alerts on contracts, insurances and certifications across the supplier base.</p></div>
 <div class="card"><h3>Finance integration</h3><p>Connect Xero, MYOB or your ERP so procurement and finance stop re-keying the same data.</p></div>
@@ -148,8 +148,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -163,9 +163,9 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -174,7 +174,7 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"We found monday to be more customisable and transparent for both internal and external stakeholders. It reduced double handling of issues."</p><div class="who"><b>Mairhead McKinley</b> · Delivery Manager, Givergy</div></div>
 <div class="quote"><p>"Process automation across campaign management, budget management and project approvals has saved significant amounts of time for staff globally."</p><div class="who"><b>Emily Hill</b> · International Markets Manager, Tourism Northern Territory</div></div>
@@ -192,11 +192,11 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Can approval limits and delegations be enforced?</summary><div class="a">Yes &mdash; requests route automatically by value band and category to the right approvers, with every decision time-stamped for audit.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Can approval limits and delegations be enforced?</summary><div class="a">Yes, requests route automatically by value band and category to the right approvers, with every decision time-stamped for audit.</div></details>
 <details><summary>How are supplier insurances tracked?</summary><div class="a">Certificates of currency, licences and certifications sit on each supplier record with automated expiry alerts and blocked status for lapsed suppliers.</div></details>
-<details><summary>Does it integrate with our finance system?</summary><div class="a">Yes &mdash; Xero, MYOB and most ERPs via native integrations, Make or API, so POs and invoices reconcile without double entry.</div></details>
-<details><summary>What does implementation look like?</summary><div class="a">Discovery, a fixed quote, build, migration of your supplier register and training &mdash; typically live in two to four weeks.</div></details>
+<details><summary>Does it integrate with our finance system?</summary><div class="a">Yes, Xero, MYOB and most ERPs via native integrations, Make or API, so POs and invoices reconcile without double entry.</div></details>
+<details><summary>What does implementation look like?</summary><div class="a">Discovery, a fixed quote, build, migration of your supplier register and training, typically live in two to four weeks.</div></details>
 </div>
 </section>
 

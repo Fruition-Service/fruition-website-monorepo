@@ -38,7 +38,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">🇬🇧 monday.com Platinum Partner · Team Training · London · Manchester · Birmingham · Edinburgh</div>
 <h1><em>monday.com Training</em> for your team</h1>
-<p class="sub">Admin and end-user training delivered on your own boards by certified consultants &mdash; not generic demos &mdash; with champion programs that make adoption stick.</p>
+<p class="sub">Admin and end-user training delivered on your own boards by certified consultants, not generic demos, with champion programs that make adoption stick.</p>
 <ul class="ticks">
 <li>Training on your boards, not a demo account</li>
 <li>Admin, end-user and champion tracks</li>
@@ -98,8 +98,8 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Training that changes behaviour, not just awareness</h2>
-<p class="lede">Delivered by certified monday.com consultants working your hours &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">Training that changes behaviour, <em>not just awareness</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working your hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>Admin training</h3><p>Deep configuration, automation and governance skills for your system owners.</p></div>
 <div class="card"><h3>End-user training</h3><p>Role-based sessions on the boards people actually use daily.</p></div>
@@ -114,8 +114,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -129,9 +129,9 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -140,7 +140,7 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Zach provided excellent training on monday.com and included some great insights on how we can best use the project management features."</p><div class="who"><b>Tedd Long</b> · MCAG Inc.</div></div>
 <div class="quote"><p>"Could not be happier. Thank you for your hard work and commitment. Highly recommend!"</p><div class="who"><b>Bianca Genesio</b> · Central Manager, G8 Education</div></div>
@@ -158,10 +158,10 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
-<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director &mdash; EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
+<div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/0b7cac4a6d1e09efde35a473e3e6bee65f5d91d2-800x800.jpg?w=560&h=560&fit=crop" alt="Kevin Zhao" loading="lazy"><h3>Kevin Zhao</h3><div class="role">Director, EMEA</div><p>Ex-monday.com, leading UK delivery and best practice across hundreds of builds.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/634ee0c5c7d9e2c0d18d21d8a387822961233fed-512x512.png?w=560&h=560&fit=crop" alt="Alex Bordei" loading="lazy"><h3>Alex Bordei</h3><div class="role">Implementation Manager</div><p>Workflow design, process automation and change management.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/ff248988d44e2d927a796f035b39f8bc5fe7b3f7-512x512.jpg?w=560&h=560&fit=crop" alt="Nevena Gravin" loading="lazy"><h3>Nevena Gravin</h3><div class="role">Implementation Lead</div><p>CRM, work management and ticketing system architecture.</p></div>
 
@@ -172,11 +172,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
 <details open><summary>Is training generic or on our setup?</summary><div class="a">Always on your own boards and workflows. Generic demos don't change behaviour; training on the system people use every day does.</div></details>
 <details><summary>How are sessions delivered?</summary><div class="a">Remote by default, on-site available across the UK. Sessions are recorded so new starters inherit them.</div></details>
-<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately &mdash; and we'll tell you which plan tier you actually need.</div></details>
-<details><summary>Do you train teams that implemented themselves?</summary><div class="a">Yes &mdash; training-only engagements are common, and often surface quick configuration wins we'll flag as we go.</div></details>
+<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately, and we'll tell you which plan tier you actually need.</div></details>
+<details><summary>Do you train teams that implemented themselves?</summary><div class="a">Yes, training-only engagements are common, and often surface quick configuration wins we'll flag as we go.</div></details>
 </div>
 </section>
 
@@ -186,7 +186,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+447822019548" style="color:var(--purple);font-weight:700;text-decoration:none">+44 7822 019548</a> · GMT/BST business hours</p>
 </div>
@@ -201,7 +201,7 @@ Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
 <footer>
 <div class="wrap">
 <img src="https://www.fruitionservices.io/images/logo-fruition-white.svg" alt="Fruition Services">
-<div>Fruition Services · 423 Linen Hall, 162–168 Regent Street, London W1B 5TE · <a href="tel:+447822019548">+44 7822 019548</a></div>
+<div>Fruition Services · 423 Linen Hall, 162-168 Regent Street, London W1B 5TE · <a href="tel:+447822019548">+44 7822 019548</a></div>
 <div><a href="https://www.fruitionservices.io/data-privacy">Privacy</a> · <a href="https://www.fruitionservices.io/terms-and-conditions">Terms</a></div>
 </div>
 </footer>

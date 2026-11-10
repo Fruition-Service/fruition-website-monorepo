@@ -8,7 +8,7 @@ export const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>monday.com Consulting Services Australia | Certified Platinum Partner — Fruition</title>
+<title>monday.com Consulting Services Australia | Certified Platinum Partner | Fruition</title>
 <meta name="description" content="Expert monday.com consulting services and implementation across Australia. monday CRM consultants, workflow automation and certified Platinum Partner delivery. Book a free consultation.">
 <meta name="keywords" content="monday consulting services, monday CRM consultants, monday implementation consultant, monday.com consulting services, monday.com certified partner, monday com consultant Australia">
 <meta name="robots" content="noindex, follow">
@@ -47,7 +47,7 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="dash" aria-hidden="true">
-<div class="dash-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ttl">Sales Pipeline — Q3</span></div>
+<div class="dash-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ttl">Sales Pipeline, Q3</span></div>
 <div class="dash-body">
 <div class="dash-row h"><span>Deal</span><span>Status</span><span>Owner</span><span>Progress</span></div>
 <div class="dash-row"><span class="dash-name">Acme Rollout</span><span class="pill pg">Won</span><span>N. M.</span><span class="bar"><i style="width:100%"></i></span></div>
@@ -74,7 +74,7 @@ ${LP_FONTS}
 <section><div class="wrap">
 <div class="eyebrow">What we deliver</div>
 <h2>Tailored monday Implementation Consultant Solutions for Every Workflow</h2>
-<p class="lede">Certified, keyword-deep expertise across the full monday.com product suite — built around how your teams actually work.</p>
+<p class="lede">Certified, keyword-deep expertise across the full monday.com product suite, built around how your teams actually work.</p>
 <div class="caps">
 <div class="cap">
 <h3>monday CRM Consultants</h3>
@@ -82,7 +82,7 @@ ${LP_FONTS}
 </div>
 <div class="cap">
 <h3>Workflow Automation &amp; Integrations</h3>
-<p>Connect your entire tech stack — Xero, QuickBooks, Salesforce, or HubSpot — using Make.com or custom API developments to reduce manual tasks.</p>
+<p>Connect your entire tech stack, Xero, QuickBooks, Salesforce, or HubSpot, using Make.com or custom API developments to reduce manual tasks.</p>
 </div>
 <div class="cap">
 <h3>monday Service &amp; Work Management</h3>

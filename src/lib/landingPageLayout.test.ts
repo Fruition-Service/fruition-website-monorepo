@@ -43,16 +43,45 @@ describe("withLandingPageLayout", () => {
     expect(band.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => a.includes('href="#lead"'))).toBe(true)
     expect(band).toContain("Shared quote")
 
-    // Logos first, with the regional title and description under them, then the quotes.
+    // Site section header first (regional title left, description right), then the logos, then the quotes.
+    const title = band.indexOf('class="lpp-h2 lpp-logos-h2"')
+    const lead = band.indexOf('class="lpp-lead lpp-logos-lead"')
     const logos = band.indexOf('class="lpp-grid"')
-    const title = band.indexOf("Trusted by teams across 900+ implementations.")
-    const lead = band.indexOf('class="lpp-lead lpp-center lpp-logos-lead"')
     const quotes = band.indexOf(">Client proof<")
-    expect(logos).toBeGreaterThan(0)
-    expect(title).toBeGreaterThan(logos)
+    expect(band.replace(/<\/?em>/g, "")).toContain("Trusted by teams across 900+ implementations.")
+    expect(title).toBeGreaterThan(0)
     expect(lead).toBeGreaterThan(title)
-    expect(quotes).toBeGreaterThan(lead)
+    expect(logos).toBeGreaterThan(lead)
+    expect(quotes).toBeGreaterThan(logos)
   })
+
+  it.each(routes.map((r) => [r.page, r.source, r.region] as const))(
+    "%s: page-specific banner, booking copy, closing band and social row",
+    async (page, source, region) => {
+      const { html } = await import(`@/app/${page}/content`)
+      const out = withLandingPageLayout(html, shared, region as LeadRegion, source)
+      const audit = out.indexOf('class="lp-audit-sec"')
+      const booking = out.search(/<section class="(?:final|close-band)" id="book">/)
+      const closing = out.indexOf('class="lp-closing"')
+      const footer = out.search(/<footer\b|<div class="foot">/)
+      expect(audit).toBeGreaterThan(out.search(/<section class="lpp"/))
+      expect(closing).toBeGreaterThan(booking)
+      expect(closing).toBeLessThan(footer)
+      expect(out.slice(footer)).toContain('class="lp-soc"')
+      if (booking >= 0) {
+        const band = out.slice(booking, out.indexOf("</section>", booking))
+        expect(band).not.toContain("Ready to get running in days, not months?")
+      }
+      // Every CTA in the new bands goes back to the lead form (or the phone).
+      const bands = out.slice(audit, out.indexOf("</section>", audit)) + out.slice(closing, footer)
+      expect(bands.match(/<a [^>]*href="([^"]+)"/g)?.every((a) => /href="(#lead|#book|tel:)/.test(a))).toBe(true)
+      // No em or en dashes in the rendered copy (comments, scripts and the Calendly placeholder aside).
+      const text = out
+        .replace(/<!--[\s\S]*?-->|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/g, "")
+        .replace(/<div class="calendly-box">[\s\S]*?<\/div>/g, "")
+      expect(text).not.toMatch(/&mdash;|&ndash;|\u2014|\u2013/)
+    },
+  )
 
   it.each(pages)("%s uses the shared Fruition theme, not its own stylesheet", async (page) => {
     const { html } = await import(`@/app/${page}/content`)

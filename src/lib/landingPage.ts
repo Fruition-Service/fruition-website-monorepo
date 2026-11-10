@@ -7,6 +7,7 @@ import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
+import { bandCopy, renderAuditBand, renderClosingBand, renderSocialRow } from "@/lib/landingPageBands"
 
 /**
  * Serving for the Google Ads landing pages under /au, /uk and /us.
@@ -279,6 +280,7 @@ export function withLandingPageLayout(
   html: string,
   sharedQuotes: ProofQuote[] = [],
   region?: LeadRegion,
+  source?: string,
 ): string {
   if (html.includes('class="lpp"')) return html
   const proof = extractProof(html)
@@ -304,7 +306,8 @@ export function withLandingPageLayout(
     ...proof,
     quotes: mergeQuotes(proof.quotes, sharedQuotes),
     logosHeading: clients?.heading,
-    logosLead: clients?.lead,
+    // Ad pages follow the no-dash writing rule; the shared region data keeps its own punctuation.
+    logosLead: clients?.lead?.replace(/\s*[\u2014\u2013]\s*/g, ", "),
   })
   if (anchor < 0) {
     // No logo strip: put the band straight after the hero.
@@ -340,6 +343,56 @@ export function withLandingPageLayout(
       footer >= 0
         ? `${booking.html.slice(0, footer)}${booking.removed}\n\n${booking.html.slice(footer)}`
         : booking.html.replace(/<\/body>/i, `${booking.removed}\n</body>`)
+  }
+  return withBands(out, region, source)
+}
+
+/**
+ * 5. The shared bands (landingPageBands.ts): the dark banner after the stats
+ *    strip, page-specific booking copy, the purple closing band before the
+ *    footer and the footer's social row. Pages without a copy entry are left as
+ *    they are.
+ */
+function withBands(html: string, region?: LeadRegion, source?: string): string {
+  const copy = region && source ? bandCopy(source, region) : undefined
+  if (!copy) return html
+  let out = html
+  const BOOK = /<section class="(?:final|close-band)" id="book">/
+  // Band CTAs go back to the lead form; the consulting template's forms sit in the booking band.
+  const target = out.includes('id="lead"') ? "#lead" : "#book"
+
+  // Dark banner: after the stats strip, or else before the last section ahead of the booking band.
+  const stats = /<section class="stats">/.exec(out)
+  let auditAt = stats ? elementEnd(out, stats.index, "section") : -1
+  if (auditAt < 0) {
+    const book = out.search(BOOK)
+    const before = book >= 0 ? out.slice(0, book) : out
+    auditAt = before.lastIndexOf("<section")
+  }
+  if (auditAt > 0) out = out.slice(0, auditAt) + renderAuditBand(copy, target) + out.slice(auditAt)
+
+  const book = BOOK.exec(out)
+  if (book) {
+    const end = elementEnd(out, book.index, "section")
+    let band = out.slice(book.index, end)
+    const [plain, acc, lead] = copy.booking
+    band = band.replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/, `<h2>${plain} <em>${acc}</em></h2>`)
+    band = band.replace(/(<\/h2>\s*)<p\b[^>]*>[\s\S]*?<\/p>/, `$1<p class="lede">${lead}</p>`)
+    out = out.slice(0, book.index) + band + out.slice(end)
+  }
+
+  const phone = /<a class="phone" href="(tel:[^"]+)">([^<]+)<\/a>/.exec(out)
+  const closing = renderClosingBand(copy, phone ? { href: phone[1], label: phone[2] } : undefined, target)
+  const FOOT = /<footer\b|<div class="foot">/
+  const footer = out.search(FOOT)
+  if (footer >= 0) {
+    out = `${out.slice(0, footer)}${closing}\n${out.slice(footer)}`
+    const f = out.search(FOOT)
+    const tag = out.startsWith("<footer", f) ? "footer" : "div"
+    const close = elementEnd(out, f, tag)
+    const inner = out.lastIndexOf("</div>", close - (tag === "div" ? 7 : 1))
+    const at = tag === "footer" ? inner : close - "</div>".length
+    if (at > f) out = out.slice(0, at) + renderSocialRow() + out.slice(at)
   }
   return out
 }
@@ -413,7 +466,7 @@ export async function landingPageResponse(
   html: string,
   opts: { source: string; region: LeadRegion },
 ): Promise<Response> {
-  const laidOut = withLandingPageLayout(html, await sharedQuotes(), opts.region)
+  const laidOut = withLandingPageLayout(html, await sharedQuotes(), opts.region, opts.source)
   return new Response(withLandingPageTracking(laidOut, opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",

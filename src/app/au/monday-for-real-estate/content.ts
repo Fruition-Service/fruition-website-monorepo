@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Real Estate Australia | Fruition</title>
-<meta name="description" content="monday.com for real estate and property teams in Australia. Listings, leases, deals and maintenance in one system &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com for real estate and property teams in Australia. Listings, leases, deals and maintenance in one system, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -38,7 +38,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">🇦🇺 monday.com Platinum Partner · Real Estate & Property · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
 <h1>monday.com for <em>Real Estate &amp; Property</em></h1>
-<p class="sub">Listings, leasing pipelines, deals and property maintenance in one system &mdash; so nothing falls between the CRM, the spreadsheet and the inbox.</p>
+<p class="sub">Listings, leasing pipelines, deals and property maintenance in one system, so nothing falls between the CRM, the spreadsheet and the inbox.</p>
 <ul class="ticks">
 <li>Listing-to-settlement pipelines with every task owned</li>
 <li>Lease and renewal registers that never lapse</li>
@@ -49,7 +49,7 @@ ${LP_FONTS}
 <span class="badge">monday.com Platinum Partner</span>
 <span class="badge">Advanced Delivery Partner</span>
 <span class="badge">900+ implementations</span>
-<span class="badge">NSW Gov ICT Scheme &mdash; Advanced supplier</span>
+<span class="badge">NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
 <form class="formcard" id="lead" method="POST" action="#"><!-- FORM-WEBHOOK: Edward -->
@@ -98,8 +98,8 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Every property, deal and date in one place</h2>
-<p class="lede">Delivered by certified monday.com consultants working your hours &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">Every property, <em>deal and date in one place</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working your hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>Sales &amp; leasing pipelines</h3><p>From appraisal to settlement or lease signing, with automated next steps.</p></div>
 <div class="card"><h3>Property &amp; lease register</h3><p>Key dates, renewals, escalations and compliance with alerts before they bite.</p></div>
@@ -114,8 +114,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -129,9 +129,9 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -140,7 +140,7 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"Fruition have been instrumental in moving us to a single source of truth system for managing sales and projects."</p><div class="who"><b>Ron Amaram</b> · General Manager, Risk 2 Solutions</div></div>
 <div class="quote"><p>"Since implementing monday.com, CLSQ has experienced a significant transformation in operational efficiency."</p><div class="who"><b>Lorenzo Tejada-Orrell</b> · Chief Innovation Officer, CLSQ</div></div>
@@ -158,8 +158,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&w=560&h=560&fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Founder &amp; Managing Director</div><p>Ex-monday.com, personally oversaw system builds for hundreds of organisations before founding Fruition.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&h=560&fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
@@ -172,11 +172,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Does it replace our industry software?</summary><div class="a">It wraps around it. Trust accounting and portals stay where they are; monday.com runs the workflows between them &mdash; deals, maintenance, approvals and communication &mdash; integrated via API or Make.</div></details>
-<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately &mdash; and we'll tell you which plan tier you actually need.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Does it replace our industry software?</summary><div class="a">It wraps around it. Trust accounting and portals stay where they are; monday.com runs the workflows between them, deals, maintenance, approvals and communication, integrated via API or Make.</div></details>
+<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately, and we'll tell you which plan tier you actually need.</div></details>
 <details><summary>How long does it take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
-<details><summary>Can lease dates trigger automatic alerts?</summary><div class="a">Yes &mdash; renewals, option windows and compliance dates carry automated alerts and escalation so nothing lapses quietly.</div></details>
+<details><summary>Can lease dates trigger automatic alerts?</summary><div class="a">Yes, renewals, option windows and compliance dates carry automated alerts and escalation so nothing lapses quietly.</div></details>
 </div>
 </section>
 
@@ -186,7 +186,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>

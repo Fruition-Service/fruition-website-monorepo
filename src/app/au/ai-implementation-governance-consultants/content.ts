@@ -99,7 +99,7 @@ ${LP_FONTS}
 <section id="journey">
 <div class="wrap">
 <p class="k">Context and data maturity</p>
-<h2 class="sec">AI matures with use, one step at a time</h2>
+<h2 class="sec">AI matures with use, <em>one step at a time</em></h2>
 <p class="lede">Most businesses are at steps one to three. Agents live at step five. You cannot skip the gap, but you can cross it quickly with the right partner. Click the step that sounds like you.</p>
 <div class="grid3">
 <div class="card">
@@ -164,7 +164,7 @@ ${LP_FONTS}
 <section class="alt" id="services">
 <div class="wrap">
 <p class="k">What we do</p>
-<h2 class="sec">Strategy, governance and execution from one team</h2>
+<h2 class="sec">Strategy, <em>governance and execution from one team</em></h2>
 <p class="lede">Three services that run in sequence or together, depending on your step.</p>
 <div class="grid3">
 <div class="card">
@@ -204,7 +204,7 @@ ${LP_FONTS}
 <section id="industries">
 <div class="wrap">
 <p class="k">Industries</p>
-<h2 class="sec">Where governance is not optional</h2>
+<h2 class="sec">Where governance is <em>not optional</em></h2>
 <p class="lede">We work where AI decisions get audited. The governance work comes first because that is what gets a project approved.</p>
 <div class="steps">
 <div class="step"><h3>Government</h3><p>AI for councils and agencies that meets procurement and privacy rules. Fruition is an approved supplier on the NSW Government ICT Services Scheme.</p></div>
@@ -218,7 +218,7 @@ ${LP_FONTS}
 <section class="alt" id="proof">
 <div class="wrap">
 <p class="k">Proof</p>
-<h2 class="sec">Partnerships, certifications and results</h2>
+<h2 class="sec">Partnerships, <em>certifications and results</em></h2>
 <p class="lede">We are certified by the platforms we implement, and the results below come from steps one to three, the foundations every AI project stands on.</p>
 <ul class="ticks">
 <li><strong>AI</strong> · Anthropic partner · OpenAI partner</li>
@@ -252,7 +252,7 @@ ${LP_FONTS}
 <section id="call">
 <div class="wrap">
 <p class="k">The readiness call</p>
-<h2 class="sec">Twenty minutes, three answers</h2>
+<h2 class="sec">Twenty minutes, <em>three answers</em></h2>
 <p class="lede">You leave the call knowing which step you are on, the one use case worth starting with, and what governance you need before an agent touches live data. If we are not the right fit, we say so.</p>
 <div class="grid3">
 <div class="card">
@@ -274,7 +274,7 @@ ${LP_FONTS}
 <section class="alt" id="faq">
 <div class="wrap">
 <p class="k">Questions we get asked</p>
-<h2 class="sec">Before you book</h2>
+<h2 class="sec">Before <em>you book</em></h2>
 <details open><summary>What does an AI governance consultant actually do?</summary><div class="a">We write the rules for how your business uses AI, and build the controls that enforce them: who can approve a use case, what data a model may read, how outputs are checked, and how it is all logged. The output is an AI management system you can show a board, a regulator or a customer.</div></details>
 <details><summary>What is ISO/IEC 42001 and do we need it?</summary><div class="a">ISO/IEC 42001 is the international standard for an AI management system (AIMS). You do not need certification to start, but designing your governance to the standard from day one means you can certify later without rebuilding. Government and healthcare clients increasingly ask for it in tenders.</div></details>
 <details><summary>What does being an Anthropic partner and OpenAI partner mean for us?</summary><div class="a">We have certified architects on the platforms, direct access to the vendors, and we implement rather than resell. We recommend Claude, ChatGPT or Gemini based on your data, security and cost profile, and we will tell you if a smaller model does the job.</div></details>

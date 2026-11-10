@@ -31,7 +31,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com for Finance Teams | Fruition</title>
-<meta name="description" content="monday.com for Australian finance teams. Month-end close, AP approvals, budgeting workflows and Xero/MYOB integration &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com for Australian finance teams. Month-end close, AP approvals, budgeting workflows and Xero/MYOB integration, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -53,12 +53,12 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">💰 monday.com Platinum Partner · Finance · Australia</div>
 <h1>monday.com for <em>Finance Teams</em></h1>
-<p class="sub">Month-end close, AP approvals, budget cycles and finance requests in controlled workflows &mdash; connected to Xero, MYOB or your ERP so nothing is re-keyed.</p>
+<p class="sub">Month-end close, AP approvals, budget cycles and finance requests in controlled workflows, connected to Xero, MYOB or your ERP so nothing is re-keyed.</p>
 <ul class="ticks">
 <li>Month-end close checklist with owners and sign-offs</li>
 <li>AP approval workflows with delegation limits</li>
 <li>Budget and forecast cycles with version control</li>
-<li>Xero, MYOB and ERP integration &mdash; no double entry</li>
+<li>Xero, MYOB and ERP integration, no double entry</li>
 </ul>
 <div class="badges">
 <span class="badge">monday.com Platinum Partner</span>
@@ -116,7 +116,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation with Fruition's Australian team &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation with Fruition's Australian team, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>
@@ -131,13 +131,13 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">Finance operations out of spreadsheets, finally</h2>
-<p class="lede">Delivered by certified Australian monday.com consultants &mdash; fixed fee agreed before any build starts, no offshore hand-offs.</p>
+<h2 class="sec">Finance operations out of spreadsheets, <em>finally</em></h2>
+<p class="lede">Delivered by certified Australian monday.com consultants, fixed fee agreed before any build starts, no offshore hand-offs.</p>
 <div class="grid3">
-<div class="card"><h3>Month-end close</h3><p>A repeatable close checklist with task owners, dependencies and sign-offs &mdash; day 3, not day 10.</p></div>
+<div class="card"><h3>Month-end close</h3><p>A repeatable close checklist with task owners, dependencies and sign-offs, day 3, not day 10.</p></div>
 <div class="card"><h3>AP &amp; invoice approvals</h3><p>Invoices routed by entity, value and cost centre to the right approver, from any device.</p></div>
 <div class="card"><h3>Budget &amp; forecast cycles</h3><p>Templates, submissions, reviews and consolidations with version control instead of v7_FINAL_final.xlsx.</p></div>
-<div class="card"><h3>Finance request intake</h3><p>Structured requests from the business &mdash; new vendors, cards, reports &mdash; with SLAs and status.</p></div>
+<div class="card"><h3>Finance request intake</h3><p>Structured requests from the business, new vendors, cards, reports, with SLAs and status.</p></div>
 <div class="card"><h3>Capex &amp; project tracking</h3><p>Approvals, spend tracking and committed-vs-actual visibility on capital projects.</p></div>
 <div class="card"><h3>Xero / MYOB / ERP integration</h3><p>Native integrations, Make scenarios or API work so finance data flows one way: accurately.</p></div>
 </div>
@@ -147,8 +147,8 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -162,9 +162,9 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -173,7 +173,7 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"This system will save hundreds of thousands of dollars a year guaranteed."</p><div class="who"><b>Brandon-Lee Horridge</b> · Managing Director, BL Air Conditioning</div></div>
 <div class="quote"><p>"Process automation across campaign management, budget management and project approvals has saved significant amounts of time for staff globally."</p><div class="who"><b>Emily Hill</b> · International Markets Manager, Tourism Northern Territory</div></div>
@@ -191,11 +191,11 @@ Calendly embed &mdash; Australia &amp; New Zealand consultation round-robin goes
 <section class="alt">
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Does monday.com replace our accounting system?</summary><div class="a">No &mdash; it sits around Xero, MYOB or your ERP as the workflow layer: approvals, close checklists, requests and budgeting process. The ledger stays where it is; the chaos around it goes.</div></details>
-<details><summary>Can approval delegations be enforced?</summary><div class="a">Yes &mdash; routing by value, entity and cost centre with time-stamped decisions, giving auditors the trail they ask for.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Does monday.com replace our accounting system?</summary><div class="a">No, it sits around Xero, MYOB or your ERP as the workflow layer: approvals, close checklists, requests and budgeting process. The ledger stays where it is; the chaos around it goes.</div></details>
+<details><summary>Can approval delegations be enforced?</summary><div class="a">Yes, routing by value, entity and cost centre with time-stamped decisions, giving auditors the trail they ask for.</div></details>
 <details><summary>How does the month-end close workflow help?</summary><div class="a">Every close task has an owner, dependency and due day. Finance leaders see the whole close on one board instead of chasing status in Teams.</div></details>
-<details><summary>What does it cost?</summary><div class="a">Fixed fee quoted after a scoping call and agreed before any build starts &mdash; typically live in two to four weeks. monday.com licences are billed separately.</div></details>
+<details><summary>What does it cost?</summary><div class="a">Fixed fee quoted after a scoping call and agreed before any build starts, typically live in two to four weeks. monday.com licences are billed separately.</div></details>
 </div>
 </section>
 

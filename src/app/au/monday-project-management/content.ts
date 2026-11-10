@@ -17,7 +17,7 @@ export const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>monday.com Project &amp; Portfolio Management Australia | Fruition</title>
-<meta name="description" content="monday.com PMO, project and portfolio management in Australia. Dependencies, resourcing and portfolio dashboards &mdash; built by a Platinum Partner.">
+<meta name="description" content="monday.com PMO, project and portfolio management in Australia. Dependencies, resourcing and portfolio dashboards, built by a Platinum Partner.">
 <meta name="robots" content="noindex,follow">
 ${LP_FONTS}
 <style>${LP_CONVERSION_CSS}</style>
@@ -38,7 +38,7 @@ ${LP_FONTS}
 <div>
 <div class="eyebrow">🇦🇺 monday.com Platinum Partner · Project & Portfolio Mgmt · Sydney · Melbourne · Brisbane · Perth · Adelaide</div>
 <h1>monday.com for <em>Project &amp; Portfolio Management</em></h1>
-<p class="sub">Projects, programs and the whole portfolio in one system &mdash; dependencies, resourcing and dashboards your PMO can actually govern with.</p>
+<p class="sub">Projects, programs and the whole portfolio in one system, dependencies, resourcing and dashboards your PMO can actually govern with.</p>
 <ul class="ticks">
 <li>Portfolio dashboards rolled up from real project data</li>
 <li>Dependencies and critical paths visible before they bite</li>
@@ -49,7 +49,7 @@ ${LP_FONTS}
 <span class="badge">monday.com Platinum Partner</span>
 <span class="badge">Advanced Delivery Partner</span>
 <span class="badge">900+ implementations</span>
-<span class="badge">NSW Gov ICT Scheme &mdash; Advanced supplier</span>
+<span class="badge">NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
 <form class="formcard" id="lead" method="POST" action="#"><!-- FORM-WEBHOOK: Edward -->
@@ -98,8 +98,8 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
-<h2 class="sec">From single projects to a governed portfolio</h2>
-<p class="lede">Delivered by certified monday.com consultants working your hours &mdash; fixed fee agreed before any build starts.</p>
+<h2 class="sec">From single projects to <em>a governed portfolio</em></h2>
+<p class="lede">Delivered by certified monday.com consultants working your hours, fixed fee agreed before any build starts.</p>
 <div class="grid3">
 <div class="card"><h3>Project templates</h3><p>Standardised project setups so delivery starts consistent.</p></div>
 <div class="card"><h3>Dependencies &amp; timelines</h3><p>Gantt, critical paths and cross-project dependencies.</p></div>
@@ -114,8 +114,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">What to expect</p>
-<h2 class="sec">How a monday.com implementation works</h2>
-<p class="lede">A proven, fixed-fee framework &mdash; the same methodology behind 900+ delivered systems.</p>
+<h2 class="sec">How a monday.com <em>implementation works</em></h2>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -129,9 +129,9 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
-<div><div class="v">2–4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
+<div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
-<div><div class="v">20–30%</div><div class="l">of team time recovered from manual re-keying</div></div>
+<div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
 </div>
 <p class="note">Figures are typical outcomes drawn from Fruition engagements and published monday.com research. Individual results vary with scope, team size and adoption.</p>
 </div>
@@ -140,10 +140,10 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Client proof</p>
-<h2 class="sec">What clients say about Fruition's monday.com consultants</h2>
+<h2 class="sec">What clients say about <em>Fruition's monday.com consultants</em></h2>
 <div class="quotes">
 <div class="quote"><p>"monday.com has given us the visibility we need to get everyone on the same page and keep track of all the moving parts."</p><div class="who"><b>Jason Doan</b> · VP of Heavy Rental &amp; Sales, HOLT CAT</div></div>
-<div class="quote"><p>"We are now utilising monday.com to its full potential, from lead through design and production teams &mdash; everyone knows what stage our projects are in."</p><div class="who"><b>Jade Wood</b> · Managing Director, Popology</div></div>
+<div class="quote"><p>"We are now utilising monday.com to its full potential, from lead through design and production teams, everyone knows what stage our projects are in."</p><div class="who"><b>Jade Wood</b> · Managing Director, Popology</div></div>
 </div>
 <!-- RATINGS: Edward &mdash; add live profile URLs. Real linked values only; no review counts. -->
 <div class="ratings">
@@ -158,8 +158,8 @@ ${LP_FONTS}
 <section style="background:var(--tint);padding-top:46px;padding-bottom:46px">
 <div class="wrap">
 <p class="k">Your consultants</p>
-<h2 class="sec">Work directly with a certified monday.com partner consultant</h2>
-<p class="lede">Engagements are scoped and delivered personally &mdash; no hand-offs to an offshore bench.</p>
+<h2 class="sec">Work directly with a certified <em>monday.com partner consultant</em></h2>
+<p class="lede">Engagements are scoped and delivered personally, no hand-offs to an offshore bench.</p>
 <div class="team">
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/811213d278aabf0686ff32841b559dec63cce794-1584x1246.jpg?rect=169,0,1246,1246&w=560&h=560&fit=crop" alt="Josh Jebathilak" loading="lazy"><h3>Josh Jebathilak</h3><div class="role">Founder &amp; Managing Director</div><p>Ex-monday.com, personally oversaw system builds for hundreds of organisations before founding Fruition.</p></div>
 <div class="member"><img src="https://cdn.sanity.io/images/bt6nb58h/production/800645656b19c9368a1fcc57c73d2f7956e9e826-593x593.jpg?w=560&h=560&fit=crop" alt="Nikki Glucksman" loading="lazy"><h3>Nikki Glucksman</h3><div class="role">Principal Consultant</div><p>UX-driven product strategist translating business requirements into streamlined workflows.</p></div>
@@ -172,11 +172,11 @@ ${LP_FONTS}
 <section>
 <div class="wrap">
 <p class="k">Before you book</p>
-<h2 class="sec">The questions buyers ask us first</h2>
-<details open><summary>Can monday.com handle real portfolio management?</summary><div class="a">Yes &mdash; with the right architecture. Programs and portfolios roll up from live project boards, so PMO reporting reflects reality instead of status-meeting folklore. That architecture is what a partner build adds.</div></details>
-<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately &mdash; and we'll tell you which plan tier you actually need.</div></details>
+<h2 class="sec">The questions buyers ask <em>us first</em></h2>
+<details open><summary>Can monday.com handle real portfolio management?</summary><div class="a">Yes, with the right architecture. Programs and portfolios roll up from live project boards, so PMO reporting reflects reality instead of status-meeting folklore. That architecture is what a partner build adds.</div></details>
+<details><summary>How much does it cost?</summary><div class="a">Quoted as a fixed fee after a scoping call, so the number is agreed before any build starts. A single-team workspace sits at the smaller end; multi-department rollouts with migration and integrations sit higher. monday.com licences are billed separately, and we'll tell you which plan tier you actually need.</div></details>
 <details><summary>How long does it take?</summary><div class="a">Most engagements go live in two to four weeks from kickoff. A single-team build can be running inside a week; wider rollouts with migration and finance integrations run longer. The schedule is agreed during scoping, not discovered halfway through.</div></details>
-<details><summary>Does it work alongside Jira?</summary><div class="a">Yes &mdash; engineering can stay in Jira while business projects run in monday.com, synced so leadership sees one portfolio.</div></details>
+<details><summary>Does it work alongside Jira?</summary><div class="a">Yes, engineering can stay in Jira while business projects run in monday.com, synced so leadership sees one portfolio.</div></details>
 </div>
 </section>
 
@@ -186,7 +186,7 @@ ${LP_FONTS}
 <div>
 <p class="k">Book a time</p>
 <h2>Ready to get running in days, not months?</h2>
-<p>Book a free consultation &mdash; a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
+<p>Book a free consultation, a frank read on scope, fit and cost from a certified Platinum Partner. If monday.com isn't the right fit, we'll say so.</p>
 <a class="btn" href="#lead">Book My Free Consultation →</a>
 <p style="margin-top:16px;font-size:13.5px;color:var(--light)">Prefer to talk? <a href="tel:+61483955931" style="color:var(--purple);font-weight:700;text-decoration:none">+61 483 955 931</a> · AEST/AEDT business hours</p>
 </div>

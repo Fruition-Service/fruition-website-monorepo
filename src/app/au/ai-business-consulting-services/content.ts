@@ -8,7 +8,7 @@ export const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Consulting Services Australia | AI Strategy Consultants — Fruition</title>
+<title>AI Consulting Services Australia | AI Strategy Consultants | Fruition</title>
 <meta name="description" content="Enterprise-grade AI consulting services and strategy for Australian businesses. AI management consulting, AI business process automation, and custom LLM deployment. Book a free consultation.">
 <meta name="keywords" content="ai consultants, ai strategy consultants, ai consulting services, ai management consulting, ai for business, ai business process automation">
 <meta name="robots" content="noindex, follow">
@@ -56,7 +56,7 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="pipe" aria-hidden="true">
-<div class="pipe-title"><span class="pulse"></span>Agentic Automation Pipeline — Live</div>
+<div class="pipe-title"><span class="pulse"></span>Agentic Automation Pipeline, Live</div>
 <div class="node-row">
 <div class="node">Inbound Email<small>Customer enquiry received</small></div>
 <span class="arrow">→</span>
@@ -94,7 +94,7 @@ ${LP_FONTS}
 <section><div class="wrap">
 <div class="eyebrow">What we build</div>
 <h2>Tailored AI for Business Transformation &amp; Architecture</h2>
-<p class="lede">Precisely matched to how Australian enterprises adopt AI — strategy, automation, and engineering under one roof.</p>
+<p class="lede">Precisely matched to how Australian enterprises adopt AI, strategy, automation, and engineering under one roof.</p>
 <div class="caps">
 <div class="cap">
 <h3>AI Management Consulting &amp; Strategy</h3>
@@ -151,7 +151,7 @@ ${LP_FONTS}
 <div class="tm-img">Natalia Mishenina</div>
 <div class="tm-body">
 <div class="tm-role">Technical Project Manager</div>
-<p>Expert in SaaS implementation and process mapping — guiding AI solution design from discovery and data audit through to secure system handover.</p>
+<p>Expert in SaaS implementation and process mapping, guiding AI solution design from discovery and data audit through to secure system handover.</p>
 </div>
 </div>
 <div class="tm">
