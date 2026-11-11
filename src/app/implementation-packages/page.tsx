@@ -1,63 +1,24 @@
-import type { Metadata } from "next"
-import { stegaClean } from "@sanity/client/stega"
-import { getCaseStudies } from "@/sanity/queries"
-import { urlFor } from "@/sanity/image"
-import { buildOgMetadata } from "@/lib/metadata"
-import ImplementationPackagesContent, { type ReviewPhotos } from "./ImplementationPackagesContent"
-import { buildJsonLd, PAGE_PATH } from "./content"
-import { getImplementationPackagesContent } from "./sanityContent"
+import "@/styles/vc/pages/pricing.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
+import { getVcPage } from "@/sanity/vcQueries"
+import { notFound } from "next/navigation"
+import { PAGE_PATH, SEO_DESCRIPTION, SEO_TITLE } from "./content"
+import { buildPricingJsonLd } from "./jsonld"
 
-/*
- * Copy, prices, FAQs and the meta title/description come from the Sanity
- * singleton `implementationPackagesPage`, laid over the defaults in ./content
- * (./sanityContent). Reviewers' profile photos come from the caseStudy
- * documents, matched by name and optional.
- */
-
-export async function generateMetadata(): Promise<Metadata> {
-  const { seo } = await getImplementationPackagesContent()
-  return {
-    alternates: { canonical: PAGE_PATH },
-    title: seo.title,
-    description: seo.description,
-    ...buildOgMetadata({ title: seo.title, description: seo.description, path: PAGE_PATH }),
-  }
-}
-
-interface CaseStudyPhoto {
-  clientName?: string
-  profilePhoto?: unknown
-}
-
-async function loadReviewPhotos(names: string[]): Promise<ReviewPhotos> {
-  const wanted = new Set(names)
-  const photos: ReviewPhotos = {}
-  let studies: CaseStudyPhoto[] = []
-  try {
-    studies = ((await getCaseStudies()) as CaseStudyPhoto[] | null) ?? []
-  } catch {
-    return photos
-  }
-  for (const s of studies) {
-    const name = s.clientName?.trim()
-    if (!name || !wanted.has(name) || photos[name] || !s.profilePhoto) continue
-    // Legacy Wix image refs make urlFor() throw; a missing photo is fine.
-    try {
-      photos[name] = urlFor(s.profilePhoto as Parameters<typeof urlFor>[0]).width(96).height(96).fit("crop").auto("format").url()
-    } catch {
-      /* skip */
-    }
-  }
-  return photos
+export function generateMetadata() {
+  return vcMetadata(PAGE_PATH, { title: SEO_TITLE, description: SEO_DESCRIPTION })
 }
 
 export default async function Page() {
-  const content = await getImplementationPackagesContent()
-  const reviewPhotos = await loadReviewPhotos(content.reviews.items.map((r) => stegaClean(r.name)))
+  const page = await getVcPage(PAGE_PATH)
+  if (!page) notFound()
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(content)) }} />
-      <ImplementationPackagesContent content={content} reviewPhotos={reviewPhotos} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPricingJsonLd(page, { title: page.seoTitle ?? SEO_TITLE, description: page.seoDescription ?? SEO_DESCRIPTION })) }}
+      />
+      <VcPage path={PAGE_PATH} slug="pricing" page={page} />
     </>
   )
 }

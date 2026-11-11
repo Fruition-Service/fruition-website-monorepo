@@ -16,6 +16,7 @@ import {
   VcSteps,
 } from "./sections/basic"
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
+import { VcInsights, VcMarkup, VcQuizSection, VcAskDemoSection, VcCatalogue, VcFacts, VcIndustryGrid, VcLinkCards, VcPriceCards, VcServices } from "./sections/core"
 import VcBooking from "./sections/VcBooking"
 import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcLeadership, VcOffices, VcTeamTabs, VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
@@ -66,6 +67,16 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcStories": return <VcStories s={s} />
     case "vcBlogList": return <VcBlogList s={s} />
     case "vcFaqHub": return <VcFaqHub s={s} />
+    case "vcPriceCards": return <VcPriceCards s={s} />
+    case "vcLinkCards": return <VcLinkCards s={s} />
+    case "vcServices": return <VcServices s={s} />
+    case "vcFacts": return <VcFacts s={s} />
+    case "vcIndustryGrid": return <VcIndustryGrid s={s} />
+    case "vcCatalogue": return <VcCatalogue s={s} />
+    case "vcAskDemo": return <VcAskDemoSection s={s} />
+    case "vcQuiz": return <VcQuizSection s={s} />
+    case "vcMarkup": return <VcMarkup s={s} />
+    case "vcInsights": return <VcInsights s={s} />
     default: return null
   }
 }

@@ -47,3 +47,16 @@ export async function getVcBlogCards(): Promise<VcBlogCard[]> {
     }`,
   )
 }
+
+export interface VcHomePost { _id: string; title?: string; slug?: string; publishedAt?: string; author?: string; excerpt?: string; category?: string; charCount?: number; cover?: { asset?: { _ref?: string } } }
+
+/** The three most recent posts, for the home page Insights cards. */
+export async function getVcHomePosts(): Promise<VcHomePost[]> {
+  return client.fetch<VcHomePost[]>(
+    `*[_type == "blogPost" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc)[0...3] {
+      _id, title, "slug": slug.current, publishedAt, author, excerpt, "category": categories[0]->title,
+      "charCount": length(pt::text(body)),
+      "cover": coalesce(coverImage, mainImage, featuredImage, heroImage, body[_type == "image"][0]){ asset }
+    }`,
+  )
+}

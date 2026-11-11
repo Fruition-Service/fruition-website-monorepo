@@ -3,6 +3,8 @@ import Link from "next/link"
 import LeadForm from "@/components/sections/LeadForm"
 import { VcFilteredProof } from "./interactive"
 import { VcHeroSearch } from "./hubs"
+import VcAskPrompt from "./VcAskPrompt"
+import { VcNodes } from "./nodes"
 import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
 import type {
   VcAuditData,
@@ -20,14 +22,14 @@ import type {
 } from "../types"
 
 /** Ticked list used inside steps and cards. */
-function Ticks({ items, cls = "ticks" }: { items?: string[]; cls?: string }) {
+function Ticks({ items, cls = "ticks", icon = "chk" }: { items?: string[]; cls?: string; icon?: string }) {
   if (!items?.length) return null
   return (
     <ul className={cls || undefined}>
       {items.map((x, i) => (
         <li key={i}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12.5l4.5 4.5L19 7.5" />
+            <path d={icon === "x" ? "M7 7l10 10M17 7L7 17" : "M5 12.5l4.5 4.5L19 7.5"} />
           </svg>
           <span>{x}</span>
         </li>
@@ -194,8 +196,38 @@ export function VcHero({ s }: { s: VcHeroData }) {
               ]}
             />
           </div>
+        ) : s.stage?.length ? (
+          <div className={vercelStegaClean(s.stageClass ?? "hero-art")} aria-hidden="true">
+            <VcNodes nodes={s.stage} />
+          </div>
+        ) : s.prompt ? (
+          <VcAskPrompt p={s.prompt} />
         ) : s.mapSvg ? (
           <RegionMap s={s} />
+        ) : s.frameSvg ? (
+          <div className="hero-art">
+            <div className={`frame ${vercelStegaClean(s.frameClass ?? "")}`.trim()}>
+              {!!s.creds?.length && (
+                <div className={`creds ${vercelStegaClean(s.credsClass ?? "")}`.trim()}>
+                  {s.creds.map((c, i) => (
+                    <SImg key={c._key ?? i} image={c.image} width={160} height={50} fit="max" alt={c.alt} lazy={false} className={vercelStegaClean(c.shape ?? "") || undefined} />
+                  ))}
+                </div>
+              )}
+              <div className="art" role="img" aria-label={vercelStegaClean(s.frameSvgAria ?? "")}>
+                <SvgIcon svg={s.frameSvg} className="vc-svg" />
+              </div>
+              {s.chipValue && (
+                <div className="chip">
+                  <span className="dot" />
+                  <div>
+                    <b>{s.chipValue}</b>
+                    {s.chipLabel && <div className="label">{s.chipLabel}</div>}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         ) : s.frameImage?.asset ? (
           <div className="hero-art">
             <div className="frame">
@@ -273,7 +305,7 @@ export function VcSteps({ s }: { s: VcStepsData }) {
               </div>
             )}
             {it.n && <span className="n">{it.n}</span>}
-            {it.title && <h3 className="h3">{it.title}</h3>}
+            {it.title && <h3 className={vercelStegaClean(s.titleClass ?? "") === "title" ? "title" : "h3"}>{it.title}</h3>}
             {it.body && <p className="body">{it.body}</p>}
             <Ticks items={it.bullets} />
             {it.meta && <span className="label">{it.meta}</span>}
@@ -431,7 +463,7 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
           {it.aiNote}
         </p>
       )}
-      <Ticks items={it.bullets} cls={listClass} />
+      <Ticks items={it.bullets} cls={it.listClass !== undefined ? vercelStegaClean(it.listClass) : listClass} icon={vercelStegaClean(it.bulletIcon ?? "chk")} />
       {it.metric && (
         <div className="oc-n">
           <b>{it.metric}</b>

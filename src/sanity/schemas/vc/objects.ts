@@ -83,6 +83,8 @@ export const vcItem = defineType({
     defineField({ name: 'kicker', title: 'Small label under the title', type: 'string' }),
     defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
     defineField({ name: 'bullets', title: 'Ticked list', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'listClass', title: 'List style', type: 'string', description: 'Design-system value for this card\'s list, e.g. "dn y". Leave as is.' }),
+    defineField({ name: 'bulletIcon', title: 'List icon', type: 'string', description: 'Design-system value: "chk" (tick) or "x" (cross). Leave as is.' }),
     defineField({ name: 'arrow', title: 'Arrow without a link', type: 'boolean', initialValue: false }),
     defineField({ name: 'meta', title: 'Footer label', type: 'string', description: 'Mono line at the bottom of the card.' }),
     tags,

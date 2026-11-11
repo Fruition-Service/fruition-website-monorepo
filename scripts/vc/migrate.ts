@@ -106,6 +106,10 @@ export const PAGES: Record<string, [string, string]> = {
   'consulting-blog': ['/consulting-blog', 'company'],
   faqs: ['/faqs', 'company'],
   'contact-us': ['/contact-us', 'company'],
+  pricing: ['/implementation-packages', 'core'],
+  'ai-use-cases': ['/ai-use-cases', 'core'],
+  'ask-fruit': ['/ask-fruit', 'core'],
+  home: ['/', 'core'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -375,6 +379,11 @@ function hero(sec: HTMLElement, ctx: Ctx) {
     lead: text(left.querySelector('.lead')) || undefined,
     ctas: left.querySelectorAll('.ctas a').map((a) => cta(a, ctx)),
   }
+  const stageEl = art && has(art, 'hn-wrap') ? art : null
+  if (stageEl) {
+    s.stageClass = cls(stageEl).join(' ')
+    s.stage = toNodes(stageEl, ctx)
+  }
   const img3d = art?.querySelector('img.hero-3d')
   if (img3d) {
     s.art = imageFromSrc(img3d.getAttribute('src'), ctx.file)
@@ -389,6 +398,13 @@ function hero(sec: HTMLElement, ctx: Ctx) {
   if (frame) {
     s.creds = frame.querySelectorAll('.creds img').map((i) => logo(i, ctx))
     const shot = frame.querySelectorAll('img').find((i) => !i.closest('.creds'))
+    const artSvg = frame.querySelector('.art svg')
+    if (artSvg && !shot) {
+      s.frameSvg = artSvg.outerHTML
+      s.frameSvgAria = decode(frame.querySelector('.art')?.getAttribute('aria-label') ?? '') || undefined
+      s.frameClass = cls(frame).filter((c) => c !== 'frame').join(' ') || undefined
+      s.credsClass = cls(frame.querySelector('.creds')).filter((c) => c !== 'creds').join(' ') || undefined
+    }
     if (shot) s.frameImage = imageFromSrc(shot.getAttribute('src'), ctx.file, decode(shot.getAttribute('alt') ?? ''))
     s.chipValue = text(frame.querySelector('.chip b')) || undefined
     s.chipLabel = text(frame.querySelector('.chip .label')) || undefined
@@ -440,7 +456,7 @@ function hero(sec: HTMLElement, ctx: Ctx) {
     s.searchClear = !!sec.querySelector('.hsearch .clr')
   }
   const heroFrame = sec.querySelector('.hero-grid > .frame, .hc-in')
-  if (!img3d && !frame && !msg && !heroFrame) warnings.push(`${ctx.slug}: hero has no 3D graphic or frame`)
+  if (!img3d && !frame && !msg && !heroFrame && !sec.querySelector('.inner.dark') && !stageEl) warnings.push(`${ctx.slug}: hero has no 3D graphic or frame`)
   return s
 }
 
@@ -486,6 +502,11 @@ function item(card: HTMLElement, ctx: Ctx) {
   }
   const ticks = card.querySelectorAll(':scope > ul li')
   if (ticks.length) it.bullets = ticks.map((li) => text(li))
+  const dn = card.querySelector(':scope > ul.dn')
+  if (dn) {
+    it.listClass = cls(dn).join(' ')
+    it.bulletIcon = (dn.querySelector('use')?.getAttribute('href') ?? '#chk').slice(1)
+  }
   const ico = card.querySelector(':scope > .ico svg')
   if (ico) it.icon = ico.outerHTML
   const tg = card.querySelectorAll('.tags span, .pills span')
@@ -622,7 +643,7 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
   const steps = sec.querySelector('.steps, .steps4, .steps5')
   if (steps) {
     return {
-      _type: 'vcSteps', ...base, head: headOf(sec), layout: cls(steps).join(' '),
+      _type: 'vcSteps', ...base, head: headOf(sec), layout: cls(steps).join(' '), titleClass: steps.querySelector('h3.title') ? 'title' : undefined,
       items: steps.querySelectorAll('.step').map((st) => ({
         _type: 'vcStep', _key: key(), n: text(st.querySelector('.n')) || undefined,
         bar: st.querySelector('.bar i') ? Number((st.querySelector('.bar i')!.getAttribute('style') ?? '').match(/width:\s*([\d.]+)%/)?.[1] ?? 0) : undefined, title: text(st.querySelector('h3')) || undefined,
@@ -638,7 +659,7 @@ function section(sec: HTMLElement, ctx: Ctx): Record<string, unknown> | null {
   if (grid) {
     const c = cls(grid)[0]
     const first = grid.querySelector('article, div')
-    const layout = c === 'cards3' && has(first, 'oc') ? 'oc' : grid.querySelector('.card .top') ? 'ucpills' : c
+    const layout = c === 'cards3' && has(first, 'oc') ? 'oc' : grid.querySelector('.card .top') ? 'ucpills' : has(grid, 'bgrid') ? 'cards2 bgrid' : c
     const imageFrame = grid.querySelector('.pichd') ? 'pichd' : grid.querySelector('.w4-img') ? 'w4-img' : undefined
     const tagClass = grid.querySelector('.tags span.label') ? 'label' : undefined
     const titleClass = grid.querySelector(':scope > * > h3.title') ? 'title' : undefined
@@ -1047,6 +1068,282 @@ async function extraSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, 
 
 /* ---------------------------------------------------------------- main */
 
+/* ------------------------------------------------------- core pages */
+
+const CORE_SLUGS = new Set(['pricing', 'ai-use-cases', 'ask-fruit', 'ai-readiness-blueprint', 'home'])
+const keyed = <T extends Record<string, unknown>>(type: string, o: T) => ({ _type: type, _key: key(), ...o })
+const link = (a: HTMLElement | null | undefined, ctx: Ctx) => {
+  if (!a) return undefined
+  const label = text(a)
+  let href = a.getAttribute('href') ?? ''
+  if (!href || href === '#') href = REGION_LINKS(label) ?? liveHref(ctx, label) ?? ''
+  if (!href) warnings.push(`${ctx.slug}: no link for "${label}"`)
+  return { label, href: href.replace(/^([a-z0-9-]+)\.html$/, (_m, n) => PAGES[n]?.[0] ?? `/${n}`) }
+}
+function REGION_LINKS(title: string): string | undefined {
+  const t = title.toLowerCase()
+  const m = t.match(/^monday\.com partner (\w+)/)
+  if (m && PAGES[`monday-partner-${m[1] === 'australia' ? 'australia' : m[1]}`]) return PAGES[`monday-partner-${m[1]}`][0]
+  if (t === 'monday.com implementation consultants') return '/monday-implementation-consultants'
+  if (t === 'monday.com training') return '/training'
+  return undefined
+}
+
+/* -------- node trees (animated and bespoke home blocks) -------- */
+
+const ICON_PATHS: Record<string, string> = { arr: 'M5 12h14M13 6l6 6-6 6', chk: 'M5 12.5l4.5 4.5L19 7.5', x: 'M7 7l10 10M17 7L7 17', plus: 'M12 5v14M5 12h14' }
+const VOID_TAGS = new Set(['img', 'br', 'hr', 'input'])
+
+function svgClean(svg: string): string {
+  // The mock-ups draw icons from a sprite (<use href="#arr">); inline the path instead.
+  return svg.replace(/<use href="#(\w+)"\s*\/?>(<\/use>)?/g, (_m, id) => `<path d="${ICON_PATHS[id] ?? ICON_PATHS.arr}"/>`)
+}
+
+function nodeHref(ctx: Ctx, href: string | undefined, label: string): string | undefined {
+  if (!href) return undefined
+  if (href === '#') return liveHref(ctx, label)
+  const m = href.match(/^([a-z0-9-]+)\.html$/)
+  if (m) return m[1] === 'pricing' ? '/implementation-packages' : PAGES[m[1]]?.[0]
+  return href
+}
+
+/** An element's children as vcNode objects: text runs, images (as Sanity assets), inline SVG and nested elements. */
+function toNodes(el: HTMLElement, ctx: Ctx): Record<string, unknown>[] {
+  const out: Record<string, unknown>[] = []
+  for (const c of el.childNodes) {
+    if (c.nodeType === 3) {
+      const t = decode(c.rawText).replace(/[ \t\n\r]+/g, ' ')
+      if (t.trim()) out.push(keyed('vcNode', { tag: '#text', text: t }))
+      continue
+    }
+    const e = c as HTMLElement
+    const tag = e.tagName?.toLowerCase()
+    if (!tag) continue
+    if (tag === 'svg') {
+      out.push(keyed('vcNode', { tag: 'svg', svg: svgClean(e.outerHTML) }))
+      continue
+    }
+    const attrs: string[] = []
+    for (const [k, v] of Object.entries(e.attributes)) {
+      if (['class', 'style', 'href', 'src', 'alt', 'loading', 'decoding'].includes(k)) continue
+      attrs.push(v === '' ? k : `${k}=${decode(v)}`)
+    }
+    const style = (e.getAttribute('style') ?? '').replace(/animation-name:\s*fruEnergy/g, 'animation-name:vc-fruEnergy')
+    const node: Record<string, unknown> = { tag, className: e.getAttribute('class') || undefined, style: style || undefined }
+    if (tag === 'img') {
+      node.image = imageFromSrc(e.getAttribute('src'), ctx.file, decode(e.getAttribute('alt') ?? ''))
+      if (e.getAttribute('width')) attrs.push(`width=${e.getAttribute('width')}`)
+    }
+    if (tag === 'a') node.href = nodeHref(ctx, e.getAttribute('href') ?? undefined, text(e))
+    if (attrs.length) node.attrs = attrs
+    if (!VOID_TAGS.has(tag)) {
+      const kids = toNodes(e, ctx)
+      if (kids.length) node.children = kids
+    }
+    out.push(keyed('vcNode', node))
+  }
+  return out
+}
+
+async function coreSection(sec: HTMLElement, ctx: Ctx): Promise<Record<string, unknown> | null> {
+  if (!CORE_SLUGS.has(ctx.slug)) return null
+  const ds = sec.getAttribute('data-sec') ?? ''
+  const base = { _key: key(), tone: tone(sec), sectionClass: secClass(sec), ...(sec.getAttribute('id') && sec.getAttribute('id') !== 'book' && sec.getAttribute('id') !== 'faq' ? { anchor: sec.getAttribute('id') } : {}) }
+  if (ctx.slug === 'pricing') {
+    if (['glance', 'packages', 'licences'].includes(ds)) {
+      const grid = sec.querySelector('.grid3')!
+      return {
+        _type: 'vcPriceCards', ...base, head: headOf(sec), gridClass: cls(grid).join(' '),
+        items: grid.querySelectorAll(':scope > article').map((c) => {
+          const price = c.querySelector('.pricebox b.price')
+          const unit = price?.querySelector('.un')
+          const bf = c.querySelector('b.bf')
+          const body = c.querySelector(':scope > p.body')
+          const lk = c.querySelector(':scope > a.link')
+          const btn = c.querySelector(':scope > a.btn')
+          const logoImg = c.querySelector('.logo-s img')
+          const labels = c.querySelectorAll(':scope > span.label')
+          return keyed('vcPriceCard', {
+            cardClass: cls(c).filter((x) => x !== 'card').join(' ') || undefined,
+            logo: logoImg ? imageFromSrc(logoImg.getAttribute('src'), ctx.file, decode(logoImg.getAttribute('alt') ?? '')) : undefined,
+            logoShape: logoImg ? cls(logoImg).join(' ') || undefined : undefined,
+            kicker: labels.find((l) => has(l, 'ac')) ? text(labels.find((l) => has(l, 'ac'))) : undefined,
+            title: text(c.querySelector('h3')) || undefined,
+            body: bf ? undefined : text(body) || undefined,
+            meta: labels.find((l) => !has(l, 'ac')) ? text(labels.find((l) => !has(l, 'ac'))) : undefined,
+            priceLabel: text(c.querySelector('.pricebox > .label')) || undefined,
+            price: price && !has(price, 'pq') ? text(parse(`<b>${price.innerHTML.replace(unit?.outerHTML ?? '', '')}</b>`).querySelector('b')) : undefined,
+            unit: unit ? text(unit) : undefined,
+            quote: price && has(price, 'pq') ? text(price) : undefined,
+            bestLabel: bf ? text(bf) : undefined,
+            best: bf && body ? text(parse(`<p>${body.innerHTML.replace(bf.outerHTML, '')}</p>`).querySelector('p')) : undefined,
+            bullets: c.querySelectorAll(':scope > ul.ticks li').map((li) => text(li)),
+            cta: btn ? { ...cta(btn, ctx), _key: undefined } : undefined,
+            linkLabel: lk ? text(lk) : undefined,
+            href: lk ? link(lk, ctx)?.href : undefined,
+          })
+        }),
+        notes: sec.querySelectorAll('.notes2 .nt').map((n) => keyed('vcPriceNote', {
+          label: text(n.querySelector('.label')), body: text(n.querySelector('p.body')),
+          links: n.querySelectorAll('a.link').map((a) => keyed('vcNoteLink', link(a, ctx)!)),
+        })),
+      }
+    }
+    if (ds === 'regions') {
+      const grid = sec.querySelector('.grid3')!
+      return {
+        _type: 'vcLinkCards', ...base, head: headOf(sec), gridClass: cls(grid).join(' '),
+        items: grid.querySelectorAll('a.card').map((a) => keyed('vcLinkCard', { title: text(a.querySelector('.title')), href: link(a.querySelector('.title') as HTMLElement, ctx) ? (a.getAttribute('href') && a.getAttribute('href') !== '#' ? a.getAttribute('href')! : REGION_LINKS(text(a.querySelector('.title'))) ?? '') : '' })),
+      }
+    }
+    if (ds === 'services') {
+      const { DEFAULT_CONTENT } = await import('../../src/app/implementation-packages/content')
+      const known = DEFAULT_CONTENT.servicePrices.flatMap((g) => g.items.map((i) => ({ name: i.name.toLowerCase(), href: i.href })))
+      const tabs = sec.querySelectorAll('.svtabs button')
+      return {
+        _type: 'vcServices', ...base, head: headOf(sec), footnote: text(sec.querySelector('.note-b')) || undefined,
+        tabs: sec.querySelectorAll('.svpanel').map((p, i) => {
+          const intro = p.querySelector('.sv-intro2')!
+          const b = intro.querySelector('a.btn')
+          const tabLabel = text(parse(`<b>${tabs[i].innerHTML.replace(tabs[i].querySelector('.n')?.outerHTML ?? '', '')}</b>`).querySelector('b'))
+          return keyed('vcServiceTab', {
+            label: tabLabel, kicker: text(intro.querySelector('.label')), title: text(intro.querySelector('h3')), body: text(intro.querySelector('p.body')),
+            fromLabel: text(intro.querySelector('.sv-from .label')), from: text(intro.querySelector('.sv-from b')),
+            cta: b ? { ...cta(b, ctx), href: link(b, ctx)?.href, _key: undefined } : undefined,
+            rows: p.querySelectorAll('.svc').map((r) => {
+              const name = text(parse(`<b>${r.querySelector('span')!.innerHTML.replace(r.querySelector('span .label')?.outerHTML ?? '', '')}</b>`).querySelector('b'))
+              return keyed('vcServiceRow', { name, note: text(r.querySelector('span .label')), price: text(r.querySelector('b.price')), href: known.find((k) => k.name === name.toLowerCase())?.href })
+            }),
+          })
+        }),
+      }
+    }
+    if (ds === 'facts') {
+      return {
+        _type: 'vcFacts', ...base, head: headOf(sec),
+        rows: sec.querySelectorAll('dl dt').map((dt) => keyed('vcFactRow', { label: text(dt), value: text(dt.nextElementSibling) })),
+      }
+    }
+  }
+  if (ctx.slug === 'ai-readiness-blueprint' && ds === 'quiz') {
+    const script = ctx.scripts.find((x) => x.includes('const Q=['))!
+    const Q = new Function(`return ${script.slice(script.indexOf('const Q=') + 8, script.indexOf('const ans='))}`)() as { k: string; q: string; h: string; o: string[][]; d: number | null }[]
+    // The numbers behind each option are the live quiz logic (AiBlueprintClient), not the mock-up's illustrative scoring.
+    const VALUES = [[0, 1, 2, 3], [0, 1, 2, 0], [0, 1, 2, 3], [0, 1, 2, 3], [15, 40, 65, 90], [15, 40, 70, 92], [15, 40, 70, 92], [10, 38, 68, 92], [12, 38, 65, 90], [15, 42, 68, 90], [15, 45, 72, 92], [35, 60, 78, 90]]
+    const dims = sec.querySelectorAll('.dlist .dr > span:first-child').map((x) => text(x))
+    const done = script.match(/class="final">([\s\S]*?)<\/div><\/div>';/)?.[1] ?? ''
+    const fin = parse(`<div>${done}</div>`)
+    return {
+      _type: 'vcQuiz', ...base, head: headOf(sec), dims,
+      ui: Object.entries({
+        liveAria: decode(sec.querySelector('.live')?.getAttribute('aria-label') ?? ''), liveLabel: text(sec.querySelector('.live > .label')), begin: text(sec.querySelector('#state')),
+        stateAdvanced: 'advanced · ready to build', stateDeveloping: 'developing · foundations first', stateEmerging: 'emerging · start with basics',
+        note: text(sec.querySelector('.live .note')), back: '← Back', next: 'Next →', generate: 'Generate my blueprint →',
+        finalCount: '{n} / {n}', finalHeading: text(fin.querySelector('h3')), finalBody: text(fin.querySelector('p.body')),
+        emailPlaceholder: 'you@company.com', emailAria: 'Email address', emailSubmit: 'Email my blueprint', sending: 'Sending…',
+        leadDone: "Done, your blueprint is on its way. We'll follow up within one business day.",
+        leadError: 'Something went wrong. Please try again or email us directly at hello@fruitionservices.io.',
+        book: text(fin.querySelectorAll('.ctas a')[1]), restart: text(fin.querySelector('a.restart')),
+        reportMeta: 'AI Readiness Blueprint · generated {date}', landscapeH: 'Landscape & objective', scorecardH: 'Readiness scorecard',
+        scorecardText: 'Strongest leverage comes from addressing your two lowest dimensions first: {a} and {b}. These are weighted into Phase 1.',
+        stackH: 'Recommended stack', stackText: 'Vendor recommendations are indicative and refined during discovery. Everything below is something we implement ourselves, with no handoffs.',
+        phasesH: 'Phased implementation plan', phaseLabel: 'PHASE {n} · {window}', estimated: 'estimated', investH: 'Indicative investment',
+        investNote: 'Indicative only, based on self-reported answers. A fixed quote follows a scoping call. Licence costs billed by the vendor and estimated at list pricing.',
+      }).map(([id, t]) => keyed('vcUiText', { id, text: t })),
+      questions: Q.map((q, i) => keyed('vcQuizQuestion', {
+        kicker: q.k, title: q.q, help: q.h, dim: q.d ?? undefined,
+        options: q.o.map(([label, hint], j) => keyed('vcQuizOption', { label, hint: hint || undefined, value: VALUES[i][j] })),
+      })),
+    }
+  }
+  if (ctx.slug === 'ask-fruit') {
+    const script = ctx.scripts.find((x) => x.includes('const SC='))!
+    const grab = () => new Function(`${script.slice(script.indexOf('const SC='), script.indexOf('const $='))}; return { SC, M, FIELDS, PH, REG }`)() as {
+      SC: Record<string, { chip: string; title: string; user: string; goals: string; tools: string; reply: string[]; m: string[] }>
+      M: Record<string, { why: string; fit: string[]; s: string; w: string; rec: string; ph: string[] }>
+      FIELDS: string[]; PH: Record<string, string>; REG: string[]
+    }
+    const md = (h: string) => decode(h.replace(/<b>([\s\S]*?)<\/b>/g, '*$1*').replace(/<[^>]+>/g, ''))
+    if (ds === 'hero') {
+      const h = hero(sec, ctx) as Record<string, unknown>
+      const box = sec.querySelector('.inner.dark')!
+      const { SC } = grab()
+      h.prompt = {
+        _type: 'object', label: text(box.querySelector('.label')), placeholder: decode(box.querySelector('input')?.getAttribute('placeholder') ?? ''),
+        ariaLabel: decode(box.querySelector('input')?.getAttribute('aria-label') ?? ''), sendLabel: decode(box.querySelector('button.send')?.getAttribute('aria-label') ?? ''),
+        note: text(box.querySelector('p.small')), href: '/ask-fruit/workspace',
+        chips: Object.values(SC).map((c) => keyed('vcPromptChip', { label: c.chip, text: c.user })),
+      }
+      return h
+    }
+    if (ds === 'tool') {
+      const { SC, M, FIELDS, PH, REG } = grab()
+      const U: Record<string, string> = {
+        appTitle: text(sec.querySelector('.app-h .label')), newConversation: text(sec.querySelector('#newConv')),
+        replyPlaceholder: decode(sec.querySelector('#chatIn')?.getAttribute('placeholder') ?? ''), replyAria: decode(sec.querySelector('#chatIn')?.getAttribute('aria-label') ?? ''),
+        sendAria: decode(sec.querySelector('#chatForm button')?.getAttribute('aria-label') ?? ''), foot: text(sec.querySelector('.foot')),
+        knowsLabel: text(sec.querySelector('.know-h .label')), contextLabel: text(sec.querySelector('.ctx')), assistant: 'Implementation Calculator',
+        tabMatches: 'Matches', tabShortlist: 'Shortlist', tabBriefs: 'Briefs', goalsKey: 'Goals', toolsKey: 'Current tools',
+        state1: 'Enough to start. A few more details will sharpen the recommendation.', state2: 'Getting clearer. The matches are now scored against these requirements.', state3: 'Plenty to work with. Ask for a brief when you are ready.',
+        shortlist: 'Shortlist', shortlisted: 'Shortlisted', add: 'Add', open: 'Open', metText: '{me} of {n} met',
+        emptyShortlist: 'Shortlist options from Matches to compare them or ask for a brief.', emptyBriefs: 'Briefs you ask for appear here. Shortlist options first.',
+        cmpBrief: 'Comparison brief', impBrief: 'Implementation brief', sampleCmp: 'Sample comparison brief', sampleImp: 'Sample implementation brief',
+        back: 'Back to chat', print: 'Print or save PDF', reqFit: 'Requirements fit', reqCol: 'Requirement', sw: 'Strengths and watch-outs', strength: 'Strength', watch: 'Watch-out',
+        recHeading: 'A clear recommendation', plan: 'Delivery plan', statusMeets: 'Meets', statusPartly: 'Partly', statusGap: 'Gap',
+        recTemplate: '{m} fits best against your {n} requirements ({me} met, {pa} partly met, {gap} gap). {rec} A consultant confirms scope, price and timeline.',
+        objective: 'Objective:', phase: 'Phase', owners: 'Owners:', ownersText: 'your project owner with a Fruition consultant.', risk: 'Risk:',
+        noteAdded: 'Added to what I know: *{k}*, {v}. The matches are re-scored against it.', noteTeam: 'Noted. I have recorded the *{k}* and re-scored the matches.', notePain: 'Noted. I have recorded that under *{k}* and re-scored the matches.',
+        teamSuffix: 'people',
+      }
+      FIELDS.forEach((f, i) => { U[`field${i + 1}`] = f; if (PH[f]) U[`field${i + 1}Ph`] = PH[f] })
+      REG.forEach((r, i) => { U[`region${i + 1}`] = r })
+      return {
+        _type: 'vcAskDemo', ...base, head: headOf(sec), note: text(sec.querySelector('.note-ill')),
+        ui: Object.entries(U).map(([id, t]) => keyed('vcUiText', { id, text: t })),
+        scenarios: Object.entries(SC).map(([id, c]) => keyed('vcAskScenario', { id, chip: c.chip, title: c.title, user: c.user, goals: c.goals, tools: c.tools, reply: c.reply.map(md), matches: c.m.map(decode) })),
+        solutions: Object.entries(M).map(([name, m]) => keyed('vcAskSolution', { name, why: m.why, fit: m.fit, strength: m.s, watch: m.w, rec: m.rec, phases: m.ph })),
+      }
+    }
+  }
+  if (ctx.slug === 'home') {
+    if (ds === 'insights') return { _type: 'vcInsights', ...base, head: headOf(sec) }
+    if (['services', 'method', 'markets', 'industries', 'platforms', 'ai'].includes(ds)) {
+      return {
+        _type: 'vcMarkup', _key: key(), sectionClass: cls(sec).join(' ') || undefined, anchor: sec.getAttribute('id') ?? undefined, dataSec: ds,
+        behaviour: ds === 'method' || ds === 'industries' ? ds : undefined, nodes: toNodes(sec, ctx),
+      }
+    }
+  }
+  if (ctx.slug === 'ai-use-cases') {
+    if (ds === 'industries') {
+      const first = text(sec.querySelector('.go-card .label'))
+      const m = first.match(/^(\d+)( use cases · )(\d+)( with AI)$/)
+      return { _type: 'vcIndustryGrid', ...base, head: headOf(sec), labelTemplate: m ? `{count}${m[2]}{ai}${m[4]}` : '{count} use cases · {ai} with AI' }
+    }
+    if (ds === 'catalogue') {
+      const rows = sec.querySelectorAll('.frow')
+      const own = sec.querySelector('.uc .uc-top .label')
+      return {
+        _type: 'vcCatalogue', ...base, head: headOf(sec),
+        departmentLabel: text(rows[0].querySelector('.label')), allDepartmentsLabel: text(rows[0].querySelector('.tabs button')),
+        searchLabel: text(rows[1].querySelector('label')), searchPlaceholder: decode(rows[1].querySelector('input')?.getAttribute('placeholder') ?? ''),
+        filterLabel: text(rows[2].querySelector('.label')), aiOnlyLabel: text(rows[2].querySelector('label.ftog')),
+        countAll: 'Showing all {total} use cases', countFiltered: 'Showing {shown} of {total} matching use cases',
+        emptyText: text(sec.querySelector('#empty')), ownLabel: text(own), aiLabel: text(sec.querySelector('.uc .tag.ai')),
+        linkLabel: text(sec.querySelector('.uc a.link')), moreLabel: 'Show more',
+        overrides: sec.querySelectorAll('article.uc').map((a) => {
+          const title = text(a.querySelector('h3'))
+          const hit = useCaseByTitle(title)
+          if (!hit) { warnings.push(`ai-use-cases: tile not in catalogue: ${title}`); return null }
+          const metric = text(a.querySelector('.uc-top .tag:not(.ai)')) || undefined
+          return keyed('vcTileOverride', { id: hit.id, title, summary: text(a.querySelector('p.body')), metric })
+        }).filter(Boolean),
+      }
+    }
+  }
+  return null
+}
+
 async function fetchLive(path: string) {
   try {
     const res = await fetch(`${LIVE}${path}`, { headers: { 'user-agent': 'Mozilla/5.0 (fruition vc migrate)' } })
@@ -1077,10 +1374,21 @@ async function main() {
     const secs = root.querySelectorAll('body > section, main > section')
     const out: Record<string, unknown>[] = []
     for (const sec of secs) {
-      const s = section(sec, ctx) ?? (await extraSection(sec, ctx))
+      const s = (await coreSection(sec, ctx)) ?? section(sec, ctx) ?? (await extraSection(sec, ctx))
       if (!s && process.env.VC_LIST_UNKNOWN) { console.log(`UNKNOWN ${slug}: ${sec.getAttribute('class') ?? ''} ${sec.getAttribute('data-sec')} :: ${sec.outerHTML.replace(/<svg[\s\S]*?<\/svg>/g, '').slice(0, 300).replace(/\s+/g, ' ')}`); continue }
       if (!s) throw new Error(`${slug}: unknown section ${sec.getAttribute('class') ?? ''} data-sec=${sec.getAttribute('data-sec')}\n${sec.outerHTML.slice(0, 400)}`)
       out.push(JSON.parse(JSON.stringify(s)))
+    }
+    if (slug === 'ask-fruit') {
+      const fix = (v: unknown): void => {
+        if (Array.isArray(v)) v.forEach(fix)
+        else if (v && typeof v === 'object') {
+          const o = v as Record<string, unknown>
+          if (o.href === '#tool') o.href = '/ask-fruit/workspace'
+          Object.values(o).forEach(fix)
+        }
+      }
+      fix(out)
     }
     const seoTitle = live ? text(live.querySelector('title')) : undefined
     const seoDescription = live?.querySelector('meta[name="description"]')?.getAttribute('content') ?? undefined
