@@ -19,7 +19,7 @@ export interface VcItemData {
   aiLabel?: string; aiNote?: string; listClass?: string; bulletIcon?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean; icon?: string
 }
 export interface VcCaseData { _id: string; client?: string; label?: string; body?: string; tags?: string[]; results?: { _key?: string; value?: string; label?: string }[]; photo?: VcImage; logo?: VcImage; href?: string }
-export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string; tag?: string }
+export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string; photo?: VcImage; tag?: string }
 export interface VcFaqItemData { _id: string; question?: string; answer?: PortableTextBlock[] }
 export interface VcFaqTabData { _key?: string; label?: string; items?: VcFaqItemData[] }
 

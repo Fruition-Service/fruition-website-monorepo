@@ -750,6 +750,10 @@
     }
   }
 
+/* Client quote avatars: a headshot fills the round initials chip when the quote has a photo. */
+.vc .q .av:has(img) { overflow: hidden; background: none; }
+.vc .q .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
 
 .vc-p-ai-capability-assessment .avail{background:#fff;border:1px solid var(--line);border-radius:var(--r3);padding:28px}
 .vc-p-ai-capability-assessment .avail .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-top:1px solid var(--line)}

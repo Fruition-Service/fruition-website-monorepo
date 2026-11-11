@@ -13,7 +13,7 @@ const TEAMREF = `{ "override": bio, "roleOverride": role, ...person->{ _id, name
 const SECTIONS = `sections[]{
   ...,
   _type == "vcCases" => { cases[]->{ _id, client, label, body, tags, results, photo, logo, href } },
-  _type == "vcProof" => { quotes[]->{ _id, org, quote, name, role, initials, tag } },
+  _type == "vcProof" => { quotes[]->{ _id, org, quote, name, role, initials, photo, tag } },
   _type == "vcFaqHub" => { categories[]{ ..., groups[]{ _key, name, items[]->{ _id, question, answer } } } },
   _type == "vcStories" => { stories[]->{ _id, num, client, sub, solution, weeks, logo, metrics, quote, people, challenge, solutionText, impact, location, employees, industry, useCase, tags } },
   _type == "vcFaq" => { tabs[]{ _key, label, items[]->{ _id, question, answer } } },

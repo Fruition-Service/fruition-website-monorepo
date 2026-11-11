@@ -111,6 +111,15 @@ export function Head({ head, as: H = "h2" }: { head?: VcHeadData | null; as?: "h
 /** Sanity CDN URL for an image at a target width (2x for retina is the caller's choice). */
 export function imgUrl(image: VcImage | undefined | null, width: number, opts: { height?: number; fit?: "max" | "crop" } = {}) {
   if (!image?.asset) return undefined
+  // "Fit inside this box" must never crop. Given both width and height, the URL
+  // builder adds a hotspot `rect` crop to the box's aspect ratio (it ignores
+  // fit=max), which sliced the top and bottom off every client logo. Bound the
+  // size with max-w/max-h instead, which leaves the whole image in place.
+  if (opts.fit === "max") {
+    let m = urlFor(image).maxWidth(width).auto("format")
+    if (opts.height) m = m.maxHeight(opts.height)
+    return m.url()
+  }
   let b = urlFor(image).width(width).auto("format")
   if (opts.height) b = b.height(opts.height)
   if (opts.fit) b = b.fit(opts.fit)
@@ -124,6 +133,14 @@ export function dims(image: VcImage | undefined | null, width?: number) {
   const d = { width: Number(m[1]), height: Number(m[2]) }
   if (!width) return { width: d.width, height: d.height }
   return { width, height: Math.round((d.height / d.width) * width) }
+}
+
+/** Intrinsic size of the whole image scaled to fit inside a width x height box (keeps the aspect ratio). */
+export function boxDims(image: VcImage | undefined | null, width: number, height: number) {
+  const d = dims(image)
+  if (!d.width || !d.height) return { width, height }
+  const s = Math.min(width / d.width, height / d.height)
+  return { width: Math.max(1, Math.round(d.width * s)), height: Math.max(1, Math.round(d.height * s)) }
 }
 
 /** Plain <img> straight from the Sanity CDN, so the inline editor can swap it. */
@@ -154,8 +171,7 @@ export function SImg({
       className={className}
       src={src}
       alt={vercelStegaClean(alt ?? image?.alt ?? "")}
-      {...dims(image, height ? undefined : width)}
-      {...(height ? { height } : {})}
+      {...(height ? boxDims(image, width, height) : dims(image, width))}
       loading={priority ? "eager" : lazy ? "lazy" : undefined}
       decoding="async"
       {...(priority ? { fetchPriority: "high" as const } : {})}
@@ -204,4 +220,13 @@ export function SvgIcon({ svg, className }: { svg?: string | null; className?: s
   const html = safeSvg(svg)
   if (!html) return null
   return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />
+}
+
+/** Avatar on a client quote: the person's photo when one is on file, else their initials. */
+export function QuoteAvatar({ q }: { q: { photo?: VcImage | null; initials?: string } }) {
+  return (
+    <span className="av">
+      {q.photo?.asset ? <SImg image={q.photo} width={40} height={40} fit="crop" alt="" /> : vercelStegaClean(q.initials ?? "")}
+    </span>
+  )
 }

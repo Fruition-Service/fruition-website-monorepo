@@ -5,7 +5,7 @@ import { VcFilteredProof } from "./interactive"
 import { VcHeroSearch } from "./hubs"
 import VcAskPrompt from "./VcAskPrompt"
 import { VcNodes } from "./nodes"
-import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
+import { Acc, Arrow, Badge, Btn, Ctas, Head, QuoteAvatar, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
 import type {
   VcAuditData,
   VcCardsData,
@@ -539,7 +539,7 @@ function Quote({ q, hidden }: { q: VcQuoteData; hidden?: boolean }) {
       {q.org && <span className="label">{hidden ? vercelStegaClean(q.org) : q.org}</span>}
       <blockquote>&ldquo;{hidden ? vercelStegaClean(q.quote ?? "") : q.quote}&rdquo;</blockquote>
       <figcaption className="who">
-        <span className="av">{vercelStegaClean(q.initials ?? "")}</span>
+        <QuoteAvatar q={q} />
         <div>
           <b>{hidden ? vercelStegaClean(q.name ?? "") : q.name}</b>
           <span className="small">{hidden ? vercelStegaClean(q.role ?? "") : q.role}</span>
