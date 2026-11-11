@@ -682,6 +682,7 @@
   .vc .qlead { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
   .vc .qlead input[type="email"] { flex: 1 1 220px; min-width: 0; height: 48px; border: 1px solid var(--line-2); border-radius: var(--pill); padding: 0 18px; font: 400 14px var(--sans); color: var(--ink); background: #fff; }
   .vc .qlead input[type="email"]:focus { outline: 0; border-color: var(--accent); }
+  .vc button.link { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; text-align: left; }
   .vc .final .link.restart { align-self: flex-start; margin-top: 20px; background: none; border: 0; padding: 0; cursor: pointer; }
   .vc .bp { margin-top: 64px; display: flex; flex-direction: column; gap: 48px; }
   .vc .bp-sec { display: flex; flex-direction: column; gap: 16px; }

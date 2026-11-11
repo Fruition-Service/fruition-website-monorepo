@@ -169,10 +169,10 @@ export default function VcCatalogueView({
                 </span>
               ))}
             </div>
-            <Link className="link" href={`#${t.id}`} aria-haspopup="dialog" scroll={false}>
+            <button type="button" className="link" aria-haspopup="dialog" onClick={() => writeUrl((url) => (url.hash = t.id))}>
               {s.linkLabel}
               <Arrow />
-            </Link>
+            </button>
           </article>
         ))}
       </div>
