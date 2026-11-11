@@ -1,24 +1,13 @@
-import { getSiteSettings } from "@/sanity/queries"
-import { bookingHref } from "@/lib/bookingLink"
-import { buildOgMetadata } from "@/lib/metadata"
-import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
-import { getAllUseCases, getUseCaseIndex } from "@/features/ai-use-cases/data"
-import { industryHref, toTile, USE_CASES_PATH } from "@/features/ai-use-cases/types"
-import UseCasesHero from "@/components/ai-use-cases/UseCasesHero"
-import IndustryGrid from "@/components/ai-use-cases/IndustryGrid"
-import UseCaseExplorer from "@/components/ai-use-cases/UseCaseExplorer"
+import "@/styles/vc/pages/ai-use-cases.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 import JsonLd, { SITE_URL } from "@/components/ai-use-cases/JsonLd"
-import SectionIntro from "@/components/sections/SectionIntro"
-import ClientLogoSection from "@/components/sections/ClientLogoSection"
-import FaqAccordion from "@/components/sections/FaqAccordion"
-import ClosingCtaSection from "@/components/sections/ClosingCtaSection"
-import CalendlySection from "@/components/sections/CalendlySection"
+import { getUseCaseIndex } from "@/features/ai-use-cases/data"
+import { industryHref, USE_CASES_PATH } from "@/features/ai-use-cases/types"
 
 /**
- * /ai-use-cases: the catalogue of real Fruition builds, filterable by
- * industry, department and solution type. Copy is Josh's catalogue draft
- * (v4), verbatim; counts are computed from the imported data so they cannot
- * drift from it. Data: public/data/ai-use-cases (scripts/import-ai-use-cases.mjs).
+ * /ai-use-cases: the hub over the use case catalogue (public/data/ai-use-cases).
+ * Header and section copy is the Version C page document; the catalogue stays
+ * the data source for the industry tiles, the use case tiles and the counts.
  */
 
 const TITLE = "Fruition AI & Software Solutions by Industry | Use Cases"
@@ -26,72 +15,11 @@ const TITLE = "Fruition AI & Software Solutions by Industry | Use Cases"
 export async function generateMetadata() {
   const index = await getUseCaseIndex()
   const description = `${index.total} AI and monday.com use cases across ${index.industries.length} industries. Filter by industry and team, and see the process, boards, automations and integrations behind each.`
-  return {
-    alternates: { canonical: USE_CASES_PATH },
-    title: TITLE,
-    description,
-    ...buildOgMetadata({ title: TITLE, description, path: USE_CASES_PATH }),
-  }
+  return vcMetadata(USE_CASES_PATH, { title: TITLE, description })
 }
 
-const BADGES = [
-  "monday.com Platinum Partner",
-  "Atlassian Platinum Partner",
-  "HubSpot Partner",
-  "OpenAI Partner",
-  "Anthropic Partner",
-  "Australian AI Awards Finalist 2026",
-]
-
-const METHOD = [
-  { title: "Discovery", description: "Stakeholder interviews, current-state map and solution fit." },
-  { title: "Design", description: "Boards, automations, AI steps and integrations agreed in writing." },
-  { title: "Build", description: "Boards, dashboards, agents and connectors configured against the signed design." },
-  { title: "Enablement", description: "Role-based training, runbooks and admin certification." },
-  { title: "Hypercare", description: "Adoption monitoring, tuning and a clean hand-off to support." },
-]
-
 export default async function Page() {
-  const [index, useCases, siteSettings] = await Promise.all([
-    getUseCaseIndex(),
-    getAllUseCases(),
-    getSiteSettings(),
-  ])
-  const rawCalendly = siteSettings?.calendlyLink || FALLBACK_BOOKING_URL
-  const booking = bookingHref(rawCalendly)
-  const departmentCount = Object.keys(index.departments).length
-
-  const faq = [
-    {
-      question: "What AI and monday.com use cases does Fruition build?",
-      answer: `This catalogue holds ${index.total} use cases across ${index.industries.length} industries: CRM, project portfolios, service desks, operations systems, integrations and AI steps such as document extraction, ticket classification and meeting-to-action agents.`,
-    },
-    {
-      question: "Are these real client use cases?",
-      answer:
-        "Yes. Every use case comes from a real Fruition client engagement between October 2024 and October 2026. Client names are withheld and each client is described by the kind of organisation it is.",
-    },
-    {
-      question: "What does a Fruition build include?",
-      answer:
-        "Each use case shows the future-state process, the monday.com boards and modules, the automations and AI steps, the systems it connects to, and the typical timeframe for the complete build.",
-    },
-    {
-      question: "Does Fruition use these solutions itself?",
-      answer: `Yes. ${index.ownCount} of the use cases are builds that run inside Fruition, from an AI marketing agent and a discovery-call-to-proposal generator to automated contractor payroll and a Google Ads agent. We test patterns on our own business before we take them to clients.`,
-    },
-    {
-      question: "Which AI platforms does Fruition use?",
-      answer:
-        "Fruition is a monday.com Platinum Partner and a partner of both Anthropic and OpenAI. Builds combine monday.com AI, Claude and OpenAI models, and orchestration tools such as n8n and Make, with monday.com as the system of record.",
-    },
-    {
-      question: "Where does Fruition work?",
-      answer:
-        "Fruition works with teams across Australia, India, the Philippines, Singapore, the UK and the US, and is an approved Advanced-level supplier on the NSW Government ICT Services Scheme.",
-    },
-  ]
-
+  const index = await getUseCaseIndex()
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -110,104 +38,10 @@ export default async function Page() {
       })),
     },
   }
-
   return (
     <>
       <JsonLd data={jsonLd} />
-      <UseCasesHero
-        eyebrow="Use case library"
-        badges={BADGES}
-        heading="Fruition AI and software solutions, by industry."
-        headingAccent="by industry"
-        lead={`A catalogue of ${index.total} real Fruition builds across ${index.industries.length} industries, ${index.aiCount} with AI steps. Filter by industry, team and solution, then select "See the build" for the process, boards, automations and integrations behind each one.`}
-        primary={{ label: "Explore use cases", href: "#explore" }}
-        secondary={{ label: "Book a discovery call", href: booking }}
-        stats={[
-          { value: String(index.total), label: "use cases" },
-          { value: String(index.industries.length), label: "industries" },
-          { value: String(index.aiCount), label: "with an AI step" },
-          { value: String(departmentCount), label: "departments covered" },
-        ]}
-      />
-
-      <ClientLogoSection
-        eyebrow="Clients"
-        align="left"
-        className="bg-surface section-y"
-        logos={siteSettings?.carouselLogos ?? []}
-      />
-
-      <section id="industries" className="section-y scroll-mt-24 bg-surface-subtle">
-        <div className="site-container">
-          <SectionIntro
-            eyebrow="Industries"
-            heading="Browse by industry"
-            lead="Each industry has its own page with every use case, the integrations that come up most and typical timeframes."
-          />
-          <div className="mt-10 md:mt-12">
-            <IndustryGrid industries={index.industries} />
-          </div>
-        </div>
-      </section>
-
-      <section id="explore" className="section-y scroll-mt-24 bg-surface">
-        <div className="site-container">
-          <SectionIntro
-            eyebrow="Use case catalogue"
-            heading="Find a use case like yours"
-            lead={`Client names are withheld. Select "See the build" on any tile for the full detail.`}
-          />
-          <div className="mt-10 md:mt-12">
-            <UseCaseExplorer
-              tiles={useCases.map(toTile)}
-              industries={index.industries}
-              departments={index.departments}
-              solutionTypes={index.solutionTypes}
-              industryFilter
-              bookingHref={booking}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="method" className="section-y scroll-mt-24 bg-surface-subtle">
-        <div className="site-container lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-          <SectionIntro
-            eyebrow="Our method"
-            heading="How a Fruition build ships"
-            lead="Process before platform. Every build follows the same five phases."
-          />
-          <ol className="mt-10 lg:mt-0">
-            {METHOD.map((step, n) => (
-              <li
-                key={step.title}
-                className="flex gap-5 border-b border-dashed border-ui py-5 last:border-b-0 lg:first:pt-0"
-              >
-                <span className="pt-1 font-mono text-xs font-semibold tracking-[0.12em] text-brand">
-                  {String(n + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-[17px] leading-snug font-semibold text-body">{step.title}</h3>
-                  <p className="mt-1 text-[15px] text-muted">{step.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <FaqAccordion heading="Questions about these use cases" tabs={[{ label: "Use cases", items: faq }]} />
-
-      <ClosingCtaSection
-        fallback={{
-          heading: "Ready to scale your workflows?",
-          lead: "Tell us the process you want to fix. If it isn't here yet, it's likely our next build.",
-          primaryLabel: "Book a Free Consultation",
-          primaryUrl: booking,
-        }}
-      />
-
-      <CalendlySection calendlyUrl={rawCalendly} />
+      <VcPage path={USE_CASES_PATH} slug="ai-use-cases" />
     </>
   )
 }

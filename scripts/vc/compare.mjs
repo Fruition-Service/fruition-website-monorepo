@@ -40,7 +40,15 @@ async function measure(page) {
       cls: s.className, sec: s.getAttribute('data-sec'), h: Math.round(s.getBoundingClientRect().height),
     }))
     const broken = [...document.images].filter((i) => i.complete && i.naturalWidth === 0 && i.closest('.vc, body')).map((i) => i.src.slice(0, 120))
-    return { overflow: document.documentElement.scrollWidth - window.innerWidth, secs, broken }
+    const texts = []
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      const p = n.parentElement
+      if (!p || p.closest('script,style,svg,noscript,header.nav,.ann,footer,.footer,[aria-hidden="true"]')) continue
+      const t = n.textContent.replace(/\s+/g, ' ').trim()
+      if (t.length >= 2) texts.push(t)
+    }
+    return { overflow: document.documentElement.scrollWidth - window.innerWidth, secs, broken, texts }
   })
 }
 
@@ -86,7 +94,13 @@ for (const spec of pages) {
     await page.waitForTimeout(500)
     const m = await measure(page)
     await page.screenshot({ path: join(out, `${slug}-${w}-mock.png`), fullPage: true })
-    report[`${slug}@${w}`] = { site, mock: m, errors }
+    const norm = (t) => t.toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/[^a-z0-9$%+.]+/g, ' ').trim()
+    const sAll = ' ' + site.texts.map(norm).join(' ') + ' '
+    const mAll = ' ' + m.texts.map(norm).join(' ') + ' '
+    const missing = [...new Set(m.texts)].filter((t) => norm(t).length > 2 && !sAll.includes(' ' + norm(t) + ' ') && !sAll.includes(norm(t)))
+    const extra = [...new Set(site.texts)].filter((t) => norm(t).length > 2 && !mAll.includes(norm(t)))
+    delete site.texts; delete m.texts
+    report[`${slug}@${w}`] = { site, mock: m, errors, missing, extra }
     await ctx.close()
   }
 }
@@ -96,5 +110,7 @@ for (const [k, v] of Object.entries(report)) {
   const pair = v.site.secs.map((s, i) => `${s.sec ?? '?'}:${s.h}/${v.mock.secs[i]?.h ?? '-'}`).join(' ')
   console.log(`${k} overflow=${v.site.overflow} broken=${v.site.broken.length} errors=${v.errors.length} secs ${v.site.secs.length}/${v.mock.secs.length}\n  ${pair}`)
   if (v.errors.length) console.log('  ' + v.errors.slice(0, 5).join('\n  '))
+  if (v.missing.length) console.log(`  TEXT missing on site (${v.missing.length}): ` + v.missing.slice(0, 12).map((t) => JSON.stringify(t.slice(0, 70))).join(' | '))
+  if (v.extra.length) console.log(`  TEXT only on site (${v.extra.length}): ` + v.extra.slice(0, 12).map((t) => JSON.stringify(t.slice(0, 70))).join(' | '))
   if (v.site.broken.length) console.log('  broken: ' + v.site.broken.slice(0, 5).join(' '))
 }

@@ -10,11 +10,29 @@
  *    which do not come along when the card is used on its own.
  */
   .vc .mt24 { margin-top: 24px; }
-  .vc .go-card { grid-column: 1 / -1; }
+  .vc .go-card:not(.ind) { grid-column: 1 / -1; }
   .vc .bar i { width: var(--w, 0%); }
   .vc .vc-ink { color: var(--ink); }
   .vc .vc-mt8 { margin-top: 8px; }
   .vc .empty.vc-show { display: block; }
+  .vc .vc-mb12 { margin-bottom: 12px; }
+  .vc .vc-mt12 { margin-top: 12px; }
+  .vc .vc-ink-b { font-weight: 500; color: var(--ink); }
+  .vc .vc-hp { position: absolute; left: -9999px; width: 0; height: 0; overflow: hidden; }
+  .vc .qlead { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .vc .qlead input[type="email"] { flex: 1 1 220px; min-width: 0; height: 48px; border: 1px solid var(--line-2); border-radius: var(--pill); padding: 0 18px; font: 400 14px var(--sans); color: var(--ink); background: #fff; }
+  .vc .qlead input[type="email"]:focus { outline: 0; border-color: var(--accent); }
+  .vc .final .link.restart { align-self: flex-start; margin-top: 20px; background: none; border: 0; padding: 0; cursor: pointer; }
+  .vc .bp { margin-top: 64px; display: flex; flex-direction: column; gap: 48px; }
+  .vc .bp-sec { display: flex; flex-direction: column; gap: 16px; }
+  .vc .bp-sec .cards3, .vc .bp-sec .cards4, .vc .bp-sec .steps { margin-top: 8px; }
+  .vc .bp-n { display: block; font: 500 32px/1 var(--sans); letter-spacing: -.03em; margin-bottom: 8px; }
+  .vc .bp-sec .card .bar { display: block; margin-top: 12px; }
+  .vc .bp-inv { padding: 8px 24px; }
+  .vc .bp-row { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--line); }
+  .vc .bp-row:first-child { border-top: 0; }
+  .vc .bp-row.tot b { color: var(--accent); }
+  @media (max-width: 767px) { .vc .bp-row { grid-template-columns: 1fr; gap: 4px; } }
   .vc .vc-spacer { height: var(--sec); }
   .vc .vc-svg { display: contents; }
   .vc .case > div > .lead { margin-top: 20px; }

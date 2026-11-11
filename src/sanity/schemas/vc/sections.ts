@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { ctas, head, heading, image, sectionBase } from './fields'
+import { vcCoreSections, vcNode } from './core'
 
 /**
  * Version C sections. A page is an ordered list of these (vcPage.sections);
@@ -31,6 +32,34 @@ export const vcHero = defineType({
     defineField({ name: 'artClass', title: 'Graphic shape', type: 'string', description: 'Machine value: empty, or "wide" for landscape renders.' }),
     image('frameImage', 'Framed screenshot', 'Used instead of the 3D graphic on product pages: a screenshot in a grey frame.'),
     defineField({ name: 'creds', title: 'Badges on the frame', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
+    defineField({ name: 'stageClass', title: 'Stage style', type: 'string', description: 'Design-system value for the animated stage. Leave as is.' }),
+    defineField({ name: 'stage', title: 'Animated stage', type: 'array', description: 'The animated network graphic. Edit the labels and images in place on the page.', of: [defineArrayMember({ type: 'vcNode' })] }),
+    defineField({ name: 'frameSvg', title: 'Framed artwork (SVG markup)', type: 'text', rows: 3, description: 'Generated artwork shown in the frame. Do not edit by hand.' }),
+    defineField({ name: 'frameSvgAria', title: 'Framed artwork description (accessibility)', type: 'string' }),
+    defineField({ name: 'frameClass', title: 'Frame style', type: 'string', description: 'Design-system value, e.g. "art-frame". Leave as is.' }),
+    defineField({ name: 'credsClass', title: 'Badge row style', type: 'string', description: 'Design-system value, e.g. "ai". Leave as is.' }),
+    defineField({
+      name: 'prompt',
+      title: 'Question box (Implementation Calculator hero)',
+      type: 'object',
+      fields: [
+        defineField({ name: 'label', title: 'Label', type: 'string' }),
+        defineField({ name: 'placeholder', title: 'Placeholder', type: 'string' }),
+        defineField({ name: 'ariaLabel', title: 'Input description (accessibility)', type: 'string' }),
+        defineField({ name: 'sendLabel', title: 'Send button description (accessibility)', type: 'string' }),
+        defineField({ name: 'note', title: 'Note', type: 'text', rows: 2 }),
+        defineField({ name: 'href', title: 'Opens (path)', type: 'string', description: 'The live Calculator. The question is added as ?q=.' }),
+        defineField({
+          name: 'chips',
+          title: 'Starter questions',
+          type: 'array',
+          of: [defineArrayMember({ type: 'object', name: 'vcPromptChip', fields: [
+            defineField({ name: 'label', title: 'Chip label', type: 'string' }),
+            defineField({ name: 'text', title: 'Question sent', type: 'string' }),
+          ], preview: { select: { title: 'label' } } })],
+        }),
+      ],
+    }),
     defineField({ name: 'chipValue', title: 'Frame chip value', type: 'string' }),
     defineField({ name: 'chipLabel', title: 'Frame chip label', type: 'string' }),
     defineField({ name: 'mapKind', title: 'Map style', type: 'string', description: 'Region pages: "rmap" (pins) or "art" (labelled map). Leave as is.' }),
@@ -107,6 +136,7 @@ export const vcSteps = defineType({
       description: 'Design-system class from the mock-up, e.g. "steps", "steps four", "steps4".',
       initialValue: 'steps',
     }),
+    defineField({ name: 'titleClass', title: 'Step title style', type: 'string', description: 'Design-system value: empty (h3) or "title" (smaller). Leave as is.' }),
     defineField({
       name: 'items',
       title: 'Steps',
@@ -888,8 +918,8 @@ export const vcFaqHub = defineType({
 
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub, ...vcCoreSections, vcNode,
 ]
 
 /** Section types a page may contain (vcTeamRef is an object used inside sections). */
-export const VC_SECTION_TYPES = vcSections.map((s) => s.name).filter((n) => n !== 'vcTeamRef')
+export const VC_SECTION_TYPES = vcSections.map((s) => s.name).filter((n) => n !== 'vcTeamRef' && n !== 'vcNode')
