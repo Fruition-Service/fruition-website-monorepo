@@ -173,12 +173,12 @@ export default function VisitorTrackingDisclosure() {
         To opt out of RB2B identification across every site that uses the
         service, submit a request directly to RB2B at{" "}
         <a
-          href="https://www.rb2b.com/data-rights-request"
+          href="https://www.rb2b.com/your-privacy-choices"
           target="_blank"
           rel="noopener noreferrer"
           className={link}
         >
-          rb2b.com/data-rights-request
+          rb2b.com/your-privacy-choices
         </a>
         .
       </p>
