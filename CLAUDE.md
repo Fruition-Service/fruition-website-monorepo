@@ -13,6 +13,17 @@ RB2B and Zernio.
 **This repository is public.** Never commit secret values, `.env*` (except `.env.example`) or
 `.dev.vars`. Name env vars; do not paste them.
 
+## SEO HOLD: headings (active since 2026-11-11)
+
+Do not change any H1-H6 heading or subheading text, level or wording on fruitionservices.io pages
+based on Annica Galang's two suggestion PDFs ('[For SEO Review] Services pages - Copy suggestions'
+and '[For SEO and Design Review] Site-wide edit suggestions') until Vadim (Fruition SEO) has
+reviewed them and confirmed in Slack. Reason: frequent layout and heading changes hurt SEO.
+
+- Other copy and design changes from the monday item 'Website design edit suggestions' may proceed.
+- This also applies to Sanity content edits that change headings from those docs.
+- Remove this section once Vadim confirms in Slack.
+
 ## Commands
 
 ```bash
