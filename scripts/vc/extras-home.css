@@ -1,0 +1,24 @@
+/* Home hero network (appended after the mock-up page block by build-css.mjs).
+   1. The 620px stage scaled only at fixed breakpoints, so between 1024 and about
+      1200px wide the Claude and OpenAI pills ran past the clipped container.
+      Scale it to the container instead: tan(atan2(a, b)) is the unitless a / b,
+      capped at the mock-up's own scale for each width. 500px is the width the
+      pills span at scale 1; 24px keeps a gutter on both sides. Browsers without
+      CSS trig functions ignore these lines and keep the mock-up's scale.
+   2. The twelve orbiting tiles circled on the same 196px radius as the pills, so
+      they kept sliding underneath them (the HubSpot, OpenAI and Claude pills
+      looked cut off). Shrink the orbit to 90px, between the hub (52px) and the
+      nearest pill (126px), and counter-scale each tile to 32px so it stays a
+      readable size. `scale` composes with the spin animation's `transform`. */
+.vc.vc-p-home .hn-wrap { container-type: inline-size; }
+.vc.vc-p-home .hn-stage { transform: scale(min(1, tan(atan2(100cqw - 24px, 500px)))); }
+@media (max-width: 1279px) {
+  .vc.vc-p-home .hn-stage { transform: scale(min(0.86, tan(atan2(100cqw - 24px, 500px)))); }
+}
+@media (max-width: 1023px) {
+  .vc.vc-p-home .hn-stage { transform: scale(min(0.72, tan(atan2(100cqw - 24px, 500px)))); }
+}
+.vc.vc-p-home .ho-ring { scale: 0.46; }
+.vc.vc-p-home .ho-badge { scale: 1.58; }
+.vc.vc-p-home .ho-badge img { width: 24px; height: 24px; }
+.vc.vc-p-home .ho-badge.more { font-size: 15px; }

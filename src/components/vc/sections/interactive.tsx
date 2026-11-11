@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { vercelStegaClean } from "@vercel/stega"
-import { Btn, Head } from "../primitives"
+import { Btn, Head, QuoteAvatar } from "../primitives"
 import { dataset, projectId } from "@/sanity/env"
 import type { VcFixData, VcIndustryTabsData, VcTrackData } from "../types"
 
@@ -372,7 +372,7 @@ export function VcFilteredProof({
             {q.org && <span className="label">{q.org}</span>}
             <blockquote>&ldquo;{q.quote}&rdquo;</blockquote>
             <figcaption className="who">
-              <span className="av">{vercelStegaClean(q.initials ?? "")}</span>
+              <QuoteAvatar q={q} />
               <div>
                 <b>{q.name}</b>
                 <span className="small">{q.role}</span>

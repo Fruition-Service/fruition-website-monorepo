@@ -144,7 +144,10 @@ for (const [slug, file] of pages) {
   if (!blocks.trim()) continue
   // Page blocks may animate with base keyframes (mq-up etc.): rename those first.
   const css = scopeCss(renameKnownAnimations(blocks, baseKeyframes), `.vc-p-${slug}`)
-  writeFileSync(join(outDir, 'pages', `${slug}.css`), `${HEADER}@layer components {\n${baseCss}\n${css}\n}\n`)
+  // Hand-written fixes for one page (scripts/vc/extras-<slug>.css) go after its block.
+  const pageExtrasFile = new URL(`./extras-${slug}.css`, import.meta.url)
+  const pageExtras = existsSync(pageExtrasFile) ? `\n${readFileSync(pageExtrasFile, 'utf8')}` : ''
+  writeFileSync(join(outDir, 'pages', `${slug}.css`), `${HEADER}@layer components {\n${baseCss}\n${css}${pageExtras}\n}\n`)
   n++
 }
 console.log(`${n} page stylesheets written`)
