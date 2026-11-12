@@ -21,7 +21,9 @@ is click-to-edit on editing.fruitionservices.io.
 ## Adding or migrating a page
 
 1. Styles: `node scripts/vc/build-css.mjs <mock-ups review dir>` regenerates `src/styles/vc/`.
-   A page without a mock-up of its own can import `src/styles/vc/default.css`.
+   A page without a mock-up of its own can import `src/styles/vc/default.css`, or reuse an approved
+   page's stylesheet and pass that page's slug (the six industry pages added on 12 Nov 2026 reuse
+   the healthcare layout; content and assets in `scripts/vc/add-industries-2026-11.ts`).
 2. Content: `npx tsx scripts/vc/migrate.ts --mockups <review dir> --slugs <slug,...>` (dry run,
    writes a JSON report), then add `--apply`. It uploads images, creates/replaces the documents,
    copies SEO title/description from the live page, takes links the mock-up left as `#` from the
