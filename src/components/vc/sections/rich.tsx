@@ -21,7 +21,7 @@ export async function VcUseCases({ s }: { s: VcUseCasesData }) {
   if (!featured?.tiles.length) return null
   const label = s.linkLabel || "See the build"
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "use-cases"} cls={s.sectionClass} dataSec="usecases">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor ?? "use-cases"} cls={s.sectionClass} dataSec="usecases">
       <Head head={s.head} />
       <div className="cards3">
         {featured.tiles.map((t) => (
@@ -63,7 +63,7 @@ export function VcFaq({ s }: { s: VcFaqData }) {
     ),
   )
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "faq"} cls={s.sectionClass} inner="wrap faq" dataSec="faq">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor ?? "faq"} cls={s.sectionClass} inner="wrap faq" dataSec="faq">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <VcFaqTabs
         badge={<Badge>{s.badge}</Badge>}
@@ -86,7 +86,7 @@ export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?
   const p = shared?.practitioners
   if (!p) return null
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap josh-wrap" dataSec="lead">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} inner="wrap josh-wrap" dataSec="lead">
       <div className="josh-copy">
         <Badge>{p.badge}</Badge>
         {p.heading && (

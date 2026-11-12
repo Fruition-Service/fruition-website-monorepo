@@ -66,6 +66,10 @@ depends on the Workers runtime.
   cannot catch nav links pointing at pages that do not exist. Verify page files exist by hand.
 - **Portal auth is per page, not middleware.** Every `/internal` page must call
   `requirePortalUser()` and every `/api/internal` route `getPortalApiUser()`.
+- **Version C sections are either template or page-specific.** Sections with `scope: "page"` (rendered
+  with `data-scope="page"`) exist on one page only, e.g. the four Atlassian deep dives. Keep them when
+  changing a page group's template and never copy them to sibling pages. See
+  [docs/version-c.md](docs/version-c.md#template-and-page-specific-sections).
 - **FAQs have two Sanity sources** (`faqTabs` on the page vs central `faqItem`). Always use
   `resolveFaqTabs()`; FAQ JSON-LD comes only from `FaqAccordion`.
 - **Ad landing pages (`src/app/{au,uk,us,sea}`) bypass the root layout.** Layout-level changes (tags,

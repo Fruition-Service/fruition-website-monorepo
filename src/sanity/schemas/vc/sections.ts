@@ -916,9 +916,51 @@ export const vcFaqHub = defineType({
   preview: { prepare: () => ({ title: 'FAQ help centre' }) },
 })
 
+/**
+ * A service deep dive (page-specific): the copy of a retired leaf page folded
+ * into its hub. Heading block, an approach sub-heading with numbered steps,
+ * and an engagements sub-heading with a 4-card grid, built only from existing
+ * Version C classes (shead, steps, cards4). First used for the four
+ * Atlassian services on /atlassian-consulting (#jira, #confluence, #jsm,
+ * #migration). Set the section's scope to "Page-specific".
+ */
+export const vcDeepDive = defineType({
+  name: 'vcDeepDive',
+  title: 'Service deep dive (page-specific)',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'stepsHeading', title: 'Approach heading (H3)', type: 'string' }),
+    defineField({
+      name: 'steps',
+      title: 'Approach steps',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcDeepDiveStep', fields: [
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
+      ], preview: { select: { title: 'title' } } })],
+    }),
+    defineField({ name: 'cardsHeading', title: 'Engagements heading (H3)', type: 'string' }),
+    defineField({
+      name: 'cards',
+      title: 'Engagement cards',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcDeepDiveCard', fields: [
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'body', title: 'Body', type: 'text', rows: 3 }),
+      ], preview: { select: { title: 'title' } } })],
+    }),
+  ],
+  preview: {
+    select: { title: 'head.heading', badge: 'head.badge' },
+    prepare: ({ title, badge }: { title?: string; badge?: string }) => ({ title: title || 'Service deep dive', subtitle: `Page-specific deep dive${badge ? `: ${badge}` : ''}` }),
+  },
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub, ...vcCoreSections, vcNode,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub, vcDeepDive, ...vcCoreSections, vcNode,
 ]
 
 /** Section types a page may contain (vcTeamRef is an object used inside sections). */

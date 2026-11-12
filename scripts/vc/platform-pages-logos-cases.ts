@@ -11,6 +11,8 @@
  *    2712125749 and 2015851024 / 2031391047), listed in
  *    vc-mockups/platform-cases.json but skipped by the mock-up build because
  *    they had no logo or about line yet.
+ *    Pacific Community joined APCO on /partnerships/certified-clickup-partner
+ *    on 2026-11-12 (Edward's call; its work order is marked Void).
  *
  *   npx tsx scripts/vc/platform-pages-logos-cases.ts           # dry run
  *   npx tsx scripts/vc/platform-pages-logos-cases.ts --apply   # write
@@ -110,6 +112,22 @@ const NEW_CASES = [
     },
     logo: { file: 'rsfa-logo.png', alt: 'Rod Schubert Financial Advice logo' },
     photo: 'rsfa.jpg',
+  },
+  {
+    // Added 2026-11-12 at Edward's request. Work Order item 2747782095
+    // (ClickUp, EQAP finance team, Suva) is marked Void on the board.
+    page: '/partnerships/certified-clickup-partner',
+    doc: {
+      _id: 'vcCase-pacific-community',
+      _type: 'vcCase',
+      client: 'Pacific Community',
+      label: 'Client project · Fiji',
+      body: 'The principal scientific and technical organisation for the Pacific region, owned by its 27 member countries and territories.',
+      results: [],
+      tags: [],
+    },
+    logo: { file: 'spc-logo.png', alt: 'Pacific Community logo' },
+    photo: 'spc.jpg',
   },
 ]
 

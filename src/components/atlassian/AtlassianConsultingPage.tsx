@@ -16,6 +16,11 @@ import { groupFaqsIntoTabs } from '@/sanity/groupFaqs'
 import { atlassianFaqTabs } from './faqTabs'
 
 /**
+ * NOT RENDERED since the Version C rollout (#435, 11 Nov 2026): the route is
+ * now a VcPage and the deep dives are page-specific `vcDeepDive` sections in
+ * Sanity (scripts/vc/atlassian-deep-dives.ts). Kept only because its FAQ
+ * helpers are still tested; do not edit this to change the live page.
+ *
  * /atlassian-consulting after the Atlassian merge (monday 2899845035): the hub
  * plus the four retired leaf pages as in-page deep dives. Same building blocks
  * as PracticePageTemplate (which the other practice routes keep), laid out as

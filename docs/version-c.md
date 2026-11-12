@@ -18,6 +18,41 @@ The approved November 2026 redesign. A Version C page is a `vcPage` Sanity docum
 Every string renders as Sanity copy and every image comes from the Sanity CDN, so the whole page
 is click-to-edit on editing.fruitionservices.io.
 
+## Template and page-specific sections
+
+Every `vcPage` belongs to a `group` (partner, industry, region, ai, msol, company, core). The pages of
+one group share a **template**: the section sequence and design of the group's approved mock-up (for
+example every partner page runs hero, platform logos, partner status, why, approach, cases, audit,
+services, results, video, practitioners, proof, booking, FAQ, closing). A **page-specific** section is
+one added for a single page that its siblings do not have.
+
+How to tell them apart:
+
+- Every section has a `scope` field (Studio: "Template or page-specific"). `page` means page-specific;
+  empty or `template` means it is part of the group template. A page-specific section also carries a
+  `scopeNote` saying who asked for it and why.
+- Page-specific sections render with `data-scope="page"` on their `<section>`, so they are visible in
+  the page HTML and in Playwright checks (`document.querySelectorAll('[data-scope="page"]')`).
+- Section types built for one page say so in their Studio title, e.g. "Service deep dive (page-specific)".
+
+Rules for editors and agents:
+
+- When re-applying or changing a group template across its pages, leave `scope: page` sections in
+  place and in their position; never copy them to sibling pages.
+- When adding a section for one page only, set `scope` to `page` and fill `scopeNote`.
+- A change that should reach the whole group (like the platform logo row that replaced the hero stats
+  on all 12 partner pages, `scripts/vc/platform-pages-logos-cases.ts`) is a template change: apply it to
+  every page in the group and leave `scope` empty.
+
+Current page-specific sections:
+
+| Page | Sections | Why | Seeded by |
+|---|---|---|---|
+| `/atlassian-consulting` | four `vcDeepDive`: `#jira`, `#confluence`, `#jsm`, `#migration`, after "Our Atlassian services" | Copy of the four retired leaf pages (PR #415); the old leaf URLs 301 to these anchors. Restored 12 Nov 2026 after the Version C rollout dropped them (Vadim, SEO). | `scripts/vc/atlassian-deep-dives.ts` |
+
+Page-only styles go in `scripts/vc/extras-<slug>.css` (appended by `build-css.mjs`), never in the
+generated `src/styles/vc/` files.
+
 ## Adding or migrating a page
 
 1. Styles: `node scripts/vc/build-css.mjs <mock-ups review dir>` regenerates `src/styles/vc/`.

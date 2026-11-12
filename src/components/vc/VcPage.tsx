@@ -18,6 +18,7 @@ import {
 import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import { VcInsights, VcMarkup, VcQuizSection, VcAskDemoSection, VcCatalogue, VcFacts, VcIndustryGrid, VcLinkCards, VcPriceCards, VcServices } from "./sections/core"
 import VcBooking from "./sections/VcBooking"
+import { VcDeepDive } from "./sections/deepDive"
 import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcLeadership, VcOffices, VcTeamTabs, VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
 /**
@@ -29,6 +30,10 @@ import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcL
  * carries `vc vc-p-<slug>` and the page renders exactly like its approved
  * mock-up. Every string is Sanity copy, so the whole page is click-to-edit on
  * editing.fruitionservices.io.
+ *
+ * Template vs page-specific: most sections are the page group's Version C
+ * template; a section with scope "page" was added for that page only and
+ * renders with data-scope="page". See docs/version-c.md.
  */
 function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
   switch (s._type) {
@@ -77,6 +82,7 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcQuiz": return <VcQuizSection s={s} />
     case "vcMarkup": return <VcMarkup s={s} />
     case "vcInsights": return <VcInsights s={s} />
+    case "vcDeepDive": return <VcDeepDive s={s} />
     default: return null
   }
 }

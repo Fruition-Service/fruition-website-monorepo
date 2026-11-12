@@ -34,7 +34,7 @@ function TextLink({ href, className, children }: { href?: string; className?: st
 export function VcPriceCards({ s }: { s: VcPriceCardsData }) {
   const grid = vercelStegaClean(s.gridClass ?? "grid3")
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="pricing">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="pricing">
       <Head head={s.head} />
       <div className={grid}>
         {(s.items ?? []).map((it, i) => {
@@ -123,7 +123,7 @@ export function VcPriceCards({ s }: { s: VcPriceCardsData }) {
 
 export function VcLinkCards({ s }: { s: VcLinkCardsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="links">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="links">
       <Head head={s.head} />
       <div className={vercelStegaClean(s.gridClass ?? "grid3")}>
         {(s.items ?? []).map((it, i) => (
@@ -143,7 +143,7 @@ export function VcLinkCards({ s }: { s: VcLinkCardsData }) {
 
 export function VcServices({ s }: { s: VcServicesData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="services">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="services">
       <Head head={s.head} />
       <VcServiceTabs tabs={s.tabs ?? []} />
       {s.footnote && <p className="small note-b">{s.footnote}</p>}
@@ -155,7 +155,7 @@ export function VcServices({ s }: { s: VcServicesData }) {
 
 export function VcFacts({ s }: { s: VcFactsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="facts">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="facts">
       <Head head={s.head} />
       <div className="card fact">
         <dl>
@@ -178,7 +178,7 @@ export async function VcIndustryGrid({ s }: { s: VcIndustryGridData }) {
   const index = await getUseCaseIndex()
   const tpl = s.labelTemplate ?? "{count} use cases · {ai} with AI"
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="industries">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="industries">
       <Head head={s.head} />
       <div className="cards4">
         {index.industries.map((i) => (
@@ -201,7 +201,7 @@ export async function VcCatalogue({ s }: { s: VcCatalogueData }) {
   const [index, all] = await Promise.all([getUseCaseIndex(), getAllUseCases()])
   const over = new Map((s.overrides ?? []).map((o) => [vercelStegaClean(o.id ?? ""), { ...(o.title ? { title: o.title } : {}), ...(o.summary ? { summary: o.summary } : {}), ...(o.metric ? { metric: o.metric } : {}) }]))
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="catalogue">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="catalogue">
       <VcCatalogueView s={s} tiles={all.map(toTile).map((t) => ({ ...t, ...(over.get(t.id) ?? {}) }))} industries={index.industries} departments={index.departments} />
     </Sec>
   )
@@ -209,7 +209,7 @@ export async function VcCatalogue({ s }: { s: VcCatalogueData }) {
 
 export function VcAskDemoSection({ s }: { s: VcAskDemoData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="tool">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="tool">
       <VcAskDemo s={s} />
     </Sec>
   )
@@ -217,7 +217,7 @@ export function VcAskDemoSection({ s }: { s: VcAskDemoData }) {
 
 export function VcQuizSection({ s }: { s: VcQuizData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "quiz"} cls={s.sectionClass} dataSec="quiz">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor ?? "quiz"} cls={s.sectionClass} dataSec="quiz">
       <VcQuiz s={s} />
     </Sec>
   )
@@ -285,7 +285,7 @@ function PostAvatar({ name, photoUrl }: { name?: string; photoUrl?: string }) {
 export async function VcInsights({ s }: { s: VcInsightsData }) {
   const posts = (await getVcHomePosts()).filter((p) => p.title && p.slug)
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="insights">
+    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="insights">
       <Head head={s.head} />
       <div className="ip-grid">
         {posts.map((p) => {
