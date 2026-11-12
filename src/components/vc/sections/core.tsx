@@ -249,6 +249,38 @@ export function VcMarkup({ s }: { s: VcMarkupData }) {
 
 const fmtDate = (iso?: string) => (iso ? new Date(iso).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "")
 
+/** Card excerpts stop at this many words; the CSS clamp then fades out the last line. */
+const EXCERPT_MAX_WORDS = 32
+/** Excerpts longer than this can overrun the 4-line clamp, so they get the fade. */
+const EXCERPT_FADE_WORDS = 20
+
+function cardExcerpt(text: string) {
+  const words = text.trim().split(/\s+/).filter(Boolean)
+  const cut = words.length > EXCERPT_MAX_WORDS
+  return { text: cut ? `${words.slice(0, EXCERPT_MAX_WORDS).join(" ")}…` : words.join(" "), fade: words.length > EXCERPT_FADE_WORDS }
+}
+
+function initials(name: string) {
+  return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase() ?? "").join("") || "F"
+}
+
+/** Team headshot when the byline matches a team member, the Fruition mark for brand bylines, initials otherwise. */
+function PostAvatar({ name, photoUrl }: { name?: string; photoUrl?: string }) {
+  if (photoUrl) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className="ip-av" src={`${photoUrl}?w=64&h=64&fit=crop&auto=format`} alt="" width={32} height={32} loading="lazy" decoding="async" />
+  }
+  if (!name || /^fruition\b/i.test(name.trim())) {
+    return (
+      <span className="ip-av ip-av-mark">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/logo-fruition-mark.svg" alt="" width={16} height={15} />
+      </span>
+    )
+  }
+  return <span className="ip-av ip-av-init">{initials(name)}</span>
+}
+
 /** The three latest blog posts (live data), in the Version C card. */
 export async function VcInsights({ s }: { s: VcInsightsData }) {
   const posts = (await getVcHomePosts()).filter((p) => p.title && p.slug)
@@ -259,13 +291,17 @@ export async function VcInsights({ s }: { s: VcInsightsData }) {
         {posts.map((p) => {
           const read = p.charCount ? Math.max(1, Math.round(p.charCount / 5 / 200)) : 5
           const cat = p.category
+          const excerpt = p.excerpt ? cardExcerpt(p.excerpt) : null
           return (
             <Link className="card in-post" href={`/post/${p.slug}`} key={p._id}>
               <span className="ip-img">{p.cover?.asset && <SImg image={p.cover} width={640} alt="" />}</span>
               <span className="label">{cat ? `${cat} · ${fmtDate(p.publishedAt)}` : fmtDate(p.publishedAt)}</span>
               <h3 className="h3">{p.title}</h3>
-              {p.excerpt && <p className="body">{p.excerpt}</p>}
-              <span className="small">{`${p.author ? `${p.author} · ` : ""}${read} min read`}</span>
+              {excerpt && <p className={`body ip-ex${excerpt.fade ? " ip-ex-fade" : ""}`}>{excerpt.text}</p>}
+              <span className="small ip-by">
+                <PostAvatar name={p.author} photoUrl={p.authorPhotoUrl} />
+                <span>{`${p.author ? `${p.author} · ` : ""}${read} min read`}</span>
+              </span>
             </Link>
           )
         })}
