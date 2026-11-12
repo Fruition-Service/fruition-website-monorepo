@@ -132,6 +132,16 @@
     --bg: var(--vc-press-light);
     --bd: var(--vc-press-light);
   }
+  /* Outline button on the dark footer (Google preferred-source link). */
+  .vcf .btn.ghost {
+    --bg: transparent;
+    --fg: white;
+    --bd: color-mix(in srgb, white 45%, transparent);
+  }
+  .vcf .btn.ghost:hover {
+    --bg: color-mix(in srgb, white 8%, transparent);
+    --bd: white;
+  }
   .vcn .roll,
   .vcf .roll {
     display: inline-block;
