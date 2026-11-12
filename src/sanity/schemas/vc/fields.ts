@@ -41,28 +41,23 @@ export const sectionBase = [
     type: 'string',
     description: 'Optional id for in-page links, e.g. "services" makes #services scroll here.',
   }),
-  // Template vs page-specific: see docs/version-c.md "Template and page-specific sections".
+  // Page-specific marker. Pages in one group (partner, industry, ...) share a section template.
+  // A section added to only one page sets this, gets a `_key` starting with "pagespecific-",
+  // and is listed in src/data/vcPageSpecificSections.ts. See docs/version-c.md "Page-specific sections".
   defineField({
-    name: 'scope',
-    title: 'Template or page-specific',
-    type: 'string',
-    options: {
-      list: [
-        { title: 'Template: part of this page group\'s Version C layout', value: 'template' },
-        { title: 'Page-specific: added for this page only', value: 'page' },
-      ],
-      layout: 'radio',
-    },
+    name: 'pageSpecific',
+    title: 'Page-specific section (outside the shared template)',
+    type: 'boolean',
     description:
-      'Template sections come from the approved Version C mock-up for the page group (partner, industry, region, AI...) and appear in the same order on every page of that group. Page-specific sections were added for one page: do not copy them to sibling pages, and keep them when re-applying the template. Empty means template.',
+      'On means this section exists only on this page, not on the other pages of its group. Keep it when re-templating the group, and keep src/data/vcPageSpecificSections.ts in step.',
+    initialValue: false,
   }),
   defineField({
-    name: 'scopeNote',
+    name: 'pageSpecificNote',
     title: 'Why this section is page-specific',
-    type: 'text',
-    rows: 2,
-    description: 'Who asked for it and why, so the next editor or agent knows not to remove it.',
-    hidden: ({ parent }) => (parent as { scope?: string } | undefined)?.scope !== 'page',
+    type: 'string',
+    description: 'Where the content came from and when it was added, e.g. "Ported from oglabs.io/services/hubspot, Nov 2026".',
+    hidden: ({ parent }) => !(parent as { pageSpecific?: boolean } | undefined)?.pageSpecific,
   }),
 ]
 

@@ -18,41 +18,6 @@ The approved November 2026 redesign. A Version C page is a `vcPage` Sanity docum
 Every string renders as Sanity copy and every image comes from the Sanity CDN, so the whole page
 is click-to-edit on editing.fruitionservices.io.
 
-## Template and page-specific sections
-
-Every `vcPage` belongs to a `group` (partner, industry, region, ai, msol, company, core). The pages of
-one group share a **template**: the section sequence and design of the group's approved mock-up (for
-example every partner page runs hero, platform logos, partner status, why, approach, cases, audit,
-services, results, video, practitioners, proof, booking, FAQ, closing). A **page-specific** section is
-one added for a single page that its siblings do not have.
-
-How to tell them apart:
-
-- Every section has a `scope` field (Studio: "Template or page-specific"). `page` means page-specific;
-  empty or `template` means it is part of the group template. A page-specific section also carries a
-  `scopeNote` saying who asked for it and why.
-- Page-specific sections render with `data-scope="page"` on their `<section>`, so they are visible in
-  the page HTML and in Playwright checks (`document.querySelectorAll('[data-scope="page"]')`).
-- Section types built for one page say so in their Studio title, e.g. "Service deep dive (page-specific)".
-
-Rules for editors and agents:
-
-- When re-applying or changing a group template across its pages, leave `scope: page` sections in
-  place and in their position; never copy them to sibling pages.
-- When adding a section for one page only, set `scope` to `page` and fill `scopeNote`.
-- A change that should reach the whole group (like the platform logo row that replaced the hero stats
-  on all 12 partner pages, `scripts/vc/platform-pages-logos-cases.ts`) is a template change: apply it to
-  every page in the group and leave `scope` empty.
-
-Current page-specific sections:
-
-| Page | Sections | Why | Seeded by |
-|---|---|---|---|
-| `/atlassian-consulting` | four `vcDeepDive`: `#jira`, `#confluence`, `#jsm`, `#migration`, after "Our Atlassian services" | Copy of the four retired leaf pages (PR #415); the old leaf URLs 301 to these anchors. Restored 12 Nov 2026 after the Version C rollout dropped them (Vadim, SEO). | `scripts/vc/atlassian-deep-dives.ts` |
-
-Page-only styles go in `scripts/vc/extras-<slug>.css` (appended by `build-css.mjs`), never in the
-generated `src/styles/vc/` files.
-
 ## Adding or migrating a page
 
 1. Styles: `node scripts/vc/build-css.mjs <mock-ups review dir>` regenerates `src/styles/vc/`.
@@ -64,6 +29,47 @@ generated `src/styles/vc/` files.
 3. Route: replace `page.tsx` with the three-line Version C route (see `src/app/monday-for-retail`).
 4. Check: `node scripts/vc/compare.mjs --page <slug>:<path>` screenshots the page next to its
    mock-up at 1440 and 390 and reports section heights, overflow, broken images and console errors.
+
+## Page-specific sections
+
+Pages in one `group` (partner, industry, msol, ...) share a section template: the same section types
+in the same order, which is what lets a template change roll out to the whole group. Some pages carry
+extra sections that exist on that page only. **Before re-templating, reordering or regenerating a group,
+run the checker and keep every page-specific section.**
+
+A page-specific section is marked in three places:
+
+1. **Sanity:** `pageSpecific: true` and a `pageSpecificNote` (where the copy came from, when). Studio shows
+   it as "Page-specific section (outside the shared template)" on the section.
+2. **Its `_key`** starts with `pagespecific-`, so it stands out in any JSON dump or GROQ result.
+3. **The registry** `src/data/vcPageSpecificSections.ts` lists path, key, type, heading, reason, date and
+   source. `vcPageSpecificSections.test.ts` checks the entries.
+
+In the page HTML a page-specific section carries `data-page-specific` on its `<section>` (every section
+component passes the flag to `Sec`), so Playwright and agents reading the DOM can tell them apart:
+`document.querySelectorAll('[data-page-specific]')`. Page-only styles go in `scripts/vc/extras-<slug>.css`
+(appended by `build-css.mjs`), never in the generated `src/styles/vc/` files. A section type built for one
+page says so in its Studio title, e.g. `vcDeepDive`, "Service deep dive (page-specific)".
+
+```bash
+npx tsx scripts/vc/check-page-specific.ts   # read-only: registry vs live Sanity, exits 1 on drift
+```
+
+To add one: give the section a `pagespecific-<page>-<topic>` key, set `pageSpecific` and the note, add the
+registry entry in the same PR, then run the checker. To remove one: delete it from the page and the registry.
+
+| Page | Page-specific sections | Added |
+|---|---|---|
+| `/hubspot-consulting` | Migration to HubSpot, Portal audit and rescue, RevOps and integrations (cards); Implementation process (6 steps) | 12 Nov 2026, ported from oglabs.io/services/hubspot |
+| `/partnerships/certified-clickup-partner` | Beyond setup, HubSpot ↔ ClickUp (cards) | 12 Nov 2026, ported from oglabs.io/services/clickup |
+| `/atlassian-consulting` | Four service deep dives (`vcDeepDive`): Jira `#jira`, Confluence `#confluence`, Jira Service Management `#jsm`, Jira to monday.com migration `#migration`, after "Our Atlassian services" | 12 Nov 2026: copy of the leaf pages merged in PR #415, dropped by the Version C rollout, restored at Vadim's (SEO) request by `scripts/vc/atlassian-deep-dives.ts`. The old leaf URLs 301 to these anchors. |
+
+The OG Labs port (`scripts/sanity-migrate/port-oglabs-hubspot-clickup.ts`) also edited inside template
+sections on those two pages: the HubSpot implementation card names all six Hubs, the ClickUp services
+card bodies were rewritten (titles kept), ClickUp "How we deliver" went from 3 to 6 steps, both Results
+leads now say the case studies span our platform work, and monday-only FAQs were swapped for HubSpot and
+ClickUp questions (`faqItem-vc-hubspot-*`, `faqItem-vc-clickup-*`). The pre-change documents are
+committed in `scripts/sanity-backups/oglabs-port-*.json`; `--restore <that file>` puts them back.
 
 ## Site chrome: announcement bar, header and footer
 

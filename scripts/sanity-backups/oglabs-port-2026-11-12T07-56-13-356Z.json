@@ -1,0 +1,1285 @@
+{
+  "note": "Before port-oglabs-hubspot-clickup.ts --apply",
+  "pages": [
+    {
+      "_id": "vcPage-hubspot-consulting",
+      "_rev": "l9TVOYqyZvmQ1rufop5fXf",
+      "path": "/hubspot-consulting",
+      "sections": [
+        {
+          "_key": "dfb2d52f6a5d",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-ea3bee6e60131194207405af064714e116920083-880x670-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "HubSpot consulting",
+          "ctas": [
+            {
+              "_key": "e7e2c6b78e56",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "primary"
+            },
+            {
+              "_key": "0c394587c6ec",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#faq",
+              "label": "Common questions",
+              "style": "outline"
+            }
+          ],
+          "floatBadges": [
+            {
+              "_key": "22d68e11a6c7",
+              "_type": "vcLogo",
+              "alt": "HubSpot Solutions Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-6a5a255ad471dafb78258b25c86021470cd48dbc-124x124-png",
+                  "_type": "reference"
+                }
+              }
+            }
+          ],
+          "heading": "Your Certified *HubSpot Implementation & Consulting Partner.*",
+          "lead": "Fruition is a certified HubSpot Solutions Partner delivering end-to-end HubSpot services, from strategy and migration to training and optimisation, across Australia, the UK and the US.",
+          "variant": "ph"
+        },
+        {
+          "_key": "6a9fd6d16335",
+          "_type": "vcLogos",
+          "gridClass": "ten",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Platforms",
+            "heading": "Certified on *every platform we implement.*",
+            "lead": "Partner status across the work management, CRM, automation and AI platforms your teams already use."
+          },
+          "logos": [
+            {
+              "_key": "d24e11880637",
+              "_type": "vcLogo",
+              "alt": "monday.com Platinum Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "f4a63e6f7476",
+              "_type": "vcLogo",
+              "alt": "Atlassian Platinum Solution Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-bbd8251a00797677ebd5bbca9c59326cd10a150d-291x97-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "85fbb68e8bde",
+              "_type": "vcLogo",
+              "alt": "HubSpot Solutions Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-6a5a255ad471dafb78258b25c86021470cd48dbc-124x124-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "168b83590ef3",
+              "_type": "vcLogo",
+              "alt": "ClickUp Registered Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7ec9df4adbbf17eb381c68a45ecbe01d6fd3a4e7-123x123-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "821061594321",
+              "_type": "vcLogo",
+              "alt": "Aircall Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-ea4be7caa487639e94ca1f8bc9fd1924630325ef-480x349-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "2a3f594db32f",
+              "_type": "vcLogo",
+              "alt": "Anthropic Claude Partner Network",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-22427abb08ced2db62ca61fbf41998f7371cd8ed-253x80-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "9e002835e668",
+              "_type": "vcLogo",
+              "alt": "OpenAI Select Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-d3cca438d824022b892882bd550422cc70a37c40-469x221-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "53e7102605fd",
+              "_type": "vcLogo",
+              "alt": "Google Cloud Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2e1d55d3156180112209e070a7e9dcbdb85bf74a-200x90-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "09c7a39f87f7",
+              "_type": "vcLogo",
+              "alt": "n8n Certified Expert Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f69be9721952f5e05ffcf234d223cfdb414e5360-600x600-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "b14381e0b3da",
+              "_type": "vcLogo",
+              "alt": "Make Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b87b9dfb0343383eefa24d60300caa988b9bdec5-512x131-png",
+                  "_type": "reference"
+                }
+              }
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "496131fd158c",
+          "_type": "vcPartnerStatus",
+          "badge": "Partner status",
+          "badgeImages": [
+            {
+              "_key": "f2a9208aaa5e",
+              "_type": "vcLogo",
+              "alt": "HubSpot Solutions Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-115f9fe52280ee8b9d73eb5f34b002138d2e4de3-123x123-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            }
+          ],
+          "heading": "Fruition is a proud *HubSpot Solutions Partner.*",
+          "points": [
+            {
+              "_key": "80d213b9228a",
+              "_type": "vcPoint",
+              "body": "Every HubSpot project is run by consultants certified on the platform, not generalists learning on your time.",
+              "n": "01",
+              "title": "Certified consultants"
+            },
+            {
+              "_key": "e6eb1ebd4b31",
+              "_type": "vcPoint",
+              "body": "Partner status gives us HubSpot's partner team and roadmap briefings, so issues are escalated properly.",
+              "n": "02",
+              "title": "A direct line to HubSpot"
+            },
+            {
+              "_key": "71349c6f47b2",
+              "_type": "vcPoint",
+              "body": "We set up HubSpot alongside the other tools you run, and tell you plainly when it is not the right fit.",
+              "n": "03",
+              "title": "Built for your whole stack"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "f675c5b82df7",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Why HubSpot",
+            "heading": "What it does *best.*",
+            "lead": "Four things teams use HubSpot for every day."
+          },
+          "imageFrame": "w4-img",
+          "items": [
+            {
+              "_key": "97621e272e04",
+              "_type": "vcItem",
+              "body": "Company and contact records bring key details, activity and AI summaries together, so sales and service see the same customer history.",
+              "image": {
+                "_type": "image",
+                "alt": "Smart CRM records in HubSpot",
+                "asset": {
+                  "_ref": "image-694d7c64e91f303ee3fedc4ac812802fc0489e2c-1200x675-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "01",
+              "title": "Smart CRM records"
+            },
+            {
+              "_key": "9e8f86e5646e",
+              "_type": "vcItem",
+              "body": "One workspace shows tasks, outreach, guided actions and the daily schedule. The Prospecting Agent queues emails for review.",
+              "image": {
+                "_type": "image",
+                "alt": "Sales workspace in HubSpot",
+                "asset": {
+                  "_ref": "image-2abdae46b9685f1e2e8fe4ced2f6f68de22d6d40-1200x675-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "02",
+              "title": "Sales workspace"
+            },
+            {
+              "_key": "2132fa3ca179",
+              "_type": "vcItem",
+              "body": "Health score alerts, at-risk customer views and a shared schedule help service teams act before accounts churn.",
+              "image": {
+                "_type": "image",
+                "alt": "Customer success workspace in HubSpot",
+                "asset": {
+                  "_ref": "image-594dbb567f57bb578629e54b1e0a569b4ad6a63d-1200x675-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "03",
+              "title": "Customer success workspace"
+            },
+            {
+              "_key": "b4bb211c912c",
+              "_type": "vcItem",
+              "body": "Build nurture workflows with if/then branches, delays and emails, and report on how each step performs.",
+              "image": {
+                "_type": "image",
+                "alt": "Marketing automation workflows in HubSpot",
+                "asset": {
+                  "_ref": "image-8901c1169867b949e1adf240730bb61708186d6a-1030x772-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "04",
+              "title": "Marketing automation workflows"
+            }
+          ],
+          "layout": "why4",
+          "tone": "alt"
+        },
+        {
+          "_key": "70dff5d16b84",
+          "_type": "vcSteps",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Our approach",
+            "heading": "How we deliver *HubSpot.*",
+            "lead": "Three steps, the same consultant from scoping to support."
+          },
+          "items": [
+            {
+              "_key": "17867c7b2ada",
+              "_type": "vcStep",
+              "body": "HubSpot’s Marketing Hub is genuinely excellent. We implement it properly and integrate it with the CRM and project platforms you run on.",
+              "bullets": [],
+              "n": "01",
+              "title": "HubSpot where it’s strongest"
+            },
+            {
+              "_key": "fcbfe16eca24",
+              "_type": "vcStep",
+              "body": "HubSpot’s AI layer, configured with the governance of our broader AI practice, because ungoverned CRM AI is a compliance risk.",
+              "bullets": [],
+              "n": "02",
+              "title": "Breeze AI, governed"
+            },
+            {
+              "_key": "078512330915",
+              "_type": "vcStep",
+              "body": "We migrate teams onto HubSpot and off it. That dual practice keeps our fit assessments honest in a way single-vendor agencies can’t match.",
+              "bullets": [],
+              "n": "03",
+              "title": "Two-way migration honesty"
+            }
+          ],
+          "layout": "steps",
+          "tone": "plain"
+        },
+        {
+          "_key": "03a0660a6f0e",
+          "_type": "vcCases",
+          "cases": [
+            {
+              "_key": "55ed01c2a69d",
+              "_ref": "vcCase-facilitate-corporation",
+              "_type": "reference"
+            },
+            {
+              "_key": "1539c5cb0685",
+              "_ref": "vcCase-at-sunrice-globalchef-academy",
+              "_type": "reference"
+            }
+          ],
+          "head": {
+            "_type": "vcHead",
+            "badge": "Case studies",
+            "heading": "Clients on *HubSpot.*",
+            "lead": "Named clients and what we built for them on HubSpot."
+          },
+          "tone": "alt"
+        },
+        {
+          "_key": "66555c2f55d4",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Audit my HubSpot",
+            "style": "primary"
+          },
+          "heading": "Is HubSpot *living up to its price?*",
+          "text": "A free 30-minute audit of your HubSpot portal and pipelines.",
+          "tone": "alt"
+        },
+        {
+          "_key": "846f6b70ae85",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we deliver",
+            "heading": "Our *HubSpot services.*",
+            "lead": "Fixed scope and a fixed fee for each piece of work."
+          },
+          "items": [
+            {
+              "_key": "4f0ad0f5505a",
+              "_type": "vcItem",
+              "body": "Marketing, Sales, and Service Hub setups with lifecycle architecture, lead scoring, and reporting built right the first time.",
+              "label": "01",
+              "title": "HubSpot implementation"
+            },
+            {
+              "_key": "9bd6148ad509",
+              "_type": "vcItem",
+              "body": "HubSpot’s AI agents, copilot, and intelligence features configured and governed for your team.",
+              "label": "02",
+              "title": "Breeze AI enablement"
+            },
+            {
+              "_key": "6cf0068de6ed",
+              "_type": "vcItem",
+              "body": "The two platforms working as one system: marketing in HubSpot, delivery in monday, data flowing both ways.",
+              "label": "03",
+              "title": "monday ↔ HubSpot integration"
+            },
+            {
+              "_key": "50e06be911eb",
+              "_type": "vcItem",
+              "body": "Structured CRM migration when teams consolidate onto monday, with full history preservation.",
+              "label": "04",
+              "title": "HubSpot → monday migration"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "bf7b51818d32",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Results",
+            "heading": "Results from our *client work.*",
+            "lead": "Published case studies, with the hours each client saved."
+          },
+          "items": [
+            {
+              "_key": "3cb56ec32a42",
+              "_type": "vcItem",
+              "body": "Promotify, built on monday.com and live in 3 weeks.",
+              "label": "Marketing",
+              "metric": "1440 hrs",
+              "metricLabel": "saved per year",
+              "title": "Sales pipeline and workflow automation"
+            },
+            {
+              "_key": "f3de4f04ad92",
+              "_type": "vcItem",
+              "body": "Tourism NT, built on monday.com and live in 9 weeks.",
+              "label": "Government",
+              "metric": "1,020 hrs",
+              "metricLabel": "saved per year",
+              "title": "Approvals and reporting"
+            },
+            {
+              "_key": "5324e23a1d52",
+              "_type": "vcItem",
+              "body": "CLSQ, built on monday.com and live in 8 weeks.",
+              "label": "Real estate",
+              "metric": "260 hrs",
+              "metricLabel": "saved per year",
+              "title": "Portfolio and resource management"
+            }
+          ],
+          "layout": "oc",
+          "tone": "alt"
+        },
+        {
+          "_key": "de14bcf6c8ee",
+          "_type": "vcVideo",
+          "badge": "Video",
+          "facts": [],
+          "heading": "How Fruition *builds systems.*",
+          "paragraphs": [],
+          "poster": {
+            "_type": "image",
+            "alt": "How Fruition builds monday.com systems",
+            "asset": {
+              "_ref": "image-a5d8ab3eece7db7be313bbf7762037d30195a119-960x540-jpg",
+              "_type": "reference"
+            }
+          },
+          "tone": "plain",
+          "youtubeId": "eoOCR6OjJhI"
+        },
+        {
+          "_key": "1aabcc3fbdc4",
+          "_type": "vcPractitioners",
+          "paragraphs": [
+            {
+              "_key": "cace75d84ea9",
+              "_type": "vcLeadPara",
+              "style": "body",
+              "text": "Josh Jebathilak, Managing Director, leads every HubSpot engagement. He has led over 900 implementations across work platforms and AI systems."
+            },
+            {
+              "_key": "4e59b5ff9d2c",
+              "_type": "vcLeadPara",
+              "style": "ink",
+              "text": "The consultant who scopes your engagement is the consultant who delivers it."
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "9a75d6610b4f",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "5b4c8954a5b7",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "5ee5d43e6265",
+              "_ref": "vcQuote-jade-wood-popology",
+              "_type": "reference"
+            },
+            {
+              "_key": "140eb9234d83",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory",
+              "_type": "reference"
+            },
+            {
+              "_key": "65d328a08703",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt",
+              "_type": "reference"
+            },
+            {
+              "_key": "5521c5e3777a",
+              "_ref": "vcQuote-mairhead-mckinley-givergy",
+              "_type": "reference"
+            },
+            {
+              "_key": "5fe6add5794f",
+              "_ref": "vcQuote-jason-doan-holt-cat",
+              "_type": "reference"
+            },
+            {
+              "_key": "f045bd42f8ae",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning",
+              "_type": "reference"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "662d5f4ae7f0",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "calTitle": "HubSpot consultation",
+          "heading": "Talk to a *HubSpot consultant.*",
+          "lead": "30 minutes on your portal, pipelines and automation, with a frank read on what to fix first."
+        },
+        {
+          "_key": "503204a80bcf",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked questions",
+          "tabs": [
+            {
+              "_key": "c2f4e4a66787",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "3fed9ff31372",
+                  "_ref": "faqItem-migrated-hubspot-consulting-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "9d298b40aeb5",
+                  "_ref": "faqItem-migrated-hubspot-consulting-1",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "982ed6e85696",
+                  "_ref": "faqItem-migrated-hubspot-consulting-2",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "e19dc50e8aec",
+                  "_ref": "faqItem-migrated-hubspot-consulting-3",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "e6ef9cdfb10b",
+                  "_ref": "faqItem-migrated-hubspot-consulting-4",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "ecf9a5baf406",
+                  "_ref": "faq-bc75e24da0921cc2",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "77be0e6020e8",
+                  "_ref": "faqItem-migrated-integrations-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "ef6e4541040f",
+                  "_ref": "faqItem-vc-d6429d3124",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "7a7abc9d9ad4",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "65fab9346027",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a HubSpot consultation",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Make HubSpot *work harder.*",
+          "lead": "Book a 30-minute call. A HubSpot consultant will review your portal, pipelines and automation."
+        }
+      ]
+    },
+    {
+      "_id": "vcPage-clickup-partner",
+      "_rev": "l9TVOYqyZvmQ1rufop5fXf",
+      "path": "/partnerships/certified-clickup-partner",
+      "sections": [
+        {
+          "_key": "03690ec3d030",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-8f482d1e6fce726b5e15c4c458106f12e086c08d-880x623-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "ClickUp · Registered Partner 2026",
+          "ctas": [
+            {
+              "_key": "192c92849008",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a Consultation",
+              "style": "primary"
+            },
+            {
+              "_key": "1f669b85b254",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#services",
+              "label": "Our ClickUp services",
+              "style": "outline"
+            }
+          ],
+          "floatBadges": [
+            {
+              "_key": "7b73bea18c3a",
+              "_type": "vcLogo",
+              "alt": "ClickUp Registered Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-cc068755ce4b3f6f7b121c8d7bca20f6680f7c10-124x124-png",
+                  "_type": "reference"
+                }
+              }
+            }
+          ],
+          "heading": "Certified *ClickUp* Implementation Partner",
+          "lead": "Transform your productivity with Fruition's certified ClickUp implementation services. Expert workspace setup, migration, automation, and training across Australia, US & UK. Get more done, faster.",
+          "variant": "ph"
+        },
+        {
+          "_key": "3faea2c756ad",
+          "_type": "vcLogos",
+          "gridClass": "ten",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Platforms",
+            "heading": "Certified on *every platform we implement.*",
+            "lead": "Partner status across the work management, CRM, automation and AI platforms your teams already use."
+          },
+          "logos": [
+            {
+              "_key": "4997c0208bfb",
+              "_type": "vcLogo",
+              "alt": "monday.com Platinum Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "00f8534c8154",
+              "_type": "vcLogo",
+              "alt": "Atlassian Platinum Solution Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-bbd8251a00797677ebd5bbca9c59326cd10a150d-291x97-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "14e2f6273a6a",
+              "_type": "vcLogo",
+              "alt": "HubSpot Solutions Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-6a5a255ad471dafb78258b25c86021470cd48dbc-124x124-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "b6f63475cff5",
+              "_type": "vcLogo",
+              "alt": "ClickUp Registered Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7ec9df4adbbf17eb381c68a45ecbe01d6fd3a4e7-123x123-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "3dcf1c3658c7",
+              "_type": "vcLogo",
+              "alt": "Aircall Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-ea4be7caa487639e94ca1f8bc9fd1924630325ef-480x349-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "1e410bde7ca6",
+              "_type": "vcLogo",
+              "alt": "Anthropic Claude Partner Network",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-22427abb08ced2db62ca61fbf41998f7371cd8ed-253x80-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "5f91dbbba021",
+              "_type": "vcLogo",
+              "alt": "OpenAI Select Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-d3cca438d824022b892882bd550422cc70a37c40-469x221-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "4da47e1d1c60",
+              "_type": "vcLogo",
+              "alt": "Google Cloud Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2e1d55d3156180112209e070a7e9dcbdb85bf74a-200x90-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "96c9684c15fe",
+              "_type": "vcLogo",
+              "alt": "n8n Certified Expert Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f69be9721952f5e05ffcf234d223cfdb414e5360-600x600-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            },
+            {
+              "_key": "e5e24f171866",
+              "_type": "vcLogo",
+              "alt": "Make Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b87b9dfb0343383eefa24d60300caa988b9bdec5-512x131-png",
+                  "_type": "reference"
+                }
+              }
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "5e2be1369983",
+          "_type": "vcPartnerStatus",
+          "badge": "Partner status",
+          "badgeImages": [
+            {
+              "_key": "acc9c3544b6c",
+              "_type": "vcLogo",
+              "alt": "ClickUp Registered Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7ec9df4adbbf17eb381c68a45ecbe01d6fd3a4e7-123x123-png",
+                  "_type": "reference"
+                }
+              },
+              "shape": "sq"
+            }
+          ],
+          "heading": "Fruition is a proud *ClickUp Registered Partner.*",
+          "points": [
+            {
+              "_key": "11f7be260bbb",
+              "_type": "vcPoint",
+              "body": "Every ClickUp project is run by consultants certified on the platform, not generalists learning on your time.",
+              "n": "01",
+              "title": "Certified consultants"
+            },
+            {
+              "_key": "1ad9c0085f1e",
+              "_type": "vcPoint",
+              "body": "Partner status gives us ClickUp's partner team and roadmap briefings, so issues are escalated properly.",
+              "n": "02",
+              "title": "A direct line to ClickUp"
+            },
+            {
+              "_key": "d8ca754d0d73",
+              "_type": "vcPoint",
+              "body": "We set up ClickUp alongside the other tools you run, and tell you plainly when it is not the right fit.",
+              "n": "03",
+              "title": "Built for your whole stack"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "01084cb27c62",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Why ClickUp",
+            "heading": "What it does *best.*",
+            "lead": "Four things teams use ClickUp for every day."
+          },
+          "imageFrame": "w4-img",
+          "items": [
+            {
+              "_key": "2fc7118f0a1e",
+              "_type": "vcItem",
+              "body": "Work lives in spaces and lists with statuses, assignees, labels and priorities. Switch between list, board and Gantt views of the same tasks.",
+              "image": {
+                "_type": "image",
+                "alt": "Tasks, lists and views in ClickUp",
+                "asset": {
+                  "_ref": "image-dc9ee54214a653d2cc6e664e5a99d32360908667-1200x800-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "01",
+              "title": "Tasks, lists and views"
+            },
+            {
+              "_key": "58d91f243ac5",
+              "_type": "vcItem",
+              "body": "Dashboards show charts such as sprint velocity next to an AI-written executive summary of project status.",
+              "image": {
+                "_type": "image",
+                "alt": "Live dashboards in ClickUp",
+                "asset": {
+                  "_ref": "image-5e94c00f0db2eade82ef6a4228916e022dffe777-1200x604-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "02",
+              "title": "Live dashboards"
+            },
+            {
+              "_key": "a28dfd484a5d",
+              "_type": "vcItem",
+              "body": "Write briefs and specs in Docs linked to tasks, and ask ClickUp Brain or an agent to draft and refine them.",
+              "image": {
+                "_type": "image",
+                "alt": "Docs next to the work in ClickUp",
+                "asset": {
+                  "_ref": "image-1a494cc98cbfb32e269befcb7affee36142b2e95-1062x580-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "03",
+              "title": "Docs next to the work"
+            },
+            {
+              "_key": "27c47ac20d4b",
+              "_type": "vcItem",
+              "body": "Set a trigger and an action, for example assigning a team when a status changes. Describe the rule in plain words and AI builds it.",
+              "image": {
+                "_type": "image",
+                "alt": "Automations in ClickUp",
+                "asset": {
+                  "_ref": "image-a690a96c40fa129e5f1c3f8901b3cb88552d5701-1200x797-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "04",
+              "title": "Automations"
+            }
+          ],
+          "layout": "why4",
+          "tone": "alt"
+        },
+        {
+          "_key": "a28256e86cc6",
+          "_type": "vcSteps",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Our approach",
+            "heading": "How we deliver *ClickUp.*",
+            "lead": "Three steps, the same consultant from scoping to support."
+          },
+          "items": [
+            {
+              "_key": "4a1475a34f57",
+              "_type": "vcStep",
+              "body": "We map your teams, projects and reporting needs before touching a workspace.",
+              "bullets": [],
+              "n": "01",
+              "title": "Discover and plan"
+            },
+            {
+              "_key": "75b74fbcdfbf",
+              "_type": "vcStep",
+              "body": "Spaces, statuses, automations and integrations set up, with your data moved across cleanly.",
+              "bullets": [],
+              "n": "02",
+              "title": "Configure and migrate"
+            },
+            {
+              "_key": "c35102e3dbc2",
+              "_type": "vcStep",
+              "body": "Hands-on training by role, so every team uses ClickUp the same way from day one.",
+              "bullets": [],
+              "n": "03",
+              "title": "Train and adopt"
+            }
+          ],
+          "layout": "steps",
+          "tone": "plain"
+        },
+        {
+          "_key": "3cb19e709111",
+          "_type": "vcCases",
+          "cases": [
+            {
+              "_key": "a4e6f8193d16",
+              "_ref": "vcCase-apco-service-stations",
+              "_type": "reference"
+            }
+          ],
+          "head": {
+            "_type": "vcHead",
+            "badge": "Case studies",
+            "heading": "Clients on *ClickUp.*",
+            "lead": "Named clients and what we built for them on ClickUp."
+          },
+          "tone": "alt"
+        },
+        {
+          "_key": "2cf6fa9abaf1",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Audit my workspace",
+            "style": "primary"
+          },
+          "heading": "Is ClickUp working *as hard as it could?*",
+          "text": "A free 30-minute audit of your ClickUp workspace.",
+          "tone": "plain"
+        },
+        {
+          "_key": "800fcca573fb",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we deliver",
+            "heading": "Our *ClickUp services.*",
+            "lead": "Fixed scope and a fixed fee for each piece of work."
+          },
+          "items": [
+            {
+              "_key": "cbef242c9279",
+              "_type": "vcItem",
+              "body": "Comprehensive tool audit and process mapping, Workspace architecture design and custom workflow configuration planning.",
+              "label": "01",
+              "title": "Discovery & Strategic Planning"
+            },
+            {
+              "_key": "3673e1b41275",
+              "_type": "vcItem",
+              "body": "Multi-platform data migration (tasks, projects, files, comments), Custom field mapping and preservation and historical data retention and archive.",
+              "label": "02",
+              "title": "Migration & Data Transfer"
+            },
+            {
+              "_key": "54c443a048bb",
+              "_type": "vcItem",
+              "body": "Workspace hierarchy design (Spaces, Folders, Lists), Custom statuses and workflow creation and custom fields and properties setup.",
+              "label": "03",
+              "title": "Workspace Configuration & Setup"
+            },
+            {
+              "_key": "58f4f07e9517",
+              "_type": "vcItem",
+              "body": "Native integration setup (1000+ apps), API integration development, Zapier/Make automation workflows and clickUp automation configuration.",
+              "label": "04",
+              "title": "Integration & Automation"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "77366f203f3b",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Results",
+            "heading": "Results from our *client work.*",
+            "lead": "Published case studies, with the hours each client saved."
+          },
+          "items": [
+            {
+              "_key": "af0bfa36b2a3",
+              "_type": "vcItem",
+              "body": "Tourism NT, built on monday.com and live in 9 weeks.",
+              "label": "Government",
+              "metric": "1,020 hrs",
+              "metricLabel": "saved per year",
+              "title": "Approvals and reporting"
+            },
+            {
+              "_key": "345949f95cb3",
+              "_type": "vcItem",
+              "body": "CLSQ, built on monday.com and live in 8 weeks.",
+              "label": "Real estate",
+              "metric": "260 hrs",
+              "metricLabel": "saved per year",
+              "title": "Portfolio and resource management"
+            },
+            {
+              "_key": "c8d8b9c042ce",
+              "_type": "vcItem",
+              "body": "Givergy, built on monday.com and live in 4 weeks.",
+              "label": "Nonprofit tech",
+              "metric": "1,300 hrs",
+              "metricLabel": "saved annually",
+              "title": "Development projects connected to GitHub"
+            }
+          ],
+          "layout": "oc",
+          "tone": "alt"
+        },
+        {
+          "_key": "0b266a6d030b",
+          "_type": "vcVideo",
+          "badge": "Video",
+          "facts": [],
+          "heading": "How Fruition *builds systems.*",
+          "paragraphs": [],
+          "poster": {
+            "_type": "image",
+            "alt": "How Fruition builds monday.com systems",
+            "asset": {
+              "_ref": "image-a5d8ab3eece7db7be313bbf7762037d30195a119-960x540-jpg",
+              "_type": "reference"
+            }
+          },
+          "tone": "plain",
+          "youtubeId": "eoOCR6OjJhI"
+        },
+        {
+          "_key": "04ce4dc260cd",
+          "_type": "vcPractitioners",
+          "paragraphs": [
+            {
+              "_key": "763ed10ebb0f",
+              "_type": "vcLeadPara",
+              "style": "body",
+              "text": "Josh Jebathilak, Managing Director, leads every ClickUp engagement. He has led over 900 implementations across work platforms and AI systems."
+            },
+            {
+              "_key": "73d5f067460d",
+              "_type": "vcLeadPara",
+              "style": "ink",
+              "text": "The consultant who scopes your engagement is the consultant who delivers it."
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "7e2c7393f50d",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "809bfee7d476",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "9505fc8073ca",
+              "_ref": "vcQuote-jade-wood-popology",
+              "_type": "reference"
+            },
+            {
+              "_key": "3dc69360bbf5",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory",
+              "_type": "reference"
+            },
+            {
+              "_key": "df5c872424a8",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt",
+              "_type": "reference"
+            },
+            {
+              "_key": "453a94b95166",
+              "_ref": "vcQuote-mairhead-mckinley-givergy",
+              "_type": "reference"
+            },
+            {
+              "_key": "3d3ed7b618dc",
+              "_ref": "vcQuote-jason-doan-holt-cat",
+              "_type": "reference"
+            },
+            {
+              "_key": "05d3253f4429",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning",
+              "_type": "reference"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "617e8036665a",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "heading": "Schedule a 30-min consultation with our *certified ClickUp consultants*",
+          "lead": "Book a free call to scope your ClickUp rollout: workspace design, migration, automations or AI adoption."
+        },
+        {
+          "_key": "8bac7b1e8d1a",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked *questions*",
+          "tabs": [
+            {
+              "_key": "072c089091f9",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "60d971b8791c",
+                  "_ref": "faqItem-vc-p-5f4c6775a2",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "0e6181205557",
+                  "_ref": "faqItem-vc-p-757fb25410",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "03c14476047b",
+                  "_ref": "faqItem-vc-p-18b6ccfa29",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "fda99ed4c530",
+                  "_ref": "faq-certified-clickup-partner-clickup-0-3",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "06368d54ae42",
+                  "_ref": "faq-certified-clickup-partner-clickup-0-4",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "516d9a01cdcf",
+                  "_ref": "faq-996791c3b8e54fea",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "049f63e92cf3",
+                  "_ref": "faq-996791c3b8e54fea",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "9f71938d7b9e",
+                  "_ref": "faqItem-migrated-integrations-0",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "474a9e775fba",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "0136e97bdaa2",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a ClickUp consultation",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Get more out of *ClickUp.*",
+          "lead": "Book a 30-minute call. We'll review your workspace and scope the setup, migration or automation you need."
+        }
+      ]
+    }
+  ],
+  "createdFaqIds": [
+    "faqItem-vc-hubspot-onboarding-fee",
+    "faqItem-vc-hubspot-tiers",
+    "faqItem-vc-hubspot-migrate-to",
+    "faqItem-vc-clickup-certified-consultant",
+    "faqItem-vc-clickup-crm",
+    "faqItem-vc-clickup-migrate"
+  ]
+}

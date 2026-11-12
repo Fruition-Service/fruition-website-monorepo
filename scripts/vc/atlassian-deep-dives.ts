@@ -6,8 +6,11 @@
  * section each; the Version C rollout (#435, 11 Nov) replaced the page with
  * the partner template and the sections disappeared. Vadim (SEO) flagged it
  * on 12 Nov. This script adds them back as Version C `vcDeepDive` sections,
- * marked PAGE-SPECIFIC (scope "page" + scopeNote), right after the
- * "Our Atlassian services" cards, and points those four cards at the anchors.
+ * marked PAGE-SPECIFIC (pageSpecific: true, pageSpecificNote, keys
+ * pagespecific-atlassian-<id>, registered in src/data/vcPageSpecificSections.ts),
+ * right after the "Our Atlassian services" cards, and points those four cards
+ * at the anchors. Sections written by the first run (random keys, an earlier
+ * `scope` field) are rewritten in place to that convention.
  *
  * Copy comes verbatim from src/data/practicePages/atlassianDeepDives.ts
  * (the retired pages' text); only the accent asterisks are added.
@@ -41,23 +44,39 @@ const ACCENT: Record<string, string> = {
   jsm: 'ITSM that resolves tickets *instead of routing them in circles*',
   migration: 'Leave Jira *without leaving your history behind*',
 }
-const SCOPE_NOTE =
-  'Page-specific to /atlassian-consulting, not part of the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.'
+export const deepDiveKey = (id: string) => `pagespecific-atlassian-${id}`
+const NOTE =
+  'Page-specific to /atlassian-consulting, outside the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.'
 
-type Section = { _key: string; _type: string; anchor?: string; head?: { heading?: string }; items?: { _key: string; title?: string; href?: string }[] }
+type Section = { _key: string; _type: string; anchor?: string; pageSpecific?: boolean; scope?: string; head?: { heading?: string }; items?: { _key: string; title?: string; href?: string }[] }
 
 async function main() {
   const page = await client.fetch<{ sections: Section[] } | null>(`*[_id == $id][0]{ sections }`, { id: PAGE_ID })
   if (!page) throw new Error(`no ${PAGE_ID}`)
   const services = page.sections.find((s) => s._type === 'vcCards' && /Atlassian services/.test(s.head?.heading ?? ''))
   if (!services) throw new Error('"Our Atlassian services" cards not found')
-  const have = new Set(page.sections.filter((s) => s._type === 'vcDeepDive').map((s) => s.anchor))
+  const existing = page.sections.filter((s) => s._type === 'vcDeepDive')
+  const have = new Set(existing.map((s) => s.anchor))
+  const tx = client.transaction()
+  let fixed = 0
+  // Bring sections from the first run onto the page-specific convention (key, flag, note).
+  for (const s of existing) {
+    const want = deepDiveKey(s.anchor ?? '')
+    if (s._key === want && s.pageSpecific === true && s.scope === undefined) continue
+    const full = await client.fetch<Record<string, unknown>>(`*[_id == $id][0].sections[_key == $k][0]`, { id: PAGE_ID, k: s._key })
+    const rest = { ...full }
+    delete rest.scope
+    delete rest.scopeNote
+    tx.patch(client.patch(PAGE_ID).insert('replace', `sections[_key=="${s._key}"]`, [{ ...rest, _key: want, pageSpecific: true, pageSpecificNote: NOTE }]))
+    console.log(`rekey #${s.anchor}: ${s._key} -> ${want}`)
+    fixed++
+  }
 
   const add = ATLASSIAN_DEEP_DIVES.filter((d) => !have.has(d.id)).map((d) => ({
     _type: 'vcDeepDive',
-    _key: key(),
-    scope: 'page',
-    scopeNote: SCOPE_NOTE,
+    _key: deepDiveKey(d.id),
+    pageSpecific: true,
+    pageSpecificNote: NOTE,
     anchor: d.id,
     // Alternate from the plain services section: alt, plain, alt, plain (the results cards after are alt).
     tone: ATLASSIAN_DEEP_DIVES.indexOf(d) % 2 === 0 ? 'alt' : 'plain',
@@ -69,7 +88,6 @@ async function main() {
   }))
   for (const s of add) console.log(`add #${s.anchor}: ${s.head.heading} (${s.tone})`)
 
-  const tx = client.transaction()
   if (add.length) {
     // After the services cards, or after the last deep dive already there.
     const last = [...page.sections].reverse().find((s) => s._type === 'vcDeepDive') ?? services
@@ -88,7 +106,7 @@ async function main() {
   })
   if (linked) tx.patch(p)
 
-  if (!add.length && !linked) return console.log('nothing to do')
+  if (!add.length && !linked && !fixed) return console.log('nothing to do')
   if (!APPLY) return console.log('\nDry run. Pass --apply to write.')
   const res = await tx.commit()
   console.log(`\ncommitted transaction ${res.transactionId}`)

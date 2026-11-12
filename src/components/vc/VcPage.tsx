@@ -31,9 +31,9 @@ import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcL
  * mock-up. Every string is Sanity copy, so the whole page is click-to-edit on
  * editing.fruitionservices.io.
  *
- * Template vs page-specific: most sections are the page group's Version C
- * template; a section with scope "page" was added for that page only and
- * renders with data-scope="page". See docs/version-c.md.
+ * Most sections are the page group's shared template; a section with
+ * pageSpecific: true exists on that page only and renders with
+ * data-page-specific. See docs/version-c.md "Page-specific sections".
  */
 function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
   switch (s._type) {

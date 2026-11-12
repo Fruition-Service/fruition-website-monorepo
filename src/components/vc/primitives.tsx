@@ -188,12 +188,12 @@ export function Sec({
   inner = "wrap",
   dataSec,
   cls: extra,
-  scope,
+  pageSpecific,
 }: {
   tone?: string
   anchor?: string
-  /** "page" marks a page-specific section (data-scope="page"); template sections carry no marker. */
-  scope?: string
+  /** Page-specific section (outside the group's shared template): rendered with data-page-specific. */
+  pageSpecific?: boolean
   className?: string
   children: React.ReactNode
   inner?: string
@@ -203,7 +203,7 @@ export function Sec({
 }) {
   const cls = `${vercelStegaClean(tone ?? "") === "alt" ? "alt" : ""} ${className} ${vercelStegaClean(extra ?? "")}`.replace(/\s+/g, " ").trim()
   return (
-    <section className={cls || undefined} id={anchor ? vercelStegaClean(anchor) : undefined} data-sec={dataSec} data-scope={vercelStegaClean(scope ?? "") === "page" ? "page" : undefined}>
+    <section className={cls || undefined} id={anchor ? vercelStegaClean(anchor) : undefined} data-sec={dataSec} data-page-specific={pageSpecific ? "" : undefined}>
       <div className={inner}>{children}</div>
     </section>
   )

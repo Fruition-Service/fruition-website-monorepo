@@ -25,8 +25,8 @@ export interface VcFaqTabData { _key?: string; label?: string; items?: VcFaqItem
 
 interface Base {
   _key: string; _type: string; tone?: "plain" | "alt"; anchor?: string; sectionClass?: string
-  /** "page" = added for this page only; empty or "template" = part of the page group's Version C template. */
-  scope?: "template" | "page"; scopeNote?: string
+  /** True = exists on this page only, outside the group's shared template (docs/version-c.md "Page-specific sections"). */
+  pageSpecific?: boolean; pageSpecificNote?: string
 }
 
 export interface VcHeroData extends Base {

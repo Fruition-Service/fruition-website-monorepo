@@ -3,7 +3,7 @@ import type { VcDeepDiveData } from "../types"
 
 /**
  * Service deep dive (vcDeepDive). PAGE-SPECIFIC: not part of any page group's
- * Version C template. It carries the copy of a retired leaf page on its hub
+ * Version C template (pageSpecific: true, keys pagespecific-*). It carries the copy of a retired leaf page on its hub
  * (first use: the four Atlassian services on /atlassian-consulting, anchors
  * #jira #confluence #jsm #migration). Only existing Version C classes are
  * used (shead, steps/step, cards4/card), plus the dd-* spacing rules in
@@ -11,7 +11,7 @@ import type { VcDeepDiveData } from "../types"
  */
 export function VcDeepDive({ s }: { s: VcDeepDiveData }) {
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="deep-dive">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="deep-dive">
       <Head head={s.head} />
       {s.stepsHeading && <h3 className="h3 dd-sub">{s.stepsHeading}</h3>}
       {!!s.steps?.length && (

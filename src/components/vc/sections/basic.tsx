@@ -275,7 +275,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
 
 export function VcLogos({ s }: { s: VcLogosData }) {
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="clients">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="clients">
       <Head head={s.head} />
       <div className={`logos ${vercelStegaClean(s.gridClass ?? "")}`.trim()}>
         {(s.logos ?? []).map((l, i) => (
@@ -294,7 +294,7 @@ export function VcLogos({ s }: { s: VcLogosData }) {
 export function VcSteps({ s }: { s: VcStepsData }) {
   const layout = vercelStegaClean(s.layout ?? "steps")
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="why">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="why">
       <Head head={s.head} />
       <div className={layout}>
         {(s.items ?? []).map((it, i) => (
@@ -320,7 +320,7 @@ export function VcSteps({ s }: { s: VcStepsData }) {
 
 export function VcCases({ s }: { s: VcCasesData }) {
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="cases">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cases">
       <Head head={s.head} />
       <div className="cs2">
         {(s.cases ?? []).filter(Boolean).map((c, ci) => (
@@ -499,7 +499,7 @@ export function VcCards({ s }: { s: VcCardsData }) {
   const titleClass = vercelStegaClean(s.titleClass ?? "")
   const listClass = s.listClass === undefined ? "ticks" : vercelStegaClean(s.listClass)
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="cards">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cards">
       <Head head={s.head} />
       <div className={gridCls}>
         {(s.items ?? []).map((it, i) => (
@@ -514,7 +514,7 @@ export function VcCards({ s }: { s: VcCardsData }) {
 
 export function VcProducts({ s }: { s: VcProductsData }) {
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="product">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="product">
       <Head head={s.head} />
       <div className="prod2">
         {(s.items ?? []).map((it, i) => (
@@ -575,7 +575,7 @@ export function VcProof({ s }: { s: VcProofData }) {
   )
   if (s.filters?.length) {
     return (
-      <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
+      <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
         <VcFilteredProof
           badge={<Badge>{s.badge}</Badge>}
           heading={
@@ -591,14 +591,14 @@ export function VcProof({ s }: { s: VcProofData }) {
   }
   if (vercelStegaClean(s.layout ?? "") === "stacked") {
     return (
-      <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} dataSec="proof">
+      <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="proof">
         <Head head={{ badge: s.badge, heading: s.heading, lead: s.lead }} />
         {columns}
       </Sec>
     )
   }
   return (
-    <Sec tone={s.tone} scope={s.scope} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
       <div className="sticky">
         <Badge>{s.badge}</Badge>
         <h2 className="h2 mt24">

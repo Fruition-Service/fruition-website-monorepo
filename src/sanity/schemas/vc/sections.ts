@@ -922,7 +922,8 @@ export const vcFaqHub = defineType({
  * and an engagements sub-heading with a 4-card grid, built only from existing
  * Version C classes (shead, steps, cards4). First used for the four
  * Atlassian services on /atlassian-consulting (#jira, #confluence, #jsm,
- * #migration). Set the section's scope to "Page-specific".
+ * #migration). Mark it pageSpecific and register it in
+ * src/data/vcPageSpecificSections.ts.
  */
 export const vcDeepDive = defineType({
   name: 'vcDeepDive',

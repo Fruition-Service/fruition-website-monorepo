@@ -66,10 +66,6 @@ depends on the Workers runtime.
   cannot catch nav links pointing at pages that do not exist. Verify page files exist by hand.
 - **Portal auth is per page, not middleware.** Every `/internal` page must call
   `requirePortalUser()` and every `/api/internal` route `getPortalApiUser()`.
-- **Version C sections are either template or page-specific.** Sections with `scope: "page"` (rendered
-  with `data-scope="page"`) exist on one page only, e.g. the four Atlassian deep dives. Keep them when
-  changing a page group's template and never copy them to sibling pages. See
-  [docs/version-c.md](docs/version-c.md#template-and-page-specific-sections).
 - **FAQs have two Sanity sources** (`faqTabs` on the page vs central `faqItem`). Always use
   `resolveFaqTabs()`; FAQ JSON-LD comes only from `FaqAccordion`.
 - **Ad landing pages (`src/app/{au,uk,us,sea}`) bypass the root layout.** Layout-level changes (tags,
@@ -110,6 +106,10 @@ by a hook on every edit under `src/`:
   The one exception is the approved **Version C** design system (Nov 2026): its stylesheet is
   generated into `src/styles/vc/` by `scripts/vc/build-css.mjs` (scoped, layered, tokenised) and
   its copy lives in `vcPage` documents. See [docs/version-c.md](docs/version-c.md).
+  **Some Version C pages carry page-specific sections outside their group's shared template**
+  (keys `pagespecific-*`, `pageSpecific: true`, rendered with `data-page-specific`, listed in
+  `src/data/vcPageSpecificSections.ts`).
+  Run `npx tsx scripts/vc/check-page-specific.ts` before re-templating a group and keep them.
 - **A UI change is not done until it works at 375, 768 and 1440 wide**: one column on mobile, no
   horizontal overflow (`scrollWidth <= innerWidth`), 44px tap targets. Check all three, not just
   desktop.
