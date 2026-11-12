@@ -502,6 +502,79 @@
     margin-top: auto;
     padding-top: 16px;
   }
+  /* Case study card: same tinted card, with logo, headshot and figures. */
+  .vcn .nd-case {
+    padding: 20px 24px;
+  }
+  .vcn .nd-case-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  /* Client logos are often PNGs on white, so they sit on a white chip. */
+  .vcn .nd-case-logo {
+    display: block;
+    box-sizing: content-box;
+    width: auto;
+    max-width: 104px;
+    height: 28px;
+    padding: 6px 10px;
+    border-radius: var(--r1);
+    background: white;
+    box-shadow: 0 0 0 1px var(--line);
+    object-fit: contain;
+  }
+  .vcn .nd-case blockquote {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .vcn .nd-case-who {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .vcn .nd-case-who img {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 2px white;
+  }
+  .vcn .nd-case-who .nd-who {
+    margin: 0;
+    line-height: 1.4;
+  }
+  .vcn .nd-case-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .vcn .nd-case-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
+  }
+  .vcn .nd-case-stats dd {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
+  .vcn .nd-case-stats dt {
+    font: 600 11px/1.2 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+  }
   .vcn .nd-foot {
     margin-top: 24px;
     display: flex;

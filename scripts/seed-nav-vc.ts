@@ -7,6 +7,8 @@
  *   npx tsx scripts/seed-nav-vc.ts --preview-file f.json # uploads the icons, writes the patch to f.json, changes no document
  *   npx tsx scripts/seed-nav-vc.ts --backup              # only saves the current values to scripts/nav-backups/ (commit it with the PR)
  *   npx tsx scripts/seed-nav-vc.ts --apply               # backs up, then writes menu, footer, socials and banner link
+ *   npx tsx scripts/seed-nav-vc.ts --only Pricing --apply  # backs up, then replaces only that tab in the live menu
+ *                                                         # (also works with --preview-file); every other tab and the footer stay as editors left them
  *
  * Fields written: navigation, footerTagline, footerBadges, footerColumns,
  * footerCopyrightText, socialLinks, announcementHref. The banner text and the
@@ -71,6 +73,24 @@ async function uploadIcons(): Promise<Record<string, ImageRef>> {
   return refs
 }
 
+const assetImage = (id: string): ImageRef => ({ _type: 'image', asset: { _type: 'reference', _ref: id } })
+
+function toSanityFeature(f: NonNullable<NavVcItem['feature']>) {
+  return {
+    kicker: f.kicker,
+    quote: f.quote,
+    plain: true,
+    ...(f.attribution ? { attribution: f.attribution } : {}),
+    ...(f.logoAsset ? { logo: assetImage(f.logoAsset) } : {}),
+    ...(f.imageAsset ? { image: assetImage(f.imageAsset) } : {}),
+    ...(f.metrics?.length
+      ? { metrics: f.metrics.map((m, k) => ({ _type: 'navFeatureMetric', _key: `metric-${k}`, value: m.value, label: m.label })) }
+      : {}),
+    label: f.label,
+    href: f.href,
+  }
+}
+
 function toSanityNav(refs: Record<string, ImageRef>) {
   return NAV_VC.map((item: NavVcItem, i) => ({
     _type: 'navItem',
@@ -111,13 +131,7 @@ function toSanityNav(refs: Record<string, ImageRef>) {
       : {}),
     ...(item.feature
       ? {
-          feature: {
-            kicker: item.feature.kicker,
-            quote: item.feature.quote,
-            plain: true,
-            label: item.feature.label,
-            href: item.feature.href,
-          },
+          feature: toSanityFeature(item.feature),
         }
       : {}),
   }))
@@ -218,6 +232,36 @@ async function restore(file: string) {
   console.log(`Restored ${Object.keys(fields).join(', ')} from ${file}`)
 }
 
+/**
+ * Swap one tab of the live menu for its seed version, keeping the live tab's
+ * _key and position. Everything else in siteSettings is left untouched.
+ */
+async function replaceTab(label: string, previewFile: string | null, apply: boolean) {
+  const live = await writeClient.fetch<{ _id: string; navigation?: { _key: string; label?: string }[] }>(
+    `*[_type == "siteSettings"][0]{ _id, navigation }`,
+  )
+  const current = live?.navigation?.find((i) => i.label === label)
+  if (!live || !current) throw new Error(`No live tab labelled "${label}"`)
+  const refs = await uploadIcons()
+  const seeded = toSanityNav(refs).find((i) => i.label === label)
+  if (!seeded) throw new Error(`No seed tab labelled "${label}" in src/data/nav-vc.ts`)
+  const next = { ...seeded, _key: current._key }
+  if (previewFile) {
+    const navigation = live.navigation!.map((i) => (i._key === current._key ? next : i))
+    fs.writeFileSync(previewFile, JSON.stringify({ navigation }, null, 2))
+    console.log(`Wrote a preview with the new "${label}" tab to ${previewFile}.`)
+    return
+  }
+  if (!apply) {
+    console.log(`\nDry run: would replace the live "${label}" tab (${current._key}). Add --apply to write it.`)
+    return
+  }
+  const { file } = await backup()
+  await writeClient.patch(live._id).set({ [`navigation[_key=="${current._key}"]`]: next }).commit()
+  console.log(`Replaced the "${label}" tab.`)
+  console.log(`Rollback: npx tsx scripts/seed-nav-vc.ts --restore ${path.relative(process.cwd(), file)}`)
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const restoreIdx = args.indexOf('--restore')
@@ -234,6 +278,14 @@ async function main() {
   if (args.includes('--backup')) {
     await backup()
     return
+  }
+
+  const onlyIdx = args.indexOf('--only')
+  if (onlyIdx !== -1) {
+    const label = args[onlyIdx + 1]
+    if (!label) throw new Error('Usage: --only <tab label>')
+    const previewAt = args.indexOf('--preview-file')
+    return replaceTab(label, previewAt === -1 ? null : args[previewAt + 1], args.includes('--apply'))
   }
 
   const previewIdx = args.indexOf('--preview-file')
