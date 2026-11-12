@@ -36,6 +36,12 @@ interface NavFeature {
   /** Render the quote as a plain blurb, without quotation marks. */
   plain?: boolean
   attribution?: string
+  /** Client logo: turns the card into a case study card. */
+  logo?: unknown
+  /** Headshot of the person quoted. */
+  image?: unknown
+  /** Up to two headline results, e.g. 17x / ROI. */
+  metrics?: { value?: string; label?: string }[]
   label?: string
   href?: string
 }
@@ -70,10 +76,10 @@ const isDropdown = (item: NavItem) => !!item.sections?.length
 const clamp3 = (n: number | undefined, fallback: number) => Math.min(3, Math.max(1, Math.round(n || fallback)))
 
 /** SVG or PNG straight from the Sanity CDN; 3x the 18px display size keeps PNGs sharp. */
-function logoSrc(logo: unknown): string | null {
+function logoSrc(logo: unknown, width = 72): string | null {
   if (!logo) return null
   try {
-    return urlFor(logo).width(72).url()
+    return urlFor(logo).width(width).url()
   } catch {
     return null
   }
@@ -96,6 +102,46 @@ function ItemMark({ link }: { link: NavLink }) {
   if (src) return <Image src={src} alt="" width={18} height={18} unoptimized />
   if (link.icon || link.href) return <NavIcon iconKey={link.icon} href={link.href} className="h-[18px] w-[18px]" />
   return null
+}
+
+/**
+ * The dropdown's last column as a case study: client logo, the quote, the
+ * person quoted with their headshot, up to two headline figures and a link.
+ */
+function CaseStudyCard({ feature, onNavigate }: { feature: NavFeature; onNavigate: () => void }) {
+  const logo = logoSrc(feature.logo, 360)
+  const photo = logoSrc(feature.image, 96)
+  const metrics = (feature.metrics || []).filter((m) => m.value).slice(0, 2)
+  return (
+    <figure className="nd-feat nd-case">
+      <div className="nd-case-top">
+        {feature.kicker && <figcaption>{feature.kicker}</figcaption>}
+        {logo && <Image className="nd-case-logo" src={logo} alt="" width={120} height={40} unoptimized />}
+      </div>
+      <blockquote>{feature.plain ? feature.quote : <>&ldquo;{feature.quote}&rdquo;</>}</blockquote>
+      {(feature.attribution || photo) && (
+        <div className="nd-case-who">
+          {photo && <Image src={photo} alt="" width={36} height={36} unoptimized />}
+          {feature.attribution && <p className="nd-who">{feature.attribution}</p>}
+        </div>
+      )}
+      {metrics.length > 0 && (
+        <dl className="nd-case-stats">
+          {metrics.map((m, i) => (
+            <div key={`${m.value}-${i}`}>
+              <dt>{m.label}</dt>
+              <dd>{m.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {feature.href && feature.label && (
+        <Link prefetch={false} href={feature.href} className="nd-fl-a" onClick={onNavigate}>
+          {feature.label} <span aria-hidden>&rarr;</span>
+        </Link>
+      )}
+    </figure>
+  )
 }
 
 /**
@@ -369,7 +415,9 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     )
                   })}
 
-                  {item.feature?.quote && (
+                  {item.feature?.quote && (item.feature.logo || item.feature.image) ? (
+                    <CaseStudyCard feature={item.feature} onNavigate={() => setOpenMenu(null)} />
+                  ) : item.feature?.quote && (
                     <figure className="nd-feat">
                       {item.feature.kicker && <figcaption>{item.feature.kicker}</figcaption>}
                       <blockquote>

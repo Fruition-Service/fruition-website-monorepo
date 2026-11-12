@@ -28,6 +28,22 @@ export interface NavVcSection {
   items: NavVcLink[]
 }
 
+/**
+ * Card in the dropdown's last column: a plain blurb, or a case study when it
+ * has a logo, a photo and headline figures. Images are existing Sanity asset
+ * ids (the case study's own logo and headshot on page-customer-testimonials).
+ */
+export interface NavVcFeature {
+  kicker: string
+  quote: string
+  label: string
+  href: string
+  attribution?: string
+  logoAsset?: string
+  imageAsset?: string
+  metrics?: { value: string; label: string }[]
+}
+
 export interface NavVcItem {
   label: string
   /** A plain link instead of a dropdown. */
@@ -35,7 +51,7 @@ export interface NavVcItem {
   /** Line in the dropdown's bottom bar until an item is hovered. */
   note?: string
   sections?: NavVcSection[]
-  feature?: { kicker: string; quote: string; label: string; href: string }
+  feature?: NavVcFeature
   footerLinks?: { label: string; href: string }[]
 }
 
@@ -177,16 +193,31 @@ export const NAV_VC: NavVcItem[] = [
     sections: [
       {
         heading: 'Ways to work with us',
-        columns: 1,
+        columns: 2,
         grow: 2,
         items: [
           { label: 'Implementation packages', href: '/implementation-packages', description: 'Fixed-fee packages: 900+ delivered', icon: 'implementation-packages' },
           { label: 'Training', href: '/training', description: 'Role-based enablement for your teams', icon: 'training' },
           { label: 'Licence procurement', href: '/licence-procurement', description: 'Audit, sourcing and renewal management', icon: 'financial-services' },
+          { label: 'Implementation calculator', href: '/ask-fruit', description: 'Estimated scope, timeline and fee in minutes', icon: 'implementation-calculator' },
         ],
       },
     ],
-    feature: { kicker: 'Implementation calculator', quote: 'Answer a few questions about your team and get an estimated scope, timeline and fee in minutes.', label: 'Try the calculator', href: '/ask-fruit' },
+    // BL Air Conditioning: the strongest of the eight case studies (17x ROI,
+    // $125,000 a year). Quote word for word from its caseStudyCards entry.
+    feature: {
+      kicker: 'Case study',
+      quote: 'This system will save \u201chundreds of thousands of dollars a year guaranteed\u201d',
+      attribution: 'Brandon-Lee Horridge, Managing Director, BL Air Conditioning',
+      logoAsset: 'image-45384aab63f4561950ccf9c2207d4313e6c63f35-289x174-png',
+      imageAsset: 'image-46c993c9a04b11d90f0f7bc04dde0a316f9e0be0-240x240-jpg',
+      metrics: [
+        { value: '17x', label: 'ROI' },
+        { value: '$125,000', label: 'Saved per year' },
+      ],
+      label: 'Read the case study',
+      href: '/customer-testimonials#case-studies',
+    },
     footerLinks: [
       { label: 'See packages', href: '/implementation-packages' },
       { label: 'Book a call', href: '/contact-us' },

@@ -249,9 +249,9 @@ export default {
             },
             {
               name: 'feature',
-              title: 'Feature quote',
+              title: 'Feature card',
               type: 'object',
-              description: 'Optional quote card shown as the dropdown’s last column. Use a testimonial word for word.',
+              description: 'Optional card in the dropdown’s last column: a quote, a blurb, or a case study (add a logo, photo and figures). Use a testimonial word for word.',
               fields: [
                 { name: 'kicker', title: 'Kicker', type: 'string' },
                 { name: 'quote', title: 'Quote', type: 'text', rows: 3 },
@@ -262,6 +262,35 @@ export default {
                   description: 'Turn on when the card is a plain blurb rather than a client quote.',
                 },
                 { name: 'attribution', title: 'Attribution', type: 'string' },
+                {
+                  name: 'logo',
+                  title: 'Client logo',
+                  type: 'image',
+                  description: 'Turns the card into a case study card. Shown above the quote.',
+                },
+                {
+                  name: 'image',
+                  title: 'Photo',
+                  type: 'image',
+                  description: 'Headshot of the person quoted, shown beside the attribution.',
+                },
+                {
+                  name: 'metrics',
+                  title: 'Headline figures',
+                  type: 'array',
+                  description: 'Up to two results, e.g. "17x" / "ROI".',
+                  of: [
+                    {
+                      type: 'object',
+                      name: 'navFeatureMetric',
+                      fields: [
+                        { name: 'value', title: 'Value', type: 'string' },
+                        { name: 'label', title: 'Label', type: 'string' },
+                      ],
+                      preview: { select: { title: 'value', subtitle: 'label' } },
+                    },
+                  ],
+                },
                 { name: 'label', title: 'Link label', type: 'string' },
                 { name: 'href', title: 'Link href', type: 'string' },
               ],
