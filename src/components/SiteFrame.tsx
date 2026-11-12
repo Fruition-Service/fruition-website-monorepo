@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation"
 import Breadcrumbs from "./Breadcrumbs"
-import GooglePreferredSourceButton from "./GooglePreferredSourceButton"
 import SiteStickyCta from "./SiteStickyCta"
 import AskFruitLauncher from "./AskFruitLauncher"
 import { StickyCtaProvider } from "./sections/StickyCtaContext"
@@ -22,13 +21,9 @@ import type { StickyCtaValue } from "./sections/StickyCtaContext"
  * same provider: it reads the sticky CTA bar's measured height from there so
  * the two floating elements never overlap.
  *
- * Google's preferred-source button sits above the footer on every content page
- * (blog and informational routes alike). The homepage is a sales page rather
- * than content, so it is left out, as is Sanity Studio.
+ * Google's preferred-source button lives in the footer, under the booking CTA
+ * (see Footer.tsx), so pages no longer draw their own.
  */
-
-/** Path prefixes that never get Google's preferred-source button. */
-const EXCLUDED_PREFIXES = ["/internal", "/studio"]
 
 /**
  * Full-screen app surfaces that render their own header: the portal and the
@@ -58,22 +53,11 @@ export default function SiteFrame({
     return <>{children}</>
   }
 
-  const showPreferredSource =
-    Boolean(pathname) &&
-    pathname !== "/" &&
-    !EXCLUDED_PREFIXES.some((p) => pathname === p || pathname?.startsWith(`${p}/`))
-
   return (
     <StickyCtaProvider>
       {header}
       <Breadcrumbs />
       <main>{children}</main>
-      {showPreferredSource ? (
-        <div className="site-container flex justify-center py-8">
-          {/* The button loads Google's publisher.js itself, only when it nears the viewport. */}
-          <GooglePreferredSourceButton />
-        </div>
-      ) : null}
       {footer}
       {cookie}
       <SiteStickyCta heading={stickyCtaHeading} defaults={stickyCtaDefaults} />
