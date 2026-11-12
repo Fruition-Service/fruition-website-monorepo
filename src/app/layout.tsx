@@ -405,9 +405,6 @@ export default async function RootLayout({
             />
           </>
         ) : null}
-        {/* Google's preferred-source publisher.js is NOT loaded here: it only
-            renders the button SiteFrame draws, and the pages that draw it are
-            the only ones that need its ~170 kB. SiteFrame loads it there. */}
         <script dangerouslySetInnerHTML={{ __html: DEFERRED_ANALYTICS }} />
         {/* Per-region ProfessionalService JSON-LD. Renders only on the six
             /monday-partner-* routes; null everywhere else. It lives here

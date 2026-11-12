@@ -84,7 +84,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
             )}
             {ctaLabel && calendlyUrl && <FooterBookingCta url={calendlyUrl} label={ctaLabel} />}
             {/* Google's "add as a preferred source" button, once per site in the footer. */}
-            <GooglePreferredSourceButton theme="dark" />
+            <GooglePreferredSourceButton />
             {contactEmail && (
               <a href={`mailto:${contactEmail}`} className="mail">
                 {contactEmail}
