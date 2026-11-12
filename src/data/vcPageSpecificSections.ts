@@ -36,6 +36,10 @@ const OGLABS_PORT = 'scripts/sanity-migrate/port-oglabs-hubspot-clickup.ts'
 const OGLABS_REASON = (page: string) =>
   `Ported from oglabs.io/services/${page} (OG Labs, Nov 2026). Covers ground the partner template has no slot for.`
 
+const ATLASSIAN_SCRIPT = 'scripts/vc/atlassian-deep-dives.ts'
+const ATLASSIAN_REASON =
+  'Service deep dive carrying the copy of a leaf page merged into the hub in PR #415, dropped by the Version C rollout (#435) and restored at Vadim\'s (SEO) request. The old leaf URL 301s to this anchor.'
+
 export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
   {
     path: '/hubspot-consulting',
@@ -90,6 +94,42 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     reason: OGLABS_REASON('clickup') + ' Also drawn from /services/advanced-integrations (HubSpot to ClickUp).',
     added: '2026-11-12',
     source: OGLABS_PORT,
+  },
+  {
+    path: '/atlassian-consulting',
+    key: 'pagespecific-atlassian-jira',
+    type: 'vcDeepDive',
+    heading: 'Jira that developers tolerate *and leaders can read*',
+    reason: ATLASSIAN_REASON,
+    added: '2026-11-12',
+    source: ATLASSIAN_SCRIPT,
+  },
+  {
+    path: '/atlassian-consulting',
+    key: 'pagespecific-atlassian-confluence',
+    type: 'vcDeepDive',
+    heading: 'Confluence as a knowledge base, *not a document graveyard*',
+    reason: ATLASSIAN_REASON,
+    added: '2026-11-12',
+    source: ATLASSIAN_SCRIPT,
+  },
+  {
+    path: '/atlassian-consulting',
+    key: 'pagespecific-atlassian-jsm',
+    type: 'vcDeepDive',
+    heading: 'ITSM that resolves tickets *instead of routing them in circles*',
+    reason: ATLASSIAN_REASON,
+    added: '2026-11-12',
+    source: ATLASSIAN_SCRIPT,
+  },
+  {
+    path: '/atlassian-consulting',
+    key: 'pagespecific-atlassian-migration',
+    type: 'vcDeepDive',
+    heading: 'Leave Jira *without leaving your history behind*',
+    reason: ATLASSIAN_REASON,
+    added: '2026-11-12',
+    source: ATLASSIAN_SCRIPT,
   },
 ]
 

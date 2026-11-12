@@ -47,6 +47,12 @@ A page-specific section is marked in three places:
 3. **The registry** `src/data/vcPageSpecificSections.ts` lists path, key, type, heading, reason, date and
    source. `vcPageSpecificSections.test.ts` checks the entries.
 
+In the page HTML a page-specific section carries `data-page-specific` on its `<section>` (every section
+component passes the flag to `Sec`), so Playwright and agents reading the DOM can tell them apart:
+`document.querySelectorAll('[data-page-specific]')`. Page-only styles go in `scripts/vc/extras-<slug>.css`
+(appended by `build-css.mjs`), never in the generated `src/styles/vc/` files. A section type built for one
+page says so in its Studio title, e.g. `vcDeepDive`, "Service deep dive (page-specific)".
+
 ```bash
 npx tsx scripts/vc/check-page-specific.ts   # read-only: registry vs live Sanity, exits 1 on drift
 ```
@@ -58,6 +64,7 @@ registry entry in the same PR, then run the checker. To remove one: delete it fr
 |---|---|---|
 | `/hubspot-consulting` | Migration to HubSpot, Portal audit and rescue, RevOps and integrations (cards); Implementation process (6 steps) | 12 Nov 2026, ported from oglabs.io/services/hubspot |
 | `/partnerships/certified-clickup-partner` | Beyond setup, HubSpot ↔ ClickUp (cards) | 12 Nov 2026, ported from oglabs.io/services/clickup |
+| `/atlassian-consulting` | Four service deep dives (`vcDeepDive`): Jira `#jira`, Confluence `#confluence`, Jira Service Management `#jsm`, Jira to monday.com migration `#migration`, after "Our Atlassian services" | 12 Nov 2026: copy of the leaf pages merged in PR #415, dropped by the Version C rollout, restored at Vadim's (SEO) request by `scripts/vc/atlassian-deep-dives.ts`. The old leaf URLs 301 to these anchors. |
 
 The OG Labs port (`scripts/sanity-migrate/port-oglabs-hubspot-clickup.ts`) also edited inside template
 sections on those two pages: the HubSpot implementation card names all six Hubs, the ClickUp services

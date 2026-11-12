@@ -1,0 +1,9 @@
+/* PAGE-SPECIFIC (appended after the mock-up page block by build-css.mjs).
+   Spacing for the four service deep dives (vcDeepDive) on /atlassian-consulting:
+   the approach and engagements sub-headings sit between grids that the
+   template only ever placed directly under a section heading. */
+.vc .dd-sub{margin:0 0 24px}
+.vc .steps + .dd-sub{margin-top:56px}
+.vc [data-sec="deep-dive"] .step .n{margin-bottom:8px}
+.vc [data-sec="deep-dive"] .card .h3{font-size:20px}
+@media (max-width:767px){.vc .steps + .dd-sub{margin-top:40px}}

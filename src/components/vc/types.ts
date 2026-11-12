@@ -23,7 +23,11 @@ export interface VcQuoteData { _id: string; org?: string; quote?: string; name?:
 export interface VcFaqItemData { _id: string; question?: string; answer?: PortableTextBlock[] }
 export interface VcFaqTabData { _key?: string; label?: string; items?: VcFaqItemData[] }
 
-interface Base { _key: string; _type: string; tone?: "plain" | "alt"; anchor?: string; sectionClass?: string }
+interface Base {
+  _key: string; _type: string; tone?: "plain" | "alt"; anchor?: string; sectionClass?: string
+  /** True = exists on this page only, outside the group's shared template (docs/version-c.md "Page-specific sections"). */
+  pageSpecific?: boolean; pageSpecificNote?: string
+}
 
 export interface VcHeroData extends Base {
   _type: "vcHero"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]
@@ -39,6 +43,11 @@ export interface VcStepsData extends Base {
   items?: { _key?: string; n?: string; bar?: number; title?: string; body?: string; bullets?: string[]; meta?: string }[]
 }
 export interface VcCasesData extends Base { _type: "vcCases"; head?: VcHeadData; cases?: VcCaseData[] }
+/** A service deep dive: heading block, numbered approach steps and a 4-card grid. Page-specific by design. */
+export interface VcDeepDiveData extends Base {
+  _type: "vcDeepDive"; head?: VcHeadData; stepsHeading?: string; steps?: { _key?: string; title?: string; body?: string }[]
+  cardsHeading?: string; cards?: { _key?: string; title?: string; body?: string }[]
+}
 export interface VcAuditData extends Base { _type: "vcAudit"; heading?: string; text?: string; cta?: VcCtaData }
 export interface VcCardsData extends Base { _type: "vcCards"; head?: VcHeadData; layout?: string; imageFrame?: string; listClass?: string; titleClass?: string; tagClass?: string; sectionClass?: string; items?: VcItemData[] }
 export interface VcProductsData extends Base { _type: "vcProducts"; head?: VcHeadData; items?: VcItemData[] }
@@ -179,6 +188,7 @@ export type VcSection =
   | VcPartnerStatusData | VcDirectoryData | VcToolkitData | VcStatsRowData | VcTeamData | VcAnswerData | VcCoverageData
   | VcPriceCardsData | VcLinkCardsData | VcServicesData | VcFactsData | VcIndustryGridData | VcCatalogueData | VcAskDemoData | VcQuizData | VcMarkupData | VcInsightsData
   | VcLeadershipData | VcOfficesData | VcTeamTabsData | VcChannelsData | VcRemoteData | VcFormEmbedData | VcStoriesData | VcBlogListData | VcFaqHubData
+  | VcDeepDiveData
 
 export interface VcPageData {
   _id: string; title?: string; path: string; group?: string

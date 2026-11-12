@@ -27,7 +27,7 @@ export function VcVideo({ s }: { s: VcVideoData }) {
   const id = vercelStegaClean(s.youtubeId ?? "")
   const ld = id ? buildVideoObject({ id }) : null
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap case" dataSec="video">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap case" dataSec="video">
       {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />}
       <div>
         <Badge>{s.badge}</Badge>
@@ -55,7 +55,7 @@ export function VcVideo({ s }: { s: VcVideoData }) {
 
 export function VcTextPair({ s }: { s: VcTextPairData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="text">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="text">
       <div className="txt2">
         <div>
           <Badge>{s.badge}</Badge>
@@ -75,7 +75,7 @@ export function VcTextPair({ s }: { s: VcTextPairData }) {
 
 export function VcFix({ s }: { s: VcFixData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="fix">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="fix">
       <VcFixPicker s={s} />
     </Sec>
   )
@@ -83,7 +83,7 @@ export function VcFix({ s }: { s: VcFixData }) {
 
 export function VcIndustryTabs({ s }: { s: VcIndustryTabsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="industry">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="industry">
       <VcIndustryTabsView s={s} />
     </Sec>
   )
@@ -91,7 +91,7 @@ export function VcIndustryTabs({ s }: { s: VcIndustryTabsData }) {
 
 export function VcTrack({ s }: { s: VcTrackData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "track"} cls={s.sectionClass} dataSec="track">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "track"} cls={s.sectionClass} dataSec="track">
       <VcTrackFinder s={s} />
     </Sec>
   )
@@ -111,7 +111,7 @@ const Chk = () => (
 export function VcTable({ s }: { s: VcTableData }) {
   const [a, b, c] = s.columns ?? []
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="compare">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="compare">
       <Head head={s.head} />
       <div className="table" role="table">
         <div className="tr th" role="row">
@@ -155,7 +155,7 @@ export function VcTable({ s }: { s: VcTableData }) {
 
 export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="status">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="status">
       <div className="pst">
         <div className="pst-badge">
           {(s.badgeImages ?? []).map((b, i) => (
@@ -186,7 +186,7 @@ export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
 
 export function VcDirectory({ s }: { s: VcDirectoryData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="directory">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="directory">
       <VcDirectoryGrid s={s} />
     </Sec>
   )
@@ -206,7 +206,7 @@ export function VcToolkit({ s }: { s: VcToolkitData }) {
       </div>
     ))
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="toolkit">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="toolkit">
       <Head head={s.head} />
       <div className="accr">
         <div className="accr-track">
@@ -248,7 +248,7 @@ export function VcStatsRow({ s }: { s: VcStatsRowData }) {
 
 export function VcTeam({ s }: { s: VcTeamData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="team">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="team">
       <Head head={s.head} />
       <div className="tgrid">
         {(s.members ?? []).filter((m) => m?._id).map((m, i) =>
@@ -279,7 +279,7 @@ export function VcTeam({ s }: { s: VcTeamData }) {
 
 export function VcAnswer({ s }: { s: VcAnswerData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap answer" dataSec="answer">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap answer" dataSec="answer">
       <div>
         <Badge>{s.badge}</Badge>
         {s.heading && (
@@ -296,7 +296,7 @@ export function VcAnswer({ s }: { s: VcAnswerData }) {
 export function VcCoverage({ s }: { s: VcCoverageData }) {
   const q = vercelStegaClean(s.mapQuery ?? "")
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="coverage">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="coverage">
       <Head head={s.head} />
       <div className="ogrid">
         <div className="omap">
@@ -363,7 +363,7 @@ const withOverrides = (m: VcTeamMember): VcTeamMember => ({ ...m, role: m.roleOv
 export function VcLeadership({ s }: { s: VcLeadershipData }) {
   const ceo = s.ceo ? withOverrides(s.ceo) : null
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="leadership">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="leadership">
       <Head head={s.head} />
       {ceo && (
         <figure className="ceo">
@@ -403,7 +403,7 @@ export function VcLeadership({ s }: { s: VcLeadershipData }) {
 
 export function VcOffices({ s, shared }: { s: VcOfficesData; shared?: VcSharedData | null }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="offices">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="offices">
       <Head head={s.head} />
       <div className="offices">
         {(shared?.offices ?? []).map((o, i) => (
@@ -448,7 +448,7 @@ function TeamCards({ members, cls }: { members?: VcTeamMember[]; cls: string }) 
 export function VcTeamTabs({ s }: { s: VcTeamTabsData }) {
   const tabs = s.tabs ?? []
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "team"} cls={s.sectionClass} dataSec="team">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "team"} cls={s.sectionClass} dataSec="team">
       <VcTeamTabsShell
         badge={<Badge>{s.badge}</Badge>}
         prefix={s.headingPrefix}
@@ -474,7 +474,7 @@ export function VcTeamTabs({ s }: { s: VcTeamTabsData }) {
 
 export function VcChannels({ s }: { s: VcChannelsData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} inner="wrap chan" dataSec="channels">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap chan" dataSec="channels">
       <div>
         <Badge>{s.badge}</Badge>
         {s.heading && (
@@ -548,7 +548,7 @@ export function VcChannels({ s }: { s: VcChannelsData }) {
 
 export function VcRemote({ s }: { s: VcRemoteData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "remote"} cls={s.sectionClass} dataSec="remote">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "remote"} cls={s.sectionClass} dataSec="remote">
       <div className="rgrid">
         <div className="rl">
           <Badge>{s.badge}</Badge>
@@ -601,7 +601,7 @@ export function VcRemote({ s }: { s: VcRemoteData }) {
 export function VcFormEmbed({ s }: { s: VcFormEmbedData }) {
   const src = vercelStegaClean(s.src ?? "")
   return (
-    <Sec tone={s.tone} anchor={s.anchor} cls={s.sectionClass} dataSec="apply">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="apply">
       <Head head={s.head} />
       {/^https:\/\/forms\.monday\.com\//.test(src) && (
         <div className="mform">
@@ -615,7 +615,7 @@ export function VcFormEmbed({ s }: { s: VcFormEmbedData }) {
 
 export function VcStories({ s }: { s: VcStoriesData }) {
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "case-studies"} cls={s.sectionClass} dataSec="case-studies">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "case-studies"} cls={s.sectionClass} dataSec="case-studies">
       <Head head={s.head} />
       <VcStoriesGrid s={s} />
     </Sec>
@@ -625,7 +625,7 @@ export function VcStories({ s }: { s: VcStoriesData }) {
 export async function VcBlogList({ s }: { s: VcBlogListData }) {
   const posts = await getVcBlogCards()
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "posts"} cls={s.sectionClass} dataSec="posts">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "posts"} cls={s.sectionClass} dataSec="posts">
       <VcBlogGrid s={s} posts={posts} />
     </Sec>
   )
@@ -636,7 +636,7 @@ export function VcFaqHub({ s }: { s: VcFaqHubData }) {
   const pairs = (s.categories ?? []).flatMap((c) => (c.groups ?? []).flatMap((g) => (g.items ?? []).filter(Boolean)))
   const ld = generateFaqJsonLdFromPairs(pairs.map((it) => ({ question: vercelStegaClean(it.question ?? ""), answer: vercelStegaClean(answerToPlainText(it.answer)) })))
   return (
-    <Sec tone={s.tone} anchor={s.anchor ?? "faq"} cls={s.sectionClass} inner="wrap help" dataSec="faq">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "faq"} cls={s.sectionClass} inner="wrap help" dataSec="faq">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <VcFaqHubView s={s} />
     </Sec>

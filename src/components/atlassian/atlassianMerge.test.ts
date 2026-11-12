@@ -15,6 +15,13 @@ const RETIRED = [
   '/atlassian-consulting/jira-service-management',
   '/atlassian-consulting/jira-to-monday-migration',
 ]
+/** Each retired leaf lands on its deep dive section (vcDeepDive anchors on the Version C page). */
+const RETIRED_ANCHOR: Record<string, string> = {
+  '/atlassian-consulting/jira': 'jira',
+  '/atlassian-consulting/confluence': 'confluence',
+  '/atlassian-consulting/jira-service-management': 'jsm',
+  '/atlassian-consulting/jira-to-monday-migration': 'migration',
+}
 
 const FAQ_ORDER = [
   'What does an Atlassian consultant do?',
@@ -87,11 +94,11 @@ describe('/atlassian-consulting merged page', () => {
     expect(fallback[0].items?.map((i) => i.question)).toEqual(FAQ_ORDER)
   })
 
-  it.each(RETIRED)('retires %s with a 301 to the hub and keeps it out of the sitemap', (path) => {
+  it.each(RETIRED)('retires %s with a 301 to its deep dive on the hub and keeps it out of the sitemap', (path) => {
     const config = readFileSync(join(process.cwd(), 'next.config.ts'), 'utf8')
     const sitemap = readFileSync(join(process.cwd(), 'src/app/sitemap.ts'), 'utf8')
     expect(existsSync(join(process.cwd(), 'src/app', path, 'page.tsx'))).toBe(false)
-    expect(config).toContain(`{ source: "${path}", destination: "/atlassian-consulting", statusCode: 301 }`)
+    expect(config).toContain(`{ source: "${path}", destination: "/atlassian-consulting#${RETIRED_ANCHOR[path]}", statusCode: 301 }`)
     expect(sitemap).not.toContain(`"${path}"`)
   })
 

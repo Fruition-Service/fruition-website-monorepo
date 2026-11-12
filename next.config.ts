@@ -33,10 +33,10 @@ const auditRedirects: Redirect[] = [
   { source: "/monday-products/enterprise", destination: "/implementation-packages", permanent: true },
   // Atlassian leaves folded into the hub's in-page deep dives (November 2026
   // traffic review, monday 2899845035). statusCode 301, not permanent (308).
-  { source: "/atlassian-consulting/jira", destination: "/atlassian-consulting", statusCode: 301 },
-  { source: "/atlassian-consulting/confluence", destination: "/atlassian-consulting", statusCode: 301 },
-  { source: "/atlassian-consulting/jira-service-management", destination: "/atlassian-consulting", statusCode: 301 },
-  { source: "/atlassian-consulting/jira-to-monday-migration", destination: "/atlassian-consulting", statusCode: 301 },
+  { source: "/atlassian-consulting/jira", destination: "/atlassian-consulting#jira", statusCode: 301 },
+  { source: "/atlassian-consulting/confluence", destination: "/atlassian-consulting#confluence", statusCode: 301 },
+  { source: "/atlassian-consulting/jira-service-management", destination: "/atlassian-consulting#jsm", statusCode: 301 },
+  { source: "/atlassian-consulting/jira-to-monday-migration", destination: "/atlassian-consulting#migration", statusCode: 301 },
   // HubSpot leaves folded into the hub's in-page sections (monday 2900266080).
   // The destination carries the section anchor, as /case-studies does.
   { source: "/hubspot-consulting/implementation", destination: "/hubspot-consulting#implementation", statusCode: 301 },

@@ -1,6 +1,11 @@
 /**
  * The four product deep dives on /atlassian-consulting (monday 2899845035).
  *
+ * Since 12 Nov 2026 this is the SOURCE COPY for the page-specific Version C
+ * `vcDeepDive` sections (scripts/vc/atlassian-deep-dives.ts seeds them into
+ * vcPage-atlassian-consulting). The live text is in Sanity: edit it there,
+ * not here. The note below describes the pre-Version C page.
+ *
  * Each one is a retired leaf page folded into the hub: its own heading (now
  * an H2), its lead, its approach heading with three numbered steps and its
  * services heading with four cards, copied verbatim. They are code-only on
