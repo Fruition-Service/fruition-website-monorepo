@@ -1416,6 +1416,19 @@ async function main() {
   console.log(`written ${OUT}`)
   if (!APPLY) return
 
+  // createOrReplace below rebuilds each page from its mock-up and would drop sections that exist on
+  // one page only (docs/version-c.md "Page-specific sections"). Refuse unless explicitly overridden.
+  const pageIds = pages.map((p) => p._id)
+  const kept = await client.fetch<{ _id: string; path: string; keys: string[] }[]>(
+    `*[_id in $ids]{ _id, path, "keys": sections[pageSpecific == true || _key match "pagespecific-*"]._key }[count(keys) > 0]`,
+    { ids: pageIds },
+  )
+  if (kept.length && !process.argv.includes('--drop-page-specific')) {
+    for (const p of kept) console.error(`${p.path} has page-specific sections: ${p.keys.join(', ')}`)
+    console.error('Refusing to replace these pages. Re-add those sections after migrating, or pass --drop-page-specific and update src/data/vcPageSpecificSections.ts.')
+    process.exit(1)
+  }
+
   await uploadAll()
   const tx = client.transaction()
   for (const d of [...sharedDocs.values(), ...newFaqs, ...pages]) tx.createOrReplace(resolveAssets(d) as Doc)

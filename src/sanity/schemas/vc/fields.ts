@@ -41,6 +41,24 @@ export const sectionBase = [
     type: 'string',
     description: 'Optional id for in-page links, e.g. "services" makes #services scroll here.',
   }),
+  // Page-specific marker. Pages in one group (partner, industry, ...) share a section template.
+  // A section added to only one page sets this, gets a `_key` starting with "pagespecific-",
+  // and is listed in src/data/vcPageSpecificSections.ts. See docs/version-c.md "Page-specific sections".
+  defineField({
+    name: 'pageSpecific',
+    title: 'Page-specific section (outside the shared template)',
+    type: 'boolean',
+    description:
+      'On means this section exists only on this page, not on the other pages of its group. Keep it when re-templating the group, and keep src/data/vcPageSpecificSections.ts in step.',
+    initialValue: false,
+  }),
+  defineField({
+    name: 'pageSpecificNote',
+    title: 'Why this section is page-specific',
+    type: 'string',
+    description: 'Where the content came from and when it was added, e.g. "Ported from oglabs.io/services/hubspot, Nov 2026".',
+    hidden: ({ parent }) => !(parent as { pageSpecific?: boolean } | undefined)?.pageSpecific,
+  }),
 ]
 
 export const ctas = defineField({

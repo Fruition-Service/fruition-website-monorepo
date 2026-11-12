@@ -106,6 +106,9 @@ by a hook on every edit under `src/`:
   The one exception is the approved **Version C** design system (Nov 2026): its stylesheet is
   generated into `src/styles/vc/` by `scripts/vc/build-css.mjs` (scoped, layered, tokenised) and
   its copy lives in `vcPage` documents. See [docs/version-c.md](docs/version-c.md).
+  **Some Version C pages carry page-specific sections outside their group's shared template**
+  (keys `pagespecific-*`, `pageSpecific: true`, listed in `src/data/vcPageSpecificSections.ts`).
+  Run `npx tsx scripts/vc/check-page-specific.ts` before re-templating a group and keep them.
 - **A UI change is not done until it works at 375, 768 and 1440 wide**: one column on mobile, no
   horizontal overflow (`scrollWidth <= innerWidth`), 44px tap targets. Check all three, not just
   desktop.
