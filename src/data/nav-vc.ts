@@ -168,6 +168,12 @@ export const NAV_VC: NavVcItem[] = [
           { label: 'Marketing & creative', href: '/monday-for-marketing', description: 'Campaigns, content and client delivery', icon: 'marketing-and-creative' },
           { label: 'Education', href: '/industries/education', description: 'Service desks, events and admissions', icon: 'education' },
           { label: 'Nonprofits', href: '/industries/nonprofits', description: 'Programs, grants, donors and volunteers', icon: 'nonprofits' },
+          { label: 'Transport & logistics', href: '/industries/transport-logistics', description: 'Dispatch, fleet and freight operations', icon: 'transport-and-logistics' },
+          { label: 'Hospitality & events', href: '/industries/hospitality-tourism-events', description: 'Venues, tourism campaigns and events', icon: 'hospitality-and-events' },
+          { label: 'Technology & SaaS', href: '/industries/technology-saas', description: 'Pipeline, onboarding and delivery', icon: 'technology-and-saas' },
+          { label: 'Energy & utilities', href: '/industries/energy-utilities', description: 'Field work, projects and compliance', icon: 'energy-and-utilities' },
+          { label: 'Media & entertainment', href: '/industries/media-entertainment', description: 'Productions, content and approvals', icon: 'media-and-entertainment' },
+          { label: 'Legal', href: '/industries/legal', description: 'Matters, intake and deadlines', icon: 'legal' },
         ],
       },
       {

@@ -51,6 +51,12 @@ export const INDUSTRY_NAMES = [
   'Solar & renewables',
   'Education',
   'Nonprofits',
+  'Transport & logistics',
+  'Hospitality, tourism & events',
+  'Technology & SaaS',
+  'Energy & utilities',
+  'Media & entertainment',
+  'Legal',
 ] as const
 
 /** Industry page key (a caseStudy `pages` entry) → industry name. */
@@ -66,6 +72,12 @@ const INDUSTRY_BY_PAGE: Record<string, string> = {
   'industries/solar-renewables': 'Solar & renewables',
   'industries/education': 'Education',
   'industries/nonprofits': 'Nonprofits',
+  'industries/transport-logistics': 'Transport & logistics',
+  'industries/hospitality-tourism-events': 'Hospitality, tourism & events',
+  'industries/technology-saas': 'Technology & SaaS',
+  'industries/energy-utilities': 'Energy & utilities',
+  'industries/media-entertainment': 'Media & entertainment',
+  'industries/legal': 'Legal',
 }
 
 const norm = (s?: string | null) => (s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
