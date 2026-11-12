@@ -30,6 +30,40 @@ is click-to-edit on editing.fruitionservices.io.
 4. Check: `node scripts/vc/compare.mjs --page <slug>:<path>` screenshots the page next to its
    mock-up at 1440 and 390 and reports section heights, overflow, broken images and console errors.
 
+## Page-specific sections
+
+Pages in one `group` (partner, industry, msol, ...) share a section template: the same section types
+in the same order, which is what lets a template change roll out to the whole group. Some pages carry
+extra sections that exist on that page only. **Before re-templating, reordering or regenerating a group,
+run the checker and keep every page-specific section.**
+
+A page-specific section is marked in three places:
+
+1. **Sanity:** `pageSpecific: true` and a `pageSpecificNote` (where the copy came from, when). Studio shows
+   it as "Page-specific section (outside the shared template)" on the section.
+2. **Its `_key`** starts with `pagespecific-`, so it stands out in any JSON dump or GROQ result.
+3. **The registry** `src/data/vcPageSpecificSections.ts` lists path, key, type, heading, reason, date and
+   source. `vcPageSpecificSections.test.ts` checks the entries.
+
+```bash
+npx tsx scripts/vc/check-page-specific.ts   # read-only: registry vs live Sanity, exits 1 on drift
+```
+
+To add one: give the section a `pagespecific-<page>-<topic>` key, set `pageSpecific` and the note, add the
+registry entry in the same PR, then run the checker. To remove one: delete it from the page and the registry.
+
+| Page | Page-specific sections | Added |
+|---|---|---|
+| `/hubspot-consulting` | Migration to HubSpot, Portal audit and rescue, RevOps and integrations (cards); Implementation process (6 steps) | 12 Nov 2026, ported from oglabs.io/services/hubspot |
+| `/partnerships/certified-clickup-partner` | Beyond setup, HubSpot ↔ ClickUp (cards) | 12 Nov 2026, ported from oglabs.io/services/clickup |
+
+The OG Labs port (`scripts/sanity-migrate/port-oglabs-hubspot-clickup.ts`) also edited inside template
+sections on those two pages: the HubSpot implementation card names all six Hubs, the ClickUp services
+card bodies were rewritten (titles kept), ClickUp "How we deliver" went from 3 to 6 steps, both Results
+leads now say the case studies span our platform work, and monday-only FAQs were swapped for HubSpot and
+ClickUp questions (`faqItem-vc-hubspot-*`, `faqItem-vc-clickup-*`). The pre-change documents are
+committed in `scripts/sanity-backups/oglabs-port-*.json`; `--restore <that file>` puts them back.
+
 ## Site chrome: announcement bar, header and footer
 
 Every site page (not the ad landing pages, `/internal` or `/studio`) renders the Version C chrome from
