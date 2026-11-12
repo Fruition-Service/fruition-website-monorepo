@@ -1,6 +1,7 @@
 import { bookingHref } from "@/lib/bookingLink"
 import Link from 'next/link'
 import FooterBookingCta from '@/components/FooterBookingCta'
+import GooglePreferredSourceButton from '@/components/GooglePreferredSourceButton'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
 
@@ -82,6 +83,8 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               </ul>
             )}
             {ctaLabel && calendlyUrl && <FooterBookingCta url={calendlyUrl} label={ctaLabel} />}
+            {/* Google's "add as a preferred source" button, once per site in the footer. */}
+            <GooglePreferredSourceButton theme="dark" />
             {contactEmail && (
               <a href={`mailto:${contactEmail}`} className="mail">
                 {contactEmail}
