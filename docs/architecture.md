@@ -264,8 +264,12 @@ Anything request-specific in the layout must be fetched client-side (see `api/vi
   `src/lib/revalidateSite.ts` (post, previous slug, blog index, category pattern, sitemap, home,
   author). `revalidatePath` only works because `NEXT_TAG_CACHE_KV` is bound; without it the call
   silently does nothing. Pass concrete URLs untyped; the `"page"` type is for route patterns.
-- **There is no Sanity webhook.** Edits made directly in Studio, and Marketa publishes, appear
-  within the 60s ISR window on the next request. Nothing calls `revalidateTag`.
+- **Sanity webhook.** Every publish, delete or unpublish in the production dataset (Studio, API
+  scripts, Marketa) calls `POST /api/webhooks/sanity` (signed with `SANITY_WEBHOOK_SECRET`), which
+  runs `revalidatePath("/", "layout")` and so drops every cached page. Without it, pages rendered
+  at build time (the home page included) kept serving stale content until the next deploy. The
+  fruition-edge Worker serves its copy for up to 60s more, then refreshes. Nothing calls
+  `revalidateTag`.
 
 ### 7.3 Worker size budget
 The Worker is close to Cloudflare's **10 MiB compressed limit** (about 115 KiB of headroom when

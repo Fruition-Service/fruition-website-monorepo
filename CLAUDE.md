@@ -57,7 +57,8 @@ depends on the Workers runtime.
   runtime, which the OpenNext Cloudflare adapter rejects.
 - **Caching:** the root layout's `revalidate = 60` sets every page's TTL. `revalidatePath` only works
   because `NEXT_TAG_CACHE_KV` is bound; use `revalidateBlogPaths()` in `src/lib/revalidateSite.ts`
-  and pass concrete URLs untyped. There is no Sanity webhook.
+  and pass concrete URLs untyped. Publishing in Sanity calls `/api/webhooks/sanity`, which revalidates
+  every page (`revalidatePath("/", "layout")`), so Studio edits go live without a deploy.
 - **Never hand-edit `src/redirects.ts` (892 Wix redirects) or `src/tagRedirects.ts`.** New
   redirects go in `auditRedirects` in `next.config.ts`.
 - **New pages must be added to `STATIC_PATHS` in `src/app/sitemap.ts` by hand.**
