@@ -125,7 +125,7 @@ Supabase, monday boards and Calendly. Treat it as production when testing forms 
 
 | Group | Variables | Used by |
 |---|---|---|
-| Sanity | `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION` (build-time), `SANITY_WRITE_TOKEN` | Reads everywhere; writes from the portal, onboarding webhook, social media uploads |
+| Sanity | `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION` (build-time), `SANITY_WRITE_TOKEN`, `SANITY_WEBHOOK_SECRET` (publish webhook) | Reads everywhere; writes from the portal, onboarding webhook, social media uploads |
 | Site | `NEXT_PUBLIC_SITE_URL` | Canonicals, sitemap, short links (defaults to production) |
 | Portal Supabase | `PORTAL_SUPABASE_URL`, `PORTAL_SUPABASE_ANON_KEY`, `PORTAL_SUPABASE_SERVICE_ROLE_KEY`, `PORTAL_ALLOWED_EMAIL_DOMAIN` | Auth and all portal data, Implementation Calculator logs, short links |
 | Marketa | `MARKETA_SUPABASE_URL`, `MARKETA_SUPABASE_SERVICE_ROLE_KEY`, `MARKETA_URL` | Dashboard reads from the brain project; "content complete" webhook |
