@@ -2,10 +2,11 @@ import { vercelStegaClean } from "@vercel/stega"
 import Link from "next/link"
 import LeadForm from "@/components/sections/LeadForm"
 import { VcFilteredProof } from "./interactive"
+import { VcQuoteWall } from "./quoteWall"
 import { VcHeroSearch } from "./hubs"
 import VcAskPrompt from "./VcAskPrompt"
 import { VcNodes } from "./nodes"
-import { Acc, Arrow, Badge, Btn, Ctas, Head, QuoteAvatar, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
+import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
 import type {
   VcAuditData,
   VcCardsData,
@@ -17,7 +18,6 @@ import type {
   VcLogosData,
   VcProductsData,
   VcProofData,
-  VcQuoteData,
   VcStepsData,
 } from "../types"
 
@@ -533,46 +533,9 @@ export function VcProducts({ s }: { s: VcProductsData }) {
 
 /* ---------------------------------------------------------------- quotes */
 
-function Quote({ q, hidden }: { q: VcQuoteData; hidden?: boolean }) {
-  return (
-    <figure className="q" aria-hidden={hidden || undefined}>
-      {q.org && <span className="label">{hidden ? vercelStegaClean(q.org) : q.org}</span>}
-      <blockquote>&ldquo;{hidden ? vercelStegaClean(q.quote ?? "") : q.quote}&rdquo;</blockquote>
-      <figcaption className="who">
-        <QuoteAvatar q={q} />
-        <div>
-          <b>{hidden ? vercelStegaClean(q.name ?? "") : q.name}</b>
-          <span className="small">{hidden ? vercelStegaClean(q.role ?? "") : q.role}</span>
-        </div>
-      </figcaption>
-    </figure>
-  )
-}
-
-function QuoteCol({ quotes, dir }: { quotes: VcQuoteData[]; dir: "up" | "down" }) {
-  return (
-    <div className={`mq-col ${dir}`}>
-      <div className="mq-track">
-        {quotes.map((q, i) => (
-          <Quote key={`${q._id}-${i}`} q={q} />
-        ))}
-        {quotes.map((q, i) => (
-          <Quote key={`${q._id}-${i}-dup`} q={q} hidden />
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function VcProof({ s }: { s: VcProofData }) {
   const quotes = (s.quotes ?? []).filter(Boolean)
-  const half = Math.ceil(quotes.length / 2)
-  const columns = (
-    <div className="quotes mq">
-      <QuoteCol quotes={quotes.slice(0, half)} dir="up" />
-      <QuoteCol quotes={quotes.slice(half)} dir="down" />
-    </div>
-  )
+  const columns = <VcQuoteWall quotes={quotes} />
   if (s.filters?.length) {
     return (
       <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap proof" dataSec="proof">
