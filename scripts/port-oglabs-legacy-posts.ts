@@ -52,7 +52,8 @@ async function main() {
       slug,
       excerpt,
       body,
-      author: field(src, "authorName") || undefined,
+      // The Framer originals say Edward Zhang; on Fruition these are Thana's (Edward, 13 Nov 2026).
+      author: "Thana Witchawut",
       publishedAt: field(src, "publishedAt") || undefined,
       categoryIds: categoriesFor({ title, excerpt, body }),
       industry: industryFor({ title, excerpt }),
