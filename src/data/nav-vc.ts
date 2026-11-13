@@ -239,18 +239,6 @@ export const NAV_VC: NavVcItem[] = [
           { label: 'Professional services', href: '/monday-for-professional-services', description: 'Client delivery & resourcing', icon: 'professional-services' },
           { label: 'Real estate', href: '/monday-for-real-estate', description: 'Listings, deals & property ops', icon: 'real-estate' },
           { label: 'Financial services', href: '/industries/financial-services', description: 'APRA/FCA-aligned platforms & AI', icon: 'financial-services' },
-          { label: 'Retail', href: '/monday-for-retail', description: 'Stores, ranges and supplier ops', icon: 'retail' },
-          { label: 'Healthcare', href: '/industries/healthcare', description: 'Referrals, intake and care operations', icon: 'healthcare' },
-          { label: 'Solar & renewables', href: '/industries/solar-renewables', description: 'Pipeline to install and grid sign-off', icon: 'solar-and-renewables' },
-          { label: 'Marketing & creative', href: '/monday-for-marketing', description: 'Campaigns, content and client delivery', icon: 'marketing-and-creative' },
-          { label: 'Education', href: '/industries/education', description: 'Service desks, events and admissions', icon: 'education' },
-          { label: 'Nonprofits', href: '/industries/nonprofits', description: 'Programs, grants, donors and volunteers', icon: 'nonprofits' },
-          { label: 'Transport & logistics', href: '/industries/transport-logistics', description: 'Dispatch, fleet and freight operations', icon: 'transport-and-logistics' },
-          { label: 'Hospitality & events', href: '/industries/hospitality-tourism-events', description: 'Venues, tourism campaigns and events', icon: 'hospitality-and-events' },
-          { label: 'Technology & SaaS', href: '/industries/technology-saas', description: 'Pipeline, onboarding and delivery', icon: 'technology-and-saas' },
-          { label: 'Energy & utilities', href: '/industries/energy-utilities', description: 'Field work, projects and compliance', icon: 'energy-and-utilities' },
-          { label: 'Media & entertainment', href: '/industries/media-entertainment', description: 'Productions, content and approvals', icon: 'media-and-entertainment' },
-          { label: 'Legal', href: '/industries/legal', description: 'Matters, intake and deadlines', icon: 'legal' },
         ],
       },
       {
@@ -265,8 +253,10 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
+    // 12 sectors were hidden from the menu on 13 Nov 2026 (Edward); their pages
+    // stay live and are still listed in the footer and on /industries.
     footerLinks: [
-      { label: 'Browse AI use cases', href: '/ai-use-cases' },
+      { label: 'Browse industries', href: '/ai-use-cases' },
       { label: 'Customer stories', href: '/customer-testimonials' },
     ],
   },
@@ -359,6 +349,7 @@ export const NAV_VC: NavVcItem[] = [
           { label: 'Customer stories', href: '/customer-testimonials', description: 'Client results in their own words', icon: 'customer-stories' },
           { label: 'Case studies', href: '/customer-testimonials#case-studies', description: '8 verified client implementations, filterable', icon: 'crm-and-sales' },
           { label: 'Certifications & awards', href: '/certifications-and-awards', description: 'Partner tiers and certifications', icon: 'certifications-and-awards' },
+          { label: 'AI use cases', href: '/ai-use-cases', description: 'Solution catalogue of 279 real builds', icon: 'ai-consulting' },
         ],
       },
       {
