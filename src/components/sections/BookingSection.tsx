@@ -106,10 +106,9 @@ const TZS: [string, string][] = [
  * downscaled to 96px — the chip paints them at 15px, so the 505–800px
  * originals were ~144KB of detail nobody can see.
  *
- * OpenAI is a PNG rather than the Simple Icons SVG on purpose: that mark is a
- * fine-line knot which turns to mush at this size. Keep `openai.svg` — it is
- * not an orphan, HeroNetwork still builds its path from a slug and renders it
- * larger, where the line weight is fine.
+ * OpenAI is the current (2025) bold blossom, rendered from `openai.svg` to a
+ * 96px PNG like the others. Keep `openai.svg`: it is not an orphan,
+ * HeroNetwork still builds its path from a slug and renders it larger.
  *
  * `logo` stays optional so "Other" — which is not a product — has no mark, and
  * so a future entry without one degrades to a plain chip rather than a broken
