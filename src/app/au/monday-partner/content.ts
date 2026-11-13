@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { implementationPackagesSection } from "@/lib/landingPagePackages"
 
 export const html = `<!DOCTYPE html>
 <!--
@@ -125,6 +126,7 @@ Calendly embed &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand tea
 </div>
 </section>
 
+${implementationPackagesSection("Prices in USD; your AUD fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>
