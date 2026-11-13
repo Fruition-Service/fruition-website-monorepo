@@ -2,7 +2,7 @@
 
 import { vercelStegaClean } from "@vercel/stega"
 import { currency, type CurrencyCode } from "@/lib/currency/kit"
-import { useDisplayCurrency } from "@/lib/currency/client"
+import { useDisplayCurrency, useHydrated } from "@/lib/currency/client"
 
 /**
  * A price in the visitor's display currency.
@@ -27,12 +27,16 @@ export default function Price({
   className?: string
 }) {
   const shown = useDisplayCurrency()
+  const hydrated = useHydrated()
   const parsed =
     typeof amount === "number" && from
       ? { amount, currency: from }
       : currency.parse(vercelStegaClean(value ?? ""), base ?? null)
   const canonical = value ?? (parsed ? currency.format(parsed.amount, parsed.currency) : "")
-  if (!parsed) return <>{canonical}</>
+  // A bare "$2,500" cannot be parsed here (its base is the surrounding
+  // data-price-base), so the DOM rewrite converts it. Hold that off until this
+  // text has hydrated, or React would see S$ in the DOM against $ on the client.
+  if (!parsed) return <span data-currency-skip={hydrated ? undefined : ""}>{canonical}</span>
   let text = canonical
   if (shown && shown.code !== parsed.currency) {
     text =

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import type { PortableTextBlock } from "@portabletext/types"
+import { useHydrated } from "@/lib/currency/client"
 import type { VcFaqTabData } from "../types"
 
 /**
@@ -56,6 +57,11 @@ function Qa({ q, a, n, startOpen }: { q?: string; a?: PortableTextBlock[]; n: nu
 
 export default function VcFaqTabs({ badge, heading, tabs }: { badge?: React.ReactNode; heading?: React.ReactNode; tabs: VcFaqTabData[] }) {
   const [active, setActive] = useState(0)
+  // Answers quote prices. The display-currency rewrite must not touch their
+  // text before this component has hydrated (hydration would then see A$ on
+  // the server and S$ in the DOM and regenerate the tree); it converts them
+  // once the attribute lifts. See useHydrated.
+  const hydrated = useHydrated()
   return (
     <>
       <div>
@@ -63,7 +69,7 @@ export default function VcFaqTabs({ badge, heading, tabs }: { badge?: React.Reac
         {heading}
         <VcFaqTabsList tabs={tabs} active={active} onPick={setActive} />
       </div>
-      <div>
+      <div data-currency-skip={hydrated ? undefined : ""}>
         {tabs.map((t, ti) => (
           <div className="fxpanel" key={t._key ?? ti} hidden={ti !== active} role="tabpanel">
             {(t.items ?? []).map((it, i) => (
