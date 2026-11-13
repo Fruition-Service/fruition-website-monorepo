@@ -239,6 +239,8 @@ export const NAV_VC: NavVcItem[] = [
           { label: 'Professional services', href: '/monday-for-professional-services', description: 'Client delivery & resourcing', icon: 'professional-services' },
           { label: 'Real estate', href: '/monday-for-real-estate', description: 'Listings, deals & property ops', icon: 'real-estate' },
           { label: 'Financial services', href: '/industries/financial-services', description: 'APRA/FCA-aligned platforms & AI', icon: 'financial-services' },
+          { label: 'Retail', href: '/monday-for-retail', description: 'Stores, ranges and supplier ops', icon: 'retail' },
+          { label: 'Technology & SaaS', href: '/industries/technology-saas', description: 'Pipeline, onboarding and delivery', icon: 'technology-and-saas' },
         ],
       },
       {
@@ -253,7 +255,8 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
-    // 12 sectors were hidden from the menu on 13 Nov 2026 (Edward); their pages
+    // 10 sectors are hidden from the menu (Edward, 13 Nov 2026; Retail and Tech & SaaS
+    // came back as the next two by build count in /ai-use-cases); their pages
     // stay live and are still listed in the footer and on /industries.
     footerLinks: [
       { label: 'Browse industries', href: '/ai-use-cases' },
