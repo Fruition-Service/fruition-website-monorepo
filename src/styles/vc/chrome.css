@@ -1044,10 +1044,6 @@
     align-items: flex-start;
     gap: 6px;
   }
-  .vcf .soc-row {
-    display: flex;
-    gap: 6px;
-  }
   .vcf .soc a {
     position: relative;
     display: grid;
@@ -1093,13 +1089,28 @@
   .vcf .base a:hover {
     color: white;
   }
+  /* Bottom area: socials + currency, then copyright + legal, under one divider. */
+  .vcf .base-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid color-mix(in srgb, white 14%, transparent);
+  }
+  .vcf .base-top .soc {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
   .vcf .base {
     display: flex;
     justify-content: space-between;
     gap: 24px;
-    margin-top: 56px;
-    padding-top: 24px;
-    border-top: 1px solid color-mix(in srgb, white 14%, transparent);
+    margin-top: 20px;
     font: 400 12px/1.6 var(--mono);
     text-transform: uppercase;
     letter-spacing: 0.02em;
@@ -1143,7 +1154,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-top: 6px;
     font: 400 12px/1.6 var(--mono);
     text-transform: uppercase;
     letter-spacing: 0.02em;
@@ -1256,6 +1266,10 @@
     }
     .vcf .cols {
       grid-template-columns: 1fr 1fr;
+    }
+    .vcf .base-top {
+      flex-direction: column;
+      align-items: flex-start;
     }
     .vcf .base {
       gap: 8px;

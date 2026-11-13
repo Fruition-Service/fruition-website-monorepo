@@ -22,7 +22,7 @@ interface SocialLink {
   label?: string
   href?: string
   icon?: unknown
-  /** Footer row, 1 or 2 (the approved footer puts WhatsApp and email on row 2). */
+  /** Legacy row hint from the old brand-column layout; icons now sit in one row at the bottom. */
   row?: number
 }
 
@@ -94,9 +94,6 @@ function CopyLine({ text, phone }: { text?: string; phone?: string }) {
 export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsProp | null }) {
   const calendlyUrl = siteSettings?.calendlyLink ? bookingHref(siteSettings.calendlyLink) : ''
   const socials = (siteSettings?.socialLinks ?? []).filter((s) => s.icon && s.href)
-  const socialRows = [1, 2, 3]
-    .map((row) => socials.filter((s) => Math.min(3, Math.max(1, s.row ?? 1)) === row))
-    .filter((r) => r.length > 0)
   const legalLinks = siteSettings?.footerLegalLinks ?? []
   const badges = siteSettings?.footerBadges ?? []
   const ctaLabel = siteSettings?.footerCtaLabel || ''
@@ -128,30 +125,6 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 {contactEmail}
               </a>
             )}
-            {socialRows.length > 0 && (
-              <div className="soc">
-                {socialRows.map((row, r) => (
-                  <div className="soc-row" key={r}>
-                    {row.map((s, i) => {
-                      const external = /^https?:/i.test(s.href ?? '')
-                      return (
-                        <a
-                          key={`${s.label}-${i}`}
-                          href={s.href}
-                          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                          aria-label={s.label || 'Social'}
-                          title={s.label}
-                        >
-                          <Image src={urlFor(s.icon).width(48).url()} alt="" width={12} height={12} unoptimized />
-                        </a>
-                      )
-                    })}
-                  </div>
-                ))}
-              </div>
-            )}
-            {/* Display currency for every price on the site (src/lib/currency). */}
-            <CurrencySwitcher />
           </div>
 
           {columns.map((col, i) => (
@@ -166,6 +139,30 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Social icons and the display currency, on their own row above the copyright. */}
+        <div className="base-top">
+          {socials.length > 0 && (
+            <div className="soc">
+              {socials.map((s, i) => {
+                const external = /^https?:/i.test(s.href ?? '')
+                return (
+                  <a
+                    key={`${s.label}-${i}`}
+                    href={s.href}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    aria-label={s.label || 'Social'}
+                    title={s.label}
+                  >
+                    <Image src={urlFor(s.icon).width(48).url()} alt="" width={12} height={12} unoptimized />
+                  </a>
+                )
+              })}
+            </div>
+          )}
+          {/* Display currency for every price on the site (src/lib/currency). */}
+          <CurrencySwitcher />
         </div>
 
         <div className="base">
