@@ -139,7 +139,7 @@ ${LP_FONTS}
 <div class="pkg feat"><span class="dur">We build and deploy together</span><h3>Lock-Step</h3><span class="size">1-2 teams · up to 50 users</span><div class="price">From US$5,000 <small>one-time</small></div><ul><li>1-2 workflows mapped and built</li><li>Up to 8 boards + 2 dashboards</li><li>Up to 15 automations + 1 integration</li></ul><a class="btn" href="#lead">Get quote</a></div>
 <div class="pkg"><span class="dur">Ongoing, embedded</span><h3>Deployed Engineer</h3><span class="size">Multiple teams · up to 250 users</span><div class="price">From US$2,500 <small>per month</small></div><ul><li>1 named forward deployed engineer</li><li>Change requests in 2 business days</li><li>Monthly roadmap review</li></ul><a class="btn" href="#lead">Get your options</a></div>
 </div>
-<p class="pnote">Prices in USD; Singapore and Malaysia rates confirmed in your quote. monday.com licences are billed separately by monday.com.</p>
+<p class="pnote">Your exact fee is confirmed in your quote. monday.com licences are billed separately by monday.com.</p>
 </div>
 </section>
 

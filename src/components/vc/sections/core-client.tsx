@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Btn } from "../primitives"
 import type { VcServicesData } from "../types"
+import Price from "@/components/currency/Price"
 
 /** Service price tabs (AI, Atlassian, HubSpot, ...): one panel visible at a time. */
 export function VcServiceTabs({ tabs }: { tabs: NonNullable<VcServicesData["tabs"]> }) {
@@ -26,7 +27,7 @@ export function VcServiceTabs({ tabs }: { tabs: NonNullable<VcServicesData["tabs
             {t.from && (
               <div className="sv-from">
                 {t.fromLabel && <span className="label">{t.fromLabel}</span>}
-                <b>{t.from}</b>
+                <b><Price value={t.from} /></b>
               </div>
             )}
             <Btn cta={t.cta} />
@@ -38,7 +39,7 @@ export function VcServiceTabs({ tabs }: { tabs: NonNullable<VcServicesData["tabs
                   {r.name}
                   {r.note && <span className="label">{r.note}</span>}
                 </span>
-                <b className="price sm">{r.price}</b>
+                <b className="price sm"><Price value={r.price} /></b>
               </div>
             ))}
           </div>

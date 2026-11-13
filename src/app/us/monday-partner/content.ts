@@ -126,7 +126,7 @@ Calendly embed &mdash; US/North America round-robin &mdash; North America team O
 </div>
 </section>
 
-${implementationPackagesSection("Prices in USD. monday.com licences are billed separately by monday.com.")}
+${implementationPackagesSection("Your exact fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>

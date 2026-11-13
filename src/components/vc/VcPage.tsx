@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { buildOgMetadata } from "@/lib/metadata"
 import { getVcPage, getVcShared } from "@/sanity/vcQueries"
 import type { VcPageData, VcSection, VcSharedData } from "./types"
+import { PAGE_PRICE_BASE } from "@/lib/currency/pageBase"
 import {
   VcAudit,
   VcCards,
@@ -93,7 +94,7 @@ export async function VcPage({ path, slug, page: given }: { path: string; slug: 
   const [page, shared] = await Promise.all([given ?? getVcPage(path), getVcShared()])
   if (!page) notFound()
   return (
-    <div className={`vc vc-p-${slug}`}>
+    <div className={`vc vc-p-${slug}`} data-price-base={PAGE_PRICE_BASE[path]}>
       {(page.sections ?? []).map((s) => (
         <Section key={s._key} s={s} shared={shared} />
       ))}

@@ -126,7 +126,7 @@ Calendly embed &mdash; UK/EMEA round-robin &mdash; UK team ONLY
 </div>
 </section>
 
-${implementationPackagesSection("Prices in USD; your GBP fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
+${implementationPackagesSection("Your exact fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>

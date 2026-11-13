@@ -12,6 +12,7 @@ import VcAnimated from "./VcAnimated"
 import { VcNodes } from "./nodes"
 import { getVcHomePosts } from "@/sanity/vcQueries"
 import VcCatalogueView from "./VcCatalogue"
+import Price from "@/components/currency/Price"
 
 function Tick() {
   return (
@@ -56,7 +57,7 @@ export function VcPriceCards({ s }: { s: VcPriceCardsData }) {
                   {it.priceLabel && <span className="label">{it.priceLabel}</span>}
                   {it.price ? (
                     <b className="price">
-                      {it.price}
+                      <Price value={it.price} />
                       {it.unit && <span className="un">{it.unit}</span>}
                     </b>
                   ) : (

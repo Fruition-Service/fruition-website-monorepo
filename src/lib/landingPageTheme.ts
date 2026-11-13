@@ -292,6 +292,16 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 footer img{height:24px;width:auto;display:block}
 footer a{color:#fff;text-decoration:none}
 footer a:hover{color:var(--brand-tint)}
+.lp-cur{display:flex;align-items:center;gap:10px}
+footer .wrap:has(.lp-cur)>div:first-of-type{flex:1 1 260px;min-width:0}
+.lp-cur label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.lp-cur svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lp-cur-box{position:relative;display:flex}
+.lp-cur select{appearance:none;-webkit-appearance:none;margin:0;height:44px;min-width:132px;padding:0 38px 0 16px;border-radius:var(--pill);border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;font:400 12px/1 var(--mono);letter-spacing:.02em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
+.lp-cur select:hover{background:rgba(128,21,232,.22);border-color:rgba(255,255,255,.45)}
+.lp-cur select:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-color:#fff}
+.lp-cur option{background:var(--navy);color:#fff}
+.lp-cur-box svg{position:absolute;right:16px;top:15px;pointer-events:none;stroke:#fff}
 
 /* Mobile sticky CTA bar */
 .mcta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;gap:10px;padding:10px 16px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--lilac)}
