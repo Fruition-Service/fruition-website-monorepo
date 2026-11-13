@@ -521,12 +521,10 @@ export function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: stri
       const data = e.data as { event?: string } | null
       if (data?.event !== "calendly.event_scheduled") return
       scheduledRef.current?.()
-      // Same event also attributes the booking for OpenAI Ads (FRUIT-6). Kept in
-      // this listener so the origin check above guards it too.
-      const oaiq = (window as unknown as { oaiq?: (...args: unknown[]) => void }).oaiq
-      if (typeof oaiq === "function") {
-        oaiq("measure", "appointment_scheduled", { type: "customer_action" })
-      }
+      // The OpenAI Ads `appointment_scheduled` conversion (FRUIT-6) is sent once
+      // per booking by BookingEventTracker in the root layout, not here: every
+      // embed on a page installs this listener, so a page with two booking
+      // sections would count one booking twice.
     }
     window.addEventListener("message", onMessage)
     return () => window.removeEventListener("message", onMessage)

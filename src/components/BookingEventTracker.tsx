@@ -3,10 +3,11 @@
 import { useEffect } from "react"
 import { trackClarityEnquiry } from "@/lib/clarity"
 import { trackRyzeLead } from "@/lib/ryzePixel"
+import { trackOpenAiConversion } from "@/lib/openaiPixel"
 
 /**
- * Records a completed Calendly booking as a `booking_scheduled` PostHog event
- * and a Ryze `lead` event.
+ * Records a completed Calendly booking as a `booking_scheduled` PostHog event,
+ * a Ryze `lead` event and an OpenAI Ads `appointment_scheduled` conversion.
  *
  * Calendly's inline embed reports bookings to the host page via postMessage
  * (`calendly.event_scheduled`). GTM already turns that into the Google Ads and
@@ -34,6 +35,7 @@ export default function BookingEventTracker() {
       } catch {
         // Same rule for Ryze.
       }
+      trackOpenAiConversion("appointment_scheduled")
       // A booking is an enquiry: tag the Clarity recording like a lead form does.
       trackClarityEnquiry("calendly_booking")
     }

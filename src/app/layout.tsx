@@ -11,6 +11,7 @@ import CookieNotice from "@/components/CookieNotice"
 import SiteFrame from "@/components/SiteFrame"
 import CtaClickTracker from "@/components/CtaClickTracker"
 import BookingEventTracker from "@/components/BookingEventTracker"
+import { OAIQ_LOADER } from "@/lib/openaiPixel"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
 import EditModeLoader from "@/components/edit/EditModeLoader"
 import AwardBanner from "@/components/home/AwardBanner"
@@ -72,16 +73,8 @@ j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com
 f.parentNode.insertBefore(j,f);})(document,'${GTM_ID}');`
 
 
-// OpenAI Ads conversion tracking (oaiq). Base loader sitewide — stubs the
-// queue synchronously so oaiq(...) calls never drop while the SDK is still
-// in flight, then fires the pixel init. Pixel ID from OpenAI Ads Manager.
-// Consent: honours the same fruition-visitor-consent localStorage gate as
-// REB2B — keep in sync with src/components/CookieNotice.tsx.
-const OAIQ_PIXEL_ID = "RNJ1b2hooXBRHiYSWb3K6h"
-const OAIQ_LOADER = `(function(){try{if(window.localStorage.getItem("fruition-visitor-consent")==="declined")return;}catch(e){}
-!(function(o,a,i,q){if(o.oaiq)return;var n=o.oaiq=function(){n.queue.push(arguments)};n.queue=[];var s=a.createElement(i);s.async=!0;s.src=q;var e=a.getElementsByTagName(i)[0];e.parentNode.insertBefore(s,e)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js"));
-oaiq("init", { pixelId: "RNJ1b2hooXBRHiYSWb3K6h" });
-})();`
+// OpenAI Ads pixel (oaiq): OAIQ_LOADER lives in src/lib/openaiPixel.ts, behind
+// the same fruition-visitor-consent gate as REB2B.
 
 // Microsoft Clarity: CLARITY_LOADER lives in src/lib/clarity.ts. It records
 // only on the live hosts (www.fruitionservices.io and the apex), honours the
