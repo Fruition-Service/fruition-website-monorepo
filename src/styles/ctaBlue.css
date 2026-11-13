@@ -1,0 +1,39 @@
+/*
+ * Blue CTA buttons: the site-wide switch in Sanity Site Settings
+ * ("Blue CTA buttons", field `blueCtaButtons`). When it is on, the root layout
+ * renders <html data-cta="blue"> and the rules below turn every primary call to
+ * action from the Version C purple accent to the CTA blue ramp in globals.css.
+ * When it is off nothing here matches, so the site looks exactly as before.
+ *
+ * What changes:
+ * - Version C pill buttons (`.btn` in src/styles/vc/: nav, footer, every page)
+ *   by re-pointing --accent / --accent-press on the button itself. Outline,
+ *   inverse (white) and ghost buttons never read the accent for their fill, so
+ *   they keep their look.
+ * - The booking card's "Confirm" button and selected day/time, which Version C
+ *   re-skins to the accent through `.vc .cal`.
+ * Legacy pages (.cta-btn, .ui-cta-btn) and the sticky CTA bar already use the
+ * CTA blue ramp, so they need nothing here.
+ */
+
+@layer components {
+  /* Resolve the blue ramp once at the root. Custom properties inherit their
+     computed value, so these stay blue inside `.vc .cal`, which redefines
+     --cta-blue as the accent. */
+  html[data-cta="blue"] {
+    --cta-fill: var(--cta-blue);
+    --cta-fill-light: var(--cta-blue-light);
+    --cta-fill-press: var(--cta-blue-dark);
+  }
+
+  html[data-cta="blue"] .btn {
+    --accent: var(--cta-fill);
+    --accent-press: var(--cta-fill-press);
+  }
+
+  html[data-cta="blue"] .vc .cal {
+    --cta-blue: var(--cta-fill);
+    --cta-blue-light: var(--cta-fill-light);
+    --cta-blue-dark: var(--cta-fill-press);
+  }
+}
