@@ -51,6 +51,8 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 - [AI for customer service](https://www.fruitionservices.io/ai-consulting/customer-service)
 - [AI for operations and back office](https://www.fruitionservices.io/ai-consulting/operations-back-office)
 - [AI governance and compliance](https://www.fruitionservices.io/ai-consulting/governance-and-compliance)
+- [Grok Bot consulting](https://www.fruitionservices.io/partnerships/grok-bot-partner): shared Grok Bot agents for teams in Slack and Microsoft Teams.
+- [Meta Muse consulting](https://www.fruitionservices.io/partnerships/meta-muse-partner): Muse agents and Muse Spark builds for businesses.
 
 ## Atlassian and HubSpot
 

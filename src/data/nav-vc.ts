@@ -129,6 +129,8 @@ export const NAV_VC: NavVcItem[] = [
           { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner', description: 'Workspace AI and Gemini agents', icon: 'google-gemini' },
           { label: 'OpenClaw', href: '/partnerships/openclaw-partner', description: 'Agents that act across your tools', icon: 'openclaw' },
           { label: 'Vapi', href: '/partnerships/vapi-partner', description: 'Voice agents for inbound and outbound calls', icon: 'vapi' },
+          { label: 'Grok Bot', href: '/partnerships/grok-bot-partner', description: 'AI teammates in Slack, Teams and your tools', icon: 'grok' },
+          { label: 'Meta Muse', href: '/partnerships/meta-muse-partner', description: 'Muse agents for small-business operations', icon: 'meta-muse' },
         ],
       },
       {

@@ -44,6 +44,8 @@ export default {
           { value: 'partnerships/anthropic-claude-partner', title: 'Anthropic Claude Partner' },
           { value: 'partnerships/openai-chatgpt-partner', title: 'OpenAI ChatGPT Partner' },
           { value: 'partnerships/openclaw-partner', title: 'Openclaw Partner' },
+          { value: 'partnerships/grok-bot-partner', title: 'Grok Bot Partner' },
+          { value: 'partnerships/meta-muse-partner', title: 'Meta Muse Partner' },
           { value: 'partnerships/aws-partner', title: 'AWS Partner' },
           { value: 'partnerships/google-cloud-partner', title: 'Google Cloud Partner' },
           { value: 'partnerships/google-gemini-vertex-ai-partner', title: 'Google Gemini Vertex AI Partner' },
