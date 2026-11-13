@@ -1,0 +1,28 @@
+{
+  "_createdAt": "2026-11-10T20:43:37Z",
+  "_id": "faqItem-vc-f561649d35",
+  "_rev": "VQ8b6p4yEsClptIITKgFUc",
+  "_type": "faqItem",
+  "_updatedAt": "2026-11-10T20:43:37Z",
+  "answer": [
+    {
+      "_key": "470a167f322e",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "2d31115ae78c",
+          "_type": "span",
+          "marks": [],
+          "text": "Each service starts with a fixed-fee initial phase: AI consulting from A$24,500, production AI agents from A$35,000, Atlassian from A$10,000, HubSpot from A$8,000, and automation and integrations from A$3,000 (all AUD). Mid-scope projects are quoted after a scoping call, with local pricing in the UK and US."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    }
+  ],
+  "category": "Pricing",
+  "pages": [
+    "monday-training"
+  ],
+  "question": "How much do Fruition's AI, Atlassian, HubSpot and integration services cost?"
+}
