@@ -2,6 +2,7 @@ import { createElement, type CSSProperties, type ReactNode } from "react"
 import { vercelStegaClean } from "@vercel/stega"
 import { dims, imgUrl } from "../primitives"
 import type { VcNodeData } from "../types"
+import { withPaletteTwins } from "@/lib/palette"
 
 /**
  * Renders a vcNode tree: the elements of an animated or decorative block as
@@ -13,7 +14,7 @@ const VOID = new Set(["img", "br", "hr", "input"])
 
 const clean = (s?: string) => vercelStegaClean(s ?? "")
 
-/** "left:12px;--x:1" -> a React style object. Custom properties are kept as is. */
+/** "left:12px;--x:1" -> a React style object. Custom properties are kept as is; purple values gain a --pal- twin. */
 export function parseStyle(css?: string): CSSProperties | undefined {
   const raw = clean(css).trim()
   if (!raw) return undefined
@@ -26,7 +27,8 @@ export function parseStyle(css?: string): CSSProperties | undefined {
     if (!k || !v) continue
     out[k.startsWith("--") ? k : k.replace(/-([a-z])/g, (_m, c: string) => c.toUpperCase())] = v
   }
-  return out as CSSProperties
+  // Purple in content styles gets a Blue mode twin (src/lib/palette.ts).
+  return withPaletteTwins(out) as CSSProperties
 }
 
 const ATTR_NAMES: Record<string, string> = {

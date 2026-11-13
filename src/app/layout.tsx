@@ -4,6 +4,7 @@ import { Poppins, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import "@/styles/vc/chrome.css"
 import "@/styles/ctaBlue.css"
+import "@/styles/palette.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { OfficeStrapProvider } from "@/components/OfficeStrapProvider"
@@ -22,6 +23,7 @@ import { toSiteCopy } from "@/lib/siteCopy"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
 import { getSiteSettings } from "@/sanity/queries"
+import { inlineBrandNavIcons } from "@/lib/navBrandIcons"
 import { getPartners, partnerBadgeMap } from "@/sanity/partners"
 import { PartnerBadgesProvider } from "@/components/PartnerBadgesProvider"
 import { bookingHref } from "@/lib/bookingLink"
@@ -217,6 +219,9 @@ export default async function RootLayout({
   // Local preview of the Version C menu and footer without writing to Sanity
   // (dev only, see src/lib/navPreview.ts and scripts/seed-nav-vc.ts).
   await applyNavPreview(siteSettings)
+  // Brand-purple nav icons render inline in currentColor so they follow the
+  // palette (Blue mode); partner logos stay as uploaded. See src/lib/navBrandIcons.ts.
+  await inlineBrandNavIcons(siteSettings)
 
   const siteCopy = toSiteCopy(siteSettings?.copy)
 
