@@ -65,6 +65,8 @@ export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
       { label: 'Aircall', href: '/partnerships/aircall-partner' },
       { label: 'OpenClaw', href: '/partnerships/openclaw-partner' },
       { label: 'Vapi', href: '/partnerships/vapi-partner' },
+      { label: 'Grok Bot', href: '/partnerships/grok-bot-partner' },
+      { label: 'Meta Muse', href: '/partnerships/meta-muse-partner' },
       { label: 'All partners', href: '/partnerships' },
       { label: 'Integrations', href: '/integrations' },
       { label: 'WhatsApp', href: '/integrations/whatsapp' },
