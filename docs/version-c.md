@@ -63,6 +63,7 @@ registry entry in the same PR, then run the checker. To remove one: delete it fr
 | Page | Page-specific sections | Added |
 |---|---|---|
 | `/hubspot-consulting` | Migration to HubSpot, Portal audit and rescue, RevOps and integrations (cards); Implementation process (6 steps) | 12 Nov 2026, ported from oglabs.io/services/hubspot |
+| `/hubspot-consulting` | HubSpot solution finder (`vcSolutionFinder`, `#solution-finder`) directly under the hero: pick an industry, browse 26 builds, open one for its detail; "Get it scoped" scrolls to `#book` | 13 Nov 2026, the oglabs.io home page finder (HubSpot builds only) by `scripts/vc/hubspot-solution-finder.ts`; data snapshot in `scripts/vc/data/oglabs-hubspot-builds.json` |
 | `/partnerships/certified-clickup-partner` | Beyond setup, HubSpot ↔ ClickUp (cards) | 12 Nov 2026, ported from oglabs.io/services/clickup |
 | `/atlassian-consulting` | Four service deep dives (`vcDeepDive`): Jira `#jira`, Confluence `#confluence`, Jira Service Management `#jsm`, Jira to monday.com migration `#migration`, after "Our Atlassian services" | 12 Nov 2026: copy of the leaf pages merged in PR #415, dropped by the Version C rollout, restored at Vadim's (SEO) request by `scripts/vc/atlassian-deep-dives.ts`. The old leaf URLs 301 to these anchors. |
 

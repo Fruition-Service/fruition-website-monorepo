@@ -78,6 +78,16 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     source: OGLABS_PORT,
   },
   {
+    path: '/hubspot-consulting',
+    key: 'pagespecific-hubspot-solution-finder',
+    type: 'vcSolutionFinder',
+    heading: 'Find the HubSpot build *for your industry.*',
+    reason:
+      'Chat-style solution finder under the hero: the oglabs.io home page finder, HubSpot builds only (26, verbatim). Edward asked for it on 13 Nov 2026. The partner template has no such section.',
+    added: '2026-11-13',
+    source: 'scripts/vc/hubspot-solution-finder.ts',
+  },
+  {
     path: '/partnerships/certified-clickup-partner',
     key: 'pagespecific-clickup-beyond-setup',
     type: 'vcCards',

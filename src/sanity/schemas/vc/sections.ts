@@ -959,9 +959,74 @@ export const vcDeepDive = defineType({
   },
 })
 
+/**
+ * Solution finder (page-specific): a chat-style card where the visitor picks
+ * an industry and browses the builds catalogued for one platform, then opens
+ * a build's full detail. "Get it scoped" links to the page's own booking
+ * section. Ported from the OG Labs home page finder (oglabs.io), HubSpot
+ * builds only; first used on /hubspot-consulting under the hero. Mark it
+ * pageSpecific and register it in src/data/vcPageSpecificSections.ts.
+ */
+const finderPair = (name: string, title: string) => defineArrayMember({ type: 'object', name, title, fields: [
+  defineField({ name: 'label', title: 'Label', type: 'string' }),
+  defineField({ name: 'text', title: 'Text', type: 'string' }),
+], preview: { select: { title: 'label', subtitle: 'text' } } })
+
+export const vcSolutionFinder = defineType({
+  name: 'vcSolutionFinder',
+  title: 'Solution finder (page-specific)',
+  type: 'object',
+  fields: [
+    ...sectionBase,
+    head(),
+    defineField({ name: 'howTo', title: 'How it works lines (beside the card)', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'platform', title: 'Platform name used in the bot copy', type: 'string', description: 'e.g. HubSpot' }),
+    defineField({ name: 'label', title: 'Card label', type: 'string', description: 'Mono label in the card header, e.g. Solution finder' }),
+    defineField({ name: 'greeting', title: 'Bot greeting', type: 'text', rows: 2 }),
+    defineField({ name: 'allLabel', title: '"Show me everything" chip label', type: 'string' }),
+    defineField({ name: 'changePrompt', title: 'Bot line after "Change industry"', type: 'string' }),
+    defineField({ name: 'scopePrompt', title: 'Footer prompt', type: 'string', description: 'e.g. Want a build scoped for your business?' }),
+    defineField({ name: 'scopeLabel', title: 'Footer button label', type: 'string' }),
+    defineField({ name: 'scopeHref', title: 'Footer button link', type: 'string', description: 'Usually /contact-us#book, which scrolls to this page’s booking section.' }),
+    defineField({
+      name: 'builds',
+      title: 'Builds',
+      type: 'array',
+      of: [defineArrayMember({ type: 'object', name: 'vcFinderBuild', title: 'Build', fields: [
+        defineField({ name: 'buildId', title: 'Build ID', type: 'string', description: 'Stable id from the catalogue sheet, e.g. HS-CON-01' }),
+        defineField({ name: 'industry', title: 'Industry', type: 'string', description: 'Builds group into industry chips by this exact text. "Other / general" sorts last.' }),
+        defineField({ name: 'name', title: 'Name', type: 'string' }),
+        defineField({ name: 'useCase', title: 'One-line use case', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+        defineField({ name: 'hubs', title: 'HubSpot hubs', type: 'string' }),
+        defineField({ name: 'scope', title: 'Scope (fact)', type: 'string' }),
+        defineField({ name: 'users', title: 'Users (fact)', type: 'string' }),
+        defineField({ name: 'strength', title: 'Strength (fact)', type: 'string' }),
+        defineField({ name: 'outcomes', title: 'Outcomes', type: 'array', of: [{ type: 'string' }] }),
+        defineField({
+          name: 'steps', title: 'What we build', type: 'array',
+          of: [defineArrayMember({ type: 'object', name: 'vcFinderStep', fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string' }),
+            defineField({ name: 'summary', title: 'Short line', type: 'string' }),
+            defineField({ name: 'how', title: 'How it is built', type: 'text', rows: 2 }),
+          ], preview: { select: { title: 'label', subtitle: 'summary' } } })],
+        }),
+        defineField({ name: 'roles', title: 'Who uses it', type: 'array', of: [finderPair('vcFinderRole', 'Role')] }),
+        defineField({ name: 'phases', title: 'Delivery phases', type: 'array', of: [{ type: 'string' }] }),
+        defineField({ name: 'kpis', title: 'KPIs', type: 'array', of: [{ type: 'string' }] }),
+        defineField({ name: 'integrations', title: 'Integrations', type: 'array', of: [{ type: 'string' }] }),
+      ], preview: { select: { title: 'name', subtitle: 'industry' } } })],
+    }),
+  ],
+  preview: {
+    select: { title: 'head.heading' },
+    prepare: ({ title }: { title?: string }) => ({ title: title || 'Solution finder', subtitle: 'Page-specific solution finder' }),
+  },
+})
+
 export const vcSections = [
   vcHero, vcLogos, vcSteps, vcCases, vcAudit, vcCards, vcProducts, vcUseCases, vcProof, vcPractitioners,
-  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub, vcDeepDive, ...vcCoreSections, vcNode,
+  vcBooking, vcFaq, vcClosing, vcVideo, vcTextPair, vcFix, vcIndustryTabs, vcTrack, vcTable, vcPartnerStatus, vcDirectory, vcToolkit, vcStatsRow, vcTeam, vcAnswer, vcCoverage, vcTeamRef, vcLeadership, vcOffices, vcTeamTabs, vcChannels, vcRemote, vcFormEmbed, vcStories, vcBlogList, vcFaqHub, vcDeepDive, vcSolutionFinder, ...vcCoreSections, vcNode,
 ]
 
 /** Section types a page may contain (vcTeamRef is an object used inside sections). */
