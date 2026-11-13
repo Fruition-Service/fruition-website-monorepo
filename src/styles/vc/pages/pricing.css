@@ -863,5 +863,29 @@
 
 .vc-p-pricing .fxtabs{margin-top:28px}
 .vc-p-pricing .fxpanel[hidden]{display:none}
+/* monday.com package cards, "Variant A" (Edward, 13 Nov 2026; Claude Design pass on the
+   package-card-variations mock-up). Live Version C structure kept (kicker, title, dividers,
+   small "From" above the price, Best for, ticks), plus the ad page details: team size as a
+   soft-purple pill, ticks in soft circles, full-width button, and the featured tier
+   (cardClass "pk feat", Lock-Step) on midnight. Scoped to #packages so the licence cards keep
+   their own look. */
+.vc-p-pricing #packages .pk{gap:0}
+.vc-p-pricing #packages .pk>.label.ac{margin-bottom:10px}
+.vc-p-pricing #packages .pk>.h3{margin-bottom:12px}
+.vc-p-pricing #packages .pk>.label:not(.ac){align-self:flex-start;font-size:11px;color:var(--accent-press);background:var(--accent-tint);border-radius:var(--pill);padding:6px 12px;margin-bottom:18px}
+.vc-p-pricing #packages .pk .pricebox{gap:6px;padding:18px 0;margin-bottom:18px}
+.vc-p-pricing #packages .pk>.body{font-size:15px;line-height:1.55;margin-bottom:16px}
+.vc-p-pricing #packages .pk .ticks{gap:10px;margin-bottom:24px}
+.vc-p-pricing #packages .pk .ticks svg{width:18px;height:18px;margin-top:1px;padding:3px;border-radius:50%;background:var(--accent-tint);stroke-width:3}
+.vc-p-pricing #packages .pk .btn{align-self:stretch;justify-content:center;height:52px}
+.vc-p-pricing #packages .pk.feat{background:var(--midnight);border-color:var(--midnight);color:var(--on-dark)}
+.vc-p-pricing #packages .pk.feat .h3,.vc-p-pricing #packages .pk.feat .price,.vc-p-pricing #packages .pk.feat .bf,.vc-p-pricing #packages .pk.feat .ticks li{color:var(--on-dark)}
+.vc-p-pricing #packages .pk.feat>.label.ac{color:var(--accent-on-dark)}
+.vc-p-pricing #packages .pk.feat .pricebox .label,.vc-p-pricing #packages .pk.feat .price .un{color:var(--on-dark-2)}
+.vc-p-pricing #packages .pk.feat>.body{color:var(--on-dark-2)}
+.vc-p-pricing #packages .pk.feat .pricebox{border-color:var(--on-dark-line)}
+.vc-p-pricing #packages .pk.feat .ticks svg{background:var(--on-dark)}
+.vc-p-pricing #packages .pk.feat .btn:focus-visible{outline:2px solid var(--on-dark);outline-offset:3px}
+@media (max-width:1023px){.vc-p-pricing #packages .grid3{grid-template-columns:1fr;max-width:520px;margin-inline:auto}}
 
 }
