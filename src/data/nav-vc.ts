@@ -108,27 +108,15 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
-    // Flip book: the hub's own blurb, then the five industries with the most
-    // builds, each with three client logos from that industry's logo wall
-    // (industryLogoSet). Counts are public/data/ai-use-cases/*.json.
+    // Slides: the five industries with the most builds, each with three client
+    // logos from that industry's logo wall (industryLogoSet). Counts are
+    // public/data/ai-use-cases/*.json. The whole card links to the hub.
     feature: {
       kicker: 'Use case hub',
       quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.',
       label: 'Browse AI use cases',
       href: '/ai-use-cases',
       slides: [
-        {
-          quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.',
-          plain: true,
-          logos: [
-            { alt: 'Specsavers', asset: 'image-9435fce8d10d7491b53c702de6cbf0d50e5e508f-899x344-png' },
-            { alt: 'Scania', asset: 'image-7cd3b8aef0d102de405f11ffcaab7b65385fc14d-288x78-png' },
-            { alt: 'Reserve Bank of Australia', asset: 'image-ae132b4ca3b3c0a8d8494b5b83b31f7f2ba2478c-354x206-png' },
-            { alt: 'CSIRO', asset: 'image-81985272b636b9b5ea67500e58ba32665bfd027e-900x207-png' },
-            { alt: 'Tourism Australia', asset: 'image-638cb18a6a11fa52bdd179d72e7cece0cc2c3ef8-352x143-png' },
-            { alt: 'Ticketek', asset: 'image-c5ae5c20676da8365b4f31e9b10b9149cbc682a6-500x206-png' },
-          ],
-        },
         {
           title: 'Professional services & agencies',
           meta: '70 builds',
@@ -298,7 +286,7 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
-    // Flip book of six case studies, quotes and figures word for word from
+    // Slides: six case studies, quotes and figures word for word from
     // page-customer-testimonials caseStudyCards. Popology is left out (its
     // figures are an exact copy of BL Air's) and so is CLSQ (3x ROI).
     // The top-level fields stay for any renderer that ignores slides.

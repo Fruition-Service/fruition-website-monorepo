@@ -578,86 +578,79 @@
   .vcn .nd-case .nd-fl-a {
     padding-top: 12px;
   }
-  /* Flip book feature card (Claude Design "Nav flip book cards", 13 Nov 2026):
-     pages turn on their left edge every 4.5 s; dots, counter and link stay put.
+  /* Sliding feature card (AI use case hub, Pricing case studies): the whole
+     card is one link; pages slide left every 4.5 s, dots show the position.
      Logic in src/components/NavFlipBook.tsx. */
   .vcn .fb {
     --fb-muted: color-mix(in srgb, var(--vc-ink) 62%, transparent);
-    --fb-turn: 1000ms;
-    position: relative;
-    isolation: isolate;
     flex: 1;
+    align-self: flex-start;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    height: 264px;
-    padding: 20px 0;
+    gap: 14px;
+    padding: 20px;
     border-radius: var(--r3);
     background: var(--vc-tint-1);
-    overflow: hidden;
     color: var(--ink);
+    transition: box-shadow 0.2s ease;
+  }
+  .vcn .fb:hover {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vc-accent) 35%, transparent);
+  }
+  .vcn .fb:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .vcn .fb-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
   .vcn .fb-kicker {
-    margin: 0 20px 12px;
     font: 600 11px/16px var(--mono);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--accent);
   }
-  .vcn .fb-kicker-corner {
-    position: absolute;
-    top: 32px;
-    right: 20px;
-    z-index: 3;
-    margin: 0;
+  .vcn .fb-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .vcn .fb-stage {
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    perspective: 1600px;
+  .vcn .fb-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: color-mix(in srgb, var(--vc-ink) 22%, transparent);
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s;
   }
+  .vcn .fb-dot.is-on {
+    width: 16px;
+    background: var(--accent);
+  }
+  .vcn .fb-view {
+    display: block;
+    overflow: hidden;
+  }
+  .vcn .fb-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .vcn .fb-track[data-i="1"] { transform: translateX(-100%); }
+  .vcn .fb-track[data-i="2"] { transform: translateX(-200%); }
+  .vcn .fb-track[data-i="3"] { transform: translateX(-300%); }
+  .vcn .fb-track[data-i="4"] { transform: translateX(-400%); }
+  .vcn .fb-track[data-i="5"] { transform: translateX(-500%); }
+  .vcn .fb-track[data-i="6"] { transform: translateX(-600%); }
+  .vcn .fb-track[data-i="7"] { transform: translateX(-700%); }
   .vcn .fb-page {
-    position: absolute;
-    inset: 0;
-    padding: 0 20px;
-    background: var(--vc-tint-1);
-    transform-origin: 0 50%;
-    backface-visibility: hidden;
-    opacity: 0;
-    visibility: hidden;
-  }
-  .vcn .fb-page::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    background: linear-gradient(90deg, transparent 30%, color-mix(in srgb, var(--vc-ink) 12%, transparent));
-  }
-  .vcn .fb-page.is-current {
-    z-index: 1;
-    opacity: 1;
-    visibility: visible;
-  }
-  .vcn .fb-page.is-turning {
-    z-index: 2;
-    opacity: 1;
-    visibility: visible;
-    animation: fb-turn var(--fb-turn) cubic-bezier(0.6, 0.05, 0.35, 1) forwards;
-  }
-  .vcn .fb-page.is-turning::after {
-    animation: fb-shade var(--fb-turn) ease-in forwards;
-  }
-  .vcn .fb-page.is-revealing::after {
-    background: color-mix(in srgb, var(--vc-ink) 7%, transparent);
-    animation: fb-reveal var(--fb-turn) ease-out forwards;
-  }
-  .vcn .fb-reduced .fb-page {
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
-  }
-  .vcn .fb-reduced .fb-page.is-current {
-    transition: opacity 0.4s ease, visibility 0s;
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .vcn .fb-logo {
     display: flex;
@@ -671,9 +664,7 @@
     box-shadow: inset 0 0 0 1px var(--line);
     font-size: 10px;
     font-weight: 600;
-    line-height: 1.25;
     color: var(--fb-muted);
-    text-align: center;
   }
   .vcn .fb-logo img {
     display: block;
@@ -681,58 +672,50 @@
     height: 100%;
     object-fit: contain;
   }
-  .vcn .fb-logo-sm {
-    height: 28px;
-    padding: 4px 6px;
-  }
+  /* Case study logo: the chip hugs the logo so it starts on the text edge. */
   .vcn .fb-logo-client {
-    width: 132px;
-    padding: 6px 14px;
+    padding: 6px 10px;
   }
-  .vcn .fb-blurb {
-    margin: 0 0 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    text-wrap: pretty;
+  .vcn .fb-logo-client img {
+    width: auto;
+    max-width: 120px;
+    height: 28px;
   }
-  .vcn .fb-mosaic,
   .vcn .fb-row {
+    align-self: stretch;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
-  }
-  .vcn .fb-row {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .vcn .fb-industry {
-    margin: 0 0 4px;
     font-size: 15px;
     font-weight: 600;
     line-height: 1.3;
-    text-wrap: balance;
-  }
-  .vcn .fb-industry a:hover {
-    color: var(--accent);
   }
   .vcn .fb-builds {
-    margin: 0;
+    margin-top: 4px;
     font: 600 11px/16px var(--mono);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--fb-muted);
+  }
+  .vcn .fb-blurb {
+    font-size: 14px;
+    line-height: 1.5;
   }
   .vcn .fb-quote {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin: 10px 0 6px;
+    margin: 12px 0 6px;
     font-size: 14px;
     font-style: italic;
     line-height: 1.4;
   }
   .vcn .fb-who {
-    margin: 0 0 8px;
+    max-width: 100%;
     overflow: hidden;
     font-size: 12px;
     line-height: 1.4;
@@ -744,6 +727,7 @@
     display: flex;
     align-items: baseline;
     gap: 14px;
+    margin-top: 8px;
   }
   .vcn .fb-fig {
     display: flex;
@@ -762,76 +746,6 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--fb-muted);
-  }
-  .vcn .fb-foot {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 8px 20px 0;
-    background: var(--vc-tint-1);
-  }
-  .vcn .fb-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .vcn .fb-dots {
-    display: flex;
-    margin-left: -9px;
-  }
-  .vcn .fb-dot {
-    display: grid;
-    place-items: center;
-    width: 24px;
-    height: 24px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 6px;
-    background: none;
-    cursor: pointer;
-  }
-  .vcn .fb-dot::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background: color-mix(in srgb, var(--vc-ink) 22%, transparent);
-    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s;
-  }
-  .vcn .fb-dot:hover::before {
-    background: color-mix(in srgb, var(--vc-ink) 45%, transparent);
-  }
-  .vcn .fb-dot[aria-current="true"]::before {
-    width: 18px;
-    background: var(--accent);
-  }
-  .vcn .fb-count {
-    font: 600 11px/1 var(--mono);
-    letter-spacing: 0.1em;
-    font-variant-numeric: tabular-nums;
-    color: var(--fb-muted);
-  }
-  .vcn .fb-count b {
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .vcn .fb-link {
-    align-self: flex-start;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-    color: var(--accent);
-  }
-  .vcn .fb-link:hover {
-    color: var(--accent-press);
-  }
-  .vcn .fb-dot:focus-visible,
-  .vcn .fb-link:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
   }
   .vcn .nd-foot {
     margin-top: 24px;
@@ -1317,15 +1231,6 @@
   }
 }
 
-/* Flip book page turn (see .vcn .fb in this file). */
-@keyframes fb-turn {
-  from { transform: rotateY(0); box-shadow: 0 0 0 0 transparent; }
-  to { transform: rotateY(-96deg); box-shadow: 24px 0 40px -16px color-mix(in srgb, var(--vc-ink) 30%, transparent); }
-}
-@keyframes fb-shade { to { opacity: 1; } }
-@keyframes fb-reveal { from { opacity: 1; } to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  .vcn .fb-page.is-turning,
-  .vcn .fb-page.is-turning::after,
-  .vcn .fb-page.is-revealing::after { animation: none; }
+  .vcn .fb-track { transition: none; }
 }
