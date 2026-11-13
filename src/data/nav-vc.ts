@@ -1,5 +1,5 @@
 /**
- * Version C menu (approved November 2026): AI, Platforms, Industries, Pricing,
+ * Version C menu (approved November 2026): AI, Partnership, Industries, Pricing,
  * Company and a direct Contact link. Copy, links and structure are the
  * approved mock-up's (vc-mockups/review/nav.js), with each link pointing at
  * its live route.
@@ -42,6 +42,25 @@ export interface NavVcFeature {
   logoAsset?: string
   imageAsset?: string
   metrics?: { value: string; label: string }[]
+  /**
+   * Pages of a flip book: when set, the card turns through them on its own
+   * and the card's own label/href stays as the link under every page.
+   */
+  slides?: NavVcSlide[]
+}
+
+/** One page of a flip-book feature card. Logos are existing Sanity asset ids. */
+export interface NavVcSlide {
+  title?: string
+  /** Short line under the title, e.g. "70 builds". */
+  meta?: string
+  quote?: string
+  /** Render the quote as a plain blurb, without quotation marks. */
+  plain?: boolean
+  attribution?: string
+  logos?: { asset: string; alt: string }[]
+  metrics?: { value: string; label: string }[]
+  href?: string
 }
 
 export interface NavVcItem {
@@ -89,14 +108,86 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
-    feature: { kicker: 'Use case hub', quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.', label: 'Browse AI use cases', href: '/ai-use-cases' },
+    // Flip book: the hub's own blurb, then the five industries with the most
+    // builds, each with three client logos from that industry's logo wall
+    // (industryLogoSet). Counts are public/data/ai-use-cases/*.json.
+    feature: {
+      kicker: 'Use case hub',
+      quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.',
+      label: 'Browse AI use cases',
+      href: '/ai-use-cases',
+      slides: [
+        {
+          quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.',
+          plain: true,
+          logos: [
+            { alt: 'Specsavers', asset: 'image-9435fce8d10d7491b53c702de6cbf0d50e5e508f-899x344-png' },
+            { alt: 'Scania', asset: 'image-7cd3b8aef0d102de405f11ffcaab7b65385fc14d-288x78-png' },
+            { alt: 'Reserve Bank of Australia', asset: 'image-ae132b4ca3b3c0a8d8494b5b83b31f7f2ba2478c-354x206-png' },
+            { alt: 'CSIRO', asset: 'image-81985272b636b9b5ea67500e58ba32665bfd027e-900x207-png' },
+            { alt: 'Tourism Australia', asset: 'image-638cb18a6a11fa52bdd179d72e7cece0cc2c3ef8-352x143-png' },
+            { alt: 'Ticketek', asset: 'image-c5ae5c20676da8365b4f31e9b10b9149cbc682a6-500x206-png' },
+          ],
+        },
+        {
+          title: 'Professional services & agencies',
+          meta: '70 builds',
+          href: '/ai-use-cases/professional-services',
+          logos: [
+            { alt: 'Star Aviation', asset: 'image-674f58add988c753df8135bfc9664a7570e4def8-269x93-png' },
+            { alt: 'Gordon Slater Lawyers', asset: 'image-4465eee9b6893fab7cdb4edf7da69ac5bb38b543-900x441-png' },
+            { alt: 'Academy HR', asset: 'image-e126a72d4bc511ef8af3d99159bee5be0b41a374-899x156-png' },
+          ],
+        },
+        {
+          title: 'Construction, trades & field service',
+          meta: '64 builds',
+          href: '/ai-use-cases/construction',
+          logos: [
+            { alt: 'Evolve Constructions', asset: 'image-09ca61a758adbb476278fde27d53182a18ed95f1-269x114-png' },
+            { alt: 'Creative Windows', asset: 'image-2873461a85419baafd677e865d2753638e941786-232x154-png' },
+            { alt: 'Permcon', asset: 'image-86bfabf908c359ff52c149a6ff047c23aa1c2ea2-640x349-png' },
+          ],
+        },
+        {
+          title: 'Manufacturing',
+          meta: '47 builds',
+          href: '/ai-use-cases/manufacturing',
+          logos: [
+            { alt: 'Ausdeck', asset: 'image-5484ead34a282ea50b1ffda4d97ae12c7cb4cf60-153x42-png' },
+            { alt: 'Bielby', asset: 'image-47f46119cde1e03ae657ef7e33b12dd5259de72f-167x56-png' },
+            { alt: 'FibreconX', asset: 'image-bded71d00c16cc95c2dbd30f5a85584eb1e07310-900x139-png' },
+          ],
+        },
+        {
+          title: 'Real estate & property',
+          meta: '16 builds',
+          href: '/ai-use-cases/real-estate',
+          logos: [
+            { alt: 'Aligned Property Services', asset: 'image-4a819aea792e4bc75f7ba11c2e2be13db0b994d4-873x363-png' },
+            { alt: 'Real Property Development', asset: 'image-8137628dd9bbdd295334cf71c16c7262a2506dde-277x139-png' },
+            { alt: 'Leconfield Property Group', asset: 'image-491cdcabbc79ac443a127c3ab7ce20d13e435351-900x95-png' },
+          ],
+        },
+        {
+          title: 'Financial services & insurance',
+          meta: '13 builds',
+          href: '/ai-use-cases/financial-services',
+          logos: [
+            { alt: 'Hume Bank', asset: 'image-2e47befaf8cbc3314c3d35b04a3137641b05daec-803x140-png' },
+            { alt: 'Avant Insurance', asset: 'image-a26e220c0afdc15b9018d49600b76a46f6c13c24-900x317-png' },
+            { alt: 'AEON Bank', asset: 'image-bcaba4279a2dc43824abfdd933a39dfad31c084c-274x50-png' },
+          ],
+        },
+      ],
+    },
     footerLinks: [
       { label: 'All AI services', href: '/ai-consulting' },
       { label: 'Book an assessment', href: '/ai-capability-assessment' },
     ],
   },
   {
-    label: 'Platforms',
+    label: 'Partnership',
     note: 'One page per platform: our partnership and what we deliver on it.',
     sections: [
       {
@@ -126,11 +217,7 @@ export const NAV_VC: NavVcItem[] = [
         items: [
           { label: 'OpenAI', href: '/partnerships/openai-chatgpt-partner', description: 'ChatGPT Enterprise & custom GPTs', icon: 'openai', tier: 'Select' },
           { label: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', description: 'Enterprise Claude & Claude Code', icon: 'anthropic-claude', tier: 'Select' },
-          { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner', description: 'Workspace AI and Gemini agents', icon: 'google-gemini' },
-          { label: 'OpenClaw', href: '/partnerships/openclaw-partner', description: 'Agents that act across your tools', icon: 'openclaw' },
-          { label: 'Vapi', href: '/partnerships/vapi-partner', description: 'Voice agents for inbound and outbound calls', icon: 'vapi' },
-          { label: 'Grok Bot', href: '/partnerships/grok-bot-partner', description: 'AI teammates in Slack, Teams and your tools', icon: 'grok' },
-          { label: 'Meta Muse', href: '/partnerships/meta-muse-partner', description: 'Muse agents for small-business operations', icon: 'meta-muse' },
+          { label: 'ElevenLabs', href: '/partnerships/elevenlabs-partner', description: 'Voice AI agents and lifelike speech', icon: 'elevenlabs' },
         ],
       },
       {
@@ -211,20 +298,61 @@ export const NAV_VC: NavVcItem[] = [
         ],
       },
     ],
-    // BL Air Conditioning: the strongest of the eight case studies (17x ROI,
-    // $125,000 a year). Quote word for word from its caseStudyCards entry.
+    // Flip book of six case studies, quotes and figures word for word from
+    // page-customer-testimonials caseStudyCards. Popology is left out (its
+    // figures are an exact copy of BL Air's) and so is CLSQ (3x ROI).
+    // The top-level fields stay for any renderer that ignores slides.
     feature: {
       kicker: 'Case study',
       quote: 'This system will save \u201chundreds of thousands of dollars a year guaranteed\u201d',
       attribution: 'Brandon-Lee Horridge, Managing Director, BL Air Conditioning',
       logoAsset: 'image-45384aab63f4561950ccf9c2207d4313e6c63f35-289x174-png',
-      imageAsset: 'image-46c993c9a04b11d90f0f7bc04dde0a316f9e0be0-240x240-jpg',
       metrics: [
         { value: '17x', label: 'ROI' },
         { value: '$125,000', label: 'Saved per year' },
       ],
       label: 'Read the case study',
       href: '/customer-testimonials#case-studies',
+      slides: [
+        {
+          // The quote already carries its own marks, so no outer ones.
+          quote: 'This system will save \u201chundreds of thousands of dollars a year guaranteed\u201d',
+          plain: true,
+          attribution: 'Brandon-Lee Horridge, Managing Director, BL Air Conditioning',
+          logos: [{ alt: 'BL Air Conditioning', asset: 'image-45384aab63f4561950ccf9c2207d4313e6c63f35-289x174-png' }],
+          metrics: [{ value: '17x', label: 'ROI' }, { value: '$125,000', label: 'Saved per year' }],
+        },
+        {
+          quote: 'Fruition have been instrumental in moving us to a \u2018single source of truth\u2019 system for managing sales and projects.',
+          attribution: 'Ron Amaram, General Manager, Risk 2 Solutions',
+          logos: [{ alt: 'Risk 2 Solutions', asset: 'image-04beb83243a2515ec5c8b281f8ea81496b20bca0-372x373-png' }],
+          metrics: [{ value: '11x', label: 'ROI' }, { value: '$117,000', label: 'Saved per year' }],
+        },
+        {
+          quote: 'We found Monday to be more customisable and transparent for both internal and external stakeholders. It reduced double handling of issues, as the Monday boards provide clear, accessible information, eliminating the need to email around for updates.',
+          attribution: 'Mairhead McKinley, Delivery Manager, Givergy',
+          logos: [{ alt: 'Givergy', asset: 'image-01cfeded16bbbdc0a3d76614a101f57413bcdcfc-405x158-png' }],
+          metrics: [{ value: '10x', label: 'ROI' }, { value: '\u00a366,820', label: 'Saved annually' }],
+        },
+        {
+          quote: 'We successfully aligned clients and projects in an organized and seamless manner, resolving a key operational challenge.',
+          attribution: 'Robinson Sandino, Chief Executive Officer, Promotify Canada',
+          logos: [{ alt: 'Promotify Canada', asset: 'image-4334073d6ebe7b383a49ff26d1fc07e7fa07dd96-360x361-png' }],
+          metrics: [{ value: '14x', label: 'ROI' }, { value: '$72,000', label: 'Saved per year' }],
+        },
+        {
+          quote: 'We gained efficiency on project tasks... Now that the solution has automated a lot of the manual work we can focus on the critical risks effectively.',
+          attribution: 'Stephen Coates, Division Manager, HVAC Australia',
+          logos: [{ alt: 'HVAC Australia', asset: 'image-93cbbba2bf9d9babaf56e60dea613e718e05d1da-462x157-png' }],
+          metrics: [{ value: '10x', label: 'ROI' }, { value: '$52,000', label: 'Saved per year' }],
+        },
+        {
+          quote: 'Process automation across campaign management, budget management and project approvals has saved significant amounts of time for staff globally and also improved collaboration across global teams.',
+          attribution: 'Emily Hill, International Markets Manager, Tourism Northern Territory',
+          logos: [{ alt: 'Tourism Northern Territory', asset: 'image-1c46740cad343bf54254c66032ceba69fcc48e2c-520x217-png' }],
+          metrics: [{ value: '4x', label: 'ROI' }, { value: '$50,000', label: 'Saved per year' }],
+        },
+      ],
     },
     footerLinks: [
       { label: 'See packages', href: '/implementation-packages' },

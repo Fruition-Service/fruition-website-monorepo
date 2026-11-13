@@ -42,7 +42,7 @@ describe('Version C menu and footer data', () => {
   })
 
   it('has the five tabs and the Contact link, in the approved order', () => {
-    expect(NAV_VC.map((i) => i.label)).toEqual(['AI', 'Platforms', 'Industries', 'Pricing', 'Company', 'Contact'])
+    expect(NAV_VC.map((i) => i.label)).toEqual(['AI', 'Partnership', 'Industries', 'Pricing', 'Company', 'Contact'])
     expect(NAV_VC.at(-1)?.href).toBe('/contact-us')
   })
 
@@ -66,7 +66,7 @@ describe('Version C menu and footer data', () => {
   })
 
   it('keeps the footer to the five approved columns', () => {
-    expect(FOOTER_VC_COLUMNS.map((c) => c.heading)).toEqual(['Services', 'Platforms', 'Industries', 'Locations', 'Company'])
+    expect(FOOTER_VC_COLUMNS.map((c) => c.heading)).toEqual(['Services', 'Partnership', 'Industries', 'Locations', 'Company'])
     expect(FOOTER_VC_SOCIALS.map((s) => s.row)).toEqual([1, 1, 1, 1, 1, 1, 1, 2, 2])
   })
 

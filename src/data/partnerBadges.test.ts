@@ -19,7 +19,8 @@ describe("partnerBadgesForPath", () => {
     expect(keys("/partnerships/google-cloud-partner")).toEqual(["googleCloud"])
     expect(keys("/partnerships/openai-chatgpt-partner")).toEqual(["openai"])
     expect(keys("/partnerships/anthropic-claude-partner")).toEqual(["claude"])
-    expect(keys("/ai-consulting/agent-development")).toEqual(["claude", "openai", "googleCloud"])
+    expect(keys("/partnerships/elevenlabs-partner")).toEqual(["elevenlabs"])
+    expect(keys("/ai-consulting/agent-development")).toEqual(["claude", "openai", "elevenlabs", "googleCloud"])
   })
 
   it("pairs migration pages with both platforms", () => {

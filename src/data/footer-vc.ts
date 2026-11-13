@@ -38,6 +38,7 @@ export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
     links: [
       { label: 'Implementation packages', href: '/implementation-packages' },
       { label: 'Licence procurement', href: '/licence-procurement' },
+      { label: 'Implementation calculator', href: '/ask-fruit' },
       { label: 'Implementation consultants', href: '/monday-implementation-consultants' },
       { label: 'CRM consulting', href: '/monday-crm-consulting' },
       { label: 'Training', href: '/training' },
@@ -56,17 +57,26 @@ export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
     ],
   },
   {
-    heading: 'Platforms',
+    // Every partner page, one link each (HubSpot is one page, so one link),
+    // then the integration pages. Matches the menu's Partnership tab plus the
+    // AI platforms that live only here.
+    heading: 'Partnership',
     links: [
-      { label: 'HubSpot implementation', href: '/hubspot-consulting#implementation' },
-      { label: 'HubSpot Breeze AI', href: '/hubspot-consulting#breeze-ai' },
+      { label: 'monday.com', href: '/partnerships/monday-consulting-partner' },
+      { label: 'Atlassian', href: '/atlassian-consulting' },
+      { label: 'HubSpot', href: '/hubspot-consulting' },
       { label: 'ClickUp', href: '/partnerships/certified-clickup-partner' },
+      { label: 'OpenAI', href: '/partnerships/openai-chatgpt-partner' },
+      { label: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner' },
+      { label: 'ElevenLabs', href: '/partnerships/elevenlabs-partner' },
       { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner' },
-      { label: 'Aircall', href: '/partnerships/aircall-partner' },
       { label: 'OpenClaw', href: '/partnerships/openclaw-partner' },
       { label: 'Vapi', href: '/partnerships/vapi-partner' },
       { label: 'Grok Bot', href: '/partnerships/grok-bot-partner' },
       { label: 'Meta Muse', href: '/partnerships/meta-muse-partner' },
+      { label: 'n8n', href: '/partnerships/n8n-integration-partner' },
+      { label: 'Make', href: '/partnerships/make-partners' },
+      { label: 'Aircall', href: '/partnerships/aircall-partner' },
       { label: 'All partners', href: '/partnerships' },
       { label: 'Integrations', href: '/integrations' },
       { label: 'WhatsApp', href: '/integrations/whatsapp' },
@@ -77,6 +87,7 @@ export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
     ],
   },
   {
+    // Same 18 industries, same order, as the menu's Industries tab.
     heading: 'Industries',
     links: [
       { label: 'Construction', href: '/monday-for-construction' },
@@ -91,8 +102,13 @@ export const FOOTER_VC_COLUMNS: FooterVcColumn[] = [
       { label: 'Marketing & creative', href: '/monday-for-marketing' },
       { label: 'Education', href: '/industries/education' },
       { label: 'Nonprofits', href: '/industries/nonprofits' },
+      { label: 'Transport & logistics', href: '/industries/transport-logistics' },
+      { label: 'Hospitality & events', href: '/industries/hospitality-tourism-events' },
+      { label: 'Technology & SaaS', href: '/industries/technology-saas' },
+      { label: 'Energy & utilities', href: '/industries/energy-utilities' },
+      { label: 'Media & entertainment', href: '/industries/media-entertainment' },
+      { label: 'Legal', href: '/industries/legal' },
       { label: 'AI use case hub', href: '/ai-use-cases' },
-      { label: 'Implementation calculator', href: '/ask-fruit' },
     ],
   },
   {
