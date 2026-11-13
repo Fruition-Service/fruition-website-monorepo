@@ -96,11 +96,11 @@ const PLANS: Plan[] = [
     paragraph:
       'Edward Zhang leads every OpenClaw engagement. A founder and product designer building at the intersection of AI and SaaS, Edward runs OpenClaw agents in day-to-day operations and designs the systems around them.',
     facts: [
-      ['Focus', 'AI agents and products'],
-      ['Studio', 'Kelin Studio'],
+      ['Focus', 'CRM and workflow operations'],
+      ['Tech', 'Supabase, Vercel, OpenClaw'],
       ['Based', 'Singapore'],
     ],
-    pills: ['OpenClaw Partner'],
+    pills: [],
   },
 ]
 
