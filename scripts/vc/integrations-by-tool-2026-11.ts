@@ -11,7 +11,8 @@
  *      to the tool page; styles in scripts/vc/extras-integrations.css);
  *   3. gives every card its link (the old practice-page children, src/data/practicePages/
  *      integrations.ts) and its logo: the marquee's logos for Aircall, Twilio, Make, n8n and
- *      Zapier (keeping the Partners & badges link where the tile had one), and new square
+ *      Zapier (keeping the Partners & badges link where the tile had one), the n8n wordmark in
+ *      scripts/vc/assets/n8n-logo.svg (supplied by Edward), and new square
  *      brand marks for WhatsApp, LINE and Viber, uploaded from the official Simple Icons paths
  *      already in src/components/common/icons/NavIcons.tsx, so the three messaging apps sit
  *      side by side with their own logos.
@@ -100,6 +101,13 @@ async function main() {
     }
   }
 
+  // n8n: the full wordmark Edward supplied (13 Nov 2026), cropped to the artwork, in place of
+  // the small Partners & badges mark the marquee tile used.
+  const n8nSvg = readFileSync(join(__dirname, 'assets/n8n-logo.svg'))
+  const n8nRef = APPLY
+    ? (await client.assets.upload('image', n8nSvg, { filename: 'n8n-logo.svg', contentType: 'image/svg+xml' }))._id
+    : `(upload n8n-logo.svg, ${n8nSvg.length} bytes)`
+
   const items = ((cards.items as Item[]) ?? []).map((it) => {
     const title = it.title ?? ''
     const href = HREF[title]
@@ -107,7 +115,12 @@ async function main() {
     const { arrow: _arrow, ...rest } = it
     const tile = tileFor(title)
     const next: Item = { ...rest, href }
-    if (MARKS[title]) {
+    if (title === 'n8n') {
+      delete next.partner
+      delete next.partnerImage
+      next.logo = img(n8nRef)
+      next.logoShape = 'wm-img'
+    } else if (MARKS[title]) {
       next.logo = img(markRef[title])
       next.logoShape = 'sq'
     } else if (tile?.logo) {
