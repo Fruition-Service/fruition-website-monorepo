@@ -116,7 +116,7 @@ export const deskStructure = (S: StructureBuilder) =>
                     .documentId('makePartnersPage')
                 ),
               S.listItem()
-                .title('Licensing & Procurement (/licence-procurement)')
+                .title('Licensing & Procurement (retired: edit the Version C page)')
                 .icon(ReceiptText)
                 .child(
                   S.editor()
