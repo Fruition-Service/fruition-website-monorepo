@@ -88,12 +88,14 @@ describe("Version C header", () => {
 describe("Version C footer and banner", () => {
   const html = renderToStaticMarkup(<Footer siteSettings={settings} />)
 
-  it("renders columns, chips, socials on their rows and the copyright from Sanity", () => {
+  it("renders columns, chips, the bottom socials + currency row and the copyright from Sanity", () => {
     expect(html.startsWith('<footer class="vcf"')).toBe(true)
     expect(html).toContain(">Services<")
     expect(html).toContain('href="/training"')
     expect(html).toContain(">Chip one<")
-    expect(html.match(/class="soc-row"/g)?.length).toBe(2)
+    // Socials and the currency control share one row above the copyright.
+    expect(html).toMatch(/<div class="base-top"><div class="soc">/)
+    expect(html).toContain('class="cur"')
     expect(html).toContain("(c) 2026 Fruition")
     expect(html).toContain('href="tel:+61483955931"')
   })
