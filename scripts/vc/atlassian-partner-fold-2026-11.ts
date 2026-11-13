@@ -14,6 +14,11 @@
  *   3. Published documents that linked to the old URL now link to /atlassian-consulting#partner.
  *      Drafts are left alone.
  *
+ *   4. Tone: the new section is grey ("alt") and the Jira deep dive after it was grey too, so they read
+ *      as one band. Every section after the new one, up to the booking band (which, like the FAQ and
+ *      closing sections after it, keeps its own tone), is set to alternate again: plain, alt, plain...
+ *      Only `tone` changes, never copy.
+ *
  * No existing section, heading or subheading on the page is changed (SEO hold on headings).
  *
  *   npx tsx scripts/vc/atlassian-partner-fold-2026-11.ts             # dry run
@@ -108,7 +113,7 @@ const faqDocs = FAQS.map(([q, a], i) => ({
 }))
 
 type Doc = { _id: string; _rev: string; [key: string]: unknown }
-type Section = { _key: string; _type: string; label?: string; tabs?: { _key: string; label?: string; items?: { _key: string; _ref: string }[] }[] }
+type Section = { _key: string; _type: string; tone?: string; label?: string; tabs?: { _key: string; label?: string; items?: { _key: string; _ref: string }[] }[] }
 
 const LINK_RE = /(https:\/\/www\.fruitionservices\.io)?\/partnerships\/certified-atlassian-partner\b/g
 function rewrite(v: unknown): unknown {
@@ -169,6 +174,27 @@ async function main() {
   if (missing.length) {
     console.log(`append ${missing.length} FAQ refs to tab "${tab.label}" (${tab.items?.length} existing)`)
     tx.patch(client.patch(PAGE).insert('after', `sections[_key=="${faq._key}"].tabs[_key=="${tab._key}"].items[-1]`, missing.map((d) => ({ _key: k(), _type: 'reference', _ref: d._id }))))
+    if (!touched.includes(page)) touched.push(page)
+    changes++
+  }
+
+  // 4. Alternate tones after the new section, up to the booking band. Idempotent: the target tone
+  // is computed from position, not flipped.
+  const secs = page.sections
+  const afterNew = secs.slice(secs.findIndex((x) => x._key === SERVICES_KEY) + 1).filter((x) => x._key !== SECTION_KEY)
+  const end = afterNew.findIndex((x) => x._type === 'vcBooking')
+  let want = 'plain' // the new section is alt, so the next one is plain
+  const toneSet: Record<string, string> = {}
+  for (const x of afterNew.slice(0, end < 0 ? undefined : end)) {
+    if (!x.tone) continue // no tone of its own
+    if (x.tone !== want) {
+      toneSet[`sections[_key=="${x._key}"].tone`] = want
+      console.log(`tone ${x._key} (${x._type}): ${x.tone} -> ${want}`)
+    }
+    want = want === 'plain' ? 'alt' : 'plain'
+  }
+  if (Object.keys(toneSet).length) {
+    tx.patch(client.patch(PAGE).set(toneSet))
     if (!touched.includes(page)) touched.push(page)
     changes++
   }

@@ -1,0 +1,1136 @@
+{
+  "docs": [
+    {
+      "_createdAt": "2026-11-10T21:16:35Z",
+      "_id": "vcPage-atlassian-consulting",
+      "_rev": "lEVqCIK42Xqbj4DBtBMaI2",
+      "_type": "vcPage",
+      "_updatedAt": "2026-11-13T15:29:03Z",
+      "group": "partner",
+      "path": "/atlassian-consulting",
+      "sections": [
+        {
+          "_key": "35ffe1f11194",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-660f00cf9f62860e7a0153c21bf090da478f0fed-880x567-webp",
+              "_type": "reference"
+            }
+          },
+          "artClass": "wide",
+          "badge": "Atlassian Platinum Solution Partner",
+          "ctas": [
+            {
+              "_key": "928bc9328c21",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "primary"
+            },
+            {
+              "_key": "bf32516950cd",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#faq",
+              "label": "Common questions",
+              "style": "outline"
+            }
+          ],
+          "floatBadges": [
+            {
+              "_key": "01dbe4b48cd2",
+              "_type": "vcLogo",
+              "alt": "Atlassian Platinum Solution Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fc3830199e4aa9bcec3f153085e0a47ce00621d2-291x97-png",
+                  "_type": "reference"
+                }
+              },
+              "partner": {
+                "_ref": "partner-atlassian",
+                "_type": "reference"
+              },
+              "partnerImage": "badge"
+            }
+          ],
+          "heading": "Your Certified *Atlassian Implementation & Consulting Partner.*",
+          "lead": "Fruition is an Atlassian Platinum Solution Partner serving Australia, the UK and the US. We implement and optimise Jira, Confluence and JSM, and say so when Atlassian isn’t the fit.",
+          "trustLabel": "Trusted by teams across 900+ implementations",
+          "trustLogos": [
+            {
+              "_key": "cc1bf1f43c6e",
+              "_type": "vcLogo",
+              "alt": "Telstra",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-3ce944e93a39095f012920864543d3f530f9b9c5-256x70-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "9fb0133a1fb3",
+              "_type": "vcLogo",
+              "alt": "Reserve Bank of Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b8e1d23457369bfb2313b3b60a8eaed2e4bdaac0-256x149-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "125d04b82688",
+              "_type": "vcLogo",
+              "alt": "CSIRO",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-823f6dc8abe8b0b70e1513bed51cde439404802a-256x58-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "202c4b48d304",
+              "_type": "vcLogo",
+              "alt": "Transport for NSW",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2324cc743fbd0053417f3a36c75f2d3c53fd605f-256x276-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "d7714384b87e",
+              "_type": "vcLogo",
+              "alt": "SBS",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-edb4724ca1068b15982821dda58a953101fa0890-256x174-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "b57e60ef051e",
+              "_type": "vcLogo",
+              "alt": "Specsavers",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-39cb56dea0198961626bca8e67b033333d087b21-256x97-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "29a880159b50",
+              "_type": "vcLogo",
+              "alt": "Scania",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-047f2df0e0cf347a62252b375c9ef8e0cab23adf-256x69-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "dc3675caccfe",
+              "_type": "vcLogo",
+              "alt": "Ticketek",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f64ea1b48872c57f60c055aaf2917fade3cd645b-256x105-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "fc87168324ac",
+              "_type": "vcLogo",
+              "alt": "Carsales",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-372bc135946df4f88c7e6345fe24bbc889a5e731-256x93-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "d16f717d1c21",
+              "_type": "vcLogo",
+              "alt": "NRL",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c686a1e0257d5c70a814f95250be2ba0b3d2485d-256x326-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "73bfa011bf3b",
+              "_type": "vcLogo",
+              "alt": "Daily Mail",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-ac1f6fa57e238a3d6a2e096cec487eaa77f5e4a0-256x52-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "1450bd2d4b0d",
+              "_type": "vcLogo",
+              "alt": "Queensland Health",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-eebc3e940b76849a46eeb1d3cea6a62dcab5563b-256x71-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "8d57f4042eaa",
+              "_type": "vcLogo",
+              "alt": "Ogilvy",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-4ab578cc2093dd926416cd1172552c0e764e3ff1-256x99-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "65116529eae0",
+              "_type": "vcLogo",
+              "alt": "Tourism Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-844e9b90c562ac493d089650c333775516d347c2-256x104-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "46aa7c15648f",
+              "_type": "vcLogo",
+              "alt": "Tourism NT",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-cea2d13d84e513ec980cd6dc74e9a89e3f815413-256x96-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "ef3f2750e325",
+              "_type": "vcLogo",
+              "alt": "Vinnies",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-3cc21e7e74dfe873f3aa200da947788577bf1c6a-256x67-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "d56b566412f2",
+              "_type": "vcLogo",
+              "alt": "EVT",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c9a4bdc120fc6cc57649d6d495aae100c20115da-256x94-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "b00da6448096",
+              "_type": "vcLogo",
+              "alt": "Retail Food Group",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7caff8a3d653fc17c51b8f554323428ed52c0f0b-256x125-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "04367256b58e",
+              "_type": "vcLogo",
+              "alt": "Patties Food Group",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-8f67b717a0ac1f9c04edf4ec97b60ef9ee501d15-256x143-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "55bcf5c8b6af",
+              "_type": "vcLogo",
+              "alt": "Kookaburra Sport",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7f76fba60e588af17ff4dadc8a764d6b3c423e6b-256x74-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "b148a1009321",
+              "_type": "vcLogo",
+              "alt": "Landcom",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-5f45ffe32b6480ff91e5a882e200f3c046839046-256x46-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "6a47234c6822",
+              "_type": "vcLogo",
+              "alt": "Athletics Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-1a2afd23a3167f805758a9a8aedce7d645ea46f3-256x205-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "e06563e2127e",
+              "_type": "vcLogo",
+              "alt": "VicHealth",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-e975c3ded402bab3b830d6e11ec8e786f0cbcc60-256x80-png",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "cd19055e670d",
+              "_type": "vcLogo",
+              "alt": "Hume Bank",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-1440c8a86520cc2b3f33d45b29d76078b1dbc9ad-256x44-png",
+                  "_type": "reference"
+                }
+              }
+            }
+          ],
+          "variant": "ph"
+        },
+        {
+          "_key": "84096f163c9a",
+          "_type": "vcPartnerStatus",
+          "badge": "Partner status",
+          "badgeImages": [
+            {
+              "_key": "a0623428d8db",
+              "_type": "vcLogo",
+              "alt": "Atlassian Platinum Solution Partner",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-bbd8251a00797677ebd5bbca9c59326cd10a150d-291x97-png",
+                  "_type": "reference"
+                }
+              },
+              "partner": {
+                "_ref": "partner-atlassian",
+                "_type": "reference"
+              },
+              "partnerImage": "badge",
+              "shape": "wd"
+            }
+          ],
+          "heading": "Fruition is a proud *Atlassian Platinum Solution Partner.*",
+          "points": [
+            {
+              "_key": "bf3bb83dd5f7",
+              "_type": "vcPoint",
+              "body": "Every Atlassian project is run by consultants certified on the platform, not generalists learning on your time.",
+              "n": "01",
+              "title": "Certified consultants"
+            },
+            {
+              "_key": "52c002c3619d",
+              "_type": "vcPoint",
+              "body": "Partner status gives us Atlassian's partner team and roadmap briefings, so issues are escalated properly.",
+              "n": "02",
+              "title": "A direct line to Atlassian"
+            },
+            {
+              "_key": "0036eb9ead22",
+              "_type": "vcPoint",
+              "body": "We set up Atlassian alongside the other tools you run, and tell you plainly when it is not the right fit.",
+              "n": "03",
+              "title": "Built for your whole stack"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "d50039e850bf",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Why Atlassian",
+            "heading": "What it does *best.*",
+            "lead": "Four things teams use Atlassian for every day."
+          },
+          "imageFrame": "w4-img",
+          "items": [
+            {
+              "_key": "8b8c38b640d2",
+              "_type": "vcItem",
+              "body": "Jira boards, list, timeline and capacity views track work from request to done. Teams and AI agents can be assigned the same work items.",
+              "image": {
+                "_type": "image",
+                "alt": "Boards for every team in Atlassian",
+                "asset": {
+                  "_ref": "image-a3383d0b299e26a37035d070f622166eeffd7101-1200x484-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "01",
+              "title": "Boards for every team"
+            },
+            {
+              "_key": "0630d19c8cff",
+              "_type": "vcItem",
+              "body": "Confluence pages hold plans, specs and decisions in one place. Built-in review workflows let named approvers sign off on a page.",
+              "image": {
+                "_type": "image",
+                "alt": "Confluence knowledge pages in Atlassian",
+                "asset": {
+                  "_ref": "image-55e311480090cb1523276ddb8a5b88f0c1d79703-1200x675-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "02",
+              "title": "Confluence knowledge pages"
+            },
+            {
+              "_key": "b0f88d2a24b1",
+              "_type": "vcItem",
+              "body": "Jira Service Management turns requests into ticket queues with request types, statuses and time-to-resolution targets for support and IT teams.",
+              "image": {
+                "_type": "image",
+                "alt": "Service desk queues in Atlassian",
+                "asset": {
+                  "_ref": "image-78103aaa2eb88f6311905ec3101545a348ebc412-1200x675-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "03",
+              "title": "Service desk queues"
+            },
+            {
+              "_key": "7b48b467fb7b",
+              "_type": "vcItem",
+              "body": "Build rules from triggers such as issue created, commented or transitioned, then add conditions and actions to cut repetitive manual updates.",
+              "image": {
+                "_type": "image",
+                "alt": "No-code automation rules in Atlassian",
+                "asset": {
+                  "_ref": "image-5666cfd151c7843e2280499dd6c415c6916ca789-1200x1000-webp",
+                  "_type": "reference"
+                }
+              },
+              "label": "04",
+              "title": "No-code automation rules"
+            }
+          ],
+          "layout": "why4",
+          "tone": "alt"
+        },
+        {
+          "_key": "167902d8089d",
+          "_type": "vcSteps",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Our approach",
+            "heading": "How we deliver *Atlassian.*",
+            "lead": "Three steps, the same consultant from scoping to support."
+          },
+          "items": [
+            {
+              "_key": "90a8c44f8045",
+              "_type": "vcStep",
+              "body": "Most Jira pain is configuration debt, not platform failure. We fix workflow sprawl, permissions and plugin bloat first.",
+              "bullets": [],
+              "n": "01",
+              "title": "Optimise what you have"
+            },
+            {
+              "_key": "fd4ce9e43285",
+              "_type": "vcStep",
+              "body": "Jira connected to monday.com, Slack and your delivery stack, so dev tools stop creating a visibility gap for leadership.",
+              "bullets": [],
+              "n": "02",
+              "title": "Integrate, don’t isolate"
+            },
+            {
+              "_key": "b12da1058cd5",
+              "_type": "vcStep",
+              "body": "As both an Atlassian and monday.com Platinum partner, we’re the rare firm that migrates in either direction and tells you honestly which fits.",
+              "bullets": [],
+              "n": "03",
+              "title": "Migrate when it’s right"
+            }
+          ],
+          "layout": "steps",
+          "tone": "plain"
+        },
+        {
+          "_key": "d95f95d8e79e",
+          "_type": "vcCases",
+          "cases": [
+            {
+              "_key": "93bc539f88f8",
+              "_ref": "vcCase-kinetic-solutions",
+              "_type": "reference"
+            },
+            {
+              "_key": "738c160d67d7",
+              "_ref": "vcCase-long-term-care-consultants",
+              "_type": "reference"
+            }
+          ],
+          "head": {
+            "_type": "vcHead",
+            "badge": "Case studies",
+            "heading": "Clients on *Atlassian.*",
+            "lead": "Named clients and what we built for them on Atlassian."
+          },
+          "tone": "alt"
+        },
+        {
+          "_key": "b57720be47ca",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Book a Jira health check",
+            "style": "primary"
+          },
+          "heading": "Is Jira *slowing your teams down?*",
+          "text": "A free 30-minute health check of your Jira and Confluence setup.",
+          "tone": "plain"
+        },
+        {
+          "_key": "1de14271c602",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we deliver",
+            "heading": "Our *Atlassian services.*",
+            "lead": "Fixed scope and a fixed fee for each piece of work."
+          },
+          "items": [
+            {
+              "_key": "5e94564e710e",
+              "_type": "vcItem",
+              "body": "Project configuration, workflow design, permission schemes, and the cleanup engagements that rescue sprawling instances.",
+              "href": "/atlassian-consulting#jira",
+              "label": "01",
+              "linkLabel": "See how we run it",
+              "title": "Jira implementation & optimisation"
+            },
+            {
+              "_key": "7c56f95c41a6",
+              "_type": "vcItem",
+              "body": "Space architecture, template systems, and governance that make Confluence a knowledge base instead of a document graveyard.",
+              "href": "/atlassian-consulting#confluence",
+              "label": "02",
+              "linkLabel": "See how we run it",
+              "title": "Confluence knowledge systems"
+            },
+            {
+              "_key": "190eb021ef85",
+              "_type": "vcItem",
+              "body": "ITSM builds: service desks, SLAs, asset management, and customer portals.",
+              "href": "/atlassian-consulting#jsm",
+              "label": "03",
+              "linkLabel": "See how we run it",
+              "title": "Jira Service Management"
+            },
+            {
+              "_key": "b69a545a061e",
+              "_type": "vcItem",
+              "body": "Structured cross-platform migration when teams need business-wide visibility Jira can’t give them.",
+              "href": "/atlassian-consulting#migration",
+              "label": "04",
+              "linkLabel": "See how we run it",
+              "title": "Jira → monday migration"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "pagespecific-atlassian-partner",
+          "_type": "vcCards",
+          "anchor": "partner",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Atlassian Certified Partner",
+            "heading": "Accelerate Your Enterprise & Maximise Efficiency *with Atlassian*",
+            "lead": "We modernise your business with intelligent Atlassian solutions, streamlined services, and expert migration that deliver measurable ROI across your entire organization."
+          },
+          "items": [
+            {
+              "_key": "pagespecific-atlassian-partner-01",
+              "_type": "vcItem",
+              "body": "As former Atlassian team members, we're on the edge of what customers are doing & we'll help build out ROVO Atlassian AI agents that save you time and have a clear ROI. Get in touch to explore how Rovo brings AI-driven simplicity to your workflows, creating virtual agents for service management, chat support for Jira issues, and automating search across Confluence and Jira.",
+              "label": "01",
+              "title": "#1 in ROVO"
+            },
+            {
+              "_key": "pagespecific-atlassian-partner-02",
+              "_type": "vcItem",
+              "body": "Transform customer and employee support and elevate your service with intelligent service management solutions. Eliminate disconnects between development and operations. Jira Service Management offers seamless integration on a unified platform.",
+              "label": "02",
+              "title": "Service Management"
+            },
+            {
+              "_key": "pagespecific-atlassian-partner-03",
+              "_type": "vcItem",
+              "body": "Future-proof your Atlassian investment with secure and optimised expert cloud migration services. Our certified partnership delivers seamless Monday Atlassian integration, Jira Monday connector solutions, and comprehensive API integration with workflow automation for optimised tool connectivity.",
+              "label": "03",
+              "title": "Cloud Migration"
+            }
+          ],
+          "layout": "cards3",
+          "pageSpecific": true,
+          "pageSpecificNote": "Page-specific to /atlassian-consulting, outside the partner page template. Copy of the \"Accelerate Your Enterprise & Maximise Efficiency with Atlassian\" block of the retired /partnerships/certified-atlassian-partner page, folded in on 13 Nov 2026 (Edward). The old URL 301s to this anchor. The unsourced 277% ROI claim in the Service Management item was removed.",
+          "tone": "alt"
+        },
+        {
+          "_key": "pagespecific-atlassian-jira",
+          "_type": "vcDeepDive",
+          "anchor": "jira",
+          "cards": [
+            {
+              "_key": "7cf30f13973f",
+              "_type": "vcDeepDiveCard",
+              "body": "Greenfield Jira setups with disciplined project templates, workflow standards, and governance from day one.",
+              "title": "New implementations"
+            },
+            {
+              "_key": "71c1916bebfb",
+              "_type": "vcDeepDiveCard",
+              "body": "The 3–4 week cleanup: workflow consolidation, permission untangling, plugin audit, and board restructure.",
+              "title": "Instance rescue"
+            },
+            {
+              "_key": "9568b5061946",
+              "_type": "vcDeepDiveCard",
+              "body": "Automation rules, cross-project dependencies, and release management for scaled delivery organisations.",
+              "title": "Advanced workflows"
+            },
+            {
+              "_key": "e23b070c1124",
+              "_type": "vcDeepDiveCard",
+              "body": "GitHub, Bitbucket, monday.com, Slack, and CI/CD pipeline connections.",
+              "title": "Integration builds"
+            }
+          ],
+          "cardsHeading": "Jira engagements we run.",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Jira",
+            "heading": "Jira that developers tolerate *and leaders can read*",
+            "lead": "Fruition delivers Jira consulting across Australia, the UK, and the US: implementations that start clean, rescues that untangle years of configuration debt, and integrations that end the visibility gap."
+          },
+          "pageSpecific": true,
+          "pageSpecificNote": "Page-specific to /atlassian-consulting, outside the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.",
+          "steps": [
+            {
+              "_key": "7dd1521dce95",
+              "_type": "vcDeepDiveStep",
+              "body": "Every status, transition, and required field must earn its place. Most Jira misery is workflow maximalism nobody remembers approving.",
+              "title": "Workflow minimalism"
+            },
+            {
+              "_key": "8fd4ebe52902",
+              "_type": "vcDeepDiveStep",
+              "body": "Scheme consolidation and role-based access that admins can actually reason about, and auditors can actually audit.",
+              "title": "Permission sanity"
+            },
+            {
+              "_key": "51fa8c049b4d",
+              "_type": "vcDeepDiveStep",
+              "body": "Jira↔monday.com and Jira↔Slack integrations that give non-technical stakeholders visibility without Jira licences or training.",
+              "title": "Business-tool bridges"
+            }
+          ],
+          "stepsHeading": "Configuration discipline.",
+          "tone": "alt"
+        },
+        {
+          "_key": "pagespecific-atlassian-confluence",
+          "_type": "vcDeepDive",
+          "anchor": "confluence",
+          "cards": [
+            {
+              "_key": "9f1d6da44e64",
+              "_type": "vcDeepDiveCard",
+              "body": "Space design, page hierarchies, labels, and navigation for organisations from 50 to 5,000 users.",
+              "title": "Knowledge architecture"
+            },
+            {
+              "_key": "29356f361e53",
+              "_type": "vcDeepDiveCard",
+              "body": "Structured moves from SharePoint, Notion, Google Drive, or legacy wikis with cleanup en route.",
+              "title": "Content migration"
+            },
+            {
+              "_key": "29b455f30ce2",
+              "_type": "vcDeepDiveCard",
+              "body": "Ownership models, review cadences, archival rules, and the analytics to enforce them.",
+              "title": "Governance programs"
+            },
+            {
+              "_key": "e9b1724ab992",
+              "_type": "vcDeepDiveCard",
+              "body": "Requirements, documentation, and decision records linked into delivery workflows.",
+              "title": "Jira integration"
+            }
+          ],
+          "cardsHeading": "Confluence engagements.",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Confluence",
+            "heading": "Confluence as a knowledge base, *not a document graveyard*",
+            "lead": "Fruition delivers Confluence consulting across Australia, the UK, and the US: space architecture, governance, and content structure that keeps knowledge findable at year three, not just week three."
+          },
+          "pageSpecific": true,
+          "pageSpecificNote": "Page-specific to /atlassian-consulting, outside the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.",
+          "steps": [
+            {
+              "_key": "e7366612da45",
+              "_type": "vcDeepDiveStep",
+              "body": "Deliberate space taxonomy, ownership models, and lifecycle rules: the difference between a knowledge base and 4,000 orphaned pages.",
+              "title": "Space strategy first"
+            },
+            {
+              "_key": "a1bd61ecb28c",
+              "_type": "vcDeepDiveStep",
+              "body": "Structured templates for the content types that matter, making the right format the easy format.",
+              "title": "Templates as governance"
+            },
+            {
+              "_key": "7e25a8145ba7",
+              "_type": "vcDeepDiveStep",
+              "body": "Content structured for retrieval, which pays off doubly when you point RAG systems at it later. Our AI practice does exactly that.",
+              "title": "AI-ready knowledge"
+            }
+          ],
+          "stepsHeading": "Architecture beats enthusiasm.",
+          "tone": "plain"
+        },
+        {
+          "_key": "pagespecific-atlassian-jsm",
+          "_type": "vcDeepDive",
+          "anchor": "jsm",
+          "cards": [
+            {
+              "_key": "50fc297e40ad",
+              "_type": "vcDeepDiveCard",
+              "body": "Request catalogues, queues, automation, and portal design for IT and internal service teams.",
+              "title": "Service desk implementation"
+            },
+            {
+              "_key": "f53223584ac2",
+              "_type": "vcDeepDiveCard",
+              "body": "Priority matrices, escalation chains, and the reporting that keeps commitments visible.",
+              "title": "SLA and escalation design"
+            },
+            {
+              "_key": "1c389f91aaa4",
+              "_type": "vcDeepDiveCard",
+              "body": "Insight-based asset tracking connected to incident and change workflows.",
+              "title": "Asset and configuration management"
+            },
+            {
+              "_key": "509f3ec39495",
+              "_type": "vcDeepDiveCard",
+              "body": "When JSM is overkill or underpowered, we’ll say so: monday Service and other options compared straight.",
+              "title": "Alternative honesty"
+            }
+          ],
+          "cardsHeading": "JSM engagements.",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Jira Service Management",
+            "heading": "ITSM that resolves tickets *instead of routing them in circles*",
+            "lead": "Fruition implements Jira Service Management for IT and support teams across Australia, the UK, and the US: service desks, SLA automation, asset management, and portals users actually use."
+          },
+          "pageSpecific": true,
+          "pageSpecificNote": "Page-specific to /atlassian-consulting, outside the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.",
+          "steps": [
+            {
+              "_key": "f53a59a12dc5",
+              "_type": "vcDeepDiveStep",
+              "body": "A curated request catalogue with smart forms, not 90 request types nobody can choose between.",
+              "title": "Request-type discipline"
+            },
+            {
+              "_key": "cb2bac8ddf0c",
+              "_type": "vcDeepDiveStep",
+              "body": "Escalation rules and breach alerts tied to commitments your team can actually keep.",
+              "title": "SLAs that mean something"
+            },
+            {
+              "_key": "59359cf473ca",
+              "_type": "vcDeepDiveStep",
+              "body": "Incidents linked to Jira Software issues so support and engineering work one thread, not two ticket systems.",
+              "title": "Dev-connected incidents"
+            }
+          ],
+          "stepsHeading": "Service design before tool config.",
+          "tone": "alt"
+        },
+        {
+          "_key": "pagespecific-atlassian-migration",
+          "_type": "vcDeepDive",
+          "anchor": "migration",
+          "cards": [
+            {
+              "_key": "fbe6e67247eb",
+              "_type": "vcDeepDiveCard",
+              "body": "Full Jira inventory: projects, workflows, custom fields, plugins, integrations. Mapping document to monday architecture with gap analysis.",
+              "title": "Audit and mapping (wk 1–2)"
+            },
+            {
+              "_key": "e925e31d846a",
+              "_type": "vcDeepDiveCard",
+              "body": "monday workspace, board, and automation architecture built and validated with pilot team data.",
+              "title": "Structure build (wk 2–4)"
+            },
+            {
+              "_key": "22baf33277b9",
+              "_type": "vcDeepDiveCard",
+              "body": "Staged data migration with parallel-run validation. GitHub integration cutover for dev teams, the Givergy pattern.",
+              "title": "Migration and validation (wk 4–6)"
+            },
+            {
+              "_key": "d55c69962baf",
+              "_type": "vcDeepDiveCard",
+              "body": "Role-based training, hypercare support, and Jira decommission planning.",
+              "title": "Training and cutover (wk 6–8)"
+            }
+          ],
+          "cardsHeading": "How the migration runs.",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Jira to monday.com migration",
+            "heading": "Leave Jira *without leaving your history behind*",
+            "lead": "Fruition runs structured Jira-to-monday.com migrations across Australia, the UK, and the US, as the rare partner certified on both platforms, with the Givergy case study to prove the playbook."
+          },
+          "pageSpecific": true,
+          "pageSpecificNote": "Page-specific to /atlassian-consulting, outside the partner page template. Carries the copy of the retired leaf page (PR #415, 5 Nov 2026), restored after the Version C rollout dropped it (Vadim, SEO, 12 Nov 2026). The old leaf URL 301s to this anchor.",
+          "steps": [
+            {
+              "_key": "8ac21c50ce9c",
+              "_type": "vcDeepDiveStep",
+              "body": "Atlassian consulting practice plus monday.com Platinum status means we map Jira concepts to monday architecture correctly: epics, sprints, components, and custom fields all land somewhere sensible.",
+              "title": "Certified both sides"
+            },
+            {
+              "_key": "bb3107e08a69",
+              "_type": "vcDeepDiveStep",
+              "body": "Issues, comments, attachments, and status history migrate with integrity, because losing three years of context is how migrations get reversed.",
+              "title": "History preserved"
+            },
+            {
+              "_key": "188548f82318",
+              "_type": "vcDeepDiveStep",
+              "body": "Migration is the moment to fix process debt. We rebuild automation on monday-native patterns rather than replicating Jira’s workarounds.",
+              "title": "Workflow rebuild, not replication"
+            }
+          ],
+          "stepsHeading": "The dual-certification advantage.",
+          "tone": "plain"
+        },
+        {
+          "_key": "c8642786cf70",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Results",
+            "heading": "Results from our *client work.*",
+            "lead": "Published case studies, with the hours each client saved."
+          },
+          "items": [
+            {
+              "_key": "fe103cfd30c8",
+              "_type": "vcItem",
+              "body": "HVAC, built on monday.com and live in 4 weeks.",
+              "label": "Manufacturing",
+              "metric": "1,056 hrs",
+              "metricLabel": "saved per year",
+              "title": "Project tracking and inventory"
+            },
+            {
+              "_key": "2759ae517d34",
+              "_type": "vcItem",
+              "body": "Promotify, built on monday.com and live in 3 weeks.",
+              "label": "Marketing",
+              "metric": "1440 hrs",
+              "metricLabel": "saved per year",
+              "title": "Sales pipeline and workflow automation"
+            },
+            {
+              "_key": "ef4f4e3edb6c",
+              "_type": "vcItem",
+              "body": "Tourism NT, built on monday.com and live in 9 weeks.",
+              "label": "Government",
+              "metric": "1,020 hrs",
+              "metricLabel": "saved per year",
+              "title": "Approvals and reporting"
+            }
+          ],
+          "layout": "oc",
+          "tone": "alt"
+        },
+        {
+          "_key": "38b0fa7a4c02",
+          "_type": "vcVideo",
+          "badge": "Video",
+          "facts": [],
+          "heading": "How Fruition *builds systems.*",
+          "paragraphs": [],
+          "poster": {
+            "_type": "image",
+            "alt": "How Fruition builds monday.com systems",
+            "asset": {
+              "_ref": "image-a5d8ab3eece7db7be313bbf7762037d30195a119-960x540-jpg",
+              "_type": "reference"
+            }
+          },
+          "tone": "plain",
+          "youtubeId": "eoOCR6OjJhI"
+        },
+        {
+          "_key": "26c96294ca7e",
+          "_type": "vcPractitioners",
+          "paragraphs": [
+            {
+              "_key": "810468164543",
+              "_type": "vcLeadPara",
+              "style": "body",
+              "text": "Josh Jebathilak, Managing Director, leads every Atlassian engagement. He has led over 900 implementations across work platforms and AI systems."
+            },
+            {
+              "_key": "592e6337121c",
+              "_type": "vcLeadPara",
+              "style": "ink",
+              "text": "The consultant who scopes your engagement is the consultant who delivers it."
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "17effae19003",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "02436df0475d",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "fbdf9fc4b7c0",
+              "_ref": "vcQuote-jade-wood-popology",
+              "_type": "reference"
+            },
+            {
+              "_key": "d943b49e3197",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory",
+              "_type": "reference"
+            },
+            {
+              "_key": "5b53dd9a6594",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt",
+              "_type": "reference"
+            },
+            {
+              "_key": "b7effb9f6a49",
+              "_ref": "vcQuote-mairhead-mckinley-givergy",
+              "_type": "reference"
+            },
+            {
+              "_key": "c32254e57a13",
+              "_ref": "vcQuote-jason-doan-holt-cat",
+              "_type": "reference"
+            },
+            {
+              "_key": "b76d6536c2f7",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning",
+              "_type": "reference"
+            }
+          ],
+          "tone": "plain"
+        },
+        {
+          "_key": "6ba8583bf8a4",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "calTitle": "Atlassian consultation",
+          "heading": "Talk to an *Atlassian consultant.*",
+          "lead": "30 minutes on your Jira, Jira Service Management or Confluence setup, migration or rescue."
+        },
+        {
+          "_key": "226d827e4625",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked questions",
+          "tabs": [
+            {
+              "_key": "bdae11caea5c",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "216d7ad2d613",
+                  "_ref": "faqItem-migrated-atlassian-consulting-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "636eb9031aa1",
+                  "_ref": "faqItem-migrated-atlassian-consulting-1",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "0f793c3b7117",
+                  "_ref": "faqItem-vc-p-2db64b4d86",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "b540feab4d6d",
+                  "_ref": "faqItem-migrated-atlassian-consulting-jira-1",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "4f38083f3859",
+                  "_ref": "faqItem-migrated-atlassian-consulting-confluence-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "8d6f46fe0d2d",
+                  "_ref": "faqItem-vc-atlassian-partner-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "2f726b72816f",
+                  "_ref": "faqItem-vc-atlassian-partner-1",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "8e9177ed4aa5",
+                  "_ref": "faqItem-vc-atlassian-partner-2",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "4fd759ca24b7",
+                  "_ref": "faqItem-vc-atlassian-partner-3",
+                  "_type": "reference"
+                }
+              ],
+              "label": "Atlassian"
+            },
+            {
+              "_key": "603aaa686fa0",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "611748434395",
+                  "_ref": "faqItem-migrated-integrations-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "135da40777c6",
+                  "_ref": "faq-996791c3b8e54fea",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "6a33e0fb91e2",
+                  "_ref": "faqItem-vc-d6429d3124",
+                  "_type": "reference"
+                }
+              ],
+              "label": "Other platforms"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "e17bfb61be32",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "be4dc901b93b",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book an Atlassian consultation",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Get Jira and Confluence *working for your teams.*",
+          "lead": "Book a 30-minute call. A frank read on your Atlassian setup, migration or rescue."
+        }
+      ],
+      "seoDescription": "Scale your teams with an Atlassian Platinum Solution Partner specialising in Jira, Confluence and Jira Service Management consulting, migration and support.",
+      "seoTitle": "Platinum Atlassian Implementation & Consulting Partner",
+      "title": "atlassian consulting"
+    }
+  ],
+  "created": []
+}
