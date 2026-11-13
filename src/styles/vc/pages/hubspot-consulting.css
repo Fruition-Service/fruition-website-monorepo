@@ -773,6 +773,14 @@
 .vc .li-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .vc .pf .li-link { margin: -12px -12px -12px auto; }
 
+/* Directory filter tabs (vcDirectory). A tab row only has space above it
+   (.tabs margin-top, which the directory also zeroes with vc-mt0); the
+   block below has to supply the gap. The card variant (.pcards) gets 24px
+   from its page block, but the tile variant (.pgrid) got nothing, so on
+   /partnerships the filters sat flush on the tiles. Give both 24px, the
+   gap the other Version C tab rows use. */
+.vc .tabs + .pgrid, .vc .tabs + .pcards { margin-top: 24px; }
+
 
 .vc-p-hubspot-consulting .hero{padding-bottom:var(--sec)}
 .vc-p-hubspot-consulting .frame .creds.hs img{height:72px}
