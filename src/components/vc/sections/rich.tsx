@@ -23,9 +23,9 @@ export async function VcUseCases({ s }: { s: VcUseCasesData }) {
   const { industry } = featured
   // The industry's other builds live in the hub, which opens on this industry.
   const more = industry.count > featured.tiles.length
-  const moreLabel = (s.moreLabel || "See all {count} {industry} use cases")
+  const moreLabel = (s.moreLabel || "See all {count} use cases")
     .replace("{count}", String(industry.count))
-    .replace("{industry}", industry.name.toLowerCase())
+    .replace("{industry}", industry.name)
   return (
     <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? USE_CASES_ANCHOR} cls={s.sectionClass} dataSec="usecases">
       <Head head={s.head} />

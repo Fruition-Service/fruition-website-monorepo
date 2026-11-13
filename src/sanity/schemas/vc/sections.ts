@@ -269,7 +269,7 @@ export const vcUseCases = defineType({
     head(),
     defineField({ name: 'source', title: 'Catalogue page', type: 'string', description: 'Machine value, e.g. /monday-for-retail.' }),
     defineField({ name: 'linkLabel', title: 'Card link label', type: 'string', initialValue: 'See the build' }),
-    defineField({ name: 'moreLabel', title: 'See-all button label', type: 'string', description: 'Shown when the industry has more builds than the cards. {count} and {industry} are filled in.', initialValue: 'See all {count} {industry} use cases' }),
+    defineField({ name: 'moreLabel', title: 'See-all button label', type: 'string', description: 'Shown when the industry has more builds than the cards. {count} and {industry} are filled in.', initialValue: 'See all {count} use cases' }),
   ],
   preview: preview('Use case catalogue'),
 })

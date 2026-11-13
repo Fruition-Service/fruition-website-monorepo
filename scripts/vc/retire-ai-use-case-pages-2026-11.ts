@@ -112,7 +112,7 @@ async function main() {
       continue
     }
     if (!old) throw new Error(`${path}: no "Use case catalogue" vcCards section to convert`)
-    const next: Json = { _type: 'vcUseCases', anchor: 'ai-use-cases', source: path, linkLabel: 'See the build', moreLabel: 'See all {count} {industry} use cases' }
+    const next: Json = { _type: 'vcUseCases', anchor: 'ai-use-cases', source: path, linkLabel: 'See the build', moreLabel: 'See all {count} use cases' }
     for (const [k, v] of Object.entries(old)) if (KEEP.has(k)) next[k] = v
     const oldIds = (old.items ?? []).map((i: Json) => /#(uc-[\w-]+)/.exec(i.href ?? '')?.[1]).filter(Boolean)
     const dropped = Object.keys(old).filter((k) => !KEEP.has(k) && !['_type', 'anchor', 'items'].includes(k))
