@@ -25,6 +25,7 @@ const WEEK = 604800
 
 type Ctx = { waitUntil(p: Promise<unknown>): void }
 type Handler = { fetch(req: Request, env: unknown, ctx: Ctx): Promise<Response> }
+type Env = { HUBSPOT_SYNC_SECRET?: string }
 
 function negotiatedFormat(accept: string): string {
   if (accept.includes("image/avif")) return "avif"
@@ -60,7 +61,25 @@ async function cachedImage(request: Request, env: unknown, ctx: Ctx): Promise<Re
   return out
 }
 
+// Cron (wrangler.jsonc `triggers.crons`): the HubSpot -> Fruition blog sync.
+// The request goes straight into the Next app in-process, no network hop, so
+// the route sees the same env (secrets) as any other request. It must use the
+// canonical host or src/middleware.ts would 301 it.
+async function runHubSpotBlogSync(env: Env, ctx: Ctx): Promise<void> {
+  if (!env.HUBSPOT_SYNC_SECRET) return
+  const req = new Request("https://www.fruitionservices.io/api/cron/hubspot-blog-sync", {
+    method: "POST",
+    headers: { "x-sync-secret": env.HUBSPOT_SYNC_SECRET },
+  })
+  const res = await (openNext as Handler).fetch(req, env, ctx)
+  if (!res.ok) console.error(`[cron] hubspot-blog-sync ${res.status}: ${(await res.text()).slice(0, 500)}`)
+}
+
 export default {
+  async scheduled(_event: unknown, env: Env, ctx: Ctx): Promise<void> {
+    ctx.waitUntil(runHubSpotBlogSync(env, ctx))
+  },
+
   async fetch(request: Request, env: unknown, ctx: Ctx): Promise<Response> {
     if (request.method === "GET" && new URL(request.url).pathname === "/_next/image") {
       return cachedImage(request, env, ctx)

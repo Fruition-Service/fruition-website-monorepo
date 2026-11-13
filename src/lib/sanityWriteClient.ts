@@ -618,6 +618,13 @@ export async function getBlogPostCacheKeys(
   )
 }
 
+/** Which of these blogPost document ids exist right now (read fresh, no CDN). */
+export async function existingBlogPostIds(ids: string[]): Promise<Set<string>> {
+  if (ids.length === 0) return new Set()
+  const found = await groq<string[] | null>(`*[_type == "blogPost" && _id in $ids]._id`, { ids })
+  return new Set(found ?? [])
+}
+
 /**
  * Find the published post that owns a slug — the link between a portal draft
  * and the live document when the draft has no recorded doc id (posts migrated

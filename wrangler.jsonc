@@ -49,6 +49,11 @@
       "service": "fruition-landing"
     }
   ],
+  // Every 5 min: the HubSpot -> Fruition blog sync (workers/site-entry.ts
+  // `scheduled` -> /api/cron/hubspot-blog-sync).
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
   "vars": {
     "NEXT_PUBLIC_OAIQ_PIXEL_ID": "RNJ1b2hooXBRHiYSWb3K6h"
   },

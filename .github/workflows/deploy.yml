@@ -141,6 +141,19 @@ jobs:
           if [ -z "$SANITY_WEBHOOK_SECRET" ]; then echo "SANITY_WEBHOOK_SECRET not set, skipping"; exit 0; fi
           printf '%s' "$SANITY_WEBHOOK_SECRET" | npx wrangler secret put SANITY_WEBHOOK_SECRET
 
+      # HubSpot -> Fruition blog sync (src/lib/hubspotBlog). The token reads
+      # Thana's HubSpot blog (portal 442278519); the shared secret guards
+      # /api/cron/hubspot-blog-sync, which the Worker's own cron calls.
+      - name: Sync HubSpot blog secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HUBSPOT_BLOG_TOKEN: ${{ secrets.HUBSPOT_BLOG_TOKEN }}
+          HUBSPOT_SYNC_SECRET: ${{ secrets.HUBSPOT_SYNC_SECRET }}
+        run: |
+          if [ -n "$HUBSPOT_BLOG_TOKEN" ]; then printf '%s' "$HUBSPOT_BLOG_TOKEN" | npx wrangler secret put HUBSPOT_BLOG_TOKEN; else echo "HUBSPOT_BLOG_TOKEN not set, skipping"; fi
+          if [ -n "$HUBSPOT_SYNC_SECRET" ]; then printf '%s' "$HUBSPOT_SYNC_SECRET" | npx wrangler secret put HUBSPOT_SYNC_SECRET; else echo "HUBSPOT_SYNC_SECRET not set, skipping"; fi
+
       # The HTML edge cache in front of the site (workers/edge). Its cache key
       # carries the Next build id, so redeploying it with the new id makes sure
       # no visitor gets HTML that points at the previous build's assets.
