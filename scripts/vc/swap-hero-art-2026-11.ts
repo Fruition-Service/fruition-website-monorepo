@@ -1,6 +1,7 @@
 /**
  * Swaps the hero art on /industries/legal and /industries/hospitality-tourism-events
- * (13 Nov 2026: calmer scales + gavel for legal, bell + pin + ticket for hospitality).
+ * (13 Nov 2026: calmer scales + gavel for legal, bell + pin + ticket for hospitality;
+ * later the same day re-cut on white with their soft floor shadows, no transparency).
  * Uploads the files in assets/industries-2026-11 and points each page's vcHero.art at them.
  *
  *   npx tsx scripts/vc/swap-hero-art-2026-11.ts           # dry run
