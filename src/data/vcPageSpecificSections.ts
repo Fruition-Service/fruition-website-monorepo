@@ -151,6 +151,16 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     added: '2026-11-12',
     source: ATLASSIAN_SCRIPT,
   },
+  {
+    path: '/contact-us',
+    key: 'pagespecific-contact-partner-ecosystem',
+    type: 'vcToolkit',
+    heading: 'A certified *partner ecosystem.*',
+    reason:
+      'Copy of the /about-us partner ecosystem marquee, in place of the contact channels section (its email, phone, LinkedIn and socials moved into the hero). Edward, 13 Nov 2026.',
+    added: '2026-11-13',
+    source: 'scripts/vc/contact-hero-partner-ecosystem-2026-11.ts',
+  },
 ]
 
 export const PAGE_SPECIFIC_KEY_PREFIX = 'pagespecific-'

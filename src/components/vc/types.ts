@@ -36,6 +36,8 @@ export interface VcHeroData extends Base {
   pins?: { _key?: string; label?: string; left?: number; top?: number; side?: string; on?: boolean }[]
   stats?: VcStatData[]; statsNote?: string; spacer?: boolean; trustLabel?: string; searchPlaceholder?: string; searchClear?: boolean
   form?: { heading?: string; subheading?: string; phoneLabel?: string; messageLabel?: string; messagePlaceholder?: string; submitLabel?: string; successMessage?: string }; trustLogos?: VcLogoData[]
+  /** Contact details beside the message form (contact page): channel rows, socials, compliance badges. */
+  contactLabel?: string; contactRows?: VcChannelRow[]; followLabel?: string; socials?: VcSocialLink[]; securityLabel?: string; security?: VcLogoData[]
 }
 export interface VcLogosData extends Base { _type: "vcLogos"; head?: VcHeadData; gridClass?: string; logos?: VcLogoData[]; more?: string }
 export interface VcStepsData extends Base {
@@ -134,9 +136,11 @@ export interface VcTeamTabsData extends Base {
 }
 export interface VcOffice { _key?: string; city?: string; label?: string; flag?: string; address?: string; addressUrl?: string; phone?: string; phoneTel?: string; href?: string }
 
+export interface VcChannelRow { _key?: string; label?: string; value?: string; href?: string }
+export interface VcSocialLink { _key?: string; network?: string; label?: string; href?: string }
 export interface VcChannelsData extends Base {
-  _type: "vcChannels"; badge?: string; heading?: string; rows?: { _key?: string; label?: string; value?: string; href?: string }[]
-  followLabel?: string; socials?: { _key?: string; network?: string; label?: string; href?: string }[]
+  _type: "vcChannels"; badge?: string; heading?: string; rows?: VcChannelRow[]
+  followLabel?: string; socials?: VcSocialLink[]
   tilesLabel?: string; tilesLink?: VcCtaData; tiles?: VcLogoData[]; security?: VcLogoData[]
 }
 

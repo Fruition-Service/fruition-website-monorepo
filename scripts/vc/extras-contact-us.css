@@ -1,0 +1,27 @@
+/* Contact details in the hero, beside the message form (13 Nov 2026). The rows reuse the
+   contact channels styles above; these rules tighten them for the hero column. */
+.vc-p-contact-us .hero-chan{margin-top:48px}
+.vc-p-contact-us .hero-chan-h{display:block}
+.vc-p-contact-us .hero-chan .rows{margin-top:14px}
+.vc-p-contact-us .hero-chan .rows>a,.vc-p-contact-us .hero-chan .rows>div{padding:16px 0}
+.vc-p-contact-us .hero-chan .rows b{font-size:16px}
+.vc-p-contact-us .rows .secline .seclogos{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;padding:0;border:0}
+.vc-p-contact-us .rows .seclogos img{display:block;height:34px;width:auto}
+.vc-p-contact-us .rows .seclogos img.tall{height:40px}
+@media (max-width:1023px){
+  .vc-p-contact-us .hero-grid.has-chan .hero-side{display:contents}
+  .vc-p-contact-us .hero-grid.has-chan .hero-copy{order:1}
+  .vc-p-contact-us .hero-grid.has-chan>.frame{order:2}
+  .vc-p-contact-us .hero-grid.has-chan .hero-chan{order:3;margin-top:0}
+}
+@media (max-width:767px){
+  .vc-p-contact-us .rows .secline .seclogos{justify-content:flex-start;gap:8px}
+  .vc-p-contact-us .rows .seclogos img{height:30px}
+  .vc-p-contact-us .rows .seclogos img.tall{height:36px}
+}
+
+/* "A certified partner ecosystem" marquee, the same section as /about-us (page-specific here).
+   Keep these rules in step with scripts/vc/extras-about-us.css. */
+.vc-p-contact-us .accr .tile{gap:8px}
+.vc-p-contact-us .accr .logo{height:116px}
+.vc-p-contact-us .accr .logo img.hs,.vc-p-contact-us .accr .logo img.sq{height:88px;width:auto;max-width:100%}

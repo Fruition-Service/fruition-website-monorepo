@@ -2,7 +2,7 @@ import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
 import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
 import { Acc, Badge, Head, LinkedInLink, SImg, Sec, SvgIcon } from "../primitives"
-import { SOCIAL_ICONS } from "../socialIcons"
+import { ChannelRows } from "./channelRows"
 import type { VcBlogListData, VcFaqHubData, VcStoriesData, VcFormEmbedData, VcRemoteData, VcChannelsData, VcLeadershipData, VcOfficesData, VcTeamTabsData, VcSharedData, VcTeamMember, VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
 import { VcClock, VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTeamTabsShell, VcTrackFinder } from "./interactive"
 import VcVideoPlayer from "./VcVideoPlayer"
@@ -478,36 +478,7 @@ export function VcChannels({ s }: { s: VcChannelsData }) {
             <Acc text={s.heading} />
           </h2>
         )}
-        <div className="rows">
-          {(s.rows ?? []).map((r, i) => (
-            <a key={r._key ?? i} href={vercelStegaClean(r.href ?? "#")}>
-              <span className="label">{r.label}</span>
-              <b>{r.value}</b>
-            </a>
-          ))}
-          {!!s.socials?.length && (
-            <div className="srow">
-              {s.followLabel && <span className="label">{s.followLabel}</span>}
-              <div className="sicons">
-                {s.socials.map((x, i) => {
-                  const icon = SOCIAL_ICONS[vercelStegaClean(x.network ?? "")]
-                  const label = vercelStegaClean(x.label ?? x.network ?? "")
-                  return (
-                    <a key={x._key ?? i} href={vercelStegaClean(x.href ?? "#")} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}>
-                      {icon && (
-                        <svg viewBox={icon.viewBox} aria-hidden="true">
-                          {icon.d.map((d, j) => (
-                            <path key={j} d={d} />
-                          ))}
-                        </svg>
-                      )}
-                    </a>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-        </div>
+        <ChannelRows rows={s.rows} followLabel={s.followLabel} socials={s.socials} />
       </div>
       <div>
         <div className="acc-h">

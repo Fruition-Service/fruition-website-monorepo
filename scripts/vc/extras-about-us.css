@@ -1,0 +1,5 @@
+/* "A certified partner ecosystem" marquee (13 Nov 2026): a slightly taller logo box, and the
+   square badges (HubSpot, ElevenLabs, Aircall, Hootsuite, n8n) inset from its top and bottom
+   edge instead of filling it. Keep in step with scripts/vc/extras-contact-us.css. */
+.vc-p-about-us .accr .logo{height:116px}
+.vc-p-about-us .accr .logo img.hs,.vc-p-about-us .accr .logo img.sq{height:88px;width:auto;max-width:100%}

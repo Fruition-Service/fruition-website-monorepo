@@ -860,4 +860,10 @@
 @media (max-width:1023px){.vc-p-about-us .chan{grid-template-columns:1fr;gap:56px}.vc-p-about-us .offices{grid-template-columns:1fr 1fr}}
 @media (max-width:767px){.vc-p-about-us .offices{grid-template-columns:1fr}.vc-p-about-us .msg{padding:22px}.vc-p-about-us .cal-sel{grid-template-columns:1fr}.vc-p-about-us .tiles{gap:8px}.vc-p-about-us .tiles div{height:80px;padding:10px}.vc-p-about-us .tiles .sq img{height:52px}.vc-p-about-us .tiles .wide{height:84px}.vc-p-about-us .tiles .wide img{height:56px;max-width:100%}.vc-p-about-us .rows a,.vc-p-about-us .rows div{flex-direction:column;gap:6px}.vc-p-about-us .rows b{text-align:left}}
 
+/* "A certified partner ecosystem" marquee (13 Nov 2026): a slightly taller logo box, and the
+   square badges (HubSpot, ElevenLabs, Aircall, Hootsuite, n8n) inset from its top and bottom
+   edge instead of filling it. Keep in step with scripts/vc/extras-contact-us.css. */
+.vc-p-about-us .accr .logo{height:116px}
+.vc-p-about-us .accr .logo img.hs,.vc-p-about-us .accr .logo img.sq{height:88px;width:auto;max-width:100%}
+
 }

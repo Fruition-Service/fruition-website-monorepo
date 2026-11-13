@@ -13,6 +13,15 @@ const preview = (label: string, path = 'head.heading') => ({
   prepare: ({ title }: { title?: string }) => ({ title: title || label, subtitle: label }),
 })
 
+/** One contact channel row (email, phone, LinkedIn). Shared by the hero and the contact channels section. */
+const channelRowMember = defineArrayMember({ type: 'object', name: 'vcChannelRow', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'value', title: 'Shown as', type: 'string' }), defineField({ name: 'href', title: 'Link', type: 'string' })], preview: { select: { title: 'label', subtitle: 'value' } } })
+/** One social icon link. Shared by the hero and the contact channels section. */
+const socialMember = defineArrayMember({ type: 'object', name: 'vcSocial', fields: [
+  defineField({ name: 'network', title: 'Network', type: 'string', options: { list: ['linkedin', 'instagram', 'facebook', 'youtube', 'x', 'reddit', 'pinterest', 'whatsapp'] } }),
+  defineField({ name: 'label', title: 'Accessible name', type: 'string' }),
+  defineField({ name: 'href', title: 'Link', type: 'string' }),
+], preview: { select: { title: 'network', subtitle: 'href' } } })
+
 export const vcHero = defineType({
   name: 'vcHero',
   title: 'Hero',
@@ -100,6 +109,12 @@ export const vcHero = defineType({
         defineField({ name: 'successMessage', title: 'Thank-you message', type: 'string' }),
       ],
     }),
+    defineField({ name: 'contactLabel', title: 'Contact details label (contact page)', type: 'string', description: 'Small label above the contact rows under the hero copy, e.g. "Reach the team directly".' }),
+    defineField({ name: 'contactRows', title: 'Contact details (contact page)', type: 'array', description: 'Email, phone and LinkedIn rows under the hero copy, beside the message form.', of: [channelRowMember] }),
+    defineField({ name: 'followLabel', title: 'Social label (contact page)', type: 'string' }),
+    defineField({ name: 'socials', title: 'Social links (contact page)', type: 'array', of: [socialMember] }),
+    defineField({ name: 'securityLabel', title: 'Compliance badges label (contact page)', type: 'string' }),
+    defineField({ name: 'security', title: 'Compliance badges (contact page)', type: 'array', description: 'ISO, SOC 2, GDPR and HIPAA marks shown as the last contact row.', of: [defineArrayMember({ type: 'vcLogo' })] }),
     defineField({ name: 'searchPlaceholder', title: 'Search box placeholder', type: 'string', description: 'Shows a search box in the hero (blog and FAQ pages); it filters the list below.' }),
     defineField({ name: 'searchClear', title: 'Search box has a clear button', type: 'boolean', initialValue: false }),
     defineField({ name: 'trustLabel', title: 'Logo marquee label', type: 'string' }),
@@ -824,18 +839,14 @@ export const vcChannels = defineType({
       name: 'rows',
       title: 'Channels',
       type: 'array',
-      of: [defineArrayMember({ type: 'object', name: 'vcChannelRow', fields: [defineField({ name: 'label', title: 'Label', type: 'string' }), defineField({ name: 'value', title: 'Shown as', type: 'string' }), defineField({ name: 'href', title: 'Link', type: 'string' })], preview: { select: { title: 'label', subtitle: 'value' } } })],
+      of: [channelRowMember],
     }),
     defineField({ name: 'followLabel', title: 'Social label', type: 'string' }),
     defineField({
       name: 'socials',
       title: 'Social links',
       type: 'array',
-      of: [defineArrayMember({ type: 'object', name: 'vcSocial', fields: [
-        defineField({ name: 'network', title: 'Network', type: 'string', options: { list: ['linkedin', 'instagram', 'facebook', 'youtube', 'x', 'reddit', 'pinterest', 'whatsapp'] } }),
-        defineField({ name: 'label', title: 'Accessible name', type: 'string' }),
-        defineField({ name: 'href', title: 'Link', type: 'string' }),
-      ], preview: { select: { title: 'network', subtitle: 'href' } } })],
+      of: [socialMember],
     }),
     defineField({ name: 'tilesLabel', title: 'Accreditations label', type: 'string' }),
     defineField({ name: 'tilesLink', title: 'Accreditations link', type: 'vcCta' }),
