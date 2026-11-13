@@ -435,6 +435,7 @@ const PARTNER_LOGO_BY_HREF: Record<string, string> = {
   '/partnerships/monday-consulting-partner': 'monday',
   '/partnerships/certified-atlassian-partner': 'atlassian',
   '/partnerships/certified-hubspot-partner': 'hubspot',
+  '/hubspot-consulting': 'hubspot',
   '/partnerships/certified-clickup-partner': 'clickup',
   '/partnerships/anthropic-claude-partner': 'anthropic',
   '/partnerships/openai-chatgpt-partner': 'openai',

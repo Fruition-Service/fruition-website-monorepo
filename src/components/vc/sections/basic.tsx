@@ -421,7 +421,7 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
   if (pills) {
     // Use case card with the AI chip beside the title and pill tags.
     return (
-      <article className={cls}>
+      <article className={cls} id={it.anchor ? vercelStegaClean(it.anchor) : undefined}>
         <div className="top">
           {it.title && <h3 className="title">{it.title}</h3>}
           {it.ai && <span className="ai">AI</span>}
@@ -439,7 +439,7 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
     )
   }
   return (
-    <article className={cls}>
+    <article className={cls} id={it.anchor ? vercelStegaClean(it.anchor) : undefined}>
       {it.image?.asset && (
         <div className={["pichd", "w4-img"].includes(frame) ? frame : "shot"}>
           <SImg image={it.image} width={640} />

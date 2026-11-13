@@ -89,7 +89,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
       {
         label: 'HubSpot',
         description: 'Marketing Hub, Sales Hub, and Breeze AI enablement.',
-        href: '/partnerships/certified-hubspot-partner',
+        href: '/hubspot-consulting',
       },
       {
         label: 'Anthropic Claude',

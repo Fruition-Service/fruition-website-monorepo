@@ -38,6 +38,8 @@ export const RETIRED_SOLUTION_SLUGS: ReadonlySet<string> = new Set([
 export const RETIRED_PARTNERSHIP_SLUGS: ReadonlySet<string> = new Set([
   "certified-guidde-partner",
   "langgraph-partner",
+  // Folded into /hubspot-consulting (Vadim, monday 2900266080, 13 Nov 2026).
+  "certified-hubspot-partner",
 ])
 
 /**

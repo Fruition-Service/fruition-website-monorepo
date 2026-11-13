@@ -241,7 +241,7 @@ export const NAV_V2: NavV2Item[] = [
           },
           {
             label: 'HubSpot',
-            href: '/partnerships/certified-hubspot-partner',
+            href: '/hubspot-consulting',
             icon: 'hubspot',
             description: 'Certified HubSpot partner',
           },

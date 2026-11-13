@@ -897,4 +897,22 @@
   .vc .sf-outcomes,.vc .sf-phases,.vc .sf-pair{grid-template-columns:1fr}
 }
 
+/* PAGE-SPECIFIC: "Delivered locally across six regions" office cards (vcOffices, key
+   pagespecific-hubspot-offices; Vadim, monday 2900266080). The office card rules live in the
+   contact-us page block only, so they are repeated here for this page. Phone links get a 44px
+   tap target. */
+.vc .offices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.vc .office{padding:28px;gap:0}
+.vc .office .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.vc .office .flag{font-size:34px;line-height:1}
+.vc .office .top .label{text-align:right}
+.vc .office h3{margin-bottom:14px}
+.vc .office address{font-style:normal;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.vc .office address a{display:inline-block;padding:6px 0}
+.vc .office address a:hover{color:var(--accent)}
+.vc .office .tel{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font:500 15px/1.3 var(--sans);color:var(--ink)}
+.vc .office .tel:hover{color:var(--accent)}
+@media (max-width:1023px){.vc .offices{grid-template-columns:1fr 1fr}}
+@media (max-width:767px){.vc .offices{grid-template-columns:1fr}}
+
 }
