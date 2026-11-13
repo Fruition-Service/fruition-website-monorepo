@@ -305,7 +305,6 @@ footer img{height:24px;width:auto;display:block}
 footer a{color:#fff;text-decoration:none}
 footer a:hover{color:var(--brand-tint)}
 .lp-cur{display:flex;align-items:center;gap:10px}
-footer .wrap:has(.lp-cur)>div:first-of-type{flex:1 1 260px;min-width:0}
 .lp-cur label{display:flex;align-items:center;gap:8px;cursor:pointer}
 .lp-cur svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .lp-cur-box{position:relative;display:flex}
@@ -314,6 +313,20 @@ footer .wrap:has(.lp-cur)>div:first-of-type{flex:1 1 260px;min-width:0}
 .lp-cur select:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-color:#fff}
 .lp-cur option{background:var(--navy);color:#fff}
 .lp-cur-box svg{position:absolute;right:16px;top:15px;pointer-events:none;stroke:#fff}
+/* Priced pages: two-row footer with the currency control (Claude Design "Footer currency switcher" 2b, 13 Nov 2026) */
+footer.lp-fcur{padding:32px 0}
+footer.lp-fcur .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"logo r" "co cur";align-items:center;gap:20px 0}
+footer.lp-fcur .wrap>img{grid-area:logo}
+.lp-fr{grid-area:r;display:flex;align-items:center;gap:28px}
+.lp-legal{display:flex;align-items:center;gap:8px}
+.lp-legal a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.72)}
+.lp-legal a:hover{color:#fff}
+footer.lp-fcur .lp-soc{gap:8px;flex-wrap:nowrap}
+.lp-co{grid-area:co;align-self:stretch;margin:0;display:flex;flex-wrap:wrap;align-content:center;column-gap:8px;row-gap:2px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.lp-ci{display:flex;gap:8px;white-space:nowrap}
+footer.lp-fcur .lp-cur{grid-area:cur;align-self:stretch;padding:20px 0 0 24px;border-top:1px solid rgba(255,255,255,.14)}
+@media(max-width:1023px){.lp-co{flex-direction:column;flex-wrap:nowrap;justify-content:center}.lp-ci>.d{display:none}}
+@media(max-width:767px){footer.lp-fcur{padding:32px 0 24px}footer.lp-fcur .wrap{grid-template-columns:minmax(0,1fr);grid-template-areas:"logo" "co" "cur" "r";gap:20px}.lp-co{padding-top:0;border-top:0}footer.lp-fcur .lp-cur{padding:0;border-top:0}.lp-fr{justify-content:space-between;gap:16px;padding-top:8px;border-top:1px solid rgba(255,255,255,.14)}footer.lp-fcur .lp-soc{gap:0;margin-right:-8px}footer.lp-fcur .lp-soc a{width:44px;height:44px;background:transparent}footer.lp-fcur .lp-soc a svg{box-sizing:content-box;width:14px;height:14px;padding:7px;border-radius:50%;background:#fff}footer.lp-fcur .lp-soc a:hover{background:transparent}footer.lp-fcur .lp-soc a:hover svg{background:var(--brand-tint)}}
 
 /* Mobile sticky CTA bar */
 .mcta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;gap:10px;padding:10px 16px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--lilac)}
