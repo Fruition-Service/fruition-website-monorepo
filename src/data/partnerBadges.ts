@@ -16,6 +16,7 @@ export type PartnerBadgeKey =
   | "googleCloud"
   | "openai"
   | "elevenlabs"
+  | "hootsuite"
   | "claude"
 
 export interface ServicePartnerBadge {
@@ -38,6 +39,7 @@ export const PARTNER_BADGES: Record<PartnerBadgeKey, ServicePartnerBadge> = {
   googleCloud: { key: "googleCloud", src: "/images/partner-badges/google-cloud.webp", alt: "Google Cloud Partner", width: 433, height: 132, shape: "wide" },
   openai: { key: "openai", src: "/images/partner-badges/openai.webp", alt: "OpenAI Select Partner", width: 283, height: 132, shape: "wide" },
   elevenlabs: { key: "elevenlabs", src: "/images/partner-badges/elevenlabs.svg", alt: "ElevenLabs Eleven Agents Certified Partner", width: 216, height: 214, shape: "square" },
+  hootsuite: { key: "hootsuite", src: "/images/partner-badges/hootsuite.webp", alt: "Hootsuite Solution Partner", width: 216, height: 216, shape: "square" },
   claude: { key: "claude", src: "/images/partner-badges/claude.webp", alt: "Claude Partner Network Select Services Partner", width: 416, height: 132, shape: "wide" },
 }
 
@@ -64,6 +66,7 @@ const ROUTE_BADGES: Array<[prefix: string, badges: PartnerBadgeKey[]]> = [
   ["/partnerships/openai-chatgpt-partner", ["openai"]],
   ["/partnerships/anthropic-claude-partner", ["claude"]],
   ["/partnerships/elevenlabs-partner", ["elevenlabs"]],
+  ["/partnerships/hootsuite-delivery-partner", ["hootsuite"]],
   ["/partnerships/monday-consulting-partner", ["monday"]],
   // Other partner pages (Aircall, Hootsuite, guidde, n8n, ...) have no badge
   // in the set yet, so they show none rather than an unrelated monday badge.
