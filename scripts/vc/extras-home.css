@@ -22,3 +22,16 @@
 .vc.vc-p-home .ho-badge { scale: 1.58; }
 .vc.vc-p-home .ho-badge img { width: 24px; height: 24px; }
 .vc.vc-p-home .ho-badge.more { font-size: 15px; }
+
+/* 13 Nov 2026, hero network:
+   1. Pills near the canvas's right edge (HubSpot at 446px, OpenAI at 468px of
+      560px) were shrink-wrapped to the space left before that edge, so their
+      text ran 2px into the right padding and looked cut off against the
+      border. Size every pill to its content and keep the logo from shrinking.
+   2. The orbit ring sat under the connector canvas, so the hairlines and the
+      travelling packets were drawn across the tiles (Jira, Confluence, Xero,
+      Salesforce, Zapier). Lift the ring above the canvas; it touches neither
+      the hub nor a pill, so nothing else changes. */
+.vc.vc-p-home .hn-node { width: max-content; }
+.vc.vc-p-home .hn-pill img { flex: none; }
+.vc.vc-p-home .ho-ring { z-index: 2; }
