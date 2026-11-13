@@ -13,6 +13,12 @@ The approved November 2026 redesign. A Version C page is a `vcPage` Sanity docum
   (client quote), `vcShared` (the "Led by practitioners" block and booking defaults).
 - FAQ tabs reference the central `faqItem` store. Questions added with these pages have ids
   `faqItem-vc-*` and stay off the /faqs hub (`getFaqItems`).
+- **The first FAQ tab is about the page, and only the page.** Generic questions (pricing, "Why choose
+  Fruition over a Big-4 firm?", "Can Fruition deliver this remotely?") and questions about another
+  product or service (AI agent cost on a Claude page, "Does monday com have a CRM?" on the Atlassian
+  page) go in the other tabs, the selector bubbles. Name the first tab after the page topic, not "FAQ",
+  and do not repeat a question across tabs. Applied to 42 pages on 13 Nov 2026 by
+  `scripts/vc/page-specific-faqs-2026-11.ts` (dry run by default, `--restore <backup>` to undo).
 - Headings: wrap the accented words in asterisks, `Retailers that run *operations on monday.com.*`.
 
 Every string renders as Sanity copy and every image comes from the Sanity CDN, so the whole page
