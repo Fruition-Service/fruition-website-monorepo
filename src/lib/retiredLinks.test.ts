@@ -185,7 +185,7 @@ describe("RETIRED_SOLUTION_SLUGS", () => {
 
 describe("RETIRED_PARTNERSHIP_SLUGS and RETIRED_AUTHOR_SLUGS", () => {
   it("cover only the cleaned-up pages", () => {
-    expect([...RETIRED_PARTNERSHIP_SLUGS].sort()).toEqual(["certified-guidde-partner", "certified-hubspot-partner", "langgraph-partner"])
+    expect([...RETIRED_PARTNERSHIP_SLUGS].sort()).toEqual(["certified-atlassian-partner", "certified-guidde-partner", "certified-hubspot-partner", "langgraph-partner"])
     expect([...RETIRED_AUTHOR_SLUGS].sort()).toEqual([
       "fruition-services",
       "ishani-chowdhury",

@@ -65,11 +65,11 @@ describe('/atlassian-consulting merged page', () => {
 
   it('links exactly two pages that exist from Go deeper', () => {
     expect(hub.children?.map((c) => c.href)).toEqual([
-      '/partnerships/certified-atlassian-partner',
+      '/atlassian-consulting#partner',
       '/implementation-packages',
     ])
     for (const c of hub.children ?? []) {
-      expect(existsSync(join(process.cwd(), 'src/app', c.href, 'page.tsx')), c.href).toBe(true)
+      expect(existsSync(join(process.cwd(), 'src/app', c.href.split('#')[0], 'page.tsx')), c.href).toBe(true)
     }
   })
 
@@ -102,10 +102,13 @@ describe('/atlassian-consulting merged page', () => {
     expect(sitemap).not.toContain(`"${path}"`)
   })
 
-  it('keeps the hub and the partner page in the sitemap', () => {
+  it('keeps the hub in the sitemap and retires the old partner page into its #partner section', () => {
+    const config = readFileSync(join(process.cwd(), 'next.config.ts'), 'utf8')
     const sitemap = readFileSync(join(process.cwd(), 'src/app/sitemap.ts'), 'utf8')
     expect(sitemap).toContain('"/atlassian-consulting"')
-    expect(sitemap).toContain('"/partnerships/certified-atlassian-partner"')
+    expect(sitemap).not.toContain('certified-atlassian-partner')
+    expect(existsSync(join(process.cwd(), 'src/app/partnerships/certified-atlassian-partner'))).toBe(false)
+    expect(config).toContain('{ source: "/partnerships/certified-atlassian-partner", destination: "/atlassian-consulting#partner", statusCode: 301 }')
   })
 
   it('links to no retired leaf from the site source or the published text files', () => {

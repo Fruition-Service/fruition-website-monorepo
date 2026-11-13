@@ -235,7 +235,7 @@ export const NAV_V2: NavV2Item[] = [
           },
           {
             label: 'Atlassian',
-            href: '/partnerships/certified-atlassian-partner',
+            href: '/atlassian-consulting',
             icon: 'atlassian',
             description: 'Platinum Partner · Rising Star 2026',
           },

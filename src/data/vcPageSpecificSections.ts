@@ -152,6 +152,16 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     source: ATLASSIAN_SCRIPT,
   },
   {
+    path: '/atlassian-consulting',
+    key: 'pagespecific-atlassian-partner',
+    type: 'vcCards',
+    heading: 'Accelerate Your Enterprise & Maximise Efficiency *with Atlassian*',
+    reason:
+      'The retired /partnerships/certified-atlassian-partner page folded into this one (Edward, 13 Nov 2026): its "Accelerate Your Enterprise" block with #1 in ROVO, Service Management and Cloud Migration, badge "Atlassian Certified Partner" to keep that ranking. The unsourced 277% ROI claim was removed. The old URL 301s to #partner.',
+    added: '2026-11-13',
+    source: 'scripts/vc/atlassian-partner-fold-2026-11.ts',
+  },
+  {
     path: '/contact-us',
     key: 'pagespecific-contact-partner-ecosystem',
     type: 'vcToolkit',

@@ -131,7 +131,7 @@ export default defineType({
       name: 'childLinks',
       title: 'Linked Pages',
       type: 'array',
-      description: 'Internal paths only, e.g. /partnerships/certified-atlassian-partner.',
+      description: 'Internal paths only, e.g. /atlassian-consulting.',
       group: 'children',
       of: [
         defineArrayMember({

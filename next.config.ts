@@ -45,6 +45,9 @@ const auditRedirects: Redirect[] = [
   { source: "/hubspot-consulting/hubspot-to-monday-migration", destination: "/hubspot-consulting#migration", statusCode: 301 },
   // The old HubSpot partner page is retired into the hub too (RETIRED_PARTNERSHIP_SLUGS).
   { source: "/partnerships/certified-hubspot-partner", destination: "/hubspot-consulting", statusCode: 301 },
+  // The old Atlassian partner page is retired into the hub too: its copy is the #partner section
+  // (RETIRED_PARTNERSHIP_SLUGS, Edward 13 Nov 2026).
+  { source: "/partnerships/certified-atlassian-partner", destination: "/atlassian-consulting#partner", statusCode: 301 },
 
   // ── Orphaned Wix pages (September 2026, fruitionmonday.com cutover) ──
   // Found by replaying the retired Wix site's sitemap against this one: of its

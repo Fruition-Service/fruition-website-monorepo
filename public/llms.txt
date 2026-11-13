@@ -57,6 +57,7 @@ How an agent should reach Fruition: there is no public API, no MCP server and no
 ## Atlassian and HubSpot
 
 - [Atlassian consulting](https://www.fruitionservices.io/atlassian-consulting)
+- [Atlassian Certified Partner](https://www.fruitionservices.io/atlassian-consulting#partner): Atlassian partner status, Rovo AI agents, service management and cloud migration.
 - [HubSpot consulting](https://www.fruitionservices.io/hubspot-consulting)
 - [HubSpot implementation](https://www.fruitionservices.io/hubspot-consulting#implementation)
 - [HubSpot Breeze AI](https://www.fruitionservices.io/hubspot-consulting#breeze-ai)

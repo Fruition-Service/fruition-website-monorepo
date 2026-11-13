@@ -97,7 +97,6 @@ const STATIC_PATHS: string[] = [
   "/partnerships/aircall-partner",
   "/partnerships/anthropic-claude-partner",
   "/partnerships/aws-partner",
-  "/partnerships/certified-atlassian-partner",
   "/partnerships/certified-clickup-partner",
   "/partnerships/clay-partner",
   "/partnerships/elevenlabs-partner",

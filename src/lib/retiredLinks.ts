@@ -40,6 +40,8 @@ export const RETIRED_PARTNERSHIP_SLUGS: ReadonlySet<string> = new Set([
   "langgraph-partner",
   // Folded into /hubspot-consulting (Vadim, monday 2900266080, 13 Nov 2026).
   "certified-hubspot-partner",
+  // Folded into /atlassian-consulting#partner (Edward, 13 Nov 2026).
+  "certified-atlassian-partner",
 ])
 
 /**

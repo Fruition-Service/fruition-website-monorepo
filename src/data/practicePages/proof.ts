@@ -84,7 +84,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
       {
         label: 'Atlassian',
         description: 'Jira, Confluence, and Jira Service Management delivery.',
-        href: '/partnerships/certified-atlassian-partner',
+        href: '/atlassian-consulting',
       },
       {
         label: 'HubSpot',

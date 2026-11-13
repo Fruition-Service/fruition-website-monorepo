@@ -73,7 +73,7 @@ export const PARTNERS_HUB = {
         { label: 'Implementation packages', href: '/implementation-packages' },
       ],
       cta: 'Atlassian services →',
-      href: '/partnerships/certified-atlassian-partner',
+      href: '/atlassian-consulting',
     },
     {
       group: 'Automation',
