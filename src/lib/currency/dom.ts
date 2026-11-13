@@ -15,6 +15,7 @@ import type { CurrencyCode, CurrencyKit } from "./kit"
  *   data-price-base="USD" (or another code), which names what "$" means there.
  * - data-currency-skip opts a subtree out (regional price lists, client
  *   outcomes). Elements with data-price are rendered by <Price/> and skipped.
+ *   Removing the attribute later (a component finished hydrating) converts it.
  * - The original text is kept, so switching back restores it exactly.
  *
  * State lives in localStorage under STORAGE_KEY as {code, source, at}:
@@ -159,7 +160,11 @@ export function mountCurrency(win: Window, kit: CurrencyKit, opts: MountOptions)
       new (win as unknown as { MutationObserver: typeof MutationObserver }).MutationObserver(function (muts: MutationRecord[]) {
         for (let i = 0; i < muts.length; i++) {
           const m = muts[i]
-          if (m.type === "characterData") {
+          if (m.type === "attributes") {
+            // data-currency-skip lifted (a component finished hydrating): convert what it holds.
+            const el = m.target as Element
+            if (!el.hasAttribute("data-currency-skip")) enqueue(el)
+          } else if (m.type === "characterData") {
             const t = m.target as Text
             const rec = originals.get(t)
             if (rec && t.nodeValue === rec.out) continue
@@ -168,7 +173,7 @@ export function mountCurrency(win: Window, kit: CurrencyKit, opts: MountOptions)
             for (let j = 0; j < m.addedNodes.length; j++) enqueue(m.addedNodes[j])
           }
         }
-      }).observe(doc.body, { childList: true, subtree: true, characterData: true })
+      }).observe(doc.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ["data-currency-skip"] })
     } catch { /* no observer: the first pass still ran */ }
   }
 

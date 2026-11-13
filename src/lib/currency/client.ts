@@ -43,3 +43,19 @@ const serverSnapshot = () => null
 export function useDisplayCurrency(): CurrencyState | null {
   return useSyncExternalStore(subscribe, snapshot, serverSnapshot)
 }
+
+const noopSubscribe = () => () => {}
+
+/**
+ * False on the server and during hydration, true from the commit right after.
+ *
+ * The DOM price rewrite (dom.ts) can fire before React has hydrated a
+ * Suspense-deferred section, and hydrating over rewritten text throws
+ * "Hydration failed". A client component whose server HTML holds prices in
+ * CMS text sets `data-currency-skip={hydrated ? undefined : ""}` on the
+ * element around that text: the rewrite leaves it alone until the component
+ * has hydrated, then picks it up when the attribute lifts.
+ */
+export function useHydrated(): boolean {
+  return useSyncExternalStore(noopSubscribe, () => true, () => false)
+}
