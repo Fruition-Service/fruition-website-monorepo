@@ -137,7 +137,7 @@ export const ATLASSIAN_PAGES: Record<string, PracticePage> = {
       {
         label: 'Atlassian Certified Partner',
         description: 'Certification status and what it means for delivery',
-        href: '/partnerships/certified-atlassian-partner',
+        href: '/atlassian-consulting#partner',
       },
       {
         label: 'Implementation packages',

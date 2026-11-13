@@ -433,7 +433,7 @@ export const NAV_ICONS: Record<string, (props: IconProps) => ReactElement> = {
  */
 const PARTNER_LOGO_BY_HREF: Record<string, string> = {
   '/partnerships/monday-consulting-partner': 'monday',
-  '/partnerships/certified-atlassian-partner': 'atlassian',
+  '/atlassian-consulting': 'atlassian',
   '/partnerships/certified-hubspot-partner': 'hubspot',
   '/hubspot-consulting': 'hubspot',
   '/partnerships/certified-clickup-partner': 'clickup',
