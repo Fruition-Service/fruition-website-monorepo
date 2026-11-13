@@ -43,7 +43,8 @@ export function buildPricingJsonLd(page: VcPageData, seo: { title?: string; desc
     .flatMap((t) =>
       (t.rows ?? []).map((r) => ({
         "@type": "Offer",
-        name: `${clean(r.name)}: initial phase`,
+        // Rows priced as an "initial phase" get that suffix; outcome packages are named in full already.
+        name: /initial phase/i.test(clean(r.note)) ? `${clean(r.name)}: initial phase` : clean(r.name),
         url: `${SITE_URL}${clean(r.href)}`,
         priceSpecification: { "@type": "PriceSpecification", minPrice: amount(r.price), priceCurrency: "AUD" },
         itemOffered: { "@type": "Service", name: clean(r.name), provider: { "@id": ORG_ID } },
