@@ -20,6 +20,7 @@ describe("partnerBadgesForPath", () => {
     expect(keys("/partnerships/openai-chatgpt-partner")).toEqual(["openai"])
     expect(keys("/partnerships/anthropic-claude-partner")).toEqual(["claude"])
     expect(keys("/partnerships/elevenlabs-partner")).toEqual(["elevenlabs"])
+    expect(keys("/partnerships/hootsuite-delivery-partner")).toEqual(["hootsuite"])
     expect(keys("/ai-consulting/agent-development")).toEqual(["claude", "openai", "elevenlabs", "googleCloud"])
   })
 
