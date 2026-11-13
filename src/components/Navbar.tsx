@@ -8,6 +8,7 @@ import { vercelStegaClean } from '@vercel/stega'
 import { NavIcon } from '@/components/common/icons/NavIcons'
 import RegionalCallPopover, { MobileCallList, type CallOffice } from '@/components/RegionalCallPopover'
 import { urlFor } from '@/sanity/image'
+import NavFlipBook, { type NavFlipSlide } from '@/components/NavFlipBook'
 
 interface NavLink {
   label?: string
@@ -42,6 +43,8 @@ interface NavFeature {
   image?: unknown
   /** Up to two headline results, e.g. 17x / ROI. */
   metrics?: { value?: string; label?: string }[]
+  /** Two or more pages turn the card into a flip book. */
+  slides?: NavFlipSlide[]
   label?: string
   href?: string
 }
@@ -410,7 +413,16 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     )
                   })}
 
-                  {item.feature?.quote && (item.feature.logo || item.feature.image) ? (
+                  {(item.feature?.slides?.length ?? 0) > 1 ? (
+                    <NavFlipBook
+                      kicker={item.feature!.kicker}
+                      slides={item.feature!.slides!}
+                      label={item.feature!.label}
+                      href={item.feature!.href}
+                      active={open}
+                      onNavigate={() => setOpenMenu(null)}
+                    />
+                  ) : item.feature?.quote && (item.feature.logo || item.feature.image) ? (
                     <CaseStudyCard feature={item.feature} onNavigate={() => setOpenMenu(null)} />
                   ) : item.feature?.quote && (
                     <figure className="nd-feat">

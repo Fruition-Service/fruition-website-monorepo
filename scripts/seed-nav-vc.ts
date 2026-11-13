@@ -9,6 +9,8 @@
  *   npx tsx scripts/seed-nav-vc.ts --apply               # backs up, then writes menu, footer, socials and banner link
  *   npx tsx scripts/seed-nav-vc.ts --only Pricing --apply  # backs up, then replaces only that tab in the live menu
  *                                                         # (also works with --preview-file); every other tab and the footer stay as editors left them
+ *   npx tsx scripts/seed-nav-vc.ts --only Partnership --live Platforms --apply  # renames a tab: replaces the live "Platforms" tab with the seed's "Partnership"
+ *   npx tsx scripts/seed-nav-vc.ts --footer-only --apply  # backs up, then writes only footerColumns (the link columns)
  *
  * Fields written: navigation, footerTagline, footerBadges, footerColumns,
  * footerCopyrightText, socialLinks, announcementHref. The banner text and the
@@ -85,6 +87,26 @@ function toSanityFeature(f: NonNullable<NavVcItem['feature']>) {
     ...(f.imageAsset ? { image: assetImage(f.imageAsset) } : {}),
     ...(f.metrics?.length
       ? { metrics: f.metrics.map((m, k) => ({ _type: 'navFeatureMetric', _key: `metric-${k}`, value: m.value, label: m.label })) }
+      : {}),
+    ...(f.slides?.length
+      ? {
+          slides: f.slides.map((s, k) => ({
+            _type: 'navFeatureSlide',
+            _key: `slide-${k}`,
+            ...(s.title ? { title: s.title } : {}),
+            ...(s.meta ? { meta: s.meta } : {}),
+            ...(s.quote ? { quote: s.quote } : {}),
+            ...(s.plain ? { plain: true } : {}),
+            ...(s.attribution ? { attribution: s.attribution } : {}),
+            ...(s.href ? { href: s.href } : {}),
+            ...(s.logos?.length
+              ? { logos: s.logos.map((l, j) => ({ ...assetImage(l.asset), _key: `logo-${j}`, alt: l.alt })) }
+              : {}),
+            ...(s.metrics?.length
+              ? { metrics: s.metrics.map((m, j) => ({ _type: 'navFeatureSlideMetric', _key: `metric-${j}`, value: m.value, label: m.label })) }
+              : {}),
+          })),
+        }
       : {}),
     label: f.label,
     href: f.href,
@@ -236,12 +258,12 @@ async function restore(file: string) {
  * Swap one tab of the live menu for its seed version, keeping the live tab's
  * _key and position. Everything else in siteSettings is left untouched.
  */
-async function replaceTab(label: string, previewFile: string | null, apply: boolean) {
+async function replaceTab(label: string, previewFile: string | null, apply: boolean, liveLabel = label) {
   const live = await writeClient.fetch<{ _id: string; navigation?: { _key: string; label?: string }[] }>(
     `*[_type == "siteSettings"][0]{ _id, navigation }`,
   )
-  const current = live?.navigation?.find((i) => i.label === label)
-  if (!live || !current) throw new Error(`No live tab labelled "${label}"`)
+  const current = live?.navigation?.find((i) => i.label === liveLabel)
+  if (!live || !current) throw new Error(`No live tab labelled "${liveLabel}"`)
   const refs = await uploadIcons()
   const seeded = toSanityNav(refs).find((i) => i.label === label)
   if (!seeded) throw new Error(`No seed tab labelled "${label}" in src/data/nav-vc.ts`)
@@ -280,12 +302,26 @@ async function main() {
     return
   }
 
+  if (args.includes('--footer-only')) {
+    const { footerColumns } = toSanityFooter({})
+    if (!args.includes('--apply')) {
+      console.log('\nDry run: would replace footerColumns only. Add --apply to write.')
+      return
+    }
+    const { id, file } = await backup()
+    await writeClient.patch(id).set({ footerColumns }).commit()
+    console.log('Wrote footerColumns.')
+    console.log(`Rollback: npx tsx scripts/seed-nav-vc.ts --restore ${path.relative(process.cwd(), file)}`)
+    return
+  }
+
   const onlyIdx = args.indexOf('--only')
   if (onlyIdx !== -1) {
     const label = args[onlyIdx + 1]
     if (!label) throw new Error('Usage: --only <tab label>')
     const previewAt = args.indexOf('--preview-file')
-    return replaceTab(label, previewAt === -1 ? null : args[previewAt + 1], args.includes('--apply'))
+    const liveAt = args.indexOf('--live')
+    return replaceTab(label, previewAt === -1 ? null : args[previewAt + 1], args.includes('--apply'), liveAt === -1 ? label : args[liveAt + 1])
   }
 
   const previewIdx = args.indexOf('--preview-file')

@@ -291,6 +291,56 @@ export default {
                     },
                   ],
                 },
+                {
+                  name: 'slides',
+                  title: 'Flip book pages',
+                  type: 'array',
+                  description:
+                    'Optional. With two or more pages the card turns through them on its own (pausing on hover). The link label and href above stay under every page. Use client quotes word for word.',
+                  of: [
+                    {
+                      type: 'object',
+                      name: 'navFeatureSlide',
+                      fields: [
+                        { name: 'title', title: 'Title', type: 'string', description: 'e.g. an industry name.' },
+                        { name: 'meta', title: 'Meta line', type: 'string', description: 'Short line under the title, e.g. "70 builds".' },
+                        { name: 'quote', title: 'Quote or blurb', type: 'text', rows: 3 },
+                        { name: 'plain', title: 'Plain text (no quotation marks)', type: 'boolean' },
+                        { name: 'attribution', title: 'Attribution', type: 'string' },
+                        {
+                          name: 'logos',
+                          title: 'Client logos',
+                          type: 'array',
+                          description: 'One logo for a case study, three for a logo row, six for a mosaic.',
+                          of: [
+                            {
+                              type: 'image',
+                              fields: [{ name: 'alt', title: 'Client name', type: 'string' }],
+                            },
+                          ],
+                        },
+                        {
+                          name: 'metrics',
+                          title: 'Headline figures',
+                          type: 'array',
+                          of: [
+                            {
+                              type: 'object',
+                              name: 'navFeatureSlideMetric',
+                              fields: [
+                                { name: 'value', title: 'Value', type: 'string' },
+                                { name: 'label', title: 'Label', type: 'string' },
+                              ],
+                              preview: { select: { title: 'value', subtitle: 'label' } },
+                            },
+                          ],
+                        },
+                        { name: 'href', title: 'Title link', type: 'string' },
+                      ],
+                      preview: { select: { title: 'title', subtitle: 'attribution' } },
+                    },
+                  ],
+                },
                 { name: 'label', title: 'Link label', type: 'string' },
                 { name: 'href', title: 'Link href', type: 'string' },
               ],
