@@ -5,7 +5,7 @@ import Link from "next/link"
 import { vercelStegaClean } from "@vercel/stega"
 import BuildDialog from "@/components/ai-use-cases/BuildDialog"
 import UseCaseBuild from "@/components/ai-use-cases/UseCaseBuild"
-import { USE_CASES_DATA_PATH } from "@/features/ai-use-cases/types"
+import { USE_CASES_DATA_PATH, industryHref } from "@/features/ai-use-cases/types"
 import type { IndustryMeta, UseCase, UseCaseTile } from "@/features/ai-use-cases/types"
 import { Arrow, Head } from "../primitives"
 import type { VcCatalogueData } from "../types"
@@ -109,6 +109,7 @@ export default function VcCatalogueView({
     }
   }, [slug])
 
+  const industryByKey = useMemo(() => new Map(industries.map((i) => [i.key, i])), [industries])
   const filtered = visible.length !== tiles.length
   const count = filtered
     ? fill(s.countFiltered, { shown: Math.min(limit, visible.length), total: visible.length })
@@ -120,6 +121,19 @@ export default function VcCatalogueView({
     <>
       <Head head={s.head} />
       <div className="filters">
+        {f.industry && industryByKey.has(f.industry) && (
+          <div className="frow">
+            <span className="label">{s.industryLabel || "Industry"}</span>
+            <div className="tabs" role="group">
+              <button type="button" onClick={() => setParam("industry", "")}>
+                {s.allIndustriesLabel || "All industries"}
+              </button>
+              <button type="button" className="on" aria-pressed="true">
+                {industryByKey.get(f.industry)?.name}
+              </button>
+            </div>
+          </div>
+        )}
         <div className="frow">
           <span className="label">{s.departmentLabel}</span>
           <div className="tabs" role="group">
@@ -211,8 +225,8 @@ export default function VcCatalogueView({
           ) : failed && failed === slug ? (
             <p className="text-body text-muted">
               This build could not be loaded.{" "}
-              <Link href={`/ai-use-cases/${industries.find((i) => i.key === openTile.industry)?.slug ?? ""}#${openTile.id}`} className="font-semibold text-brand hover:underline">
-                Open it on the industry page
+              <Link href={(() => { const ind = industries.find((i) => i.key === openTile.industry); return ind ? industryHref(ind) : "/ai-use-cases" })()} className="font-semibold text-brand hover:underline">
+                See this industry&rsquo;s use cases
               </Link>
               .
             </p>

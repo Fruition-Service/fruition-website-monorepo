@@ -31,6 +31,8 @@ export const LANDING_PAGE_USE_CASES = {
   "/monday-for-retail": { industrySlug: "retail-ecommerce", label: "monday.com for Retail" },
   "/industries/healthcare": { industrySlug: "healthcare", label: "Healthcare" },
   "/industries/financial-services": { industrySlug: "financial-services", label: "Financial Services" },
+  "/industries/transport-logistics": { industrySlug: "logistics", label: "Transport & Logistics" },
+  "/industries/technology-saas": { industrySlug: "technology-saas", label: "Technology & SaaS" },
   "/industries/education": {
     industrySlug: "education-nonprofit",
     label: "Education",
@@ -85,14 +87,4 @@ export function pickFeaturedUseCases(
     )
     .slice(0, limit)
     .map(({ uc }) => uc)
-}
-
-/**
- * The landing pages a catalogue industry page links back to. The solar page
- * only borrows a few construction builds, so construction does not link to it.
- */
-export function landingPagesFor(industrySlug: string): { path: string; label: string }[] {
-  return Object.entries(LANDING_PAGE_USE_CASES as Record<string, FeaturedUseCaseSource>)
-    .filter(([, s]) => s.industrySlug === industrySlug && !s.onlyPreferred)
-    .map(([path, s]) => ({ path, label: s.label }))
 }

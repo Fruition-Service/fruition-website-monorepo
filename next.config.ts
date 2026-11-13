@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import type { Redirect } from "next/dist/lib/load-custom-routes";
 import { wixRedirects } from "./src/redirects";
 import { tagPostRedirects } from "./src/tagRedirects";
+import { retiredUseCaseRedirects } from "./src/features/ai-use-cases/retired";
 
 // Redirects added after the Wix migration (e.g. from SEO/technical audits).
 // src/redirects.ts is auto-generated from the migration import — add new
@@ -48,6 +49,10 @@ const auditRedirects: Redirect[] = [
   // The old Atlassian partner page is retired into the hub too: its copy is the #partner section
   // (RETIRED_PARTNERSHIP_SLUGS, Edward 13 Nov 2026).
   { source: "/partnerships/certified-atlassian-partner", destination: "/atlassian-consulting#partner", statusCode: 301 },
+  // The 12 /ai-use-cases/<industry> pages are retired: each industry's use cases
+  // now sit in the #ai-use-cases section of its landing page; cross-industry
+  // goes to the hub (13 Nov 2026, Edward). Mapping in src/features/ai-use-cases.
+  ...retiredUseCaseRedirects,
 
   // ── Orphaned Wix pages (September 2026, fruitionmonday.com cutover) ──
   // Found by replaying the retired Wix site's sitemap against this one: of its

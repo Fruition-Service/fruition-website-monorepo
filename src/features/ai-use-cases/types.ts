@@ -117,12 +117,45 @@ export interface UseCaseIndex {
 export const USE_CASES_PATH = "/ai-use-cases"
 export const USE_CASES_DATA_PATH = "/data/ai-use-cases"
 
-export function industryHref(slug: string): string {
-  return `${USE_CASES_PATH}/${slug}`
+/** In-page anchor of the use case section on each industry landing page. */
+export const USE_CASES_ANCHOR = "ai-use-cases"
+
+/**
+ * Where each catalogue industry's use cases live now. The per-industry
+ * /ai-use-cases/<slug> pages are retired (301 to these, see ./retired.ts);
+ * the use cases sit in a `vcUseCases` section on the industry's own page.
+ * Education and nonprofit share one catalogue industry; the education page is
+ * the primary home and /industries/nonprofits carries the same section.
+ * `cross-industry` has no industry page: it lives in the hub.
+ */
+export const INDUSTRY_PAGES: Record<string, string> = {
+  construction: "/monday-for-construction",
+  "education-nonprofit": "/industries/education",
+  "financial-services": "/industries/financial-services",
+  government: "/monday-for-government",
+  healthcare: "/industries/healthcare",
+  logistics: "/industries/transport-logistics",
+  manufacturing: "/monday-for-manufacturing",
+  "professional-services": "/monday-for-professional-services",
+  "real-estate": "/monday-for-real-estate",
+  "retail-ecommerce": "/monday-for-retail",
+  "technology-saas": "/industries/technology-saas",
 }
 
-export function caseAnchorHref(industrySlug: string, id: string): string {
-  return `${industryHref(industrySlug)}#${id}`
+/** The hub with one industry preselected (`?industry=` takes the industry key). */
+export function hubIndustryHref(industryKey: string): string {
+  return `${USE_CASES_PATH}?industry=${encodeURIComponent(industryKey)}#catalogue`
+}
+
+/** An industry's use cases: its landing page section, or the filtered hub when it has no page. */
+export function industryHref(industry: Pick<IndustryMeta, "slug" | "key">): string {
+  const page = INDUSTRY_PAGES[industry.slug]
+  return page ? `${page}#${USE_CASES_ANCHOR}` : hubIndustryHref(industry.key)
+}
+
+/** "See the build": the hub with the case's industry preselected and its build opened (`#uc-…`). */
+export function caseAnchorHref(industryKey: string, id: string): string {
+  return `${USE_CASES_PATH}?industry=${encodeURIComponent(industryKey)}#${id}`
 }
 
 export function toTile(uc: UseCase): UseCaseTile {

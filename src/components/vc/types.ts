@@ -67,7 +67,7 @@ export interface VcSolutionFinderData extends Base {
 export interface VcAuditData extends Base { _type: "vcAudit"; heading?: string; text?: string; cta?: VcCtaData }
 export interface VcCardsData extends Base { _type: "vcCards"; head?: VcHeadData; layout?: string; imageFrame?: string; listClass?: string; titleClass?: string; tagClass?: string; sectionClass?: string; items?: VcItemData[] }
 export interface VcProductsData extends Base { _type: "vcProducts"; head?: VcHeadData; items?: VcItemData[] }
-export interface VcUseCasesData extends Base { _type: "vcUseCases"; head?: VcHeadData; source?: string; linkLabel?: string }
+export interface VcUseCasesData extends Base { _type: "vcUseCases"; head?: VcHeadData; source?: string; linkLabel?: string; moreLabel?: string }
 export interface VcProofData extends Base {
   _type: "vcProof"; layout?: string; filters?: { _key?: string; label?: string; key?: string }[]; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]; quotes?: VcQuoteData[]
 }
@@ -185,7 +185,7 @@ export interface VcFactsData extends Base { _type: "vcFacts"; head?: VcHeadData;
 export interface VcIndustryGridData extends Base { _type: "vcIndustryGrid"; head?: VcHeadData; labelTemplate?: string }
 export interface VcCatalogueData extends Base {
   _type: "vcCatalogue"; head?: VcHeadData; departmentLabel?: string; allDepartmentsLabel?: string; searchLabel?: string; searchPlaceholder?: string
-  filterLabel?: string; aiOnlyLabel?: string; countAll?: string; countFiltered?: string; emptyText?: string; ownLabel?: string; aiLabel?: string; linkLabel?: string; moreLabel?: string
+  filterLabel?: string; aiOnlyLabel?: string; countAll?: string; countFiltered?: string; emptyText?: string; ownLabel?: string; aiLabel?: string; linkLabel?: string; moreLabel?: string; industryLabel?: string; allIndustriesLabel?: string
   overrides?: { _key?: string; id?: string; title?: string; summary?: string; metric?: string }[]
 }
 
