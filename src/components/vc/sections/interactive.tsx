@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { vercelStegaClean } from "@vercel/stega"
-import { Btn, Head, QuoteAvatar } from "../primitives"
+import { Btn, Head, LinkedInLink, QuoteAvatar } from "../primitives"
 import { dataset, projectId } from "@/sanity/env"
 import type { VcFixData, VcIndustryTabsData, VcTrackData } from "../types"
 
@@ -266,14 +266,7 @@ export function VcTeamCard({ m, photo, cls = "pc" }: { m: import("../types").VcT
               {open ? "Show less" : "Read more"}
             </button>
           )}
-          {m.linkedinUrl && (
-            <a className="link" href={vercelStegaClean(m.linkedinUrl)} target="_blank" rel="noopener noreferrer">
-              LinkedIn
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
-          )}
+          {m.linkedinUrl && <LinkedInLink href={m.linkedinUrl} name={m.name} />}
         </div>
       </div>
     </article>

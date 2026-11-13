@@ -1,0 +1,981 @@
+[
+ {
+  "_createdAt": "2026-05-14T13:26:59Z",
+  "_id": "team-roster-2520384168",
+  "_rev": "6Lbz838riYBADl7vjRJ1fA",
+  "_system": {
+   "base": {
+    "id": "team-roster-2520384168",
+    "rev": "QQPI8EE9dTLPal9ynfPIsd"
+   }
+  },
+  "_type": "teamMember",
+  "_updatedAt": "2026-11-03T10:50:40Z",
+  "name": "Mogamad Daanyaal Effendi",
+  "order": 36,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-79019ad1e62692146bd88654c1f6f2ed817f17c7-512x512-png",
+    "_type": "reference"
+   }
+  },
+  "regions": [
+   "UK"
+  ],
+  "role": "AI & Implementation Consultant"
+ },
+ {
+  "_createdAt": "2026-05-14T13:26:03Z",
+  "_id": "team-roster-2604975454",
+  "_rev": "6Lbz838riYBADl7vjRJ1fA",
+  "_system": {
+   "base": {
+    "id": "team-roster-2604975454",
+    "rev": "QQPI8EE9dTLPal9ynfPFn1"
+   }
+  },
+  "_type": "teamMember",
+  "_updatedAt": "2026-11-03T10:50:40Z",
+  "name": "Adam Briers",
+  "order": 9,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-5e7784b37f5580745a0fab181f2b71bc5d9d2b83-512x512-png",
+    "_type": "reference"
+   }
+  },
+  "regions": [
+   "APAC"
+  ],
+  "role": "AI & Implementation Consultant"
+ },
+ {
+  "_createdAt": "2026-05-14T13:26:29Z",
+  "_id": "team-roster-5024398368",
+  "_rev": "6Lbz838riYBADl7vjRJ1fA",
+  "_system": {
+   "base": {
+    "id": "team-roster-5024398368",
+    "rev": "QQPI8EE9dTLPal9ynfPHC7"
+   }
+  },
+  "_type": "teamMember",
+  "_updatedAt": "2026-11-03T10:50:40Z",
+  "name": "Dev",
+  "order": 24,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-8b670e6720ee89a3fab73215d7794bc1ce96e9e5-512x512-jpg",
+    "_type": "reference"
+   }
+  },
+  "regions": [
+   "IN",
+   "APAC",
+   "UK"
+  ],
+  "role": "AI & Implementation Consultant"
+ },
+ {
+  "_createdAt": "2026-05-14T13:25:47Z",
+  "_id": "team-roster-5024831399",
+  "_rev": "6Lbz838riYBADl7vjRJ1fA",
+  "_system": {
+   "base": {
+    "id": "team-roster-5024831399",
+    "rev": "G75AimZf3S6gtpOK7JVRdE"
+   }
+  },
+  "_type": "teamMember",
+  "_updatedAt": "2026-11-03T10:50:40Z",
+  "emoji": "🥝",
+  "linkedinUrl": "https://www.linkedin.com/in/sarah-wealleans-00561865/",
+  "name": "Sarah Wealleans",
+  "order": 3,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-89d040828aded6cad69aaca8c3ce1150b9eeb99a-512x512-png",
+    "_type": "reference"
+   },
+   "crop": {
+    "_type": "sanity.imageCrop",
+    "bottom": 0.1406,
+    "left": 0.332,
+    "right": 0.082,
+    "top": 0.2734
+   },
+   "hotspot": {
+    "_type": "sanity.imageHotspot",
+    "height": 0.586,
+    "width": 0.586,
+    "x": 0.625,
+    "y": 0.5664
+   }
+  },
+  "regions": [
+   "APAC",
+   "SG"
+  ],
+  "role": "AI Project Manager"
+ },
+ {
+  "_createdAt": "2026-03-31T06:27:19Z",
+  "_id": "team-zach",
+  "_rev": "AbE0eRTxRWYSaELT1Stat2",
+  "_type": "teamMember",
+  "_updatedAt": "2026-08-01T02:23:19Z",
+  "bio": "Translating strategy into action and positive outcomes, Zach leads Fruition's US & EMEA growing operations.",
+  "name": "Zach Weller",
+  "order": 42,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-cf374b7d32b3925ddec53b799e10e0d0cc759207-800x800-jpg",
+    "_type": "reference"
+   }
+  },
+  "regions": [
+   "US"
+  ],
+  "role": "Director of North America"
+ },
+ {
+  "_createdAt": "2026-11-10T22:35:54Z",
+  "_id": "vcPage-fruition-team",
+  "_rev": "4UtamtR3wmQaeEVZTZFdtw",
+  "_type": "vcPage",
+  "_updatedAt": "2026-11-13T08:38:48Z",
+  "group": "company",
+  "path": "/fruition-team",
+  "sections": [
+   {
+    "_key": "7be294e98f71",
+    "_type": "vcHero",
+    "badge": "Fruition team",
+    "chipLabel": "certified consultants",
+    "chipValue": "40+",
+    "creds": [
+     {
+      "_key": "8213b0dfe37c",
+      "_type": "vcLogo",
+      "alt": "monday.com Platinum Partner",
+      "image": {
+       "_type": "image",
+       "asset": {
+        "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+        "_type": "reference"
+       }
+      }
+     }
+    ],
+    "ctas": [
+     {
+      "_key": "ab2ee0e48cc4",
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#book",
+      "label": "Book a Meeting",
+      "style": "primary"
+     },
+     {
+      "_key": "255821a034df",
+      "_type": "vcCta",
+      "arrow": false,
+      "href": "#team",
+      "label": "Meet the team",
+      "style": "outline"
+     }
+    ],
+    "frameImage": {
+     "_type": "image",
+     "alt": "The Fruition team at the Australian AI Awards 2026",
+     "asset": {
+      "_ref": "image-6b684799281531cce9e31bf73fbff62f0290042a-800x533-jpg",
+      "_type": "reference"
+     }
+    },
+    "heading": "Drive Peak Performance with an *Elite, Certified Team*",
+    "lead": "The Fruition team consists of 40+ highly talented consultants that are fully certified in disciplines such as monday.com, Atlassian, Make, n8n, and Hootsuite.",
+    "stats": [
+     {
+      "_key": "ea07a0ead274",
+      "_type": "vcStat",
+      "label": "Ecosystem workspaces built",
+      "value": "900*+*"
+     },
+     {
+      "_key": "864ef9219066",
+      "_type": "vcStat",
+      "label": "Hours of saved manual work",
+      "value": "10,000*+*"
+     },
+     {
+      "_key": "111e87169a9a",
+      "_type": "vcStat",
+      "label": "Core certified team",
+      "value": "100*%*"
+     }
+    ]
+   },
+   {
+    "_key": "07d2a2940f9e",
+    "_type": "vcCards",
+    "head": {
+     "_type": "vcHead",
+     "badge": "Our vision",
+     "heading": "The Fruition team's vision is *simple*",
+     "lead": "Implement software differently by making the process enjoyable, fast, and transparent."
+    },
+    "items": [
+     {
+      "_key": "cdb2332bc8dc",
+      "_type": "vcItem",
+      "body": "The Fruition team comes from all walks of life. Our managing director, Josh is an ex-monday.com employee with 15 years of experience in software transformation and change management.",
+      "label": "Our people"
+     },
+     {
+      "_key": "3aa81f9e53fa",
+      "_type": "vcItem",
+      "body": "We are globally certified and insured in all regions with the tools we partner proudly partner and understand the importance of IP and data security as our core.",
+      "label": "Security and certification"
+     },
+     {
+      "_key": "fca189b0f609",
+      "_type": "vcItem",
+      "body": "We thrive on understanding how your business ticks and finding ways to help you streamline and thrive in any business climate.",
+      "label": "How we work"
+     }
+    ],
+    "layout": "cards3",
+    "tone": "alt"
+   },
+   {
+    "_key": "3c8387a3156a",
+    "_type": "vcTeamTabs",
+    "badge": "The team",
+    "headingPrefix": "Meet the",
+    "tabs": [
+     {
+      "_key": "73ec38f73c1e",
+      "_type": "vcTeamTab",
+      "flag": "🇦🇺",
+      "label": "APAC",
+      "leaders": [
+       {
+        "_key": "ded6572b3148",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-josh",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "a4cc7e3be16f",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-branson",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "466e37fcea02",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-suzzane",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "6855e76432d1",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-chloe",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "6d9e50af10fb",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikhil",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "c389b9371dfd",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikki",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "38674aae2b0c",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-ronelyn",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "eb1405e4c995",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024831399",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "075fcb45ce5f",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-monday-2735456225",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "7f37be415692",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398393",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "9e9b03145b89",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2604975454",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "203f1be5a02b",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2595934646",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "97c08e1be110",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-annica",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "f263d62343e4",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398368",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "5c73adaf1cfe",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-julia",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "82676e334156",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-pierre",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "5cf220f8496b",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2653420367",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "434d2799e671",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-tejas",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "d7143861d02e",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "APAC Team"
+     },
+     {
+      "_key": "6b1716d22afb",
+      "_type": "vcTeamTab",
+      "flag": "🇬🇧",
+      "label": "UK",
+      "leaders": [
+       {
+        "_key": "158c42161704",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-kevin-zhao",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "8fdd14fb5707",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-bruna",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "150daca2b84b",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2601868400",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "e9fe16124740",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2657265445",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "fc03004a6b47",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikhil",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "13851597aaa0",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikki",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "617ea06afaf0",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-ognyana",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "1107dd166f83",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2579182228",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "efc5a52e1de1",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-ronelyn",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "327bc8b91d80",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-sam",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "caa160d793be",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398368",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "97726af47b4e",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2657228614",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "a90ec45e539c",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-joshua-ainsbury",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "88330c8aa6ec",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2520384168",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "6b3d863a4a43",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2657254963",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "7227a8776617",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-sara",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "f931cf08a119",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-tejas",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "404ef4409464",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "UK Team"
+     },
+     {
+      "_key": "2aeeebd76ef5",
+      "_type": "vcTeamTab",
+      "flag": "🇺🇸",
+      "label": "US",
+      "leaders": [
+       {
+        "_key": "5a247948675b",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-zach",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "1865f248668c",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-valeria",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "1e754e5a2a53",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikhil",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "5f03709f12e5",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024831776",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "e1ebdb2b001f",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2512607265",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "20ddb483bcb2",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-2694092322",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "51d2672aa1e4",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "US Team"
+     },
+     {
+      "_key": "eb1c9353253f",
+      "_type": "vcTeamTab",
+      "flag": "🇸🇬",
+      "label": "Singapore",
+      "leaders": [
+       {
+        "_key": "83faa54d5778",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikki",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "7b7991297c72",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398393",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "83a3e7eeecac",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-branson",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "8e07b279fb4a",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikhil",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "c6b3eedd1eea",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024831399",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "49c069f42832",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-suzzane",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "be31f626d2fa",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "Singapore Team"
+     },
+     {
+      "_key": "cbcb16fba50b",
+      "_type": "vcTeamTab",
+      "flag": "🇮🇳",
+      "label": "India",
+      "leaders": [
+       {
+        "_key": "821d1fdabe2c",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikhil",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "c23512acf4f4",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398368",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "5b8e04106cd0",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-ishani",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "1ad1423a0949",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-prakriti",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "fcacc09479af",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-tejas",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "48a70fc6bce0",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-yuzia",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "dbbc329420f3",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "India Team"
+     },
+     {
+      "_key": "e8a028be7f09",
+      "_type": "vcTeamTab",
+      "flag": "🇵🇭",
+      "label": "Philippines",
+      "leaders": [
+       {
+        "_key": "ab75c8646d99",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-suzzane",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "7c4cac43eb3f",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-pierre",
+         "_type": "reference"
+        }
+       }
+      ],
+      "members": [
+       {
+        "_key": "d79e88f51657",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-nikki",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "641ee198279b",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-ronelyn",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "f92b96e8a418",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-roster-5024398393",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "1fa044d248b4",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-annica",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "7b67282553ae",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-julia",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "acd4db2d1f86",
+        "_type": "vcTeamRef",
+        "person": {
+         "_ref": "team-prince",
+         "_type": "reference"
+        }
+       },
+       {
+        "_key": "fe20042ac419",
+        "_type": "vcTeamRef",
+        "bio": "Edward is a founder and product designer based in Singapore, building at the intersection of AI, SaaS and digital transformation. He runs Kelin Studio, the venture studio behind GrooveSheet and Volumet, and has designed and shipped products across edtech, travel and music. More at edwardzehuazhang.com. Website →",
+        "person": {
+         "_ref": "team-roster-2607577824",
+         "_type": "reference"
+        }
+       }
+      ],
+      "title": "Philippines Team"
+     }
+    ],
+    "tone": "plain"
+   },
+   {
+    "_key": "199a7f6e5b95",
+    "_type": "vcAudit",
+    "cta": {
+     "_type": "vcCta",
+     "arrow": true,
+     "href": "#book",
+     "label": "Meet a consultant",
+     "style": "primary"
+    },
+    "heading": "Want this team *on your project?*",
+    "text": "A free 30-minute session with a consultant in your region.",
+    "tone": "plain"
+   },
+   {
+    "_key": "cd1e33e0d63a",
+    "_type": "vcBooking",
+    "badge": "Book a time",
+    "calTitle": "Intro call",
+    "heading": "Meet a consultant *in your region.*",
+    "lead": "30 minutes with the team in your time zone, about the work you need done."
+   },
+   {
+    "_key": "e3200f1d69ea",
+    "_type": "vcFaq",
+    "badge": "FAQ",
+    "heading": "Our team, *answered.*",
+    "tabs": [
+     {
+      "_key": "1be8399563f9",
+      "_type": "vcFaqTab",
+      "items": [
+       {
+        "_key": "20b6a672fb13",
+        "_ref": "faqItem-vc-7985eaaef4",
+        "_type": "reference"
+       },
+       {
+        "_key": "ce10814648a3",
+        "_ref": "faqItem-vc-4da6d89733",
+        "_type": "reference"
+       },
+       {
+        "_key": "1beff343c987",
+        "_ref": "faqItem-vc-c95f476390",
+        "_type": "reference"
+       },
+       {
+        "_key": "fe37ff9695e3",
+        "_ref": "faqItem-vc-bef2d2d826",
+        "_type": "reference"
+       },
+       {
+        "_key": "7f9b7659d026",
+        "_ref": "faqItem-vc-8dbc461df5",
+        "_type": "reference"
+       },
+       {
+        "_key": "0ff9277bda2f",
+        "_ref": "faqItem-vc-758abd0388",
+        "_type": "reference"
+       },
+       {
+        "_key": "16d924452123",
+        "_ref": "faqItem-vc-a6c9cd7b82",
+        "_type": "reference"
+       },
+       {
+        "_key": "43ec3d57e5e3",
+        "_ref": "faqItem-vc-f461fc5f79",
+        "_type": "reference"
+       }
+      ],
+      "label": "FAQ"
+     }
+    ],
+    "tone": "plain"
+   },
+   {
+    "_key": "a63313611f80",
+    "_type": "vcClosing",
+    "badge": "Next step",
+    "ctas": [
+     {
+      "_key": "2ff5aa1516bb",
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#book",
+      "label": "Book a call with the team",
+      "style": "inverse"
+     },
+     {
+      "_key": "fece7be5d34b",
+      "_type": "vcCta",
+      "arrow": false,
+      "href": "/careers",
+      "label": "Join the team",
+      "style": "ghost"
+     }
+    ],
+    "heading": "Meet the team *on a call.*",
+    "lead": "Book 30 minutes with a Fruition consultant in your region, in your time zone."
+   }
+  ],
+  "seoDescription": "Put your processes in the hands of a top-tier monday.com certified partner. Meet the workflow automation experts dedicated to scaling your business.",
+  "seoTitle": "Meet Our Certified monday.com Implementation Team | Fruition",
+  "title": "Fruition team"
+ }
+]

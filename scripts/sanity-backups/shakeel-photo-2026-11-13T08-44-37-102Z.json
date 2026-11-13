@@ -1,0 +1,30 @@
+[
+ {
+  "_createdAt": "2026-05-14T13:25:51Z",
+  "_id": "team-roster-2653420367",
+  "_rev": "6Lbz838riYBADl7vjRJ1fA",
+  "_system": {
+   "base": {
+    "id": "team-roster-2653420367",
+    "rev": "05OFSWoh1BoG8flppLF71S"
+   }
+  },
+  "_type": "teamMember",
+  "_updatedAt": "2026-11-03T10:50:40Z",
+  "bio": "Software engineer by day, code wizard by night. Skilled in Python, Java, JavaScript, SQL, and NoSQL databases, Shakeel turns complex problems into elegant solutions for Fruition clients. Passionate about full-stack, backend, and cloud tech, he holds an AWS Certified Cloud Practitioner badge.",
+  "linkedinUrl": "https://www.linkedin.com/in/shakeelmahdhy/",
+  "name": "Shakeel Mahdhy",
+  "order": 5,
+  "photo": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-4bf1531c78656e7b2216eafec3c97bf2ef404e2b-512x512-png",
+    "_type": "reference"
+   }
+  },
+  "regions": [
+   "APAC"
+  ],
+  "role": "AI & Implementation Consultant"
+ }
+]
