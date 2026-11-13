@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { runHubSpotBlogSync } from "@/lib/hubspotBlog/sync"
+import { recordRun, lastRun } from "@/lib/hubspotBlog/heartbeat"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -29,10 +30,19 @@ function sameSecret(a: string, b: string): boolean {
  * HUBSPOT_SYNC_SECRET, optional HUBSPOT_BLOG_CONTENT_GROUP_ID and
  * HUBSPOT_BLOG_SYNC_DISABLED=1 as an off switch.
  */
-export async function POST(req: Request) {
+function authorized(req: Request): boolean {
   const secret = process.env.HUBSPOT_SYNC_SECRET
-  const given = req.headers.get("x-sync-secret") ?? ""
-  if (!secret || !sameSecret(given, secret)) {
+  return Boolean(secret) && sameSecret(req.headers.get("x-sync-secret") ?? "", secret as string)
+}
+
+/** When the last real (not dry) run happened and what it did. */
+export async function GET(req: Request) {
+  if (!authorized(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
+  return NextResponse.json({ lastRun: await lastRun() })
+}
+
+export async function POST(req: Request) {
+  if (!authorized(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 })
   }
   if (process.env.HUBSPOT_BLOG_SYNC_DISABLED === "1") {
@@ -51,10 +61,20 @@ export async function POST(req: Request) {
     })
     const changed = report.draftsWritten.length + report.published.length + report.unpublished.length + report.deleted.length
     if (changed > 0 || report.errors.length > 0) console.log("[hubspot-blog-sync]", JSON.stringify(report))
+    if (!report.dryRun) {
+      await recordRun({
+        ok: report.ok,
+        posts: report.hubspotPosts,
+        changed,
+        errors: report.errors.slice(0, 5),
+        trigger: req.headers.get("x-sync-trigger") ?? "manual",
+      })
+    }
     return NextResponse.json(report, { status: report.ok ? 200 : 500 })
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     console.error("[hubspot-blog-sync] failed:", message)
+    await recordRun({ ok: false, error: message.slice(0, 300), trigger: req.headers.get("x-sync-trigger") ?? "manual" })
     return NextResponse.json({ ok: false, error: message }, { status: 502 })
   }
 }

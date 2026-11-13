@@ -20,7 +20,9 @@ portal, if at all.
 ## How it runs
 
 - `wrangler.jsonc` `triggers.crons` fires every 5 minutes. `workers/site-entry.ts` `scheduled` posts
-  to `/api/cron/hubspot-blog-sync` in-process with the `x-sync-secret` header.
+  to `/api/cron/hubspot-blog-sync` through the `WORKER_SELF_REFERENCE` service binding, with the
+  `x-sync-secret` header. (Calling the OpenNext handler directly from the scheduled event did not run
+  the route.) Each real run records itself in KV; `GET` the route to read it.
 - `src/lib/hubspotBlog/plan.ts` decides (pure, tested in `plan.test.ts`); `sync.ts` carries it out.
 - A post is linked by `portal_drafts.metadata.hubspot_post_id`. Its Sanity id is
   `metadata.sanity_doc_id` if the portal recorded one, else `blog-hubspot-<postId>`.
@@ -47,6 +49,8 @@ portal, if at all.
 # What would change (writes nothing)
 curl -X POST -H "x-sync-secret: $HUBSPOT_SYNC_SECRET" \
   "https://www.fruitionservices.io/api/cron/hubspot-blog-sync?dryRun=1"
+# When the last real run happened (cron or manual) and what it changed
+curl -H "x-sync-secret: $HUBSPOT_SYNC_SECRET" https://www.fruitionservices.io/api/cron/hubspot-blog-sync
 # Rewrite every post now
 curl -X POST -H "x-sync-secret: $HUBSPOT_SYNC_SECRET" \
   "https://www.fruitionservices.io/api/cron/hubspot-blog-sync?force=1"
