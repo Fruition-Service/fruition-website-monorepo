@@ -5,6 +5,7 @@ describe("trackLead", () => {
   afterEach(() => {
     delete window.dataLayer
     delete window.clarity
+    delete window.oaiq
   })
 
   it("pushes generate_lead with the form source", () => {
@@ -34,6 +35,20 @@ describe("trackLead", () => {
   it("still pushes generate_lead when Clarity is absent", () => {
     window.dataLayer = []
     trackLead("cro-audit")
+    expect(window.dataLayer).toHaveLength(1)
+  })
+
+  it("sends the OpenAI Ads lead_created conversion once", () => {
+    window.dataLayer = []
+    const oaiq = vi.fn()
+    window.oaiq = oaiq
+    trackLead("cro-audit")
+    expect(oaiq.mock.calls).toEqual([["measure", "lead_created", { type: "customer_action" }]])
+  })
+
+  it("skips OpenAI when the pixel is absent (consent declined)", () => {
+    window.dataLayer = []
+    expect(() => trackLead("cro-audit")).not.toThrow()
     expect(window.dataLayer).toHaveLength(1)
   })
 })

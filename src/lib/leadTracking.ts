@@ -14,10 +14,12 @@
  * would otherwise count as both a lead and an appointment.
  *
  * It also tags the Clarity recording with `enquiry_submitted` (see
- * src/lib/clarity.ts), so every caller covers both exactly once.
+ * src/lib/clarity.ts) and sends the OpenAI Ads `lead_created` conversion (see
+ * src/lib/openaiPixel.ts), so every caller covers all three exactly once.
  */
 
 import { trackClarityEnquiry } from "./clarity"
+import { trackOpenAiConversion } from "./openaiPixel"
 
 export function trackLead(source: string | undefined): void {
   if (typeof window === "undefined") return
@@ -32,4 +34,5 @@ export function trackLead(source: string | undefined): void {
     // Analytics must never break the form.
   }
   trackClarityEnquiry(source)
+  trackOpenAiConversion("lead_created")
 }

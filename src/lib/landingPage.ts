@@ -8,6 +8,7 @@ import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
+import { OAIQ_LANDING_HEAD } from "@/lib/openaiPixel"
 import { bandCopy, renderAuditBand, renderClosingBand, renderSocialRow } from "@/lib/landingPageBands"
 
 /**
@@ -173,6 +174,7 @@ function leadFormScript(source: string): string {
           if(!j.ok)throw new Error(j.error||'failed');
           try{(window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_source:SOURCE,page_path:location.pathname});}catch(_){}
           try{if(window.clarity){clarity('event','enquiry_submitted');clarity('set','form_source',SOURCE);}}catch(_){}
+          try{if(window.fruitionOpenAiLead)window.fruitionOpenAiLead();}catch(_){}
           f.innerHTML='<div style="text-align:center;padding:18px 0"><div style="font-size:34px;line-height:1">\\u2713</div><h3 style="margin:10px 0 6px;font-size:19px">Request received</h3><p style="font-size:14px;opacity:.75;line-height:1.5">Thanks, a consultant will be in touch within one business day.</p></div>';
         })
         .catch(function(){
@@ -496,7 +498,7 @@ export function withLandingPageTracking(
   { source, region }: { source: string; region: LeadRegion },
 ): string {
   let out = html
-  out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}\n${RYZE_LANDING_HEAD}`)
+  out = out.replace(/<head([^>]*)>/i, (m) => `${m}\n${GTM_HEAD}\n${RYZE_LANDING_HEAD}\n${OAIQ_LANDING_HEAD}`)
   if (!/<link[^>]+rel="(?:shortcut )?icon"/i.test(out)) {
     out = out.replace(/<\/head>/i, `${ICON_LINKS}\n</head>`)
   }

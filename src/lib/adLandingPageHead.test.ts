@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import { REGION_OG_LOCALE, withLandingPageLayout, withLandingPageTracking } from "./landingPage"
 import { adLandingPages } from "./adLandingPages"
 import type { LeadRegion } from "./leadNotify"
+import { OAIQ_PIXEL_ID } from "./openaiPixel"
 
 /**
  * Every Google Ads landing page must ship a complete <head>: the tags a browser
@@ -81,6 +82,10 @@ describe("Google Ads landing pages", () => {
     expect(out.match(/property="og:locale"/g)).toHaveLength(1)
     // Tracking
     expect(head).toContain("'dataLayer','GTM-PF6XWTL6'")
+    // OpenAI Ads pixel, and every lead form reports lead_created to it
+    expect(head).toContain(`pixelId: "${OAIQ_PIXEL_ID}"`)
+    expect(head).toContain('"appointment_scheduled"')
+    expect(out).toMatch(/fruitionOpenAiLead\(\)/)
     // One H1, the ad's headline
     expect(out.match(/<h1\b/g)).toHaveLength(1)
   })
