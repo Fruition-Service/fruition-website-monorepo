@@ -1,0 +1,9 @@
+/* PAGE-SPECIFIC (appended after the mock-up page block by build-css.mjs).
+   Team tabs (vcTeamTabs): the mock-up zeroes the tab row's top margin and
+   sets no gap below it, so the region pills sat flush on the first row of
+   team cards. Give the open panel the same breathing room the tabs have
+   above them (heading to tabs). */
+.vc [data-sec="team"] .panel{margin-top:32px}
+@media (max-width:767px){
+  .vc [data-sec="team"] .panel{margin-top:24px}
+}
