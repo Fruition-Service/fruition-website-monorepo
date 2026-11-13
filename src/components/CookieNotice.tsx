@@ -107,7 +107,7 @@ export default function CookieNotice() {
           <button
             type="button"
             onClick={() => decide("accepted")}
-            className="inline-flex h-10 flex-1 items-center justify-center rounded-pill bg-[linear-gradient(to_right,#8015e8,#ba83f0)] px-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark hover:bg-none"
+            className="inline-flex h-10 flex-1 items-center justify-center rounded-pill bg-[linear-gradient(to_right,var(--purple-primary),var(--purple-light))] px-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark hover:bg-none"
           >
             Got it
           </button>

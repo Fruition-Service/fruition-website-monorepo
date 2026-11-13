@@ -171,7 +171,7 @@ export default function TestimonialFilterGrid({ heading, subheading, cards }: Pr
                 >
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -top-[120px] -right-[120px] w-[320px] h-[320px] rounded-full bg-[radial-gradient(circle,rgba(128,21,232,0.10)_0%,rgba(128,21,232,0)_70%)]"
+                    className="pointer-events-none absolute -top-[120px] -right-[120px] w-[320px] h-[320px] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--purple-primary)_10%,transparent)_0%,color-mix(in_srgb,var(--purple-primary)_0%,transparent)_70%)]"
                   />
 
                   <div className="relative">

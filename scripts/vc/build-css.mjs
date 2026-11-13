@@ -19,6 +19,7 @@
  * Generated files: do not hand-edit, re-run this script.
  */
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from 'node:fs'
+import { tokeniseColors } from './tokenise-colors.mjs'
 import { join, dirname } from 'node:path'
 import postcss from 'postcss'
 
@@ -131,7 +132,7 @@ const teamCardCss = readFileSync(new URL('./team-card.css', import.meta.url), 'u
 // One self-contained file per page: base + extras + that page's block, in
 // that order, so production CSS chunking can never put the base after the
 // page rules (equal specificity, so order decides, exactly as in the mock-ups).
-writeFileSync(join(outDir, 'default.css'), `${HEADER}@layer components {\n${baseCss}\n}\n`)
+writeFileSync(join(outDir, 'default.css'), tokeniseColors(`${HEADER}@layer components {\n${baseCss}\n}\n`))
 console.log(`base  ${sys.length} bytes in`)
 
 const pages = [
@@ -150,7 +151,11 @@ for (const [slug, file] of pages) {
   const pageExtras = existsSync(pageExtrasFile) ? `\n${readFileSync(pageExtrasFile, 'utf8')}` : ''
   // The six region pages share one team card (the /fruition-team card): scripts/vc/team-card.css.
   const teamCard = slug.startsWith('monday-partner-') ? `\n${teamCardCss}` : ''
-  writeFileSync(join(outDir, 'pages', `${slug}.css`), `${HEADER}@layer components {\n${baseCss}\n${css}${pageExtras}${teamCard}\n}\n`)
+  writeFileSync(
+    join(outDir, 'pages', `${slug}.css`),
+    // Raw purples (shadows, glows) become token-based so Blue mode reaches them.
+    tokeniseColors(`${HEADER}@layer components {\n${baseCss}\n${css}${pageExtras}${teamCard}\n}\n`),
+  )
   n++
 }
 console.log(`${n} page stylesheets written`)

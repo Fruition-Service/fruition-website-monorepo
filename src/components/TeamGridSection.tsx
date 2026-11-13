@@ -188,7 +188,7 @@ export default function TeamGridSection({
               <Link
                 href={ctaUrl}
                 className="inline-flex items-center justify-center font-semibold"
-                style={{ marginTop: 22, height: 46, padding: "0 22px", borderRadius: 999, border: "1px solid #8015e8", color: "#8015e8", fontSize: 14 }}
+                style={{ marginTop: 22, height: 46, padding: "0 22px", borderRadius: 999, border: "1px solid var(--purple-primary)", color: "var(--purple-primary)", fontSize: 14 }}
               >
                 {ctaLabel}
               </Link>
@@ -259,7 +259,7 @@ export default function TeamGridSection({
             <Link
               href={footerLink.href}
               className="inline-flex items-center font-semibold"
-              style={{ color: "#8015e8", fontSize: 15, gap: 8 }}
+              style={{ color: "var(--purple-primary)", fontSize: 15, gap: 8 }}
             >
               {footerLink.label} <span aria-hidden>→</span>
             </Link>

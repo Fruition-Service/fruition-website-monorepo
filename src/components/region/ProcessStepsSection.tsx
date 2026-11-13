@@ -13,7 +13,7 @@ export default function ProcessStepsSection({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(1000px 540px at 24% 10%, rgba(128,21,232,0.22) 0%, rgba(128,21,232,0) 70%)",
+            "radial-gradient(1000px 540px at 24% 10%, color-mix(in srgb, var(--purple-primary) 22%, transparent) 0%, color-mix(in srgb, var(--purple-primary) 0%, transparent) 70%)",
         }}
       />
       <div className="site-container relative">

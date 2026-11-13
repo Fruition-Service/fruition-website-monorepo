@@ -79,7 +79,7 @@ export default function SolutionSelector({
                   style={{
                     border: isActive ? "1px solid var(--purple-primary)" : "1px solid var(--border-ui)",
                     background: isActive ? "linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%)" : "var(--surface-raised)",
-                    boxShadow: isActive ? "0 18px 36px -24px rgba(128,21,232,0.7)" : "none",
+                    boxShadow: isActive ? "0 18px 36px -24px color-mix(in srgb, var(--purple-primary) 70%, transparent)" : "none",
                   }}
                 >
                   <span aria-hidden className="text-xl md:text-2xl leading-none">
@@ -110,7 +110,7 @@ export default function SolutionSelector({
             <span
               aria-hidden
               className="pointer-events-none absolute"
-              style={{ top: -120, right: -120, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(128,21,232,0.10) 0%, rgba(128,21,232,0) 70%)" }}
+              style={{ top: -120, right: -120, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--purple-primary) 10%, transparent) 0%, color-mix(in srgb, var(--purple-primary) 0%, transparent) 70%)" }}
             />
             <div className="relative">
               <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">

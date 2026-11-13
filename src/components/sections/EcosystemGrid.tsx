@@ -103,9 +103,9 @@ export default function EcosystemGrid({
           <div className="absolute flex flex-col items-center justify-center left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[152px] h-[152px]">
             <span
               aria-hidden
-              className="wc-hub-glow absolute -inset-1.5 rounded-full bg-[radial-gradient(circle,rgba(186,131,240,0.55)_0%,rgba(186,131,240,0)_70%)]"
+              className="wc-hub-glow absolute -inset-1.5 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--purple-light)_55%,transparent)_0%,color-mix(in_srgb,var(--purple-light)_0%,transparent)_70%)]"
             />
-            <div className="relative flex flex-col items-center justify-center w-full h-full rounded-full bg-[linear-gradient(135deg,var(--color-brand)_0%,var(--color-brand-light)_100%)] shadow-[0_24px_56px_-20px_rgba(128,21,232,0.8)]">
+            <div className="relative flex flex-col items-center justify-center w-full h-full rounded-full bg-[linear-gradient(135deg,var(--color-brand)_0%,var(--color-brand-light)_100%)] shadow-[0_24px_56px_-20px_color-mix(in_srgb,var(--purple-primary)_80%,transparent)]">
               <span aria-hidden className="text-3xl">📊</span>
               <span className="font-bold text-white text-[15px] mt-1.5">{hubLabel}</span>
             </div>
@@ -114,7 +114,7 @@ export default function EcosystemGrid({
 
         {/* Mobile: hub + chip cloud */}
         <div className="md:hidden flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-[132px] h-[132px] rounded-full bg-[linear-gradient(135deg,var(--color-brand)_0%,var(--color-brand-light)_100%)] shadow-[0_24px_48px_-20px_rgba(128,21,232,0.8)]">
+          <div className="flex flex-col items-center justify-center w-[132px] h-[132px] rounded-full bg-[linear-gradient(135deg,var(--color-brand)_0%,var(--color-brand-light)_100%)] shadow-[0_24px_48px_-20px_color-mix(in_srgb,var(--purple-primary)_80%,transparent)]">
             <span aria-hidden className="text-[26px]">📊</span>
             <span className="font-bold text-white text-sm mt-1">{hubLabel}</span>
           </div>

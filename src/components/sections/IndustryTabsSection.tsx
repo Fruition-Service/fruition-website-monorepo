@@ -49,7 +49,7 @@ export default function IndustryTabsSection({
                 onClick={() => setActiveTab(idx)}
                 className={`flex items-center justify-center font-bold h-[39px] px-6 rounded-full text-sm cursor-pointer ${
                   isActive
-                    ? "bg-white text-brand shadow-[0px_2px_8px_rgba(128,21,232,0.35)]"
+                    ? "bg-white text-brand shadow-[0px_2px_8px_color-mix(in_srgb,var(--purple-primary)_35%,transparent)]"
                     : "bg-white/15 text-white border border-white/30"
                 }`}
               >

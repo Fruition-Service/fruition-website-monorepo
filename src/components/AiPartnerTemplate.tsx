@@ -80,10 +80,10 @@ export default function AiPartnerTemplate({
   const calendly = bookingHref(siteSettings?.calendlyLink)
 
   const rootStyle = {
-    "--accent": page.accentColor || "#8015e8",
-    "--accent-deep": page.accentColorDeep || page.accentColor || "#550e9b",
+    "--accent": page.accentColor || "var(--purple-primary)",
+    "--accent-deep": page.accentColorDeep || page.accentColor || "var(--purple-dark)",
     "--accent-soft":
-      page.accentColorSoft || "rgba(128,21,232,0.08)",
+      page.accentColorSoft || "color-mix(in srgb, var(--purple-primary) 8%, transparent)",
   } as CSSProperties
 
   const cta = (label?: string, url?: string, kind: "primary" | "secondary" = "primary") => {
@@ -465,8 +465,7 @@ const CSS = `
   --rule: var(--border-ui);
   --paper: var(--surface-subtle);
   --mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --purple: #8015e8;
-  --purple-light: #ba83f0;
+  --purple: var(--purple-primary);
   color: var(--ink);
   background: var(--surface);
   font-size: 16px;

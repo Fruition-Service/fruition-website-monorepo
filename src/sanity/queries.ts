@@ -650,6 +650,7 @@ export const getSiteSettings = cache(async () => {
     stickyCtaMobileLabel,
     stickyCtaUrl,
     blueCtaButtons,
+    blueMode,
     footerPartnerExpertiseHeading,
     footerServicesHeading,
     footerDepartmentSolutionsHeading,
