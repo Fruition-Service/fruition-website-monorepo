@@ -16,6 +16,7 @@ import closingCta from './closingCta'
 import proofStats from './proofStats'
 import page from './page'
 import voiceGuide from './voiceGuide'
+import partner from './partner'
 
 // Block objects
 import heroBlock from './objects/heroBlock'
@@ -65,6 +66,7 @@ export const schemaTypes = [
   proofStats,
   page,
   voiceGuide,
+  partner,
 
   // Block objects
   heroBlock,

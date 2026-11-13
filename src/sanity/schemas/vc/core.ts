@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
-import { head, heading, image, sectionBase } from './fields'
+import { head, heading, image, partnerRef, sectionBase } from './fields'
 
 /**
  * Version C sections for the "core" pages: pricing, AI use case hub, Implementation
@@ -266,6 +266,7 @@ export const vcNode = defineType({
     str('style', 'Inline style', 'Design-system value; leave as is.'),
     str('text', 'Text'),
     image('image', 'Image'),
+    ...partnerRef,
     defineField({ name: 'svg', title: 'Artwork (SVG markup)', type: 'text', rows: 2, description: 'Generated artwork. Do not edit by hand.' }),
     str('href', 'Link'),
     strings('attrs', 'Attributes (name=value)'),

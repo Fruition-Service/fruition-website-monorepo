@@ -1,5 +1,6 @@
 import { client } from './client'
 import { withAuthorPhotos } from './queries'
+import { getPartners, resolvePartnerImages } from './partners'
 import type { VcPageData, VcSharedData } from '@/components/vc/types'
 
 /**
@@ -33,10 +34,15 @@ const SECTIONS = `sections[]{
 }`
 
 export async function getVcPage(path: string): Promise<VcPageData | null> {
-  return client.fetch<VcPageData | null>(
-    `*[_type == "vcPage" && path == $path && !(_id in path("drafts.**"))][0]{ _id, title, path, group, seoTitle, seoDescription, ogImage, ${SECTIONS} }`,
-    { path },
-  )
+  const [page, partners] = await Promise.all([
+    client.fetch<VcPageData | null>(
+      `*[_type == "vcPage" && path == $path && !(_id in path("drafts.**"))][0]{ _id, title, path, group, seoTitle, seoDescription, ogImage, ${SECTIONS} }`,
+      { path },
+    ),
+    getPartners(),
+  ])
+  // Partner badges and logos come from Partners & badges (src/sanity/partners.ts).
+  return page ? resolvePartnerImages(page, partners) : page
 }
 
 export async function getVcShared(): Promise<VcSharedData | null> {

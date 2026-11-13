@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
-import { HEADING_HELP, heading, image, tags } from './fields'
+import { HEADING_HELP, heading, image, partnerRef, tags } from './fields'
 
 /** Badge (mono pill with the accent dash) + heading + lead. */
 export const vcHead = defineType({
@@ -56,6 +56,7 @@ export const vcLogo = defineType({
     defineField({ name: 'alt', title: 'Name (alt text)', type: 'string' }),
     defineField({ name: 'href', title: 'Link (optional)', type: 'string' }),
     defineField({ name: 'shape', title: 'Logo shape', type: 'string', description: 'Design-system value: empty or "sq" for square badges.' }),
+    ...partnerRef,
   ],
   preview: { select: { title: 'alt', media: 'image' } },
 })

@@ -56,6 +56,10 @@ export const deskStructure = (S: StructureBuilder) =>
                 .title('Client quotes')
                 .child(S.documentTypeList('vcQuote').title('Client quotes').defaultOrdering([{ field: 'org', direction: 'asc' }])),
               S.listItem()
+                .title('Partners & badges')
+                .icon(Handshake)
+                .child(S.documentTypeList('partner').title('Partners & badges').defaultOrdering([{ field: 'name', direction: 'asc' }])),
+              S.listItem()
                 .title('Shared blocks')
                 .child(S.editor().id('vcShared').schemaType('vcShared').documentId('vcShared')),
             ])

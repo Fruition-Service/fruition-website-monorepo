@@ -79,3 +79,26 @@ export const image = (name: string, title: string, description?: string) =>
   })
 
 export const tags = defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }] })
+
+/**
+ * Point an image at a Partner document: the page then shows that partner's
+ * current badge, logo or mark instead of its own image (which stays as the
+ * fallback), so a badge changed on the Partner updates every page.
+ */
+export const partnerRef = [
+  defineField({
+    name: 'partner',
+    title: 'Partner',
+    type: 'reference',
+    to: [{ type: 'partner' }],
+    description: 'Shows this partner\'s image from Partners & badges. Change the badge there, not here.',
+  }),
+  defineField({
+    name: 'partnerImage',
+    title: 'Which partner image',
+    type: 'string',
+    options: { list: ['badge', 'logo', 'mark'], layout: 'radio', direction: 'horizontal' },
+    initialValue: 'badge',
+    hidden: ({ parent }) => !(parent as { partner?: unknown } | undefined)?.partner,
+  }),
+]

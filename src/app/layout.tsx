@@ -21,6 +21,8 @@ import { toSiteCopy } from "@/lib/siteCopy"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import RegionLocalBusinessSchema from "@/components/region/RegionLocalBusinessSchema"
 import { getSiteSettings } from "@/sanity/queries"
+import { getPartners, partnerBadgeMap } from "@/sanity/partners"
+import { PartnerBadgesProvider } from "@/components/PartnerBadgesProvider"
 import { bookingHref } from "@/lib/bookingLink"
 import { applyNavPreview } from "@/lib/navPreview"
 import { officeStrap } from "@/data/offices"
@@ -209,7 +211,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const siteSettings = await getSiteSettings()
+  const [siteSettings, partners] = await Promise.all([getSiteSettings(), getPartners()])
 
   // Local preview of the Version C menu and footer without writing to Sanity
   // (dev only, see src/lib/navPreview.ts and scripts/seed-nav-vc.ts).
@@ -427,6 +429,7 @@ export default async function RootLayout({
           <NavigationProgress />
           <OfficeStrapProvider value={officeStrap(siteSettings?.offices)}>
           <SiteCopyProvider copy={siteCopy}>
+          <PartnerBadgesProvider badges={partnerBadgeMap(partners)}>
             <SiteFrame
               // A fragment, not a wrapper div: the header is position:sticky and
               // would otherwise stick only inside a box as tall as itself.
@@ -449,6 +452,7 @@ export default async function RootLayout({
             >
               {children}
             </SiteFrame>
+          </PartnerBadgesProvider>
           </SiteCopyProvider>
           </OfficeStrapProvider>
         </ThemeProvider>
