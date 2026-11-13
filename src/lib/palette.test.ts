@@ -15,8 +15,8 @@ function walk(dir: string, ext: RegExp): string[] {
 
 describe("toBlue", () => {
   it("moves purple to the blue hue, keeping notation and alpha", () => {
-    expect(toBlue("#8015e8")).toBe("#1554e8")
-    expect(toBlue("rgba(128,21,232,.34)")).toBe("rgba(21,84,232,.34)")
+    expect(toBlue("#8015e8")).toBe("#0a66c2") // LinkedIn blue, the anchor
+    expect(toBlue("rgba(128,21,232,.34)")).toBe("rgba(10,102,194,.34)")
     expect(toBlue("0 6px 22px rgba(52,10,100,.16), 0 0 0 #ae92df")).toMatch(/^0 6px 22px rgba\(\d+,\d+,\d+,\.16\), 0 0 0 #[0-9a-f]{6}$/)
   })
   it("leaves non-purples alone", () => {
@@ -28,7 +28,7 @@ describe("withPaletteTwins", () => {
   it("adds a --pal- twin only for purple values of palette properties", () => {
     const s: Record<string, unknown> = withPaletteTwins({ left: "138px", background: "rgba(128,21,232,.34)", color: "#fff", boxShadow: "0 1px #ae92df" })
     expect(s).toMatchObject({ left: "138px", background: "rgba(128,21,232,.34)", color: "#fff" })
-    expect(s["--pal-background"]).toBe("rgba(21,84,232,.34)")
+    expect(s["--pal-background"]).toBe("rgba(10,102,194,.34)")
     expect(s["--pal-box-shadow"]).toMatch(/^0 1px #/)
     expect(s).not.toHaveProperty("--pal-color")
   })

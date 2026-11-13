@@ -22,6 +22,7 @@ import { fileURLToPath } from 'node:url'
 const RGB_TOKENS = {
   vc: {
     '15,13,20': '--vc-ink',
+    '246,240,255': '--vc-tint-6',
     '128,21,232': '--vc-accent',
     '16,0,58': '--vc-midnight',
     '186,131,240': '--purple-light',
@@ -32,6 +33,7 @@ const RGB_TOKENS = {
   },
   site: {
     '15,13,20': '--vc-ink',
+    '246,240,255': '--vc-tint-6',
     '128,21,232': '--purple-primary',
     '16,0,58': '--navy-900',
     '186,131,240': '--purple-light',

@@ -836,7 +836,7 @@
 .vc-p-home .hm-hero .hero-grid{grid-template-columns:1.05fr .95fr;gap:48px}
 .vc-p-home .hn-wrap{position:relative;height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .vc-p-home .hn-stage{position:relative;width:620px;height:580px;flex:none}
-.vc-p-home .hn-glow{position:absolute;inset:0;background:radial-gradient(460px 340px at 50% 49%,var(--vc-tint-6) 0%,rgba(246,240,255,0) 72%)}
+.vc-p-home .hn-glow{position:absolute;inset:0;background:radial-gradient(460px 340px at 50% 49%,var(--vc-tint-6) 0%,color-mix(in srgb, var(--vc-tint-6) 0%, transparent) 72%)}
 .vc-p-home .ho-ring{position:absolute;top:50%;left:50%;width:0;height:0;transform-origin:0 0;animation:vc-fruSpin 100s linear infinite;z-index:0}
 .vc-p-home .ho-slot{position:absolute;transform-origin:0 0}
 .vc-p-home .ho-rev{transform-origin:0 0;animation:vc-fruSpinRev 100s linear infinite}
