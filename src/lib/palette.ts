@@ -2,8 +2,10 @@
  * Site palette: the one place that knows how purple becomes blue.
  *
  * The site ships in purple. Sanity Site Settings > "Blue mode" renders
- * <html data-palette="blue">, and every purple then shows as its blue twin:
- * the same lightness and saturation with the hue moved to BLUE_HUE.
+ * <html data-palette="blue">, and every purple then shows as its blue twin.
+ * The rule is anchored on LinkedIn blue: the brand purple (#8015e8) becomes
+ * exactly #0a66c2, and every other purple moves the same way (hue to 210°,
+ * saturation scaled, mid-tones darkened most, tints and near-blacks barely).
  *
  * Purple reaches the page four ways, and each one goes through this module:
  * 1. Tokens in globals.css. The html[data-palette="blue"] block holds a twin
@@ -18,8 +20,8 @@
  *    spots them so they render as a mask painted with the accent token.
  */
 
-/** Hue (degrees) every purple moves to in Blue mode. */
-export const BLUE_HUE = 222
+/** Blue mode anchor: the brand purple maps exactly onto LinkedIn blue. */
+export const BLUE_ANCHOR = { purple: "#8015e8", blue: "#0a66c2" } as const
 
 /** CSS properties whose inline purple values get a Blue mode twin (see palette.css). */
 export const PALETTE_PROPS = [
@@ -71,12 +73,7 @@ function hslToRgb(h: number, s: number, l: number): Rgb {
 /** Purple-hued and visibly tinted: the colours Blue mode moves. */
 export function isPurple(rgb: Rgb): boolean {
   const [h, s, l] = rgbToHsl(rgb)
-  return h >= 0.68 && h <= 0.89 && s > 0.08 && l > 0.05 && l < 0.97
-}
-
-function shiftHue(rgb: Rgb): Rgb {
-  const [, s, l] = rgbToHsl(rgb)
-  return hslToRgb(BLUE_HUE / 360, s, l)
+  return h >= 0.68 && h <= 0.89 && s > 0.08 && l > 0.03 && l < 0.995
 }
 
 const hex2 = (n: number) => n.toString(16).padStart(2, "0")
@@ -84,6 +81,19 @@ const hex2 = (n: number) => n.toString(16).padStart(2, "0")
 function parseHex(hex: string): Rgb {
   const h = hex.length === 4 ? [...hex.slice(1)].map((c) => c + c).join("") : hex.slice(1)
   return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)) as Rgb
+}
+
+// The transform, derived from the anchor pair so the brand purple lands exactly:
+// hue → the anchor's hue; saturation × the anchor ratio; lightness pulled down by
+// DARKEN·sin(πl), which is largest at mid-tones and fades to nothing at white and black.
+const [, ANCHOR_S, ANCHOR_L] = rgbToHsl(parseHex(BLUE_ANCHOR.purple))
+const [BLUE_H, BLUE_S, BLUE_L] = rgbToHsl(parseHex(BLUE_ANCHOR.blue))
+const SAT_SCALE = BLUE_S / ANCHOR_S
+const DARKEN = (ANCHOR_L - BLUE_L) / Math.sin(Math.PI * ANCHOR_L)
+
+function shiftHue(rgb: Rgb): Rgb {
+  const [, s, l] = rgbToHsl(rgb)
+  return hslToRgb(BLUE_H, Math.min(1, s * SAT_SCALE), l - DARKEN * Math.sin(Math.PI * l))
 }
 
 const COLOUR = /#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d.]+%?\s*)?\)/g
