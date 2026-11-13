@@ -56,6 +56,9 @@ async function worker() {
           let sib = row.nextElementSibling
           while (sib && !visible(sib)) sib = sib.nextElementSibling
           if (!sib) continue
+          // Side-by-side layouts (a list beside its detail panel) are not stacked rows.
+          const rb = row.getBoundingClientRect(), sb = sib.getBoundingClientRect()
+          if (sb.left >= rb.right - 1 || sb.right <= rb.left + 1 || sb.bottom <= rb.top) continue
           out.push({
             section: row.closest('[data-sec]')?.getAttribute('data-sec') || '',
             row: String(row.className || row.tagName).slice(0, 40),
