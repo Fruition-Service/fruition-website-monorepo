@@ -19,6 +19,7 @@ import { VcFaq, VcPractitioners, VcUseCases } from "./sections/rich"
 import { VcInsights, VcMarkup, VcQuizSection, VcAskDemoSection, VcCatalogue, VcFacts, VcIndustryGrid, VcLinkCards, VcPriceCards, VcServices } from "./sections/core"
 import VcBooking from "./sections/VcBooking"
 import { VcDeepDive } from "./sections/deepDive"
+import { VcSolutionFinderSection } from "./sections/finder"
 import { VcBlogList, VcFaqHub, VcStories, VcFormEmbed, VcRemote, VcChannels, VcLeadership, VcOffices, VcTeamTabs, VcAnswer, VcCoverage, VcStatsRow, VcTeam, VcDirectory, VcFix, VcIndustryTabs, VcPartnerStatus, VcTable, VcTextPair, VcToolkit, VcTrack, VcVideo } from "./sections/more"
 
 /**
@@ -83,6 +84,7 @@ function Section({ s, shared }: { s: VcSection; shared: VcSharedData | null }) {
     case "vcMarkup": return <VcMarkup s={s} />
     case "vcInsights": return <VcInsights s={s} />
     case "vcDeepDive": return <VcDeepDive s={s} />
+    case "vcSolutionFinder": return <VcSolutionFinderSection s={s} />
     default: return null
   }
 }

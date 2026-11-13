@@ -48,6 +48,18 @@ export interface VcDeepDiveData extends Base {
   _type: "vcDeepDive"; head?: VcHeadData; stepsHeading?: string; steps?: { _key?: string; title?: string; body?: string }[]
   cardsHeading?: string; cards?: { _key?: string; title?: string; body?: string }[]
 }
+/** One catalogued build in a solution finder. */
+export interface VcFinderBuild {
+  _key?: string; buildId?: string; industry?: string; name?: string; useCase?: string; description?: string
+  hubs?: string; scope?: string; users?: string; strength?: string; outcomes?: string[]
+  steps?: { _key?: string; label?: string; summary?: string; how?: string }[]
+  roles?: { _key?: string; label?: string; text?: string }[]; phases?: string[]; kpis?: string[]; integrations?: string[]
+}
+/** A chat-style solution finder (industry, then builds, then a build's detail). Page-specific by design. */
+export interface VcSolutionFinderData extends Base {
+  _type: "vcSolutionFinder"; head?: VcHeadData; howTo?: string[]; platform?: string; label?: string; greeting?: string
+  allLabel?: string; changePrompt?: string; scopePrompt?: string; scopeLabel?: string; scopeHref?: string; builds?: VcFinderBuild[]
+}
 export interface VcAuditData extends Base { _type: "vcAudit"; heading?: string; text?: string; cta?: VcCtaData }
 export interface VcCardsData extends Base { _type: "vcCards"; head?: VcHeadData; layout?: string; imageFrame?: string; listClass?: string; titleClass?: string; tagClass?: string; sectionClass?: string; items?: VcItemData[] }
 export interface VcProductsData extends Base { _type: "vcProducts"; head?: VcHeadData; items?: VcItemData[] }
@@ -188,7 +200,7 @@ export type VcSection =
   | VcPartnerStatusData | VcDirectoryData | VcToolkitData | VcStatsRowData | VcTeamData | VcAnswerData | VcCoverageData
   | VcPriceCardsData | VcLinkCardsData | VcServicesData | VcFactsData | VcIndustryGridData | VcCatalogueData | VcAskDemoData | VcQuizData | VcMarkupData | VcInsightsData
   | VcLeadershipData | VcOfficesData | VcTeamTabsData | VcChannelsData | VcRemoteData | VcFormEmbedData | VcStoriesData | VcBlogListData | VcFaqHubData
-  | VcDeepDiveData
+  | VcDeepDiveData | VcSolutionFinderData
 
 export interface VcPageData {
   _id: string; title?: string; path: string; group?: string

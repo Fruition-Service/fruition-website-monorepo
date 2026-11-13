@@ -1,0 +1,1819 @@
+[
+ {
+  "id": "HS-CON-01",
+  "p": "HubSpot",
+  "ind": "Construction",
+  "uc": "Tender-to-contract pipeline tracking",
+  "n": "Tender-to-Contract Pipeline",
+  "d": "One pipeline from tender invitation to signed contract. Estimators, BD and directors work from the same record, so win rates, bid pipeline value and upcoming deadlines are always visible without chasing spreadsheets.",
+  "sc": "Tender to contract",
+  "u": "BD, Estimators, Directors",
+  "st": "Bid visibility and forecasting",
+  "o": [
+   "Never miss a tender deadline with automated reminders and task queues",
+   "Lift win rates by tracking why bids are won or lost",
+   "Forecast pipeline value by stage, sector and client",
+   "Cut admin with templated bid documents and approvals"
+  ],
+  "b": [
+   {
+    "l": "Tender intake",
+    "s": "invitations logged, key dates captured, go/no-go approval",
+    "h": "a shared inbox and web forms create a deal automatically, custom properties hold due date, sector and value, and a workflow assigns an owner and triggers the go/no-go review."
+   },
+   {
+    "l": "Bid management",
+    "s": "estimator assignment, document checklists, submission tracking",
+    "h": "a dedicated tender pipeline with stage requirements stops a bid moving forward until the right documents are in, while task queues and reminders keep estimators ahead of deadlines."
+   },
+   {
+    "l": "Client and builder CRM",
+    "s": "relationship history, repeat work, referral sources",
+    "h": "company and contact records show every tender, win and conversation, with associations linking consultants, architects and subcontractors to the same job."
+   },
+   {
+    "l": "Contract handover",
+    "s": "won jobs handed to delivery with key details carried over",
+    "h": "when a deal is won, a workflow creates the handover record and notifies delivery. Quotes and e-signature (or DocuSign) close out the contract."
+   },
+   {
+    "l": "Reporting",
+    "s": "win/loss, pipeline value, bid-hit ratio by sector",
+    "h": "dashboards show pipeline value, bid-hit ratio and win/loss reasons, the forecasting tool projects revenue by stage and sector, and Breeze AI summarises deal history for director reviews."
+   }
+  ],
+  "hub": "Sales Hub Professional (Marketing Hub optional for client nurture)",
+  "per": [
+   {
+    "l": "Director",
+    "t": "watches pipeline value, win rate and forecast"
+   },
+   {
+    "l": "BD Manager",
+    "t": "owns client relationships and tender intake"
+   },
+   {
+    "l": "Estimator",
+    "t": "manages bid tasks and submission deadlines"
+   }
+  ],
+  "ph": [
+   "Pipeline foundation: stages, intake, bid tracking, core reporting",
+   "Automation and insight: go/no-go approvals, handover automation, win/loss dashboards"
+  ],
+  "k": [
+   "Bid-hit ratio",
+   "Pipeline value",
+   "Tender turnaround time",
+   "Deadline compliance",
+   "Win/loss reasons"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "DocuSign",
+   "Xero"
+  ]
+ },
+ {
+  "id": "HS-CON-02",
+  "p": "HubSpot",
+  "ind": "Construction",
+  "uc": "Subcontractor and supplier records",
+  "n": "Subcontractor and Supplier Register",
+  "d": "A single register of every subcontractor and supplier, with trade, lead times, insurances and contract stage on each record. Project teams see who is approved, available and compliant before they engage anyone.",
+  "sc": "Approved trades and suppliers",
+  "u": "Procurement, PMs, Contracts Admin",
+  "st": "Supplier visibility and compliance",
+  "o": [
+   "Engage only approved, insured subcontractors",
+   "Plan around real supplier lead times",
+   "Cut time spent chasing insurance and licence renewals",
+   "See spend and performance by trade"
+  ],
+  "b": [
+   {
+    "l": "Supplier register",
+    "s": "trade, region, capacity and approval status",
+    "h": "subcontractors sit as company records with custom properties for trade, region, capacity and approval status, filtered in saved views by trade."
+   },
+   {
+    "l": "Compliance tracking",
+    "s": "insurances, licences and expiry dates",
+    "h": "date properties hold insurance and licence expiry, and workflows send renewal requests and flag records before they lapse."
+   },
+   {
+    "l": "Contract stage",
+    "s": "prequalification through to active contract",
+    "h": "a supplier pipeline moves each trade from prequalification to approved to active, with required documents at each stage."
+   },
+   {
+    "l": "Performance reviews",
+    "s": "ratings and notes after each job",
+    "h": "a feedback form after each job writes ratings back to the supplier record for reporting."
+   }
+  ],
+  "hub": "Sales Hub Professional (custom objects on Enterprise if suppliers need their own object)",
+  "per": [
+   {
+    "l": "Procurement Manager",
+    "t": "approves and manages the supplier panel"
+   },
+   {
+    "l": "Project Manager",
+    "t": "finds available, compliant trades"
+   },
+   {
+    "l": "Contracts Administrator",
+    "t": "tracks insurances and contract stages"
+   }
+  ],
+  "ph": [
+   "Supplier register and approval pipeline",
+   "Compliance alerts, performance reviews and spend reporting"
+  ],
+  "k": [
+   "Approved supplier count",
+   "Compliance lapses",
+   "Average lead time",
+   "Supplier rating",
+   "Time to engage"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "Google Drive/SharePoint",
+   "DocuSign"
+  ]
+ },
+ {
+  "id": "HS-CON-03",
+  "p": "HubSpot",
+  "ind": "Construction",
+  "uc": "RFI, snag list and sign-off tickets",
+  "n": "RFI and Snag Ticketing",
+  "d": "RFIs, snag items and client sign-offs run as tracked tickets with owners, due dates and SLAs. Nothing sits in an inbox, and project leads can see what is open, overdue or waiting on sign-off across every job.",
+  "sc": "RFIs, defects and sign-offs",
+  "u": "PMs, Site Managers, Clients",
+  "st": "Issue tracking and accountability",
+  "o": [
+   "Close RFIs faster with routing and SLA reminders",
+   "Clear snag lists before handover",
+   "Keep a full audit trail of every sign-off",
+   "Spot recurring issues across projects"
+  ],
+  "b": [
+   {
+    "l": "RFI intake",
+    "s": "requests logged by form or email against the right project",
+    "h": "a ticket form and connected inbox create tickets associated to the project and company, and routing rules assign them to the right PM."
+   },
+   {
+    "l": "Snag lists",
+    "s": "defects captured with photos, location and trade",
+    "h": "a dedicated ticket pipeline holds defects with photo attachments and custom properties for location and trade, and workflows notify the responsible subcontractor."
+   },
+   {
+    "l": "Sign-off workflow",
+    "s": "client and consultant approvals recorded",
+    "h": "a sign-off stage triggers an email to the client, and their response is logged on the ticket timeline for the audit trail."
+   },
+   {
+    "l": "Issue reporting",
+    "s": "open, overdue and closed items by project",
+    "h": "SLA rules and dashboards show response times, overdue items and issue volume by project and trade."
+   }
+  ],
+  "hub": "Service Hub Professional, Sales Hub",
+  "per": [
+   {
+    "l": "Project Manager",
+    "t": "owns RFI responses and sign-offs"
+   },
+   {
+    "l": "Site Manager",
+    "t": "logs and closes snag items"
+   },
+   {
+    "l": "Client Representative",
+    "t": "raises items and approves sign-offs"
+   }
+  ],
+  "ph": [
+   "RFI and snag pipelines, intake forms, routing",
+   "SLA rules, client sign-off flow and issue dashboards"
+  ],
+  "k": [
+   "RFI response time",
+   "Open snags per project",
+   "SLA compliance",
+   "Sign-off cycle time",
+   "Repeat issue rate"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "Microsoft Teams",
+   "Google Drive/SharePoint"
+  ]
+ },
+ {
+  "id": "HS-CON-04",
+  "p": "HubSpot",
+  "ind": "Construction",
+  "uc": "Project revenue and retention forecasting",
+  "n": "Project Revenue and Retention Forecast",
+  "d": "Contract values, progress claims and retention sit against each project, so directors see revenue earned, still to claim and retention held in one view. Forecasts update as projects move, not at month end.",
+  "sc": "Revenue, claims and retention",
+  "u": "Directors, Finance, PMs",
+  "st": "Cash and revenue forecasting",
+  "o": [
+   "See revenue still to claim across every project",
+   "Track retention held and when it is due for release",
+   "Forecast cash flow by month and project",
+   "Reduce surprises at month-end close"
+  ],
+  "b": [
+   {
+    "l": "Project revenue",
+    "s": "contract value, variations and claimed to date",
+    "h": "each won deal carries contract value, variations and claimed-to-date properties, with line items for staged billing."
+   },
+   {
+    "l": "Progress claims",
+    "s": "claim schedule and status per project",
+    "h": "a claim schedule on the deal uses tasks and workflows to prompt PMs when a claim is due and log its status."
+   },
+   {
+    "l": "Retention tracking",
+    "s": "amounts held and release dates",
+    "h": "retention amount and release date properties trigger reminders ahead of practical completion and defects liability end dates."
+   },
+   {
+    "l": "Forecast dashboards",
+    "s": "revenue and cash by month",
+    "h": "the forecasting tool and custom reports show revenue earned, to claim and retention held by month, with Xero sync for invoiced amounts."
+   }
+  ],
+  "hub": "Sales Hub Professional, optional Xero integration",
+  "per": [
+   {
+    "l": "Director",
+    "t": "reviews revenue and cash forecasts"
+   },
+   {
+    "l": "Finance Controller",
+    "t": "reconciles claims and retention"
+   },
+   {
+    "l": "Project Manager",
+    "t": "updates progress and claim status"
+   }
+  ],
+  "ph": [
+   "Project revenue and claim tracking",
+   "Retention reminders, Xero sync and forecast dashboards"
+  ],
+  "k": [
+   "Revenue to claim",
+   "Retention held",
+   "Claim cycle time",
+   "Forecast accuracy",
+   "Variations value"
+  ],
+  "intg": [
+   "Xero",
+   "Gmail/Outlook",
+   "NetSuite"
+  ]
+ },
+ {
+  "id": "HS-CON-05",
+  "p": "HubSpot",
+  "ind": "Construction",
+  "uc": "Field tool sync for unified reporting",
+  "n": "Field-to-CRM Reporting",
+  "d": "Data from field tools such as Procore or site apps syncs into HubSpot, so sales, delivery and leadership report from one place. Project status, issues and client activity sit together on the client record.",
+  "sc": "Field and CRM data in one view",
+  "u": "Directors, PMs, BD",
+  "st": "Unified reporting",
+  "o": [
+   "Report on sales and delivery in one dashboard",
+   "Give BD live project status before client meetings",
+   "Remove double entry between field tools and the CRM",
+   "Spot at-risk projects early"
+  ],
+  "b": [
+   {
+    "l": "Field data sync",
+    "s": "project status, milestones and issues from field tools",
+    "h": "a native app or Make/n8n integration pushes project status, milestones and issue counts from field tools into HubSpot properties on a schedule."
+   },
+   {
+    "l": "Client view",
+    "s": "delivery status on the client and deal record",
+    "h": "synced fields show on the company and deal record, so BD sees live delivery status alongside every conversation."
+   },
+   {
+    "l": "Unified dashboards",
+    "s": "pipeline and delivery KPIs together",
+    "h": "custom reports combine pipeline, won work and delivery status in one leadership dashboard."
+   },
+   {
+    "l": "Alerts",
+    "s": "notifications when projects slip",
+    "h": "workflows watch synced fields and notify the account owner when a milestone slips or issues spike."
+   }
+  ],
+  "hub": "Sales Hub Professional, Data Hub (data sync), Make or n8n",
+  "per": [
+   {
+    "l": "Director",
+    "t": "one dashboard for pipeline and delivery"
+   },
+   {
+    "l": "Project Manager",
+    "t": "keeps field data current"
+   },
+   {
+    "l": "BD Manager",
+    "t": "sees project status before client calls"
+   }
+  ],
+  "ph": [
+   "Field tool integration and data mapping",
+   "Unified dashboards and slip alerts"
+  ],
+  "k": [
+   "Projects on schedule",
+   "Issues per project",
+   "Data sync accuracy",
+   "Repeat client rate",
+   "Pipeline coverage"
+  ],
+  "intg": [
+   "Google Drive/SharePoint",
+   "Microsoft Teams",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-MAN-01",
+  "p": "HubSpot",
+  "ind": "Manufacturing",
+  "uc": "Distributor and dealer pipeline",
+  "n": "Distributor and Dealer Pipeline",
+  "d": "Recruit, onboard and grow distributors and dealers through one managed pipeline. Channel managers see each partner's stage, territory and sales performance, so effort goes where growth is.",
+  "sc": "Partner recruitment to growth",
+  "u": "Channel Managers, Sales, Directors",
+  "st": "Channel visibility",
+  "o": [
+   "Recruit new distributors in target territories",
+   "Onboard dealers faster with a standard process",
+   "Track sell-in and growth by partner",
+   "Focus account management on high-potential partners"
+  ],
+  "b": [
+   {
+    "l": "Partner recruitment",
+    "s": "prospect distributors by territory and segment",
+    "h": "a partner pipeline tracks prospects from first contact to signed agreement, with territory and segment properties for filtering."
+   },
+   {
+    "l": "Onboarding",
+    "s": "agreements, training and first orders tracked",
+    "h": "a workflow creates onboarding tasks for agreements, pricing and training, and sequences send welcome and training emails."
+   },
+   {
+    "l": "Account management",
+    "s": "reviews, targets and growth plans",
+    "h": "each distributor's company record holds targets, review dates and associated deals, with task queues for quarterly reviews."
+   },
+   {
+    "l": "Channel reporting",
+    "s": "revenue and activity by partner and region",
+    "h": "dashboards show revenue, pipeline and activity by partner and region, with the forecasting tool for channel targets."
+   }
+  ],
+  "hub": "Sales Hub Professional",
+  "per": [
+   {
+    "l": "Channel Manager",
+    "t": "owns partner recruitment and reviews"
+   },
+   {
+    "l": "Sales Director",
+    "t": "tracks channel revenue against target"
+   },
+   {
+    "l": "Partner Onboarding Lead",
+    "t": "runs setup and training"
+   }
+  ],
+  "ph": [
+   "Partner pipeline and onboarding",
+   "Account reviews and channel dashboards"
+  ],
+  "k": [
+   "Active partners",
+   "Revenue per partner",
+   "Time to first order",
+   "Territory coverage",
+   "Partner retention"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "NetSuite",
+   "DocuSign"
+  ]
+ },
+ {
+  "id": "HS-MAN-02",
+  "p": "HubSpot",
+  "ind": "Manufacturing",
+  "uc": "Quote-to-order with product library",
+  "n": "Quote-to-Order",
+  "d": "Sales reps build accurate quotes from a central product library, get approvals and turn accepted quotes into orders without rekeying. Pricing stays consistent and order handover to operations is immediate.",
+  "sc": "Quote through to order",
+  "u": "Sales, Sales Ops, Operations",
+  "st": "Fast, accurate quoting",
+  "o": [
+   "Send quotes in minutes rather than days",
+   "Keep pricing and discounts consistent",
+   "Hand accepted quotes to operations without rekeying",
+   "See quote conversion by product and rep"
+  ],
+  "b": [
+   {
+    "l": "Product library",
+    "s": "SKUs, pricing tiers and descriptions",
+    "h": "the HubSpot product library holds SKUs, price tiers and descriptions, synced from the ERP where needed."
+   },
+   {
+    "l": "Quote builder",
+    "s": "templated quotes with line items",
+    "h": "reps add line items to a deal and generate branded quote templates with e-signature and payment options."
+   },
+   {
+    "l": "Approvals",
+    "s": "discount thresholds and sign-off",
+    "h": "quote approvals route any quote over a discount threshold to a manager before it can be sent."
+   },
+   {
+    "l": "Order handover",
+    "s": "accepted quotes pushed to operations or ERP",
+    "h": "a workflow on quote acceptance updates the deal stage and pushes order details to NetSuite or SAP through a sync or integration."
+   }
+  ],
+  "hub": "Sales Hub Professional, Commerce Hub (quotes and payments)",
+  "per": [
+   {
+    "l": "Sales Rep",
+    "t": "builds and sends quotes"
+   },
+   {
+    "l": "Sales Manager",
+    "t": "approves discounts"
+   },
+   {
+    "l": "Operations Coordinator",
+    "t": "receives orders for fulfilment"
+   }
+  ],
+  "ph": [
+   "Product library and quote templates",
+   "Approvals and ERP order handover"
+  ],
+  "k": [
+   "Quote turnaround time",
+   "Quote-to-order rate",
+   "Average discount",
+   "Order errors",
+   "Revenue by product"
+  ],
+  "intg": [
+   "NetSuite",
+   "SAP",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-MAN-03",
+  "p": "HubSpot",
+  "ind": "Manufacturing",
+  "uc": "Supplier records with lead times",
+  "n": "Supplier Lead Time Register",
+  "d": "Supplier records hold lead times, contract stage and key contacts, so sales and operations quote realistic delivery dates. Changes in supplier lead times reach the people who need them straight away.",
+  "sc": "Supplier data and lead times",
+  "u": "Procurement, Sales, Operations",
+  "st": "Realistic delivery promises",
+  "o": [
+   "Quote delivery dates customers can rely on",
+   "Keep supplier contacts and terms in one place",
+   "Flag lead time changes before they hit orders",
+   "Review supplier performance over time"
+  ],
+  "b": [
+   {
+    "l": "Supplier register",
+    "s": "supplier details, categories and contacts",
+    "h": "suppliers sit as company records with a supplier type, category and key contacts, kept separate from customers with saved views."
+   },
+   {
+    "l": "Lead times",
+    "s": "standard and current lead times by supplier",
+    "h": "number properties hold standard and current lead times, visible on the record and in reports."
+   },
+   {
+    "l": "Contract stage",
+    "s": "onboarding, active and review",
+    "h": "a supplier pipeline tracks onboarding, active contract and review dates with reminder tasks."
+   },
+   {
+    "l": "Alerts",
+    "s": "lead time changes flagged to sales and operations",
+    "h": "a workflow notifies sales and operations when a lead time property changes beyond a set threshold."
+   }
+  ],
+  "hub": "Sales Hub Professional (custom objects on Enterprise if needed)",
+  "per": [
+   {
+    "l": "Procurement Manager",
+    "t": "maintains supplier terms and lead times"
+   },
+   {
+    "l": "Sales Rep",
+    "t": "checks lead times before quoting"
+   },
+   {
+    "l": "Operations Manager",
+    "t": "plans around supplier changes"
+   }
+  ],
+  "ph": [
+   "Supplier register and lead time fields",
+   "Change alerts and supplier reviews"
+  ],
+  "k": [
+   "Average lead time",
+   "On-time supplier delivery",
+   "Lead time changes",
+   "Supplier count",
+   "Quote accuracy"
+  ],
+  "intg": [
+   "NetSuite",
+   "SAP",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-MAN-04",
+  "p": "HubSpot",
+  "ind": "Manufacturing",
+  "uc": "Warranty, service and returns tickets",
+  "n": "Warranty, Service and Returns",
+  "d": "Warranty claims, service requests and returns run as tickets linked to the customer, product and original order. Service teams resolve faster and product teams see which items cause the most issues.",
+  "sc": "After-sales service",
+  "u": "Service, Quality, Sales",
+  "st": "Service speed and product insight",
+  "o": [
+   "Resolve warranty claims faster with clear routing",
+   "Keep a full history against each customer and product",
+   "Spot products with high fault or return rates",
+   "Protect repeat orders through better service"
+  ],
+  "b": [
+   {
+    "l": "Claim intake",
+    "s": "warranty and service requests by form, email or portal",
+    "h": "a ticket form and customer portal capture serial number, product and photos, creating a ticket linked to the company and order."
+   },
+   {
+    "l": "Triage and routing",
+    "s": "by product, issue type and region",
+    "h": "routing rules and workflows assign tickets by product line or region and set SLA targets."
+   },
+   {
+    "l": "Returns (RMA)",
+    "s": "approval, receipt and resolution tracked",
+    "h": "a returns pipeline moves each claim through approval, receipt, inspection and credit or replacement."
+   },
+   {
+    "l": "Service reporting",
+    "s": "volumes, resolution time and fault trends",
+    "h": "dashboards show volumes, resolution time and fault reasons by product, and Breeze AI summarises long ticket threads."
+   }
+  ],
+  "hub": "Service Hub Professional",
+  "per": [
+   {
+    "l": "Service Manager",
+    "t": "oversees queues and SLAs"
+   },
+   {
+    "l": "Service Agent",
+    "t": "resolves claims and returns"
+   },
+   {
+    "l": "Quality Manager",
+    "t": "reviews fault trends by product"
+   }
+  ],
+  "ph": [
+   "Ticket pipelines, intake and routing",
+   "Customer portal, RMA flow and fault reporting"
+  ],
+  "k": [
+   "Resolution time",
+   "Claims per product",
+   "Return rate",
+   "SLA compliance",
+   "Customer satisfaction"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "Aircall",
+   "NetSuite"
+  ]
+ },
+ {
+  "id": "HS-MAN-05",
+  "p": "HubSpot",
+  "ind": "Manufacturing",
+  "uc": "ERP sync for revenue forecasting",
+  "n": "ERP-Connected Revenue Forecast",
+  "d": "Orders, invoices and customer data sync from the ERP into HubSpot, so sales forecasts sit alongside real order history. Reps see what customers actually buy and leadership forecasts from one source.",
+  "sc": "ERP and CRM data in one view",
+  "u": "Sales, Finance, Directors",
+  "st": "Forecasting from real order data",
+  "o": [
+   "Forecast from actual order and invoice history",
+   "Give reps order history before every call",
+   "Spot customers whose ordering has dropped",
+   "Remove manual exports between ERP and CRM"
+  ],
+  "b": [
+   {
+    "l": "ERP sync",
+    "s": "customers, orders and invoices into HubSpot",
+    "h": "Data Hub or a NetSuite/SAP integration syncs customers, orders and invoice totals into HubSpot on a schedule."
+   },
+   {
+    "l": "Customer view",
+    "s": "order history on the company record",
+    "h": "order history and lifetime value show on each company record and in rep views."
+   },
+   {
+    "l": "Forecasting",
+    "s": "pipeline plus recurring order trends",
+    "h": "the forecasting tool combines open pipeline with custom reports on recurring order revenue."
+   },
+   {
+    "l": "At-risk alerts",
+    "s": "drops in order volume flagged",
+    "h": "workflows compare recent order value against the norm and create a task for the account owner when it drops."
+   }
+  ],
+  "hub": "Sales Hub Professional, Data Hub",
+  "per": [
+   {
+    "l": "Sales Director",
+    "t": "owns the revenue forecast"
+   },
+   {
+    "l": "Account Manager",
+    "t": "uses order history in reviews"
+   },
+   {
+    "l": "Finance Manager",
+    "t": "reconciles CRM and ERP figures"
+   }
+  ],
+  "ph": [
+   "ERP integration and data mapping",
+   "Forecast dashboards and at-risk alerts"
+  ],
+  "k": [
+   "Forecast accuracy",
+   "Revenue per account",
+   "Order frequency",
+   "At-risk accounts",
+   "Data sync errors"
+  ],
+  "intg": [
+   "NetSuite",
+   "SAP",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-FIN-01",
+  "p": "HubSpot",
+  "ind": "Financial Services",
+  "uc": "Pipeline with forecasting and renewals",
+  "n": "Advice Pipeline and Renewals",
+  "d": "New business and renewals run through clear pipelines with forecast values and renewal dates. Leaders see what is closing this quarter and which clients are coming up for renewal.",
+  "sc": "New business and renewals",
+  "u": "Advisers, BD, Directors",
+  "st": "Forecasting and renewal tracking",
+  "o": [
+   "Forecast new business revenue with confidence",
+   "Never miss a renewal or review date",
+   "See conversion rates by adviser and service",
+   "Reduce client churn at renewal"
+  ],
+  "b": [
+   {
+    "l": "New business pipeline",
+    "s": "enquiry to engagement signed",
+    "h": "a deal pipeline with stage requirements tracks each prospect from enquiry to signed engagement letter."
+   },
+   {
+    "l": "Renewal pipeline",
+    "s": "upcoming renewals and reviews",
+    "h": "a workflow creates a renewal deal ahead of each renewal date and assigns tasks to the adviser."
+   },
+   {
+    "l": "Forecasting",
+    "s": "weighted pipeline by month and adviser",
+    "h": "the forecasting tool shows weighted pipeline by month, adviser and service line against targets."
+   },
+   {
+    "l": "Reporting",
+    "s": "conversion, renewal rate and revenue by service",
+    "h": "dashboards show conversion, renewal rate and revenue by service, with Breeze AI deal summaries for pipeline reviews."
+   }
+  ],
+  "hub": "Sales Hub Professional",
+  "per": [
+   {
+    "l": "Director",
+    "t": "tracks forecast and renewal risk"
+   },
+   {
+    "l": "Adviser",
+    "t": "manages prospects and renewals"
+   },
+   {
+    "l": "BD Manager",
+    "t": "drives new business activity"
+   }
+  ],
+  "ph": [
+   "New business pipeline and forecasting",
+   "Renewal automation and dashboards"
+  ],
+  "k": [
+   "Forecast accuracy",
+   "Renewal rate",
+   "Conversion rate",
+   "Average engagement value",
+   "Pipeline coverage"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "DocuSign",
+   "Aircall"
+  ]
+ },
+ {
+  "id": "HS-FIN-02",
+  "p": "HubSpot",
+  "ind": "Financial Services",
+  "uc": "Compliant client onboarding",
+  "n": "Compliant Client Onboarding",
+  "d": "New clients move through a standard onboarding process with compliance checklists, document collection and a full audit trail. Every step is recorded, so the team can show exactly what was done and when.",
+  "sc": "Onboarding and compliance",
+  "u": "Client Services, Compliance, Advisers",
+  "st": "Consistency and audit trail",
+  "o": [
+   "Onboard clients faster with a standard process",
+   "Show a full audit trail for every client",
+   "Cut back-and-forth chasing documents",
+   "Reduce compliance gaps at onboarding"
+  ],
+  "b": [
+   {
+    "l": "Onboarding pipeline",
+    "s": "engagement signed to client active",
+    "h": "a ticket or deal pipeline moves each new client through set stages, with stage requirements that block progress until checks are complete."
+   },
+   {
+    "l": "Compliance checklist",
+    "s": "required checks and documents per stage",
+    "h": "a workflow creates task checklists for identity checks, risk profile and engagement documents."
+   },
+   {
+    "l": "Document collection",
+    "s": "forms and secure uploads",
+    "h": "HubSpot forms and file uploads collect client details, with sequences sending automated reminders."
+   },
+   {
+    "l": "Audit trail",
+    "s": "timestamped record of every step",
+    "h": "every email, task and property change is logged on the client timeline, with property history for key compliance fields."
+   }
+  ],
+  "hub": "Sales Hub Professional, Service Hub Professional",
+  "per": [
+   {
+    "l": "Client Services Lead",
+    "t": "runs onboarding"
+   },
+   {
+    "l": "Compliance Officer",
+    "t": "reviews checks and audit trail"
+   },
+   {
+    "l": "Adviser",
+    "t": "approves the client to go live"
+   }
+  ],
+  "ph": [
+   "Onboarding pipeline and checklists",
+   "Document collection, reminders and compliance reporting"
+  ],
+  "k": [
+   "Onboarding time",
+   "Checklist completion",
+   "Documents outstanding",
+   "Audit exceptions",
+   "Client activation rate"
+  ],
+  "intg": [
+   "DocuSign",
+   "Gmail/Outlook",
+   "Google Drive/SharePoint"
+  ]
+ },
+ {
+  "id": "HS-FIN-03",
+  "p": "HubSpot",
+  "ind": "Financial Services",
+  "uc": "Retainer and recurring revenue dashboards",
+  "n": "Recurring Revenue Dashboards",
+  "d": "Retainers, ongoing service fees and subscriptions sit on each client record, with dashboards for recurring revenue, growth and churn. Leaders see the health of the book at a glance.",
+  "sc": "Retainers and recurring fees",
+  "u": "Directors, Finance, Advisers",
+  "st": "Recurring revenue visibility",
+  "o": [
+   "See total recurring revenue in real time",
+   "Track growth and churn by adviser and service",
+   "Spot clients at risk before they leave",
+   "Replace spreadsheet reporting"
+  ],
+  "b": [
+   {
+    "l": "Fee tracking",
+    "s": "retainer and ongoing fee values per client",
+    "h": "recurring line items or fee properties on each client deal hold retainer value, frequency and start date."
+   },
+   {
+    "l": "Revenue dashboards",
+    "s": "recurring revenue, growth and churn",
+    "h": "custom reports roll up recurring revenue, new fees and lost fees by month, adviser and service line."
+   },
+   {
+    "l": "Client health",
+    "s": "service activity and review status",
+    "h": "calculated properties combine last review date and activity into a simple health score."
+   },
+   {
+    "l": "Alerts",
+    "s": "at-risk and lapsed clients flagged",
+    "h": "workflows flag clients with overdue reviews or falling engagement and create tasks for the adviser."
+   }
+  ],
+  "hub": "Sales Hub Professional, optional Xero integration",
+  "per": [
+   {
+    "l": "Director",
+    "t": "monitors recurring revenue and churn"
+   },
+   {
+    "l": "Finance Manager",
+    "t": "reconciles fees with Xero"
+   },
+   {
+    "l": "Adviser",
+    "t": "acts on at-risk client alerts"
+   }
+  ],
+  "ph": [
+   "Fee tracking and core dashboards",
+   "Client health scoring and at-risk alerts"
+  ],
+  "k": [
+   "Recurring revenue",
+   "Net revenue growth",
+   "Client churn",
+   "Revenue per client",
+   "Overdue reviews"
+  ],
+  "intg": [
+   "Xero",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-FIN-04",
+  "p": "HubSpot",
+  "ind": "Financial Services",
+  "uc": "Segmented nurture for business development",
+  "n": "Segmented Client Nurture",
+  "d": "Prospects and clients receive relevant, timely content based on their life stage, service and interests. Nurture runs automatically and hands warm leads back to advisers at the right moment.",
+  "sc": "Nurture and business development",
+  "u": "Marketing, Advisers, BD",
+  "st": "Targeted, automated nurture",
+  "o": [
+   "Keep prospects warm until they are ready to engage",
+   "Send relevant content by segment",
+   "Hand sales-ready leads to advisers automatically",
+   "Measure which campaigns create new business"
+  ],
+  "b": [
+   {
+    "l": "Segmentation",
+    "s": "by life stage, service interest and value",
+    "h": "active lists built from contact properties and behaviour group prospects by service interest, life stage and value."
+   },
+   {
+    "l": "Nurture journeys",
+    "s": "automated email series per segment",
+    "h": "marketing email workflows send tailored content per segment, with suppression rules for compliance."
+   },
+   {
+    "l": "Lead scoring",
+    "s": "engagement signals to advisers",
+    "h": "a lead score based on email, web and form activity notifies the adviser when a prospect is sales-ready."
+   },
+   {
+    "l": "Campaign reporting",
+    "s": "attribution to meetings and new clients",
+    "h": "campaign and attribution reports show which content led to meetings and new clients."
+   }
+  ],
+  "hub": "Marketing Hub Professional, Sales Hub",
+  "per": [
+   {
+    "l": "Marketing Manager",
+    "t": "runs segments and campaigns"
+   },
+   {
+    "l": "Adviser",
+    "t": "follows up sales-ready leads"
+   },
+   {
+    "l": "BD Manager",
+    "t": "reviews campaign performance"
+   }
+  ],
+  "ph": [
+   "Segments, lead scoring and first nurture journey",
+   "Additional journeys and attribution reporting"
+  ],
+  "k": [
+   "Email engagement",
+   "Marketing qualified leads",
+   "Meetings booked",
+   "Lead-to-client rate",
+   "Campaign revenue"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "WhatsApp"
+  ]
+ },
+ {
+  "id": "HS-FIN-05",
+  "p": "HubSpot",
+  "ind": "Financial Services",
+  "uc": "Referral partner pipeline",
+  "n": "Referral Partner Pipeline",
+  "d": "Accountants, lawyers and other referral partners are managed like key accounts, with every referral tracked from introduction to revenue. The team knows which partners send the best work and nurtures them accordingly.",
+  "sc": "Referral partners and introductions",
+  "u": "BD, Advisers, Directors",
+  "st": "Referral attribution",
+  "o": [
+   "Track every referral back to its source",
+   "See revenue generated by each partner",
+   "Keep regular contact with top partners",
+   "Grow referral volume with structured follow-up"
+  ],
+  "b": [
+   {
+    "l": "Partner register",
+    "s": "partner firms, contacts and tier",
+    "h": "referral partners sit as company records with a partner tier and relationship owner."
+   },
+   {
+    "l": "Referral tracking",
+    "s": "introductions linked to partner",
+    "h": "each new deal is associated to the referring partner, with a referral source property required at creation."
+   },
+   {
+    "l": "Partner engagement",
+    "s": "meetings and touchpoints",
+    "h": "workflows create regular catch-up tasks by tier, and sequences send thank-you and update emails."
+   },
+   {
+    "l": "Referral reporting",
+    "s": "volume and revenue by partner",
+    "h": "dashboards show referral volume, conversion and revenue by partner and tier."
+   }
+  ],
+  "hub": "Sales Hub Professional",
+  "per": [
+   {
+    "l": "BD Manager",
+    "t": "manages partner relationships"
+   },
+   {
+    "l": "Adviser",
+    "t": "logs and converts referrals"
+   },
+   {
+    "l": "Director",
+    "t": "reviews top partners and revenue"
+   }
+  ],
+  "ph": [
+   "Partner register and referral tracking",
+   "Engagement cadences and referral dashboards"
+  ],
+  "k": [
+   "Referrals received",
+   "Referral conversion rate",
+   "Revenue per partner",
+   "Active partners",
+   "Partner touchpoints"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "Aircall"
+  ]
+ },
+ {
+  "id": "HS-RET-01",
+  "p": "HubSpot",
+  "ind": "Retail",
+  "uc": "Ecommerce marketing automation",
+  "n": "Ecommerce Marketing Automation",
+  "d": "Store data syncs into HubSpot so every email reflects what customers browse, buy and leave behind. Abandoned cart, welcome and post-purchase journeys run automatically and drive repeat sales.",
+  "sc": "Ecommerce lifecycle marketing",
+  "u": "Marketing, Ecommerce",
+  "st": "Automated revenue journeys",
+  "o": [
+   "Recover more abandoned carts",
+   "Turn first-time buyers into repeat customers",
+   "Personalise emails with purchase history",
+   "Report on revenue from each journey"
+  ],
+  "b": [
+   {
+    "l": "Store sync",
+    "s": "customers, orders, products and carts",
+    "h": "the native Shopify integration syncs customers, orders, products and abandoned carts into HubSpot."
+   },
+   {
+    "l": "Abandoned cart",
+    "s": "timed reminder series",
+    "h": "a workflow triggered by cart abandonment sends a timed series with the products left behind."
+   },
+   {
+    "l": "Welcome and post-purchase",
+    "s": "onboarding and cross-sell journeys",
+    "h": "workflows based on order count and product purchased send welcome, review request and cross-sell emails."
+   },
+   {
+    "l": "Revenue reporting",
+    "s": "orders and revenue by campaign",
+    "h": "ecommerce reports show revenue, average order value and repeat purchase rate by campaign."
+   }
+  ],
+  "hub": "Marketing Hub Professional, Shopify integration",
+  "per": [
+   {
+    "l": "Ecommerce Manager",
+    "t": "owns online revenue"
+   },
+   {
+    "l": "Marketing Manager",
+    "t": "builds and optimises journeys"
+   },
+   {
+    "l": "Customer Insights Lead",
+    "t": "tracks repeat purchase trends"
+   }
+  ],
+  "ph": [
+   "Store sync and core journeys",
+   "Personalisation and revenue reporting"
+  ],
+  "k": [
+   "Cart recovery rate",
+   "Repeat purchase rate",
+   "Email revenue",
+   "Average order value",
+   "Customer lifetime value"
+  ],
+  "intg": [
+   "Shopify",
+   "Gmail/Outlook",
+   "WhatsApp"
+  ]
+ },
+ {
+  "id": "HS-RET-02",
+  "p": "HubSpot",
+  "ind": "Retail",
+  "uc": "Loyalty and VIP segmentation",
+  "n": "Loyalty and VIP Segmentation",
+  "d": "Customers are grouped by spend, frequency and recency, with VIPs getting early access, rewards and tailored offers. Loyalty activity is tracked on each customer so the team can see what keeps top customers coming back.",
+  "sc": "Loyalty and customer tiers",
+  "u": "Marketing, CX, Store Managers",
+  "st": "Retaining high-value customers",
+  "o": [
+   "Identify and reward top customers",
+   "Win back lapsed customers with targeted offers",
+   "Increase visit and purchase frequency",
+   "Measure the value of each tier"
+  ],
+  "b": [
+   {
+    "l": "Customer tiers",
+    "s": "spend, frequency and recency scoring",
+    "h": "calculated properties from synced order data score customers on spend and frequency, and active lists sort them into tiers."
+   },
+   {
+    "l": "VIP programme",
+    "s": "early access, rewards and events",
+    "h": "tier-based workflows send early access, rewards and event invites, with smart content for tier-specific offers."
+   },
+   {
+    "l": "Win-back",
+    "s": "lapsed customer campaigns",
+    "h": "a workflow triggers when a customer passes a set time since last purchase and sends a win-back sequence."
+   },
+   {
+    "l": "Tier reporting",
+    "s": "revenue and retention by tier",
+    "h": "dashboards show revenue, retention and movement between tiers."
+   }
+  ],
+  "hub": "Marketing Hub Professional, Shopify or POS integration",
+  "per": [
+   {
+    "l": "Marketing Manager",
+    "t": "runs tier campaigns"
+   },
+   {
+    "l": "CX Manager",
+    "t": "looks after VIP experience"
+   },
+   {
+    "l": "Store Manager",
+    "t": "sees VIP status for in-store service"
+   }
+  ],
+  "ph": [
+   "Tier scoring and segments",
+   "VIP journeys, win-back and tier reporting"
+  ],
+  "k": [
+   "VIP retention rate",
+   "Revenue per tier",
+   "Purchase frequency",
+   "Win-back rate",
+   "Tier upgrades"
+  ],
+  "intg": [
+   "Shopify",
+   "WhatsApp",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-RET-03",
+  "p": "HubSpot",
+  "ind": "Retail",
+  "uc": "Customer service helpdesk",
+  "n": "Retail Customer Helpdesk",
+  "d": "Customer questions, returns and refund requests from email, chat and WhatsApp land in one helpdesk linked to the customer's orders. Agents answer faster and managers see what customers ask about most.",
+  "sc": "Customer service and returns",
+  "u": "Service Agents, CX Managers",
+  "st": "Faster, joined-up service",
+  "o": [
+   "Answer customers faster across every channel",
+   "See order history in every conversation",
+   "Deflect common questions with self-service",
+   "Track service quality and contact reasons"
+  ],
+  "b": [
+   {
+    "l": "Omnichannel inbox",
+    "s": "email, chat and WhatsApp in one place",
+    "h": "Service Hub's help desk brings email, live chat and WhatsApp into one queue, with routing by topic."
+   },
+   {
+    "l": "Order context",
+    "s": "purchase history on every ticket",
+    "h": "synced Shopify orders show on the customer record next to each ticket."
+   },
+   {
+    "l": "Self-service",
+    "s": "knowledge base and chatbot for FAQs",
+    "h": "a knowledge base and chatbot answer delivery, returns and sizing questions, and Breeze AI suggests replies to agents."
+   },
+   {
+    "l": "Service reporting",
+    "s": "volume, response time and CSAT",
+    "h": "dashboards show volume, first response time, CSAT and contact reasons."
+   }
+  ],
+  "hub": "Service Hub Professional, Shopify integration",
+  "per": [
+   {
+    "l": "CX Manager",
+    "t": "owns service levels and reporting"
+   },
+   {
+    "l": "Service Agent",
+    "t": "resolves queries and returns"
+   },
+   {
+    "l": "Ecommerce Manager",
+    "t": "reviews contact reasons for fixes"
+   }
+  ],
+  "ph": [
+   "Help desk, channels and routing",
+   "Knowledge base, chatbot and CSAT reporting"
+  ],
+  "k": [
+   "First response time",
+   "Resolution time",
+   "CSAT",
+   "Self-service deflection",
+   "Contacts per order"
+  ],
+  "intg": [
+   "Shopify",
+   "WhatsApp",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-RET-04",
+  "p": "HubSpot",
+  "ind": "Retail",
+  "uc": "B2B and wholesale quote-to-order",
+  "n": "Wholesale Quote-to-Order",
+  "d": "Wholesale and trade accounts are managed through a dedicated pipeline, with quotes built from a product library and price lists. Accepted quotes flow through to orders and invoices without rekeying.",
+  "sc": "Wholesale sales process",
+  "u": "Wholesale Reps, Sales Ops",
+  "st": "Structured B2B selling",
+  "o": [
+   "Win and grow more wholesale accounts",
+   "Send accurate quotes with trade pricing",
+   "Move accepted quotes to orders instantly",
+   "See wholesale revenue by account and range"
+  ],
+  "b": [
+   {
+    "l": "Account pipeline",
+    "s": "prospect to active stockist",
+    "h": "a wholesale deal pipeline tracks new stockists from first contact to first order."
+   },
+   {
+    "l": "Quoting",
+    "s": "trade price lists and product library",
+    "h": "the product library holds trade prices, and reps build quotes with e-signature and payment links."
+   },
+   {
+    "l": "Order handover",
+    "s": "accepted quotes to orders and invoices",
+    "h": "a workflow on quote acceptance creates the order and syncs it to Xero or the ERP for invoicing."
+   },
+   {
+    "l": "Account reporting",
+    "s": "revenue and reorder patterns",
+    "h": "dashboards show wholesale revenue, reorder frequency and top ranges by account."
+   }
+  ],
+  "hub": "Sales Hub Professional, Commerce Hub",
+  "per": [
+   {
+    "l": "Wholesale Manager",
+    "t": "owns trade revenue"
+   },
+   {
+    "l": "Sales Rep",
+    "t": "builds quotes and manages stockists"
+   },
+   {
+    "l": "Operations Coordinator",
+    "t": "fulfils orders"
+   }
+  ],
+  "ph": [
+   "Wholesale pipeline and quoting",
+   "Order handover and account reporting"
+  ],
+  "k": [
+   "Active stockists",
+   "Quote-to-order rate",
+   "Wholesale revenue",
+   "Reorder frequency",
+   "Average order value"
+  ],
+  "intg": [
+   "Xero",
+   "NetSuite",
+   "Shopify"
+  ]
+ },
+ {
+  "id": "HS-RET-05",
+  "p": "HubSpot",
+  "ind": "Retail",
+  "uc": "Revenue attribution by channel",
+  "n": "Channel Revenue Attribution",
+  "d": "Revenue from online and campaign activity is tied back to the channel, campaign and content that drove it. Marketing budget decisions are based on revenue, not clicks.",
+  "sc": "Marketing attribution",
+  "u": "Marketing, Directors",
+  "st": "Spend decisions based on revenue",
+  "o": [
+   "See which channels drive revenue, not just traffic",
+   "Shift budget to the campaigns that sell",
+   "Report marketing ROI to leadership",
+   "Track the full path from first visit to purchase"
+  ],
+  "b": [
+   {
+    "l": "Tracking setup",
+    "s": "UTMs, ads and store data connected",
+    "h": "HubSpot tracking code, connected ad accounts and the Shopify integration capture visits, ad clicks and orders."
+   },
+   {
+    "l": "Attribution models",
+    "s": "first touch, last touch and multi-touch",
+    "h": "revenue attribution reports compare models to show each channel's contribution."
+   },
+   {
+    "l": "Campaign reporting",
+    "s": "revenue by campaign and channel",
+    "h": "HubSpot campaigns group emails, ads and pages so revenue rolls up by campaign."
+   },
+   {
+    "l": "Leadership dashboard",
+    "s": "ROI and spend efficiency",
+    "h": "a dashboard combines revenue, spend and return by channel for monthly reviews."
+   }
+  ],
+  "hub": "Marketing Hub Enterprise (multi-touch revenue attribution), Shopify integration",
+  "per": [
+   {
+    "l": "Marketing Director",
+    "t": "allocates budget by channel"
+   },
+   {
+    "l": "Digital Marketer",
+    "t": "optimises campaigns"
+   },
+   {
+    "l": "Director",
+    "t": "reviews marketing ROI"
+   }
+  ],
+  "ph": [
+   "Tracking and data connections",
+   "Attribution models and ROI dashboards"
+  ],
+  "k": [
+   "Revenue by channel",
+   "Return on ad spend",
+   "Cost per acquisition",
+   "Conversion rate",
+   "Customer lifetime value"
+  ],
+  "intg": [
+   "Shopify",
+   "Gmail/Outlook"
+  ]
+ },
+ {
+  "id": "HS-EDU-01",
+  "p": "HubSpot",
+  "ind": "Education",
+  "uc": "Student enrolment and admissions",
+  "n": "Enquiry to Enrolment",
+  "d": "Every student enquiry is captured, nurtured and tracked through to enrolment in one pipeline. Admissions teams respond faster and leaders see conversion by course, source and intake.",
+  "sc": "Enquiry to enrolment",
+  "u": "Admissions, Marketing, Directors",
+  "st": "Admissions conversion",
+  "o": [
+   "Respond to every enquiry quickly",
+   "Lift enquiry-to-enrolment conversion",
+   "See which channels bring enrolling students",
+   "Forecast intake numbers earlier"
+  ],
+  "b": [
+   {
+    "l": "Enquiry capture",
+    "s": "web, events and agent enquiries in one place",
+    "h": "HubSpot forms, chat and event imports create contacts with course, intake and source properties."
+   },
+   {
+    "l": "Admissions pipeline",
+    "s": "enquiry, application, offer, enrolled",
+    "h": "a deal pipeline tracks each applicant through application, offer and acceptance, with task queues for admissions officers."
+   },
+   {
+    "l": "Nurture",
+    "s": "automated follow-up by course and stage",
+    "h": "workflows send course-specific emails and reminders at each stage, including offer deadlines."
+   },
+   {
+    "l": "Intake reporting",
+    "s": "conversion by course, source and intake",
+    "h": "dashboards show conversion and forecast enrolments by course, source and intake."
+   }
+  ],
+  "hub": "Marketing Hub Professional, Sales Hub Professional",
+  "per": [
+   {
+    "l": "Admissions Manager",
+    "t": "owns conversion and intake targets"
+   },
+   {
+    "l": "Admissions Officer",
+    "t": "works applicants through the pipeline"
+   },
+   {
+    "l": "Marketing Manager",
+    "t": "runs enquiry campaigns"
+   }
+  ],
+  "ph": [
+   "Enquiry capture and admissions pipeline",
+   "Nurture journeys and intake dashboards"
+  ],
+  "k": [
+   "Enquiry response time",
+   "Enquiry-to-enrolment rate",
+   "Applications by course",
+   "Cost per enrolment",
+   "Intake forecast"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "WhatsApp",
+   "Microsoft Teams"
+  ]
+ },
+ {
+  "id": "HS-EDU-02",
+  "p": "HubSpot",
+  "ind": "Education",
+  "uc": "Course and programme records",
+  "n": "Course and Programme Records",
+  "d": "Courses, programmes and intakes are stored as structured records linked to students and enquiries. Staff can see who is interested in, applying for or enrolled in each programme.",
+  "sc": "Course and intake data",
+  "u": "Admissions, Academic Admin",
+  "st": "Structured course data",
+  "o": [
+   "Keep course and intake details in one place",
+   "Link students to the right programmes",
+   "See demand by course before intakes open",
+   "Cut manual lists and spreadsheets"
+  ],
+  "b": [
+   {
+    "l": "Course records",
+    "s": "programme details, fees and intake dates",
+    "h": "a custom object (Enterprise) or product library holds each programme with fees, duration and intake dates."
+   },
+   {
+    "l": "Student links",
+    "s": "enquiries and applicants tied to courses",
+    "h": "associations connect contacts and applications to one or more courses."
+   },
+   {
+    "l": "Capacity tracking",
+    "s": "places available and filled",
+    "h": "rollup properties count enrolled students against available places for each intake."
+   },
+   {
+    "l": "Demand reporting",
+    "s": "interest and applications by course",
+    "h": "reports show enquiries, applications and enrolments by course to guide intake planning."
+   }
+  ],
+  "hub": "Sales Hub Enterprise (custom objects) or Professional with the product library",
+  "per": [
+   {
+    "l": "Academic Administrator",
+    "t": "maintains course records"
+   },
+   {
+    "l": "Admissions Officer",
+    "t": "links students to programmes"
+   },
+   {
+    "l": "Programme Lead",
+    "t": "tracks demand and capacity"
+   }
+  ],
+  "ph": [
+   "Course object and associations",
+   "Capacity tracking and demand reporting"
+  ],
+  "k": [
+   "Enquiries per course",
+   "Fill rate per intake",
+   "Applications per course",
+   "Waitlist size",
+   "Data accuracy"
+  ],
+  "intg": [
+   "Google Drive/SharePoint",
+   "Microsoft Teams"
+  ]
+ },
+ {
+  "id": "HS-EDU-03",
+  "p": "HubSpot",
+  "ind": "Education",
+  "uc": "Student query tickets",
+  "n": "Student Query Helpdesk",
+  "d": "Student questions and enrolment issues become tracked tickets with owners and response targets. Nothing is lost in shared inboxes, and common questions are answered through self-service.",
+  "sc": "Student support",
+  "u": "Student Services, Admissions",
+  "st": "Responsive student support",
+  "o": [
+   "Answer student queries faster",
+   "Resolve enrolment issues before they cost a student",
+   "Reduce repeat questions with self-service",
+   "See which issues come up most"
+  ],
+  "b": [
+   {
+    "l": "Query intake",
+    "s": "email, chat, forms and WhatsApp",
+    "h": "Service Hub's help desk brings email, chat, forms and WhatsApp into one queue, creating tickets on the student record."
+   },
+   {
+    "l": "Routing",
+    "s": "by query type, course and campus",
+    "h": "routing rules send each ticket to the right team by query type, course or campus, with SLA targets."
+   },
+   {
+    "l": "Self-service",
+    "s": "knowledge base and chatbot",
+    "h": "a knowledge base and chatbot answer fees, timetable and enrolment questions, and Breeze AI suggests replies."
+   },
+   {
+    "l": "Service reporting",
+    "s": "volumes, response times and topics",
+    "h": "dashboards show volumes, response times and top topics by term."
+   }
+  ],
+  "hub": "Service Hub Professional",
+  "per": [
+   {
+    "l": "Student Services Manager",
+    "t": "owns service levels"
+   },
+   {
+    "l": "Support Officer",
+    "t": "resolves student tickets"
+   },
+   {
+    "l": "Admissions Officer",
+    "t": "handles enrolment issues"
+   }
+  ],
+  "ph": [
+   "Help desk, channels and routing",
+   "Knowledge base, chatbot and reporting"
+  ],
+  "k": [
+   "First response time",
+   "Resolution time",
+   "Tickets per student",
+   "Self-service deflection",
+   "Student satisfaction"
+  ],
+  "intg": [
+   "WhatsApp",
+   "Gmail/Outlook",
+   "Microsoft Teams"
+  ]
+ },
+ {
+  "id": "HS-EDU-04",
+  "p": "HubSpot",
+  "ind": "Education",
+  "uc": "Tuition revenue forecasting",
+  "n": "Tuition Revenue Forecast",
+  "d": "Applications, offers and enrolments carry tuition values, so leaders can forecast revenue per intake as students move through admissions. Finance and admissions plan from the same numbers.",
+  "sc": "Tuition revenue by intake",
+  "u": "Directors, Finance, Admissions",
+  "st": "Revenue forecasting",
+  "o": [
+   "Forecast tuition revenue before intakes close",
+   "See revenue at risk from late or withdrawn applicants",
+   "Align admissions targets with budget",
+   "Replace spreadsheet forecasts"
+  ],
+  "b": [
+   {
+    "l": "Tuition values",
+    "s": "fees on each application",
+    "h": "each application deal carries the course fee from the product library or course record."
+   },
+   {
+    "l": "Weighted forecast",
+    "s": "revenue by pipeline stage",
+    "h": "stage probabilities in the admissions pipeline feed the forecasting tool by intake."
+   },
+   {
+    "l": "Intake view",
+    "s": "revenue by course and intake",
+    "h": "custom reports break revenue down by course, intake and student type."
+   },
+   {
+    "l": "Risk reporting",
+    "s": "withdrawals and deferrals",
+    "h": "withdrawal and deferral reasons are captured on lost deals and reported against forecast."
+   }
+  ],
+  "hub": "Sales Hub Professional",
+  "per": [
+   {
+    "l": "Director",
+    "t": "owns the revenue forecast"
+   },
+   {
+    "l": "Finance Manager",
+    "t": "plans budgets from intake data"
+   },
+   {
+    "l": "Admissions Manager",
+    "t": "tracks targets by course"
+   }
+  ],
+  "ph": [
+   "Tuition values and weighted pipeline",
+   "Intake dashboards and risk reporting"
+  ],
+  "k": [
+   "Forecast accuracy",
+   "Revenue per intake",
+   "Withdrawal rate",
+   "Offer acceptance rate",
+   "Revenue by course"
+  ],
+  "intg": [
+   "Xero",
+   "NetSuite"
+  ]
+ },
+ {
+  "id": "HS-EDU-05",
+  "p": "HubSpot",
+  "ind": "Education",
+  "uc": "LMS integration",
+  "n": "LMS-Connected CRM",
+  "d": "Enrolments, progress and completions sync between the LMS and HubSpot, so marketing and student services work from live learning data. Students get the right messages based on where they are in their course.",
+  "sc": "LMS and CRM data in one view",
+  "u": "Student Services, Marketing, IT",
+  "st": "Joined-up student data",
+  "o": [
+   "Remove manual exports between LMS and CRM",
+   "Support students who fall behind earlier",
+   "Promote next courses to students who complete",
+   "Report on the full student lifecycle"
+  ],
+  "b": [
+   {
+    "l": "LMS sync",
+    "s": "enrolments, progress and completions",
+    "h": "a native app or custom integration via Make/n8n or the HubSpot API syncs enrolments, progress and completion data from the LMS."
+   },
+   {
+    "l": "Student view",
+    "s": "learning status on the contact record",
+    "h": "synced properties show course progress and last activity on each student record."
+   },
+   {
+    "l": "Engagement triggers",
+    "s": "messages based on progress",
+    "h": "workflows send check-ins when progress stalls and next-course offers on completion."
+   },
+   {
+    "l": "Lifecycle reporting",
+    "s": "enquiry through to completion",
+    "h": "reports connect enquiry source to enrolment, progress and completion."
+   }
+  ],
+  "hub": "Marketing Hub Professional, Service Hub, Data Hub or Make/n8n",
+  "per": [
+   {
+    "l": "Student Services Manager",
+    "t": "acts on progress data"
+   },
+   {
+    "l": "Marketing Manager",
+    "t": "runs completion and re-enrolment campaigns"
+   },
+   {
+    "l": "IT Lead",
+    "t": "owns the LMS integration"
+   }
+  ],
+  "ph": [
+   "LMS integration and data mapping",
+   "Engagement triggers and lifecycle reporting"
+  ],
+  "k": [
+   "Course completion rate",
+   "At-risk students",
+   "Re-enrolment rate",
+   "Sync errors",
+   "Student lifetime value"
+  ],
+  "intg": [
+   "Microsoft Teams",
+   "Google Drive/SharePoint"
+  ]
+ },
+ {
+  "id": "HS-GEN-00",
+  "p": "HubSpot",
+  "ind": "Other / general",
+  "uc": "Other (typed answer)",
+  "n": "HubSpot CRM Foundation",
+  "d": "A HubSpot CRM set up around how your team actually sells, markets and serves customers. Contacts, deals, service and reporting sit in one place, so everyone works from the same source of truth.",
+  "sc": "CRM, sales and marketing foundation",
+  "u": "Sales, Marketing, Service, Leadership",
+  "st": "One source of truth",
+  "o": [
+   "See every customer interaction in one place",
+   "Forecast revenue with confidence",
+   "Automate repetitive follow-up",
+   "Report on what drives growth"
+  ],
+  "b": [
+   {
+    "l": "CRM data model",
+    "s": "contacts, companies and deals set up for your business",
+    "h": "properties, associations and imports are configured for your data and migrated from your current tools."
+   },
+   {
+    "l": "Sales pipeline",
+    "s": "stages that match your sales process",
+    "h": "deal pipelines with stage requirements reflect how your team sells."
+   },
+   {
+    "l": "Automation",
+    "s": "follow-ups, routing and reminders",
+    "h": "workflows, sequences and routing rules handle follow-ups and lead assignment."
+   },
+   {
+    "l": "Reporting",
+    "s": "pipeline, activity and revenue dashboards",
+    "h": "dashboards and the forecasting tool show pipeline, activity and revenue."
+   }
+  ],
+  "hub": "Sales Hub, Marketing Hub or Service Hub, scoped to your needs",
+  "per": [
+   {
+    "l": "Leadership",
+    "t": "tracks pipeline and growth"
+   },
+   {
+    "l": "Sales Manager",
+    "t": "manages the team and forecast"
+   },
+   {
+    "l": "Marketing Manager",
+    "t": "runs campaigns and lead flow"
+   }
+  ],
+  "ph": [
+   "CRM foundation and data migration",
+   "Automation, reporting and additional Hubs"
+  ],
+  "k": [
+   "Pipeline value",
+   "Conversion rate",
+   "Sales cycle length",
+   "Lead response time",
+   "CRM adoption"
+  ],
+  "intg": [
+   "Gmail/Outlook",
+   "Microsoft Teams"
+  ]
+ }
+]
