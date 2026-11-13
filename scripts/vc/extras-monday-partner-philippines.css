@@ -1,0 +1,12 @@
+/* PAGE-SPECIFIC (appended after the mock-up page block by build-css.mjs).
+   Coverage section (vcCoverage): the office map beside the city cards.
+   The mock-up gives .omap a 1/1 aspect ratio, but the grid row stretches it
+   to the height of the right-hand column (visit card + city cards), and the
+   square ratio then turns that height into width: the map came out 600-790px
+   wide in a 490-620px column and covered the cards (all six region pages,
+   1024px and up). On desktop the map now simply fills its column and the row
+   height, with a floor so it never collapses. Tablet and mobile keep the
+   mock-up's 16/10 and 1/1 ratios, where the grid is one column. */
+@media (min-width:1024px){
+  .vc .ogrid>.omap{aspect-ratio:auto;min-width:0;min-height:440px}
+}

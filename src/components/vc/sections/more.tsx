@@ -159,7 +159,7 @@ export function VcPartnerStatus({ s }: { s: VcPartnerStatusData }) {
       <div className="pst">
         <div className="pst-badge">
           {(s.badgeImages ?? []).map((b, i) => (
-            <SImg key={b._key ?? i} image={b.image} width={240} className={vercelStegaClean(b.shape ?? "") || undefined} alt={b.alt} />
+            <SImg key={b._key ?? i} image={b.image} width={360} className={vercelStegaClean(b.shape ?? "") || undefined} alt={b.alt} />
           ))}
         </div>
         <div className="pst-copy">
