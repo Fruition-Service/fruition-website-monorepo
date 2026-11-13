@@ -30,8 +30,8 @@ export const PARTNERS_QUERY = `*[_type == "partner" && !(_id in path("drafts.**"
 
 export const getPartners = cache(async (): Promise<PartnerDoc[]> => client.fetch<PartnerDoc[]>(PARTNERS_QUERY))
 
-/** Tiles and tool cards keep their image in `logo`; everything else in `image`. */
-const LOGO_FIELD_TYPES = new Set(['vcTile', 'vcTool'])
+/** Tiles, tool marquee tiles and logo cards (vcItem) keep their partner image in `logo`; everything else in `image`. */
+const LOGO_FIELD_TYPES = new Set(['vcTile', 'vcTool', 'vcItem'])
 
 type Node = Record<string, unknown> & { _type?: string; partner?: { _ref?: string }; partnerImage?: string }
 

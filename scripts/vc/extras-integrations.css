@@ -1,0 +1,12 @@
+/* "By tool." cards (vcCards layout "tools", Edward 13 Nov 2026): the logos that used to sit in the
+   "Tools we integrate daily." marquee, now on the cards themselves, and each whole card links to
+   its tool page. Wordmarks ("wm-img") sit in a fixed-height row so the names line up across a row;
+   square marks ("sq", n8n, WhatsApp, LINE, Viber) share that row height. */
+.vc-p-integrations .cards4.tools .card.tool{color:inherit;text-decoration:none;transition:border-color .2s,transform .2s var(--ease)}
+.vc-p-integrations .cards4.tools a.card.tool:hover{border-color:var(--accent);transform:translateY(-2px)}
+.vc-p-integrations .cards4.tools a.card.tool:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vc-p-integrations .cards4.tools a.card.tool:hover .link svg{transform:translateX(3px)}
+.vc-p-integrations .tool-logo{display:flex;align-items:center;height:48px;margin-bottom:4px}
+.vc-p-integrations .tool-logo img{display:block;object-fit:contain;object-position:left center}
+.vc-p-integrations .tool-logo img.wm-img{width:auto;height:auto;max-width:140px;max-height:36px}
+.vc-p-integrations .tool-logo img.sq{width:44px;height:44px}
