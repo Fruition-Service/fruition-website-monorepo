@@ -6,6 +6,7 @@ import { VcQuoteWall } from "./quoteWall"
 import { VcHeroSearch } from "./hubs"
 import VcAskPrompt from "./VcAskPrompt"
 import { VcNodes } from "./nodes"
+import { ChannelRows } from "./channelRows"
 import { Acc, Arrow, Badge, Btn, Ctas, Head, SImg, Sec, SvgIcon, safeSvg } from "../primitives"
 import type {
   VcAuditData,
@@ -149,6 +150,17 @@ export function VcHero({ s }: { s: VcHeroData }) {
       )}
     </div>
   ) : null
+  const hasContact = !!(s.contactRows?.length || s.socials?.length || s.security?.length)
+  const copy = (
+    <>
+      <Badge>{s.badge}</Badge>
+      <h1 className="display">
+        <Acc text={s.heading} />
+      </h1>
+      {s.lead && <p className="lead">{s.lead}</p>}
+      <Ctas ctas={s.ctas} />
+    </>
+  )
   if (variant.includes("hc")) {
     // Centred hero (careers, blog, FAQs): copy above, optional wide photo below.
     return (
@@ -170,15 +182,19 @@ export function VcHero({ s }: { s: VcHeroData }) {
   }
   return (
     <section className={`hero ${variant}`.trim()} data-sec="hero">
-      <div className="wrap hero-grid">
-        <div>
-          <Badge>{s.badge}</Badge>
-          <h1 className="display">
-            <Acc text={s.heading} />
-          </h1>
-          {s.lead && <p className="lead">{s.lead}</p>}
-          <Ctas ctas={s.ctas} />
-        </div>
+      <div className={`wrap hero-grid${hasContact ? " has-chan" : ""}`}>
+        {hasContact ? (
+          // Contact page: copy, then the contact rows. On mobile the form sits between them.
+          <div className="hero-side">
+            <div className="hero-copy">{copy}</div>
+            <div className="hero-chan">
+              {s.contactLabel && <span className="label hero-chan-h">{s.contactLabel}</span>}
+              <ChannelRows rows={s.contactRows} followLabel={s.followLabel} socials={s.socials} securityLabel={s.securityLabel} security={s.security} />
+            </div>
+          </div>
+        ) : (
+          <div>{copy}</div>
+        )}
         {s.form ? (
           <div className="frame">
             <LeadForm
