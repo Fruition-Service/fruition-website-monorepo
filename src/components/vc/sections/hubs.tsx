@@ -65,8 +65,12 @@ export function VcBlogGrid({ s, posts }: { s: VcBlogListData; posts: VcBlogCard[
   const q = useSearch()
   const other = vercelStegaClean(s.otherLabel ?? "General")
   const catOf = (p: VcBlogCard) => p.category || other
-  const seen = Array.from(new Set(posts.map((p) => p.category).filter(Boolean) as string[]))
-  const cats = posts.some((p) => !p.category) ? [...seen, other] : seen
+  // A post sits under every category it carries, not only its first, so a tab lists all its posts.
+  const catsOf = (p: VcBlogCard) => {
+    const all = (p.categories ?? []).filter((c): c is string => !!c)
+    return all.length ? all : [other]
+  }
+  const cats = Array.from(new Set(posts.flatMap(catsOf))).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
   const [cat, setCat] = useState("")
   const terms = q.trim().toLowerCase()
   // The page number belongs to one filter + search combination; changing either starts at page 1.
@@ -74,7 +78,7 @@ export function VcBlogGrid({ s, posts }: { s: VcBlogListData; posts: VcBlogCard[
   const [pg, setPg] = useState({ view: "", n: 1 })
   const page = pg.view === view ? pg.n : 1
   const setPage = (n: number) => setPg({ view, n })
-  const list = posts.filter((p) => (!cat || catOf(p) === cat) && (!terms || (p.title ?? "").toLowerCase().includes(terms)))
+  const list = posts.filter((p) => (!cat || catsOf(p).includes(cat)) && (!terms || (p.title ?? "").toLowerCase().includes(terms)))
   const pages = Math.max(1, Math.ceil(list.length / PER))
   const cur = Math.min(page, pages)
   return (

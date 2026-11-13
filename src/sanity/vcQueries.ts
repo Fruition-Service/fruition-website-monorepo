@@ -36,13 +36,14 @@ export async function getVcShared(): Promise<VcSharedData | null> {
   )
 }
 
-export interface VcBlogCard { _id: string; title?: string; slug?: string; publishedAt?: string; author?: string; category?: string; charCount?: number; cover?: { asset?: { _ref?: string } } }
+export interface VcBlogCard { _id: string; title?: string; slug?: string; publishedAt?: string; author?: string; category?: string; categories?: (string | null)[]; charCount?: number; cover?: { asset?: { _ref?: string } } }
 
 /** Every published post for the blog list (light fields only; 12 render per page). */
 export async function getVcBlogCards(): Promise<VcBlogCard[]> {
   return client.fetch<VcBlogCard[]>(
     `*[_type == "blogPost" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
       _id, title, "slug": slug.current, publishedAt, author, "category": categories[0]->title,
+      "categories": categories[]->title,
       "charCount": length(pt::text(body)),
       "cover": coalesce(coverImage, mainImage, featuredImage, heroImage, body[_type == "image"][0]){ asset }
     }`,
