@@ -3,7 +3,9 @@ import { urlFor } from "@/sanity/image"
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fruitionservices.io"
 const SITE_NAME = "Fruition"
-const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph-image.png`
+const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph-image.jpg`
+const DEFAULT_OG_IMAGE_ALT =
+  "Fruition logo above its partner badges: monday.com Platinum, Atlassian Platinum, OpenAI Select, Claude Partner Network, Make, HubSpot, AWS, ClickUp, n8n, ElevenLabs and Google Cloud"
 /** Bump when the /og-card design changes (workers/og-card): the cards are cached as immutable. */
 const OG_CARD_VERSION = "1"
 const DEFAULT_TITLE =
@@ -50,6 +52,8 @@ export function buildOgMetadata(input: OgMetadataInput) {
     input.image ?? (input.path === "/" ? DEFAULT_OG_IMAGE : ogCardUrl(title, input.path)),
   )
 
+  const imageAlt = image === DEFAULT_OG_IMAGE ? DEFAULT_OG_IMAGE_ALT : title
+
   const og: Record<string, unknown> = {
     type: "website",
     siteName: SITE_NAME,
@@ -57,7 +61,7 @@ export function buildOgMetadata(input: OgMetadataInput) {
     url,
     title,
     description,
-    images: image ? [{ url: image, width: 1200, height: 630 }] : [],
+    images: image ? [{ url: image, width: 1200, height: 630, alt: imageAlt }] : [],
     ...(input.extra?.openGraph ?? {}),
   }
 
@@ -65,7 +69,7 @@ export function buildOgMetadata(input: OgMetadataInput) {
     card: "summary_large_image",
     title,
     description,
-    images: image ? [image] : [],
+    images: image ? [{ url: image, alt: imageAlt }] : [],
     ...(input.extra?.twitter ?? {}),
   }
 

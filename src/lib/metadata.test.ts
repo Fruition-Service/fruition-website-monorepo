@@ -35,7 +35,7 @@ describe("buildOgMetadata images", () => {
   })
 
   it("keeps the badge artwork on the homepage and explicit images elsewhere", () => {
-    expect(ogImage(buildOgMetadata({ title: "Home", path: "/" }))).toMatch(/\/opengraph-image\.png$/)
+    expect(ogImage(buildOgMetadata({ title: "Home", path: "/" }))).toMatch(/\/opengraph-image\.jpg$/)
     expect(ogImage(buildOgMetadata({ title: "x", path: "/x", image: "https://example.com/a.png" }))).toBe("https://example.com/a.png")
   })
 
