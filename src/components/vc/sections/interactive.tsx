@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { vercelStegaClean } from "@vercel/stega"
-import { Btn, Head, LinkedInLink, QuoteAvatar } from "../primitives"
+import { Btn, Head, LinkedInLink } from "../primitives"
+import { VcQuoteWall } from "./quoteWall"
 import { dataset, projectId } from "@/sanity/env"
 import type { VcFixData, VcIndustryTabsData, VcTrackData } from "../types"
 
@@ -356,26 +357,6 @@ export function VcFilteredProof({
 }) {
   const [f, setF] = useState("")
   const list = quotes.filter((q) => !f || vercelStegaClean(q.tag ?? "") === f)
-  const half = Math.ceil(list.length / 2)
-  const col = (qs: typeof list, dir: string) => (
-    <div className={`mq-col ${dir}`}>
-      <div className="mq-track">
-        {[...qs, ...qs].map((q, i) => (
-          <figure className="q" key={`${q._id}-${i}`} aria-hidden={i >= qs.length || undefined}>
-            {q.org && <span className="label">{q.org}</span>}
-            <blockquote>&ldquo;{q.quote}&rdquo;</blockquote>
-            <figcaption className="who">
-              <QuoteAvatar q={q} />
-              <div>
-                <b>{q.name}</b>
-                <span className="small">{q.role}</span>
-              </div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  )
   return (
     <>
       <div className="sticky">
@@ -392,10 +373,7 @@ export function VcFilteredProof({
           })}
         </div>
       </div>
-      <div className="quotes mq" key={f}>
-        {col(list.slice(0, half), "up")}
-        {col(list.slice(half), "down")}
-      </div>
+      <VcQuoteWall key={f} quotes={list} />
     </>
   )
 }

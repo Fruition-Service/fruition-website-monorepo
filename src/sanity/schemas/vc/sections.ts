@@ -284,7 +284,7 @@ export const vcProof = defineType({
       name: 'quotes',
       title: 'Quotes',
       type: 'array',
-      description: 'Shown in two scrolling columns: the first half up, the second half down.',
+      description: 'Shown in two scrolling columns: the first half up, the second half down. Every page shows the list set on the Customer testimonials page; edit the quotes there. This list is only a fallback.',
       of: [defineArrayMember({ type: 'reference', to: [{ type: 'vcQuote' }] })],
     }),
   ],
