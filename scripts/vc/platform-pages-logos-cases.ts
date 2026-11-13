@@ -1,9 +1,12 @@
 /**
  * Platform pages (Atlassian, HubSpot and the /partnerships/* partner pages):
  *
- * 1. Drop the hero statistics strip and put the partner logo row (the
- *    "Platforms" vcLogos section used on /ai-readiness-blueprint) straight
- *    under the hero instead.
+ * 1. Drop the hero statistics strip and show the client logo carousel in the
+ *    hero instead: the same "Trusted by teams across 900+ implementations"
+ *    marquee as the AI pages (hero `trustLabel` + `trustLogos`, copied from
+ *    vcPage-ai-consulting). The first version of this script misread the
+ *    request and added a static "Platforms" partner-badge grid under the hero;
+ *    re-running it removes that grid (fixed 2026-11-13).
  * 2. Give every page that showed a single case study a second one:
  *    Long-Term Care Consultants (SNF Clinic) on /atlassian-consulting and
  *    Rod Schubert Financial Advice on /partnerships/aircall-partner. Both are
@@ -17,7 +20,7 @@
  *   npx tsx scripts/vc/platform-pages-logos-cases.ts           # dry run
  *   npx tsx scripts/vc/platform-pages-logos-cases.ts --apply   # write
  *
- * Re-runnable: pages that already have the logo row, and case lists that
+ * Re-runnable: heroes that already carry the carousel, and case lists that
  * already reference the new case, are left alone.
  */
 import { readFileSync } from 'node:fs'
@@ -53,35 +56,10 @@ const PAGES = [
   '/partnerships/vapi-partner',
 ]
 
-/** Partner badges already in the dataset (blueprint row plus each partner page's own badge). */
-const LOGOS: { alt: string; ref: string; shape?: string }[] = [
-  { alt: 'monday.com Platinum Partner', ref: 'image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png' },
-  { alt: 'Atlassian Platinum Solution Partner', ref: 'image-bbd8251a00797677ebd5bbca9c59326cd10a150d-291x97-png' },
-  { alt: 'HubSpot Solutions Partner', ref: 'image-6a5a255ad471dafb78258b25c86021470cd48dbc-124x124-png', shape: 'sq' },
-  { alt: 'ClickUp Registered Partner', ref: 'image-7ec9df4adbbf17eb381c68a45ecbe01d6fd3a4e7-123x123-png', shape: 'sq' },
-  { alt: 'Aircall Partner', ref: 'image-ea4be7caa487639e94ca1f8bc9fd1924630325ef-480x349-png', shape: 'sq' },
-  { alt: 'Anthropic Claude Partner Network', ref: 'image-22427abb08ced2db62ca61fbf41998f7371cd8ed-253x80-png' },
-  { alt: 'OpenAI Select Partner', ref: 'image-d3cca438d824022b892882bd550422cc70a37c40-469x221-png' },
-  { alt: 'Google Cloud Partner', ref: 'image-2e1d55d3156180112209e070a7e9dcbdb85bf74a-200x90-png' },
-  { alt: 'n8n Certified Expert Partner', ref: 'image-f69be9721952f5e05ffcf234d223cfdb414e5360-600x600-png', shape: 'sq' },
-  { alt: 'Make Partner', ref: 'image-b87b9dfb0343383eefa24d60300caa988b9bdec5-512x131-png' },
-]
-
-function logosSection() {
-  return {
-    _type: 'vcLogos',
-    _key: key(),
-    tone: 'alt',
-    gridClass: 'ten',
-    head: {
-      _type: 'vcHead',
-      badge: 'Platforms',
-      heading: 'Certified on *every platform we implement.*',
-      lead: 'Partner status across the work management, CRM, automation and AI platforms your teams already use.',
-    },
-    logos: LOGOS.map((l) => ({ _key: key(), _type: 'vcLogo', alt: l.alt, ...(l.shape ? { shape: l.shape } : {}), image: img(l.ref) })),
-  }
-}
+/** The AI pages' hero carousel is the source; every platform hero gets the same label and logos. */
+const CAROUSEL_SOURCE = 'vcPage-ai-consulting'
+/** Heading of the badge grid the first run added by mistake; sections with it are removed. */
+const OLD_GRID_HEADING = 'Certified on *every platform we implement.*'
 
 const ASSETS = join(__dirname, 'assets', 'platform-cases')
 const NEW_CASES = [
@@ -131,7 +109,8 @@ const NEW_CASES = [
   },
 ]
 
-type Section = { _key: string; _type: string; stats?: unknown[]; statsNote?: string; cases?: { _ref: string }[] }
+type Logo = { _key?: string; [k: string]: unknown }
+type Section = { _key: string; _type: string; stats?: unknown[]; statsNote?: string; trustLabel?: string; trustLogos?: Logo[]; head?: { heading?: string }; cases?: { _ref: string }[] }
 
 async function upload(file: string) {
   if (!APPLY) return `image-DRYRUN-${file}`
@@ -141,6 +120,11 @@ async function upload(file: string) {
 
 async function main() {
   const tx = client.transaction()
+  const source = await client.fetch<{ trustLabel?: string; trustLogos?: Logo[] } | null>(
+    `*[_id == $id][0].sections[_type == "vcHero"][0]{ trustLabel, trustLogos }`,
+    { id: CAROUSEL_SOURCE },
+  )
+  if (!source?.trustLabel || !source.trustLogos?.length) throw new Error(`no hero carousel on ${CAROUSEL_SOURCE}`)
 
   for (const c of NEW_CASES) {
     const existing = await client.fetch(`*[_id==$id][0]._id`, { id: c.doc._id })
@@ -168,9 +152,17 @@ async function main() {
       console.log(`${path}: drop ${hero.stats?.length ?? 0} hero stats`)
       changed = true
     }
-    if (!page.sections.some((s) => s._type === 'vcLogos')) {
-      p.insert('after', `sections[_key=="${hero._key}"]`, [logosSection()])
-      console.log(`${path}: add platform logo row under the hero`)
+    if (!hero.trustLogos?.length) {
+      p.set({
+        [`sections[_key=="${hero._key}"].trustLabel`]: source.trustLabel,
+        [`sections[_key=="${hero._key}"].trustLogos`]: source.trustLogos.map((l) => ({ ...l, _key: key() })),
+      })
+      console.log(`${path}: add the client logo carousel to the hero (${source.trustLogos.length} logos)`)
+      changed = true
+    }
+    for (const grid of page.sections.filter((s) => s._type === 'vcLogos' && s.head?.heading === OLD_GRID_HEADING)) {
+      p.unset([`sections[_key=="${grid._key}"]`])
+      console.log(`${path}: remove the platform badge grid added by mistake`)
       changed = true
     }
     const add = NEW_CASES.find((c) => c.page === path)
