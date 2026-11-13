@@ -38,6 +38,9 @@ const ATTR_NAMES: Record<string, string> = {
   "gradient-units": "gradientUnits", "xlink:href": "href", viewbox: "viewBox",
 }
 
+/** The 24-unit box every Version C sprite icon (arrow, check, cross, plus) is drawn in. */
+export const ICON_VIEWBOX = "0 0 24 24"
+
 /** Minimal SVG to React: tags, attributes, text. No scripts, handlers, foreign content or JS URLs. */
 export function svgToReact(raw?: string): ReactNode {
   const svg = clean(raw).trim()
@@ -49,6 +52,9 @@ export function svgToReact(raw?: string): ReactNode {
   let key = 0
   const close = () => {
     const f = stack.pop()!
+    // The mock-up icons were drawn from a sprite whose <symbol> held the viewBox; the
+    // migration inlined only the path, so a bare root <svg> clipped its icon to a dash.
+    if (!stack.length && f.tag === "svg" && !f.props.viewBox && !f.props.width && !f.props.height) f.props.viewBox = ICON_VIEWBOX
     const el = createElement(f.tag, { ...f.props, key: key++ }, ...(f.kids.length ? f.kids : []))
     if (stack.length) stack[stack.length - 1].kids.push(el)
     else root = el

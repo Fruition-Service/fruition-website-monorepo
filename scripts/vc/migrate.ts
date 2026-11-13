@@ -1096,7 +1096,10 @@ const VOID_TAGS = new Set(['img', 'br', 'hr', 'input'])
 
 function svgClean(svg: string): string {
   // The mock-ups draw icons from a sprite (<use href="#arr">); inline the path instead.
-  return svg.replace(/<use href="#(\w+)"\s*\/?>(<\/use>)?/g, (_m, id) => `<path d="${ICON_PATHS[id] ?? ICON_PATHS.arr}"/>`)
+  // The sprite's <symbol> carried the 24-unit viewBox, so the <svg> needs it now.
+  if (!/<use href="#/.test(svg)) return svg
+  const inlined = svg.replace(/<use href="#(\w+)"\s*\/?>(<\/use>)?/g, (_m, id) => `<path d="${ICON_PATHS[id] ?? ICON_PATHS.arr}"/>`)
+  return /^<svg[^>]*\bviewBox=/i.test(inlined) ? inlined : inlined.replace(/^<svg\b/, '<svg viewBox="0 0 24 24"')
 }
 
 function nodeHref(ctx: Ctx, href: string | undefined, label: string): string | undefined {
