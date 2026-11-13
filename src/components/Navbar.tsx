@@ -105,26 +105,21 @@ function ItemMark({ link }: { link: NavLink }) {
 }
 
 /**
- * The dropdown's last column as a case study: client logo, the quote, the
- * person quoted with their headshot, up to two headline figures and a link.
+ * The dropdown's last column as a case study: the client logo leads, then the
+ * quote with who said it, the headline figures on one line and a link. Kept
+ * short so it never makes the dropdown taller than its link columns need.
  */
 function CaseStudyCard({ feature, onNavigate }: { feature: NavFeature; onNavigate: () => void }) {
-  const logo = logoSrc(feature.logo, 360)
-  const photo = logoSrc(feature.image, 96)
+  const logo = logoSrc(feature.logo, 480)
   const metrics = (feature.metrics || []).filter((m) => m.value).slice(0, 2)
   return (
     <figure className="nd-feat nd-case">
       <div className="nd-case-top">
+        {logo && <Image className="nd-case-logo" src={logo} alt="" width={160} height={48} unoptimized />}
         {feature.kicker && <figcaption>{feature.kicker}</figcaption>}
-        {logo && <Image className="nd-case-logo" src={logo} alt="" width={120} height={40} unoptimized />}
       </div>
       <blockquote>{feature.plain ? feature.quote : <>&ldquo;{feature.quote}&rdquo;</>}</blockquote>
-      {(feature.attribution || photo) && (
-        <div className="nd-case-who">
-          {photo && <Image src={photo} alt="" width={36} height={36} unoptimized />}
-          {feature.attribution && <p className="nd-who">{feature.attribution}</p>}
-        </div>
-      )}
+      {feature.attribution && <p className="nd-who">{feature.attribution}</p>}
       {metrics.length > 0 && (
         <dl className="nd-case-stats">
           {metrics.map((m, i) => (
