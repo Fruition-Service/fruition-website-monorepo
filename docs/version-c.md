@@ -32,6 +32,12 @@ is click-to-edit on editing.fruitionservices.io.
 4. Check: `node scripts/vc/compare.mjs --page <slug>:<path>` screenshots the page next to its
    mock-up at 1440 and 390 and reports section heights, overflow, broken images and console errors.
 
+### Pages without a mock-up of their own
+
+| Page | Group | Layout reused | Content script | Added |
+|---|---|---|---|---|
+| `/licence-procurement` | core | `/implementation-packages` (`pricing.css`, slug `pricing`) | `scripts/vc/add-licence-procurement.ts` (`--apply`) | 13 Nov 2026. Missed by the 11 Nov rollout; copy is the live page's (the retired `licensingPage` singleton merged over `src/data/practicePages/licensing.ts`). That singleton and its fallback no longer drive the route: edit the `vcPage-licence-procurement` document. |
+
 ## Page-specific sections
 
 Pages in one `group` (partner, industry, msol, ...) share a section template: the same section types
