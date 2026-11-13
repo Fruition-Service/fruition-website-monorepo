@@ -3,7 +3,8 @@
 import { usePathname } from "next/navigation"
 import { urlFor } from "@/sanity/image"
 import { cn } from "@/lib/utils"
-import { partnerBadgesForPath } from "@/data/partnerBadges"
+import { partnerBadgesForPath, type PartnerBadgeKey } from "@/data/partnerBadges"
+import { usePartnerBadges } from "@/components/PartnerBadgesProvider"
 import type { PartnerBadge, SanityImageRef } from "./types"
 
 /** Override specific CMS partner badges with local dark variants */
@@ -19,6 +20,15 @@ function cmsBadgeSrc(name: string | undefined, image: SanityImageRef): string | 
   }
   if (!image?.asset?._ref) return null
   try { return urlFor(image).auto("format").url() } catch { return null }
+}
+
+/** Code badge key -> Partners & badges key, where they differ. */
+const PARTNER_KEY: Partial<Record<PartnerBadgeKey, string>> = { googleCloud: "google-cloud" }
+
+/** Width and height from a Sanity asset id (image-<hash>-<w>x<h>-<ext>). */
+function dims(ref: string | undefined): [number, number] | null {
+  const m = ref?.match(/-(\d+)x(\d+)-[a-z]+$/)
+  return m ? [Number(m[1]), Number(m[2])] : null
 }
 
 interface Row {
@@ -44,6 +54,7 @@ interface PartnerBadgeRowProps {
  */
 export default function PartnerBadgeRow({ badges = [], explicitOnly = false, className }: PartnerBadgeRowProps) {
   const pathname = usePathname()
+  const cms = usePartnerBadges()
 
   const rows: Row[] = badges.length > 0
     ? badges.flatMap((b, i) => {
@@ -51,14 +62,23 @@ export default function PartnerBadgeRow({ badges = [], explicitOnly = false, cla
         if (!src) return []
         return [{ key: b._key || `badge-${i}`, src, alt: b.name || "Partner badge", width: 120, height: 44, square: false }]
       })
-    : partnerBadgesForPath(pathname, { explicitOnly }).map((b) => ({
-        key: b.key,
-        src: b.src,
-        alt: b.alt,
-        width: b.width,
-        height: b.height,
-        square: b.shape === "square",
-      }))
+    : partnerBadgesForPath(pathname, { explicitOnly }).map((b) => {
+        // The partner's badge in Partners & badges wins over the bundled file.
+        const live = cms[PARTNER_KEY[b.key] ?? b.key]
+        const d = dims(live?.asset?._ref)
+        let src = b.src
+        if (live && d) {
+          try { src = urlFor(live).auto("format").url() } catch { /* keep the bundled file */ }
+        }
+        return {
+          key: b.key,
+          src,
+          alt: live?.alt || b.alt,
+          width: d && src !== b.src ? d[0] : b.width,
+          height: d && src !== b.src ? d[1] : b.height,
+          square: d && src !== b.src ? Math.abs(d[0] - d[1]) / Math.max(d[0], d[1]) < 0.15 : b.shape === "square",
+        }
+      })
 
   if (rows.length === 0) return null
 

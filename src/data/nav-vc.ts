@@ -215,8 +215,8 @@ export const NAV_VC: NavVcItem[] = [
         columns: 1,
         grow: 1,
         items: [
-          { label: 'OpenAI', href: '/partnerships/openai-chatgpt-partner', description: 'ChatGPT Enterprise & custom GPTs', icon: 'openai', tier: 'Select' },
-          { label: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', description: 'Enterprise Claude & Claude Code', icon: 'anthropic-claude', tier: 'Select' },
+          { label: 'OpenAI', href: '/partnerships/openai-chatgpt-partner', description: 'ChatGPT Enterprise & custom GPTs', icon: 'openai' },
+          { label: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', description: 'Enterprise Claude & Claude Code', icon: 'anthropic-claude' },
           { label: 'ElevenLabs', href: '/partnerships/elevenlabs-partner', description: 'Voice AI agents and lifelike speech', icon: 'elevenlabs' },
         ],
       },
@@ -225,7 +225,7 @@ export const NAV_VC: NavVcItem[] = [
         columns: 1,
         grow: 1,
         items: [
-          { label: 'n8n', href: '/partnerships/n8n-integration-partner', description: 'Self-hosted workflows and AI agents', icon: 'n8n', tier: 'Expert' },
+          { label: 'n8n', href: '/partnerships/n8n-integration-partner', description: 'Self-hosted workflows and AI agents', icon: 'n8n' },
           { label: 'Make', href: '/partnerships/make-partners', description: 'No-code automation across your stack', icon: 'make', tier: 'Gold' },
           { label: 'Integrations', href: '/integrations', description: 'Connect monday.com, your CRM and the rest of your stack', icon: 'integrations' },
         ],

@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
-import { ctas, head, heading, image, sectionBase } from './fields'
+import { ctas, head, heading, image, partnerRef, sectionBase } from './fields'
 import { vcCoreSections, vcNode } from './core'
 
 /**
@@ -627,6 +627,7 @@ export const vcDirectory = defineType({
             defineField({ name: 'body', title: 'Line under the name', type: 'string' }),
             defineField({ name: 'href', title: 'Link', type: 'string' }),
             defineField({ name: 'groups', title: 'Group keys', type: 'array', of: [{ type: 'string' }] }),
+            ...partnerRef,
           ],
           preview: { select: { title: 'title', subtitle: 'tag', media: 'logo' } },
         }),
@@ -656,6 +657,7 @@ export const vcToolkit = defineType({
             defineField({ name: 'logoShape', title: 'Logo shape', type: 'string', description: 'Design-system value: "wm-img", "sq", "card-b" or "logo-b".' }),
             defineField({ name: 'title', title: 'Name', type: 'string' }),
             defineField({ name: 'body', title: 'Body', type: 'text', rows: 2 }),
+            ...partnerRef,
           ],
           preview: { select: { title: 'title', media: 'logo' } },
         }),
