@@ -44,6 +44,22 @@ is click-to-edit on editing.fruitionservices.io.
 |---|---|---|---|---|
 | `/licence-procurement` | core | `/implementation-packages` (`pricing.css`, slug `pricing`) | `scripts/vc/add-licence-procurement.ts` (`--apply`) | 13 Nov 2026. Missed by the 11 Nov rollout; copy is the live page's (the retired `licensingPage` singleton merged over `src/data/practicePages/licensing.ts`). That singleton and its fallback no longer drive the route: edit the `vcPage-licence-procurement` document. |
 
+### Use cases on industry pages (`vcUseCases`)
+
+The twelve `/ai-use-cases/<industry>` pages were retired on 13 Nov 2026 (1 search click and ~160 impressions in
+90 days; the `/ai-use-cases` hub stays). Each industry's builds now sit in a `vcUseCases` section, anchor
+`ai-use-cases`, on its landing page: construction, education, nonprofits, financial services, government,
+healthcare, transport & logistics, manufacturing, professional services, real estate, retail, technology & SaaS.
+It replaced the hand-built "Use case catalogue" `vcCards` in the same slot (same `_key` and heading), so it is part
+of the industry group's template, not page-specific. The cards are the page's featured builds from
+`public/data/ai-use-cases` (`LANDING_PAGE_USE_CASES` in `src/features/ai-use-cases/featured.ts` maps page path to
+catalogue industry; a new industry page needs an entry there and in `INDUSTRY_PAGES` in `types.ts`). "See the
+build" opens the build in the hub dialog with the industry preselected (`/ai-use-cases?industry=<key>#uc-...`), and
+the "See all" button opens the hub on that industry. The old URLs 301 to `<page>#ai-use-cases` (cross-industry to the
+hub) from `src/features/ai-use-cases/retired.ts`, spread into `auditRedirects`. Content script:
+`scripts/vc/retire-ai-use-case-pages-2026-11.ts` (dry run by default, `--apply`, `--restore <backup>`). The solar,
+energy, hospitality and media pages keep their own hand-picked cards; only their links were repointed.
+
 ### Tool cards (`vcCards` layout `tools`)
 
 Logo, name and line, and the whole card is the link (`href`). Each card takes a `logo` with `logoShape`

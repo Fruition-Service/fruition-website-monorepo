@@ -59,12 +59,9 @@ const LABELS: Record<string, string> = {
   'terms-and-conditions': 'Terms & Conditions',
   'monday-for-cabinetry-renovation': 'Installation & Renovation',
   'solar-crm-solution': 'Solar CRM Solution',
-  // AI use case catalogue (/ai-use-cases/<industry>)
+  // AI use case hub (the per-industry pages under it are retired and redirect)
   'ai-use-cases': 'AI Use Cases',
-  'education-nonprofit': 'Education & Nonprofit',
-  'retail-ecommerce': 'Retail & E-commerce',
   'technology-saas': 'Technology & SaaS',
-  'cross-industry': 'Cross-industry',
   // The assistant kept its /ask-fruit URL through two renames.
   'ask-fruit': 'Implementation Calculator',
   // The pricing page (/pricing redirects here) keeps its packages URL.

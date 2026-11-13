@@ -148,6 +148,8 @@ export const vcCatalogue = defineType({
     head(),
     str('departmentLabel', 'Department filter label'),
     str('allDepartmentsLabel', 'All departments label'),
+    str('industryLabel', 'Industry label (shown when the page is opened on one industry)'),
+    str('allIndustriesLabel', 'All industries label'),
     str('searchLabel', 'Search label'),
     str('searchPlaceholder', 'Search placeholder'),
     str('filterLabel', 'Filter label'),

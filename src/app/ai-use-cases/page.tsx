@@ -33,7 +33,7 @@ export default async function Page() {
       itemListElement: index.industries.map((i, n) => ({
         "@type": "ListItem",
         position: n + 1,
-        url: `${SITE_URL}${industryHref(i.slug)}`,
+        url: `${SITE_URL}${industryHref(i)}`,
         name: i.name,
       })),
     },

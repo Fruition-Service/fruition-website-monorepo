@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import type { IndustryMeta, UseCaseTile } from "@/features/ai-use-cases/types"
-import { industryHref, caseAnchorHref, USE_CASES_PATH } from "@/features/ai-use-cases/types"
+import { hubIndustryHref, caseAnchorHref, USE_CASES_PATH } from "@/features/ai-use-cases/types"
 import SectionIntro from "@/components/sections/SectionIntro"
 import CtaButton from "@/components/CtaButton"
 import UseCaseCard, { SEE_BUILD } from "./UseCaseCard"
@@ -9,8 +9,8 @@ import { resolveCatalogueCopy, type UseCaseCatalogueCopy } from "@/features/cont
 
 /**
  * Featured use cases on an industry landing page: up to six builds from the
- * AI use case catalogue, each linking into its build on the catalogue's
- * industry page, plus a link to the full list. Load the props with
+ * AI use case catalogue, each opening its build in the hub, plus a link to
+ * that industry in the hub. Load the props with
  * `getFeaturedUseCases()` (features/ai-use-cases/data) in the page's server
  * component; this component renders nothing when they are missing.
  *
@@ -56,7 +56,7 @@ export default function FeaturedUseCasesSection({
                 tile={tile}
                 hideKicker
                 action={
-                  <Link href={caseAnchorHref(industry.slug, tile.id)} className={SEE_BUILD}>
+                  <Link href={caseAnchorHref(industry.key, tile.id)} className={SEE_BUILD}>
                     See the build
                     <ArrowRight size={16} aria-hidden />
                   </Link>
@@ -67,7 +67,7 @@ export default function FeaturedUseCasesSection({
         </ul>
         <div className="mt-10 flex flex-col items-center gap-4 md:flex-row md:justify-center md:gap-8">
           <CtaButton
-            href={industryHref(industry.slug)}
+            href={hubIndustryHref(industry.key)}
             label={words.ctaLabel}
             variant="outline"
             icon={<ArrowRight size={18} aria-hidden />}

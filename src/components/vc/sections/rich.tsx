@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { vercelStegaClean } from "@vercel/stega"
 import { getFeaturedUseCases } from "@/features/ai-use-cases/data"
-import { caseAnchorHref } from "@/features/ai-use-cases/types"
+import { USE_CASES_ANCHOR, caseAnchorHref, hubIndustryHref } from "@/features/ai-use-cases/types"
 import type { LandingPagePath } from "@/features/ai-use-cases/featured"
 import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
 import { Acc, Arrow, Badge, Head, SImg, Sec } from "../primitives"
@@ -20,8 +20,14 @@ export async function VcUseCases({ s }: { s: VcUseCasesData }) {
   const featured = source ? await getFeaturedUseCases(source) : null
   if (!featured?.tiles.length) return null
   const label = s.linkLabel || "See the build"
+  const { industry } = featured
+  // The industry's other builds live in the hub, which opens on this industry.
+  const more = industry.count > featured.tiles.length
+  const moreLabel = (s.moreLabel || "See all {count} {industry} use cases")
+    .replace("{count}", String(industry.count))
+    .replace("{industry}", industry.name.toLowerCase())
   return (
-    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "use-cases"} cls={s.sectionClass} dataSec="usecases">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? USE_CASES_ANCHOR} cls={s.sectionClass} dataSec="usecases">
       <Head head={s.head} />
       <div className="cards3">
         {featured.tiles.map((t) => (
@@ -33,13 +39,24 @@ export async function VcUseCases({ s }: { s: VcUseCasesData }) {
                 <span key={tag}>{tag}</span>
               ))}
             </div>
-            <Link className="link" href={caseAnchorHref(featured.industry.slug, t.id)}>
+            <Link className="link" href={caseAnchorHref(industry.key, t.id)}>
               {label}
               <Arrow />
             </Link>
           </article>
         ))}
       </div>
+      {more && (
+        <div className="ctas">
+          <Link className="btn outline" href={hubIndustryHref(industry.key)}>
+            <span className="roll">
+              <span>{moreLabel}</span>
+              <span aria-hidden="true">{vercelStegaClean(moreLabel)}</span>
+            </span>
+            <Arrow />
+          </Link>
+        </div>
+      )}
     </Sec>
   )
 }

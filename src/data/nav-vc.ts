@@ -120,7 +120,7 @@ export const NAV_VC: NavVcItem[] = [
         {
           title: 'Professional services & agencies',
           meta: '70 builds',
-          href: '/ai-use-cases/professional-services',
+          href: '/monday-for-professional-services#ai-use-cases',
           logos: [
             { alt: 'Star Aviation', asset: 'image-674f58add988c753df8135bfc9664a7570e4def8-269x93-png' },
             { alt: 'Gordon Slater Lawyers', asset: 'image-4465eee9b6893fab7cdb4edf7da69ac5bb38b543-900x441-png' },
@@ -130,7 +130,7 @@ export const NAV_VC: NavVcItem[] = [
         {
           title: 'Construction, trades & field service',
           meta: '64 builds',
-          href: '/ai-use-cases/construction',
+          href: '/monday-for-construction#ai-use-cases',
           logos: [
             { alt: 'Evolve Constructions', asset: 'image-09ca61a758adbb476278fde27d53182a18ed95f1-269x114-png' },
             { alt: 'Creative Windows', asset: 'image-2873461a85419baafd677e865d2753638e941786-232x154-png' },
@@ -140,7 +140,7 @@ export const NAV_VC: NavVcItem[] = [
         {
           title: 'Manufacturing',
           meta: '47 builds',
-          href: '/ai-use-cases/manufacturing',
+          href: '/monday-for-manufacturing#ai-use-cases',
           logos: [
             { alt: 'Ausdeck', asset: 'image-5484ead34a282ea50b1ffda4d97ae12c7cb4cf60-153x42-png' },
             { alt: 'Bielby', asset: 'image-47f46119cde1e03ae657ef7e33b12dd5259de72f-167x56-png' },
@@ -150,7 +150,7 @@ export const NAV_VC: NavVcItem[] = [
         {
           title: 'Real estate & property',
           meta: '16 builds',
-          href: '/ai-use-cases/real-estate',
+          href: '/monday-for-real-estate#ai-use-cases',
           logos: [
             { alt: 'Aligned Property Services', asset: 'image-4a819aea792e4bc75f7ba11c2e2be13db0b994d4-873x363-png' },
             { alt: 'Real Property Development', asset: 'image-8137628dd9bbdd295334cf71c16c7262a2506dde-277x139-png' },
@@ -160,7 +160,7 @@ export const NAV_VC: NavVcItem[] = [
         {
           title: 'Financial services & insurance',
           meta: '13 builds',
-          href: '/ai-use-cases/financial-services',
+          href: '/industries/financial-services#ai-use-cases',
           logos: [
             { alt: 'Hume Bank', asset: 'image-2e47befaf8cbc3314c3d35b04a3137641b05daec-803x140-png' },
             { alt: 'Avant Insurance', asset: 'image-a26e220c0afdc15b9018d49600b76a46f6c13c24-900x317-png' },

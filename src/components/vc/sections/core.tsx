@@ -183,7 +183,7 @@ export async function VcIndustryGrid({ s }: { s: VcIndustryGridData }) {
       <Head head={s.head} />
       <div className="cards4">
         {index.industries.map((i) => (
-          <Link className="card go-card ind" href={industryHref(i.slug)} key={i.slug}>
+          <Link className="card go-card ind" href={industryHref(i)} key={i.slug}>
             <div>
               <span className="label">{tpl.replace("{count}", String(i.count)).replace("{ai}", String(i.aiCount))}</span>
               <h3 className="h3">{i.name}</h3>
