@@ -180,3 +180,37 @@ ${members.map(card).join("\n")}
 </div>
 </section>`
 }
+
+/**
+ * Read more for clamped team bios (the card CSS in landingPageTheme.ts clamps
+ * every bio to three lines). A button is added only to cards whose bio actually
+ * overflows, so short bios stay clean. Runs now, after web fonts settle, and on
+ * resize (a bio that fits on desktop can overflow on mobile).
+ */
+export const TEAM_READ_MORE_SCRIPT = `<script>
+(function(){
+  function init(){
+    var bios=document.querySelectorAll('.team>.member>p,.lp-team-grid>.lp-team-card>p');
+    for(var i=0;i<bios.length;i++){
+      var p=bios[i],card=p.parentNode;
+      if(card.querySelector('.lp-more')||p.scrollHeight<=p.clientHeight+1)continue;
+      var b=document.createElement('button');
+      b.type='button';b.className='lp-more';b.textContent='Read more';b.setAttribute('aria-expanded','false');
+      b.addEventListener('click',function(e){
+        var btn=e.currentTarget,open=btn.parentNode.classList.toggle('open');
+        btn.textContent=open?'Show less':'Read more';btn.setAttribute('aria-expanded',String(open));
+      });
+      card.appendChild(b);
+    }
+  }
+  init();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);
+  var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(init,200);});
+})();
+</script>`
+
+/** Appends TEAM_READ_MORE_SCRIPT once to a page that shows team cards. */
+export function withTeamReadMore(html: string): string {
+  if (!/class="(?:member|lp-team-card)"/.test(html) || html.includes("'lp-more'")) return html
+  return html.replace(/<\/body>/i, `${TEAM_READ_MORE_SCRIPT}\n</body>`)
+}

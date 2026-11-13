@@ -127,6 +127,7 @@ const baseKeyframes = [...sys.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1
 // Hand-written additions (booking skin, utilities) live next to this script.
 const extras = readFileSync(new URL('./extras.css', import.meta.url), 'utf8')
 const baseCss = `${scopeCss(sys, '.vc')}\n${extras}`
+const teamCardCss = readFileSync(new URL('./team-card.css', import.meta.url), 'utf8')
 // One self-contained file per page: base + extras + that page's block, in
 // that order, so production CSS chunking can never put the base after the
 // page rules (equal specificity, so order decides, exactly as in the mock-ups).
@@ -147,7 +148,9 @@ for (const [slug, file] of pages) {
   // Hand-written fixes for one page (scripts/vc/extras-<slug>.css) go after its block.
   const pageExtrasFile = new URL(`./extras-${slug}.css`, import.meta.url)
   const pageExtras = existsSync(pageExtrasFile) ? `\n${readFileSync(pageExtrasFile, 'utf8')}` : ''
-  writeFileSync(join(outDir, 'pages', `${slug}.css`), `${HEADER}@layer components {\n${baseCss}\n${css}${pageExtras}\n}\n`)
+  // The six region pages share one team card (the /fruition-team card): scripts/vc/team-card.css.
+  const teamCard = slug.startsWith('monday-partner-') ? `\n${teamCardCss}` : ''
+  writeFileSync(join(outDir, 'pages', `${slug}.css`), `${HEADER}@layer components {\n${baseCss}\n${css}${pageExtras}${teamCard}\n}\n`)
   n++
 }
 console.log(`${n} page stylesheets written`)

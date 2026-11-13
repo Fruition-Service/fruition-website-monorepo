@@ -705,7 +705,8 @@ export const vcTeam = defineType({
   fields: [
     ...sectionBase,
     head(),
-    defineField({ name: 'layout', title: 'Card style', type: 'string', options: { list: [{ title: 'Full bio with Read more', value: 'full' }, { title: 'Compact', value: 'compact' }] }, initialValue: 'full' }),
+    // Retired 13 Nov 2026: every team grid uses the /fruition-team card (bio clamped, Read more).
+    defineField({ name: 'layout', title: 'Card style (retired)', type: 'string', hidden: true, options: { list: [{ title: 'Full bio with Read more', value: 'full' }, { title: 'Compact', value: 'compact' }] }, initialValue: 'full' }),
     defineField({
       name: 'members',
       title: 'People',
