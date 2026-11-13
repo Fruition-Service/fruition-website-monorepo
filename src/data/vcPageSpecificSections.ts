@@ -88,6 +88,16 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     source: 'scripts/vc/hubspot-solution-finder.ts',
   },
   {
+    path: '/hubspot-consulting',
+    key: 'pagespecific-hubspot-offices',
+    type: 'vcOffices',
+    heading: 'Delivered locally across *six regions.*',
+    reason:
+      'Vadim (monday 2900266080): the six office cards (Site Settings > Offices, each linked to its Google Business Profile) before the booking band. The partner template has no offices section.',
+    added: '2026-11-13',
+    source: 'scripts/vc/hubspot-vadim-2900266080.ts',
+  },
+  {
     path: '/partnerships/certified-clickup-partner',
     key: 'pagespecific-clickup-beyond-setup',
     type: 'vcCards',

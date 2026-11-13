@@ -64,6 +64,7 @@ registry entry in the same PR, then run the checker. To remove one: delete it fr
 |---|---|---|
 | `/hubspot-consulting` | Migration to HubSpot, Portal audit and rescue, RevOps and integrations (cards); Implementation process (6 steps) | 12 Nov 2026, ported from oglabs.io/services/hubspot |
 | `/hubspot-consulting` | HubSpot solution finder (`vcSolutionFinder`, `#solution-finder`) directly under the hero: pick an industry, browse 26 builds, open one for its detail; "Get it scoped" scrolls to `#book` | 13 Nov 2026, the oglabs.io home page finder (HubSpot builds only) by `scripts/vc/hubspot-solution-finder.ts`; data snapshot in `scripts/vc/data/oglabs-hubspot-builds.json` |
+| `/hubspot-consulting` | "Delivered locally across six regions." office cards (`vcOffices`, `#locations`) before the booking band | 13 Nov 2026, Vadim (monday 2900266080), by `scripts/vc/hubspot-vadim-2900266080.ts`. The office card styles are repeated in `scripts/vc/extras-hubspot-consulting.css` because the template keeps them in the contact-us block |
 | `/partnerships/certified-clickup-partner` | Beyond setup, HubSpot ↔ ClickUp (cards) | 12 Nov 2026, ported from oglabs.io/services/clickup |
 | `/atlassian-consulting` | Four service deep dives (`vcDeepDive`): Jira `#jira`, Confluence `#confluence`, Jira Service Management `#jsm`, Jira to monday.com migration `#migration`, after "Our Atlassian services" | 12 Nov 2026: copy of the leaf pages merged in PR #415, dropped by the Version C rollout, restored at Vadim's (SEO) request by `scripts/vc/atlassian-deep-dives.ts`. The old leaf URLs 301 to these anchors. |
 
@@ -71,7 +72,7 @@ The OG Labs port (`scripts/sanity-migrate/port-oglabs-hubspot-clickup.ts`) also 
 sections on those two pages: the HubSpot implementation card names all six Hubs, the ClickUp services
 card bodies were rewritten (titles kept), ClickUp "How we deliver" went from 3 to 6 steps, both Results
 leads now say the case studies span our platform work, and monday-only FAQs were swapped for HubSpot and
-ClickUp questions (`faqItem-vc-hubspot-*`, `faqItem-vc-clickup-*`). The pre-change documents are
+ClickUp questions (`faqItem-vc-hubspot-*`, `faqItem-vc-clickup-*`). On 13 Nov the HubSpot FAQ became four tabs (Implementation, Migration, Integration, Breeze AI) and the four "Our HubSpot services" cards got ids (`vcItem.anchor`: `implementation`, `breeze-ai`, `integration`, `migration`) for the old leaf-page redirects and the nav links. The pre-change documents are
 committed in `scripts/sanity-backups/oglabs-port-*.json`; `--restore <that file>` puts them back.
 
 ## Per-page leaders and booking desks

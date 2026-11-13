@@ -101,7 +101,7 @@ export const PARTNERS_HUB = {
   othersHeading: 'Other platforms and integrations',
   othersLede: 'We also deliver on these platforms, usually alongside a core partner above.',
   others: [
-    { label: 'HubSpot', href: '/partnerships/certified-hubspot-partner' },
+    { label: 'HubSpot', href: '/hubspot-consulting' },
     { label: 'ClickUp', href: '/partnerships/certified-clickup-partner' },
     { label: 'Microsoft Copilot', href: '/partnerships/microsoft-copilot-partner' },
     { label: 'Google Gemini', href: '/partnerships/google-gemini-vertex-ai-partner' },

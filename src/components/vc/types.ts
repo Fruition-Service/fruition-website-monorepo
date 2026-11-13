@@ -14,7 +14,7 @@ export interface VcCtaData { label?: string; href?: string; style?: "primary" | 
 export interface VcLogoData { _key?: string; image?: VcImage; alt?: string; href?: string; shape?: string }
 export interface VcStatData { _key?: string; value?: string; label?: string }
 export interface VcItemData {
-  _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]
+  _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]; anchor?: string
   image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; bullets?: string[]
   aiLabel?: string; aiNote?: string; listClass?: string; bulletIcon?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean; icon?: string
 }
