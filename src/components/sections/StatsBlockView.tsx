@@ -44,7 +44,7 @@ function renderHeadingWithAccent(heading: string, accent?: string) {
     return (
       <>
         <span className="text-body">{heading.slice(0, idx)}</span>
-        <span className="text-[#8015e8]">{target}</span>
+        <span className="text-[var(--purple-primary)]">{target}</span>
         <span className="text-body">{heading.slice(idx + target.length)}</span>
       </>
     )

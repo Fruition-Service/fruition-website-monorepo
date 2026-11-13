@@ -49,7 +49,7 @@ export default function RoiCalculator({ config = {} }: RoiCalculatorProps) {
           width: 100%;
           height: 8px;
           border-radius: 999px;
-          background: #e2d8f7;
+          background: var(--purple-track);
           outline: none;
           cursor: pointer;
         }
@@ -61,7 +61,7 @@ export default function RoiCalculator({ config = {} }: RoiCalculatorProps) {
           border-radius: 50%;
           background: var(--purple-primary);
           border: 3px solid #fff;
-          box-shadow: 0 2px 8px rgba(128,21,232,0.45);
+          box-shadow: 0 2px 8px color-mix(in srgb, var(--purple-primary) 45%, transparent);
           cursor: pointer;
         }
         .roi-range::-moz-range-thumb {
@@ -70,10 +70,10 @@ export default function RoiCalculator({ config = {} }: RoiCalculatorProps) {
           border-radius: 50%;
           background: var(--purple-primary);
           border: 3px solid #fff;
-          box-shadow: 0 2px 8px rgba(128,21,232,0.45);
+          box-shadow: 0 2px 8px color-mix(in srgb, var(--purple-primary) 45%, transparent);
           cursor: pointer;
         }
-        .roi-range::-moz-range-track { height: 8px; border-radius: 999px; background: #e2d8f7; }
+        .roi-range::-moz-range-track { height: 8px; border-radius: 999px; background: var(--purple-track); }
       `}</style>
       <div className="mx-auto max-w-[920px]">
         <div className="text-center mb-9">
@@ -85,7 +85,7 @@ export default function RoiCalculator({ config = {} }: RoiCalculatorProps) {
 
         <div className="grid gap-8 md:grid-cols-2 md:items-stretch">
           {/* Inputs */}
-          <div className="rounded-card bg-surface-raised flex flex-col justify-center h-full p-9 border border-brand-soft shadow-[0_18px_36px_-24px_rgba(64,12,140,0.2)] dark:shadow-none dark:border dark:border-ui">
+          <div className="rounded-card bg-surface-raised flex flex-col justify-center h-full p-9 border border-brand-soft shadow-[0_18px_36px_-24px_color-mix(in_srgb,var(--purple-dark)_20%,transparent)] dark:shadow-none dark:border dark:border-ui">
             <Slider
               id={`${uid}-team`}
               label="Team size"

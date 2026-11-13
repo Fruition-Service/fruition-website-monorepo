@@ -486,7 +486,7 @@ function Field({ label: l, name, type = "text", placeholder, value, onChange, er
         style={{
           ...field,
           borderColor: show ? ERROR_COLOR : focus ? "var(--cta-blue)" : "var(--color-border)",
-          boxShadow: focus ? `0 0 0 3px ${show ? "rgba(226,68,92,.22)" : "rgba(186,131,240,.25)"}` : "none",
+          boxShadow: focus ? `0 0 0 3px ${show ? "rgba(226,68,92,.22)" : "color-mix(in srgb, var(--purple-light) 25%, transparent)"}` : "none",
         }}
       />
       {show && (

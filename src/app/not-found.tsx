@@ -24,7 +24,7 @@ export default function NotFound() {
         className="nf-glow pointer-events-none absolute left-1/2 top-[38%] -z-10 h-[min(34rem,90vw)] w-[min(34rem,90vw)] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(128,21,232,0.22) 0%, rgba(186,131,240,0.12) 42%, rgba(128,21,232,0) 72%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--purple-primary) 22%, transparent) 0%, color-mix(in srgb, var(--purple-light) 12%, transparent) 42%, color-mix(in srgb, var(--purple-primary) 0%, transparent) 72%)",
         }}
       />
 

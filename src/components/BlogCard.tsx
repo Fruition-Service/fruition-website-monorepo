@@ -166,7 +166,7 @@ export default function BlogCard({
               {authorHref ? (
                 <Link
                   href={authorHref}
-                  className="relative z-10 text-sm text-body truncate hover:text-[#8015e8] transition-colors"
+                  className="relative z-10 text-sm text-body truncate hover:text-[var(--purple-primary)] transition-colors"
                 >
                   {displayAuthor}
                 </Link>

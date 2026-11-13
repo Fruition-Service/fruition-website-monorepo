@@ -381,6 +381,8 @@ export default async function RootLayout({
       suppressHydrationWarning
       // Site Settings > "Blue CTA buttons" (src/styles/ctaBlue.css).
       data-cta={siteSettings?.blueCtaButtons ? "blue" : undefined}
+      // Site Settings > "Blue mode" (html[data-palette="blue"] in globals.css).
+      data-palette={siteSettings?.blueMode ? "blue" : undefined}
     >
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" />

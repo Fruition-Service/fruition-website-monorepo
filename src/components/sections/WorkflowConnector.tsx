@@ -95,10 +95,10 @@ export default function WorkflowConnector({
                         : nodeBg,
                       border: isHub ? "none" : `1px solid ${nodeBorder}`,
                       boxShadow: isHub
-                        ? "0 22px 48px -22px rgba(128,21,232,0.7)"
+                        ? "0 22px 48px -22px color-mix(in srgb, var(--purple-primary) 70%, transparent)"
                         : dark
                           ? "none"
-                          : "0 10px 30px -22px rgba(64,12,140,0.4)",
+                          : "0 10px 30px -22px color-mix(in srgb, var(--purple-dark) 40%, transparent)",
                     }}
                   >
                     {isHub && (
@@ -108,7 +108,7 @@ export default function WorkflowConnector({
                         style={{
                           inset: -2,
                           borderRadius: 22,
-                          background: "radial-gradient(circle at 50% 50%, rgba(186,131,240,0.55) 0%, rgba(186,131,240,0) 70%)",
+                          background: "radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--purple-light) 55%, transparent) 0%, color-mix(in srgb, var(--purple-light) 0%, transparent) 70%)",
                           zIndex: 0,
                         }}
                       />

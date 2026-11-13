@@ -63,6 +63,17 @@ export default {
         'Turn on to make every call-to-action button on the website blue (nav "Book a time", page buttons, the booking card button). Turn off to go back to purple. Outline and white buttons keep their style. Live about two minutes after you publish.',
     },
 
+    // Site-wide palette switch. On: every purple on the site becomes its blue
+    // twin (the html[data-palette="blue"] block in src/app/globals.css).
+    {
+      name: 'blueMode',
+      title: 'Blue mode',
+      type: 'boolean',
+      initialValue: false,
+      description:
+        'Turn on to swap every purple on the website (headings, accents, buttons, backgrounds, glows) for blue. Turn off to go back to purple. Images and logos keep their own colours. Live about three minutes after you publish.',
+    },
+
     // Reusable button labels
     { name: 'navbarCtaLabel', title: 'Navbar CTA Label', type: 'string' },
     { name: 'footerCtaLabel', title: 'Footer CTA Label', type: 'string' },

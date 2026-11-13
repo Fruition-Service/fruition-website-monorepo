@@ -12,7 +12,7 @@ const h3 = "mt-8 mb-3 text-lg font-semibold text-body"
 const p = "mb-4 leading-relaxed text-body"
 const ul = "mb-6 ml-1 list-disc space-y-1.5 pl-5 text-body marker:text-muted"
 const strong = "font-semibold text-body"
-const link = "font-medium text-[#8015E8] underline underline-offset-2 hover:text-[#6a11c2]"
+const link = "font-medium text-[var(--purple-primary)] underline underline-offset-2 hover:text-[var(--vc-accent-press)]"
 
 export default function VisitorTrackingDisclosure() {
   return (
