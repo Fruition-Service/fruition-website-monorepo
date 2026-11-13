@@ -202,9 +202,37 @@ const cell = (sel: boolean, dis: boolean): CSSProperties => ({
    hitting the month it meant to. */
 const navBtn = (dis: boolean): CSSProperties => ({
   width: 30, height: 30, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff",
-  color: dis ? "#c8c8d4" : "var(--text-dark)", fontSize: 16, lineHeight: 1,
-  cursor: dis ? "default" : "pointer", fontFamily: "var(--font-sans)",
+  color: dis ? "#c8c8d4" : "var(--text-dark)", padding: 0,
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  cursor: dis ? "default" : "pointer",
 })
+
+/* Stroked chevron for the month arrows, the back button and the two picker
+   pills. Text glyphs (‹ ›) sat off-centre and rendered at different weights
+   per font, and the native <select> arrow was a large OS-drawn caret that
+   dwarfed the 12.5px label; one SVG keeps all of them the same size and
+   optically centred. Colour follows `currentColor`. */
+function Chevron({ dir, size = 14 }: { dir: "left" | "right" | "down"; size?: number }) {
+  const d = dir === "left" ? "m15 6-6 6 6 6" : dir === "right" ? "m9 6 6 6-6 6" : "m6 9 6 6 6-6"
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false" style={{ display: "block", flex: "none", pointerEvents: "none" }}>
+      <path d={d} />
+    </svg>
+  )
+}
+/* Region and timezone pills. The <select> drops its native arrow
+   (appearance:none, plus the .fr-booking-select rule for older WebKit) and the
+   pill draws a Chevron after it, so both pills match and the caret is sized to
+   the label rather than to the OS. */
+const pickerPill: CSSProperties = {
+  display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 12px",
+  border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff", cursor: "pointer",
+}
+const pickerSelect: CSSProperties = {
+  border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500,
+  color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32, padding: 0,
+  appearance: "none", WebkitAppearance: "none", MozAppearance: "none", textOverflow: "ellipsis",
+}
 const label: CSSProperties = { fontSize: 14, fontWeight: 500, color: "var(--text-dark)" }
 const field: CSSProperties = {
   height: 48, padding: "0 16px", fontFamily: "var(--font-sans)", fontSize: 15, color: "var(--text-dark)",
@@ -850,9 +878,10 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
         <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "22px 30px 14px" }}>
           <button
             type="button" onClick={() => setStep(2)} aria-label="Back to your details"
-            style={{ flex: "none", width: 30, height: 30, borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", color: "var(--text-dark)", fontSize: 16, lineHeight: 1, cursor: "pointer", fontFamily: "var(--font-sans)" }}
+            className="fr-booking-nav"
+            style={{ ...navBtn(false), flex: "none" }}
           >
-            ‹
+            <Chevron dir="left" />
           </button>
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
             <span style={{ fontFamily: "var(--font-sans)", fontSize: 15, fontWeight: 600, letterSpacing: "-.01em", color: "var(--text-dark)" }}>
@@ -1042,28 +1071,30 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
         <div className="fr-booking-pickers" style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
         {/* A fixed desk books the same person from anywhere: no region to pick. */}
         {!desk && (
-        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        <label className="fr-booking-picker" style={pickerPill}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
           <select
             value={activeRegion ?? ""}
             onChange={(e) => onRegionChange(e.target.value as BookingRegion)}
             aria-label="Which region are you in?"
-            style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}
+            className="fr-booking-select" style={pickerSelect}
           >
             {activeRegion == null && <option value="">Region</option>}
             {REGION_LABELS.map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
             ))}
           </select>
+          <span style={{ color: "var(--color-text-secondary)", marginLeft: -2 }}><Chevron dir="down" size={13} /></span>
         </label>
         )}
-        <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
+        <label className="fr-booking-picker" style={pickerPill}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
-          <select value={tz} onChange={(e) => setTz(e.target.value)} style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}>
+          <select value={tz} onChange={(e) => setTz(e.target.value)} className="fr-booking-select" style={pickerSelect}>
             {(TZS.some((x) => x[0] === tz) ? TZS : ([[tz, `${tzLabel(tz)} · detected`] as [string, string], ...TZS])).map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
             ))}
           </select>
+          <span style={{ color: "var(--color-text-secondary)", marginLeft: -2 }}><Chevron dir="down" size={13} /></span>
         </label>
         </div>
       </div>
@@ -1076,8 +1107,8 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
               {MONTH_FULL[monthBase.getMonth()]} {monthBase.getFullYear()}
             </span>
             <div style={{ display: "flex", gap: 6 }}>
-              <button type="button" disabled={monthOffset <= firstAvailableOffset} onClick={() => setMonthOffsetOverride(Math.max(firstAvailableOffset, monthOffset - 1))} className="fr-booking-nav" style={navBtn(monthOffset <= firstAvailableOffset)} aria-label="Previous month">‹</button>
-              <button type="button" onClick={() => setMonthOffsetOverride(monthOffset + 1)} className="fr-booking-nav" style={navBtn(false)} aria-label="Next month">›</button>
+              <button type="button" disabled={monthOffset <= firstAvailableOffset} onClick={() => setMonthOffsetOverride(Math.max(firstAvailableOffset, monthOffset - 1))} className="fr-booking-nav" style={navBtn(monthOffset <= firstAvailableOffset)} aria-label="Previous month"><Chevron dir="left" /></button>
+              <button type="button" onClick={() => setMonthOffsetOverride(monthOffset + 1)} className="fr-booking-nav" style={navBtn(false)} aria-label="Next month"><Chevron dir="right" /></button>
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 5 }}>
@@ -1230,6 +1261,9 @@ export default function BookingSection({
           .fr-booking-body { grid-column: 1; grid-row: 2; }
           .fr-booking-card { grid-column: 2; grid-row: 1 / span 2; }
         }
+        .fr-booking-select { -webkit-appearance: none; appearance: none; }
+        .fr-booking-select::-ms-expand { display: none; }
+        .fr-booking-picker:focus-within { border-color: var(--cta-blue) !important; }
         @media (max-width: 767px) {
           .fr-booking-nav { width: 40px !important; height: 40px !important; }
           .fr-booking-day { height: 44px !important; }
