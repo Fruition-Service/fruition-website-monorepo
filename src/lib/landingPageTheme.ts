@@ -254,22 +254,34 @@ section[style*="--tint"] .card,.alt .card,section[style*="--tint"] .step,.alt .s
 .crew .member .role{margin:0}
 .crew .member p{font-size:13.5px;line-height:1.55;margin-top:4px;padding:0}
 
-/* Fixed-price packages (SEA partner page) */
+/* monday.com implementation packages, "Variant A" (Edward 13 Nov 2026, Claude Design file
+   "Package cards variant A"): same card as /implementation-packages. Kicker, title, team-size
+   pill, divider, small "From" above the price, divider, Best for, ticks in soft circles,
+   full-width button; the featured tier (Lock-Step) on navy. */
 .pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .pkg{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--lilac);border-radius:var(--r3);padding:28px;transition:border-color .2s}
 .pkg:hover{border-color:var(--ui-strong)}
-.pkg.feat{background:var(--navy);border-color:var(--navy);color:#fff}
-.pkg.feat h3,.pkg.feat .price{color:#fff}
-.pkg.feat li,.pkg.feat .price small{color:rgba(255,255,255,.72)}
-.pkg.feat .dur{color:var(--brand-on-dark)}
 .pkg .dur{font:400 12px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--brand)}
-.pkg h3{font-size:22px;font-weight:500;line-height:1.25;letter-spacing:-.02em;color:var(--fg);margin:12px 0 10px}
-.pkg .size{align-self:flex-start;font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--brand-dark);background:var(--brand-soft);border-radius:var(--pill);padding:5px 12px;margin-bottom:16px}
-.pkg .price{font-size:32px;font-weight:500;letter-spacing:-.03em;line-height:1.15;color:var(--fg)}
-.pkg .price small{display:block;margin-top:4px;font-size:13px;font-weight:400;letter-spacing:0;color:var(--muted)}
-.pkg ul{list-style:none;margin:20px 0 4px;flex:1}
-.pkg li{position:relative;padding-left:28px;margin:10px 0;font-size:15px;line-height:1.5;color:var(--muted)}
-.pkg li::before{content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;background:var(--brand-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238015e8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") no-repeat center/11px}
+.pkg h3{font-size:24px;font-weight:500;line-height:1.2;letter-spacing:-.02em;color:var(--fg);margin:10px 0 12px}
+.pkg .size{align-self:flex-start;font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--brand-press);background:var(--brand-tint);border-radius:var(--pill);padding:6px 12px;margin-bottom:18px}
+.pkg .pricebox{display:flex;flex-direction:column;gap:6px;padding:18px 0;margin-bottom:18px;border-top:1px solid var(--lilac);border-bottom:1px solid var(--lilac)}
+.pkg .from{font:400 12px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--faint)}
+.pkg .price{font-size:40px;font-weight:500;letter-spacing:-.035em;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
+.pkg .price .un{font:400 13px/1 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--faint);margin-left:8px;vertical-align:.35em}
+.pkg .bf{font-size:15px;line-height:1.55;color:var(--muted);margin:0 0 16px}
+.pkg .bf b{font-weight:500;color:var(--fg)}
+.pkg ul{list-style:none;margin:0 0 24px;flex:1}
+.pkg li{position:relative;padding-left:28px;margin:0 0 10px;font-size:15px;line-height:1.45;color:var(--fg)}
+.pkg li::before{content:"";position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:50%;background:var(--brand-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238015e8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") no-repeat center/11px}
+.pkg .btn{margin-top:auto}
+.pkg .btn svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pkg.feat{background:var(--navy);border-color:var(--navy);color:#fff}
+.pkg.feat h3,.pkg.feat .price,.pkg.feat li,.pkg.feat .bf b{color:#fff}
+.pkg.feat .dur{color:var(--brand-on-dark)}
+.pkg.feat .from,.pkg.feat .price .un{color:rgba(255,255,255,.6)}
+.pkg.feat .bf{color:rgba(255,255,255,.72)}
+.pkg.feat .pricebox{border-color:rgba(255,255,255,.14)}
+.pkg.feat li::before{background-color:#fff}
 .pnote{font-size:13px;color:var(--faint);margin-top:20px}
 
 /* Booking band: the site's midnight booking section */
