@@ -62,7 +62,6 @@ input,select,textarea,button{font-family:inherit}
    Injected by landingPage.ts on any ad page without a team section of its own. */
 .lp-team{padding:120px 0;background:var(--surface)}
 .lp-team.alt{background:var(--tint-bg)}
-.lp-team:not(.alt) .lp-team-card{background:var(--tint-bg)}
 .lp-team:not(.alt) .lp-team-k{background:var(--tint-bg)}
 .lp-team .wrap{display:grid;grid-template-columns:3fr 2fr;column-gap:48px;align-items:end}
 .lp-team .wrap>*{grid-column:1/-1}
@@ -71,13 +70,27 @@ input,select,textarea,button{font-family:inherit}
 .lp-team h2{grid-column:1!important;grid-row:2;font-size:48px;font-weight:500;line-height:1.06;letter-spacing:-.03em;color:var(--fg);margin:0 0 42px;text-wrap:balance}
 .lp-team h2 em{font-style:normal;color:var(--brand)}
 .lp-team-lede{grid-column:2!important;grid-row:1/3;align-self:end;font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 42px}
-.lp-team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.lp-team-card{background:var(--surface);border:1px solid var(--lilac);border-radius:var(--r3);overflow:hidden;text-align:left;transition:border-color .2s}
-.lp-team-card:hover{border-color:var(--lilac-strong)}
-.lp-team-card img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center 20%}
-.lp-team-card h3{font-size:20px;font-weight:500;line-height:1.25;letter-spacing:-.015em;color:var(--fg);margin:22px 24px 6px}
-.lp-team-role{font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin:0 24px 12px}
-.lp-team-card p{font-size:14px;line-height:1.6;color:var(--muted);margin:0 24px 24px}
+/* One team card for every ad page, the same card as the site's /fruition-team
+   and region pages: a square photo inset in a bordered card, role label, name,
+   a bio clamped to three lines (Read more added by TEAM_READ_MORE_SCRIPT), and
+   every card in a grid as tall as the tallest. Covers the hand-written
+   .team > .member cards and the injected .lp-team-grid > .lp-team-card band. */
+.team,.lp-team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:24px}
+.team:has(.open),.lp-team-grid:has(.open){grid-auto-rows:auto}
+.team>.member,.lp-team-grid>.lp-team-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto 1fr;grid-template-areas:"ph" "role" "name" "bio" "foot";align-content:start;padding:12px 12px 20px;overflow:visible;text-align:left;background:var(--tint-bg);border:1px solid var(--lilac);border-radius:var(--r3);transition:border-color .2s}
+.alt .team>.member,.lp-team.alt .lp-team-grid>.lp-team-card{background:var(--surface)}
+.team>.member:hover,.lp-team-grid>.lp-team-card:hover{border-color:var(--lilac-strong)}
+.team>.member>img,.team>.member>.avatar,.lp-team-grid>.lp-team-card>img{grid-area:ph;display:block;width:100%;height:auto;aspect-ratio:1/1;margin:0 0 16px;border-radius:var(--r2);border:1px solid var(--lilac);object-fit:cover;object-position:center 22%;background:var(--surface)}
+.team>.member>.avatar{display:flex;align-items:center;justify-content:center;background:var(--tint-bg);color:var(--brand);font-size:44px;font-weight:500}
+.team>.member>.role,.lp-team-grid>.lp-team-card>.lp-team-role{grid-area:role;margin:0 8px 8px;font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.team>.member>h3,.lp-team-grid>.lp-team-card>h3{grid-area:name;margin:0 8px 8px;padding:0;font-size:20px;font-weight:500;line-height:1.25;letter-spacing:-.015em;color:var(--fg)}
+.team>.member>p,.lp-team-grid>.lp-team-card>p{grid-area:bio;margin:0 8px;padding:0;font-size:14px;line-height:1.5;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.team>.open>p,.lp-team-grid>.open>p{display:block}
+.team>.member>.lp-more,.lp-team-grid>.lp-team-card>.lp-more{grid-area:foot;align-self:end;justify-self:start;position:relative;margin:16px 8px 0;padding:0 0 3px;background:none;border:0;border-bottom:1px solid var(--lilac-strong);font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--muted);cursor:pointer}
+.lp-more::after{content:"";position:absolute;inset:-14px -8px}
+.lp-more:hover{color:var(--brand);border-color:var(--brand)}
+@media(min-width:768px) and (max-width:1023px){.team,.lp-team-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media(max-width:767px){.team,.lp-team-grid{grid-template-columns:1fr;gap:16px}.team>.member,.lp-team-grid>.lp-team-card{grid-template-columns:96px minmax(0,1fr);grid-template-rows:auto auto auto 1fr;grid-template-areas:"ph role" "ph name" "ph bio" "ph foot";column-gap:14px;padding:12px}.team>.member>img,.team>.member>.avatar,.lp-team-grid>.lp-team-card>img{margin:0;align-self:start}.team>.member>.avatar{font-size:28px}.team>.member>.role,.team>.member>h3,.team>.member>p,.team>.member>.lp-more,.lp-team-grid>.lp-team-card>.lp-team-role,.lp-team-grid>.lp-team-card>h3,.lp-team-grid>.lp-team-card>p,.lp-team-grid>.lp-team-card>.lp-more{margin-left:0;margin-right:0}.team>.member>h3,.lp-team-grid>.lp-team-card>h3{font-size:18px}}
 /* Mid-page banner and closing band, added at serve time (landingPageBands.ts) */
 .lp-audit-sec{padding:64px 0 120px}
 .lp-audit{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:48px;background:var(--navy);color:#fff;border-radius:var(--r4);padding:88px 72px}
@@ -101,8 +114,8 @@ input,select,textarea,button{font-family:inherit}
 .lp-soc a{width:28px;height:28px;border-radius:50%;background:#fff;display:grid;place-items:center;transition:background-color .2s}
 .lp-soc a:hover{background:var(--brand-tint)}
 .lp-soc svg{width:13px;height:13px;fill:var(--navy)}
-@media(max-width:1023px){.lp-team,.lp-closing{padding:80px 0}.lp-audit-sec{padding-bottom:80px}.lp-team .wrap{grid-template-columns:1fr}.lp-team-lede{grid-column:1!important;grid-row:auto;margin-top:-22px}.lp-team h2,.lp-closing h2{font-size:40px}.lp-team-grid{grid-template-columns:repeat(2,1fr)}.lp-audit{padding:64px 48px}.lp-audit h2{font-size:36px}}
-@media(max-width:767px){.wrap{padding:0 16px}section{padding:64px 0}.lp-team,.lp-closing{padding:64px 0}.lp-audit-sec{padding-bottom:64px}.lp-team h2,.lp-closing h2{font-size:32px}.lp-team-lede,.lp-closing p{font-size:16px}.lp-team-grid{grid-template-columns:1fr}.lp-audit{flex-direction:column;align-items:flex-start;gap:28px;padding:48px 24px}.lp-audit h2{font-size:30px}.lp-audit .lp-btn,.lp-closing .lp-btn{width:100%}.lp-audit::after{width:300px;height:280px;right:-80px;top:auto;bottom:-60px;transform:rotate(-8deg)}}
+@media(max-width:1023px){.lp-team,.lp-closing{padding:80px 0}.lp-audit-sec{padding-bottom:80px}.lp-team .wrap{grid-template-columns:1fr}.lp-team-lede{grid-column:1!important;grid-row:auto;margin-top:-22px}.lp-team h2,.lp-closing h2{font-size:40px}.lp-audit{padding:64px 48px}.lp-audit h2{font-size:36px}}
+@media(max-width:767px){.wrap{padding:0 16px}section{padding:64px 0}.lp-team,.lp-closing{padding:64px 0}.lp-audit-sec{padding-bottom:64px}.lp-team h2,.lp-closing h2{font-size:32px}.lp-team-lede,.lp-closing p{font-size:16px}.lp-audit{flex-direction:column;align-items:flex-start;gap:28px;padding:48px 24px}.lp-audit h2{font-size:30px}.lp-audit .lp-btn,.lp-closing .lp-btn{width:100%}.lp-audit::after{width:300px;height:280px;right:-80px;top:auto;bottom:-60px;transform:rotate(-8deg)}}
 `
 
 /** The site's FAQ section (FaqAccordion), shared by both templates; landingPage.ts withFaq builds the markup. */
@@ -237,7 +250,6 @@ section[style*="--tint"] .card,.alt .card,section[style*="--tint"] .step,.alt .s
 .rating .src{font:400 11px/1.3 var(--mono);letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
 
 /* Team (partner pages): square portraits like the site's team cards */
-.team{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .member{padding:0;overflow:hidden;text-align:left;display:flex;flex-direction:column}
 .member img,.member .avatar{width:100%;height:auto;aspect-ratio:1/1;border-radius:0;margin:0;display:block}
 .member img{object-fit:cover;object-position:center 20%}
@@ -342,7 +354,7 @@ h2.sec,.final h2{font-size:40px}
 .hero .wrap,.final .inner{grid-template-columns:1fr;gap:48px}
 .wrap:has(>h2.sec){grid-template-columns:1fr}
 .wrap:has(>h2.sec)>.lede{grid-column:1;grid-row:auto;margin-top:-22px}
-.grid3,.team,.steps,.ratings{grid-template-columns:repeat(2,1fr)}
+.grid3,.steps,.ratings{grid-template-columns:repeat(2,1fr)}
 .team[data-split]{grid-template-columns:repeat(3,1fr)}
 .crew{grid-template-columns:repeat(2,1fr)}
 .pkgs{grid-template-columns:1fr;max-width:560px}
@@ -459,7 +471,7 @@ h2{font-size:clamp(28px,3.6vw,44px);font-weight:600;line-height:1.25;letter-spac
 h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:40px}
 
 /* Cards */
-.caps,.why,.team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.caps,.why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .caps{counter-reset:cap}
 .cap,.why-card,.tm,.step{background:var(--surface);border:1px solid var(--lilac);border-radius:24px;box-shadow:var(--shadow-whisper);transition:transform .2s,box-shadow .2s,border-color .2s}
 .cap:hover,.why-card:hover,.tm:hover,.step:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--lilac-strong)}
@@ -508,7 +520,7 @@ h2+.caps,h2+.why,h2+.steps,h2+.team{margin-top:40px}
 @media(max-width:1023px){
 .hero{padding:56px 0 64px}
 .hero-grid{grid-template-columns:1fr;gap:40px}
-.caps,.why,.team,.steps,.stats{grid-template-columns:repeat(2,1fr)}
+.caps,.why,.steps,.stats{grid-template-columns:repeat(2,1fr)}
 .sticky-cta{display:none}
 .mob-cta{display:block}
 body{padding-bottom:68px}

@@ -6,7 +6,7 @@ import { getCaseStudies } from "@/sanity/queries"
 import { REGION_PAGES } from "@/data/regionPages"
 import { urlFor } from "@/sanity/image"
 import { REGION_BOOKING } from "@/lib/regionBooking"
-import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
+import { hasTeamSection, renderTeamSection, withTeamReadMore } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
 import { OAIQ_LANDING_HEAD } from "@/lib/openaiPixel"
 import { currencyScript, pageHasPrice, REGION_CURRENCY, withCurrencyFooter } from "@/lib/currency/inline"
@@ -356,7 +356,7 @@ export function withLandingPageLayout(
         ? `${booking.html.slice(0, footer)}${booking.removed}\n\n${booking.html.slice(footer)}`
         : booking.html.replace(/<\/body>/i, `${booking.removed}\n</body>`)
   }
-  return withRhythm(withBands(withFaq(out), region, source))
+  return withTeamReadMore(withRhythm(withBands(withFaq(out), region, source)))
 }
 
 export const FAQ_CONTACT_LEAD = "Prefer a person? A consultant will answer in one business day."

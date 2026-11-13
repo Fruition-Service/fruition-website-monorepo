@@ -908,4 +908,35 @@
   .vc .ogrid>.omap{aspect-ratio:auto;min-width:0;min-height:440px}
 }
 
+/* SHARED TEAM CARD (appended to every monday-partner-* page by build-css.mjs).
+   The region pages' "Meet the team" grid (vcTeam -> VcTeamCard) uses the same
+   card as /fruition-team: a square photo inset in a bordered card, role label,
+   name, a bio clamped to three lines with a Read more toggle, LinkedIn pinned
+   to the footer. The mock-ups gave India, Philippines and Singapore a different
+   compact card (full-bleed 5/4 photo, unclamped bio), so long bios made some
+   cards far taller than others. Every row is now the height of the tallest
+   card in the grid (grid-auto-rows:1fr); while a bio is expanded the grid falls
+   back to auto rows so only that card's row grows. */
+.vc .tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:24px}
+.vc .tgrid:has(.pc.open){grid-auto-rows:auto}
+.vc .tgrid .pc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r3);padding:12px;overflow:visible;display:flex;flex-direction:column;align-items:stretch;gap:16px;min-width:0;transition:border-color .2s}
+.vc section:not(.alt) .tgrid .pc{background:var(--paper-2)}
+.vc .tgrid .pc:hover{border-color:var(--line-2)}
+.vc .tgrid .pc .ph{width:auto;aspect-ratio:auto;background:none;flex:none}
+.vc .tgrid .pc .ph img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 25%;border-radius:var(--r2);border:1px solid var(--line);background:var(--paper)}
+.vc .tgrid .pc .pb{display:flex;flex-direction:column;gap:8px;padding:0 8px 8px;flex:1;min-width:0}
+.vc .tgrid .pc .bio{margin:0;font-size:14px;line-height:1.5;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.vc .tgrid .pc.open .bio{display:block}
+.vc .tgrid .pc .pf{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:12px}
+.vc .tgrid .pc .more{position:relative;font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--ink-2);border-bottom:1px solid var(--line-2);padding-bottom:3px}
+.vc .tgrid .pc .more::after{content:"";position:absolute;inset:-14px -8px}
+.vc .tgrid .pc .more:hover{color:var(--accent);border-color:var(--accent)}
+.vc .tgrid .pc .more:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+@media (max-width:767px){
+  .vc .tgrid{grid-template-columns:1fr;gap:16px}
+  .vc .tgrid .pc{flex-direction:row;align-items:flex-start;gap:14px}
+  .vc .tgrid .pc .ph{width:96px}
+  .vc .tgrid .pc .pb{align-self:stretch;padding:4px 4px 4px 0}
+}
+
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { withLandingPageLayout } from "./landingPage"
 import { adLandingPages } from "./adLandingPages"
-import { hasTeamSection, landingTeam, renderTeamSection } from "./landingPageTeam"
+import { TEAM_READ_MORE_SCRIPT, hasTeamSection, landingTeam, renderTeamSection, withTeamReadMore } from "./landingPageTeam"
 import type { LeadRegion } from "./leadNotify"
 
 const routes = adLandingPages()
@@ -147,5 +147,22 @@ describe("landing team band", () => {
     for (const region of regions) {
       expect(landingTeam(region).map((m) => m.name)).not.toContain("Josh Jebathilak")
     }
+  })
+})
+
+describe("team Read more", () => {
+  it("adds the toggle script once to every ad page with team cards", async () => {
+    for (const route of routes) {
+      const { html } = await import(`@/app/${route.page}/content`)
+      const out = withLandingPageLayout(html, [], route.region as LeadRegion)
+      if (!/class="(?:member|lp-team-card)"/.test(out)) continue
+      expect(out.split(TEAM_READ_MORE_SCRIPT).length - 1).toBe(1)
+      expect(withTeamReadMore(out)).toBe(out)
+    }
+  })
+
+  it("leaves pages without team cards alone", () => {
+    const html = "<html><body><p>No team</p></body></html>"
+    expect(withTeamReadMore(html)).toBe(html)
   })
 })

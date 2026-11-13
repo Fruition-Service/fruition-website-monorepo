@@ -1,7 +1,7 @@
 import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
 import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
-import { Acc, Badge, Head, LinkedInLink, SImg, Sec, SvgIcon } from "../primitives"
+import { Acc, Badge, Head, SImg, Sec, SvgIcon } from "../primitives"
 import { ChannelRows } from "./channelRows"
 import type { VcBlogListData, VcFaqHubData, VcStoriesData, VcFormEmbedData, VcRemoteData, VcChannelsData, VcLeadershipData, VcOfficesData, VcTeamTabsData, VcSharedData, VcTeamMember, VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
 import { VcClock, VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTeamTabsShell, VcTrackFinder } from "./interactive"
@@ -246,28 +246,21 @@ export function VcStatsRow({ s }: { s: VcStatsRowData }) {
   )
 }
 
+/**
+ * "Meet the team" grid (the six monday-partner-* region pages). Every member
+ * renders with VcTeamCard, the same card as /fruition-team, styled by the shared
+ * scripts/vc/team-card.css: equal card and photo heights, bio clamped to three
+ * lines behind Read more. The old `layout: "compact"` card (unclamped bio, so
+ * uneven card heights) is retired; the field is ignored.
+ */
 export function VcTeam({ s }: { s: VcTeamData }) {
   return (
     <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="team">
       <Head head={s.head} />
       <div className="tgrid">
-        {(s.members ?? []).filter((m) => m?._id).map((m, i) =>
-          vercelStegaClean(s.layout ?? "") === "compact" ? (
-            <article className="pc" key={`${m._id}-${i}`}>
-              <div className="ph">
-                <SImg image={m.photo} width={360} alt={m.name} />
-              </div>
-              <div className="pb">
-                {(m.roleOverride || m.role) && <span className="label">{m.roleOverride || m.role}</span>}
-                {m.name && <h3 className="h3">{m.name}</h3>}
-                {(m.override || m.bio) && <p className="small">{m.override || m.bio}</p>}
-                {m.linkedinUrl && <LinkedInLink href={m.linkedinUrl} name={m.name} />}
-              </div>
-            </article>
-          ) : (
-            <VcTeamCard key={`${m._id}-${i}`} m={withOverrides(m)} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
-          ),
-        )}
+        {(s.members ?? []).filter((m) => m?._id).map((m, i) => (
+          <VcTeamCard key={`${m._id}-${i}`} m={withOverrides(m)} photo={<SImg image={m.photo} width={360} alt={m.name} />} />
+        ))}
       </div>
     </Sec>
   )
