@@ -1,7 +1,7 @@
 import { vercelStegaClean } from "@vercel/stega"
 import { buildVideoObject } from "@/lib/videoObject"
 import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
-import { Acc, Badge, Head, SImg, Sec, SvgIcon } from "../primitives"
+import { Acc, Badge, Head, LinkedInLink, SImg, Sec, SvgIcon } from "../primitives"
 import { SOCIAL_ICONS } from "../socialIcons"
 import type { VcBlogListData, VcFaqHubData, VcStoriesData, VcFormEmbedData, VcRemoteData, VcChannelsData, VcLeadershipData, VcOfficesData, VcTeamTabsData, VcSharedData, VcTeamMember, VcAnswerData, VcCoverageData, VcStatsRowData, VcTeamData, VcDirectoryData, VcPartnerStatusData, VcToolkitData, VcFixData, VcIndustryTabsData, VcPara, VcTableData, VcTextPairData, VcTrackData, VcVideoData } from "../types"
 import { VcClock, VcDirectoryGrid, VcFixPicker, VcIndustryTabsView, VcTeamCard, VcTeamTabsShell, VcTrackFinder } from "./interactive"
@@ -261,11 +261,7 @@ export function VcTeam({ s }: { s: VcTeamData }) {
                 {(m.roleOverride || m.role) && <span className="label">{m.roleOverride || m.role}</span>}
                 {m.name && <h3 className="h3">{m.name}</h3>}
                 {(m.override || m.bio) && <p className="small">{m.override || m.bio}</p>}
-                {m.linkedinUrl && (
-                  <a className="link" href={vercelStegaClean(m.linkedinUrl)} target="_blank" rel="noopener noreferrer">
-                    LinkedIn
-                  </a>
-                )}
+                {m.linkedinUrl && <LinkedInLink href={m.linkedinUrl} name={m.name} />}
               </div>
             </article>
           ) : (
