@@ -14,7 +14,7 @@
 .vc .sf-how-n{flex:none;font:600 12px/1 var(--mono);color:var(--accent)}
 
 /* card */
-.vc .sf-card{min-width:0;height:680px;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--vc-tint-5);border-radius:var(--r4);box-shadow:0 4px 24px rgba(15,13,20,.03),0 24px 48px -32px color-mix(in srgb,var(--accent) 35%,transparent);overflow:hidden}
+.vc .sf-card{min-width:0;height:680px;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--vc-tint-5);border-radius:var(--r4);box-shadow:0 4px 24px color-mix(in srgb, var(--vc-ink) 3%, transparent),0 24px 48px -32px color-mix(in srgb,var(--accent) 35%,transparent);overflow:hidden}
 .vc .sf-head{flex:none;height:60px;padding:0 24px;border-bottom:1px solid var(--vc-tint-5);display:flex;align-items:center;justify-content:space-between;gap:12px}
 .vc .sf-title{display:flex;align-items:center;gap:10px;font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 .vc .sf-title i{width:8px;height:8px;border-radius:50%;background:var(--accent)}

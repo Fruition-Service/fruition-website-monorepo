@@ -16,6 +16,8 @@ interface NavLink {
   description?: string
   /** Mark shown beside the link, a Sanity image (SVG or PNG) in its own colours. */
   logo?: unknown
+  /** Brand icon SVG in currentColor, set server-side by inlineBrandNavIcons (follows the palette). */
+  logoSvg?: string
   /** Fallback line icon, used only when there is no logo. */
   icon?: string
   /** Short partner-tier pill after the label, e.g. "Platinum". */
@@ -101,6 +103,8 @@ function Pill({ children }: { children?: string }) {
 }
 
 function ItemMark({ link }: { link: NavLink }) {
+  // Fetched from our own Sanity CDN and checked server-side (no scripts or handlers).
+  if (link.logoSvg) return <span className="contents" aria-hidden dangerouslySetInnerHTML={{ __html: link.logoSvg }} />
   const src = logoSrc(link.logo)
   if (src) return <Image src={src} alt="" width={18} height={18} unoptimized />
   if (link.icon || link.href) return <NavIcon iconKey={link.icon} href={link.href} className="h-[18px] w-[18px]" />

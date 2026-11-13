@@ -161,6 +161,9 @@ html[data-palette="blue"] {
   --vc-tint-4: #e4ebfd;
   --vc-tint-5: #e6ebf7;
   --vc-tint-6: #f0f4ff;
+  /* Not purple, but the Implementation Calculator launcher fades brand to
+     orchid to pink; in Blue mode it fades blue to dark blue instead. */
+  --fruit-pink: #0e389b;
 }
 
 /* Images keep their own colours in Blue mode, except the purple Fruition orb at
@@ -464,7 +467,7 @@ html[data-palette="blue"] {
   }
 
   .ui-step-row + .ui-step-row {
-    border-top: 1px solid #f3f1f7;
+    border-top: 1px solid var(--vc-paper-2);
   }
 
   .ui-step-number {

@@ -1,0 +1,24 @@
+/*
+ * Blue mode for inline colours. Inline styles stored in Sanity content (the
+ * Version C nodes) can hold purple, which tokens cannot reach. The renderer
+ * (withPaletteTwins in src/lib/palette.ts) writes a precomputed blue twin next
+ * to each purple declaration, e.g. style="background:<purple>;--pal-background:<blue>",
+ * and these rules swap the twin in when <html data-palette="blue"> is set.
+ * !important is needed to win over the inline declaration. Keep this list in
+ * step with PALETTE_PROPS (palette.test.ts checks it).
+ */
+
+@layer components {
+  html[data-palette="blue"] [style*="--pal-background:"] { background: var(--pal-background) !important; }
+  html[data-palette="blue"] [style*="--pal-background-color:"] { background-color: var(--pal-background-color) !important; }
+  html[data-palette="blue"] [style*="--pal-background-image:"] { background-image: var(--pal-background-image) !important; }
+  html[data-palette="blue"] [style*="--pal-color:"] { color: var(--pal-color) !important; }
+  html[data-palette="blue"] [style*="--pal-border:"] { border: var(--pal-border) !important; }
+  html[data-palette="blue"] [style*="--pal-border-color:"] { border-color: var(--pal-border-color) !important; }
+  html[data-palette="blue"] [style*="--pal-box-shadow:"] { box-shadow: var(--pal-box-shadow) !important; }
+  html[data-palette="blue"] [style*="--pal-text-shadow:"] { text-shadow: var(--pal-text-shadow) !important; }
+  html[data-palette="blue"] [style*="--pal-outline-color:"] { outline-color: var(--pal-outline-color) !important; }
+  html[data-palette="blue"] [style*="--pal-fill:"] { fill: var(--pal-fill) !important; }
+  html[data-palette="blue"] [style*="--pal-stroke:"] { stroke: var(--pal-stroke) !important; }
+  html[data-palette="blue"] [style*="--pal-stop-color:"] { stop-color: var(--pal-stop-color) !important; }
+}
