@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from "vitest"
 import { createCurrencyKit, currency } from "./kit"
 import { mountCurrency } from "./dom"
-import { currencyScript, pageHasPrice } from "./inline"
+import { copySegments, currencyScript, pageHasPrice, withCurrencyFooter } from "./inline"
 
 describe("currency kit", () => {
   it("has a positive rate and a prefix for every code", () => {
@@ -131,5 +131,28 @@ describe("ad page inline script", () => {
     expect(pageHasPrice(`<body><p>saved about $50,000 a year</p></body>`)).toBe(false)
     const js = currencyScript("AUD").replace(/^<script>|<\/script>$/g, "")
     expect(() => new Function(js)).not.toThrow()
+  })
+})
+
+describe("ad page currency footer", () => {
+  it("splits the company line only at its separators, and a long address before the city", () => {
+    expect(copySegments("Fruition Services · 423 Linen Hall, 162-168 Regent Street, London W1B 5TE · <a>+44</a>")).toEqual([
+      "Fruition Services",
+      "423 Linen Hall, 162-168 Regent Street",
+      "London W1B 5TE",
+      "<a>+44</a>",
+    ])
+    expect(copySegments("A · B · C · D")).toEqual(["A", "B", "C", "D"])
+  })
+
+  it("rebuilds the usual footer as two rows with the control, and appends it otherwise", () => {
+    const html = `<footer>\n<div class="wrap">\n<img src="l.svg" alt="F">\n<div>Fruition Services · 1 Road · <a href="tel:1">1</a></div>\n<div><a href="/p">Privacy</a> · <a href="/t">Terms</a></div>\n<div class="lp-soc"><a href="x">x</a></div>\n</div>\n</footer>`
+    const out = withCurrencyFooter(html, "GBP")
+    expect(out).toContain('<footer class="lp-fcur">')
+    expect(out).toContain('<nav class="lp-legal" aria-label="Legal">')
+    expect(out).toContain('class="lp-co"')
+    expect(out).toContain('<option value="GBP" selected>')
+    const odd = withCurrencyFooter(`<footer><div class="wrap"><span>x</span></div></footer>`, "AUD")
+    expect(odd).toContain("data-currency-select")
   })
 })

@@ -1,10 +1,12 @@
 import { bookingHref } from "@/lib/bookingLink"
 import Link from 'next/link'
+import { Fragment } from 'react'
 import FooterBookingCta from '@/components/FooterBookingCta'
 import GooglePreferredSourceButton from '@/components/GooglePreferredSourceButton'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
 import CurrencySwitcher from '@/components/currency/CurrencySwitcher'
+import { vercelStegaClean } from '@vercel/stega'
 
 interface FooterLink {
   label?: string
@@ -45,6 +47,41 @@ function isRealPhone(phone?: string): boolean {
 
 function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
+}
+
+/**
+ * The copyright line, split at its " · " separators so it only ever breaks
+ * between parts: one line on desktop, two planned lines on tablet, one part per
+ * line on phone (Claude Design "Footer currency switcher" 2a). In the inline
+ * editor (stega-encoded text) it stays one plain node so it remains editable.
+ */
+function CopyLine({ text, phone }: { text?: string; phone?: string }) {
+  const raw = text ?? ''
+  const clean = vercelStegaClean(raw)
+  if (clean !== raw) {
+    return (
+      <p className="copy">
+        {raw}
+        {phone && <> · <a href={telHref(phone)}>{phone}</a></>}
+      </p>
+    )
+  }
+  const parts: React.ReactNode[] = clean.split(/\s+·\s+/).filter(Boolean)
+  if (phone) parts.push(<a href={telHref(phone)}>{phone}</a>)
+  const brAfter = parts.length > 2 ? Math.ceil(parts.length / 2) - 1 : -1
+  return (
+    <p className="copy">
+      {parts.map((p, i) => (
+        <Fragment key={i}>
+          <span className="ci">
+            {i > 0 && <span className="d" aria-hidden>·</span>}
+            {p}
+          </span>
+          {i === brAfter && <span className="cbr" aria-hidden />}
+        </Fragment>
+      ))}
+    </p>
+  )
 }
 
 /**
@@ -113,6 +150,8 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 ))}
               </div>
             )}
+            {/* Display currency for every price on the site (src/lib/currency). */}
+            <CurrencySwitcher />
           </div>
 
           {columns.map((col, i) => (
@@ -130,29 +169,17 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
         </div>
 
         <div className="base">
-          <span>
-            {siteSettings?.footerCopyrightText}
-            {phone && (
-              <>
-                {siteSettings?.footerCopyrightText ? ' · ' : ''}
-                <a href={telHref(phone)}>{phone}</a>
-              </>
-            )}
-          </span>
-          <div className="base-r">
-            {/* Display currency for every price on the site (src/lib/currency). */}
-            <CurrencySwitcher />
+          <CopyLine text={siteSettings?.footerCopyrightText} phone={phone} />
           {legalLinks.length > 0 && (
-            <span className="legal">
+            <nav className="legal" aria-label="Legal">
               {legalLinks.map((link, i) => (
                 <span key={`${link.href}-${i}`}>
                   {i > 0 && <span aria-hidden>· </span>}
                   <Link prefetch={false} href={link.href || '#'}>{link.label}</Link>
                 </span>
               ))}
-            </span>
+            </nav>
           )}
-          </div>
         </div>
       </div>
     </footer>

@@ -36,6 +36,49 @@ export function currencySelectHtml(pageDefault: CurrencyCode): string {
   return `<div class="lp-cur"><label for="lp-currency">${globe}Currency</label><div class="lp-cur-box"><select id="lp-currency" data-currency-select>${options}</select>${chevron}</div></div>`
 }
 
+/** Copy line split at its " · " separators, so it only ever breaks between parts (see .lp-co). */
+export function copySegments(text: string): string[] {
+  const parts = text.split(/\s+·\s+/).map((p) => p.trim()).filter(Boolean)
+  if (parts.length < 4) {
+    // A long street address splits before the city: "423 Linen Hall, 162-168 Regent Street" · "London W1B 5TE".
+    const i = parts.findIndex((p) => p.replace(/<[^>]+>/g, "").length > 34 && p.includes(", "))
+    if (i >= 0) {
+      const cut = parts[i].lastIndexOf(", ")
+      parts.splice(i, 1, parts[i].slice(0, cut), parts[i].slice(cut + 2))
+    }
+  }
+  return parts
+}
+
+/**
+ * Priced ad pages: rebuild the footer as two rows (logo | legal + socials, then
+ * company line | currency), Claude Design "Footer currency switcher" 2b. Pages
+ * whose footer does not have the usual shape keep it and get the control appended.
+ */
+export function withCurrencyFooter(html: string, code: CurrencyCode): string {
+  const re = /<footer>\s*<div class="wrap">\s*(<img[^>]*>)\s*<div>([\s\S]*?)<\/div>\s*<div>([\s\S]*?)<\/div>\s*(<div class="lp-soc">[\s\S]*?<\/div>)?\s*<\/div>\s*<\/footer>/i
+  const m = html.match(re)
+  if (!m) {
+    return html.replace(/(<footer[^>]*>\s*<div class="wrap">[\s\S]*?)(<\/div>\s*<\/footer>)/i, (_, open, close) => `${open}${currencySelectHtml(code)}\n${close}`)
+  }
+  const [, logo, company, links, social = ""] = m
+  const parts = copySegments(company)
+  // One line on desktop; one part per line on tablet and phone (the dots hide there).
+  const co = parts
+    .map((p, i) => `<span class="lp-ci">${i > 0 ? '<span class="d" aria-hidden="true">·</span>' : ""}${p}</span>`)
+    .join("")
+  const legal = links.trim().replace(/\s*·\s*/g, '<span aria-hidden="true">·</span>')
+  const footer = `<footer class="lp-fcur">
+<div class="wrap">
+${logo}
+<div class="lp-fr"><nav class="lp-legal" aria-label="Legal">${legal}</nav>${social}</div>
+<p class="lp-co">${co}</p>
+${currencySelectHtml(code)}
+</div>
+</footer>`
+  return html.replace(m[0], footer)
+}
+
 /** The inline runtime: kit + converter, started with the page's market currency. */
 export function currencyScript(pageDefault: CurrencyCode): string {
   return `<script>(function(){try{

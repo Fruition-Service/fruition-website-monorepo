@@ -9,7 +9,7 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
 import { OAIQ_LANDING_HEAD } from "@/lib/openaiPixel"
-import { currencyScript, currencySelectHtml, pageHasPrice, REGION_CURRENCY } from "@/lib/currency/inline"
+import { currencyScript, pageHasPrice, REGION_CURRENCY, withCurrencyFooter } from "@/lib/currency/inline"
 import { bandCopy, renderAuditBand, renderClosingBand, renderSocialRow } from "@/lib/landingPageBands"
 
 /**
@@ -502,7 +502,7 @@ function withRhythm(html: string): string {
 export function withDisplayCurrency(html: string, region: LeadRegion): string {
   if (!pageHasPrice(html)) return html
   const code = REGION_CURRENCY[region]
-  let out = html.replace(/(<footer[^>]*>\s*<div class="wrap">[\s\S]*?)(<\/div>\s*<\/footer>)/i, (_, open, close) => `${open}${currencySelectHtml(code)}\n${close}`)
+  let out = withCurrencyFooter(html, code)
   out = out.replace(/<\/body>/i, `${currencyScript(code)}\n</body>`)
   return out
 }
