@@ -1,0 +1,1917 @@
+{
+  "navigation": [
+    {
+      "_key": "ai-0",
+      "_type": "navItem",
+      "feature": {
+        "href": "/ai-use-cases",
+        "kicker": "Use case hub",
+        "label": "Browse AI use cases",
+        "plain": true,
+        "quote": "279 real AI and monday.com builds across 12 industries, filterable by team and outcome.",
+        "slides": [
+          {
+            "_key": "slide-0",
+            "_type": "navFeatureSlide",
+            "href": "/ai-use-cases/professional-services",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Star Aviation",
+                "asset": {
+                  "_ref": "image-674f58add988c753df8135bfc9664a7570e4def8-269x93-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-1",
+                "_type": "image",
+                "alt": "Gordon Slater Lawyers",
+                "asset": {
+                  "_ref": "image-4465eee9b6893fab7cdb4edf7da69ac5bb38b543-900x441-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-2",
+                "_type": "image",
+                "alt": "Academy HR",
+                "asset": {
+                  "_ref": "image-e126a72d4bc511ef8af3d99159bee5be0b41a374-899x156-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "meta": "70 builds",
+            "title": "Professional services & agencies"
+          },
+          {
+            "_key": "slide-1",
+            "_type": "navFeatureSlide",
+            "href": "/ai-use-cases/construction",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Evolve Constructions",
+                "asset": {
+                  "_ref": "image-09ca61a758adbb476278fde27d53182a18ed95f1-269x114-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-1",
+                "_type": "image",
+                "alt": "Creative Windows",
+                "asset": {
+                  "_ref": "image-2873461a85419baafd677e865d2753638e941786-232x154-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-2",
+                "_type": "image",
+                "alt": "Permcon",
+                "asset": {
+                  "_ref": "image-86bfabf908c359ff52c149a6ff047c23aa1c2ea2-640x349-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "meta": "64 builds",
+            "title": "Construction, trades & field service"
+          },
+          {
+            "_key": "slide-2",
+            "_type": "navFeatureSlide",
+            "href": "/ai-use-cases/manufacturing",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Ausdeck",
+                "asset": {
+                  "_ref": "image-5484ead34a282ea50b1ffda4d97ae12c7cb4cf60-153x42-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-1",
+                "_type": "image",
+                "alt": "Bielby",
+                "asset": {
+                  "_ref": "image-47f46119cde1e03ae657ef7e33b12dd5259de72f-167x56-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-2",
+                "_type": "image",
+                "alt": "FibreconX",
+                "asset": {
+                  "_ref": "image-bded71d00c16cc95c2dbd30f5a85584eb1e07310-900x139-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "meta": "47 builds",
+            "title": "Manufacturing"
+          },
+          {
+            "_key": "slide-3",
+            "_type": "navFeatureSlide",
+            "href": "/ai-use-cases/real-estate",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Aligned Property Services",
+                "asset": {
+                  "_ref": "image-4a819aea792e4bc75f7ba11c2e2be13db0b994d4-873x363-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-1",
+                "_type": "image",
+                "alt": "Real Property Development",
+                "asset": {
+                  "_ref": "image-8137628dd9bbdd295334cf71c16c7262a2506dde-277x139-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-2",
+                "_type": "image",
+                "alt": "Leconfield Property Group",
+                "asset": {
+                  "_ref": "image-491cdcabbc79ac443a127c3ab7ce20d13e435351-900x95-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "meta": "16 builds",
+            "title": "Real estate & property"
+          },
+          {
+            "_key": "slide-4",
+            "_type": "navFeatureSlide",
+            "href": "/ai-use-cases/financial-services",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Hume Bank",
+                "asset": {
+                  "_ref": "image-2e47befaf8cbc3314c3d35b04a3137641b05daec-803x140-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-1",
+                "_type": "image",
+                "alt": "Avant Insurance",
+                "asset": {
+                  "_ref": "image-a26e220c0afdc15b9018d49600b76a46f6c13c24-900x317-png",
+                  "_type": "reference"
+                }
+              },
+              {
+                "_key": "logo-2",
+                "_type": "image",
+                "alt": "AEON Bank",
+                "asset": {
+                  "_ref": "image-bcaba4279a2dc43824abfdd933a39dfad31c084c-274x50-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "meta": "13 builds",
+            "title": "Financial services & insurance"
+          }
+        ]
+      },
+      "footerLinks": [
+        {
+          "_key": "all-ai-services-0",
+          "_type": "navFooterLink",
+          "href": "/ai-consulting",
+          "label": "All AI services"
+        },
+        {
+          "_key": "book-an-assessment-1",
+          "_type": "navFooterLink",
+          "href": "/ai-capability-assessment",
+          "label": "Book an assessment"
+        }
+      ],
+      "footerNote": "From a fixed-fee assessment to agents in production, with governance from day one.",
+      "label": "AI",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "assess-0",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Assess",
+          "items": [
+            {
+              "_key": "ai-capability-assessment-0",
+              "_type": "navLink",
+              "description": "Fixed-fee assessment, your AI roadmap in weeks",
+              "href": "/ai-capability-assessment",
+              "label": "AI capability assessment",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0a249d5c2cb1bf07fe8d8111402aad7e6c363cc3-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "ai-readiness-blueprint-1",
+              "_type": "navLink",
+              "description": "Free self-assessment of your AI readiness",
+              "href": "/ai-readiness-blueprint",
+              "label": "AI readiness blueprint",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-eaecf96a4c0f12ce6f17beee4fa5cc20336276bf-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "build-1",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Build",
+          "items": [
+            {
+              "_key": "ai-consulting-0",
+              "_type": "navLink",
+              "description": "The full AI consulting practice",
+              "href": "/ai-consulting",
+              "label": "AI consulting",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-48a267ad8ed21edb6ed284648b3b49f2e391d823-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "agent-development-1",
+              "_type": "navLink",
+              "description": "Autonomous agents built for production",
+              "href": "/ai-consulting/agent-development",
+              "label": "Agent development",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-4bc58e484a2a4504abe58238fa600019dfa4f7c4-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "rag-and-knowledge-systems-2",
+              "_type": "navLink",
+              "description": "Retrieval grounded in your own knowledge",
+              "href": "/ai-consulting/rag-knowledge-systems",
+              "label": "RAG & knowledge systems",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0aea35ea9aa3fec8b5e5b1e7656e3008049e6fb2-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "run-2",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Run",
+          "items": [
+            {
+              "_key": "ai-strategy-and-execution-0",
+              "_type": "navLink",
+              "description": "Roadmaps that turn into shipped work",
+              "href": "/ai-strategy-and-execution",
+              "label": "AI strategy & execution",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-86587f93ac9b7356fd5293df0e839248759ed28b-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "governance-and-compliance-1",
+              "_type": "navLink",
+              "description": "AI policy, risk & compliance frameworks",
+              "href": "/ai-consulting/governance-and-compliance",
+              "label": "Governance & compliance",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-cd0d84ee576112a8ce439cc00d9315ade803358f-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "partnership-1",
+      "_type": "navItem",
+      "footerLinks": [
+        {
+          "_key": "all-partners-0",
+          "_type": "navFooterLink",
+          "href": "/partnerships",
+          "label": "All partners"
+        },
+        {
+          "_key": "integrations-1",
+          "_type": "navFooterLink",
+          "href": "/integrations",
+          "label": "Integrations"
+        }
+      ],
+      "footerNote": "One page per platform: our partnership and what we deliver on it.",
+      "label": "Partnership",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "work-management-0",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Work management",
+          "items": [
+            {
+              "_key": "monday-com-0",
+              "_type": "navLink",
+              "description": "Platinum Partner · Rising Star 2026 · Advanced Delivery Partner",
+              "href": "/partnerships/monday-consulting-partner",
+              "label": "monday.com",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-28c986a16bc1360c41a6b6c945b685eefdba8d59-24x24-svg",
+                  "_type": "reference"
+                }
+              },
+              "tier": "Platinum"
+            },
+            {
+              "_key": "atlassian-1",
+              "_type": "navLink",
+              "description": "Platinum Partner · Rising Star 2026",
+              "href": "/atlassian-consulting",
+              "label": "Atlassian",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fbdfb1ef3f6c1b3aeb1ae0f2cd25544bdba1072a-24x24-svg",
+                  "_type": "reference"
+                }
+              },
+              "tier": "Platinum"
+            },
+            {
+              "_key": "clickup-2",
+              "_type": "navLink",
+              "description": "Workspaces, migration and automation",
+              "href": "/partnerships/certified-clickup-partner",
+              "label": "ClickUp",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2e471d8abecb131af02ed55a5b2cd2e48a902081-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "crm-and-customer-1",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "CRM & customer",
+          "items": [
+            {
+              "_key": "hubspot-0",
+              "_type": "navLink",
+              "description": "HubSpot builds, Breeze AI and integration",
+              "href": "/hubspot-consulting",
+              "label": "HubSpot",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f6d78d6335fe82bbe279d364ae0b4e11c9506d4c-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "monday-crm-1",
+              "_type": "navLink",
+              "description": "Sales pipeline & customer management",
+              "href": "/monday-crm-consulting",
+              "label": "monday CRM",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-28c986a16bc1360c41a6b6c945b685eefdba8d59-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "aircall-2",
+              "_type": "navLink",
+              "description": "Cloud phone connected to your CRM",
+              "href": "/partnerships/aircall-partner",
+              "label": "Aircall",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-401f70a70542eeefd30ecb5edc41d21bc5a1a0af-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "ai-platforms-2",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "AI platforms",
+          "items": [
+            {
+              "_key": "openai-0",
+              "_type": "navLink",
+              "description": "ChatGPT Enterprise & custom GPTs",
+              "href": "/partnerships/openai-chatgpt-partner",
+              "label": "OpenAI",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-57be09498599537b7df3ce3fdb7be0a6ca224216-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "anthropic-claude-1",
+              "_type": "navLink",
+              "description": "Enterprise Claude & Claude Code",
+              "href": "/partnerships/anthropic-claude-partner",
+              "label": "Anthropic Claude",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-09fe3df0673792bc954b03d202d2c3948b1345f2-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "elevenlabs-2",
+              "_type": "navLink",
+              "description": "Voice AI agents and lifelike speech",
+              "href": "/partnerships/elevenlabs-partner",
+              "label": "ElevenLabs",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fa4f2a66998112a60c5c76d4fb378af03b39b48b-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "automation-3",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Automation",
+          "items": [
+            {
+              "_key": "n8n-0",
+              "_type": "navLink",
+              "description": "Self-hosted workflows and AI agents",
+              "href": "/partnerships/n8n-integration-partner",
+              "label": "n8n",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fa4b0ff6a329fd36c262ab52c10faec0cd0796cc-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "make-1",
+              "_type": "navLink",
+              "description": "No-code automation across your stack",
+              "href": "/partnerships/make-partners",
+              "label": "Make",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b2753ed724f9d5bf17d2c5284fa0dfadb5222207-24x24-svg",
+                  "_type": "reference"
+                }
+              },
+              "tier": "Gold"
+            },
+            {
+              "_key": "integrations-2",
+              "_type": "navLink",
+              "description": "Connect monday.com, your CRM and the rest of your stack",
+              "href": "/integrations",
+              "label": "Integrations",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-3840a788ecfb2a3e064b36ed8f1c5b2712dce82a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "industries-2",
+      "_type": "navItem",
+      "footerLinks": [
+        {
+          "_key": "browse-industries-0",
+          "_type": "navFooterLink",
+          "href": "/ai-use-cases",
+          "label": "Browse industries"
+        },
+        {
+          "_key": "customer-stories-1",
+          "_type": "navFooterLink",
+          "href": "/customer-testimonials",
+          "label": "Customer stories"
+        }
+      ],
+      "footerNote": "Industry templates and named client builds for each sector.",
+      "label": "Industries",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "industries-0",
+          "_type": "navSection",
+          "columns": 2,
+          "grow": 2,
+          "heading": "Industries",
+          "items": [
+            {
+              "_key": "construction-0",
+              "_type": "navLink",
+              "description": "Project & site delivery",
+              "href": "/monday-for-construction",
+              "label": "Construction",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-525a6a9d4ca07d2b99ada8e120cd4692fb7da92d-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "manufacturing-1",
+              "_type": "navLink",
+              "description": "Production planning & ops",
+              "href": "/monday-for-manufacturing",
+              "label": "Manufacturing",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b0c8504daae81e8812149fb1568a39391a448481-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "government-2",
+              "_type": "navLink",
+              "description": "Secure public-sector delivery",
+              "href": "/monday-for-government",
+              "label": "Government",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-82adc2a9ea77d97b7fa22bda0cccccaafeff2855-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "professional-services-3",
+              "_type": "navLink",
+              "description": "Client delivery & resourcing",
+              "href": "/monday-for-professional-services",
+              "label": "Professional services",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-4975f5058138379c910f18b37912dca5e67e3c4a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "real-estate-4",
+              "_type": "navLink",
+              "description": "Listings, deals & property ops",
+              "href": "/monday-for-real-estate",
+              "label": "Real estate",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-86261c8cf67026203af79e4ad0be9bae5b64bb3c-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "financial-services-5",
+              "_type": "navLink",
+              "description": "APRA/FCA-aligned platforms & AI",
+              "href": "/industries/financial-services",
+              "label": "Financial services",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-29abf5a6e492ecd647adf5d4d7d17ef96363eb80-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "by-team-1",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "By team",
+          "items": [
+            {
+              "_key": "project-and-portfolio-0",
+              "_type": "navLink",
+              "description": "Delivery, portfolios & PMO",
+              "href": "/monday-consulting-solutions/monday-project-management",
+              "label": "Project & portfolio",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0aea35ea9aa3fec8b5e5b1e7656e3008049e6fb2-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "crm-and-sales-1",
+              "_type": "navLink",
+              "description": "Pipeline and customer management",
+              "href": "/monday-crm-consulting",
+              "label": "CRM & sales",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-9f222366b121e4748d25d10d2a79368e2f39cf8a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "service-itsm-2",
+              "_type": "navLink",
+              "description": "Service desks and request portals",
+              "href": "/monday-consulting-solutions/monday-service",
+              "label": "Service (ITSM)",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-55f95f3b713c09b477f20fae939878a24daa3a99-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "hr-operations-3",
+              "_type": "navLink",
+              "description": "Hiring, onboarding and people ops",
+              "href": "/monday-consulting-solutions/monday-for-hr",
+              "label": "HR operations",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-826bb0ed8f98400378e26c22b764fdf24916426e-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "pricing-3",
+      "_type": "navItem",
+      "feature": {
+        "attribution": "Brandon-Lee Horridge, Managing Director, BL Air Conditioning",
+        "href": "/customer-testimonials#case-studies",
+        "kicker": "Case study",
+        "label": "Read the case study",
+        "logo": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-45384aab63f4561950ccf9c2207d4313e6c63f35-289x174-png",
+            "_type": "reference"
+          }
+        },
+        "metrics": [
+          {
+            "_key": "metric-0",
+            "_type": "navFeatureMetric",
+            "label": "ROI",
+            "value": "17x"
+          },
+          {
+            "_key": "metric-1",
+            "_type": "navFeatureMetric",
+            "label": "Saved per year",
+            "value": "$125,000"
+          }
+        ],
+        "plain": true,
+        "quote": "This system will save “hundreds of thousands of dollars a year guaranteed”",
+        "slides": [
+          {
+            "_key": "slide-0",
+            "_type": "navFeatureSlide",
+            "attribution": "Brandon-Lee Horridge, Managing Director, BL Air Conditioning",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "BL Air Conditioning",
+                "asset": {
+                  "_ref": "image-45384aab63f4561950ccf9c2207d4313e6c63f35-289x174-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "17x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved per year",
+                "value": "$125,000"
+              }
+            ],
+            "plain": true,
+            "quote": "This system will save “hundreds of thousands of dollars a year guaranteed”"
+          },
+          {
+            "_key": "slide-1",
+            "_type": "navFeatureSlide",
+            "attribution": "Ron Amaram, General Manager, Risk 2 Solutions",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Risk 2 Solutions",
+                "asset": {
+                  "_ref": "image-04beb83243a2515ec5c8b281f8ea81496b20bca0-372x373-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "11x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved per year",
+                "value": "$117,000"
+              }
+            ],
+            "quote": "Fruition have been instrumental in moving us to a ‘single source of truth’ system for managing sales and projects."
+          },
+          {
+            "_key": "slide-2",
+            "_type": "navFeatureSlide",
+            "attribution": "Mairhead McKinley, Delivery Manager, Givergy",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Givergy",
+                "asset": {
+                  "_ref": "image-01cfeded16bbbdc0a3d76614a101f57413bcdcfc-405x158-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "10x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved annually",
+                "value": "£66,820"
+              }
+            ],
+            "quote": "We found Monday to be more customisable and transparent for both internal and external stakeholders. It reduced double handling of issues, as the Monday boards provide clear, accessible information, eliminating the need to email around for updates."
+          },
+          {
+            "_key": "slide-3",
+            "_type": "navFeatureSlide",
+            "attribution": "Robinson Sandino, Chief Executive Officer, Promotify Canada",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Promotify Canada",
+                "asset": {
+                  "_ref": "image-4334073d6ebe7b383a49ff26d1fc07e7fa07dd96-360x361-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "14x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved per year",
+                "value": "$72,000"
+              }
+            ],
+            "quote": "We successfully aligned clients and projects in an organized and seamless manner, resolving a key operational challenge."
+          },
+          {
+            "_key": "slide-4",
+            "_type": "navFeatureSlide",
+            "attribution": "Stephen Coates, Division Manager, HVAC Australia",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "HVAC Australia",
+                "asset": {
+                  "_ref": "image-93cbbba2bf9d9babaf56e60dea613e718e05d1da-462x157-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "10x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved per year",
+                "value": "$52,000"
+              }
+            ],
+            "quote": "We gained efficiency on project tasks... Now that the solution has automated a lot of the manual work we can focus on the critical risks effectively."
+          },
+          {
+            "_key": "slide-5",
+            "_type": "navFeatureSlide",
+            "attribution": "Emily Hill, International Markets Manager, Tourism Northern Territory",
+            "logos": [
+              {
+                "_key": "logo-0",
+                "_type": "image",
+                "alt": "Tourism Northern Territory",
+                "asset": {
+                  "_ref": "image-1c46740cad343bf54254c66032ceba69fcc48e2c-520x217-png",
+                  "_type": "reference"
+                }
+              }
+            ],
+            "metrics": [
+              {
+                "_key": "metric-0",
+                "_type": "navFeatureSlideMetric",
+                "label": "ROI",
+                "value": "4x"
+              },
+              {
+                "_key": "metric-1",
+                "_type": "navFeatureSlideMetric",
+                "label": "Saved per year",
+                "value": "$50,000"
+              }
+            ],
+            "quote": "Process automation across campaign management, budget management and project approvals has saved significant amounts of time for staff globally and also improved collaboration across global teams."
+          }
+        ]
+      },
+      "footerLinks": [
+        {
+          "_key": "see-packages-0",
+          "_type": "navFooterLink",
+          "href": "/implementation-packages",
+          "label": "See packages"
+        },
+        {
+          "_key": "book-a-call-1",
+          "_type": "navFooterLink",
+          "href": "/contact-us",
+          "label": "Book a call"
+        }
+      ],
+      "footerNote": "Fixed scope, fixed fees. See what a project costs before you commit.",
+      "label": "Pricing",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "ways-to-work-with-us-0",
+          "_type": "navSection",
+          "columns": 2,
+          "grow": 2,
+          "heading": "Ways to work with us",
+          "items": [
+            {
+              "_key": "implementation-packages-0",
+              "_type": "navLink",
+              "description": "Fixed-fee packages: 900+ delivered",
+              "href": "/implementation-packages",
+              "label": "Implementation packages",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2696ddce9637e40c95b66c9e928f65f1c3affc9d-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "training-1",
+              "_type": "navLink",
+              "description": "Role-based enablement for your teams",
+              "href": "/training",
+              "label": "Training",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-5771604441929a2f879f85397dbe63146df25308-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "licence-procurement-2",
+              "_type": "navLink",
+              "description": "Audit, sourcing and renewal management",
+              "href": "/licence-procurement",
+              "label": "Licence procurement",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-29abf5a6e492ecd647adf5d4d7d17ef96363eb80-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "implementation-calculator-3",
+              "_type": "navLink",
+              "description": "Estimated scope, timeline and fee in minutes",
+              "href": "/ask-fruit",
+              "label": "Implementation calculator",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fef18af4fc1a0278a3e0900cbfd4edfe483d0568-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "company-4",
+      "_type": "navItem",
+      "footerLinks": [
+        {
+          "_key": "about-fruition-0",
+          "_type": "navFooterLink",
+          "href": "/about-us",
+          "label": "About Fruition"
+        },
+        {
+          "_key": "contact-1",
+          "_type": "navFooterLink",
+          "href": "/contact-us",
+          "label": "Contact"
+        }
+      ],
+      "footerNote": "900+ implementations, six offices, one delivery standard.",
+      "label": "Company",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "proof-0",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Proof",
+          "items": [
+            {
+              "_key": "customer-stories-0",
+              "_type": "navLink",
+              "description": "Client results in their own words",
+              "href": "/customer-testimonials",
+              "label": "Customer stories",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-a0b75ed7ad8c1d082993fe7da566d105853e5778-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "case-studies-1",
+              "_type": "navLink",
+              "description": "8 verified client implementations, filterable",
+              "href": "/customer-testimonials#case-studies",
+              "label": "Case studies",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-9f222366b121e4748d25d10d2a79368e2f39cf8a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "certifications-and-awards-2",
+              "_type": "navLink",
+              "description": "Partner tiers and certifications",
+              "href": "/certifications-and-awards",
+              "label": "Certifications & awards",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-56c637f54d5bc5aac44575a076709465d60e6d53-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "about-1",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "About",
+          "items": [
+            {
+              "_key": "about-fruition-0",
+              "_type": "navLink",
+              "description": "Who we are and how we work",
+              "href": "/about-us",
+              "label": "About Fruition",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-d3d352f2858a13bde935ce6390144ab572669dec-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "our-team-1",
+              "_type": "navLink",
+              "description": "The consultants behind Fruition",
+              "href": "/fruition-team",
+              "label": "Our team",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-826bb0ed8f98400378e26c22b764fdf24916426e-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "careers-2",
+              "_type": "navLink",
+              "description": "Remote roles across six countries",
+              "href": "/careers",
+              "label": "Careers",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-6379a5137868184887c3f354bf6f22ec322f030f-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "blog-3",
+              "_type": "navLink",
+              "description": "Articles on AI, platforms and automation",
+              "href": "/consulting-blog",
+              "label": "Blog",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-eaecf96a4c0f12ce6f17beee4fa5cc20336276bf-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "faqs-4",
+              "_type": "navLink",
+              "description": "Direct answers to common questions",
+              "href": "/faqs",
+              "label": "FAQs",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-9ba494c26a16bd1ea7e7d7d3f830e7b36e96b9fa-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "where-we-work-2",
+          "_type": "navSection",
+          "columns": 1,
+          "grow": 1,
+          "heading": "Where we work",
+          "items": [
+            {
+              "_key": "australia-0",
+              "_type": "navLink",
+              "description": "Sydney head office",
+              "href": "/monday-partner-australia",
+              "label": "Australia",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "united-kingdom-1",
+              "_type": "navLink",
+              "description": "London",
+              "href": "/monday-partner-uk",
+              "label": "United Kingdom",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "united-states-2",
+              "_type": "navLink",
+              "description": "New York",
+              "href": "/monday-partner-us",
+              "label": "United States",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "singapore-3",
+              "_type": "navLink",
+              "description": "Singapore",
+              "href": "/monday-partner-singapore",
+              "label": "Singapore",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "india-4",
+              "_type": "navLink",
+              "description": "New Delhi",
+              "href": "/monday-partner-india",
+              "label": "India",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "philippines-5",
+              "_type": "navLink",
+              "description": "Manila",
+              "href": "/monday-partner-philippines",
+              "label": "Philippines",
+              "logo": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-c25f7fb8f072ec7e4d66d4d56f659f15bd60ec9a-24x24-svg",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "contact-5",
+      "_type": "navItem",
+      "href": "/contact-us",
+      "label": "Contact"
+    }
+  ],
+  "footerTagline": "Platform-agnostic AI and workflow consultancy. Process before platform.",
+  "footerBadges": [],
+  "footerColumns": [
+    {
+      "_key": "services-0",
+      "_type": "footerColumn",
+      "heading": "Services",
+      "links": [
+        {
+          "_key": "implementation-packages-0",
+          "_type": "footerColumnLink",
+          "href": "/implementation-packages",
+          "label": "Implementation packages"
+        },
+        {
+          "_key": "licence-procurement-1",
+          "_type": "footerColumnLink",
+          "href": "/licence-procurement",
+          "label": "Licence procurement"
+        },
+        {
+          "_key": "implementation-calculator-2",
+          "_type": "footerColumnLink",
+          "href": "/ask-fruit",
+          "label": "Implementation calculator"
+        },
+        {
+          "_key": "implementation-consultants-3",
+          "_type": "footerColumnLink",
+          "href": "/monday-implementation-consultants",
+          "label": "Implementation consultants"
+        },
+        {
+          "_key": "crm-consulting-4",
+          "_type": "footerColumnLink",
+          "href": "/monday-crm-consulting",
+          "label": "CRM consulting"
+        },
+        {
+          "_key": "training-5",
+          "_type": "footerColumnLink",
+          "href": "/training",
+          "label": "Training"
+        },
+        {
+          "_key": "monday-service-itsm-6",
+          "_type": "footerColumnLink",
+          "href": "/monday-consulting-solutions/monday-service",
+          "label": "monday Service (ITSM)"
+        },
+        {
+          "_key": "hr-operations-7",
+          "_type": "footerColumnLink",
+          "href": "/monday-consulting-solutions/monday-for-hr",
+          "label": "HR operations"
+        },
+        {
+          "_key": "ai-consulting-8",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting",
+          "label": "AI consulting"
+        },
+        {
+          "_key": "ai-capability-assessment-9",
+          "_type": "footerColumnLink",
+          "href": "/ai-capability-assessment",
+          "label": "AI capability assessment"
+        },
+        {
+          "_key": "ai-strategy-and-execution-10",
+          "_type": "footerColumnLink",
+          "href": "/ai-strategy-and-execution",
+          "label": "AI strategy & execution"
+        },
+        {
+          "_key": "agent-development-11",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/agent-development",
+          "label": "Agent development"
+        },
+        {
+          "_key": "rag-and-knowledge-systems-12",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/rag-knowledge-systems",
+          "label": "RAG & knowledge systems"
+        },
+        {
+          "_key": "ai-governance-13",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/governance-and-compliance",
+          "label": "AI governance"
+        },
+        {
+          "_key": "ai-customer-service-14",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/customer-service",
+          "label": "AI customer service"
+        },
+        {
+          "_key": "ai-marketing-automation-15",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/marketing-automation",
+          "label": "AI marketing automation"
+        },
+        {
+          "_key": "ai-sales-and-outbound-16",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/sales-outbound",
+          "label": "AI sales & outbound"
+        },
+        {
+          "_key": "ai-operations-17",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/operations-back-office",
+          "label": "AI operations"
+        }
+      ]
+    },
+    {
+      "_key": "partnership-1",
+      "_type": "footerColumn",
+      "heading": "Partnership",
+      "links": [
+        {
+          "_key": "monday-com-0",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/monday-consulting-partner",
+          "label": "monday.com"
+        },
+        {
+          "_key": "atlassian-1",
+          "_type": "footerColumnLink",
+          "href": "/atlassian-consulting",
+          "label": "Atlassian"
+        },
+        {
+          "_key": "hubspot-2",
+          "_type": "footerColumnLink",
+          "href": "/hubspot-consulting",
+          "label": "HubSpot"
+        },
+        {
+          "_key": "clickup-3",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/certified-clickup-partner",
+          "label": "ClickUp"
+        },
+        {
+          "_key": "openai-4",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/openai-chatgpt-partner",
+          "label": "OpenAI"
+        },
+        {
+          "_key": "anthropic-claude-5",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/anthropic-claude-partner",
+          "label": "Anthropic Claude"
+        },
+        {
+          "_key": "elevenlabs-6",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/elevenlabs-partner",
+          "label": "ElevenLabs"
+        },
+        {
+          "_key": "google-gemini-7",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/google-gemini-vertex-ai-partner",
+          "label": "Google Gemini"
+        },
+        {
+          "_key": "openclaw-8",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/openclaw-partner",
+          "label": "OpenClaw"
+        },
+        {
+          "_key": "vapi-9",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/vapi-partner",
+          "label": "Vapi"
+        },
+        {
+          "_key": "grok-bot-10",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/grok-bot-partner",
+          "label": "Grok Bot"
+        },
+        {
+          "_key": "meta-muse-11",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/meta-muse-partner",
+          "label": "Meta Muse"
+        },
+        {
+          "_key": "n8n-12",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/n8n-integration-partner",
+          "label": "n8n"
+        },
+        {
+          "_key": "make-13",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/make-partners",
+          "label": "Make"
+        },
+        {
+          "_key": "aircall-14",
+          "_type": "footerColumnLink",
+          "href": "/partnerships/aircall-partner",
+          "label": "Aircall"
+        },
+        {
+          "_key": "all-partners-15",
+          "_type": "footerColumnLink",
+          "href": "/partnerships",
+          "label": "All partners"
+        },
+        {
+          "_key": "integrations-16",
+          "_type": "footerColumnLink",
+          "href": "/integrations",
+          "label": "Integrations"
+        },
+        {
+          "_key": "whatsapp-17",
+          "_type": "footerColumnLink",
+          "href": "/integrations/whatsapp",
+          "label": "WhatsApp"
+        },
+        {
+          "_key": "line-18",
+          "_type": "footerColumnLink",
+          "href": "/integrations/line",
+          "label": "LINE"
+        },
+        {
+          "_key": "viber-19",
+          "_type": "footerColumnLink",
+          "href": "/integrations/viber",
+          "label": "Viber"
+        },
+        {
+          "_key": "twilio-20",
+          "_type": "footerColumnLink",
+          "href": "/integrations/twilio",
+          "label": "Twilio"
+        },
+        {
+          "_key": "zapier-21",
+          "_type": "footerColumnLink",
+          "href": "/integrations/zapier",
+          "label": "Zapier"
+        }
+      ]
+    },
+    {
+      "_key": "industries-2",
+      "_type": "footerColumn",
+      "heading": "Industries",
+      "links": [
+        {
+          "_key": "construction-0",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-construction",
+          "label": "Construction"
+        },
+        {
+          "_key": "manufacturing-1",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-manufacturing",
+          "label": "Manufacturing"
+        },
+        {
+          "_key": "government-2",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-government",
+          "label": "Government"
+        },
+        {
+          "_key": "professional-services-3",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-professional-services",
+          "label": "Professional services"
+        },
+        {
+          "_key": "real-estate-4",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-real-estate",
+          "label": "Real estate"
+        },
+        {
+          "_key": "financial-services-5",
+          "_type": "footerColumnLink",
+          "href": "/industries/financial-services",
+          "label": "Financial services"
+        },
+        {
+          "_key": "retail-6",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-retail",
+          "label": "Retail"
+        },
+        {
+          "_key": "healthcare-7",
+          "_type": "footerColumnLink",
+          "href": "/industries/healthcare",
+          "label": "Healthcare"
+        },
+        {
+          "_key": "solar-and-renewables-8",
+          "_type": "footerColumnLink",
+          "href": "/industries/solar-renewables",
+          "label": "Solar & renewables"
+        },
+        {
+          "_key": "marketing-and-creative-9",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-marketing",
+          "label": "Marketing & creative"
+        },
+        {
+          "_key": "education-10",
+          "_type": "footerColumnLink",
+          "href": "/industries/education",
+          "label": "Education"
+        },
+        {
+          "_key": "nonprofits-11",
+          "_type": "footerColumnLink",
+          "href": "/industries/nonprofits",
+          "label": "Nonprofits"
+        },
+        {
+          "_key": "transport-and-logistics-12",
+          "_type": "footerColumnLink",
+          "href": "/industries/transport-logistics",
+          "label": "Transport & logistics"
+        },
+        {
+          "_key": "hospitality-and-events-13",
+          "_type": "footerColumnLink",
+          "href": "/industries/hospitality-tourism-events",
+          "label": "Hospitality & events"
+        },
+        {
+          "_key": "technology-and-saas-14",
+          "_type": "footerColumnLink",
+          "href": "/industries/technology-saas",
+          "label": "Technology & SaaS"
+        },
+        {
+          "_key": "energy-and-utilities-15",
+          "_type": "footerColumnLink",
+          "href": "/industries/energy-utilities",
+          "label": "Energy & utilities"
+        },
+        {
+          "_key": "media-and-entertainment-16",
+          "_type": "footerColumnLink",
+          "href": "/industries/media-entertainment",
+          "label": "Media & entertainment"
+        },
+        {
+          "_key": "legal-17",
+          "_type": "footerColumnLink",
+          "href": "/industries/legal",
+          "label": "Legal"
+        },
+        {
+          "_key": "ai-use-case-hub-18",
+          "_type": "footerColumnLink",
+          "href": "/ai-use-cases",
+          "label": "AI use case hub"
+        }
+      ]
+    },
+    {
+      "_key": "locations-3",
+      "_type": "footerColumn",
+      "heading": "Locations",
+      "links": [
+        {
+          "_key": "australia-0",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-australia",
+          "label": "Australia"
+        },
+        {
+          "_key": "united-kingdom-1",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-uk",
+          "label": "United Kingdom"
+        },
+        {
+          "_key": "united-states-2",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-us",
+          "label": "United States"
+        },
+        {
+          "_key": "singapore-and-malaysia-3",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-singapore",
+          "label": "Singapore & Malaysia"
+        },
+        {
+          "_key": "india-4",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-india",
+          "label": "India"
+        },
+        {
+          "_key": "philippines-5",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-philippines",
+          "label": "Philippines"
+        }
+      ]
+    },
+    {
+      "_key": "company-4",
+      "_type": "footerColumn",
+      "heading": "Company",
+      "links": [
+        {
+          "_key": "about-fruition-0",
+          "_type": "footerColumnLink",
+          "href": "/about-us",
+          "label": "About Fruition"
+        },
+        {
+          "_key": "team-1",
+          "_type": "footerColumnLink",
+          "href": "/fruition-team",
+          "label": "Team"
+        },
+        {
+          "_key": "careers-2",
+          "_type": "footerColumnLink",
+          "href": "/careers",
+          "label": "Careers"
+        },
+        {
+          "_key": "certifications-and-awards-3",
+          "_type": "footerColumnLink",
+          "href": "/certifications-and-awards",
+          "label": "Certifications & awards"
+        },
+        {
+          "_key": "customer-stories-4",
+          "_type": "footerColumnLink",
+          "href": "/customer-testimonials",
+          "label": "Customer stories"
+        },
+        {
+          "_key": "blog-5",
+          "_type": "footerColumnLink",
+          "href": "/consulting-blog",
+          "label": "Blog"
+        },
+        {
+          "_key": "faqs-6",
+          "_type": "footerColumnLink",
+          "href": "/faqs",
+          "label": "FAQs"
+        },
+        {
+          "_key": "contact-7",
+          "_type": "footerColumnLink",
+          "href": "/contact-us",
+          "label": "Contact"
+        }
+      ]
+    }
+  ],
+  "footerCopyrightText": "© 2026 Fruition Services · ABN 12 667 454 006 · Level 12, 64 York Street, Sydney NSW 2000",
+  "socialLinks": [
+    {
+      "_key": "linkedin-0",
+      "_type": "socialLink",
+      "href": "https://www.linkedin.com/company/fruition-services",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f9a6c9e0cdad16dd006bcbca5cc845bf39047072-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "LinkedIn",
+      "row": 1
+    },
+    {
+      "_key": "instagram-1",
+      "_type": "socialLink",
+      "href": "https://instagram.com/fruition.monday",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-8bd8b73050da7a3ab7fe2c5a1d2d8fd284a0bfc2-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "Instagram",
+      "row": 1
+    },
+    {
+      "_key": "facebook-2",
+      "_type": "socialLink",
+      "href": "https://www.facebook.com/profile.php?id=100092289551680",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-6e4d41476da3bdbb0a18ae604dbca8a29703bbd4-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "Facebook",
+      "row": 1
+    },
+    {
+      "_key": "youtube-3",
+      "_type": "socialLink",
+      "href": "https://youtube.com/@fruitionservices",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-20be59c0bb828e12fc434eb8ed146b579a5b8e2f-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "YouTube",
+      "row": 1
+    },
+    {
+      "_key": "x-4",
+      "_type": "socialLink",
+      "href": "https://x.com/Fruitionservic",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9cf9789e0634d8df3cac449ea39b1cfef9d8c9b4-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "X",
+      "row": 1
+    },
+    {
+      "_key": "reddit-5",
+      "_type": "socialLink",
+      "href": "https://reddit.com/user/Professional_Act2302",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f78eeeaff46b2df2a6537564d4b92d429a7e3acf-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "Reddit",
+      "row": 1
+    },
+    {
+      "_key": "pinterest-6",
+      "_type": "socialLink",
+      "href": "https://pinterest.com/fruitionservice",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-be0fe21e358ca370122b931827f504326e6f1c7d-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "Pinterest",
+      "row": 1
+    },
+    {
+      "_key": "whatsapp-7",
+      "_type": "socialLink",
+      "href": "https://wa.me/61435520959",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-5a87b6d9efada0b5e6cee1b35c93d2655f569181-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "WhatsApp",
+      "row": 2
+    },
+    {
+      "_key": "email-8",
+      "_type": "socialLink",
+      "href": "mailto:contact@fruitionservices.io",
+      "icon": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f4f4067991e6a723f972bffd80ce100339efcd9e-24x24-svg",
+          "_type": "reference"
+        }
+      },
+      "label": "Email",
+      "row": 2
+    }
+  ],
+  "announcementHref": "/post/fruition-claude-partner-network-certification"
+}
