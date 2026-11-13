@@ -367,6 +367,7 @@ export const NAV_VC: NavVcItem[] = [
         grow: 1,
         items: [
           { label: 'About Fruition', href: '/about-us', description: 'Who we are and how we work', icon: 'about-fruition' },
+          { label: 'Contact us', href: '/contact-us', description: 'Talk to the team or book a call', icon: 'contact-us' },
           { label: 'Our team', href: '/fruition-team', description: 'The consultants behind Fruition', icon: 'hr-operations' },
           { label: 'Careers', href: '/careers', description: 'Remote roles across six countries', icon: 'careers' },
           { label: 'Blog', href: '/consulting-blog', description: 'Articles on AI, platforms and automation', icon: 'ai-readiness-blueprint' },
