@@ -10,8 +10,10 @@
  *   by re-pointing --accent / --accent-press on the button itself. Outline,
  *   inverse (white) and ghost buttons never read the accent for their fill, so
  *   they keep their look.
- * - The booking card's "Confirm" button and selected day/time, which Version C
- *   re-skins to the accent through `.vc .cal`.
+ * - The booking card's filled confirm button only (Version C re-skins the card
+ *   to the accent through `.vc .cal`; chips, icons and links keep it).
+ * Only filled, primary buttons change. White, outline and ghost buttons, text
+ * links and every other purple stay as they are.
  * Legacy pages (.cta-btn, .ui-cta-btn) and the sticky CTA bar already use the
  * CTA blue ramp, so they need nothing here.
  */
@@ -31,7 +33,9 @@
     --accent-press: var(--cta-fill-press);
   }
 
-  html[data-cta="blue"] .vc .cal {
+  /* Only the booking card's filled confirm button. Selected day and time
+     chips, icons and text links in the card keep the accent. */
+  html[data-cta="blue"] .vc .cal .fr-booking-cta {
     --cta-blue: var(--cta-fill);
     --cta-blue-light: var(--cta-fill-light);
     --cta-blue-dark: var(--cta-fill-press);
