@@ -51,6 +51,18 @@ export default {
         'Where the top banner link goes, e.g. /post/fruition-claude-partner-network-certification. The banner text and link label are in Shared copy.',
     },
 
+    // Site-wide switch for call-to-action colour. Off: Version C buttons use
+    // the purple accent. On: every primary CTA button turns CTA blue
+    // (src/styles/ctaBlue.css). Goes live about two minutes after publishing.
+    {
+      name: 'blueCtaButtons',
+      title: 'Blue CTA buttons',
+      type: 'boolean',
+      initialValue: false,
+      description:
+        'Turn on to make every call-to-action button on the website blue (nav "Book a time", page buttons, the booking card button). Turn off to go back to purple. Outline and white buttons keep their style. Live about two minutes after you publish.',
+    },
+
     // Reusable button labels
     { name: 'navbarCtaLabel', title: 'Navbar CTA Label', type: 'string' },
     { name: 'footerCtaLabel', title: 'Footer CTA Label', type: 'string' },

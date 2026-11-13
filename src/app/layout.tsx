@@ -3,6 +3,7 @@ import Script from "next/script"
 import { Poppins, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import "@/styles/vc/chrome.css"
+import "@/styles/ctaBlue.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { OfficeStrapProvider } from "@/components/OfficeStrapProvider"
@@ -375,7 +376,12 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      // Site Settings > "Blue CTA buttons" (src/styles/ctaBlue.css).
+      data-cta={siteSettings?.blueCtaButtons ? "blue" : undefined}
+    >
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
