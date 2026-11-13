@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { isValidSanitySignature } from "@/lib/sanityWebhook"
+import { bumpEdgeContentVersion } from "@/lib/edgeContentVersion"
 
 export const runtime = "nodejs"
 
@@ -17,9 +18,11 @@ export const runtime = "nodejs"
  * walls, shared FAQs), so this drops every page, exactly like the inline
  * editor does: `revalidatePath("/", "layout")` writes the root layout's tag,
  * which every rendered page carries, and the next visit to each page
- * re-renders from Sanity. The fruition-edge Worker keeps its HTML copy fresh
- * for 60 s and then refreshes in the background, so a change shows within a
- * minute or two.
+ * re-renders from Sanity. It then bumps the edge content version
+ * (src/lib/edgeContentVersion.ts): the fruition-edge Worker keys its HTML
+ * cache by that value, so every colo drops its old copy instead of serving it
+ * until a background refresh happens to replace it. A change shows within
+ * about two minutes.
  *
  * Env: SANITY_WEBHOOK_SECRET, the secret set on the webhook in
  * sanity.io/manage. Requests are rejected until it is set.
@@ -44,6 +47,12 @@ export async function POST(req: Request) {
     console.error("[sanity-webhook] revalidate failed:", err instanceof Error ? err.message : err)
     return NextResponse.json({ ok: false, error: "revalidate failed" }, { status: 500 })
   }
-  console.log(`[sanity-webhook] revalidated all pages after ${doc._type ?? "?"} ${doc._id ?? "?"}`)
-  return NextResponse.json({ ok: true, revalidated: "/ (layout)", doc: { _id: doc._id, _type: doc._type } })
+  // The ISR revalidation above already succeeded; a failed bump only means the
+  // edge falls back to its background refresh, so it is logged, not fatal.
+  const edgeVersion = await bumpEdgeContentVersion().catch((err) => {
+    console.error("[sanity-webhook] edge version bump failed:", err instanceof Error ? err.message : err)
+    return null
+  })
+  console.log(`[sanity-webhook] revalidated all pages after ${doc._type ?? "?"} ${doc._id ?? "?"}; edge version ${edgeVersion ?? "unchanged"}`)
+  return NextResponse.json({ ok: true, revalidated: "/ (layout)", edgeVersion, doc: { _id: doc._id, _type: doc._type } })
 }

@@ -58,7 +58,9 @@ depends on the Workers runtime.
 - **Caching:** the root layout's `revalidate = 60` sets every page's TTL. `revalidatePath` only works
   because `NEXT_TAG_CACHE_KV` is bound; use `revalidateBlogPaths()` in `src/lib/revalidateSite.ts`
   and pass concrete URLs untyped. Publishing in Sanity calls `/api/webhooks/sanity`, which revalidates
-  every page (`revalidatePath("/", "layout")`), so Studio edits go live without a deploy.
+  every page (`revalidatePath("/", "layout")`) and bumps the fruition-edge content version
+  (`src/lib/edgeContentVersion.ts`, part of the edge cache key), so Studio edits go live in about two
+  minutes without a deploy. Verify on the plain URL and read `x-edge-cache`, not with a `?cb=` buster.
 - **Never hand-edit `src/redirects.ts` (892 Wix redirects) or `src/tagRedirects.ts`.** New
   redirects go in `auditRedirects` in `next.config.ts`.
 - **New pages must be added to `STATIC_PATHS` in `src/app/sitemap.ts` by hand.**
