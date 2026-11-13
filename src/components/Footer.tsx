@@ -4,6 +4,7 @@ import FooterBookingCta from '@/components/FooterBookingCta'
 import GooglePreferredSourceButton from '@/components/GooglePreferredSourceButton'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
+import CurrencySwitcher from '@/components/currency/CurrencySwitcher'
 
 interface FooterLink {
   label?: string
@@ -138,6 +139,9 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               </>
             )}
           </span>
+          <div className="base-r">
+            {/* Display currency for every price on the site (src/lib/currency). */}
+            <CurrencySwitcher />
           {legalLinks.length > 0 && (
             <span className="legal">
               {legalLinks.map((link, i) => (
@@ -148,6 +152,7 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
               ))}
             </span>
           )}
+          </div>
         </div>
       </div>
     </footer>

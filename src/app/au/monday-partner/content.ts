@@ -126,7 +126,7 @@ Calendly embed &mdash; AU/NZ round-robin &mdash; Australia &amp; New Zealand tea
 </div>
 </section>
 
-${implementationPackagesSection("Prices in USD; your AUD fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
+${implementationPackagesSection("Your exact fee is confirmed in your quote. monday.com licences are billed separately by monday.com.")}
 <section>
 <div class="wrap">
 <p class="k">What we deliver</p>

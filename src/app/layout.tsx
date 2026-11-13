@@ -14,6 +14,7 @@ import BookingEventTracker from "@/components/BookingEventTracker"
 import { OAIQ_LOADER } from "@/lib/openaiPixel"
 import InPageBookingLinks from "@/components/InPageBookingLinks"
 import EditModeLoader from "@/components/edit/EditModeLoader"
+import CurrencyRuntime from "@/components/currency/CurrencyRuntime"
 import AwardBanner from "@/components/home/AwardBanner"
 import { SiteCopyProvider } from "@/components/SiteCopyProvider"
 import { toSiteCopy } from "@/lib/siteCopy"
@@ -410,6 +411,8 @@ export default async function RootLayout({
         <BookingEventTracker />
         <InPageBookingLinks />
         <EditModeLoader />
+        {/* Site-wide display currency: client-only, so pages stay static. */}
+        <CurrencyRuntime />
         {/* GTM's no-JS fallback. It records the pageview only; none of the
             container's tags run without JavaScript. */}
         <noscript>

@@ -154,7 +154,8 @@ export default function AiPartnerTemplate({
             )}
 
             {page.heroSidePanelType === "regions" && (
-              <aside className="hero-side hero-regions">
+              /* Regional fixed fees are real local prices: never converted. */
+              <aside className="hero-side hero-regions" data-currency-skip="">
                 {page.heroSidePanelTitle && <h3>{page.heroSidePanelTitle}</h3>}
                 <ul className="region-list">
                   {(page.heroRegions || []).map((r: Doc, i: number) => (
@@ -345,7 +346,7 @@ export default function AiPartnerTemplate({
               <h2><Heading text={page.geoHeading} accent={page.geoHeadingAccent} /></h2>
               {page.geoLead && <p className="section-lead">{page.geoLead}</p>}
             </div>
-            <div className="geo-grid">
+            <div className="geo-grid" data-currency-skip="">
               {page.geo.map((g: Doc, i: number) => (
                 <div className="geo" key={i}>
                   {g.region && <div className="country">{g.region}</div>}

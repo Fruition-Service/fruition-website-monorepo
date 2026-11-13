@@ -189,6 +189,7 @@ export function Sec({
   dataSec,
   cls: extra,
   pageSpecific,
+  noCurrency,
 }: {
   tone?: string
   anchor?: string
@@ -200,10 +201,12 @@ export function Sec({
   dataSec?: string
   /** Section-level design class stored on the section (sectionClass). */
   cls?: string
+  /** Client outcomes: figures stay in the client's own currency (data-currency-skip). */
+  noCurrency?: boolean
 }) {
   const cls = `${vercelStegaClean(tone ?? "") === "alt" ? "alt" : ""} ${className} ${vercelStegaClean(extra ?? "")}`.replace(/\s+/g, " ").trim()
   return (
-    <section className={cls || undefined} id={anchor ? vercelStegaClean(anchor) : undefined} data-sec={dataSec} data-page-specific={pageSpecific ? "" : undefined}>
+    <section className={cls || undefined} id={anchor ? vercelStegaClean(anchor) : undefined} data-sec={dataSec} data-page-specific={pageSpecific ? "" : undefined} data-currency-skip={noCurrency ? "" : undefined}>
       <div className={inner}>{children}</div>
     </section>
   )

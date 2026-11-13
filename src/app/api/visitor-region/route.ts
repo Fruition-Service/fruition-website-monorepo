@@ -24,8 +24,11 @@ export async function GET(req: Request) {
   const country = req.headers.get("cf-ipcountry") ?? undefined
   const tz = (new URL(req.url).searchParams.get("tz") ?? "").slice(0, 64)
   const region = detectRegion({ country, timezone: tz || undefined })
+  // The raw country too, for the display currency (src/lib/currency): null when
+  // Cloudflare sends none or a placeholder, so the browser falls back to its zone.
+  const cc = country?.trim().toUpperCase()
   return NextResponse.json(
-    { region },
+    { region, country: cc && /^[A-Z]{2}$/.test(cc) && cc !== "XX" && cc !== "T1" ? cc : null },
     // Per-visitor and never shared: a cached "SEA" served to Sydney would show
     // the launcher to the wrong half of the audience.
     { headers: { "cache-control": "private, no-store" } },

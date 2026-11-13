@@ -320,7 +320,7 @@ export function VcSteps({ s }: { s: VcStepsData }) {
 
 export function VcCases({ s }: { s: VcCasesData }) {
   return (
-    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cases">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cases" noCurrency>
       <Head head={s.head} />
       <div className="cs2">
         {(s.cases ?? []).filter(Boolean).map((c, ci) => (

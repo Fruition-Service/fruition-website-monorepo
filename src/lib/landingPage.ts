@@ -9,6 +9,7 @@ import { REGION_BOOKING } from "@/lib/regionBooking"
 import { hasTeamSection, renderTeamSection } from "@/lib/landingPageTeam"
 import { RYZE_LANDING_HEAD } from "@/lib/ryzePixel"
 import { OAIQ_LANDING_HEAD } from "@/lib/openaiPixel"
+import { currencyScript, currencySelectHtml, pageHasPrice, REGION_CURRENCY } from "@/lib/currency/inline"
 import { bandCopy, renderAuditBand, renderClosingBand, renderSocialRow } from "@/lib/landingPageBands"
 
 /**
@@ -493,6 +494,19 @@ function withRhythm(html: string): string {
   return out
 }
 
+/**
+ * Display currency on a priced ad page: the shared runtime as an inline script
+ * (defaulting to the page's own market) plus the currency control in the
+ * footer. Pages without an explicit price get neither.
+ */
+export function withDisplayCurrency(html: string, region: LeadRegion): string {
+  if (!pageHasPrice(html)) return html
+  const code = REGION_CURRENCY[region]
+  let out = html.replace(/(<footer[^>]*>\s*<div class="wrap">[\s\S]*?)(<\/div>\s*<\/footer>)/i, (_, open, close) => `${open}${currencySelectHtml(code)}\n${close}`)
+  out = out.replace(/<\/body>/i, `${currencyScript(code)}\n</body>`)
+  return out
+}
+
 export function withLandingPageTracking(
   html: string,
   { source, region }: { source: string; region: LeadRegion },
@@ -589,7 +603,7 @@ export async function landingPageResponse(
 ): Promise<Response> {
   const [quotes, fill] = await Promise.all([sharedQuotes(), regionFillLogos(opts.region)])
   const laidOut = withLandingPageLayout(html, quotes, opts.region, opts.source, fill)
-  return new Response(withLandingPageTracking(laidOut, opts), {
+  return new Response(withLandingPageTracking(withDisplayCurrency(laidOut, opts.region), opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       // Paid-traffic page: must stay out of organic search.

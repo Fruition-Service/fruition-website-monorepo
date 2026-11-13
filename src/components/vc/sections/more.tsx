@@ -611,7 +611,7 @@ export function VcFormEmbed({ s }: { s: VcFormEmbedData }) {
 
 export function VcStories({ s }: { s: VcStoriesData }) {
   return (
-    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "case-studies"} cls={s.sectionClass} dataSec="case-studies">
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor ?? "case-studies"} cls={s.sectionClass} dataSec="case-studies" noCurrency>
       <Head head={s.head} />
       <VcStoriesGrid s={s} />
     </Sec>

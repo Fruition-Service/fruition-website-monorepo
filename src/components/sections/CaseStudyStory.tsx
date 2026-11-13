@@ -102,7 +102,8 @@ export default function CaseStudyStory({ story }: { story: CaseStudyStoryContent
   ].filter((f) => f.value)
 
   return (
-    <div className="mt-10 flex flex-col gap-10">
+    // Client outcomes in their own currency, never converted.
+    <div className="mt-10 flex flex-col gap-10" data-currency-skip="">
       {metrics.length > 0 && (
         <dl className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
           {metrics.map((m, i) => (
