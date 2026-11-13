@@ -25,7 +25,10 @@ const WEEK = 604800
 
 type Ctx = { waitUntil(p: Promise<unknown>): void }
 type Handler = { fetch(req: Request, env: unknown, ctx: Ctx): Promise<Response> }
-type Env = { HUBSPOT_SYNC_SECRET?: string }
+type Env = {
+  HUBSPOT_SYNC_SECRET?: string
+  WORKER_SELF_REFERENCE?: { fetch(input: string, init?: RequestInit): Promise<Response> }
+}
 
 function negotiatedFormat(accept: string): string {
   if (accept.includes("image/avif")) return "avif"
@@ -62,22 +65,27 @@ async function cachedImage(request: Request, env: unknown, ctx: Ctx): Promise<Re
 }
 
 // Cron (wrangler.jsonc `triggers.crons`): the HubSpot -> Fruition blog sync.
-// The request goes straight into the Next app in-process, no network hop, so
-// the route sees the same env (secrets) as any other request. It must use the
-// canonical host or src/middleware.ts would 301 it.
-async function runHubSpotBlogSync(env: Env, ctx: Ctx): Promise<void> {
-  if (!env.HUBSPOT_SYNC_SECRET) return
-  const req = new Request("https://www.fruitionservices.io/api/cron/hubspot-blog-sync", {
+// Sent through the WORKER_SELF_REFERENCE service binding so the route runs as
+// an ordinary fetch event with OpenNext's full request context; calling the
+// OpenNext handler straight from a scheduled event did not run the sync. Uses
+// the canonical host or src/middleware.ts would 301 it.
+async function runHubSpotBlogSync(env: Env): Promise<void> {
+  if (!env.HUBSPOT_SYNC_SECRET || !env.WORKER_SELF_REFERENCE) {
+    console.error("[cron] hubspot-blog-sync skipped: secret or self binding missing")
+    return
+  }
+  const res = await env.WORKER_SELF_REFERENCE.fetch("https://www.fruitionservices.io/api/cron/hubspot-blog-sync", {
     method: "POST",
-    headers: { "x-sync-secret": env.HUBSPOT_SYNC_SECRET },
+    headers: { "x-sync-secret": env.HUBSPOT_SYNC_SECRET, "x-sync-trigger": "cron" },
   })
-  const res = await (openNext as Handler).fetch(req, env, ctx)
-  if (!res.ok) console.error(`[cron] hubspot-blog-sync ${res.status}: ${(await res.text()).slice(0, 500)}`)
+  const text = (await res.text()).slice(0, 800)
+  if (!res.ok) console.error(`[cron] hubspot-blog-sync ${res.status}: ${text}`)
+  else console.log(`[cron] hubspot-blog-sync ok: ${text}`)
 }
 
 export default {
   async scheduled(_event: unknown, env: Env, ctx: Ctx): Promise<void> {
-    ctx.waitUntil(runHubSpotBlogSync(env, ctx))
+    ctx.waitUntil(runHubSpotBlogSync(env))
   },
 
   async fetch(request: Request, env: unknown, ctx: Ctx): Promise<Response> {
