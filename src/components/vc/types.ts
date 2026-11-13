@@ -67,8 +67,18 @@ export interface VcUseCasesData extends Base { _type: "vcUseCases"; head?: VcHea
 export interface VcProofData extends Base {
   _type: "vcProof"; layout?: string; filters?: { _key?: string; label?: string; key?: string }[]; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]; quotes?: VcQuoteData[]
 }
-export interface VcPractitionersData extends Base { _type: "vcPractitioners"; paragraphs?: VcPara[] }
-export interface VcBookingData extends Base { _type: "vcBooking"; badge?: string; heading?: string; lead?: string; calTitle?: string; tag?: string }
+export interface VcPractitionersData extends Base {
+  _type: "vcPractitioners"; paragraphs?: VcPara[]
+  /** This page's own leader, replacing the shared block's person (photo, name, role). */
+  leader?: VcTeamMember | null
+  leaderFacts?: { _key?: string; label?: string; value?: string }[]
+  leaderPills?: string[]
+}
+export interface VcBookingData extends Base {
+  _type: "vcBooking"; badge?: string; heading?: string; lead?: string; calTitle?: string; tag?: string
+  /** A fixed booking desk (src/lib/bookingDesks.ts); empty detects the visitor's region. */
+  desk?: string
+}
 export interface VcFaqData extends Base { _type: "vcFaq"; badge?: string; heading?: string; tabs?: VcFaqTabData[] }
 export interface VcClosingData extends Base { _type: "vcClosing"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[] }
 

@@ -2,6 +2,7 @@
 
 import { BookingCard } from "@/components/sections/BookingSection"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
+import { vercelStegaClean } from "@vercel/stega"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
 import { Acc, Badge } from "../primitives"
 import type { VcBookingData } from "../types"
@@ -50,7 +51,7 @@ export default function VcBooking({ s, email }: { s: VcBookingData; email?: stri
           )}
         </div>
         <div className="cal">
-          <BookingCard duration={30} askTeamSize calendlyUrl={FALLBACK_BOOKING_URL} title={s.calTitle} />
+          <BookingCard duration={30} askTeamSize calendlyUrl={FALLBACK_BOOKING_URL} title={s.calTitle} desk={s.desk ? vercelStegaClean(s.desk) : undefined} />
         </div>
       </div>
     </section>

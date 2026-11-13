@@ -19,6 +19,7 @@ const SECTIONS = `sections[]{
   _type == "vcStories" => { stories[]->{ _id, num, client, sub, solution, weeks, logo, metrics, quote, people, challenge, solutionText, impact, location, employees, industry, useCase, tags } },
   _type == "vcFaq" => { tabs[]{ _key, label, items[]->{ _id, question, answer } } },
   _type == "vcTeam" => { members[]${TEAMREF} },
+  _type == "vcPractitioners" => { leader${TEAMREF} },
   _type == "vcLeadership" => { ceo${TEAMREF}, people[]${TEAMREF} },
   _type == "vcTeamTabs" => { tabs[]{ ..., leaders[]${TEAMREF}, members[]${TEAMREF} } }
 }`

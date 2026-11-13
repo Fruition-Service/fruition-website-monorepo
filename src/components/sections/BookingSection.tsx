@@ -375,6 +375,29 @@ function RegionFlag({ region }: { region: BookingRegion | null }) {
   )
 }
 
+/**
+ * The consultant's face in place of the region flag, on a fixed desk. Same
+ * 38px circle as RegionFlag; initials when Sanity has no photo.
+ */
+function DeskAvatar({ name, photoUrl }: { name: string; photoUrl?: string | null }) {
+  const initials = name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase()
+  return (
+    <span
+      aria-hidden
+      style={{
+        width: 38, height: 38, borderRadius: "50%", flex: "none", overflow: "hidden",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        background: "var(--color-brand-soft)", color: "var(--cta-blue)", fontSize: 13, fontWeight: 600,
+        boxShadow: "inset 0 0 0 1px rgba(15,15,30,.12)",
+      }}
+    >
+      {photoUrl ? (
+        <Image src={`${photoUrl}?w=96&h=96&fit=crop&auto=format`} alt="" width={38} height={38} unoptimized style={{ width: 38, height: 38, objectFit: "cover" }} />
+      ) : initials}
+    </span>
+  )
+}
+
 function Cta({ children, disabled, onClick, type = "button" }: {
   children: ReactNode
   disabled?: boolean
@@ -561,9 +584,14 @@ export function CalendlyEmbed({ calendlyUrl, onScheduled }: { calendlyUrl?: stri
   return <div ref={hostRef} className="fr-calendly-host" />
 }
 
-export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, title }: {
+export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, title, desk }: {
   /** Overrides the card title ("Discovery call"), e.g. "Marketing call" on a Version C page. */
   title?: string
+  /**
+   * A fixed desk (src/lib/bookingDesks.ts): always book with this one
+   * consultant, whatever the visitor's region. Hides the region switch.
+   */
+  desk?: string
   duration: number
   askTeamSize: boolean
   calendlyUrl: string
@@ -607,6 +635,8 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
   const [bookingUrl, setBookingUrl] = useState("")
   /** The region's shared booking page, used when live availability fails. */
   const [regionBookingUrl, setRegionBookingUrl] = useState("")
+  /** On a fixed desk, the one consultant every slot belongs to. */
+  const [deskHost, setDeskHost] = useState<{ name: string; photoUrl?: string | null } | null>(null)
 
   /* auto-detect timezone once. Set in an effect, not a lazy initial state, so
      server and client render the same thing on first paint. */
@@ -624,19 +654,24 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
     if (!detectedTz) return
     let live = true
     const q = new URLSearchParams({ tz: detectedTz })
-    if (regionOverride) q.set("region", regionOverride)
+    if (desk) q.set("desk", desk)
+    else if (regionOverride) q.set("region", regionOverride)
     fetch(`/api/scheduling/availability?${q}`)
       .then((r) => r.json())
-      .then((d: { slots?: Slot[]; region?: BookingRegion; bookingUrl?: string }) => {
+      .then((d: {
+        slots?: Slot[]; region?: BookingRegion; bookingUrl?: string; desk?: string
+        consultants?: { name: string; photoUrl?: string | null }[]
+      }) => {
         if (!live) return
         if (d.region) setRegion(d.region)
+        if (d.desk && d.consultants?.[0]) setDeskHost(d.consultants[0])
         if (d.bookingUrl) setRegionBookingUrl(d.bookingUrl)
         if (d.slots && d.slots.length > 0) setRawSlots(d.slots)
         else setFailed(true)
       })
       .catch(() => { if (live) setFailed(true) })
     return () => { live = false }
-  }, [detectedTz, regionOverride])
+  }, [detectedTz, regionOverride, desk])
 
   /* group slots by calendar day in the selected timezone */
   const slotsByDay = useMemo(() => {
@@ -768,6 +803,7 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
           timezone: tz,
           // Confirm against the same consultant the slots came from.
           ...(region ? { region } : {}),
+          ...(desk ? { desk } : {}),
           // Attributes the lead to the page it was booked from.
           sourcePage: window.location.pathname,
           website: f.website ?? "",
@@ -845,6 +881,7 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
                 start: slot.start,
                 timezone: tz,
                 ...(region ? { region } : {}),
+                ...(desk ? { desk } : {}),
                 host: slot.host,
               }),
             }).catch(() => { /* CRM status is best-effort; the meeting is booked either way */ })
@@ -987,16 +1024,18 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
     <div className="fr-booking-pad" style={{ fontFamily: "var(--font-sans)", color: "var(--text-dark)", display: "flex", flexDirection: "column", gap: 20, padding: 30 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 11, flex: "1 1 240px", minWidth: 0 }}>
-          <RegionFlag region={activeRegion} />
+          {deskHost ? <DeskAvatar name={deskHost.name} photoUrl={deskHost.photoUrl} /> : <RegionFlag region={activeRegion} />}
           {/* minWidth:0 + ellipsis so the longest desk ("the United Kingdom")
               truncates instead of wrapping the timezone picker onto its own
               line. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
             <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>{title || t("card-title")} · {duration} min</span>
             <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-              {activeRegion
-                ? `with a consultant in ${REGION_DESK[activeRegion].country}`
-                : t("card-desk-fallback")}
+              {deskHost
+                ? `with ${deskHost.name}`
+                : activeRegion
+                  ? `with a consultant in ${REGION_DESK[activeRegion].country}`
+                  : t("card-desk-fallback")}
             </span>
           </div>
         </div>
@@ -1004,6 +1043,8 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
             meant the timezone one was simply clipped by the card's overflow.
             The mobile rule below lets each take half the row and shrink. */}
         <div className="fr-booking-pickers" style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", flex: "none" }}>
+        {/* A fixed desk books the same person from anywhere: no region to pick. */}
+        {!desk && (
         <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M2.5 12h19" /><path d="M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5c-2.5-2.6-3.8-6-3.8-9.5S9.5 5.1 12 2.5Z" /></svg>
           <select
@@ -1018,6 +1059,7 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
             ))}
           </select>
         </label>
+        )}
         <label className="fr-booking-picker" style={{ display: "flex", alignItems: "center", gap: 6, flex: "none", height: 34, padding: "0 8px 0 12px", border: "1px solid var(--color-border)", borderRadius: 9999, background: "#fff" }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
           <select value={tz} onChange={(e) => setTz(e.target.value)} style={{ border: "none", background: "transparent", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 500, color: "var(--color-text-secondary)", outline: "none", cursor: "pointer", height: 32 }}>

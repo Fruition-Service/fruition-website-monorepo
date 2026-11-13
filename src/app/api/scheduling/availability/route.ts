@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getAvailableSlots } from "@/lib/calendlyClient"
 import { poolFor } from "@/lib/consultants"
 import { REGION_BOOKING } from "@/lib/regionBooking"
+import { deskFor } from "@/lib/bookingDesks"
 import { detectRegion, type LeadRegion } from "@/lib/leadNotify"
 import { getTeamMemberByName } from "@/sanity/queries"
 
@@ -39,9 +40,14 @@ export async function GET(req: Request) {
   // An explicit choice from the form's region switch beats any detection: a
   // visitor who says they are in the UK is the authority on that.
   const asked = url.searchParams.get("region") as LeadRegion | null
-  const region =
-    asked && REGIONS.includes(asked) ? asked : detectRegion({ country, timezone: tz || undefined })
-  const pool = poolFor(region)
+  // A page pinned to one consultant (bookingDesks.ts) skips region detection:
+  // their own event type, their face, whatever the visitor's country.
+  const desk = deskFor(url.searchParams.get("desk"))
+  const region = desk
+    ? desk.region
+    : asked && REGIONS.includes(asked) ? asked : detectRegion({ country, timezone: tz || undefined })
+  const pool = desk ? [desk.consultant] : poolFor(region)
+  const booking = desk ? desk.booking : REGION_BOOKING[region]
 
   // Photos and roles come from the same Sanity records as /fruition-team, so
   // the face on the booking card is the one the visitor sees elsewhere on the
@@ -69,7 +75,7 @@ export async function GET(req: Request) {
 
   // The region's own page, so a fallback lands on the same desk the visitor was
   // being shown rather than the site-wide generic link.
-  const payload = { region, consultants, bookingUrl: REGION_BOOKING[region].calendlyUrl }
+  const payload = { region, ...(desk ? { desk: desk.key } : {}), consultants, bookingUrl: booking.calendlyUrl }
   // The booking embed only needs to know whose calendar to show. Computing
   // slots as well would mean five live Calendly round trips per page view for
   // data nothing renders.
@@ -80,7 +86,7 @@ export async function GET(req: Request) {
     // One shared calendar per region, so every slot carries the same host — the
     // consultant whose name and face the card shows.
     const host = pool[0]?.key ?? ""
-    const slots = (await getAvailableSlots(region)).map((s) => ({ start: s.start, host }))
+    const slots = (await getAvailableSlots(region, desk?.booking.eventTypeUuid)).map((s) => ({ start: s.start, host }))
     return NextResponse.json(
       { ...payload, slots },
       { headers: { "Cache-Control": "private, max-age=120" } },

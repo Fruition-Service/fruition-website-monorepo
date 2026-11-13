@@ -74,6 +74,26 @@ leads now say the case studies span our platform work, and monday-only FAQs were
 ClickUp questions (`faqItem-vc-hubspot-*`, `faqItem-vc-clickup-*`). The pre-change documents are
 committed in `scripts/sanity-backups/oglabs-port-*.json`; `--restore <that file>` puts them back.
 
+## Per-page leaders and booking desks
+
+"Who leads it" (`vcPractitioners`) shows the shared person from `vcShared` on every page unless the
+section sets `leader` (a team member: photo, name and role from their own record) plus its own
+`leaderFacts` and `leaderPills`. The booking band (`vcBooking`) detects the visitor's region unless
+`desk` names a fixed consultant from `src/lib/bookingDesks.ts`; then every booking on that page goes to
+that person's own Calendly event type and the card hides its region switch.
+
+| Page | Leader | Booking desk | Added |
+|---|---|---|---|
+| `/hubspot-consulting` | Thana Witchawut | `thana` | 13 Nov 2026 |
+| `/partnerships/certified-clickup-partner` | Thana Witchawut | `thana` | 13 Nov 2026 |
+| `/partnerships/aircall-partner` | Suzzane Castro | region | 13 Nov 2026 |
+| `/partnerships/n8n-integration-partner` | Yash Khowal | region | 13 Nov 2026 |
+| `/partnerships/openclaw-partner` | Edward Zhang | region | 13 Nov 2026 |
+
+Set by `scripts/sanity-migrate/partner-page-leaders.ts` (backup in `scripts/sanity-backups/partner-leaders-*.json`,
+`--restore` puts it back). `scripts/vc/migrate.ts --apply` refuses to replace a page that has either,
+unless `--drop-page-leaders`.
+
 ## Site chrome: announcement bar, header and footer
 
 Every site page (not the ad landing pages, `/internal` or `/studio`) renders the Version C chrome from
