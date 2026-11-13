@@ -231,6 +231,7 @@ export const vcCards = defineType({
           { title: 'Use case cards (three)', value: 'uc' },
           { title: 'Use case cards (two)', value: 'uc2' },
           { title: 'Use case cards with pills (three)', value: 'ucpills' },
+          { title: 'Tool cards with logos (four, each card is a link; styled in scripts/vc/extras-integrations.css)', value: 'tools' },
         ],
       },
       initialValue: 'cards3',

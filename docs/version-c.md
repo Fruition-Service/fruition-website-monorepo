@@ -44,6 +44,14 @@ is click-to-edit on editing.fruitionservices.io.
 |---|---|---|---|---|
 | `/licence-procurement` | core | `/implementation-packages` (`pricing.css`, slug `pricing`) | `scripts/vc/add-licence-procurement.ts` (`--apply`) | 13 Nov 2026. Missed by the 11 Nov rollout; copy is the live page's (the retired `licensingPage` singleton merged over `src/data/practicePages/licensing.ts`). That singleton and its fallback no longer drive the route: edit the `vcPage-licence-procurement` document. |
 
+### Tool cards (`vcCards` layout `tools`)
+
+Logo, name and line, and the whole card is the link (`href`). Each card takes a `logo` with `logoShape`
+`wm-img` (wordmark) or `sq` (square mark), or a Partner (`partner` + `partnerImage`, resolved into `logo`).
+Used by "By tool." on `/integrations` since 13 Nov 2026 (`scripts/vc/integrations-by-tool-2026-11.ts`, which
+also removed the "Tools we integrate daily." marquee). Styles live in `scripts/vc/extras-integrations.css`;
+a second page using the layout needs them moved to `extras.css`.
+
 ## Page-specific sections
 
 Pages in one `group` (partner, industry, msol, ...) share a section template: the same section types

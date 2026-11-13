@@ -506,6 +506,36 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
   )
 }
 
+/** Tool card (cards layout "tools"): logo, name and line, and the whole card is the link. */
+function ToolCard({ it }: { it: VcItemData }) {
+  const title = vercelStegaClean(it.title ?? "")
+  const inner = (
+    <>
+      {it.logo?.asset && (
+        <span className="tool-logo">
+          <SImg image={it.logo} width={160} className={vercelStegaClean(it.logoShape ?? "wm-img")} alt={`${title} logo`} />
+        </span>
+      )}
+      {it.title && <h3 className="h3">{it.title}</h3>}
+      {it.body && <p className="body">{it.body}</p>}
+      <span className="link" aria-hidden="true">
+        <Arrow />
+      </span>
+    </>
+  )
+  if (!it.href) return <article className="card tool">{inner}</article>
+  const href = vercelStegaClean(it.href)
+  return href.startsWith("/") ? (
+    <Link className="card tool" href={href}>
+      {inner}
+    </Link>
+  ) : (
+    <a className="card tool" href={href}>
+      {inner}
+    </a>
+  )
+}
+
 export function VcCards({ s }: { s: VcCardsData }) {
   const layout = vercelStegaClean(s.layout ?? "cards3")
   const frame = vercelStegaClean(s.imageFrame ?? "shot")
@@ -514,6 +544,18 @@ export function VcCards({ s }: { s: VcCardsData }) {
   const tagClass = vercelStegaClean(s.tagClass ?? "")
   const titleClass = vercelStegaClean(s.titleClass ?? "")
   const listClass = s.listClass === undefined ? "ticks" : vercelStegaClean(s.listClass)
+  if (layout === "tools") {
+    return (
+      <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cards">
+        <Head head={s.head} />
+        <div className="cards4 tools">
+          {(s.items ?? []).map((it, i) => (
+            <ToolCard key={it._key ?? i} it={it} />
+          ))}
+        </div>
+      </Sec>
+    )
+  }
   return (
     <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="cards">
       <Head head={s.head} />

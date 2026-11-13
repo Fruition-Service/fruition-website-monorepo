@@ -17,6 +17,8 @@ export interface VcItemData {
   _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]; anchor?: string
   image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; bullets?: string[]
   aiLabel?: string; aiNote?: string; listClass?: string; bulletIcon?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean; icon?: string
+  /** Tool card logo (layout "tools"); `logoShape` is "wm-img" (wordmark) or "sq" (square mark). */
+  logo?: VcImage; logoShape?: string
 }
 export interface VcCaseData { _id: string; client?: string; label?: string; body?: string; tags?: string[]; results?: { _key?: string; value?: string; label?: string }[]; photo?: VcImage; logo?: VcImage; href?: string }
 export interface VcQuoteData { _id: string; org?: string; quote?: string; name?: string; role?: string; initials?: string; photo?: VcImage; tag?: string }
