@@ -4,6 +4,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { implementationPackageCards } from "@/lib/landingPagePackages"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION — ORPHAN SEM LANDING PAGE (🇸🇬🇲🇾 monday.com Partner · Singapore & Malaysia · Google Ads)
@@ -134,11 +135,7 @@ ${LP_FONTS}
 <p class="k">Fixed-price packages</p>
 <h2 class="sec">monday.com implementation pricing for <em>Singapore &amp; Malaysia</em></h2>
 <p class="lede">Choose by team size and what you need done. Your exact fee is confirmed in writing before we start.</p>
-<div class="pkgs">
-<div class="pkg"><span class="dur">Reset and train</span><h3>Training &amp; Optimisation</h3><span class="size">1 team · up to 25 users</span><div class="price">From US$2,500 <small>one-time</small></div><ul><li>Up to 5 boards reviewed and cleaned up</li><li>Up to 10 automations optimised</li><li>2 training sessions</li></ul><a class="btn" href="#lead">Get started</a></div>
-<div class="pkg feat"><span class="dur">We build and deploy together</span><h3>Lock-Step</h3><span class="size">1-2 teams · up to 50 users</span><div class="price">From US$5,000 <small>one-time</small></div><ul><li>1-2 workflows mapped and built</li><li>Up to 8 boards + 2 dashboards</li><li>Up to 15 automations + 1 integration</li></ul><a class="btn" href="#lead">Get quote</a></div>
-<div class="pkg"><span class="dur">Ongoing, embedded</span><h3>Deployed Engineer</h3><span class="size">Multiple teams · up to 250 users</span><div class="price">From US$2,500 <small>per month</small></div><ul><li>1 named forward deployed engineer</li><li>Change requests in 2 business days</li><li>Monthly roadmap review</li></ul><a class="btn" href="#lead">Get your options</a></div>
-</div>
+${implementationPackageCards()}
 <p class="pnote">Your exact fee is confirmed in your quote. monday.com licences are billed separately by monday.com.</p>
 </div>
 </section>
