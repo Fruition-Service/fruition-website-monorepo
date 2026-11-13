@@ -72,8 +72,9 @@ const HORIZON_WINDOWS = 6
  * Available slots for a region's consultation event type, fetched as
  * consecutive 7-day windows in parallel and flattened.
  */
-export async function getAvailableSlots(region: LeadRegion): Promise<CalendlySlot[]> {
-  const eventType = REGION_EVENT_TYPES[region]
+export async function getAvailableSlots(region: LeadRegion, eventTypeUuid?: string): Promise<CalendlySlot[]> {
+  // A fixed desk (bookingDesks.ts) names its own event type; otherwise the region's.
+  const eventType = eventTypeUuid ? EVENT_TYPE(eventTypeUuid) : REGION_EVENT_TYPES[region]
   // Start an hour out so we never offer a slot that expires mid-booking.
   const from = new Date(Date.now() + 60 * 60 * 1000)
   const span = WINDOW_DAYS * 86400_000
@@ -102,6 +103,8 @@ export async function getAvailableSlots(region: LeadRegion): Promise<CalendlySlo
 
 export interface BookingRequest {
   region: LeadRegion
+  /** A fixed desk's own event type (bookingDesks.ts); overrides the region's. */
+  eventTypeUuid?: string
   /** UTC ISO start time, must come from getAvailableSlots */
   start: string
   name: string
@@ -122,7 +125,7 @@ export async function createBooking(req: BookingRequest): Promise<{ inviteeUri: 
   const data = await calendly<{ resource: { uri: string } }>("/invitees", {
     method: "POST",
     body: JSON.stringify({
-      event_type: REGION_EVENT_TYPES[req.region],
+      event_type: req.eventTypeUuid ? EVENT_TYPE(req.eventTypeUuid) : REGION_EVENT_TYPES[req.region],
       start_time: req.start,
       invitee: {
         name: req.name,

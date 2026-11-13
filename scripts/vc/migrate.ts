@@ -1428,6 +1428,17 @@ async function main() {
     console.error('Refusing to replace these pages. Re-add those sections after migrating, or pass --drop-page-specific and update src/data/vcPageSpecificSections.ts.')
     process.exit(1)
   }
+  // Same for per-page "Who leads it" leaders and fixed booking desks (docs/version-c.md
+  // "Per-page leaders and booking desks"): the mock-ups carry neither.
+  const pinned = await client.fetch<{ path: string }[]>(
+    `*[_id in $ids && count(sections[defined(leader.person) || defined(desk)]) > 0]{ path }`,
+    { ids: pageIds },
+  )
+  if (pinned.length && !process.argv.includes('--drop-page-leaders')) {
+    for (const p of pinned) console.error(`${p.path} has its own leader or booking desk`)
+    console.error('Refusing to replace these pages. Re-run scripts/sanity-migrate/partner-page-leaders.ts --apply after migrating, or pass --drop-page-leaders.')
+    process.exit(1)
+  }
 
   await uploadAll()
   const tx = client.transaction()

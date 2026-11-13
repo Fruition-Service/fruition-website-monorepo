@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { consultantFor } from "@/lib/consultants"
 import { detectRegion, promoteLeadToBooked, type LeadRegion } from "@/lib/leadNotify"
+import { deskFor } from "@/lib/bookingDesks"
 
 export const runtime = "nodejs"
 export const maxDuration = 30
@@ -38,6 +39,8 @@ interface BookedRequest {
   region?: LeadRegion
   /** Consultant.key of whoever's calendar was booked */
   host?: string
+  /** A fixed desk (bookingDesks.ts key): one consultant, whatever the region. */
+  desk?: string
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -58,8 +61,11 @@ export async function POST(req: Request) {
 
   const country = req.headers.get("cf-ipcountry") ?? undefined
   const timezone = (p.timezone ?? "").trim() || "UTC"
-  const region = p.region && REGIONS.includes(p.region) ? p.region : detectRegion({ country, timezone, email })
-  const consultant = consultantFor(region, p.host)
+  const desk = deskFor(p.desk)
+  const region = desk
+    ? desk.region
+    : p.region && REGIONS.includes(p.region) ? p.region : detectRegion({ country, timezone, email })
+  const consultant = desk ? desk.consultant : consultantFor(region, p.host)
 
   const fields: Record<string, string> = {}
   const startMs = p.start ? Date.parse(p.start) : NaN

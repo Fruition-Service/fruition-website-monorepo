@@ -2,6 +2,7 @@ import { after, NextResponse } from "next/server"
 import { buildBookingUrl, consultantFor } from "@/lib/consultants"
 import { REGION_BOOKING, SERVICE_CHOICES } from "@/lib/regionBooking"
 import { detectRegion, pushSchedulerLead, type LeadRegion } from "@/lib/leadNotify"
+import { deskFor } from "@/lib/bookingDesks"
 
 export const runtime = "nodejs"
 export const maxDuration = 30
@@ -55,6 +56,8 @@ interface LeadRequest {
    * overflow slot would be booked against the wrong calendar.
    */
   host?: string
+  /** A fixed desk (bookingDesks.ts key): one consultant, whatever the region. */
+  desk?: string
   /** Site path the visitor started from, e.g. "/monday-crm-consulting" */
   sourcePage?: string
   /** Spam honeypot — must be empty */
@@ -88,9 +91,12 @@ export async function POST(req: Request) {
   }
 
   const country = req.headers.get("cf-ipcountry") ?? undefined
-  const region = p.region && REGIONS.includes(p.region) ? p.region : detectRegion({ country, timezone, email })
-  const consultant = consultantFor(region, p.host)
-  const target = REGION_BOOKING[region]
+  const desk = deskFor(p.desk)
+  const region = desk
+    ? desk.region
+    : p.region && REGIONS.includes(p.region) ? p.region : detectRegion({ country, timezone, email })
+  const consultant = desk ? desk.consultant : consultantFor(region, p.host)
+  const target = desk ? desk.booking : REGION_BOOKING[region]
   // Only a slot we could plausibly have offered — a stale or bogus value would
   // deep-link Calendly to a time that isn't bookable.
   const startMs = p.start ? Date.parse(p.start) : NaN

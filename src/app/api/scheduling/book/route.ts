@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { createBooking } from "@/lib/calendlyClient"
 import { detectRegion, pushMeetingToMonday, type LeadRegion } from "@/lib/leadNotify"
+import { deskFor } from "@/lib/bookingDesks"
 
 export const runtime = "nodejs"
 export const maxDuration = 30
@@ -33,6 +34,8 @@ interface BookRequest {
   /** Site path the visitor booked from, e.g. "/monday-crm-consulting" */
   sourcePage?: string
   region?: LeadRegion
+  /** A fixed desk (bookingDesks.ts key): one consultant, whatever the region. */
+  desk?: string
   /** Spam honeypot — must be empty */
   website?: string
 }
@@ -61,7 +64,8 @@ export async function POST(req: Request) {
   }
 
   const country = req.headers.get("cf-ipcountry") ?? undefined
-  const region = p.region ?? detectRegion({ country, timezone })
+  const desk = deskFor(p.desk)
+  const region = desk ? desk.region : p.region ?? detectRegion({ country, timezone })
   // Only a same-origin path is accepted — this value is stored and echoed
   // back into Calendly tracking.
   const raw = (p.sourcePage ?? "").trim()
@@ -77,7 +81,7 @@ export async function POST(req: Request) {
 
   let booked = false
   try {
-    await createBooking({ region, start, name, email, timezone, phone: p.phone?.trim(), sourcePage })
+    await createBooking({ region, eventTypeUuid: desk?.booking.eventTypeUuid, start, name, email, timezone, phone: p.phone?.trim(), sourcePage })
     booked = true
   } catch (err) {
     console.warn("[scheduling] api booking failed:", err instanceof Error ? err.message : String(err))

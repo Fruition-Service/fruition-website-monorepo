@@ -83,8 +83,22 @@ export function VcFaq({ s }: { s: VcFaqData }) {
 /* ------------------------------------------------- led by practitioners */
 
 export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?: VcSharedData | null }) {
-  const p = shared?.practitioners
-  if (!p) return null
+  const sharedP = shared?.practitioners
+  if (!sharedP) return null
+  // A page can name its own leader (HubSpot, ClickUp, Aircall, n8n, OpenClaw):
+  // badge and heading stay shared, the person and their facts are this page's.
+  const l = s.leader?.name ? s.leader : null
+  const role = l ? (l.roleOverride || l.role) : undefined
+  const p = l
+    ? {
+        ...sharedP,
+        photo: l.photo,
+        name: l.name,
+        role: role ? `${role} · Fruition` : "Fruition",
+        facts: s.leaderFacts ?? [],
+        pills: s.leaderPills ?? [],
+      }
+    : sharedP
   return (
     <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} inner="wrap josh-wrap" dataSec="lead">
       <div className="josh-copy">
@@ -108,7 +122,7 @@ export function VcPractitioners({ s, shared }: { s: VcPractitionersData; shared?
       </div>
       <div className="josh">
         <div className="josh-photo">
-          <SImg image={p.photo} width={420} alt={p.photo?.alt ?? p.name} />
+          <SImg image={p.photo} width={420} alt={l ? `${p.name}, ${role ?? "Fruition"}` : (p.photo?.alt ?? p.name)} />
         </div>
         <div className="josh-body">
           <div>

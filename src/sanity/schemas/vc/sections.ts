@@ -295,9 +295,39 @@ export const vcPractitioners = defineType({
   name: 'vcPractitioners',
   title: 'Led by practitioners',
   type: 'object',
-  description: 'Photo, name, facts and badges come from "Version C shared blocks" so they are identical on every page. The paragraphs are this page\'s own (they name the platform).',
+  description: 'Photo, name, facts and badges come from "Version C shared blocks" so they are identical on every page, unless "Leader for this page" is set. The paragraphs are this page\'s own (they name the platform).',
   fields: [
     ...sectionBase,
+    defineField({
+      name: 'leader',
+      title: 'Leader for this page (optional)',
+      type: 'vcTeamRef',
+      description: 'Replaces the shared person (photo, name and role) on this page only. Empty shows the shared block. Set the facts and badges below too, since the shared ones describe the shared person.',
+    }),
+    defineField({
+      name: 'leaderFacts',
+      title: 'Leader facts (optional)',
+      type: 'array',
+      hidden: ({ parent }) => !(parent as { leader?: { person?: unknown } } | undefined)?.leader?.person,
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'vcFact',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string' }),
+            defineField({ name: 'value', title: 'Value', type: 'string' }),
+          ],
+          preview: { select: { title: 'label', subtitle: 'value' } },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'leaderPills',
+      title: 'Leader badges (optional)',
+      type: 'array',
+      hidden: ({ parent }) => !(parent as { leader?: { person?: unknown } } | undefined)?.leader?.person,
+      of: [{ type: 'string' }],
+    }),
     defineField({
       name: 'paragraphs',
       title: 'Paragraphs',
@@ -333,6 +363,13 @@ export const vcBooking = defineType({
       title: 'Calendar title',
       type: 'string',
       description: 'Shown as "<title> · 30 min" on the booking card, e.g. "Marketing call". Empty uses "Discovery call".',
+    }),
+    defineField({
+      name: 'desk',
+      title: 'Always book with',
+      type: 'string',
+      description: 'Empty: the card detects the visitor\'s region and books that desk. A name: every booking on this page goes to that consultant\'s own calendar, wherever the visitor is, and the region switch is hidden. Desks are defined in src/lib/bookingDesks.ts.',
+      options: { list: [{ title: 'Thana Witchawut', value: 'thana' }] },
     }),
   ],
   preview: preview('Booking', 'heading'),
