@@ -17,8 +17,12 @@ export function keyUrl(url) {
   return k
 }
 
-export function kvKey(url, env) {
+/** KV key holding the content version the Sanity webhook bumps (src/lib/edgeContentVersion.ts). */
+export const CONTENT_VERSION_KEY = `${KV_PREFIX}content-version`
+
+export function kvKey(url, env, version) {
   const k = keyUrl(url)
-  const key = `${KV_PREFIX}${env.BUILD_ID || "none"}/${k.host}${k.pathname}${k.search}`
+  const ver = version ? `${version}/` : ""
+  const key = `${KV_PREFIX}${env.BUILD_ID || "none"}/${ver}${k.host}${k.pathname}${k.search}`
   return key.length <= KV_MAX_KEY ? key : null
 }

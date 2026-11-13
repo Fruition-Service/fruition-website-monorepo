@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import edge from "./index.js"
-import { keyUrl, kvKey } from "./keys.js"
+import { CONTENT_VERSION_KEY, keyUrl, kvKey } from "./keys.js"
 
 const ENV_BUILD = "build-1"
 
@@ -32,6 +32,7 @@ function memoryKv() {
       store.set(key, { value, metadata: opts?.metadata ?? null })
     }),
     getWithMetadata: vi.fn(async (key) => store.get(key) ?? { value: null, metadata: null }),
+    get: vi.fn(async (key) => (typeof store.get(key)?.value === "string" ? store.get(key).value : null)),
   }
 }
 
@@ -212,5 +213,54 @@ describe("fruition-edge build header", () => {
     expect(miss.headers.get("X-Edge-Build")).toBe(ENV_BUILD)
     expect(hit.headers.get("X-Edge-Build")).toBe(ENV_BUILD)
     expect(head.headers.get("X-Edge-Build")).toBe(ENV_BUILD)
+  })
+})
+
+describe("fruition-edge content version (Sanity edits)", () => {
+  it("adds the version to KV keys only once one is set", () => {
+    expect(kvKey("https://www.fruitionservices.io/hubspot-consulting", { BUILD_ID: "b9" }, "1731")).toBe(
+      "edge-html/b9/1731/www.fruitionservices.io/hubspot-consulting",
+    )
+    expect(kvKey("https://www.fruitionservices.io/hubspot-consulting", { BUILD_ID: "b9" }, "")).toBe(
+      "edge-html/b9/www.fruitionservices.io/hubspot-consulting",
+    )
+  })
+
+  it("fetches every page again after the webhook bumps the version", async () => {
+    const t = setup()
+    t.site.fetch.mockImplementationOnce(async () => page("<html>before edit</html>"))
+    await edge.fetch(get("/hubspot-consulting"), t.env, t.ctx)
+    await t.settle()
+    const hit = await edge.fetch(get("/hubspot-consulting"), t.env, t.ctx)
+    expect(hit.headers.get("X-Edge-Cache")).toBe("HIT")
+    expect(await hit.text()).toBe("<html>before edit</html>")
+
+    // The Sanity webhook writes a new content version.
+    t.kv.store.set(CONTENT_VERSION_KEY, { value: "1731500000000", metadata: null })
+    t.site.fetch.mockImplementationOnce(async () => page("<html>after edit</html>"))
+    const after = await edge.fetch(get("/hubspot-consulting"), t.env, t.ctx)
+    expect(after.headers.get("X-Edge-Cache")).toBe("MISS")
+    expect(await after.text()).toBe("<html>after edit</html>")
+    await t.settle()
+    expect(t.kv.store.has(`edge-html/${ENV_BUILD}/1731500000000/www.fruitionservices.io/hubspot-consulting`)).toBe(true)
+    const next = await edge.fetch(get("/hubspot-consulting"), t.env, t.ctx)
+    expect(next.headers.get("X-Edge-Cache")).toBe("HIT")
+    expect(await next.text()).toBe("<html>after edit</html>")
+  })
+
+  it("does not forward browser conditional headers on a background refresh", async () => {
+    const t = setup()
+    await edge.fetch(get("/hubspot-consulting"), t.env, t.ctx)
+    await t.settle()
+    const [k, r] = [...t.cache.store.entries()][0]
+    const aged = new Response(await r.clone().text(), r)
+    aged.headers.set("X-Edge-Stored-At", String(Date.now() - 120_000))
+    t.cache.store.set(k, aged)
+    await edge.fetch(get("/hubspot-consulting", { "If-None-Match": '"abc"', "If-Modified-Since": "Tue, 10 Nov 2026 00:00:00 GMT" }), t.env, t.ctx)
+    await t.settle()
+    const refreshReq = t.site.fetch.mock.calls[1][0]
+    expect(refreshReq.headers.get("If-None-Match")).toBeNull()
+    expect(refreshReq.headers.get("If-Modified-Since")).toBeNull()
+    expect(refreshReq.headers.get("Accept")).toBe("text/html")
   })
 })
