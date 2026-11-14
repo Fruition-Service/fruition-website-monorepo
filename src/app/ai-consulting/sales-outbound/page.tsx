@@ -1,14 +1,14 @@
-import PracticePageTemplate from '@/components/PracticePageTemplate'
-import { AI_CONSULTING_PAGES } from '@/data/practicePages/aiConsulting'
-import { practiceMetadata } from '@/data/practicePages/types'
-import { getPracticePageContent } from '@/features/content/practicePage'
+// Version C (14 Nov 2026): built on the approved Agent development layout, so it shares that page's
+// stylesheet and scope class. Content: vcPage document for /ai-consulting/sales-outbound (docs/version-c.md).
+import "@/styles/vc/pages/agent-development.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const page = AI_CONSULTING_PAGES['sales-outbound']
+const PATH = "/ai-consulting/sales-outbound"
 
-export async function generateMetadata() {
-  return practiceMetadata(await getPracticePageContent(page))
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  return <PracticePageTemplate page={await getPracticePageContent(page)} />
+export default function Page() {
+  return <VcPage path={PATH} slug="agent-development" />
 }

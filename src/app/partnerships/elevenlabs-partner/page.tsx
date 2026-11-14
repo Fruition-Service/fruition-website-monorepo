@@ -1,32 +1,14 @@
-import { getAiPartnerPageBySlug, getSiteSettings, getFaqItemsForPageStrict, getClosingCtaForPage } from "@/sanity/queries"
-import { resolveFaqTabs } from "@/sanity/groupFaqs"
-import AiPartnerTemplate from "@/components/AiPartnerTemplate"
-import { buildOgMetadata } from "@/lib/metadata"
+// Version C (14 Nov 2026): built on the approved Claude partner layout, so it shares that page's
+// stylesheet and scope class. Content: vcPage document for /partnerships/elevenlabs-partner (docs/version-c.md).
+import "@/styles/vc/pages/anthropic-claude-partner.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const SLUG = "elevenlabs-partner"
+const PATH = "/partnerships/elevenlabs-partner"
 
-export async function generateMetadata() {
-  const page = await getAiPartnerPageBySlug(SLUG)
-  const title = page?.seoTitle || page?.title || SLUG
-  const description = page?.seoDescription
-  return {
-    alternates: { canonical: "/partnerships/elevenlabs-partner" },
-    title,
-    description,
-    ...buildOgMetadata({
-      title,
-      description,
-      path: "/partnerships/elevenlabs-partner",
-    }),
-  }
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  const [page, siteSettings, centralFaqs, closingCta] = await Promise.all([
-    getAiPartnerPageBySlug(SLUG),
-    getSiteSettings(),
-    getFaqItemsForPageStrict("partnerships/elevenlabs-partner"),
-    getClosingCtaForPage("partnerships/elevenlabs-partner"),
-  ])
-  return <AiPartnerTemplate page={page} siteSettings={siteSettings} faqTabs={resolveFaqTabs(page?.faqTabs, centralFaqs)} closingCta={closingCta} />
+export default function Page() {
+  return <VcPage path={PATH} slug="anthropic-claude-partner" />
 }

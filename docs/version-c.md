@@ -43,6 +43,9 @@ is click-to-edit on editing.fruitionservices.io.
 | Page | Group | Layout reused | Content script | Added |
 |---|---|---|---|---|
 | `/licence-procurement` | core | `/implementation-packages` (`pricing.css`, slug `pricing`) | `scripts/vc/add-licence-procurement.ts` (`--apply`) | 13 Nov 2026. Missed by the 11 Nov rollout; copy is the live page's (the retired `licensingPage` singleton merged over `src/data/practicePages/licensing.ts`). That singleton and its fallback no longer drive the route: edit the `vcPage-licence-procurement` document. |
+| 8 partner pages: `/partnerships/{aws,google-cloud,microsoft-azure,microsoft-copilot,supabase,clay,elevenlabs,hootsuite-delivery}-partner` | partner | `/partnerships/anthropic-claude-partner` (slug `anthropic-claude-partner`) | `scripts/vc/migrate.ts` (slugs in `PAGES`), from the approved review-v3 mock-ups | 14 Nov 2026, Edward. Rules from his review: no partner badge on record (Azure, Copilot, Supabase, Clay) means no status section; a cases section only for a real client build on that platform (none of the eight has one, so none has cases). The "Who leads it" heading is the shared one; each page keeps its own paragraphs. Prices are the live AUD figures (the snapshots had been currency-converted to SGD and were mapped back). |
+| `/integrations/twilio`, `/integrations/zapier` | partner | `/integrations` (slug `integrations`) | same | 14 Nov 2026. Regional section dropped; two real client builds each (Twilio: RPM Instant Equity, ADG Construction; Zapier: Givergy, Kinetic Solutions). |
+| `/ai-consulting/{customer-service,marketing-automation,operations-back-office,sales-outbound}` | ai | `/ai-consulting/agent-development` (slug `agent-development`) | same | 14 Nov 2026. Same section order as agent development; booking copy is each old page's own. Two real AI client builds each (marketing adds Office Furniture Company, sales adds Fair Health Care). |
 
 ### Use cases on industry pages (`vcUseCases`)
 

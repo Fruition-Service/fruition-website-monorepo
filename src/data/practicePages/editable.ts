@@ -20,15 +20,10 @@ import { INTEGRATIONS_PAGES } from './integrations'
  * here either.
  */
 export const EDITABLE_PRACTICE_PAGES: PracticePage[] = [
-  AI_CONSULTING_PAGES['marketing-automation'],
-  AI_CONSULTING_PAGES['sales-outbound'],
-  AI_CONSULTING_PAGES['customer-service'],
-  AI_CONSULTING_PAGES['operations-back-office'],
-  INTEGRATIONS_PAGES['twilio'],
-  INTEGRATIONS_PAGES['zapier'],
   // Moved to Version C vcPage documents (Nov 2026): the five /industries leaves,
-  // the AI consulting hub, agent development, governance, RAG, and the Atlassian,
-  // HubSpot and integrations hubs.
+  // the AI consulting hub, agent development, governance, RAG, the Atlassian,
+  // HubSpot and integrations hubs, and on 14 Nov the last six (AI customer
+  // service, marketing automation, operations, sales outbound, Twilio, Zapier).
 ]
 
 /** Deterministic Studio document id: '/ai-consulting/agent-development' to 'practicePage-ai-consulting-agent-development'. */

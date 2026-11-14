@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mergePracticePage } from './practicePage'
 import { ATLASSIAN_PAGES } from '@/data/practicePages/atlassian'
+import { AI_CONSULTING_PAGES } from '@/data/practicePages/aiConsulting'
 import { INDUSTRIES_PAGES } from '@/data/practicePages/industries'
 import {
   EDITABLE_PRACTICE_PAGES,
@@ -279,7 +280,8 @@ describe('practice FAQ contact line and template fallbacks', () => {
   })
 
   it('seeds every template fallback a route renders with the words it renders today', () => {
-    const ai = EDITABLE_PRACTICE_PAGES.find((p) => p.path === '/ai-consulting/marketing-automation')
+    // The route moved to Version C on 14 Nov 2026; its practice data still exercises the seeding.
+    const ai = AI_CONSULTING_PAGES['marketing-automation']
     expect(ai).toBeDefined()
     const fields = toPracticePageFields(ai!)
     expect(fields.approachEyebrow).toBe(ai!.approachEyebrow ?? 'Our approach')
@@ -328,8 +330,9 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
   // 19 to 14 when the five /industries leaves moved to Version C vcPage documents.
   // 14 to 7 when the AI, Atlassian, HubSpot and integrations hubs moved to Version C.
   // 7 to 6 when /certifications-and-awards moved to Version C.
-  it('lists 6 routes, each with a page file that reads its document', () => {
-    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(6)
+  // 6 to 0 on 14 Nov 2026 when the four AI consulting leaves, Twilio and Zapier moved to Version C.
+  it('lists every route, each with a page file that reads its document', () => {
+    expect(EDITABLE_PRACTICE_PAGES).toHaveLength(0)
     for (const page of EDITABLE_PRACTICE_PAGES) {
       const file = join(process.cwd(), 'src/app', page.path, 'page.tsx')
       expect(existsSync(file), file).toBe(true)
@@ -345,11 +348,16 @@ describe('EDITABLE_PRACTICE_PAGES', () => {
   })
 
   it('covers every route that reads a practicePage document', () => {
-    const routes = execFileSync('git', ['grep', '-l', 'getPracticePageContent(', '--', 'src/app'], {
-      encoding: 'utf8',
-    })
+    let out = ''
+    try {
+      out = execFileSync('git', ['grep', '-l', 'getPracticePageContent(', '--', 'src/app'], { encoding: 'utf8' })
+    } catch {
+      out = '' // git grep exits 1 when nothing matches
+    }
+    const routes = out
       .trim()
       .split('\n')
+      .filter(Boolean)
       .map((f) => f.replace(/^src\/app/, '').replace(/\/page\.tsx$/, ''))
       .sort()
     expect(routes).toEqual(EDITABLE_PRACTICE_PAGES.map((p) => p.path).sort())
