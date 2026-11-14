@@ -108,6 +108,14 @@ export const vcItem = defineType({
       initialValue: false,
       description: 'For a closing "see all" card that spans the grid.',
     }),
+    defineField({
+      name: 'cardTile',
+      title: 'Link card sits in the grid (not full width)',
+      type: 'boolean',
+      initialValue: false,
+      hidden: ({ parent }) => !(parent as { cardLink?: boolean } | undefined)?.cardLink,
+      description: 'Hub pages (e.g. /industries): each card is a tile in the grid with its label, like the industry tiles on /ai-use-cases.',
+    }),
   ],
   preview: { select: { title: 'title', subtitle: 'label', media: 'image' } },
 })

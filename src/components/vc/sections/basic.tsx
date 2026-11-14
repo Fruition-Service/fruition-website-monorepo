@@ -159,6 +159,15 @@ export function VcHero({ s }: { s: VcHeroData }) {
       </h1>
       {s.lead && <p className="lead">{s.lead}</p>}
       <Ctas ctas={s.ctas} />
+      {!!s.pills?.length && (
+        <div className="josh-pills">
+          {s.pills.map((p, i) => (
+            <span className="badge" key={i}>
+              {p}
+            </span>
+          ))}
+        </div>
+      )}
     </>
   )
   if (variant.includes("hc")) {
@@ -421,10 +430,11 @@ function CardLink({ it }: { it: VcItemData }) {
 
 export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass, titleClass, listClass = "ticks" }: { it: VcItemData; cls?: string; frame?: string; pills?: boolean; tagClass?: string; titleClass?: string; listClass?: string }) {
   if (it.cardLink && it.href) {
-    // A full-width "see all" card: the whole tile is the link.
+    // A full-width "see all" card, or a hub tile in the grid (cardTile): the whole tile is the link.
     return (
-      <Link className={`${cls.replace(" uc", "")} go-card`} href={vercelStegaClean(it.href)}>
+      <Link className={`${cls.replace(" uc", "")} go-card${it.cardTile ? " ind" : ""}`} href={vercelStegaClean(it.href)}>
         <div>
+          {it.cardTile && it.label && <span className="label">{it.label}</span>}
           {it.title && <h3 className="h3">{it.title}</h3>}
           {it.body && <p className="body">{it.body}</p>}
         </div>

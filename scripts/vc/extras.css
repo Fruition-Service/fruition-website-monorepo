@@ -120,3 +120,6 @@
    /partnerships the filters sat flush on the tiles. Give both 24px, the
    gap the other Version C tab rows use. */
 .vc .tabs + .pgrid, .vc .tabs + .pcards { margin-top: 24px; }
+
+/* Hero fact pills (vcHero.pills, /industries since 14 Nov 2026): space them off the buttons. */
+.vc .hero .josh-pills{margin-top:16px}

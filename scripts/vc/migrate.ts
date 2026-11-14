@@ -125,6 +125,11 @@ export const PAGES: Record<string, [string, string]> = {
   'ai-marketing-automation': ['/ai-consulting/marketing-automation', 'ai'],
   'ai-operations-back-office': ['/ai-consulting/operations-back-office', 'ai'],
   'ai-sales-outbound': ['/ai-consulting/sales-outbound', 'ai'],
+  industries: ['/industries', 'core'],
+  'int-whatsapp': ['/integrations/whatsapp', 'partner'],
+  'int-line': ['/integrations/line', 'partner'],
+  'int-viber': ['/integrations/viber', 'partner'],
+  'thank-you': ['/thank-you', 'core'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -394,6 +399,8 @@ function hero(sec: HTMLElement, ctx: Ctx) {
     lead: text(left.querySelector('.lead')) || undefined,
     ctas: left.querySelectorAll('.ctas a').map((a) => cta(a, ctx)),
   }
+  const pills = left.querySelectorAll('.josh-pills .badge').map((b) => text(b)).filter(Boolean)
+  if (pills.length) s.pills = pills
   const stageEl = art && has(art, 'hn-wrap') ? art : null
   if (stageEl) {
     s.stageClass = cls(stageEl).join(' ')
@@ -480,6 +487,11 @@ function item(card: HTMLElement, ctx: Ctx) {
   if (has(card, 'go-card')) {
     // Full-width "see all" card: the whole tile links to the page's industry catalogue.
     it.cardLink = true
+    if (has(card, 'ind')) {
+      // Hub tile (e.g. /industries): sits in the grid with its own label.
+      it.cardTile = true
+      it.label = text(card.querySelector('.label')) || undefined
+    }
     it.title = text(card.querySelector('h3')) || undefined
     it.body = text(card.querySelector('p')) || undefined
     const href = card.getAttribute('href')
