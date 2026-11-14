@@ -1,0 +1,1484 @@
+{
+ "_createdAt": "2026-11-10T23:30:18Z",
+ "_id": "vcPage-pricing",
+ "_rev": "lEVqCIK42Xqbj4DBtAj8mL",
+ "_type": "vcPage",
+ "_updatedAt": "2026-11-13T11:29:57Z",
+ "group": "core",
+ "path": "/implementation-packages",
+ "sections": [
+  {
+   "_key": "c1a2670992a7",
+   "_type": "vcHero",
+   "badge": "Pricing · monday.com · Atlassian · HubSpot · AI · Automation",
+   "chipLabel": "small and mid-sized organisations",
+   "chipValue": "900+",
+   "creds": [
+    {
+     "_key": "69a034db1477",
+     "_type": "vcLogo",
+     "alt": "monday.com Platinum Partner",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+       "_type": "reference"
+      }
+     },
+     "partner": {
+      "_ref": "partner-monday",
+      "_type": "reference"
+     },
+     "partnerImage": "badge"
+    },
+    {
+     "_key": "09e3ad5977f8",
+     "_type": "vcLogo",
+     "alt": "Atlassian Platinum Partner",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-fc3830199e4aa9bcec3f153085e0a47ce00621d2-291x97-png",
+       "_type": "reference"
+      }
+     },
+     "partner": {
+      "_ref": "partner-atlassian",
+      "_type": "reference"
+     },
+     "partnerImage": "badge"
+    },
+    {
+     "_key": "f7fe3c12a847",
+     "_type": "vcLogo",
+     "alt": "HubSpot Partner",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-45e61855ec5aff58260ed55a8cd5f91eaee5128e-1200x1194-png",
+       "_type": "reference"
+      }
+     },
+     "partner": {
+      "_ref": "partner-hubspot",
+      "_type": "reference"
+     },
+     "partnerImage": "badge",
+     "shape": "sqh"
+    }
+   ],
+   "ctas": [
+    {
+     "_key": "510bd8bca737",
+     "_type": "vcCta",
+     "arrow": true,
+     "href": "#book",
+     "label": "Book a free 30-minute system audit",
+     "style": "primary"
+    },
+    {
+     "_key": "71c514170c79",
+     "_type": "vcCta",
+     "arrow": false,
+     "href": "#packages",
+     "label": "monday.com packages",
+     "style": "outline"
+    }
+   ],
+   "frameClass": "art-frame",
+   "frameSvg": "<svg viewBox=\"0 0 560 420\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\"><text class=\"ma\" x=\"40\" y=\"34\">PRICING AT A GLANCE</text><rect class=\"box\" x=\"40\" y=\"52\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"77\">monday.com implementation</text><text class=\"m\" x=\"400\" y=\"76\" text-anchor=\"end\">FROM</text><text class=\"t\" x=\"502\" y=\"77\" text-anchor=\"end\">$2,500</text><rect class=\"box\" x=\"40\" y=\"102\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"127\">AI consulting and agents</text><text class=\"m\" x=\"400\" y=\"126\" text-anchor=\"end\">FROM</text><text class=\"t\" x=\"502\" y=\"127\" text-anchor=\"end\">A$5,000</text><rect class=\"box\" x=\"40\" y=\"152\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"177\">Atlassian</text><text class=\"m\" x=\"400\" y=\"176\" text-anchor=\"end\">FROM</text><text class=\"t\" x=\"502\" y=\"177\" text-anchor=\"end\">A$10,000</text><rect class=\"box\" x=\"40\" y=\"202\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"227\">HubSpot</text><text class=\"m\" x=\"400\" y=\"226\" text-anchor=\"end\">FROM</text><text class=\"t\" x=\"502\" y=\"227\" text-anchor=\"end\">A$8,000</text><rect class=\"box\" x=\"40\" y=\"252\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"277\">Automation and integrations</text><text class=\"m\" x=\"400\" y=\"276\" text-anchor=\"end\">FROM</text><text class=\"t\" x=\"502\" y=\"277\" text-anchor=\"end\">A$3,000</text><rect class=\"box\" x=\"40\" y=\"302\" width=\"480\" height=\"40\" rx=\"12\"></rect><text class=\"t\" x=\"58\" y=\"327\">Software licences</text><text class=\"ma\" x=\"502\" y=\"326\" text-anchor=\"end\">QUOTED PER VENDOR</text><rect class=\"soft\" x=\"40\" y=\"368\" width=\"190\" height=\"28\" rx=\"14\"></rect><text class=\"ma\" x=\"135\" y=\"386\" text-anchor=\"middle\">FIXED PRICE PER PHASE</text></svg>",
+   "frameSvgAria": "Starting prices by service: monday.com implementation from $2,500, AI consulting and agents from A$5,000, Atlassian from A$10,000, HubSpot from A$8,000, automation and integrations from A$3,000, software licences quoted per vendor",
+   "heading": "Fruition pricing: *know your costs before we start.*",
+   "lead": "Three monday.com packages from $2,500 one-time, $5,000 one-time and $2,500 per month, and a fixed-fee first phase for every AI, Atlassian, HubSpot and automation project.",
+   "trustLabel": "Trusted by teams across 900+ implementations",
+   "trustLogos": [
+    {
+     "_key": "bb754567030a",
+     "_type": "vcLogo",
+     "alt": "Telstra",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-3ce944e93a39095f012920864543d3f530f9b9c5-256x70-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "c64711e10174",
+     "_type": "vcLogo",
+     "alt": "Reserve Bank of Australia",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-b8e1d23457369bfb2313b3b60a8eaed2e4bdaac0-256x149-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "8fce916898c2",
+     "_type": "vcLogo",
+     "alt": "CSIRO",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-823f6dc8abe8b0b70e1513bed51cde439404802a-256x58-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "68b89492c89b",
+     "_type": "vcLogo",
+     "alt": "Transport for NSW",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-2324cc743fbd0053417f3a36c75f2d3c53fd605f-256x276-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "d391ea5f3cbf",
+     "_type": "vcLogo",
+     "alt": "SBS",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-edb4724ca1068b15982821dda58a953101fa0890-256x174-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "1cf3e36d7dc3",
+     "_type": "vcLogo",
+     "alt": "Specsavers",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-39cb56dea0198961626bca8e67b033333d087b21-256x97-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "fdbe82fe1035",
+     "_type": "vcLogo",
+     "alt": "Scania",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-047f2df0e0cf347a62252b375c9ef8e0cab23adf-256x69-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "ecb09c61fa8c",
+     "_type": "vcLogo",
+     "alt": "Ticketek",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-f64ea1b48872c57f60c055aaf2917fade3cd645b-256x105-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "f82a8312c31f",
+     "_type": "vcLogo",
+     "alt": "Carsales",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-372bc135946df4f88c7e6345fe24bbc889a5e731-256x93-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "45b75b410de3",
+     "_type": "vcLogo",
+     "alt": "NRL",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-c686a1e0257d5c70a814f95250be2ba0b3d2485d-256x326-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "7980247d0ea6",
+     "_type": "vcLogo",
+     "alt": "Daily Mail",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-ac1f6fa57e238a3d6a2e096cec487eaa77f5e4a0-256x52-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "25792d21bbd4",
+     "_type": "vcLogo",
+     "alt": "Queensland Health",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-eebc3e940b76849a46eeb1d3cea6a62dcab5563b-256x71-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "cb59cda6a35f",
+     "_type": "vcLogo",
+     "alt": "Ogilvy",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-4ab578cc2093dd926416cd1172552c0e764e3ff1-256x99-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "0f50b49527a0",
+     "_type": "vcLogo",
+     "alt": "Tourism Australia",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-844e9b90c562ac493d089650c333775516d347c2-256x104-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "6892c5c47643",
+     "_type": "vcLogo",
+     "alt": "Tourism NT",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-cea2d13d84e513ec980cd6dc74e9a89e3f815413-256x96-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "bdedf4942a16",
+     "_type": "vcLogo",
+     "alt": "Vinnies",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-3cc21e7e74dfe873f3aa200da947788577bf1c6a-256x67-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "06e25b09d3a2",
+     "_type": "vcLogo",
+     "alt": "EVT",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-c9a4bdc120fc6cc57649d6d495aae100c20115da-256x94-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "637a7582c7ef",
+     "_type": "vcLogo",
+     "alt": "Retail Food Group",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-7caff8a3d653fc17c51b8f554323428ed52c0f0b-256x125-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "4f8a8df0a90e",
+     "_type": "vcLogo",
+     "alt": "Patties Food Group",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-8f67b717a0ac1f9c04edf4ec97b60ef9ee501d15-256x143-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "57243586b56b",
+     "_type": "vcLogo",
+     "alt": "Kookaburra Sport",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-7f76fba60e588af17ff4dadc8a764d6b3c423e6b-256x74-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "fa6ef540e765",
+     "_type": "vcLogo",
+     "alt": "Landcom",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-5f45ffe32b6480ff91e5a882e200f3c046839046-256x46-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "fedc5b9263cd",
+     "_type": "vcLogo",
+     "alt": "Athletics Australia",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-1a2afd23a3167f805758a9a8aedce7d645ea46f3-256x205-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "d4db0cd8fe81",
+     "_type": "vcLogo",
+     "alt": "VicHealth",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-e975c3ded402bab3b830d6e11ec8e786f0cbcc60-256x80-png",
+       "_type": "reference"
+      }
+     }
+    },
+    {
+     "_key": "8b44ca84632b",
+     "_type": "vcLogo",
+     "alt": "Hume Bank",
+     "image": {
+      "_type": "image",
+      "asset": {
+       "_ref": "image-1440c8a86520cc2b3f33d45b29d76078b1dbc9ad-256x44-png",
+       "_type": "reference"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "_key": "073c71278d1c",
+   "_type": "vcPriceCards",
+   "anchor": "packages",
+   "gridClass": "grid3",
+   "head": {
+    "_type": "vcHead",
+    "badge": "monday.com implementation pricing",
+    "heading": "monday.com implementation packages, *sized to your team*",
+    "lead": "Choose by team size and what you need done. Every package starts with your workflows, and every price is fixed before work starts."
+   },
+   "items": [
+    {
+     "_key": "8ff6e590d02e",
+     "_type": "vcPriceCard",
+     "best": "teams already on monday.com whose boards, automations or adoption need fixing.",
+     "bestLabel": "Best for:",
+     "bullets": [
+      "Up to 5 boards reviewed and cleaned up",
+      "Up to 10 automations optimised",
+      "2 training sessions"
+     ],
+     "cardClass": "pk",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#book",
+      "label": "Get started",
+      "style": "primary"
+     },
+     "kicker": "Reset and train",
+     "meta": "1 team · up to 25 users",
+     "price": "$2,500",
+     "priceLabel": "From",
+     "title": "Training & Optimisation",
+     "unit": "one-time"
+    },
+    {
+     "_key": "904300c825d8",
+     "_type": "vcPriceCard",
+     "best": "new rollouts and rebuilds of the workflows your business runs on.",
+     "bestLabel": "Best for:",
+     "bullets": [
+      "1-2 workflows mapped and built",
+      "Up to 8 boards + 2 dashboards",
+      "Up to 15 automations + 1 integration"
+     ],
+     "cardClass": "pk feat",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#book",
+      "label": "Get quote",
+      "style": "primary"
+     },
+     "kicker": "We build and deploy together",
+     "meta": "1-2 teams · up to 50 users",
+     "price": "$5,000",
+     "priceLabel": "From",
+     "title": "Lock-Step",
+     "unit": "one-time"
+    },
+    {
+     "_key": "05f9b51fa2c3",
+     "_type": "vcPriceCard",
+     "best": "organisations whose processes keep changing and want monday.com expertise on the team.",
+     "bestLabel": "Best for:",
+     "bullets": [
+      "1 named forward deployed engineer",
+      "Change requests in 2 business days",
+      "Monthly roadmap review"
+     ],
+     "cardClass": "pk",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#book",
+      "label": "Get your options",
+      "style": "primary"
+     },
+     "kicker": "Ongoing, embedded",
+     "meta": "Multiple teams · up to 250 users",
+     "price": "$2,500",
+     "priceLabel": "From",
+     "title": "Deployed Engineer",
+     "unit": "per month"
+    }
+   ],
+   "notes": [
+    {
+     "_key": "cbc987699deb",
+     "_type": "vcPriceNote",
+     "body": "More than 250 users or several departments? We scope enterprise rollouts separately.",
+     "label": "Enterprise",
+     "links": [
+      {
+       "_key": "43c32f4e3ce0",
+       "_type": "vcNoteLink",
+       "href": "#book",
+       "label": "Get an enterprise quote"
+      }
+     ]
+    },
+    {
+     "_key": "14c31d2c3137",
+     "_type": "vcPriceNote",
+     "body": "Fruition's implementation services, one package per monday.com product. Licences are billed separately by monday.com.",
+     "label": "What the price covers",
+     "links": [
+      {
+       "_key": "54773d3b75d9",
+       "_type": "vcNoteLink",
+       "href": "#licences",
+       "label": "Licence procurement"
+      },
+      {
+       "_key": "8007855a8d2a",
+       "_type": "vcNoteLink",
+       "href": "#regions",
+       "label": "Our consultants"
+      }
+     ]
+    }
+   ],
+   "tone": "alt"
+  },
+  {
+   "_key": "87b08665c40b",
+   "_type": "vcAudit",
+   "cta": {
+    "_type": "vcCta",
+    "arrow": true,
+    "href": "#book",
+    "label": "Find my package",
+    "style": "primary"
+   },
+   "heading": "Not sure which package *fits?*",
+   "text": "A free 30-minute system audit to recommend the right one.",
+   "tone": "plain"
+  },
+  {
+   "_key": "1d553fa81ad3",
+   "_type": "vcServices",
+   "anchor": "services",
+   "footnote": "AI, Atlassian, HubSpot and automation prices are set in AUD and monday.com packages in USD; this page shows them in your currency (change it in the site footer). We serve Australia (AUD), the UK (GBP) and the US (USD) with local pricing in each region. Software licences are paid separately.",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Services pricing",
+    "heading": "Starting prices for *everything else we build*",
+    "lead": "Each service starts with a structured initial phase at a fixed fee. Mid-scope projects are quoted after a scoping call."
+   },
+   "tabs": [
+    {
+     "_key": "83d21b20a316",
+     "_type": "vcServiceTab",
+     "body": "Pick the outcome you need. Each package is a fixed-fee first build on OpenAI or Anthropic Claude, live in weeks, with a clear path to scale.",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "/ai-consulting",
+      "label": "AI consulting",
+      "style": "inverse"
+     },
+     "from": "A$5,000",
+     "fromLabel": "Starting from",
+     "kicker": "AI consulting and agents",
+     "label": "AI & agents",
+     "rows": [
+      {
+       "_key": "outcome-revenue",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/sales-outbound",
+       "name": "Grow revenue: AI sales and outbound agent",
+       "note": "Fixed-fee package, from",
+       "price": "A$7,500"
+      },
+      {
+       "_key": "outcome-cost",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/operations-back-office",
+       "name": "Cut cost and speed up cash: back-office automation",
+       "note": "Fixed-fee package, from",
+       "price": "A$6,500"
+      },
+      {
+       "_key": "outcome-risk",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/governance-and-compliance",
+       "name": "Reduce risk: AI governance and compliance",
+       "note": "Fixed-fee package, from",
+       "price": "A$5,000"
+      },
+      {
+       "_key": "outcome-speed",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/agent-development",
+       "name": "Move faster: one workflow handed to an AI agent",
+       "note": "Fixed-fee package, from",
+       "price": "A$8,500"
+      },
+      {
+       "_key": "outcome-clarity",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/rag-knowledge-systems",
+       "name": "See clearly: knowledge and reporting assistant",
+       "note": "Fixed-fee package, from",
+       "price": "A$9,500"
+      },
+      {
+       "_key": "outcome-quality",
+       "_type": "vcServiceRow",
+       "href": "/ai-consulting/customer-service",
+       "name": "Quality and experience: AI customer service agent",
+       "note": "Fixed-fee package, from",
+       "price": "A$7,000"
+      }
+     ],
+     "title": "AI packages by business outcome"
+    },
+    {
+     "_key": "f58c7a38a945",
+     "_type": "vcServiceTab",
+     "body": "Implementation, optimisation and migration through our Atlassian Platinum Partner practice.",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "/atlassian-consulting",
+      "label": "Atlassian consulting",
+      "style": "inverse"
+     },
+     "from": "A$10,000",
+     "fromLabel": "Starting from",
+     "kicker": "Atlassian",
+     "label": "Atlassian",
+     "rows": [
+      {
+       "_key": "d59181ca9b94",
+       "_type": "vcServiceRow",
+       "href": "/atlassian-consulting",
+       "name": "Atlassian consulting",
+       "note": "Initial phase, from",
+       "price": "A$12,000"
+      },
+      {
+       "_key": "990b364d9bd1",
+       "_type": "vcServiceRow",
+       "href": "/atlassian-consulting#jira",
+       "name": "Jira implementation and optimisation",
+       "note": "Initial phase, from",
+       "price": "A$12,000"
+      },
+      {
+       "_key": "561c9f972fe0",
+       "_type": "vcServiceRow",
+       "href": "/atlassian-consulting#confluence",
+       "name": "Confluence knowledge systems",
+       "note": "Initial phase, from",
+       "price": "A$10,000"
+      },
+      {
+       "_key": "de67e22e9a11",
+       "_type": "vcServiceRow",
+       "href": "/atlassian-consulting#jsm",
+       "name": "Jira Service Management",
+       "note": "Initial phase, from",
+       "price": "A$12,000"
+      },
+      {
+       "_key": "87dc8b18fd2b",
+       "_type": "vcServiceRow",
+       "href": "/atlassian-consulting#migration",
+       "name": "Jira to monday.com migration",
+       "note": "Initial phase, from",
+       "price": "A$15,000"
+      }
+     ],
+     "title": "Jira, Confluence and Jira Service Management"
+    },
+    {
+     "_key": "f754b1d1d9b9",
+     "_type": "vcServiceTab",
+     "body": "HubSpot builds, Breeze AI and the hand-off between HubSpot and monday.com.",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "/hubspot-consulting",
+      "label": "HubSpot consulting",
+      "style": "inverse"
+     },
+     "from": "A$8,000",
+     "fromLabel": "Starting from",
+     "kicker": "HubSpot",
+     "label": "HubSpot",
+     "rows": [
+      {
+       "_key": "2a6a55f195ee",
+       "_type": "vcServiceRow",
+       "href": "/hubspot-consulting#implementation",
+       "name": "HubSpot implementation",
+       "note": "Initial phase, from",
+       "price": "A$12,000"
+      },
+      {
+       "_key": "0f0e0153727a",
+       "_type": "vcServiceRow",
+       "href": "/hubspot-consulting#breeze-ai",
+       "name": "HubSpot Breeze AI",
+       "note": "Initial phase, from",
+       "price": "A$8,000"
+      },
+      {
+       "_key": "90a82ef13da6",
+       "_type": "vcServiceRow",
+       "href": "/hubspot-consulting#integration",
+       "name": "monday.com and HubSpot integration",
+       "note": "Initial phase, from",
+       "price": "A$8,000"
+      },
+      {
+       "_key": "64d92abcb040",
+       "_type": "vcServiceRow",
+       "href": "/hubspot-consulting#migration",
+       "name": "HubSpot to monday.com migration",
+       "note": "Initial phase, from",
+       "price": "A$12,000"
+      }
+     ],
+     "title": "HubSpot implementation, Breeze AI and integration"
+    },
+    {
+     "_key": "e2e056ff3e2a",
+     "_type": "vcServiceTab",
+     "body": "Connecting monday.com, your CRM and the rest of your stack, from a single Zap to a full integration layer.",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "/integrations",
+      "label": "Integrations",
+      "style": "inverse"
+     },
+     "from": "A$3,000",
+     "fromLabel": "Starting from",
+     "kicker": "Automation and integrations",
+     "label": "Automation",
+     "rows": [
+      {
+       "_key": "5e728b926a31",
+       "_type": "vcServiceRow",
+       "href": "/integrations",
+       "name": "Integrations",
+       "note": "Initial phase, from",
+       "price": "A$6,000"
+      },
+      {
+       "_key": "2c0456298b73",
+       "_type": "vcServiceRow",
+       "href": "/partnerships/make-partners",
+       "name": "Make automation",
+       "note": "Initial phase, from",
+       "price": "A$4,000"
+      },
+      {
+       "_key": "24963f78b462",
+       "_type": "vcServiceRow",
+       "href": "/integrations/zapier",
+       "name": "Zapier",
+       "note": "Initial phase, from",
+       "price": "A$3,000"
+      },
+      {
+       "_key": "f74c4c473bac",
+       "_type": "vcServiceRow",
+       "href": "/partnerships/aircall-partner",
+       "name": "Aircall integration",
+       "note": "Initial phase, from",
+       "price": "A$4,000"
+      },
+      {
+       "_key": "9748af509f2f",
+       "_type": "vcServiceRow",
+       "href": "/integrations/twilio",
+       "name": "Twilio",
+       "note": "Initial phase, from",
+       "price": "A$5,000"
+      }
+     ],
+     "title": "Integrations, Make, Zapier and telephony"
+    },
+    {
+     "_key": "d5c3517c635d",
+     "_type": "vcServiceTab",
+     "body": "Packages sized by team, each with a fixed price agreed before work starts. Set in USD and shown in your currency; licences are paid to monday.com.",
+     "cta": {
+      "_type": "vcCta",
+      "arrow": true,
+      "href": "#packages",
+      "label": "See the packages",
+      "style": "inverse"
+     },
+     "from": "US$2,500",
+     "fromLabel": "Starting from",
+     "kicker": "monday.com implementation",
+     "label": "monday.com",
+     "rows": [
+      {
+       "_key": "54559afc336c",
+       "_type": "vcServiceRow",
+       "name": "Training & Optimisation",
+       "note": "1 team, up to 25 users, one-time",
+       "price": "US$2,500"
+      },
+      {
+       "_key": "e1ae3fa6b70e",
+       "_type": "vcServiceRow",
+       "name": "Lock-Step",
+       "note": "1-2 teams, up to 50 users, one-time",
+       "price": "US$5,000"
+      },
+      {
+       "_key": "190ebebbc3a1",
+       "_type": "vcServiceRow",
+       "name": "Deployed Engineer",
+       "note": "Multiple teams, up to 250 users, per month",
+       "price": "US$2,500"
+      },
+      {
+       "_key": "8f84c419649b",
+       "_type": "vcServiceRow",
+       "name": "Enterprise rollouts",
+       "note": "250+ users or several departments",
+       "price": "Quoted"
+      }
+     ],
+     "title": "Three fixed-scope packages"
+    }
+   ],
+   "tone": "plain"
+  },
+  {
+   "_key": "a57e6b79a6af",
+   "_type": "vcPriceCards",
+   "gridClass": "grid3",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Pricing at a glance",
+    "heading": "Fruition pricing *by service*",
+    "lead": "Starting prices for every service. monday.com packages are set in USD and everything else in AUD, shown here in your currency, with local pricing per region."
+   },
+   "items": [
+    {
+     "_key": "f0c2a33a58b9",
+     "_type": "vcPriceCard",
+     "body": "Three fixed-scope packages",
+     "bullets": [],
+     "href": "#packages",
+     "linkLabel": "See prices",
+     "price": "$2,500",
+     "priceLabel": "From",
+     "title": "monday.com implementation"
+    },
+    {
+     "_key": "f022355b8a78",
+     "_type": "vcPriceCard",
+     "body": "Outcome-based packages",
+     "bullets": [],
+     "href": "#services",
+     "linkLabel": "See prices",
+     "price": "A$5,000",
+     "priceLabel": "From",
+     "title": "AI consulting and agents"
+    },
+    {
+     "_key": "251ead8922f9",
+     "_type": "vcPriceCard",
+     "body": "Fixed-fee initial phase",
+     "bullets": [],
+     "href": "#services",
+     "linkLabel": "See prices",
+     "price": "A$10,000",
+     "priceLabel": "From",
+     "title": "Atlassian"
+    },
+    {
+     "_key": "64161c3f7eaf",
+     "_type": "vcPriceCard",
+     "body": "Fixed-fee initial phase",
+     "bullets": [],
+     "href": "#services",
+     "linkLabel": "See prices",
+     "price": "A$8,000",
+     "priceLabel": "From",
+     "title": "HubSpot"
+    },
+    {
+     "_key": "27220a885572",
+     "_type": "vcPriceCard",
+     "body": "Fixed-fee initial phase",
+     "bullets": [],
+     "href": "#services",
+     "linkLabel": "See prices",
+     "price": "A$3,000",
+     "priceLabel": "From",
+     "title": "Automation and integrations"
+    },
+    {
+     "_key": "d5c51b9436b4",
+     "_type": "vcPriceCard",
+     "body": "monday.com, Atlassian and HubSpot licences bought through Fruition",
+     "bullets": [],
+     "href": "#licences",
+     "linkLabel": "See prices",
+     "quote": "Quoted per vendor",
+     "title": "Software licences"
+    }
+   ],
+   "notes": [],
+   "tone": "plain"
+  },
+  {
+   "_key": "482ffd30ca91",
+   "_type": "vcPriceCards",
+   "anchor": "licences",
+   "gridClass": "grid3 lic",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Software licences",
+    "heading": "Buying monday.com, Atlassian or *HubSpot licences?*",
+    "lead": "Licences are separate from our service fees. As a certified partner we can source, renew and consolidate them for you."
+   },
+   "items": [
+    {
+     "_key": "03533ada9ddd",
+     "_type": "vcPriceCard",
+     "bullets": [],
+     "cardClass": "pk",
+     "logo": {
+      "_type": "image",
+      "alt": "monday.com Platinum Partner badge",
+      "asset": {
+       "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+       "_type": "reference"
+      }
+     },
+     "logoShape": "cb",
+     "meta": "Quoted per vendor",
+     "title": "monday.com"
+    },
+    {
+     "_key": "e1ba693e3bcb",
+     "_type": "vcPriceCard",
+     "bullets": [],
+     "cardClass": "pk",
+     "logo": {
+      "_type": "image",
+      "alt": "Atlassian Platinum Partner badge",
+      "asset": {
+       "_ref": "image-fc3830199e4aa9bcec3f153085e0a47ce00621d2-291x97-png",
+       "_type": "reference"
+      }
+     },
+     "logoShape": "cb",
+     "meta": "Quoted per vendor",
+     "title": "Atlassian"
+    },
+    {
+     "_key": "c88d0ea130fa",
+     "_type": "vcPriceCard",
+     "bullets": [],
+     "cardClass": "pk",
+     "logo": {
+      "_type": "image",
+      "alt": "HubSpot Partner badge",
+      "asset": {
+       "_ref": "image-45e61855ec5aff58260ed55a8cd5f91eaee5128e-1200x1194-png",
+       "_type": "reference"
+      }
+     },
+     "logoShape": "sqh",
+     "meta": "Quoted per vendor",
+     "title": "HubSpot"
+    }
+   ],
+   "notes": [],
+   "tone": "alt"
+  },
+  {
+   "_key": "0a7a04d021c7",
+   "_type": "vcSteps",
+   "head": {
+    "_type": "vcHead",
+    "badge": "How our pricing works",
+    "heading": "No surprise *hourly bills*",
+    "lead": "Fixed fees, agreed in writing, with licences kept separate from our service fees."
+   },
+   "items": [
+    {
+     "_key": "259c51062bab",
+     "_type": "vcStep",
+     "body": "Every package and initial phase has a fixed price, agreed in writing before work starts.",
+     "bullets": [],
+     "n": "01",
+     "title": "Fixed fee per phase"
+    },
+    {
+     "_key": "0f024e06e05c",
+     "_type": "vcStep",
+     "body": "Mid-scope and enterprise projects are quoted after a free scoping call or system audit.",
+     "bullets": [],
+     "n": "02",
+     "title": "Scoped after a call"
+    },
+    {
+     "_key": "eb4b6b54ac07",
+     "_type": "vcStep",
+     "body": "Consultants and pricing for Australia & NZ, South-East Asia, India & UAE, UK & Europe and US & Canada.",
+     "bullets": [],
+     "n": "03",
+     "title": "Local pricing"
+    },
+    {
+     "_key": "d5f624373e58",
+     "_type": "vcStep",
+     "body": "monday.com, Atlassian and HubSpot seats are paid to the vendor, or through our licence procurement service.",
+     "bullets": [],
+     "n": "04",
+     "title": "Licences billed separately"
+    }
+   ],
+   "layout": "steps s4",
+   "titleClass": "title",
+   "tone": "plain"
+  },
+  {
+   "_key": "f642b8a5a96c",
+   "_type": "vcSteps",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Our implementation method",
+    "heading": "How a Fruition *implementation runs*",
+    "lead": "The same five stages sit behind every package. Training & Optimisation compresses them; the other two run each in full."
+   },
+   "items": [
+    {
+     "_key": "3fe76bd05e63",
+     "_type": "vcStep",
+     "body": "We map team structures, current tools and the steps people actually follow, then agree the future process with the people who run it.",
+     "bullets": [],
+     "n": "01",
+     "title": "Discovery and process analysis"
+    },
+    {
+     "_key": "81a9db5a5289",
+     "_type": "vcStep",
+     "body": "Boards, columns, views, dashboards, forms and permissions built to the agreed design, using monday.com's native features first.",
+     "bullets": [],
+     "n": "02",
+     "title": "Configuration and customisation"
+    },
+    {
+     "_key": "10122353d972",
+     "_type": "vcStep",
+     "body": "Data moved from spreadsheets or legacy tools, and integrations set up to systems such as Xero, HubSpot, Salesforce, Outlook, Slack or Jira.",
+     "bullets": [],
+     "n": "03",
+     "title": "Data migration and integration"
+    },
+    {
+     "_key": "e5fe6ea5f7c8",
+     "_type": "vcStep",
+     "body": "Role-based training for end users, champions and admins, with documentation written for your workflows rather than generic guides.",
+     "bullets": [],
+     "n": "04",
+     "title": "Training and onboarding"
+    },
+    {
+     "_key": "a6f967bf3da3",
+     "_type": "vcStep",
+     "body": "A supported go-live, adoption checks and a clear path to a Deployed Engineer or ad-hoc help as your processes change.",
+     "bullets": [],
+     "n": "05",
+     "title": "Go-live and ongoing support"
+    }
+   ],
+   "layout": "steps s5",
+   "titleClass": "title",
+   "tone": "alt"
+  },
+  {
+   "_key": "cef2763122db",
+   "_type": "vcCards",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Why Fruition",
+    "heading": "Built to be adopted, *not abandoned*",
+    "lead": "Process first, delivered in your time zone, by a team that started inside monday.com."
+   },
+   "items": [
+    {
+     "_key": "1bbc770beb70",
+     "_type": "vcItem",
+     "body": "We map and agree the process before we build. It's why our implementations get adopted instead of abandoned after the first month.",
+     "title": "Process before platform"
+    },
+    {
+     "_key": "e869e44cc19a",
+     "_type": "vcItem",
+     "body": "Fruition was founded by Josh Jebathilak after about six years in sales leadership at monday.com, and is a monday.com Platinum Partner.",
+     "title": "monday.com insiders"
+    },
+    {
+     "_key": "39459d5b326e",
+     "_type": "vcItem",
+     "body": "Consultants working in Sydney, Singapore, India, London and New York hours, with pricing for each region.",
+     "title": "Your time zone, not ours"
+    },
+    {
+     "_key": "57be1b2d5fd4",
+     "_type": "vcItem",
+     "body": "We're also an Atlassian partner with a HubSpot practice, and we're OpenAI and Anthropic partners for monday AI and agent work.",
+     "title": "More than monday.com"
+    }
+   ],
+   "layout": "cards2",
+   "tone": "plain"
+  },
+  {
+   "_key": "bfc964de832b",
+   "_type": "vcProof",
+   "badge": "Client proof",
+   "ctas": [
+    {
+     "_key": "68e2d7ae9a8f",
+     "_type": "vcCta",
+     "arrow": true,
+     "href": "#book",
+     "label": "Book a free 30-minute system audit",
+     "style": "primary"
+    }
+   ],
+   "heading": "What clients say after *a Fruition implementation*",
+   "layout": "sticky",
+   "lead": "Operations and IT leaders on what changed once the work was mapped first.",
+   "quotes": [
+    {
+     "_key": "e917aaedd490",
+     "_ref": "vcQuote-jade-wood-popology-e2fb27",
+     "_type": "reference"
+    },
+    {
+     "_key": "0ffb47b79ce8",
+     "_ref": "vcQuote-luke-reddin-clean-power-australia-c110e8",
+     "_type": "reference"
+    },
+    {
+     "_key": "5dcfe6ab920e",
+     "_ref": "vcQuote-emily-hill-tourism-northern-territory-8e8ed1",
+     "_type": "reference"
+    },
+    {
+     "_key": "8ac4b9759e57",
+     "_ref": "vcQuote-lorenzo-tejada-orrell-clsq-962392",
+     "_type": "reference"
+    }
+   ],
+   "tone": "alt"
+  },
+  {
+   "_key": "e6998312b741",
+   "_type": "vcFacts",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Fact sheet",
+    "heading": "Fruition *at a glance*",
+    "lead": "The company, partnerships, packages and regions on one page."
+   },
+   "rows": [
+    {
+     "_key": "5c612ead3aa3",
+     "_type": "vcFactRow",
+     "label": "Company",
+     "value": "Fruition Services"
+    },
+    {
+     "_key": "1efefe986836",
+     "_type": "vcFactRow",
+     "label": "monday.com status",
+     "value": "monday.com Platinum Partner"
+    },
+    {
+     "_key": "10fd78db0d36",
+     "_type": "vcFactRow",
+     "label": "Other partnerships",
+     "value": "Atlassian partner · OpenAI partner · Anthropic Claude partner"
+    },
+    {
+     "_key": "4848dc66b661",
+     "_type": "vcFactRow",
+     "label": "Recognition",
+     "value": "2026 Rising Star awards · Finalist, 2026 Australian AI Awards · NSW Government ICT Services Scheme (SCM0020, Advanced)"
+    },
+    {
+     "_key": "c97d8a00a88d",
+     "_type": "vcFactRow",
+     "label": "Clients",
+     "value": "900+ small and mid-sized organisations"
+    },
+    {
+     "_key": "a68c8c640b94",
+     "_type": "vcFactRow",
+     "label": "Implementation packages",
+     "value": "Training & Optimisation (from $2,500 one-time) · Lock-Step (from $5,000 one-time) · Deployed Engineer (from $2,500 per month)"
+    },
+    {
+     "_key": "a0a33bbf6037",
+     "_type": "vcFactRow",
+     "label": "Other services",
+     "value": "AI consulting and agents (from A$5,000) · Atlassian (from A$10,000) · HubSpot (from A$8,000) · Automation and integrations (from A$3,000)"
+    },
+    {
+     "_key": "fc3ce764d458",
+     "_type": "vcFactRow",
+     "label": "monday.com products",
+     "value": "Work Management, monday CRM, monday Service, monday dev, monday AI and Vibe apps"
+    },
+    {
+     "_key": "f72a8b35d0bb",
+     "_type": "vcFactRow",
+     "label": "Regions",
+     "value": "Australia & NZ, South-East Asia, India & UAE, UK & Europe, US & Canada"
+    },
+    {
+     "_key": "a521ef1d3511",
+     "_type": "vcFactRow",
+     "label": "Approach",
+     "value": "Process before platform: map and agree the process, then design, build, train and hand over"
+    }
+   ],
+   "tone": "plain"
+  },
+  {
+   "_key": "f46337812eee",
+   "_type": "vcLinkCards",
+   "anchor": "regions",
+   "gridClass": "grid3",
+   "head": {
+    "_type": "vcHead",
+    "badge": "Regions",
+    "heading": "monday.com implementation *in your region*",
+    "lead": "Consultants and local pricing for Australia, the UK, the US, India and Singapore."
+   },
+   "items": [
+    {
+     "_key": "432ca0b89b5f",
+     "_type": "vcLinkCard",
+     "href": "/monday-partner-australia",
+     "title": "monday.com partner Australia"
+    },
+    {
+     "_key": "94fd362fc36b",
+     "_type": "vcLinkCard",
+     "href": "/monday-partner-uk",
+     "title": "monday.com partner UK"
+    },
+    {
+     "_key": "746418de7023",
+     "_type": "vcLinkCard",
+     "href": "/monday-partner-us",
+     "title": "monday.com partner US"
+    },
+    {
+     "_key": "8bfaf0b7ec0a",
+     "_type": "vcLinkCard",
+     "href": "/monday-partner-india",
+     "title": "monday.com partner India"
+    },
+    {
+     "_key": "281a79233fa5",
+     "_type": "vcLinkCard",
+     "href": "/monday-partner-singapore",
+     "title": "monday.com partner Singapore"
+    },
+    {
+     "_key": "753ed8980b35",
+     "_type": "vcLinkCard",
+     "href": "/monday-implementation-consultants",
+     "title": "monday.com implementation consultants"
+    },
+    {
+     "_key": "2c5a21757f84",
+     "_type": "vcLinkCard",
+     "href": "/training",
+     "title": "monday.com training"
+    }
+   ],
+   "tone": "alt"
+  },
+  {
+   "_key": "d21cbd6ab048",
+   "_type": "vcBooking",
+   "badge": "Book a time",
+   "heading": "Book a free 30-minute *system audit.*",
+   "lead": "We map your workflow, spot the automation wins and recommend the right implementation package. No obligation."
+  },
+  {
+   "_key": "dacfcae2c296",
+   "_type": "vcFaq",
+   "badge": "FAQ",
+   "heading": "Questions about our pricing and packages",
+   "tabs": [
+    {
+     "_key": "1f5d76b0c897",
+     "_type": "vcFaqTab",
+     "items": [
+      {
+       "_key": "99348e780ec0",
+       "_ref": "faqItem-vc-d6429d3124",
+       "_type": "reference"
+      },
+      {
+       "_key": "2f1eab57a0c6",
+       "_ref": "faqItem-vc-f561649d35",
+       "_type": "reference"
+      },
+      {
+       "_key": "d42c7933ec93",
+       "_ref": "faqItem-vc-p-87db2961f5",
+       "_type": "reference"
+      },
+      {
+       "_key": "9a714b21ea6f",
+       "_ref": "faqItem-vc-a4bcd55ea9",
+       "_type": "reference"
+      },
+      {
+       "_key": "a2ea80656a2e",
+       "_ref": "faqItem-vc-0c7571e683",
+       "_type": "reference"
+      },
+      {
+       "_key": "083d0236ad8f",
+       "_ref": "faqItem-vc-0b48cd1a28",
+       "_type": "reference"
+      },
+      {
+       "_key": "a7210e604d24",
+       "_ref": "faqItem-vc-649744e073",
+       "_type": "reference"
+      },
+      {
+       "_key": "7948301b03a1",
+       "_ref": "faqItem-vc-9cf16bcaae",
+       "_type": "reference"
+      },
+      {
+       "_key": "4049337825c4",
+       "_ref": "faqItem-vc-8b82be9c41",
+       "_type": "reference"
+      },
+      {
+       "_key": "dd4af13f82b3",
+       "_ref": "faqItem-vc-1bdfc9ec6e",
+       "_type": "reference"
+      },
+      {
+       "_key": "701c5ae4be14",
+       "_ref": "faqItem-vc-fe0f748bbc",
+       "_type": "reference"
+      },
+      {
+       "_key": "5a22a22ef26d",
+       "_ref": "faqItem-vc-f583325f82",
+       "_type": "reference"
+      }
+     ],
+     "label": "Pricing"
+    },
+    {
+     "_key": "1c6db8335f62",
+     "_type": "vcFaqTab",
+     "items": [
+      {
+       "_key": "bb4d634ddbc6",
+       "_ref": "faq-996791c3b8e54fea",
+       "_type": "reference"
+      },
+      {
+       "_key": "3c5ad12ec95b",
+       "_ref": "faq-3a5a095f24921851",
+       "_type": "reference"
+      },
+      {
+       "_key": "88a638210b32",
+       "_ref": "faq-e92a6bfd27d1a1a2",
+       "_type": "reference"
+      },
+      {
+       "_key": "5dbbc366fd01",
+       "_ref": "faq-7b7398dca28f22d5",
+       "_type": "reference"
+      }
+     ],
+     "label": "monday.com consulting"
+    },
+    {
+     "_key": "bd930651b8f2",
+     "_type": "vcFaqTab",
+     "items": [
+      {
+       "_key": "b7fecad84d94",
+       "_ref": "faq-962f468c8af87df6",
+       "_type": "reference"
+      },
+      {
+       "_key": "f5320b21fe66",
+       "_ref": "faq-5a8a0b161f82bdd9",
+       "_type": "reference"
+      },
+      {
+       "_key": "3842c061fb83",
+       "_ref": "faq-e52013de3ae6c45f",
+       "_type": "reference"
+      },
+      {
+       "_key": "812820244fc8",
+       "_ref": "faq-276ddd9063cda7a2",
+       "_type": "reference"
+      },
+      {
+       "_key": "27ec0c396cb4",
+       "_ref": "faq-c2d5fa462cce7170",
+       "_type": "reference"
+      },
+      {
+       "_key": "cff9fd3ce4d8",
+       "_ref": "faq-1da7604cc89feeb5",
+       "_type": "reference"
+      }
+     ],
+     "label": "Training"
+    },
+    {
+     "_key": "95941d086392",
+     "_type": "vcFaqTab",
+     "items": [
+      {
+       "_key": "1fa8da8c7528",
+       "_ref": "faqItem-vc-72a5a33194",
+       "_type": "reference"
+      },
+      {
+       "_key": "e83bd0e269af",
+       "_ref": "faqItem-vc-b995fcb18f",
+       "_type": "reference"
+      },
+      {
+       "_key": "b72dc240310b",
+       "_ref": "faqItem-vc-d35760b970",
+       "_type": "reference"
+      },
+      {
+       "_key": "20f51c8d60db",
+       "_ref": "faqItem-vc-12e97d48d2",
+       "_type": "reference"
+      }
+     ],
+     "label": "Getting in touch"
+    }
+   ],
+   "tone": "plain"
+  },
+  {
+   "_key": "7a3f2ee20c45",
+   "_type": "vcClosing",
+   "badge": "Not sure which one you need?",
+   "ctas": [
+    {
+     "_key": "0845360f6cb2",
+     "_type": "vcCta",
+     "arrow": true,
+     "href": "#book",
+     "label": "Book a free system audit",
+     "style": "inverse"
+    },
+    {
+     "_key": "cc8770b73af3",
+     "_type": "vcCta",
+     "arrow": false,
+     "href": "tel:+61483955931",
+     "label": "Call +61 483 955 931",
+     "style": "ghost"
+    }
+   ],
+   "heading": "Get a fixed price *for your project*",
+   "lead": "Book a free 30-minute system audit. We'll map your workflow, spot the automation wins and recommend the package to get there."
+  }
+ ],
+ "seoDescription": "Fixed-fee implementation packages sized to your team, no hourly billing. Compare what’s included and book a free system audit.",
+ "seoTitle": "Fixed-fee Implementation Packages | Fruition Pricing",
+ "title": "Fruition pricing"
+}
