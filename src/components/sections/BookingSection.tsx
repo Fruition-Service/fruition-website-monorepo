@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
+import { zoneAbbr } from "@/lib/meetingTime"
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { ChangeEvent, CSSProperties, ReactNode } from "react"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
@@ -86,13 +87,19 @@ export interface BookingSectionProps {
   headingAs?: "h1" | "h2"
 }
 
+/**
+ * The zones the picker offers, by place name only. The short name (AEDT/AEST,
+ * GMT/BST, EST/EDT, PST/PDT) is worked out for the date being booked by
+ * `tzLabel`: a fixed "Sydney (AEST)" was wrong for half the year and showed
+ * November slots under summer and winter names they were not in.
+ */
 const TZS: [string, string][] = [
-  ["Australia/Sydney", "Sydney (AEST)"],
-  ["Asia/Singapore", "Singapore (SGT)"],
-  ["Asia/Kolkata", "India (IST)"],
-  ["Europe/London", "London (BST)"],
-  ["America/New_York", "New York (EDT)"],
-  ["America/Los_Angeles", "Los Angeles (PDT)"],
+  ["Australia/Sydney", "Sydney"],
+  ["Asia/Singapore", "Singapore"],
+  ["Asia/Kolkata", "India"],
+  ["Europe/London", "London"],
+  ["America/New_York", "New York"],
+  ["America/Los_Angeles", "Los Angeles"],
 ]
 /**
  * The platforms we implement — answers "What should we prepare for?".
@@ -148,9 +155,12 @@ const MONTH_FULL = ["January", "February", "March", "April", "May", "June", "Jul
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 /* ---------- helpers ---------- */
-function tzLabel(tz: string): string {
+/** "Sydney (AEDT)": place name plus the zone's short name at `at`. */
+function tzLabel(tz: string, at: Date): string {
   const hit = TZS.find((x) => x[0] === tz)
-  return hit ? hit[1] : (tz.split("/").pop() ?? tz).replace(/_/g, " ")
+  const place = hit ? hit[1] : (tz.split("/").pop() ?? tz).replace(/_/g, " ")
+  const abbr = zoneAbbr(at, tz)
+  return abbr ? `${place} (${abbr})` : place
 }
 /** "YYYY-MM-DD" of a UTC instant in the given timezone. */
 function dayFmt(tz: string): Intl.DateTimeFormat {
@@ -647,6 +657,9 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
   const [failed, setFailed] = useState(false)
   const [dayKey, setDayKey] = useState<string | null>(null)
   const [slot, setSlot] = useState<Slot | null>(null)
+  // The moment the picker's zone names describe: the chosen slot, else the
+  // chosen day, else today. Sydney is AEDT in November and AEST in June.
+  const tzAt = slot ? new Date(slot.start) : dayKey ? new Date(`${dayKey}T12:00:00Z`) : new Date()
   // null = follow availability; a number = the visitor paged with ‹ ›
   const [monthOffsetOverride, setMonthOffsetOverride] = useState<number | null>(null)
   const [step, setStep] = useState<1 | 2 | 3>(1)
@@ -939,7 +952,7 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
             <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: "-.01em" }}>
               {dayShort(dayKey)} · {fmtTime(slot.start, tz)}
             </span>
-            <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>{duration} min · Google Meet · {tzLabel(tz)}</span>
+            <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>{duration} min · Google Meet · {tzLabel(tz, new Date(slot.start))}</span>
           </div>
           <button type="button" onClick={() => setStep(1)} style={{ flex: "none", height: 32, padding: "0 14px", borderRadius: 9999, border: "1px solid var(--color-border)", background: "#fff", fontFamily: "var(--font-sans)", fontSize: 12.5, fontWeight: 600, color: "var(--cta-blue)", cursor: "pointer" }}>
             Change
@@ -1090,8 +1103,8 @@ export function BookingCard({ duration, askTeamSize, calendlyUrl, forceRegion, t
         <label className="fr-booking-picker" style={pickerPill}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5l3 2" /></svg>
           <select value={tz} onChange={(e) => setTz(e.target.value)} className="fr-booking-select" style={pickerSelect}>
-            {(TZS.some((x) => x[0] === tz) ? TZS : ([[tz, `${tzLabel(tz)} · detected`] as [string, string], ...TZS])).map(([v, l]) => (
-              <option key={v} value={v}>{l}</option>
+            {(TZS.some((x) => x[0] === tz) ? TZS : ([[tz, ""], ...TZS] as [string, string][])).map(([v]) => (
+              <option key={v} value={v}>{tzLabel(v, tzAt)}{TZS.some((x) => x[0] === v) ? "" : " · detected"}</option>
             ))}
           </select>
           <span style={{ color: "var(--color-text-secondary)", marginLeft: -2 }}><Chevron dir="down" size={13} /></span>

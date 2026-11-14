@@ -98,6 +98,25 @@ function zoneLabel(d: Date, tz: string): string {
   return icu && !/^(GMT|UTC)/.test(icu) ? `${icu} (${offset})` : offset
 }
 
+/**
+ * The zone's short name at instant `d`: "AEDT", "GMT", "PST", or "UTC+8" when
+ * neither our list nor ICU has a proper abbreviation. Summer and winter names
+ * differ, so always pass the moment being described, never a fixed season.
+ */
+export function zoneAbbr(d: Date, tz: string): string {
+  try {
+    const mins = offsetMinutes(d, tz)
+    const curated = ABBR[`${tz}|${mins}`]
+    if (curated) return curated
+    const icu = new Intl.DateTimeFormat("en-GB", { timeZone: tz, timeZoneName: "short" })
+      .formatToParts(d)
+      .find((p) => p.type === "timeZoneName")?.value
+    return icu && !/^(GMT|UTC)[+-]/.test(icu) ? icu : offsetLabel(mins)
+  } catch {
+    return ""
+  }
+}
+
 /** "Mon 24 Aug 2026, 5:30 PM" */
 function wallClock(d: Date, tz: string): string {
   return new Intl.DateTimeFormat("en-GB", {
