@@ -85,9 +85,7 @@ export async function getBlogPostBySlug(slug: string) {
   return withPhoto as typeof post
 }
 
-export async function getRelatedBlogPosts(excludeSlug: string, limit = 2) {
-  return withAuthorPhotos(await client.fetch(
-    `*[_type == "blogPost" && slug.current != $excludeSlug] | order(publishedAt desc) [0...$limit] {
+const RELATED_FIELDS = `
       _id,
       title,
       "slug": slug.current,
@@ -96,10 +94,34 @@ export async function getRelatedBlogPosts(excludeSlug: string, limit = 2) {
       excerpt,
       "coverImage": coalesce(coverImage, mainImage, featuredImage, heroImage, body[_type == "image"][0]),
       "charCount": length(pt::text(body)),
-      categories[]->{ _id, title, "slug": slug.current }
+      categories[]->{ _id, title, "slug": slug.current }`
+
+/**
+ * Related posts under an article: posts sharing one of its categories first
+ * (newest first), then the newest of the rest to fill `limit`.
+ */
+export async function getRelatedBlogPosts(excludeSlug: string, limit = 2, categoryIds: string[] = []) {
+  const [same, newest] = await Promise.all([
+    categoryIds.length
+      ? client.fetch(
+          `*[_type == "blogPost" && defined(slug.current) && slug.current != $excludeSlug && count((categories[]._ref)[@ in $categoryIds]) > 0] | order(publishedAt desc) [0...$limit] {${RELATED_FIELDS}
     }`,
-    { excludeSlug, limit }
-  ))
+          { excludeSlug, limit, categoryIds },
+        )
+      : Promise.resolve([]),
+    client.fetch(
+      `*[_type == "blogPost" && defined(slug.current) && slug.current != $excludeSlug] | order(publishedAt desc) [0...$limit] {${RELATED_FIELDS}
+    }`,
+      { excludeSlug, limit },
+    ),
+  ])
+  const seen = new Set<string>()
+  const merged = [...(same ?? []), ...(newest ?? [])].filter((p: { _id: string }) => {
+    if (seen.has(p._id)) return false
+    seen.add(p._id)
+    return true
+  })
+  return withAuthorPhotos(merged.slice(0, limit))
 }
 
 export interface BlogAuthorSummary {

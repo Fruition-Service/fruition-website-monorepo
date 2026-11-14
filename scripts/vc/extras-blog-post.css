@@ -1,0 +1,136 @@
+/* Blog post template (/post/<slug>), Version C, approved by Edward 14 Nov 2026.
+   Mock-ups: review-v3 p/blog-sap.html and p/blog-claude-github.html (notes/blog-template.md).
+   Appended to the /consulting-blog stylesheet by build-css.mjs (DERIVED_PAGES) to make
+   src/styles/vc/pages/blog-post.css; the route renders `vc vc-p-consulting-blog vc-p-blog-post`. */
+.vc-p-blog-post .ah{padding:72px 0 0}
+.vc-p-blog-post .ah-top{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:64px;align-items:start}
+.vc-p-blog-post .ah-crumb{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.vc-p-blog-post .ah-crumb a.label:hover{color:var(--accent)}
+.vc-p-blog-post .ah h1.display{font-size:48px;line-height:1.1;max-width:860px}
+.vc-p-blog-post .ah .lead{margin-top:24px;max-width:680px;font-size:20px}
+.vc-p-blog-post .ah-meta{display:flex;flex-direction:column;border-bottom:1px solid var(--line)}
+.vc-p-blog-post .ah-meta>div{display:flex;flex-direction:column;gap:8px;padding:16px 0;border-top:1px solid var(--line)}
+.vc-p-blog-post .ah-meta dd{font-size:15px;font-weight:500}
+.vc-p-blog-post .ah-who{display:inline-flex;align-items:center;gap:12px}
+.vc-p-blog-post .ah-who:hover span{color:var(--accent)}
+.vc-p-blog-post .ah-who img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.vc-p-blog-post .shr{display:flex;gap:10px}
+.vc-p-blog-post .shr a,.vc-p-blog-post .shr button{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);color:var(--ink);background:#fff;transition:border-color .2s,color .2s}
+.vc-p-blog-post .shr a:hover,.vc-p-blog-post .shr button:hover{border-color:var(--accent);color:var(--accent)}
+.vc-p-blog-post .shr svg{width:17px;height:17px}
+.vc-p-blog-post .ah-cover{margin-top:56px;border-radius:var(--r4);border:1px solid var(--line);background:var(--paper-2);overflow:hidden}
+.vc-p-blog-post .ah-cover img{display:block;width:100%;height:auto}
+
+.vc-p-blog-post .ab{padding:80px 0 var(--sec)}
+.vc-p-blog-post .ab-grid{display:grid;grid-template-columns:minmax(200px,240px) minmax(0,680px) minmax(0,240px);justify-content:space-between;gap:48px;align-items:start}
+.vc-p-blog-post .toc{position:sticky;top:104px;max-height:calc(100vh - 128px);overflow:auto}
+.vc-p-blog-post .toc .label{display:block;margin-bottom:16px}
+.vc-p-blog-post .toc ol,.vc-p-blog-post .toc-m ol{list-style:none;display:flex;flex-direction:column}
+.vc-p-blog-post .toc ol{border-left:1px solid var(--line)}
+.vc-p-blog-post .toc a,.vc-p-blog-post .toc-m a{display:block;padding:8px 0 8px 16px;font-size:14px;line-height:1.4;color:var(--ink-2);transition:color .2s,border-color .2s}
+.vc-p-blog-post .toc a{margin-left:-1px;border-left:2px solid transparent}
+.vc-p-blog-post .toc a:hover,.vc-p-blog-post .toc-m a:hover{color:var(--accent)}
+.vc-p-blog-post .toc a:hover{border-left-color:var(--accent)}
+.vc-p-blog-post .toc-m{display:none;border:1px solid var(--line);border-radius:var(--r3);background:var(--paper-2)}
+.vc-p-blog-post .toc-m summary{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}
+.vc-p-blog-post .toc-m summary::-webkit-details-marker{display:none}
+.vc-p-blog-post .toc-m summary svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.75px;transition:transform .2s var(--ease)}
+.vc-p-blog-post .toc-m[open] summary svg{transform:rotate(45deg)}
+.vc-p-blog-post .toc-m ol{padding:0 20px 14px}
+
+.vc-p-blog-post .prose{color:var(--ink);font-size:18px;line-height:1.75}
+.vc-p-blog-post .prose>*+*{margin-top:24px}
+.vc-p-blog-post .prose>h2{font:500 32px/1.15 var(--sans);letter-spacing:-.03em;text-wrap:balance;margin-top:64px;scroll-margin-top:104px}
+.vc-p-blog-post .prose>h3{font:500 24px/1.25 var(--sans);letter-spacing:-.02em;margin-top:44px;scroll-margin-top:104px}
+.vc-p-blog-post .prose>h2+*,.vc-p-blog-post .prose>h3+*{margin-top:16px}
+.vc-p-blog-post .prose>h2+figure{margin-top:28px}
+.vc-p-blog-post .prose strong{font-weight:600}
+.vc-p-blog-post .prose a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.vc-p-blog-post .prose a:hover{color:var(--accent-press)}
+.vc-p-blog-post .prose ul{list-style:disc;padding-left:24px}
+.vc-p-blog-post .prose li+li{margin-top:10px}
+.vc-p-blog-post .prose li::marker{color:var(--accent)}
+.vc-p-blog-post .prose figure{margin-top:40px}
+.vc-p-blog-post .prose figure+*{margin-top:40px}
+.vc-p-blog-post .prose .pic img{width:100%;height:auto;border-radius:var(--r3);border:1px solid var(--line)}
+.vc-p-blog-post .prose .vid{position:relative;aspect-ratio:16/9;border-radius:var(--r3);border:1px solid var(--line);overflow:hidden;background:var(--paper-2)}
+.vc-p-blog-post .prose .vid img{width:100%;height:100%;object-fit:cover}
+.vc-p-blog-post .prose .vid button{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.vc-p-blog-post .prose .vid button span{display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:var(--accent);color:#fff;transition:background .2s}
+.vc-p-blog-post .prose .vid button:hover span{background:var(--accent-press)}
+.vc-p-blog-post .prose .vid svg{width:28px;height:28px}
+.vc-p-blog-post .prose .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r3)}
+.vc-p-blog-post .prose table{width:100%;min-width:520px;border-collapse:collapse;font-size:15px;line-height:1.5}
+.vc-p-blog-post .prose th,.vc-p-blog-post .prose td{padding:14px 18px;text-align:left;vertical-align:top}
+.vc-p-blog-post .prose thead th{font:400 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--ink-3);background:var(--paper-2)}
+.vc-p-blog-post .prose tbody tr{border-top:1px solid var(--line)}
+.vc-p-blog-post .prose tbody th{font-weight:600;color:var(--ink)}
+.vc-p-blog-post .prose .audit{flex-direction:column;align-items:flex-start;gap:28px;margin-top:56px;padding:44px 40px;border-radius:var(--r4)}
+.vc-p-blog-post .prose .audit+*{margin-top:56px}
+.vc-p-blog-post .prose .audit h2{font-size:32px;line-height:1.12}
+.vc-p-blog-post .prose .audit p{margin-top:12px;font-size:16px;line-height:1.55}
+
+.vc-p-blog-post .faq{display:grid;grid-template-columns:1fr 2fr;gap:64px}
+.vc-p-blog-post .wb{padding:56px 0}
+.vc-p-blog-post .wb-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;padding:28px 32px;border:1px solid var(--line);border-radius:var(--r3)}
+.vc-p-blog-post .who{display:flex;align-items:center;gap:20px}
+.vc-p-blog-post .who>span{display:flex;flex-direction:column;gap:6px}
+.vc-p-blog-post .who:hover .title{color:var(--accent)}
+.vc-p-blog-post .who img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.vc-p-blog-post .wb-share{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.vc-p-blog-post .rel-h{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px}
+.vc-p-blog-post .rel-h .more:hover{color:var(--accent)}
+.vc-p-blog-post .post .pic img{aspect-ratio:16/9}
+.vc-p-blog-post .post .by{display:flex;align-items:center;gap:10px}
+.vc-p-blog-post .post .by .av{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+
+@media (min-width:1024px) and (max-width:1239px){
+.vc-p-blog-post .ab-grid{grid-template-columns:minmax(200px,240px) minmax(0,680px);justify-content:center}
+.vc-p-blog-post .ab-r{display:none}
+}
+@media (max-width:1023px){
+.vc-p-blog-post .ah{padding:56px 0 0}
+.vc-p-blog-post .ah-top{grid-template-columns:1fr;gap:40px}
+.vc-p-blog-post .ah-meta{flex-direction:row;flex-wrap:wrap;column-gap:40px;border-bottom:0;border-top:1px solid var(--line)}
+.vc-p-blog-post .ah-meta>div{border-top:0;padding:20px 0 0}
+.vc-p-blog-post .ah-cover{margin-top:40px}
+.vc-p-blog-post .ab{padding:48px 0 72px}
+.vc-p-blog-post .ab-grid{grid-template-columns:minmax(0,1fr);gap:40px}
+.vc-p-blog-post .toc,.vc-p-blog-post .ab-r{display:none}
+.vc-p-blog-post .toc-m{display:block}
+.vc-p-blog-post .faq{grid-template-columns:1fr;gap:40px}
+}
+@media (max-width:767px){
+.vc-p-blog-post .ah{padding:40px 0 0}
+.vc-p-blog-post .ah h1.display{font-size:32px}
+.vc-p-blog-post .ah .lead{font-size:18px}
+.vc-p-blog-post .ah-cover{border-radius:var(--r3)}
+.vc-p-blog-post .prose{font-size:17px}
+.vc-p-blog-post .prose>h2{font-size:26px;margin-top:48px}
+.vc-p-blog-post .prose>h3{font-size:20px;margin-top:36px}
+.vc-p-blog-post .prose .audit{padding:32px 24px}
+.vc-p-blog-post .prose .audit h2{font-size:26px}
+.vc-p-blog-post .wb{padding:40px 0}
+.vc-p-blog-post .wb-in{padding:24px}
+.vc-p-blog-post .rel-h{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+}
+
+/* Site additions beyond the mock-up: the live video player, captions and the
+   44px tap targets the mock-up's 38px share buttons and contents links miss. */
+.vc-p-blog-post .prose .vid-live{aspect-ratio:16/9;border-radius:var(--r3);border:1px solid var(--line);overflow:hidden;background:var(--paper-2)}
+.vc-p-blog-post .prose .vid-live iframe{display:block;width:100%;height:100%;border:0}
+.vc-p-blog-post .prose figcaption{margin-top:12px;font-size:14px;line-height:1.5;color:var(--ink-3);text-align:center}
+.vc-p-blog-post .prose ol{list-style:decimal;padding-left:24px}
+.vc-p-blog-post .prose ol li::marker{color:var(--accent)}
+.vc-p-blog-post .prose blockquote{padding-left:20px;border-left:3px solid var(--accent);font-style:italic}
+.vc-p-blog-post .prose>h4{font:600 18px/1.4 var(--sans);margin-top:36px}
+.vc-p-blog-post .prose em{font-style:italic}
+.vc-p-blog-post .prose .audit .btn{color:var(--fg);text-decoration:none}
+.vc-p-blog-post .shr a,.vc-p-blog-post .shr button{width:44px;height:44px}
+.vc-p-blog-post .toc-m summary{min-height:44px}
+.vc-p-blog-post .toc-m a{min-height:44px;display:flex;align-items:center}
+.vc-p-blog-post .ah-crumb a.label{display:inline-flex;align-items:center;min-height:44px}
+.vc-p-blog-post .rel-h .more{display:inline-flex;align-items:center;min-height:44px}
+.vc-p-blog-post .shr .copied{color:var(--accent);border-color:var(--accent)}
+.vc-p-blog-post .ah-who{min-height:44px}
+.vc-p-blog-post .toc a{min-height:44px;display:flex;align-items:center}

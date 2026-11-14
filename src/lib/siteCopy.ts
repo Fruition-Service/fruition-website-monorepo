@@ -23,7 +23,7 @@ export const SITE_COPY = {
   "audit-heading": { label: "Audit banner: heading", text: "Ready to build systems that scale with your team?" },
   "audit-body": {
     label: "Audit banner: body",
-    text: "Book a complimentary 30-minute audit with a Fruition consultant — we will map your workflows, spot the automation wins and show you what the build looks like.",
+    text: "Book a complimentary 30-minute audit with a Fruition consultant. We will map your workflows, spot the automation wins and show you what the build looks like.",
   },
   "audit-cta": { label: "Audit banner: button", text: "Book a 30-Min System Audit" },
 
