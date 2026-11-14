@@ -110,6 +110,21 @@ export const PAGES: Record<string, [string, string]> = {
   'ai-use-cases': ['/ai-use-cases', 'core'],
   'ask-fruit': ['/ask-fruit', 'core'],
   home: ['/', 'core'],
+  // 14 Nov 2026: pages the 11 Nov rollout missed, mock-ups approved by Edward (review-v3)
+  'aws-partner': ['/partnerships/aws-partner', 'partner'],
+  'google-cloud-partner': ['/partnerships/google-cloud-partner', 'partner'],
+  'microsoft-azure-partner': ['/partnerships/microsoft-azure-partner', 'partner'],
+  'microsoft-copilot-partner': ['/partnerships/microsoft-copilot-partner', 'partner'],
+  'supabase-partner': ['/partnerships/supabase-partner', 'partner'],
+  'clay-partner': ['/partnerships/clay-partner', 'partner'],
+  'elevenlabs-partner': ['/partnerships/elevenlabs-partner', 'partner'],
+  'hootsuite-delivery-partner': ['/partnerships/hootsuite-delivery-partner', 'partner'],
+  'int-twilio': ['/integrations/twilio', 'partner'],
+  'int-zapier': ['/integrations/zapier', 'partner'],
+  'ai-customer-service': ['/ai-consulting/customer-service', 'ai'],
+  'ai-marketing-automation': ['/ai-consulting/marketing-automation', 'ai'],
+  'ai-operations-back-office': ['/ai-consulting/operations-back-office', 'ai'],
+  'ai-sales-outbound': ['/ai-consulting/sales-outbound', 'ai'],
 }
 
 /* ------------------------------------------------------------- helpers */
@@ -1447,7 +1462,8 @@ async function main() {
   const tx = client.transaction()
   for (const d of [...sharedDocs.values(), ...newFaqs, ...pages]) tx.createOrReplace(resolveAssets(d) as Doc)
   for (const p of faqPatches) tx.patch(p.id, (q) => q.set({ answer: p.answer }))
-  if (practitionerShared) {
+  // --keep-shared-practitioner: pages whose snapshot heading differs (old page copy) must not overwrite the shared block
+  if (practitionerShared && !process.argv.includes('--keep-shared-practitioner')) {
     tx.createIfNotExists({ _id: 'vcShared', _type: 'vcShared' })
     tx.patch('vcShared', (q) => q.set({ practitioners: resolveAssets({ _type: 'object', ...practitionerShared }) }))
   }

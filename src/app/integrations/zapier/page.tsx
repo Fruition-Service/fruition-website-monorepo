@@ -1,14 +1,14 @@
-import PracticePageTemplate from '@/components/PracticePageTemplate'
-import { INTEGRATIONS_PAGES } from '@/data/practicePages/integrations'
-import { practiceMetadata } from '@/data/practicePages/types'
-import { getPracticePageContent } from '@/features/content/practicePage'
+// Version C (14 Nov 2026): built on the approved Integrations hub layout, so it shares that page's
+// stylesheet and scope class. Content: vcPage document for /integrations/zapier (docs/version-c.md).
+import "@/styles/vc/pages/integrations.css"
+import { VcPage, vcMetadata } from "@/components/vc/VcPage"
 
-const page = INTEGRATIONS_PAGES['zapier']
+const PATH = "/integrations/zapier"
 
-export async function generateMetadata() {
-  return practiceMetadata(await getPracticePageContent(page))
+export function generateMetadata() {
+  return vcMetadata(PATH)
 }
 
-export default async function Page() {
-  return <PracticePageTemplate page={await getPracticePageContent(page)} />
+export default function Page() {
+  return <VcPage path={PATH} slug="integrations" />
 }
