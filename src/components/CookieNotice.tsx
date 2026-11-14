@@ -57,7 +57,7 @@ export default function CookieNotice() {
     <div
       role="region"
       aria-label="Visitor identification notice"
-      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-4 md:inset-x-auto md:left-6 md:bottom-6 md:justify-start md:px-0 md:pb-0"
+      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] md:inset-x-auto md:left-6 md:bottom-6 md:justify-start md:px-0 md:pb-0"
     >
       <div
         style={{
@@ -65,7 +65,7 @@ export default function CookieNotice() {
           transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
         }}
         className={[
-          "w-full max-w-[27rem] rounded-card border border-ui bg-surface-raised p-5 shadow-card dark:shadow-none",
+          "w-full max-w-[27rem] rounded-card border border-ui bg-surface-raised py-2 pl-3.5 pr-2 shadow-card dark:shadow-none md:p-5",
           "transition-[opacity,transform] will-change-transform",
           "motion-reduce:transition-none",
           entered
@@ -73,51 +73,86 @@ export default function CookieNotice() {
             : "opacity-0 translate-y-3 motion-reduce:translate-y-0",
         ].join(" ")}
       >
-        <div className="flex items-start gap-3">
-          <span
-            aria-hidden="true"
-            className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-[#f4ecfd] text-brand"
-          >
-            {/* shield-check */}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-          </span>
-          <div className="min-w-0">
-            <p className="text-[15px] font-semibold tracking-tight text-body">
-              We recognise business visitors
-            </p>
-            <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">
-              To understand which companies research our services and follow up,
-              we identify business visitors to this site. You can opt out, and it
-              never affects how the site works.{" "}
-              <Link
-                prefetch={false}
-                href="/data-privacy"
-                className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
-              >
-                How this works
-              </Link>
-            </p>
+        {/* Phones: one compact row (Claude Design spec, 14 Nov 2026), so the
+            notice covers about a tenth of the first screen instead of a
+            third. Same choices, same link. */}
+        <div className="flex items-center gap-2.5 md:hidden">
+          <p className="min-w-0 flex-1 text-[13px] leading-[17px] text-muted">
+            We identify visiting businesses to follow up.{" "}
+            <Link
+              prefetch={false}
+              href="/data-privacy"
+              className="relative whitespace-nowrap font-medium text-brand underline underline-offset-2 before:absolute before:-inset-x-1.5 before:-inset-y-3.5 before:content-[''] hover:text-brand-dark"
+            >
+              How this works
+            </Link>
+          </p>
+          <div className="flex flex-none items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => decide("accepted")}
+              className="inline-flex h-11 items-center justify-center rounded-pill bg-[linear-gradient(to_right,var(--purple-primary),var(--purple-light))] px-4 text-[14px] font-bold leading-none text-white transition-colors hover:bg-brand-dark hover:bg-none"
+            >
+              Got it
+            </button>
+            <button
+              type="button"
+              onClick={() => decide("declined")}
+              className="inline-flex h-11 items-center justify-center rounded-pill border border-ui bg-surface-raised px-3.5 text-[14px] font-semibold leading-none text-muted transition-colors hover:border-[#c9c9d4] hover:text-body"
+            >
+              Decline
+            </button>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={() => decide("accepted")}
-            className="inline-flex h-10 flex-1 items-center justify-center rounded-pill bg-[linear-gradient(to_right,var(--purple-primary),var(--purple-light))] px-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark hover:bg-none"
-          >
-            Got it
-          </button>
-          <button
-            type="button"
-            onClick={() => decide("declined")}
-            className="inline-flex h-10 items-center justify-center rounded-pill border border-ui px-4 text-[14px] font-semibold text-muted transition-colors hover:border-[#c9c9d4] hover:text-body"
-          >
-            Decline
-          </button>
+        {/* Tablet and desktop: the full notice. */}
+        <div className="hidden md:block">
+          <div className="flex items-start gap-3">
+            <span
+              aria-hidden="true"
+              className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-[#f4ecfd] text-brand"
+            >
+              {/* shield-check */}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <div className="min-w-0">
+              <p className="text-[15px] font-semibold tracking-tight text-body">
+                We recognise business visitors
+              </p>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">
+                To understand which companies research our services and follow up,
+                we identify business visitors to this site. You can opt out, and it
+                never affects how the site works.{" "}
+                <Link
+                  prefetch={false}
+                  href="/data-privacy"
+                  className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
+                >
+                  How this works
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => decide("accepted")}
+              className="inline-flex h-10 flex-1 items-center justify-center rounded-pill bg-[linear-gradient(to_right,var(--purple-primary),var(--purple-light))] px-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark hover:bg-none"
+            >
+              Got it
+            </button>
+            <button
+              type="button"
+              onClick={() => decide("declined")}
+              className="inline-flex h-10 items-center justify-center rounded-pill border border-ui px-4 text-[14px] font-semibold text-muted transition-colors hover:border-[#c9c9d4] hover:text-body"
+            >
+              Decline
+            </button>
+          </div>
         </div>
       </div>
     </div>
