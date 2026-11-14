@@ -1,0 +1,66 @@
+{
+  "docs": [
+    {
+      "_createdAt": "2026-11-14T04:46:52Z",
+      "_id": "vcCase-adg-construction",
+      "_rev": "4UtamtR3wmQaeEVZTcG6Ea",
+      "_type": "vcCase",
+      "_updatedAt": "2026-11-14T10:17:47Z",
+      "body": "An Australian builder whose leads get follow-ups by SMS through Twilio and by email, with quote tracking and automatic reminders.",
+      "client": "ADG Construction",
+      "label": "Client build · Australia",
+      "logo": {
+        "_type": "image",
+        "alt": "ADG Construction logo",
+        "asset": {
+          "_ref": "image-7806715e6eb160f0443f027c001ebf4478899f3a-122x47-png",
+          "_type": "reference"
+        }
+      },
+      "photo": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4a16c5d2576c3abf14aa9c05ccd7ed0320691e35-1320x880-jpg",
+          "_type": "reference"
+        }
+      },
+      "results": [],
+      "tags": [
+        "Twilio SMS",
+        "Lead follow-up",
+        "Quote reminders"
+      ]
+    },
+    {
+      "_createdAt": "2026-11-14T04:46:52Z",
+      "_id": "vcCase-office-furniture-company",
+      "_rev": "yfMOnpqsGU6HIl2c2ylek3",
+      "_type": "vcCase",
+      "_updatedAt": "2026-11-14T04:46:52Z",
+      "body": "An Australian office furniture retailer. Marketing requests turn into projects, campaigns, a content calendar and creative briefs, and its new marketing agency is set up with AI integrations.",
+      "client": "Office Furniture Company",
+      "label": "Client build · Australia",
+      "logo": {
+        "_type": "image",
+        "alt": "Office Furniture Company logo",
+        "asset": {
+          "_ref": "image-b5f6a52306b7b82c3ff3747de0be1479f52346e8-440x141-png",
+          "_type": "reference"
+        }
+      },
+      "photo": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-922865f25cbf96fd079108bdf2223692496e0299-660x440-webp",
+          "_type": "reference"
+        }
+      },
+      "results": [],
+      "tags": [
+        "Campaign workflow",
+        "Content calendar",
+        "AI integrations"
+      ]
+    }
+  ]
+}
