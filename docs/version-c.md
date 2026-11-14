@@ -49,6 +49,15 @@ is click-to-edit on editing.fruitionservices.io.
 | `/industries` (hub) | core | `/ai-use-cases` (slug `ai-use-cases`) | `scripts/vc/migrate.ts` | 14 Nov 2026. 18 industry tiles (`vcItem.cardLink` + `cardTile`, which keeps the card in the grid with its "Featured" label) and the four team links; hero fact pills (`vcHero.pills`, styles in `scripts/vc/extras.css`). The route still emits the hub's CollectionPage JSON-LD from `src/data/hubs/industries.ts`. |
 | `/integrations/{whatsapp,line,viber}` | partner | `/integrations` (slug `integrations`) | same | 14 Nov 2026. Replaces `MessagingChannelTemplate`; every section of the old copy carried over as cards (the intro callout is a heading-only `vcCards`). Nikki's rules still hold: no hero partner badges, no client logo wall. No cases: no real WhatsApp, LINE or Viber client build exists. The dated facts (Meta pricing from 1 Oct 2026, LINE repricing) need a quarterly check. |
 
+### Code-rendered pages in the Version C look
+
+Three surfaces are code, not `vcPage` documents, because they carry behaviour a static page would lose.
+They use the Version C classes and stylesheets directly; their copy stays where it was.
+
+| Route | Component | Stylesheet | Added |
+|---|---|---|---|
+| `/post/<slug>` | `src/components/BlogPostTemplate.tsx` | `pages/blog-post.css`: the `/consulting-blog` file plus `scripts/vc/extras-blog-post.css`, rebuilt alone with `node scripts/vc/build-css.mjs --derived-only` (`DERIVED_PAGES`) | 14 Nov 2026, review-v3 `blog-sap` / `blog-claude-github` mock-ups. Hero with a meta column, sticky "On this page" (the body's H2s), one 680px reading column, the post's FAQ block in the accordion (`src/lib/blogFaq.ts` moves an "FAQs" H2 with H3 questions; any other shape stays inline), author card, related posts (same category first), and the `/consulting-blog` closing band from Sanity. Body, headings and the Marketa contract (docs/architecture.md §9) are unchanged. |
+
 ### Use cases on industry pages (`vcUseCases`)
 
 The twelve `/ai-use-cases/<industry>` pages were retired on 13 Nov 2026 (1 search click and ~160 impressions in

@@ -23,13 +23,40 @@ import { tokeniseColors } from './tokenise-colors.mjs'
 import { join, dirname } from 'node:path'
 import postcss from 'postcss'
 
-const src = process.argv[2]
-if (!src) {
-  console.error('usage: node scripts/vc/build-css.mjs <mockups/review dir>')
-  process.exit(1)
-}
+/**
+ * Code-rendered pages that extend another page's stylesheet: the output is the
+ * `from` page's generated file with scripts/vc/extras-<slug>.css appended, so
+ * the route renders `vc vc-p-<from> vc-p-<slug>`. `--derived-only` rebuilds just
+ * these from the committed `from` files, leaving every other stylesheet alone
+ * (a full run drops the lines kept by hand in home.css).
+ */
+const DERIVED_PAGES = [
+  // /post/<slug>: blog post template (review-v3 blog-sap / blog-claude-github mock-ups, 14 Nov 2026).
+  { slug: 'blog-post', from: 'consulting-blog' },
+]
+
 const root = new URL('../../', import.meta.url).pathname
 const outDir = join(root, 'src/styles/vc')
+
+function writeDerived() {
+  for (const { slug, from } of DERIVED_PAGES) {
+    const base = readFileSync(join(outDir, 'pages', `${from}.css`), 'utf8').replace(/\}\s*$/, '')
+    const extra = readFileSync(new URL(`./extras-${slug}.css`, import.meta.url), 'utf8')
+    writeFileSync(join(outDir, 'pages', `${slug}.css`), tokeniseColors(`${base}\n${extra}\n}\n`))
+    console.log(`derived ${slug} from ${from}`)
+  }
+}
+
+if (process.argv.includes('--derived-only')) {
+  writeDerived()
+  process.exit(0)
+}
+
+const src = process.argv[2]
+if (!src) {
+  console.error('usage: node scripts/vc/build-css.mjs <mockups/review dir> | --derived-only')
+  process.exit(1)
+}
 mkdirSync(join(outDir, 'pages'), { recursive: true })
 mkdirSync(join(root, 'public/vc'), { recursive: true })
 
@@ -159,4 +186,5 @@ for (const [slug, file] of pages) {
   n++
 }
 console.log(`${n} page stylesheets written`)
+writeDerived()
 if (unknownHex.size) console.warn(`untokenised colours: ${[...unknownHex].join(' ')}`)

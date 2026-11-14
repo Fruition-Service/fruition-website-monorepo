@@ -1,8 +1,3 @@
-import { BOOKING_ANCHOR } from "@/lib/bookingLink"
-import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
-import ArticleBodyImage from "@/components/ArticleBodyImage"
-import { midCtaCopyFor, splitBodyForMidCta } from "@/lib/blogMidCta"
-
 import type { PortableTextBlock, PortableTextComponents } from "@portabletext/react"
 import { PortableText } from "@portabletext/react"
 import { Fragment } from "react"
@@ -11,17 +6,42 @@ import Link from "next/link"
 import { urlFor } from "@/sanity/image"
 import { authorSlug } from "@/sanity/authorSlug"
 import { parseInlineMarkdown } from "@/lib/inlineMarkdown"
-import YouTubeEmbed from "@/components/YouTubeEmbed"
-import BlogCard from "@/components/BlogCard"
-import BlogShareBar from "@/components/BlogShareBar"
+import { midCtaCopyFor, splitBodyForMidCta } from "@/lib/blogMidCta"
+import { extractBlogFaq, type BlogFaq } from "@/lib/blogFaq"
+import { answerToPlainText, generateFaqJsonLdFromPairs } from "@/lib/faqSchema"
 import { parseVideoUrl, videoEmbedSrc } from "@/lib/videoEmbed"
+import ArticleBodyImage from "@/components/ArticleBodyImage"
+import YouTubeEmbed from "@/components/YouTubeEmbed"
+import BlogShareRow from "@/components/blog/BlogShareRow"
+import BlogAuditBand from "@/components/blog/BlogAuditBand"
+import VcFaqTabs from "@/components/vc/sections/VcFaqTabs"
+import { VcClosing } from "@/components/vc/sections/basic"
+import { Badge } from "@/components/vc/primitives"
+import type { VcClosingData } from "@/components/vc/types"
+
+/*
+ * Blog post template, Version C (approved by Edward on 14 Nov 2026; mock-ups
+ * review-v3 p/blog-sap.html and p/blog-claude-github.html). Styles are
+ * src/styles/vc/pages/blog-post.css, imported by the route: the /consulting-blog
+ * stylesheet plus scripts/vc/extras-blog-post.css.
+ *
+ * Sections: hero (crumb, H1, lead, meta column, cover), article (sticky "On this
+ * page" + one ~680px reading column), FAQ accordion, author card, related
+ * articles, the blog's closing band. The body renders verbatim and in order;
+ * only the FAQ block moves into the accordion (src/lib/blogFaq.ts).
+ *
+ * Marketa writes these posts (docs/architecture.md §9): the blogPost fields,
+ * the doc id rule and /post/<slug> are a contract, so this file only reads.
+ */
+
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fruitionservices.io").replace(/\/+$/, "")
 
 // Hosts allowed to embed players (Twitch rejects unknown `parent`s). Derived
 // from the deployed site URL, plus the apex + localhost for dev/preview.
 const EMBED_PARENTS = (() => {
   let host = "www.fruitionservices.io"
   try {
-    host = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fruitionservices.io").hostname
+    host = new URL(SITE_URL).hostname
   } catch {
     /* keep default */
   }
@@ -49,6 +69,7 @@ export interface BlogPostData {
   publishedAt?: string
   coverImage?: SanityImage
   excerpt?: string
+  seoDescription?: string
   body?: PortableTextBlock[]
   categories?: BlogCategoryRef[]
   videoUrls?: string[]
@@ -70,10 +91,12 @@ export interface RelatedBlogPost {
 interface BlogPostTemplateProps {
   post: BlogPostData
   relatedPosts?: RelatedBlogPost[]
-  calendlyUrl?: string
+  /** The /consulting-blog closing band (vcPage-consulting-blog), shared by every post. */
+  closing?: VcClosingData | null
 }
 
-const DEFAULT_CALENDLY = BOOKING_ANCHOR
+/** Category shown on posts that carry none (the blog index's `otherLabel`). */
+const OTHER_CATEGORY = "General"
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -81,8 +104,7 @@ const DEFAULT_CALENDLY = BOOKING_ANCHOR
 
 function formatDate(iso?: string): string {
   if (!iso) return ""
-  const d = new Date(iso)
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+  return new Date(iso).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })
 }
 
 function estimateReadingTime(body?: PortableTextBlock[]): string {
@@ -101,11 +123,9 @@ function estimateReadingTime(body?: PortableTextBlock[]): string {
   return `${minutes} min read`
 }
 
-function authorInitials(name?: string): string {
-  if (!name) return "F"
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0][0]?.toUpperCase() ?? "F"
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+/** Same estimate as the /consulting-blog cards, so a post reads the same time in both places. */
+function cardMinutes(charCount?: number): number {
+  return Math.max(1, Math.round((charCount ?? 5000) / 5 / 200))
 }
 
 /** Plain text of a portable-text block (joined span text). */
@@ -129,134 +149,72 @@ function slugify(text: string): string {
 interface TocEntry {
   id: string
   text: string
-  level: 2 | 3
 }
 
-/** h2/h3 headings from the body, slugified, deduped, for the jump-to TOC. */
-function extractHeadings(body?: PortableTextBlock[]): TocEntry[] {
+/** The body's H2s (an editor's H1 renders as an H2), slugified and deduped, for "On this page". */
+function extractH2s(body?: PortableTextBlock[]): TocEntry[] {
   if (!body?.length) return []
   const seen = new Set<string>()
   const out: TocEntry[] = []
   for (const block of body) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const style = (block as any)?.style
-    if (block?._type !== "block" || (style !== "h2" && style !== "h1" && style !== "h3")) continue
+    if (block?._type !== "block" || (style !== "h2" && style !== "h1")) continue
     const text = blockText(block).trim()
     if (!text) continue
     const id = slugify(text)
     // Anchors aren't suffix-deduped in the renderer, so skip repeats to keep
-    // every TOC link pointing at a real, first-occurrence heading.
+    // every link pointing at a real, first-occurrence heading.
     if (!id || seen.has(id)) continue
     seen.add(id)
-    out.push({ id, text, level: style === "h3" ? 3 : 2 })
+    out.push({ id, text })
   }
   return out
 }
 
+function uniqueCategories(categories?: BlogCategoryRef[]): BlogCategoryRef[] {
+  // Older posts reference the same category more than once.
+  const list = (categories ?? []).filter((c) => c?.title)
+  return list.filter((cat, i) => list.findIndex((c) => (c.slug || c.title) === (cat.slug || cat.title)) === i)
+}
+
 /* ------------------------------------------------------------------ */
-/*  Portable text components — pixel-matched to Figma article body    */
+/*  Portable text: rendered into `.prose`, styled by blog-post.css     */
 /* ------------------------------------------------------------------ */
-/*  Figma rules:                                                       */
-/*    - Montserrat Regular/Bold                                        */
-/*    - body: 18px / leading-27px / text-body                         */
-/*    - h2 (section): 28px Bold / leading-35px / pt-45px               */
-/*    - h3 (sub): 22px Bold / leading-27px / pt-36px                   */
-/*    - h4 (inline): 18px Bold / leading-27px / pt-32px                */
-/*    Headings carry no bottom padding — the next block's pt-27.5px    */
-/*    supplies the below-gap, so the gap above a heading is always     */
-/*    larger and each heading visually opens the section below it.     */
-/*    - between paragraphs: pt-27.5px                                  */
-/*    - link color: #604c97                                            */
-/*    - image: w-[740px] with figcaption centered, 14px                */
-/*    - lists: list-disc with 27px indent                              */
-/* ------------------------------------------------------------------ */
+
+function BodyLink({ href, children }: { href?: string; children: React.ReactNode }) {
+  // Relative hrefs stay in-app (same tab); anything absolute opens a new tab.
+  if (href && (href.startsWith("/") || href.startsWith("#"))) return <Link href={href}>{children}</Link>
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  )
+}
 
 const blogPortableTextComponents: PortableTextComponents = {
   block: {
-    h1: ({ children, value }) => (
-      <h2 id={slugify(blockText(value))} className="scroll-mt-[100px] font-bold text-[24px] md:text-[28px] leading-[31px] md:leading-[35px] text-body w-full pt-[45px] first:pt-0">
-        {children}
-      </h2>
-    ),
-    h2: ({ children, value }) => (
-      <h2 id={slugify(blockText(value))} className="scroll-mt-[100px] font-bold text-[24px] md:text-[28px] leading-[31px] md:leading-[35px] text-body w-full pt-[45px] first:pt-0">
-        {children}
-      </h2>
-    ),
-    h3: ({ children, value }) => (
-      <h3 id={slugify(blockText(value))} className="scroll-mt-[100px] font-bold text-[22px] leading-[27px] text-body w-full pt-[36px] first:pt-0">
-        {children}
-      </h3>
-    ),
-    h4: ({ children }) => (
-      <h4 className="font-bold text-[18px] leading-[27px] text-body w-full pt-[32px] first:pt-0">
-        {children}
-      </h4>
-    ),
-    blockquote: ({ children }) => (
-      <blockquote className="font-normal text-[18px] leading-[27px] text-body w-full pt-[27.5px] pl-[20px] border-l-[3px] border-brand-dark italic">
-        {children}
-      </blockquote>
-    ),
-    normal: ({ children }) => (
-      <p className="font-normal text-[18px] leading-[27px] text-body w-full pt-[27.5px] first:pt-0">
-        {children}
-      </p>
-    ),
+    h1: ({ children, value }) => <h2 id={slugify(blockText(value))}>{children}</h2>,
+    h2: ({ children, value }) => <h2 id={slugify(blockText(value))}>{children}</h2>,
+    h3: ({ children, value }) => <h3 id={slugify(blockText(value))}>{children}</h3>,
+    h4: ({ children }) => <h4>{children}</h4>,
+    blockquote: ({ children }) => <blockquote>{children}</blockquote>,
+    normal: ({ children }) => <p>{children}</p>,
   },
   list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc w-full pl-[27px] pt-[27.5px] space-y-[8px]">{children}</ul>
-    ),
-    number: ({ children }) => (
-      <ol className="list-decimal w-full pl-[27px] pt-[27.5px] space-y-[8px]">{children}</ol>
-    ),
+    bullet: ({ children }) => <ul>{children}</ul>,
+    number: ({ children }) => <ol>{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => (
-      <li className="font-normal text-[18px] leading-[27px] text-body">
-        {children}
-      </li>
-    ),
-    number: ({ children }) => (
-      <li className="font-normal text-[18px] leading-[27px] text-body">
-        {children}
-      </li>
-    ),
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
   },
   marks: {
-    strong: ({ children }) => (
-      <strong className="font-bold">{children}</strong>
-    ),
-    em: ({ children }) => <em className="italic">{children}</em>,
-    link: ({ children, value }) => {
-      // Relative hrefs stay in-app (same tab), matching CellText below.
-      const href: string | undefined = value?.href
-      if (href && (href.startsWith("/") || href.startsWith("#"))) {
-        return (
-          <Link href={href} className="text-brand-dark underline hover:no-underline">
-            {children}
-          </Link>
-        )
-      }
-      return (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand-dark underline hover:no-underline"
-        >
-          {children}
-        </a>
-      )
-    },
+    strong: ({ children }) => <strong>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ children, value }) => <BodyLink href={value?.href}>{children}</BodyLink>,
     internalLink: ({ children, value }) => (
-      <Link
-        href={value?.slug?.current ? `/${value.slug.current}` : "#"}
-        className="text-brand-dark underline hover:no-underline"
-      >
-        {children}
-      </Link>
+      <Link href={value?.slug?.current ? `/${value.slug.current}` : "#"}>{children}</Link>
     ),
   },
   types: {
@@ -264,95 +222,58 @@ const blogPortableTextComponents: PortableTextComponents = {
       if (!value?.asset?._ref) return null
       const src = urlFor(value).auto("format").quality(90).url()
       return (
-        <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
+        <figure className="pic">
           <ArticleBodyImage value={value}>
-            <div className="relative w-full overflow-hidden">
-              <Image
-                src={src}
-                alt={value.alt || ""}
-                width={740}
-                height={416}
-                quality={90}
-                className="w-full h-auto"
-                sizes="(max-width: 924px) 100vw, 740px"
-              />
-            </div>
+            <Image src={src} alt={value.alt || ""} width={1360} height={765} quality={90} sizes="(max-width: 767px) 100vw, 680px" />
           </ArticleBodyImage>
-          {value.caption && (
-            <figcaption className="w-full flex items-center justify-center p-[16px]">
-              <span className="font-normal text-[14px] leading-[27px] text-body text-center">
-                {value.caption}
-              </span>
-            </figcaption>
-          )}
+          {value.caption && <figcaption>{value.caption}</figcaption>}
         </figure>
       )
     },
     // Inline video player, placed exactly where the author dropped the URL.
-    videoEmbed: ({ value }) => <BodyVideoEmbed url={value?.url} caption={value?.caption} />,
+    videoEmbed: ({ value }) => <BodyVideo url={value?.url} caption={value?.caption} />,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     table: ({ value }: any) => <BodyTable rows={value?.rows} />,
   },
 }
 
 /**
- * A table cell's inline markdown, rendered.
- *
- * Everywhere else in the body, bold/italic/links arrive as Portable Text marks
- * and are styled by `blogPortableTextComponents.marks`. Table cells can't: the
- * schema stores them as plain strings (blogPost.ts), so a cell the editor
- * showed as bold publishes as the literal characters `**Use case**`. Parsing
- * here — rather than at publish time — also repairs every post already live.
- * Styling deliberately mirrors the `strong` / `em` / `link` marks above.
+ * A table cell's inline markdown, rendered. The schema stores cells as plain
+ * strings (blogPost.ts), so a cell the editor showed as bold arrives as
+ * `**Use case**`; parsing here also repairs every post already live.
  */
 function CellText({ text }: { text: string }) {
   return (
     <>
       {parseInlineMarkdown(text).map((run, i) => {
         if (run.href) {
-          // Relative hrefs stay in-app; anything absolute opens in a new tab,
-          // matching the `link` vs `internalLink` marks.
-          const internal = run.href.startsWith("/") || run.href.startsWith("#")
-          return internal ? (
-            <Link key={i} href={run.href} className="text-brand-dark underline hover:no-underline">
+          return (
+            <BodyLink key={i} href={run.href}>
               {run.text}
-            </Link>
-          ) : (
-            <a
-              key={i}
-              href={run.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-dark underline hover:no-underline"
-            >
-              {run.text}
-            </a>
+            </BodyLink>
           )
         }
         let node: React.ReactNode = run.text
-        if (run.em) node = <em className="italic">{node}</em>
-        if (run.strong) node = <strong className="font-bold">{node}</strong>
+        if (run.em) node = <em>{node}</em>
+        if (run.strong) node = <strong>{node}</strong>
         return <Fragment key={i}>{node}</Fragment>
       })}
     </>
   )
 }
 
-/** Renders a blog `table` block. First row is treated as the header. */
+/** A blog `table` block: the first row is the header, each body row's first cell labels the row. */
 function BodyTable({ rows }: { rows?: { cells?: string[] }[] }) {
   if (!rows?.length) return null
   const [head, ...body] = rows
   return (
-    <figure className="w-full overflow-x-auto pt-[27.5px]">
-      <table className="w-full border-collapse text-[16px] leading-[24px] text-body">
+    <figure className="tbl">
+      <table>
         {head?.cells?.length ? (
           <thead>
             <tr>
               {head.cells.map((c, i) => (
-                <th
-                  key={i}
-                  className="border border-ui bg-surface-raised p-[10px] text-left font-bold align-top"
-                >
+                <th key={i} scope="col">
                   <CellText text={c} />
                 </th>
               ))}
@@ -362,11 +283,17 @@ function BodyTable({ rows }: { rows?: { cells?: string[] }[] }) {
         <tbody>
           {body.map((r, ri) => (
             <tr key={ri}>
-              {(r.cells ?? []).map((c, ci) => (
-                <td key={ci} className="border border-ui p-[10px] align-top">
-                  <CellText text={c} />
-                </td>
-              ))}
+              {(r.cells ?? []).map((c, ci) =>
+                ci === 0 ? (
+                  <th key={ci} scope="row">
+                    <CellText text={c} />
+                  </th>
+                ) : (
+                  <td key={ci}>
+                    <CellText text={c} />
+                  </td>
+                ),
+              )}
             </tr>
           ))}
         </tbody>
@@ -375,277 +302,230 @@ function BodyTable({ rows }: { rows?: { cells?: string[] }[] }) {
   )
 }
 
-/** Inline body video: YouTube uses the click-to-load facade (perf + SEO);
- *  Vimeo/Twitch/Loom render a lazy iframe via the shared embed helper. */
-function BodyVideoEmbed({ url, caption }: { url?: string; caption?: string }) {
+/** YouTube uses the click-to-load facade (and its VideoObject JSON-LD); Vimeo, Twitch and Loom a lazy iframe. */
+function BodyVideo({ url, caption, title }: { url?: string; caption?: string; title?: string }) {
   if (!url) return null
   const parsed = parseVideoUrl(url)
   if (!parsed) return null
+  const name = caption || title || "Video"
   return (
-    <figure className="w-full flex flex-col items-start pt-[27.5px]">
-      <div className="aspect-video w-full overflow-hidden rounded-card">
+    <figure>
+      <div className="vid-live">
         {parsed.provider === "youtube" ? (
-          <YouTubeEmbed url={parsed.canonicalUrl} title={caption || "Video"} className="w-full h-full" />
+          <YouTubeEmbed url={parsed.canonicalUrl} title={name} className="w-full h-full" />
         ) : (
           <iframe
             src={videoEmbedSrc(parsed, { parents: EMBED_PARENTS })}
-            title={caption || "Video"}
+            title={name}
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-full"
-            style={{ border: 0 }}
           />
         )}
       </div>
-      {caption && (
-        <figcaption className="w-full flex items-center justify-center p-[16px]">
-          <span className="font-normal text-[14px] leading-[27px] text-body text-center">
-            {caption}
-          </span>
-        </figcaption>
-      )}
+      {caption && <figcaption>{caption}</figcaption>}
     </figure>
   )
 }
 
 /* ------------------------------------------------------------------ */
-/*  Sub-components (pixel-matched fragments)                           */
+/*  Sections                                                           */
 /* ------------------------------------------------------------------ */
 
-function AuthorAvatar({ name, photoUrl }: { name?: string; photoUrl?: string }) {
-  if (photoUrl) {
-    return (
-      <Image
-        src={`${photoUrl}?w=64&h=64&fit=crop&auto=format`}
-        alt=""
-        width={32}
-        height={32}
-        className="shrink-0 size-[32px] rounded-[16px] object-cover"
-        unoptimized
-      />
-    )
-  }
+function Avatar({ src, size }: { src?: string; size: number }) {
+  if (!src) return null
   return (
-    <div
-      className="shrink-0 size-[32px] rounded-[16px] flex items-center justify-center text-white font-semibold text-[12px] leading-none select-none bg-gradient-to-br from-brand to-brand-light"
-      aria-hidden="true"
-    >
-      {authorInitials(name)}
-    </div>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={`${src}?w=${size * 2}&h=${size * 2}&fit=crop&auto=format`} alt="" width={size} height={size} loading="lazy" decoding="async" />
   )
 }
 
-function AuthorMetaRow({
-  author,
-  authorPhotoUrl,
-  publishedAt,
-  readingTime,
-}: {
-  author?: string
-  authorPhotoUrl?: string
-  publishedAt?: string
-  readingTime: string
-}) {
+function Hero({ post, url, readingTime }: { post: BlogPostData; url: string; readingTime: string }) {
+  const category = uniqueCategories(post.categories)[0]?.title ?? OTHER_CATEGORY
+  const lead = post.seoDescription || post.excerpt
+  const cover = post.coverImage?.asset?._ref ? urlFor(post.coverImage).width(2400).fit("max").auto("format").quality(85).url() : null
+  const authorHref = post.author ? `/author/${authorSlug(post.author)}` : null
   return (
-    <div className="flex flex-wrap items-center gap-y-[4px] w-full">
-      {/* Avatar — 32px with 12px right padding */}
-      {author ? (
-        <Link
-          href={`/author/${authorSlug(author)}`}
-          aria-label={`More articles by ${author}`}
-          className="flex flex-col h-[32px] items-start pr-[12px] w-[44px]"
-        >
-          <div className="content-stretch flex flex-col items-start overflow-clip rounded-[16px] shrink-0 size-[32px]">
-            <AuthorAvatar name={author} photoUrl={authorPhotoUrl} />
+    <section className="ah" data-sec="hero">
+      <div className="wrap">
+        <div className="ah-top">
+          <div className="ah-main">
+            <div className="ah-crumb">
+              <Link className="label" href="/consulting-blog">
+                Blog
+              </Link>
+              <span className="label" aria-hidden="true">
+                /
+              </span>
+              <Badge>{category}</Badge>
+            </div>
+            <h1 className="display">{post.title}</h1>
+            {lead && <p className="lead">{lead}</p>}
           </div>
-        </Link>
-      ) : (
-        <div className="flex flex-col h-[32px] items-start pr-[12px] w-[44px]">
-          <div className="content-stretch flex flex-col items-start overflow-clip rounded-[16px] shrink-0 size-[32px]">
-            <AuthorAvatar name={author} photoUrl={authorPhotoUrl} />
+          <dl className="ah-meta">
+            {post.author && authorHref && (
+              <div>
+                <dt className="label">Author</dt>
+                <dd>
+                  <Link className="ah-who" href={authorHref}>
+                    <Avatar src={post.authorPhotoUrl} size={36} />
+                    <span>{post.author}</span>
+                  </Link>
+                </dd>
+              </div>
+            )}
+            {post.publishedAt && (
+              <div>
+                <dt className="label">Published</dt>
+                <dd>
+                  <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt className="label">Reading time</dt>
+              <dd>{readingTime}</dd>
+            </div>
+            <div>
+              <dt className="label">Share</dt>
+              <dd>
+                <BlogShareRow url={url} title={post.title} />
+              </dd>
+            </div>
+          </dl>
+        </div>
+        {cover && (
+          <figure className="ah-cover">
+            <ArticleBodyImage value={{ ...post.coverImage, alt: post.title }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cover} alt={post.title} width={1600} height={900} fetchPriority="high" decoding="async" />
+            </ArticleBodyImage>
+          </figure>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function Toc({ entries }: { entries: TocEntry[] }) {
+  if (entries.length < 2) return null
+  const list = (
+    <ol>
+      {entries.map((e) => (
+        <li key={e.id}>
+          <a href={`#${e.id}`}>{e.text}</a>
+        </li>
+      ))}
+    </ol>
+  )
+  return (
+    <>
+      <nav className="toc" aria-label="On this page">
+        <span className="label">On this page</span>
+        {list}
+      </nav>
+      <details className="toc-m">
+        <summary>
+          <span className="label">On this page</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </summary>
+        {list}
+      </details>
+    </>
+  )
+}
+
+function FaqSection({ faq }: { faq: BlogFaq }) {
+  const jsonLd = generateFaqJsonLdFromPairs(
+    faq.items.map((it) => ({ question: it.question, answer: answerToPlainText(it.answer) })),
+  )
+  return (
+    <section className="alt" id={faq.id} data-sec="faq">
+      <div className="wrap faq">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <VcFaqTabs
+          badge={<Badge>FAQ</Badge>}
+          heading={<h2 className="h2 mt24">{faq.heading}</h2>}
+          tabs={[{ _key: "faq", label: faq.heading, items: faq.items.map((it, i) => ({ _id: `${faq.id}-${i}`, question: it.question, answer: it.answer })) }]}
+        />
+      </div>
+    </section>
+  )
+}
+
+function AuthorCard({ post, url }: { post: BlogPostData; url: string }) {
+  return (
+    <section className="wb" data-sec="author">
+      <div className="wrap">
+        <div className="wb-in">
+          {post.author ? (
+            <Link className="who" href={`/author/${authorSlug(post.author)}`}>
+              <Avatar src={post.authorPhotoUrl} size={64} />
+              <span>
+                <span className="label">Written by</span>
+                <span className="title">{post.author}</span>
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          <div className="wb-share">
+            <span className="label">Share this article</span>
+            <BlogShareRow url={url} title={post.title} />
           </div>
         </div>
-      )}
-      {/* Name */}
-      {author && (
-        <div className="flex flex-col items-start min-w-0">
-          <Link
-            href={`/author/${authorSlug(author)}`}
-            className="font-normal text-[14px] leading-[21px] text-body truncate max-w-full hover:text-brand-dark transition-colors"
-          >
-            {author}
+      </div>
+    </section>
+  )
+}
+
+function Related({ posts }: { posts: RelatedBlogPost[] }) {
+  if (!posts.length) return null
+  return (
+    <section className="alt rel" data-sec="related">
+      <div className="wrap">
+        <div className="rel-h">
+          <h2 className="h2">
+            Related <span className="acc">articles</span>
+          </h2>
+          <Link className="label more" href="/consulting-blog">
+            See all →
           </Link>
         </div>
-      )}
-      {/* Date */}
-      {publishedAt && (
-        <div className="flex gap-[6px] items-center pl-[6px] shrink-0 font-mono text-xs font-semibold uppercase tracking-[0.14em] leading-[21px] text-muted whitespace-nowrap">
-          <span>·</span>
-          <span>{formatDate(publishedAt)}</span>
+        <div className="posts">
+          {posts.slice(0, 3).map((p) => {
+            const href = `/post/${p.slug}`
+            const src = p.coverImage?.asset?._ref ? urlFor(p.coverImage).width(720).auto("format").url() : null
+            const category = uniqueCategories(p.categories)[0]?.title ?? OTHER_CATEGORY
+            return (
+              <article className="post" key={p._id}>
+                <Link className="pic" href={href} tabIndex={-1} aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {src && <img src={src} alt="" loading="lazy" decoding="async" />}
+                </Link>
+                <div className="top">
+                  <span className="label">{category}</span>
+                  <span className="label">{cardMinutes(p.charCount)} min read</span>
+                </div>
+                <h3 className="h3">
+                  <Link href={href}>{p.title}</Link>
+                </h3>
+                <div className="by">
+                  {p.authorPhotoUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="av" src={`${p.authorPhotoUrl}?w=56&h=56&fit=crop&auto=format`} alt="" width={28} height={28} loading="lazy" decoding="async" />
+                  )}
+                  <span className="label">
+                    {formatDate(p.publishedAt)}
+                    {p.author ? ` · ${p.author}` : ""}
+                  </span>
+                </div>
+              </article>
+            )
+          })}
         </div>
-      )}
-      {/* Reading time */}
-      <div className="flex gap-[6px] items-center pl-[6px] shrink-0 font-mono text-xs font-semibold uppercase tracking-[0.14em] leading-[21px] text-muted whitespace-nowrap">
-        <span>·</span>
-        <span>{readingTime}</span>
-      </div>
-    </div>
-  )
-}
-
-function ArticleTitle({ title }: { title: string }) {
-  return (
-    <div className="flex flex-col items-start w-full">
-      <h1 className="font-bold text-[28px] leading-[36px] md:text-[40px] md:leading-[50px] text-body w-full">
-        {title}
-      </h1>
-    </div>
-  )
-}
-
-function CoverFigure({
-  image,
-  alt,
-}: {
-  image: SanityImage
-  alt: string
-}) {
-  if (!image?.asset?._ref) return null
-  const src = urlFor(image).auto("format").quality(90).url()
-  return (
-    <figure className="w-full flex flex-col items-start pt-[27.5px] isolate">
-      <ArticleBodyImage value={{ ...image, alt }}>
-        <div className="relative w-full overflow-hidden">
-          <Image
-            src={src}
-            alt={alt}
-            width={740}
-            height={416}
-            priority
-            quality={90}
-            className="w-full h-auto"
-            sizes="(max-width: 924px) 100vw, 740px"
-          />
-        </div>
-      </ArticleBodyImage>
-    </figure>
-  )
-}
-
-function VideoEmbeds({ urls }: { urls: string[] }) {
-  const embeds = urls.map((u) => parseVideoUrl(u)).filter((v): v is NonNullable<typeof v> => !!v)
-  if (embeds.length === 0) return null
-  return (
-    <div className="w-full flex flex-col gap-[24px] pt-[27.5px]">
-      {embeds.map((v, i) => (
-        <div key={i} className="aspect-video w-full overflow-hidden rounded-card">
-          {v.provider === "youtube" ? (
-            <YouTubeEmbed url={v.canonicalUrl} title={`Video ${i + 1}`} className="w-full h-full" />
-          ) : (
-            <iframe
-              src={videoEmbedSrc(v, { parents: EMBED_PARENTS })}
-              title={`Video ${i + 1}`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-              style={{ border: 0 }}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function TagsRow({ categories }: { categories: BlogCategoryRef[] }) {
-  // Older posts reference the same category more than once; show each tag once.
-  const unique = categories.filter(
-    (cat, i) => cat?.slug && categories.findIndex((c) => c?.slug === cat.slug) === i,
-  )
-  if (!unique.length) return null
-  return (
-    <div className="flex flex-wrap items-center gap-[10px] w-full">
-      {unique.map((cat) => (
-        <Link
-          key={cat.slug}
-          href={`/consulting-blog/categories/${cat.slug}`}
-          className="inline-flex items-center rounded-pill px-[14px] py-[6px] bg-brand-soft border border-transparent hover:border-brand-dark transition-colors"
-        >
-          <span className="font-mono text-xs font-semibold uppercase tracking-[0.12em] leading-[18px] text-brand-dark">
-            {cat.title}
-          </span>
-        </Link>
-      ))}
-    </div>
-  )
-}
-
-/** Quick-read "On this page" jump-to list, generated from the body headings. */
-function ArticleToc({ entries }: { entries: TocEntry[] }) {
-  if (entries.length < 3) return null
-  return (
-    <nav
-      aria-label="On this page"
-      className="w-full rounded-[16px] p-[24px] md:p-[28px] bg-surface-subtle border border-ui"
-    >
-      <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-brand">
-        On this page
-      </p>
-      <ul className="mt-[14px] flex flex-col gap-[8px] list-none p-0">
-        {entries.map((e) => (
-          <li key={e.id} className={e.level === 3 ? "pl-[16px]" : ""}>
-            <a
-              href={`#${e.id}`}
-              className={`hover:underline ${
-                e.level === 3
-                  ? "text-muted text-[14px] font-normal"
-                  : "text-body text-[15px] font-semibold"
-              }`}
-            >
-              {e.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
-}
-
-function RelatedPostsSection({ posts }: { posts: RelatedBlogPost[] }) {
-  if (!posts?.length) return null
-  return (
-    <section className="flex flex-col gap-[24px] w-full pt-[8px]">
-      <header className="flex items-end justify-between gap-4 w-full">
-        <h2 className="font-semibold text-[22px] leading-[30px] md:text-[24px] md:leading-[32px] text-body">
-          Recent posts
-        </h2>
-        <Link
-          href="/consulting-blog"
-          className="inline-flex items-center gap-[6px] text-[14px] leading-[21px] font-semibold text-brand-dark hover:underline whitespace-nowrap"
-        >
-          See all
-          <span aria-hidden>&rarr;</span>
-        </Link>
-      </header>
-      {/* Same card as the /consulting-blog listing, so the two read as one system. */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[24px] gap-y-[40px] w-full">
-        {posts.slice(0, 3).map((p, i) => (
-          <div key={p._id} className={i === 2 ? "md:hidden lg:block" : undefined}>
-            <BlogCard
-              title={p.title}
-              slug={p.slug}
-              excerpt={p.excerpt}
-              publishedAt={p.publishedAt}
-              author={p.author}
-              authorPhotoUrl={p.authorPhotoUrl}
-              coverImage={p.coverImage}
-              charCount={p.charCount}
-              categories={p.categories}
-            />
-          </div>
-        ))}
       </div>
     </section>
   )
@@ -655,15 +535,19 @@ function RelatedPostsSection({ posts }: { posts: RelatedBlogPost[] }) {
 /*  Main template                                                      */
 /* ------------------------------------------------------------------ */
 
-export default function BlogPostTemplate({
-  post,
-  relatedPosts = [],
-  calendlyUrl = DEFAULT_CALENDLY,
-}: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post, relatedPosts = [], closing }: BlogPostTemplateProps) {
+  const url = `${SITE_URL}/post/${post.slug ?? ""}`
   const readingTime = estimateReadingTime(post.body)
-  const headings = extractHeadings(post.body)
-  const { before: bodyBefore, after: bodyAfter, hasMidCta } = splitBodyForMidCta(post.body)
-  const midCopy = hasMidCta ? midCtaCopyFor(post) : null
+  // The FAQ block (an "FAQs" H2 followed by H3 questions) leaves the reading
+  // column for the accordion; posts whose FAQ does not fit that shape keep it inline.
+  const { body, faq } = extractBlogFaq(post.body, slugify)
+  const toc = extractH2s(body)
+  if (faq) toc.push({ id: faq.id, text: faq.heading })
+  // One audit band per post: at the mid-article split on long posts, else at the end of the column.
+  const { before, after, hasMidCta } = splitBodyForMidCta(body)
+  const mid = midCtaCopyFor(post)
+  const band = <BlogAuditBand heading={mid?.heading} body={mid?.body} ctaLabel={mid?.ctaLabel} />
+  const videos = (post.videoUrls ?? []).filter((u) => parseVideoUrl(u))
 
   const articleLd = {
     "@context": "https://schema.org",
@@ -676,87 +560,28 @@ export default function BlogPostTemplate({
   }
 
   return (
-    <div className="bg-surface w-full">
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
-      />
-      <div className="mx-auto w-full max-w-[1470px] flex items-start justify-center px-6 md:px-12 lg:px-20 py-[48px] lg:py-[80px]">
-        <div className="flex flex-col gap-[40px] items-center justify-center w-full max-w-[924px]">
-          {/* Author meta */}
-          <AuthorMetaRow
-            author={post.author}
-            authorPhotoUrl={post.authorPhotoUrl}
-            publishedAt={post.publishedAt}
-            readingTime={readingTime}
-          />
-
-          {/* Title */}
-          <ArticleTitle title={post.title} />
-
-          {/* Quick-read jump-to (auto-generated from headings) */}
-          {headings.length >= 3 && (
-            <div className="w-full">
-              <ArticleToc entries={headings} />
-            </div>
-          )}
-
-          {/* Body */}
-          <div className="flex flex-col items-start pb-[0.5px] w-full">
-            {/* Cover image as first figure inside body */}
-            {post.coverImage && (
-              <CoverFigure image={post.coverImage} alt={post.title} />
-            )}
-
-            {/* Portable text */}
-            {bodyBefore.length > 0 && (
-              <PortableText
-                value={bodyBefore}
-                components={blogPortableTextComponents}
-              />
-            )}
-
-            {/* Mid-article conversion CTA, between top-level blocks, long posts only */}
-            {hasMidCta && (
-              <>
-                <AuditCtaBanner
-                  bookingUrl={calendlyUrl}
-                  contained={false}
-                  className="mt-[45px]"
-                  heading={midCopy?.heading}
-                  body={midCopy?.body}
-                  ctaLabel={midCopy?.ctaLabel}
-                />
-                <div className="w-full pt-[45px]">
-                  <PortableText
-                    value={bodyAfter}
-                    components={blogPortableTextComponents}
-                  />
-                </div>
-              </>
-            )}
-
-            {/* Video embeds */}
-            {post.videoUrls && post.videoUrls.length > 0 && (
-              <VideoEmbeds urls={post.videoUrls} />
-            )}
-          </div>
-
-          {/* Tags (from categories) close out the article itself */}
-          {post.categories && post.categories.length > 0 && (
-            <TagsRow categories={post.categories} />
-          )}
-
-          <BlogShareBar title={post.title} />
-
-          {/* Bottom-of-article conversion CTA */}
-          <AuditCtaBanner bookingUrl={calendlyUrl} contained={false} />
-
-          {/* Related posts */}
-          <RelatedPostsSection posts={relatedPosts} />
+    <div className="vc vc-p-consulting-blog vc-p-blog-post">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
+      <Hero post={post} url={url} readingTime={readingTime} />
+      <section className="ab" data-sec="article">
+        <div className="wrap ab-grid">
+          <Toc entries={toc} />
+          <article className="prose">
+            {before.length > 0 && <PortableText value={before} components={blogPortableTextComponents} />}
+            {hasMidCta && band}
+            {after.length > 0 && <PortableText value={after} components={blogPortableTextComponents} />}
+            {videos.map((u, i) => (
+              <BodyVideo key={u} url={u} title={`Video ${i + 1}`} />
+            ))}
+            {!hasMidCta && band}
+          </article>
+          <div className="ab-r" aria-hidden="true" />
         </div>
-      </div>
+      </section>
+      {faq && <FaqSection faq={faq} />}
+      <AuthorCard post={post} url={url} />
+      <Related posts={relatedPosts} />
+      {closing && <VcClosing s={closing} />}
     </div>
   )
 }
