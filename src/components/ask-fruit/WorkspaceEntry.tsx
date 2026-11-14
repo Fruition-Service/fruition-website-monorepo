@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useSyncExternalStore } from "react"
+import { useSyncExternalStore, type ReactNode } from "react"
 
 /**
  * Client-only entry for /ask-fruit/workspace. The workspace is a browser app
@@ -21,9 +21,10 @@ function Loading() {
 const subscribe = () => () => {}
 const readBrief = () => new URLSearchParams(window.location.search).get("brief")
 
-export default function WorkspaceEntry() {
+/** `trust`: the /ask-fruit client logo strip, rendered on the server and shown on the start screen. */
+export default function WorkspaceEntry({ trust }: { trust?: ReactNode }) {
   const brief = useSyncExternalStore(subscribe, readBrief, () => null)
   const [evaluationId, docId] = brief?.split(":") ?? []
   if (evaluationId && docId) return <PrintableBrief evaluationId={evaluationId} docId={docId} />
-  return <AskFruitWorkspace />
+  return <AskFruitWorkspace trust={trust} />
 }

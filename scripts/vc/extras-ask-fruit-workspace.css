@@ -1,0 +1,27 @@
+/* /ask-fruit/workspace start screen, Version C (review-v3 p/ask-fruit-workspace.html,
+   approved by Edward 14 Nov 2026). Appended to the /ask-fruit stylesheet by build-css.mjs
+   (DERIVED_PAGES) to make src/styles/vc/pages/ask-fruit-workspace.css; the start screen
+   renders `vc vc-p-ask-fruit vc-p-ask-fruit-workspace` inside the calculator's own app frame
+   (its header and the conversation list beside it), so it sizes to that column, not the window. */
+.vc-p-ask-fruit-workspace{flex:1;min-width:0;background:#fff}
+.vc-p-ask-fruit-workspace .hero{padding:64px 0 0}
+.vc-p-ask-fruit-workspace .hero-grid{align-items:center}
+.vc-p-ask-fruit-workspace .hm-trust{margin-top:64px}
+.vc-p-ask-fruit-workspace section[data-sec="why"]{padding:var(--sec) 0}
+.vc-p-ask-fruit-workspace .steps{list-style:none;padding:0;grid-template-columns:repeat(3,minmax(0,1fr))}
+.vc-p-ask-fruit-workspace .ask-box .send{cursor:pointer}
+.vc-p-ask-fruit-workspace .ask-box .send:disabled{cursor:default;opacity:.55}
+.vc-p-ask-fruit-workspace .ask-box .pill{cursor:pointer}
+.vc-p-ask-fruit-workspace .ask-box .pill:disabled{cursor:default;opacity:.55}
+/* The app's conversation list takes 240px from 1024px up, so the hero stacks until the column is wide. */
+@media (max-width:1239px){
+.vc-p-ask-fruit-workspace .hero-grid{grid-template-columns:minmax(0,1fr);gap:40px}
+}
+@media (max-width:1023px){
+.vc-p-ask-fruit-workspace .hero{padding:48px 0 0}
+.vc-p-ask-fruit-workspace .hm-trust{margin-top:48px}
+}
+@media (max-width:767px){
+.vc-p-ask-fruit-workspace .hero{padding:32px 0 0}
+.vc-p-ask-fruit-workspace .steps{grid-template-columns:minmax(0,1fr)}
+}

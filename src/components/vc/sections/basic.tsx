@@ -58,7 +58,7 @@ function Stats({ stats, cls }: { stats: NonNullable<VcHeroData["stats"]>; cls: s
   )
 }
 
-function Trust({ label, logos }: { label?: string; logos: VcLogoData[] }) {
+export function Trust({ label, logos }: { label?: string; logos: VcLogoData[] }) {
   const run = (hidden: boolean) => (
     <div className="hm-run" aria-hidden={hidden || undefined}>
       {logos.map((l, i) => (

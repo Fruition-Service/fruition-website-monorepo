@@ -35,6 +35,8 @@ const DERIVED_PAGES = [
   { slug: 'blog-post', from: 'consulting-blog' },
   // /thank-you: the contact-us hero with the three-step hand-off (review-v3 thank-you mock-up, 14 Nov 2026).
   { slug: 'thank-you', from: 'contact-us' },
+  // /ask-fruit/workspace start screen (review-v3 ask-fruit-workspace mock-up, 14 Nov 2026).
+  { slug: 'ask-fruit-workspace', from: 'ask-fruit' },
 ]
 
 const root = new URL('../../', import.meta.url).pathname

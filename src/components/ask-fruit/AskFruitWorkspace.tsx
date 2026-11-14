@@ -2,11 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import { Menu, MessageSquare, PanelRight, Pencil, Plus, Printer, Trash2, X } from "lucide-react"
 import type { BriefDocument, EvaluationSummary } from "@/lib/askFruit/types"
 import { BriefBody, BriefFooter } from "./BriefView"
-import { Conversation, Welcome } from "./Conversation"
+import { Conversation } from "./Conversation"
+import { Welcome } from "./Welcome"
 import { ResultsPanel } from "./ResultsPanel"
 import { useAskFruit } from "./useAskFruit"
 
@@ -201,7 +202,7 @@ function BriefDialog({ doc, evaluationId, onClose }: { doc: BriefDocument; evalu
   )
 }
 
-export default function AskFruitWorkspace() {
+export default function AskFruitWorkspace({ trust }: { trust?: ReactNode } = {}) {
   const af = useAskFruit()
   const { active } = af
   const [navOpen, setNavOpen] = useState(false)
@@ -333,7 +334,7 @@ export default function AskFruitWorkspace() {
             />
           ) : (
             <div className="flex min-h-0 flex-1 overflow-y-auto">
-              <Welcome onSend={(t) => void af.send(t)} sending={af.sending} />
+              <Welcome onSend={(t) => void af.send(t)} sending={af.sending} trust={trust} />
             </div>
           )}
         </main>

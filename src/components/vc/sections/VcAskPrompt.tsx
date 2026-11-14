@@ -6,7 +6,7 @@ import { vercelStegaClean } from "@vercel/stega"
 import type { VcHeroData } from "../types"
 
 /** Small line icons for the starter chips, matched by position (Claude Design spec, 13 Nov 2026). */
-const CHIP_ICONS = [
+export const CHIP_ICONS = [
   "M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4",
   "M6 5v11M12 5v6M18 5v14M3 3h18",
   "M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z",
