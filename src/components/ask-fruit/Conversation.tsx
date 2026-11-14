@@ -4,59 +4,13 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react"
 import { CalendarDays, FileText, Maximize2 } from "lucide-react"
 import { CalendlyEmbed } from "@/components/sections/BookingSection"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
-import { Composer, STARTERS } from "./Composer"
+import { Composer } from "./Composer"
 import { Markdown } from "./Markdown"
 import type { WorkingStatus } from "./useAskFruit"
 
 const EYEBROW = "font-mono text-[11px] font-semibold tracking-[0.14em] uppercase"
 /** Follow new output only when the reader is already near the bottom. */
 const FOLLOW_THRESHOLD_PX = 80
-
-export function Welcome({ onSend, sending }: { onSend: (text: string) => void; sending: boolean }) {
-  return (
-    // my-auto rather than justify-center: centred content taller than a phone
-    // screen would overflow upwards, out of reach of the scroll container.
-    <div className="mx-auto my-auto flex w-full max-w-[760px] flex-col px-5 py-10 md:px-8">
-      <p className={`${EYEBROW} text-brand`}>{"// Implementation Calculator"}</p>
-      <h1 className="text-section-h2 mt-4 text-ink">
-        What are you trying to <span className="text-brand">make happen?</span>
-      </h1>
-      <p className="text-body-lead mt-4 max-w-[600px] text-muted">
-        Describe the problem in your own words. The Implementation Calculator asks what it needs to, recommends the Fruition solution that fits,
-        and writes up a comparison or delivery plan you can share.
-      </p>
-      <div className="mt-8">
-        <Composer onSend={onSend} sending={sending} autoFocus large />
-      </div>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {STARTERS.map((s) => (
-          <button
-            key={s.label}
-            type="button"
-            disabled={sending}
-            onClick={() => onSend(s.text)}
-            className="rounded-pill border border-ui bg-surface px-3.5 py-1.5 text-[13px] font-medium text-ink transition-colors hover:border-brand hover:text-brand disabled:opacity-50"
-          >
-            {s.label}
-          </button>
-        ))}
-      </div>
-      <ol className="mt-10 grid grid-cols-1 gap-4 border-t border-ui pt-6 md:grid-cols-3">
-        {[
-          ["01", "Describe", "Your goal, your tools, what is breaking."],
-          ["02", "Compare", "Matched Fruition solutions, scored against your requirements."],
-          ["03", "Plan", "A brief to share, then a call with a consultant when you are ready."],
-        ].map(([n, t, d]) => (
-          <li key={n} className="flex flex-col gap-1">
-            <span className="font-mono text-[12px] font-semibold text-brand">{n}</span>
-            <span className="text-[15px] font-semibold text-ink">{t}</span>
-            <span className="text-[13.5px] leading-snug text-muted">{d}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  )
-}
 
 function WorkingPanel({ status }: { status: WorkingStatus }) {
   return (
