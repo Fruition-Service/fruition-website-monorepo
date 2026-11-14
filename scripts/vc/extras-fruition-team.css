@@ -7,3 +7,10 @@
 @media (max-width:767px){
   .vc [data-sec="team"] .panel{margin-top:24px}
 }
+
+/* Lead cards (the large Leads row): from 768px the mock-up fixes .lc at
+   383px / 338px and fades the bio out, so "Read more" flipped to "Show less"
+   but nothing expanded. An open lead card grows to fit its whole bio. */
+.vc-p-fruition-team .lc.open{height:auto}
+.vc-p-fruition-team .lc.open .pb{overflow:visible}
+.vc-p-fruition-team .lc.open .bio{flex:none;overflow:visible;-webkit-line-clamp:unset;-webkit-mask-image:none;mask-image:none}
