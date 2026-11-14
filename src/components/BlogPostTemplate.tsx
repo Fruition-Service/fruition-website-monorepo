@@ -481,10 +481,10 @@ function AuthorCard({ post, url }: { post: BlogPostData; url: string }) {
   )
 }
 
-function Related({ posts }: { posts: RelatedBlogPost[] }) {
+function Related({ posts, tone }: { posts: RelatedBlogPost[]; tone: "plain" | "alt" }) {
   if (!posts.length) return null
   return (
-    <section className="alt rel" data-sec="related">
+    <section className={tone === "alt" ? "alt rel" : "rel"} data-sec="related">
       <div className="wrap">
         <div className="rel-h">
           <h2 className="h2">
@@ -578,9 +578,11 @@ export default function BlogPostTemplate({ post, relatedPosts = [], closing }: B
           <div className="ab-r" aria-hidden="true" />
         </div>
       </section>
-      {faq && <FaqSection faq={faq} />}
+      {/* The author card sits under the article, before the FAQs (Edward, 14 Nov 2026). */}
       <AuthorCard post={post} url={url} />
-      <Related posts={relatedPosts} />
+      {faq && <FaqSection faq={faq} />}
+      {/* Grey and white alternate: after the grey FAQ band the related posts sit on white. */}
+      <Related posts={relatedPosts} tone={faq ? "plain" : "alt"} />
       {closing && <VcClosing s={closing} />}
     </div>
   )

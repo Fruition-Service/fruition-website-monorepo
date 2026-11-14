@@ -1,0 +1,765 @@
+{
+  "docs": [
+    {
+      "_createdAt": "2026-11-14T05:21:56Z",
+      "_id": "vcPage-industries",
+      "_rev": "lEVqCIK42Xqbj4DBtDAJlY",
+      "_type": "vcPage",
+      "_updatedAt": "2026-11-14T10:22:49Z",
+      "group": "core",
+      "path": "/industries",
+      "sections": [
+        {
+          "_key": "52ce6edc9189",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-5e5efa015c2baed8002bbd5e26ce5581b5f05b0f-1120x840-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "Industries",
+          "ctas": [
+            {
+              "_key": "e7f947f46c89",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "primary"
+            },
+            {
+              "_key": "92217c2ede57",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "/ai-use-cases",
+              "label": "All AI use cases",
+              "style": "outline"
+            }
+          ],
+          "heading": "Workflow and AI consulting *by industry*",
+          "lead": "Fruition designs project, CRM and AI workflows for construction, manufacturing, government, professional services, real estate and financial services. Each industry has prebuilt solutions in our use case hub that we adapt to your process.",
+          "pills": [
+            "45 prebuilt solutions",
+            "NSW Government ICT Services Scheme supplier",
+            "900+ implementations"
+          ],
+          "trustLabel": "Trusted by teams across 900+ implementations",
+          "trustLogos": [
+            {
+              "_key": "79bd07169755",
+              "_type": "vcLogo",
+              "alt": "Telstra",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-63df7ba748535358fe487146d7188b569e190407-256x70-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "85a302048dfd",
+              "_type": "vcLogo",
+              "alt": "Reserve Bank of Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-a5696ef800d3927d3abff6ec1a54f7b9f1410751-256x149-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "4066dc5f4dc5",
+              "_type": "vcLogo",
+              "alt": "CSIRO",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-377660e8531981991b7f2093fe96a038ab5cf772-256x58-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "194e803a5513",
+              "_type": "vcLogo",
+              "alt": "Transport for NSW",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-5701f3bad9ccc13f3d93a9ec32decb3d11c577a3-256x276-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "d0c0d0185f7a",
+              "_type": "vcLogo",
+              "alt": "SBS",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0c6670e419f11e6864f8701a458f27aa14ed9f1b-256x174-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "1d2aab0ca695",
+              "_type": "vcLogo",
+              "alt": "Specsavers",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b934441b0d32474a8a4b5411464c71aefbe76be8-256x97-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "26db272e008d",
+              "_type": "vcLogo",
+              "alt": "Scania",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-2e713b90d7ac7e22bb4c3cff2606e27f6d5dbca4-256x69-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "fde214d1ee92",
+              "_type": "vcLogo",
+              "alt": "Ticketek",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-f26bdcf65004a2ebd098dbcb0afadc24d197dfee-256x105-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "f0ca7921e0e2",
+              "_type": "vcLogo",
+              "alt": "Carsales",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-7b08e9ef9cc2d9a45eadaa1b187ebc6900b3d440-256x93-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "f1ed77a61c43",
+              "_type": "vcLogo",
+              "alt": "NRL",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-1bcb092e3a0c2be6aceb2eaf665ab09ba15ec078-256x326-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "a360e968b623",
+              "_type": "vcLogo",
+              "alt": "Daily Mail",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-cc2419c3e004fbd819bbff935cce431db5e1a0c9-256x52-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "49dbd47024e5",
+              "_type": "vcLogo",
+              "alt": "Queensland Health",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-b0979b42ce12589e550c11edd87420dc2789ead9-256x71-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "396a66768e70",
+              "_type": "vcLogo",
+              "alt": "Ogilvy",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-6bf685d6185173a852281d994ecd07cd34a46a2f-256x99-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "c74094eae483",
+              "_type": "vcLogo",
+              "alt": "Tourism Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-fddbe99686c2d4c7335cac8abe3e40523aae459f-256x104-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "c62748549412",
+              "_type": "vcLogo",
+              "alt": "Tourism NT",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-293197cc1a0d152841411f72e4bf47c03a5939a4-256x96-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "1d7a8d04fba2",
+              "_type": "vcLogo",
+              "alt": "Vinnies",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-765a948cad421e88c5994fa349cf2e0d91435927-256x67-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "b7925612b0d4",
+              "_type": "vcLogo",
+              "alt": "EVT",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-1cd0c12eb6d76d6dc73831b2b6f61a16fcce1bcf-256x94-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "aa77824633db",
+              "_type": "vcLogo",
+              "alt": "Retail Food Group",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-250d2c0a7099de837ea7961d1470ea686913d408-256x125-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "ee546765c055",
+              "_type": "vcLogo",
+              "alt": "Patties Food Group",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-aec659ce21f1c1ff33c2c94d11827336930b8d72-256x143-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "99ece899cb3d",
+              "_type": "vcLogo",
+              "alt": "Kookaburra Sport",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0cb68e90b846989241245847badb479fa65e7312-256x74-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "728b4f4ea18f",
+              "_type": "vcLogo",
+              "alt": "Landcom",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-9daeb3bf42497a34b3497832467cf39a6006c032-256x46-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "4c9f0b022c15",
+              "_type": "vcLogo",
+              "alt": "Athletics Australia",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-131464ba4c439e6c364e9f2048b0eff1f71b8ba5-256x205-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "b265c66e0203",
+              "_type": "vcLogo",
+              "alt": "VicHealth",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-0d5b3b6b2fdf0c3fdeaf8f46045165bb7e2c009e-256x80-webp",
+                  "_type": "reference"
+                }
+              }
+            },
+            {
+              "_key": "103eb27170aa",
+              "_type": "vcLogo",
+              "alt": "Hume Bank",
+              "image": {
+                "_type": "image",
+                "asset": {
+                  "_ref": "image-5f278c1ba38b3cab225287a4011c0b8ee3e2f2fe-256x44-webp",
+                  "_type": "reference"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "_key": "103712ecb94b",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Sectors",
+            "heading": "Industries we *specialise in*"
+          },
+          "items": [
+            {
+              "_key": "aff250c0a659",
+              "_type": "vcItem",
+              "body": "Project delivery, site diaries, subcontractor compliance, variations and handover in one system.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-construction",
+              "label": "Featured",
+              "title": "Construction"
+            },
+            {
+              "_key": "009730b69fa1",
+              "_type": "vcItem",
+              "body": "Production planning, quality, maintenance and purchase orders, connected to your ERP.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-manufacturing",
+              "label": "Featured",
+              "title": "Manufacturing"
+            },
+            {
+              "_key": "e74860ed8ac5",
+              "_type": "vcItem",
+              "body": "Secure program delivery and reporting for public-sector teams, with procurement-ready contracting.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-government",
+              "label": "Featured",
+              "title": "Government"
+            },
+            {
+              "_key": "8484a9a1fa4e",
+              "_type": "vcItem",
+              "body": "Client onboarding, resourcing, time tracking and billing across every engagement.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-professional-services",
+              "title": "Professional services"
+            },
+            {
+              "_key": "28d9c2057e63",
+              "_type": "vcItem",
+              "body": "Listings, deal pipelines, property operations and tenant requests.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-real-estate",
+              "title": "Real estate"
+            },
+            {
+              "_key": "1411102dd029",
+              "_type": "vcItem",
+              "body": "APRA- and FCA-aligned workflows, approvals and AI with an audit trail.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/financial-services",
+              "title": "Financial services"
+            },
+            {
+              "_key": "6c8ea14628cf",
+              "_type": "vcItem",
+              "body": "Having worked extensively with retail businesses, we understand the challenges of managing store operations, supply chain efficiency, and consistent customer experiences.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-retail",
+              "title": "Retail"
+            },
+            {
+              "_key": "b7546164815f",
+              "_type": "vcItem",
+              "body": "HIPAA-configured platforms and governed AI for healthcare organisations across Australia, the UK, and the US: patient workflows, referral management, and back-office automation.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/healthcare",
+              "title": "Healthcare"
+            },
+            {
+              "_key": "f71ce2a08e32",
+              "_type": "vcItem",
+              "body": "CRM and workflow systems for solar and renewables companies across Australia, the UK, and the US: install pipelines, crew scheduling, rebate workflows, and the compliance chain in between.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/solar-renewables",
+              "title": "Solar & renewables"
+            },
+            {
+              "_key": "447aa4c46347",
+              "_type": "vcItem",
+              "body": "Platforms and governed AI for schools, universities and training providers across Australia, the UK and the US: admissions, student services, staff operations and compliance, with privacy built in.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/education",
+              "title": "Education"
+            },
+            {
+              "_key": "92ede53670ce",
+              "_type": "vcItem",
+              "body": "Platforms and governed AI for nonprofits and charities across Australia, the UK and the US: donor and grant management, program delivery, volunteer coordination and regulator-ready reporting.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/nonprofits",
+              "title": "Nonprofits"
+            },
+            {
+              "_key": "aff195a3ecbd",
+              "_type": "vcItem",
+              "body": "Dispatch, fleet, freight and depot workflows for operators across Australia, the UK and the US, with automation and governed AI where the manual handoffs live.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/transport-logistics",
+              "title": "Transport & logistics"
+            },
+            {
+              "_key": "9445c9f1e36e",
+              "_type": "vcItem",
+              "body": "Event delivery, tourism campaigns, venue operations and multi-site hospitality workflows, with automation and governed AI built in from the first board.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/hospitality-tourism-events",
+              "title": "Hospitality, tourism & events"
+            },
+            {
+              "_key": "1984191d967e",
+              "_type": "vcItem",
+              "body": "Product delivery, sales pipeline, customer onboarding and support workflows for software and technology companies, connected to the tools engineering already uses.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/technology-saas",
+              "title": "Technology & SaaS"
+            },
+            {
+              "_key": "ea7eac6b9c74",
+              "_type": "vcItem",
+              "body": "Workflows for energy companies, utilities and electrical contractors: field jobs, network and infrastructure projects, asset maintenance and the compliance evidence behind them.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/energy-utilities",
+              "title": "Energy & utilities"
+            },
+            {
+              "_key": "805f17ac678e",
+              "_type": "vcItem",
+              "body": "Production, content, editorial and client delivery workflows for broadcasters, publishers, studios and agencies, with automation and governed AI where the deadlines bite.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/media-entertainment",
+              "title": "Media & entertainment"
+            },
+            {
+              "_key": "8bdc4e38c9f0",
+              "_type": "vcItem",
+              "body": "Matter tracking, client intake, deadline management and practice operations for law firms and in-house legal teams, with governed AI that keeps privileged work private.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/industries/legal",
+              "title": "Legal"
+            },
+            {
+              "_key": "125f646b78dc",
+              "_type": "vcItem",
+              "body": "Having worked extensively with marketing and creative teams, we understand the challenges of managing campaign workflows, creative asset production and consistent brand experiences.",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-marketing",
+              "title": "Marketing & creative"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "3c0189b44c04",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Use case hub",
+            "heading": "Browse the use case *hub*",
+            "lead": "Filter prebuilt solutions by team. Every one can be adapted to your industry."
+          },
+          "items": [
+            {
+              "_key": "a7407dcab00e",
+              "_type": "vcItem",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-consulting-solutions/monday-project-management",
+              "title": "Project management"
+            },
+            {
+              "_key": "e51854af1212",
+              "_type": "vcItem",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-consulting-solutions/monday-for-hr",
+              "title": "HR"
+            },
+            {
+              "_key": "c8a62b51c60d",
+              "_type": "vcItem",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-consulting-solutions/monday-service",
+              "title": "Service"
+            },
+            {
+              "_key": "5e853b176b04",
+              "_type": "vcItem",
+              "cardLink": true,
+              "cardTile": true,
+              "href": "/monday-for-marketing",
+              "title": "Marketing & creative"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "83fd90cf10d0",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "/ai-use-cases",
+            "label": "All AI use cases",
+            "style": "primary"
+          },
+          "heading": "All AI *use cases*",
+          "text": "Every industry has prebuilt solutions in our use case hub that we adapt to your process.",
+          "tone": "plain"
+        },
+        {
+          "_key": "c7a40e10951c",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "9d65c6e0f1eb",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "f224f139da12",
+              "_ref": "vcQuote-jade-wood-popology-d71b1e",
+              "_type": "reference"
+            },
+            {
+              "_key": "31790216e1c4",
+              "_ref": "vcQuote-jason-doan-holt-cat-e3d04d",
+              "_type": "reference"
+            },
+            {
+              "_key": "3cc374a23553",
+              "_ref": "vcQuote-jemma-ryan",
+              "_type": "reference"
+            },
+            {
+              "_key": "e9791a2e07df",
+              "_ref": "vcQuote-mairhead-mckinley-givergy-1d6acd",
+              "_type": "reference"
+            },
+            {
+              "_key": "bd8310baf005",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt-6c1df8",
+              "_type": "reference"
+            },
+            {
+              "_key": "2f49d4c3f378",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory-aece52",
+              "_type": "reference"
+            },
+            {
+              "_key": "c3dc1e04cf08",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning-d93d05",
+              "_type": "reference"
+            },
+            {
+              "_key": "8685f5a4967f",
+              "_ref": "vcQuote-kerrie-e",
+              "_type": "reference"
+            },
+            {
+              "_key": "fb43489461aa",
+              "_ref": "vcQuote-ron-amaram-risk-2-solutions-859a4f",
+              "_type": "reference"
+            },
+            {
+              "_key": "880589c6de01",
+              "_ref": "vcQuote-lorenzo-tejada-orrell-clsq-dbc6d5",
+              "_type": "reference"
+            },
+            {
+              "_key": "9633f9d26f33",
+              "_ref": "vcQuote-anthony-rowson-happy-little-campers",
+              "_type": "reference"
+            },
+            {
+              "_key": "3b0993e5a25a",
+              "_ref": "vcQuote-tedd-long-mcag-inc-c38f71",
+              "_type": "reference"
+            },
+            {
+              "_key": "f834797d89c3",
+              "_ref": "vcQuote-louis-stenmark-windfall-bio-ab1a17",
+              "_type": "reference"
+            },
+            {
+              "_key": "a1e15be9d1d5",
+              "_ref": "vcQuote-teddy-mangion",
+              "_type": "reference"
+            },
+            {
+              "_key": "68a28350660b",
+              "_ref": "vcQuote-luke-reddin-clean-power-australia-b9d14b",
+              "_type": "reference"
+            },
+            {
+              "_key": "475abae68567",
+              "_ref": "vcQuote-brad-cannon-monday-com-858fef",
+              "_type": "reference"
+            },
+            {
+              "_key": "6e290ce7b263",
+              "_ref": "vcQuote-bianca-genesio-g8-education-a84128",
+              "_type": "reference"
+            },
+            {
+              "_key": "ba61782bf332",
+              "_ref": "vcQuote-anthony-d-agostino-true-steel-frames-c2163e",
+              "_type": "reference"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "a159ad39cb84",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "heading": "Let’s design the way your business *should run.*",
+          "lead": "30 minutes. No obligation. Speak to a consultant, not a salesperson."
+        },
+        {
+          "_key": "0363b08905ff",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked *questions*",
+          "tabs": [
+            {
+              "_key": "86860efb5e97",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "847dce1392d9",
+                  "_ref": "faqItem-migrated-industries-0",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "06eb8bd88d48",
+                  "_ref": "faqItem-migrated-industries-1",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "693c4146f06e",
+                  "_ref": "faqItem-migrated-industries-2",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "27613a5b0a4f",
+                  "_ref": "faqItem-migrated-industries-3",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "b32ec590d895",
+                  "_ref": "faqItem-migrated-ai-consulting-8",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "b6be0d93abb2",
+                  "_ref": "faqItem-migrated-ai-consulting-9",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "d058ef9b2e30",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "c4f1b3e0bd8b",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Ready to *talk?*",
+          "lead": "Book a 30-minute discovery call. We’ll give you a frank read on scope, fit, and cost."
+        }
+      ],
+      "seoDescription": "Fruition delivers AI and platform consulting shaped by sector: the compliance regimes, workflows, and data realities of construction, finance, healthcare, manufacturing, and more, across Australia, the UK, and the US.",
+      "seoTitle": "Industry Solutions | Fruition: AI & Platform Consulting by Sector, AU · UK · US",
+      "title": "Industry Solutions | Fruition: AI & Platform Consulting by Sector, AU · UK · US"
+    }
+  ]
+}

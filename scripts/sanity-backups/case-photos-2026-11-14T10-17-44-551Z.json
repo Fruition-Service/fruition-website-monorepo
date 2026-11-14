@@ -1,0 +1,54 @@
+{
+  "docs": [
+    {
+      "_createdAt": "2026-11-14T04:46:52Z",
+      "_id": "vcCase-adg-construction",
+      "_rev": "yfMOnpqsGU6HIl2c2ylek3",
+      "_type": "vcCase",
+      "_updatedAt": "2026-11-14T04:46:52Z",
+      "body": "An Australian builder whose leads get follow-ups by SMS through Twilio and by email, with quote tracking and automatic reminders.",
+      "client": "ADG Construction",
+      "label": "Client build · Australia",
+      "photo": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-fd626a6628244c6d52e09e49ea05d34c94104a80-660x440-webp",
+          "_type": "reference"
+        }
+      },
+      "results": [],
+      "tags": [
+        "Twilio SMS",
+        "Lead follow-up",
+        "Quote reminders"
+      ]
+    },
+    {
+      "_createdAt": "2026-11-12T07:57:40Z",
+      "_id": "vcCase-pacific-community",
+      "_rev": "l9TVOYqyZvmQ1rufop8bv8",
+      "_type": "vcCase",
+      "_updatedAt": "2026-11-12T07:57:40Z",
+      "body": "The principal scientific and technical organisation for the Pacific region, owned by its 27 member countries and territories.",
+      "client": "Pacific Community",
+      "label": "Client project · Fiji",
+      "logo": {
+        "_type": "image",
+        "alt": "Pacific Community logo",
+        "asset": {
+          "_ref": "image-f715ee61d5a7a4140504555ac08e346b40dd4c52-260x105-png",
+          "_type": "reference"
+        }
+      },
+      "photo": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4b16263fcf109356ba298bb834d2cf407b46db96-1600x1068-jpg",
+          "_type": "reference"
+        }
+      },
+      "results": [],
+      "tags": []
+    }
+  ]
+}

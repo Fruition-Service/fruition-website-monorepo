@@ -134,3 +134,5 @@
 .vc-p-blog-post .shr .copied{color:var(--accent);border-color:var(--accent)}
 .vc-p-blog-post .ah-who{min-height:44px}
 .vc-p-blog-post .toc a{min-height:44px;display:flex;align-items:center}
+/* The author card now follows the article directly (above the FAQs), so it needs no gap of its own on top. */
+.vc-p-blog-post .ab + .wb{padding-top:0}

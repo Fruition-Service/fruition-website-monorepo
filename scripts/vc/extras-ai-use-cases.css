@@ -1,0 +1,10 @@
+/* /industries hub tiles (vcItem cardTile, Edward 14 Nov 2026): icon on top, label, title and one-line text,
+   top-aligned so a row reads evenly; the whole tile is the link, so it carries no arrow. */
+.vc-p-ai-use-cases .go-card.ind{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:20px}
+.vc-p-ai-use-cases .go-card.ind .ico{width:44px;height:44px;border-radius:var(--r2);background:var(--accent-tint);display:flex;align-items:center;justify-content:center;flex:none}
+.vc-p-ai-use-cases .go-card.ind .ico svg{width:22px;height:22px;fill:none;stroke:var(--accent);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.vc-p-ai-use-cases .go-card.ind .h3{margin-top:6px}
+.vc-p-ai-use-cases .go-card.ind .label + .h3{margin-top:8px}
+.vc-p-ai-use-cases .go-card.ind .body{margin-top:8px}
+.vc-p-ai-use-cases .go-card.ind:hover .ico{background:var(--accent);transition:background .2s}
+.vc-p-ai-use-cases .go-card.ind:hover .ico svg{stroke:#fff}
