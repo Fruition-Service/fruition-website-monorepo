@@ -1,0 +1,2075 @@
+{
+  "docs": [
+    {
+      "_createdAt": "2026-11-14T05:21:56Z",
+      "_id": "vcPage-int-line",
+      "_rev": "4UtamtR3wmQaeEVZTbufvk",
+      "_type": "vcPage",
+      "_updatedAt": "2026-11-14T05:21:56Z",
+      "group": "partner",
+      "path": "/integrations/line",
+      "sections": [
+        {
+          "_key": "d4bf0a7dcf0b",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-11c4c7099cc36ba58459227759a7090f2f393950-1120x840-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "Integrations · LINE",
+          "ctas": [
+            {
+              "_key": "d900567b3e21",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a LINE integration call",
+              "style": "primary"
+            },
+            {
+              "_key": "666da2356c47",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#faq",
+              "label": "Common questions",
+              "style": "outline"
+            }
+          ],
+          "heading": "In Japan, Taiwan and Thailand, *LINE is the customer relationship.*",
+          "lead": "We connect LINE Official Accounts to monday.com, HubSpot and your ERP, so a friend-add becomes a contact record with consent attached, and the conversation stops ending at the Official Account Manager.",
+          "variant": "ph"
+        },
+        {
+          "_key": "88d0c43bbafe",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engineering problem",
+            "heading": "LINE keeps nothing for you.",
+            "lead": "LINE gives you a display name, an icon, a status message and a language. It will not give you a phone number, an email address or a way to re-read a message you failed to store. Everything a CRM needs, you have to capture yourself. That is the whole engineering problem, and it is why LINE projects that start as \"just connect the chat tool\" end up rebuilt. We design the persistence and consent layer first, because LINE keeps no logs for you and will not hand the data back."
+          },
+          "items": [],
+          "layout": "cards2",
+          "tone": "plain"
+        },
+        {
+          "_key": "0a0217134e38",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Where it matters",
+            "heading": "Three markets where LINE *is not one channel among several.*",
+            "lead": "Figures are LY Corporation’s own, as at 31 March 2026. LINE counts accounts that launched the app at least once in the month, so read these as account-launch metrics rather than deduplicated people."
+          },
+          "items": [
+            {
+              "_key": "fd5d08dfee9f",
+              "_type": "vcItem",
+              "body": "81.3% of the population. LINE is the default messaging layer for consumers and, increasingly, for service delivery.",
+              "label": "100m monthly actives",
+              "title": "Japan"
+            },
+            {
+              "_key": "52b00b1d0a07",
+              "_type": "vcItem",
+              "body": "94.5% of the population, the highest penetration of any LINE market.",
+              "label": "22m monthly actives",
+              "title": "Taiwan"
+            },
+            {
+              "_key": "ddfea935d8c7",
+              "_type": "vcItem",
+              "body": "81.8% of the population. LINE Thailand reported 12 billion Official Account conversations across 2025.",
+              "label": "54m monthly actives",
+              "title": "Thailand"
+            },
+            {
+              "_key": "ae3d27e37048",
+              "_type": "vcItem",
+              "body": "LY Corporation frames LINE’s overseas business as Taiwan and Thailand. It no longer reports Indonesia as a core market.",
+              "label": "193m globally",
+              "title": "Elsewhere"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "e2d9e7cf7fc8",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The pipe",
+            "heading": "From a friend-add to a contact record with consent",
+            "lead": "A friend-add gives you an opaque user ID and nothing else. The integration is everything that turns that ID into a customer you can actually contact. The reply to a follow event is free and does not consume your message quota, which makes a conversational design structurally cheaper than a broadcast one."
+          },
+          "items": [
+            {
+              "_key": "c8fe2af92a01",
+              "_type": "vcItem",
+              "body": "follow webhook · userId",
+              "label": "01",
+              "title": "LINE OA"
+            },
+            {
+              "_key": "d11988175884",
+              "_type": "vcItem",
+              "body": "Phone, email, explicit consent",
+              "label": "02",
+              "title": "LIFF form"
+            },
+            {
+              "_key": "0489f4592f4c",
+              "_type": "vcItem",
+              "body": "Contact keyed on userId",
+              "label": "03",
+              "title": "monday.com / HubSpot"
+            },
+            {
+              "_key": "cf185cb3e6a0",
+              "_type": "vcItem",
+              "body": "Follow-up · booking · order status",
+              "label": "04",
+              "title": "Push & rich menu"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "eb69310bcee5",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Your stack",
+            "heading": "Three of these support LINE natively. *Two do not.*",
+            "lead": "If a vendor tells you LINE needs custom work everywhere, they have not checked. The gap is real, but it is specific, and it is exactly where most of our clients sit. Verified against each vendor’s documentation and LINE’s technology-partner directory in September 2026. Third-party middleware exists in this space, SleekFlow, Omnichat, Crescendo Lab and others, and we will tell you when buying one beats building."
+          },
+          "items": [
+            {
+              "_key": "e9d06892d644",
+              "_type": "vcItem",
+              "body": "LINE is a first-class Messaging channel in Service Cloud, and Salesforce appears directly in LINE’s own technology-partner directory.\n\nWork around the documented gaps: agents can receive but not send audio, documents do not pass in either direction, and LINE’s unsend is not honoured in transcripts.",
+              "kicker": "Out of the box",
+              "label": "Native",
+              "meta": "What we build",
+              "title": "Salesforce"
+            },
+            {
+              "_key": "6c93d3e48e5b",
+              "_type": "vcItem",
+              "body": "A standard out-of-the-box social channel, built by Microsoft rather than co-built with LINE.\n\nIdentity resolution against existing contacts, and everything past the channel itself, consent state, routing, and the rest of the estate.",
+              "kicker": "Out of the box",
+              "label": "Native",
+              "meta": "What we build",
+              "title": "Microsoft Dynamics 365"
+            },
+            {
+              "_key": "b1a0924aa26a",
+              "_type": "vcItem",
+              "body": "LINE sits alongside WhatsApp, Telegram and WeChat in SalesIQ.\n\nCross-suite flows the moment LINE has to reach anything outside Zoho, and the LIFF capture step SalesIQ does not provide.",
+              "kicker": "Out of the box",
+              "label": "Native",
+              "meta": "What we build",
+              "title": "Zoho SalesIQ"
+            },
+            {
+              "_key": "535b3c0724ea",
+              "_type": "vcItem",
+              "body": "No LINE channel. HubSpot’s own documentation routes you to the Custom Channels API, which needs Sales Hub or Service Hub Professional plus HubSpot Credits.\n\nThe custom channel itself (webhook, signature validation, identity mapping and inbox threading) so LINE behaves like a first-party channel to your team.",
+              "kicker": "Out of the box",
+              "label": "Not native",
+              "meta": "What we build",
+              "title": "HubSpot"
+            },
+            {
+              "_key": "aa4b5db2954d",
+              "_type": "vcItem",
+              "body": "Nothing. No app, no channel, no listing. monday.com does not appear in LINE’s partner directory, and LINE does not appear in monday’s marketplace.\n\nThe whole path: Messaging API webhook into monday’s GraphQL, plus the persistence layer LINE forces on you because it will not re-serve an inbound message.",
+              "kicker": "Out of the box",
+              "label": "Not native",
+              "meta": "What we build",
+              "title": "monday.com"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "alt"
+        },
+        {
+          "_key": "b7a08cdc3907",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Book a 30-Min System Audit",
+            "style": "primary"
+          },
+          "heading": "Ready to build systems *that scale with your team?*",
+          "text": "Book a complimentary 30-minute audit with a Fruition consultant, we will map your workflows, spot the automation wins and show you what the build looks like.",
+          "tone": "plain"
+        },
+        {
+          "_key": "de21645849b1",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we build",
+            "heading": "The layer LINE *deliberately leaves to you.*",
+            "lead": "Documented, owned by a named maintainer, and handed over with the architecture written down."
+          },
+          "items": [
+            {
+              "_key": "7172ff5818c3",
+              "_type": "vcItem",
+              "body": "The decision that cannot be undone: which provider owns which channels, so your user IDs stay consistent as you add LINE Login, LIFF and a second Official Account.",
+              "title": "Provider & channel architecture"
+            },
+            {
+              "_key": "b3585488e9a6",
+              "_type": "vcItem",
+              "body": "The form that turns an anonymous user ID into a contactable person, with explicit consent captured in the same step.",
+              "title": "LIFF lead capture"
+            },
+            {
+              "_key": "effdbe606e1e",
+              "_type": "vcItem",
+              "body": "Durable storage of inbound events and media, because LINE serves each one exactly once and keeps no logs on your behalf.",
+              "title": "Message persistence"
+            },
+            {
+              "_key": "979141591f1a",
+              "_type": "vcItem",
+              "body": "LINE’s security-hardened flow for binding a LINE identity to an existing customer record, rather than the home-grown version LINE warns against.",
+              "title": "Account linking"
+            },
+            {
+              "_key": "d85c1b4e9b3f",
+              "_type": "vcItem",
+              "body": "Per-user rich menus driven from CRM state, plus the audience work the API cannot reach and that has to be designed around.",
+              "title": "Rich menus & segmentation"
+            },
+            {
+              "_key": "030934bb4066",
+              "_type": "vcItem",
+              "body": "Costing the plan against your real send pattern. Replies and 1:1 chat are quota-exempt in Japan, so conversational designs cost less than broadcast ones.",
+              "title": "Quota design"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "plain"
+        },
+        {
+          "_key": "c539856f854b",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Platform rules",
+            "heading": "LINE’s constraints are stricter *than most teams assume.*",
+            "lead": "Several of these cannot be retrofitted. Getting them wrong at the start means rebuilding, not patching. Verified against LINE’s Messaging API documentation, development guidelines and User Data Policy in September 2026. LINE declines to publish a retention period for media content, so we do not quote one."
+          },
+          "items": [
+            {
+              "_key": "0534dfe59617",
+              "_type": "vcItem",
+              "body": "A client already running a vendor chat tool on their OA cannot simply add a second integration. The module-channel escape hatch is gated behind a corporate application.",
+              "label": "Channels per account",
+              "title": "Normally one Messaging API channel per Official Account"
+            },
+            {
+              "_key": "175808eb8cf1",
+              "_type": "vcItem",
+              "body": "Under one provider, LINE Login and the Messaging API return the same ID, so no linking step is needed. Across providers they differ, and the choice cannot be changed later. Consolidate on day one.",
+              "label": "User IDs",
+              "title": "Provider-scoped, not channel-scoped"
+            },
+            {
+              "_key": "456597bd16ea",
+              "_type": "vcItem",
+              "body": "There is no API to fetch an inbound message again. Miss the webhook and the content is gone permanently, which makes durable persistence a requirement rather than a nicety.",
+              "label": "Inbound messages",
+              "title": "Delivered once, by webhook, and never re-servable"
+            },
+            {
+              "_key": "7a237c2f71b3",
+              "_type": "vcItem",
+              "body": "In LINE’s words, you are responsible for saving logs. Any audit or dispute you expect to win later depends on storage you built yourself.",
+              "label": "Logs",
+              "title": "LINE keeps none on your behalf"
+            },
+            {
+              "_key": "f43fded7fd93",
+              "_type": "vcItem",
+              "body": "Free and quota-exempt, which makes them worth engineering for. But a slow downstream call costs you the free reply and pushes you onto a billed push message.",
+              "label": "Reply tokens",
+              "title": "Single-use, valid one minute"
+            },
+            {
+              "_key": "f6559070b2c1",
+              "_type": "vcItem",
+              "body": "Phone and email come from a LIFF form, a conversation, or a separate LINE application for the email scope. PC-only users cannot consent to profile access at all, so your schema has to tolerate a nameless contact.",
+              "label": "Contact data",
+              "title": "Display name, icon, status and language. Nothing else"
+            },
+            {
+              "_key": "ef60362460b3",
+              "_type": "vcItem",
+              "body": "LINE’s User Data Policy also treats your CRM vendor, iPaaS and any LLM API as contractors, with obligations that must be flowed down to them.",
+              "label": "Data retention",
+              "title": "Friend and group information must not be stored beyond 24 hours"
+            },
+            {
+              "_key": "fef354a23a54",
+              "_type": "vcItem",
+              "body": "A friend-add is a channel, not consent. A disengaged user generates no event at all, so engagement state has to be inferred rather than read.",
+              "label": "Opt-out",
+              "title": "Blocking you is the only signal"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "581af1667163",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "By industry",
+            "heading": "What this looks like in your industry"
+          },
+          "items": [
+            {
+              "_key": "d38091673a19",
+              "_type": "vcItem",
+              "body": "Friend-add from a QR code in store, a rich menu that exposes ordering and order status, and every interaction keyed to a CRM record. Central Chat & Shop in Thailand runs this pattern at over a thousand customer conversations a day.",
+              "label": "Retail & commerce",
+              "meta": "Benefits",
+              "title": "The Official Account as the storefront, not the leaflet"
+            },
+            {
+              "_key": "a97cd5e1c89d",
+              "_type": "vcItem",
+              "body": "In Thailand, LINE Official Notifications reach customers by phone number even where they have not added the Official Account. Yuanta published a 91.04% delivery rate against SMS at up to 80% lower cost.",
+              "label": "Financial services",
+              "meta": "Benefits",
+              "title": "Transaction alerts that arrive, at a fraction of SMS"
+            },
+            {
+              "_key": "546ec934ae5b",
+              "_type": "vcItem",
+              "body": "Multi-brand groups end up with an Official Account per brand and no shared view of the customer. Food Passion consolidated five brands into a single CRM on LINE. The architecture decision that makes that possible is the provider layout, and it has to be right first time.",
+              "label": "Hospitality & F&B",
+              "meta": "Benefits",
+              "title": "One CRM behind several brands on one app"
+            },
+            {
+              "_key": "1c1aa90bed28",
+              "_type": "vcItem",
+              "body": "Clients in Japan, Taiwan and Thailand will answer on LINE and ignore email. Enquiry capture, document chase and scheduling run against the matter or engagement record, with the whole thread visible to whoever picks it up.",
+              "label": "Professional services",
+              "meta": "Benefits",
+              "title": "Enquiry to engagement without leaving the app"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "fd19dedf7f24",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What goes wrong",
+            "heading": "Why LINE projects get rebuilt",
+            "lead": "Four decisions that are cheap at the start and expensive to reverse."
+          },
+          "items": [
+            {
+              "_key": "e0e8b43eb9af",
+              "_type": "vcItem",
+              "body": "Channels cannot move between providers, and user IDs differ per provider. Get this wrong and consolidating later means re-identifying every contact.",
+              "label": "01",
+              "title": "The provider was chosen by whoever set it up"
+            },
+            {
+              "_key": "a69b42e09e4a",
+              "_type": "vcItem",
+              "body": "A vendor chat tool holds the one Messaging API channel. The integration you scoped cannot be installed alongside it.",
+              "label": "02",
+              "title": "The Official Account is already occupied"
+            },
+            {
+              "_key": "6ba41194c7fa",
+              "_type": "vcItem",
+              "body": "LINE serves each webhook once and keeps no logs. The conversation history you assumed you could export was never retained.",
+              "label": "03",
+              "title": "Nobody stored the inbound messages"
+            },
+            {
+              "_key": "df641a919d74",
+              "_type": "vcItem",
+              "body": "n8n’s LINE node is deprecated and non-functional since LINE Notify closed. Zapier has no LINE app at all. Plans built on either have to start again.",
+              "label": "04",
+              "title": "The automation platform turned out not to support it"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "baf4e28b93da",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "How we build it",
+            "heading": "How we build it"
+          },
+          "items": [
+            {
+              "_key": "eb176583c0af",
+              "_type": "vcItem",
+              "body": "One provider across Messaging API, LINE Login and LIFF, so the same user is the same ID everywhere and no linking step is needed.",
+              "label": "01",
+              "title": "Provider architecture designed before anything is created"
+            },
+            {
+              "_key": "9ecf82ad4f65",
+              "_type": "vcItem",
+              "body": "We establish what already holds the OA before quoting, and cost the module-channel path properly if you need it.",
+              "label": "02",
+              "title": "Channel occupancy checked during scoping"
+            },
+            {
+              "_key": "27ccb52249b0",
+              "_type": "vcItem",
+              "body": "Durable storage of every inbound event and media reference, because the platform gives you exactly one chance at each.",
+              "label": "03",
+              "title": "Persistence designed in from the first webhook"
+            },
+            {
+              "_key": "0aaf9c57a09e",
+              "_type": "vcItem",
+              "body": "Built against the Messaging API directly, or on middleware we have verified currently works, not on a node that stopped functioning in 2025.",
+              "label": "04",
+              "title": "A path that does not depend on a dead connector"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "d15b64adf39a",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engagement",
+            "heading": "How the engagement *actually runs*",
+            "lead": "Fixed phases, defined outcomes, published fees. You always know what is being delivered, by when, and at what cost."
+          },
+          "items": [
+            {
+              "_key": "632ff6b512e1",
+              "_type": "vcItem",
+              "body": "What Official Accounts exist, which provider owns them, what already occupies the Messaging API channel, and whether your verification status supports what you want to send.",
+              "label": "01",
+              "title": "Account & provider audit"
+            },
+            {
+              "_key": "5312c5cb4e16",
+              "_type": "vcItem",
+              "body": "How a user ID becomes a contact, where the LIFF capture sits, what consent wording you use, and how that satisfies PDPA or APPI as well as LINE’s own data policy.",
+              "label": "02",
+              "title": "Identity & consent design"
+            },
+            {
+              "_key": "78b85f3a7748",
+              "_type": "vcItem",
+              "body": "Signature validation, durable event storage, retries and alerting, before any of the features, because LINE will not give you a second chance at an inbound message.",
+              "label": "03",
+              "title": "Build, with persistence first"
+            },
+            {
+              "_key": "b44735e126f1",
+              "_type": "vcItem",
+              "body": "Architecture documentation, a named maintenance path, and your team trained on the parts they will change. No mystery middleware.",
+              "label": "04",
+              "title": "Handover you can maintain"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "88bc4b835205",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "ece0de1a530f",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "c41275274dad",
+              "_ref": "vcQuote-jade-wood-popology-d71b1e",
+              "_type": "reference"
+            },
+            {
+              "_key": "154c7ba53cc5",
+              "_ref": "vcQuote-jason-doan-holt-cat-e3d04d",
+              "_type": "reference"
+            },
+            {
+              "_key": "853eae0ad2ef",
+              "_ref": "vcQuote-jemma-ryan",
+              "_type": "reference"
+            },
+            {
+              "_key": "db3778675ffb",
+              "_ref": "vcQuote-mairhead-mckinley-givergy-1d6acd",
+              "_type": "reference"
+            },
+            {
+              "_key": "e36eefd632ef",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt-6c1df8",
+              "_type": "reference"
+            },
+            {
+              "_key": "a73680244760",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory-aece52",
+              "_type": "reference"
+            },
+            {
+              "_key": "57b5840f999a",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning-d93d05",
+              "_type": "reference"
+            },
+            {
+              "_key": "724ffb4823fb",
+              "_ref": "vcQuote-kerrie-e",
+              "_type": "reference"
+            },
+            {
+              "_key": "a26994826569",
+              "_ref": "vcQuote-ron-amaram-risk-2-solutions-859a4f",
+              "_type": "reference"
+            },
+            {
+              "_key": "3972d208dcf2",
+              "_ref": "vcQuote-lorenzo-tejada-orrell-clsq-dbc6d5",
+              "_type": "reference"
+            },
+            {
+              "_key": "5e858b34875f",
+              "_ref": "vcQuote-anthony-rowson-happy-little-campers",
+              "_type": "reference"
+            },
+            {
+              "_key": "c02451efd6e1",
+              "_ref": "vcQuote-tedd-long-mcag-inc-c38f71",
+              "_type": "reference"
+            },
+            {
+              "_key": "79ae83ca895d",
+              "_ref": "vcQuote-louis-stenmark-windfall-bio-ab1a17",
+              "_type": "reference"
+            },
+            {
+              "_key": "14b42ad151fd",
+              "_ref": "vcQuote-teddy-mangion",
+              "_type": "reference"
+            },
+            {
+              "_key": "f2239daec594",
+              "_ref": "vcQuote-luke-reddin-clean-power-australia-b9d14b",
+              "_type": "reference"
+            },
+            {
+              "_key": "4bcf4d469df6",
+              "_ref": "vcQuote-brad-cannon-monday-com-858fef",
+              "_type": "reference"
+            },
+            {
+              "_key": "d2bd58427ec5",
+              "_ref": "vcQuote-bianca-genesio-g8-education-a84128",
+              "_type": "reference"
+            },
+            {
+              "_key": "a548b96c18a4",
+              "_ref": "vcQuote-anthony-d-agostino-true-steel-frames-c2163e",
+              "_type": "reference"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "63235821e370",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "heading": "Talk to a consultant who has shipped this",
+          "lead": "Thirty minutes. We will tell you what your Official Account can and cannot support before we quote you anything."
+        },
+        {
+          "_key": "26693e7bf027",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked questions",
+          "tabs": [
+            {
+              "_key": "e774ac1bbf6a",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "59aac0883c8b",
+                  "_ref": "faqItem-vc-07900c26a9",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "48e2a93aa007",
+                  "_ref": "faqItem-vc-a4b168e126",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "eefd38f7b25d",
+                  "_ref": "faqItem-vc-ca62e8d261",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "7069be857880",
+                  "_ref": "faqItem-vc-1485bc8660",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "ce1e9f3ad6e3",
+                  "_ref": "faqItem-vc-2a28bb143a",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "7656b5b3bc93",
+                  "_ref": "faqItem-vc-78f5249ed2",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "3031e5b42eac",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "d26e9bea780a",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Make LINE part of the system,",
+          "lead": "Book a 30-minute discovery call. We will give you a frank read on scope, fit and cost."
+        }
+      ],
+      "seoDescription": "Fruition connects LINE Official Accounts to monday.com, HubSpot and your CRM or ERP across Japan, Taiwan and Thailand. LINE Messaging API integration, LIFF lead capture and PDPA-aligned consent.",
+      "seoTitle": "LINE CRM Integration | Fruition: LINE Official Account into monday.com, HubSpot & Salesforce",
+      "title": "LINE CRM Integration | Fruition: LINE Official Account into monday.com, HubSpot & Salesforce"
+    },
+    {
+      "_createdAt": "2026-11-14T05:21:56Z",
+      "_id": "vcPage-int-viber",
+      "_rev": "4UtamtR3wmQaeEVZTbufvk",
+      "_type": "vcPage",
+      "_updatedAt": "2026-11-14T05:21:56Z",
+      "group": "partner",
+      "path": "/integrations/viber",
+      "sections": [
+        {
+          "_key": "5fc8a68f9b57",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-c2e05decc6991fff1089bb1512705d57dc2910ee-1120x840-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "Integrations · Viber",
+          "ctas": [
+            {
+              "_key": "1ef5693605c8",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a Viber integration call",
+              "style": "primary"
+            },
+            {
+              "_key": "12b5a1e95386",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#faq",
+              "label": "Common questions",
+              "style": "outline"
+            }
+          ],
+          "heading": "Viber has no CRM app. *We build the one you need.*",
+          "lead": "Rakuten Viber publishes no integration for monday.com, HubSpot, Salesforce, Zoho or Dynamics. The channel has simply never been productised. That is the whole problem, and the whole opportunity: we build the path so Viber behaves like a first-class channel in the system you already run.",
+          "variant": "ph"
+        },
+        {
+          "_key": "3e7f91447fbd",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engineering problem",
+            "heading": "Where customers are, and no connector exists.",
+            "lead": "In the Philippines, Greece, Bulgaria, Serbia and Ukraine, Viber is where customers actually are. It is also the least served channel in enterprise software: no first-party CRM app anywhere, no Make app, no Zapier app, no n8n node. There are good technical reasons for that, and they are the reason this work is worth doing properly rather than improvising it."
+          },
+          "items": [],
+          "layout": "cards2",
+          "tone": "plain"
+        },
+        {
+          "_key": "2b4e4b97fe7d",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Where it matters",
+            "heading": "A small number of markets *where Viber leads outright.*",
+            "lead": "Rakuten does not publish Viber user numbers, and its own site now says only “hundreds of millions” monthly. So this section names markets and ranks rather than quoting headcounts we cannot source."
+          },
+          "items": [
+            {
+              "_key": "d15c9d915912",
+              "_type": "vcItem",
+              "body": "Viber’s own CEO places it among the top five of 190 countries, with monthly actives up 21% year on year. Retail and financial services dominate business use.",
+              "label": "Top-5 market worldwide",
+              "title": "Philippines"
+            },
+            {
+              "_key": "591942fcb53c",
+              "_type": "vcItem",
+              "body": "One of four markets where independent analysis ranks Viber first, alongside Bulgaria, Serbia and Belarus.",
+              "label": "#1 messaging app",
+              "title": "Greece"
+            },
+            {
+              "_key": "fa311536d7ec",
+              "_type": "vcItem",
+              "body": "PrivatBank, Auchan and the Podorozhnyk pharmacy chain all run documented Viber programmes, the last with over a million chatbot subscribers in its first year.",
+              "label": "Mass-market channel",
+              "title": "Ukraine"
+            },
+            {
+              "_key": "f53f3f14297d",
+              "_type": "vcItem",
+              "body": "A1 Serbia runs Viber inside Salesforce Marketing Cloud at renewal touchpoints, reporting 72% open rates on delivered messages.",
+              "label": "#1 in Serbia & Bulgaria",
+              "title": "Balkans"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "0c6e3f82a647",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The pipe",
+            "heading": "Aggregator in the middle, by design",
+            "lead": "Viber has no direct API for brands. You reach it through one of its approved partners, and which one you pick determines your rates, your templates and your inbound options. Chatbot sessions are the cheap path: once a subscriber messages you, a 24-hour session opens in which messages are unlimited and unbilled."
+          },
+          "items": [
+            {
+              "_key": "6cb785b331d9",
+              "_type": "vcItem",
+              "body": "Business Messages · chatbot",
+              "label": "01",
+              "title": "Viber"
+            },
+            {
+              "_key": "cdda22c4f2c0",
+              "_type": "vcItem",
+              "body": "Service ID · templates · fallback",
+              "label": "02",
+              "title": "Approved partner"
+            },
+            {
+              "_key": "5baa986a03c1",
+              "_type": "vcItem",
+              "body": "Contact, consent and thread",
+              "label": "03",
+              "title": "monday.com / HubSpot"
+            },
+            {
+              "_key": "86ecc6dbc1cb",
+              "_type": "vcItem",
+              "body": "Orders · reminders · receipts",
+              "label": "04",
+              "title": "ERP & billing"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "f6fd5bdfe8d6",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Your stack",
+            "heading": "Rakuten Viber publishes no CRM app *for any platform on this list.*",
+            "lead": "Every Viber listing on every one of these marketplaces is published by a messaging aggregator or a regional agency. That is not a criticism of Viber. It is the shape of the problem you are buying help with. Verified against each marketplace and Viber’s partner directory in September 2026. Marketplace search is client-side on several of these sites, so treat the aggregator lists as indicative rather than exhaustive."
+          },
+          "items": [
+            {
+              "_key": "83091996663b",
+              "_type": "vcItem",
+              "body": "No native Viber channel, but Infobip’s HubSpot-certified app delivers two-way Viber in the inbox, native workflow actions, inbound triggers and timeline events.\n\nNot the connection. That exists. Opt-in capture, consent-state modelling, template governance, and the Service ID and legal-entity design that decides your rate.",
+              "kicker": "Out of the box",
+              "label": "Partial",
+              "meta": "What we build",
+              "title": "HubSpot"
+            },
+            {
+              "_key": "4ff92487cdbc",
+              "_type": "vcItem",
+              "body": "Sinch’s omnichannel connector on AppExchange carries Viber into Marketing Cloud, one-way and two-way.\n\nJourney design, fallback policy and the consent model. A1 Serbia runs exactly this shape at renewal touchpoints.",
+              "kicker": "Out of the box",
+              "label": "Partial",
+              "meta": "What we build",
+              "title": "Salesforce"
+            },
+            {
+              "_key": "cb6c0b0db95a",
+              "_type": "vcItem",
+              "body": "Infobip’s app for Customer Insights carries Viber rich templates with SMS failover.\n\nThe failover policy, and cost attribution across two channels billed on different models.",
+              "kicker": "Out of the box",
+              "label": "Partial",
+              "meta": "What we build",
+              "title": "Microsoft Dynamics 365"
+            },
+            {
+              "_key": "4eb6c99ee791",
+              "_type": "vcItem",
+              "body": "Mitto and Wepster extensions on the Zoho marketplace. Zoho Desk reaches Viber only through MessageBird, not natively.\n\nEverything past the send: inbound handling, opt-out state, and reporting that survives the aggregator layer.",
+              "kicker": "Out of the box",
+              "label": "Partial",
+              "meta": "What we build",
+              "title": "Zoho"
+            },
+            {
+              "_key": "d1247770a71e",
+              "_type": "vcItem",
+              "body": "Nothing at all. A sweep of monday.com’s marketplace found no Viber listing of any kind, against 34 hits for WhatsApp and 11 for Telegram.\n\nAn approved aggregator plus purpose-built glue into monday’s API. There is no product to buy here, which is precisely why this page exists.",
+              "kicker": "Out of the box",
+              "label": "Not native",
+              "meta": "What we build",
+              "title": "monday.com"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "alt"
+        },
+        {
+          "_key": "ab69a2567b64",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Book a 30-Min System Audit",
+            "style": "primary"
+          },
+          "heading": "Ready to build systems *that scale with your team?*",
+          "text": "Book a complimentary 30-minute audit with a Fruition consultant, we will map your workflows, spot the automation wins and show you what the build looks like.",
+          "tone": "plain"
+        },
+        {
+          "_key": "62664204cb41",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we build",
+            "heading": "The work that is not *buying a connector.*",
+            "lead": "Documented, owned by a named maintainer, and handed over with the architecture written down."
+          },
+          "items": [
+            {
+              "_key": "6949f5c6d2e5",
+              "_type": "vcItem",
+              "body": "Modelling domestic against international rates for your markets, and telling you plainly when a local entity pays for itself several times over.",
+              "title": "Rate & entity design"
+            },
+            {
+              "_key": "8baff95c0b62",
+              "_type": "vcItem",
+              "body": "Choosing among Viber’s approved partners on the things that matter: inbound support, CRM app quality, monthly minimums and which markets they actually price well.",
+              "title": "Partner selection"
+            },
+            {
+              "_key": "f7233070d453",
+              "_type": "vcItem",
+              "body": "Templates written and submitted correctly the first time, because Viber’s are immutable and a rejection means starting again under a new name.",
+              "title": "Template governance"
+            },
+            {
+              "_key": "4d31eb691d14",
+              "_type": "vcItem",
+              "body": "The part Viber does not define. Consent state stored as an auditable field, with opt-out honoured across channels rather than per aggregator.",
+              "title": "Consent modelling"
+            },
+            {
+              "_key": "b78aa48077d2",
+              "_type": "vcItem",
+              "body": "When SMS should take over, what it costs when it does, and how both channels attribute back to one customer record.",
+              "title": "Fallback policy"
+            },
+            {
+              "_key": "cd6a7456cb34",
+              "_type": "vcItem",
+              "body": "Inbound threading, identity resolution and reporting into monday.com, HubSpot or Salesforce, built to survive a change of aggregator.",
+              "title": "CRM integration"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "plain"
+        },
+        {
+          "_key": "65591f2ec8f7",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Platform rules",
+            "heading": "Facts that decide *whether Viber is viable for you at all.*",
+            "lead": "We would rather tell you this before you commit than after. On two of these rows the honest answer is sometimes “not this channel”. Rates and rules from Rakuten Viber’s published documentation and EUR rate cards, retrieved September 2026. The rate cards carry no version date, so we re-retrieve them before quoting."
+          },
+          "items": [
+            {
+              "_key": "3410fecada36",
+              "_type": "vcItem",
+              "body": "Domestic rates apply only when your entity is headquartered in the recipient’s country. In the Philippines that is the difference between roughly €0.0026 and €0.0750 per message, decided by where you are incorporated, not by how you send.",
+              "label": "Domestic vs international",
+              "title": "A legal-entity test, not a routing test"
+            },
+            {
+              "_key": "78c2f59d1745",
+              "_type": "vcItem",
+              "body": "Viber’s own help centre lists chats with bots among the communications that are not end-to-end encrypted. Several aggregators claim otherwise. If you are regulated, design around the documented position.",
+              "label": "Encryption",
+              "title": "Business messaging is not end-to-end encrypted"
+            },
+            {
+              "_key": "d68920547d3b",
+              "_type": "vcItem",
+              "body": "Its business terms disclaim any representation that the service meets the needs of entities handling personal health information or data on children. For clinical use cases we will usually point you elsewhere.",
+              "label": "Regulated sectors",
+              "title": "Viber warrants nothing for health data"
+            },
+            {
+              "_key": "1305307623e0",
+              "_type": "vcItem",
+              "body": "Onboarding needs a warranty letter, a service qualification form, a non-promotional example message and six logo sizes. Viber issues a Service ID in two to three days. There is no self-serve path.",
+              "label": "Access",
+              "title": "Approved partner only, and Viber approves the sender"
+            },
+            {
+              "_key": "e9842e300632",
+              "_type": "vcItem",
+              "body": "Once a subscriber messages you, everything inside the session is free. A conversational design costs a flat monthly bot fee and very little else, which is the cheapest structure of the three channels we cover.",
+              "label": "Chatbot sessions",
+              "title": "24-hour sessions are unlimited and unbilled"
+            },
+            {
+              "_key": "87fa2e3ba7fb",
+              "_type": "vcItem",
+              "body": "A bot cannot message anyone who has not subscribed. For Business Messages Viber publishes no consent definition at all, so the standard is set by your aggregator and your regulator.",
+              "label": "Opt-in",
+              "title": "Platform-enforced for bots, contractual for Business Messages"
+            },
+            {
+              "_key": "b01c2148c8e9",
+              "_type": "vcItem",
+              "body": "A rejected template must be resubmitted under a new name. Template design is a release-planning problem, not a copywriting one.",
+              "label": "Templates",
+              "title": "Moderated by Viber, and immutable once submitted"
+            },
+            {
+              "_key": "a22bfe650f35",
+              "_type": "vcItem",
+              "body": "Its terms apply controller-to-controller standard contractual clauses. The processor agreement you actually sign is your aggregator’s, and its sub-processor list is the one to read.",
+              "label": "Data protection role",
+              "title": "Viber is an independent controller, not your processor"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "d4c5b89c6c1c",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "By industry",
+            "heading": "What this looks like in your industry"
+          },
+          "items": [
+            {
+              "_key": "09a564eb9ba0",
+              "_type": "vcItem",
+              "body": "Metrobank in the Philippines runs Viber marketing journeys through Salesforce Marketing Cloud and reports 30 to 50% cost savings against the same messages by SMS. PrivatBank in Ukraine reports a 10% lift in banking service usage.",
+              "label": "Financial services",
+              "meta": "Benefits",
+              "title": "Servicing messages at a fraction of SMS"
+            },
+            {
+              "_key": "4ce6d57e1862",
+              "_type": "vcItem",
+              "body": "Primer Group ran a Viber blast with a redeem code valid only for Viber recipients, and published 53% redemption. The mechanic works because attribution is unambiguous, which only holds if the code, the send and the CRM record are joined up.",
+              "label": "Retail & ecommerce",
+              "meta": "Benefits",
+              "title": "Channel-exclusive offers you can actually measure"
+            },
+            {
+              "_key": "b0728df4bdfa",
+              "_type": "vcItem",
+              "body": "A1 Serbia deployed Viber inside Salesforce Marketing Cloud at specific renewal touchpoints alongside SMS, push and email, and published 68% delivery with 72% open rates on delivered messages and a 20% Viber share of each journey.",
+              "label": "Telecom & utilities",
+              "meta": "Benefits",
+              "title": "Renewal journeys where the channel earns its place"
+            },
+            {
+              "_key": "2cff4b43338a",
+              "_type": "vcItem",
+              "body": "Cebu Pacific runs Viber as the primary channel with SMS failover, carrying both seat sales and operational notices such as delays and gate changes, and reports a 75% NPS increase year on year.",
+              "label": "Hospitality & travel",
+              "meta": "Benefits",
+              "title": "Operational notifications, not just promotions"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "d74c8ac8cefa",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What goes wrong",
+            "heading": "Why Viber projects stall",
+            "lead": "Four things that catch teams out, and how we handle them instead."
+          },
+          "items": [
+            {
+              "_key": "c0611ca16383",
+              "_type": "vcItem",
+              "body": "Make has no Viber app. Zapier states outright that Viber has not built an integration. n8n has no built-in node. A plan that assumed any of them has to start over.",
+              "label": "01",
+              "title": "The automation platform turns out to have nothing"
+            },
+            {
+              "_key": "e1cb7f571858",
+              "_type": "vcItem",
+              "body": "Without a locally registered entity you pay the international rate. In the Philippines that is roughly twenty-nine times the domestic one.",
+              "label": "02",
+              "title": "International rates arrive with the first invoice"
+            },
+            {
+              "_key": "47bb0e3b3289",
+              "_type": "vcItem",
+              "body": "Several aggregators describe Viber business messaging as end-to-end encrypted. Viber’s own help centre says chats with bots are not. Regulated programmes get built on a false premise.",
+              "label": "03",
+              "title": "Encryption was assumed, not checked"
+            },
+            {
+              "_key": "98d7b2fa3fe1",
+              "_type": "vcItem",
+              "body": "Viber publishes no consent definition for Business Messages, so teams inherit whatever their provider does. Then they change provider and the state does not come with them.",
+              "label": "04",
+              "title": "Consent was left to the aggregator"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "7cc5eb9e4931",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "How we build it",
+            "heading": "How we build it"
+          },
+          "items": [
+            {
+              "_key": "efe0193286d3",
+              "_type": "vcItem",
+              "body": "Built on an approved partner’s API with the inbound story confirmed, rather than on a connector that a directory page claims exists.",
+              "label": "01",
+              "title": "A path we have verified works this quarter"
+            },
+            {
+              "_key": "a949156f66df",
+              "_type": "vcItem",
+              "body": "Domestic against international, monthly minimums per market, and a straight answer on whether a local entity pays for itself.",
+              "label": "02",
+              "title": "Rate modelling before commitment"
+            },
+            {
+              "_key": "de4072d7761e",
+              "_type": "vcItem",
+              "body": "Viber’s own terms and help centre, not the aggregator’s marketing page. Where the channel is wrong for your sector we say so.",
+              "label": "03",
+              "title": "Compliance read from the primary source"
+            },
+            {
+              "_key": "aadd6081d5e9",
+              "_type": "vcItem",
+              "body": "Stored as an auditable field on your own records, so changing aggregator is a migration rather than a reset.",
+              "label": "04",
+              "title": "Consent owned by you, in your CRM"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "11ac0beb1d0f",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engagement",
+            "heading": "How the engagement *actually runs*",
+            "lead": "Fixed phases, defined outcomes, published fees. You always know what is being delivered, by when, and at what cost."
+          },
+          "items": [
+            {
+              "_key": "a5ecc0717528",
+              "_type": "vcItem",
+              "body": "Which markets you send to, where you are incorporated, what that means for your rate, and whether Viber beats SMS on your actual volume.",
+              "label": "01",
+              "title": "Market, entity & rate assessment"
+            },
+            {
+              "_key": "11167eaff9ef",
+              "_type": "vcItem",
+              "body": "Choosing an approved partner on inbound capability and market pricing, then running the Service ID application, warranty letter, qualification form, logos and all.",
+              "label": "02",
+              "title": "Partner selection & onboarding"
+            },
+            {
+              "_key": "d9ac95994191",
+              "_type": "vcItem",
+              "body": "Opt-in capture, consent state on your own records, template submission, inbound threading and fallback policy. Then the integration itself.",
+              "label": "03",
+              "title": "Build, with consent modelled first"
+            },
+            {
+              "_key": "35049e3ec079",
+              "_type": "vcItem",
+              "body": "Architecture documentation, a named maintenance path, and your team trained on the parts they will change. No mystery middleware.",
+              "label": "04",
+              "title": "Handover you can maintain"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "5e802f7c4268",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "f100a972823d",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "fdb53ab555b0",
+              "_ref": "vcQuote-jade-wood-popology-d71b1e",
+              "_type": "reference"
+            },
+            {
+              "_key": "4cf774f4efe4",
+              "_ref": "vcQuote-jason-doan-holt-cat-e3d04d",
+              "_type": "reference"
+            },
+            {
+              "_key": "49726491ffea",
+              "_ref": "vcQuote-jemma-ryan",
+              "_type": "reference"
+            },
+            {
+              "_key": "a040e24091d8",
+              "_ref": "vcQuote-mairhead-mckinley-givergy-1d6acd",
+              "_type": "reference"
+            },
+            {
+              "_key": "d42fe6c5d21f",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt-6c1df8",
+              "_type": "reference"
+            },
+            {
+              "_key": "dcc12503a177",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory-aece52",
+              "_type": "reference"
+            },
+            {
+              "_key": "0c9a04561e9a",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning-d93d05",
+              "_type": "reference"
+            },
+            {
+              "_key": "9348287c95b4",
+              "_ref": "vcQuote-kerrie-e",
+              "_type": "reference"
+            },
+            {
+              "_key": "0a37ff893c38",
+              "_ref": "vcQuote-ron-amaram-risk-2-solutions-859a4f",
+              "_type": "reference"
+            },
+            {
+              "_key": "21abe44ef9f1",
+              "_ref": "vcQuote-lorenzo-tejada-orrell-clsq-dbc6d5",
+              "_type": "reference"
+            },
+            {
+              "_key": "88c7c92abdbd",
+              "_ref": "vcQuote-anthony-rowson-happy-little-campers",
+              "_type": "reference"
+            },
+            {
+              "_key": "9a94e1948183",
+              "_ref": "vcQuote-tedd-long-mcag-inc-c38f71",
+              "_type": "reference"
+            },
+            {
+              "_key": "2a927c142f0d",
+              "_ref": "vcQuote-louis-stenmark-windfall-bio-ab1a17",
+              "_type": "reference"
+            },
+            {
+              "_key": "7d2376bd6be1",
+              "_ref": "vcQuote-teddy-mangion",
+              "_type": "reference"
+            },
+            {
+              "_key": "236e028de8c9",
+              "_ref": "vcQuote-luke-reddin-clean-power-australia-b9d14b",
+              "_type": "reference"
+            },
+            {
+              "_key": "1f096e98cbaa",
+              "_ref": "vcQuote-brad-cannon-monday-com-858fef",
+              "_type": "reference"
+            },
+            {
+              "_key": "f394aca90a02",
+              "_ref": "vcQuote-bianca-genesio-g8-education-a84128",
+              "_type": "reference"
+            },
+            {
+              "_key": "8b67f77a4832",
+              "_ref": "vcQuote-anthony-d-agostino-true-steel-frames-c2163e",
+              "_type": "reference"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "cdf5e6f24d1c",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "heading": "Talk to a consultant who has shipped this",
+          "lead": "Thirty minutes. We will tell you whether Viber is the right channel for your markets before we quote you anything."
+        },
+        {
+          "_key": "558e9d5d768f",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked questions",
+          "tabs": [
+            {
+              "_key": "7d97793ea8ac",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "77dbb176b2e3",
+                  "_ref": "faqItem-vc-3dfd1619ed",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "b77e73a4110d",
+                  "_ref": "faqItem-vc-3b265c086a",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "fe9080a9eb76",
+                  "_ref": "faqItem-vc-0fff911450",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "28e3b3b5c647",
+                  "_ref": "faqItem-vc-6570627255",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "d1411e91f955",
+                  "_ref": "faqItem-vc-62cc6c7328",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "a48e1db839ae",
+                  "_ref": "faqItem-vc-2971ff6075",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "b3fcc7e10aa0",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "71cd2cdb13cd",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "inverse"
+            }
+          ],
+          "heading": "The channel nobody has productised.",
+          "lead": "Book a 30-minute discovery call. We will give you a frank read on scope, fit and cost."
+        }
+      ],
+      "seoDescription": "Fruition connects Viber Business Messages and Viber chatbots to monday.com, HubSpot, Salesforce and your ERP across the Philippines, Ukraine, Greece and the Balkans. Consent, templates and rate design included.",
+      "seoTitle": "Viber Business Messages Integration | Fruition: Viber into monday.com, HubSpot & Your CRM",
+      "title": "Viber Business Messages Integration | Fruition: Viber into monday.com, HubSpot & Your CRM"
+    },
+    {
+      "_createdAt": "2026-11-14T05:21:56Z",
+      "_id": "vcPage-int-whatsapp",
+      "_rev": "4UtamtR3wmQaeEVZTbufvk",
+      "_type": "vcPage",
+      "_updatedAt": "2026-11-14T05:21:56Z",
+      "group": "partner",
+      "path": "/integrations/whatsapp",
+      "sections": [
+        {
+          "_key": "03ed77297783",
+          "_type": "vcHero",
+          "art": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-aa169f89147e9ca781d35c9351212ffd7b8ffd6d-1120x840-webp",
+              "_type": "reference"
+            }
+          },
+          "badge": "Integrations · WhatsApp",
+          "ctas": [
+            {
+              "_key": "72d3f3e89fa6",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a WhatsApp integration call",
+              "style": "primary"
+            },
+            {
+              "_key": "37dbc8c9ea2e",
+              "_type": "vcCta",
+              "arrow": false,
+              "href": "#faq",
+              "label": "Common questions",
+              "style": "outline"
+            }
+          ],
+          "heading": "Your customers message you in WhatsApp. *Make it reach the CRM.*",
+          "lead": "We connect the WhatsApp Business Platform to monday.com, HubSpot and your ERP, so an enquiry becomes a tracked record with an owner, a stage and an SLA, instead of a thread on one salesperson’s phone.",
+          "variant": "ph"
+        },
+        {
+          "_key": "6901b3a8218c",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engineering problem",
+            "heading": "Conversations your CRM cannot see.",
+            "lead": "WhatsApp is not a CRM. It has no pipeline, no reporting and no handover, and every conversation that stays inside it is revenue your system of record cannot see. The work is the plumbing between the two, and the platform rules that constrain it: a 24-hour messaging window, template categories that are priced and policed differently, and consent you have to be able to evidence to a regulator rather than to Meta."
+          },
+          "items": [],
+          "layout": "cards2",
+          "tone": "plain"
+        },
+        {
+          "_key": "934ed6d29e11",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Where it matters",
+            "heading": "For most of the world, WhatsApp *is the channel.*",
+            "lead": "Every figure below comes from Meta’s own disclosures or a national regulator. We leave out the country numbers that circulate on comparison blogs, because none of them trace back to a source that publishes them."
+          },
+          "items": [
+            {
+              "_key": "b8f950395419",
+              "_type": "vcItem",
+              "body": "Over 3 billion monthly. More online adults name WhatsApp their single favourite platform than any other app.",
+              "label": "2bn daily actives",
+              "title": "Global"
+            },
+            {
+              "_key": "fc563e6e1935",
+              "_type": "vcItem",
+              "body": "Ofcom puts daily use at 76%, up from 67%. Your UK customers are not waiting on email.",
+              "label": "90% of online adults",
+              "title": "United Kingdom"
+            },
+            {
+              "_key": "33f0506138e7",
+              "_type": "vcItem",
+              "body": "Large, and a special case: Meta does not deliver marketing templates to US numbers at all.",
+              "label": "100m users",
+              "title": "United States"
+            },
+            {
+              "_key": "b522c40c9436",
+              "_type": "vcItem",
+              "body": "Thailand and Vietnam rank top-10 for Meta business messaging despite sitting in the 30s by GDP, because commerce runs through chat.",
+              "label": "Top-10 revenue markets",
+              "title": "Southeast Asia"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "5d35c9540b12",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The pipe",
+            "heading": "From a message to a record with an owner",
+            "lead": "Meta’s Cloud API posts every inbound message to a webhook. What happens in the moment after that is the integration. Outbound runs the same path in reverse, with template approval and the messaging window enforced before send."
+          },
+          "items": [
+            {
+              "_key": "698036665e7d",
+              "_type": "vcItem",
+              "body": "Cloud API webhook",
+              "label": "01",
+              "title": "WhatsApp"
+            },
+            {
+              "_key": "9fad340af389",
+              "_type": "vcItem",
+              "body": "Identity match · dedupe · consent",
+              "label": "02",
+              "title": "Routing layer"
+            },
+            {
+              "_key": "f35bc007a718",
+              "_type": "vcItem",
+              "body": "Single source of truth",
+              "label": "03",
+              "title": "monday.com / HubSpot"
+            },
+            {
+              "_key": "2cefb4e04157",
+              "_type": "vcItem",
+              "body": "Orders · delivery · invoices",
+              "label": "04",
+              "title": "ERP & billing"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "3e6f6dacde92",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Your stack",
+            "heading": "What your CRM does on its own, *and what we build.*",
+            "lead": "Nobody sells you an honest version of this table. Microsoft has just deprecated its channel, and monday.com never had one. Verified against each vendor’s own documentation in September 2026. We re-check this table each quarter and date it, because a stale answer here costs you a licence you did not need, or a migration you did not see coming."
+          },
+          "items": [
+            {
+              "_key": "18e176fb4ca4",
+              "_type": "vcItem",
+              "body": "A first-party WhatsApp channel in the Conversations inbox, connected direct to Meta. Needs Marketing Hub or Service Hub Professional.\n\nBroadcast, which HubSpot has no native tool for, and headroom past the 1,000 template messages a month shared across every connected WhatsApp account.",
+              "kicker": "Out of the box",
+              "label": "Native",
+              "meta": "What we build",
+              "title": "HubSpot"
+            },
+            {
+              "_key": "fbaf1b3ca472",
+              "_type": "vcItem",
+              "body": "Microsoft deprecated the Azure Communication Services WhatsApp channel on 23 September 2026, with removal set for 30 September 2028. New deployments go through Twilio.\n\nThe migration to the supported path before removal, plus the Power Platform flows that connect it to the rest of the estate.",
+              "kicker": "Out of the box",
+              "label": "Deprecated",
+              "meta": "What we build",
+              "title": "Microsoft Dynamics 365"
+            },
+            {
+              "_key": "6bf14e6b6d7e",
+              "_type": "vcItem",
+              "body": "No first-party WhatsApp integration and no native channel in monday CRM. Third-party marketplace apps only, each with its own provider relationship and per-seat pricing.\n\nA Cloud API webhook into monday’s GraphQL: message becomes an item, thread becomes an update, status drives the automation. No per-seat ceiling on the rollout.",
+              "kicker": "Out of the box",
+              "label": "Not native",
+              "meta": "What we build",
+              "title": "monday.com"
+            },
+            {
+              "_key": "524524ba02e6",
+              "_type": "vcItem",
+              "body": "Nothing. ERPs do not ship messaging channels.\n\nOrder, dispatch and invoice events as approved utility templates, throttled, and logged against the record that triggered them.",
+              "kicker": "Out of the box",
+              "label": "Not native",
+              "meta": "What we build",
+              "title": "Your ERP"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "alt"
+        },
+        {
+          "_key": "591f67791790",
+          "_type": "vcAudit",
+          "cta": {
+            "_type": "vcCta",
+            "arrow": true,
+            "href": "#book",
+            "label": "Book a 30-Min System Audit",
+            "style": "primary"
+          },
+          "heading": "Ready to build systems *that scale with your team?*",
+          "text": "Book a complimentary 30-minute audit with a Fruition consultant, we will map your workflows, spot the automation wins and show you what the build looks like.",
+          "tone": "plain"
+        },
+        {
+          "_key": "a92fbc703290",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What we build",
+            "heading": "Six pieces, *every one of them yours to keep.*",
+            "lead": "Documented, owned by a named maintainer, and handed over with the architecture written down."
+          },
+          "items": [
+            {
+              "_key": "8769ec45245d",
+              "_type": "vcItem",
+              "body": "Business verification, display-name approval and the number strategy, one number per market, or one per team.",
+              "title": "Channel setup"
+            },
+            {
+              "_key": "c2296e18e537",
+              "_type": "vcItem",
+              "body": "Matching a phone number to the right existing contact, so one customer does not become three records by Friday.",
+              "title": "Identity resolution"
+            },
+            {
+              "_key": "b98364a369c9",
+              "_type": "vcItem",
+              "body": "Templates written, categorised correctly and submitted for approval, with a rejection path that does not block the release.",
+              "title": "Template governance"
+            },
+            {
+              "_key": "88532bf40ad3",
+              "_type": "vcItem",
+              "body": "Assignment by language, region, product or deal value, with escalation before the messaging window closes.",
+              "title": "Routing & SLAs"
+            },
+            {
+              "_key": "5c38802dc6e3",
+              "_type": "vcItem",
+              "body": "Opt-in captured and stored as a field you can audit, with retention rules that satisfy your regulator, not just Meta.",
+              "title": "Consent & retention"
+            },
+            {
+              "_key": "596af7d02edf",
+              "_type": "vcItem",
+              "body": "Per-message spend attributed to the campaign, team or deal that caused it, read from the pricing object on every delivery receipt.",
+              "title": "Cost reporting"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "plain"
+        },
+        {
+          "_key": "b3d6b115f2ef",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "Platform rules",
+            "heading": "The constraints that decide *what you can actually build.*",
+            "lead": "This is why WhatsApp is engineering work rather than a connector toggle. Every row below changes the design of the system. Verified against Meta’s WhatsApp Business Platform documentation in September 2026. Meta may change rates on 1 January, 1 April, 1 July or 1 October with one to six months’ notice depending on the change, so we date this panel and re-check it quarterly."
+          },
+          "items": [
+            {
+              "_key": "bbe60c7b5858",
+              "_type": "vcItem",
+              "body": "It resets on every inbound message. Outside it you may send only a pre-approved template, so your routing has to know how much window is left.",
+              "label": "Messaging window",
+              "title": "24 hours from the customer’s last message or call"
+            },
+            {
+              "_key": "8d5523c0d656",
+              "_type": "vcItem",
+              "body": "Both have been free since November 2024. Any quote built on the old model understates what the channel costs to run.",
+              "label": "Pricing",
+              "title": "From 1 October 2026, service messages and in-window utility templates become billable"
+            },
+            {
+              "_key": "56d8f5b47fb9",
+              "_type": "vcItem",
+              "body": "Since April 2025 a utility template Meta judges to be marketing is approved as marketing rather than rejected, so you are billed at the higher rate with no error to catch.",
+              "label": "Template categories",
+              "title": "Marketing, utility and authentication, priced and policed differently"
+            },
+            {
+              "_key": "8aa23ad3f93e",
+              "_type": "vcItem",
+              "body": "Shared across your whole business portfolio, not per number. Multi-brand groups hit the ceiling far earlier than they expect.",
+              "label": "Messaging limits",
+              "title": "250 → 2,000 → 10,000 → 100,000 → unlimited unique recipients per rolling 24 hours"
+            },
+            {
+              "_key": "b9f93d43e74c",
+              "_type": "vcItem",
+              "body": "Direct means Meta bills you and the operational burden is yours. A Solution Partner holds the credit line and invoices you. We model both against your real volume.",
+              "label": "Access model",
+              "title": "Cloud API direct, or through a Solution Partner"
+            },
+            {
+              "_key": "46054646dc75",
+              "_type": "vcItem",
+              "body": "Local storage covers Australia, India, Singapore, Japan, the UK and Germany among others. This is the answer to the residency objection most teams do not know exists.",
+              "label": "Data residency",
+              "title": "Pin data at rest to one country, or store nothing at rest at all"
+            },
+            {
+              "_key": "3254dc818536",
+              "_type": "vcItem",
+              "body": "Meta relaxed the prescribed method, not the requirement. Your own regulator (GDPR, PDPA, India’s DPDP) sits on top, and it is usually the stricter one.",
+              "label": "Opt-in",
+              "title": "Required, and yours to evidence"
+            },
+            {
+              "_key": "2a090e51faf7",
+              "_type": "vcItem",
+              "body": "If anything in your estate still points at it, those messages are not being delivered. Cloud API is the only remaining path.",
+              "label": "On-Premises API",
+              "title": "Expired 23 October 2025"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "8449f79020ca",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "By industry",
+            "heading": "What this looks like in your industry"
+          },
+          "items": [
+            {
+              "_key": "3f7e606d7dc2",
+              "_type": "vcItem",
+              "body": "A buyer messages about a listing. The listing reference is parsed out of the message, the enquiry lands on the agent who owns that property, and the inspection booking writes straight back to the CRM, while the buyer stays in the app they started in.",
+              "label": "Real estate",
+              "meta": "Benefits",
+              "title": "Enquiry to inspection without a spreadsheet in the middle"
+            },
+            {
+              "_key": "ecca99ce6ae7",
+              "_type": "vcItem",
+              "body": "Appointment confirmations, reminders and check-in links as utility templates, with the conversation itself deliberately kept thin. Clinical content stays in the clinical system, because chat transcripts piped into a CRM turn into sensitive-data problems under PDPA and DPDP.",
+              "label": "Healthcare",
+              "meta": "Benefits",
+              "title": "Bookings and reminders, without putting clinical detail in the thread"
+            },
+            {
+              "_key": "0fceddbfb28a",
+              "_type": "vcItem",
+              "body": "The ERP fires a delivery-window template the day before. The customer confirms or corrects the address by quick reply, and the reply carries the ID of the template that prompted it, which is how the correction gets back to the right consignment automatically.",
+              "label": "Logistics",
+              "meta": "Benefits",
+              "title": "Address confirmation before the driver is already outside"
+            },
+            {
+              "_key": "d2a865ac97de",
+              "_type": "vcItem",
+              "body": "Confirmation, dispatch and delivery updates sent as utility templates off the order record, with the reply landing in the same inbox your team already works from. Click-to-WhatsApp ads open a free 72-hour window, which is the economic reason they outperform.",
+              "label": "Retail & ecommerce",
+              "meta": "Benefits",
+              "title": "Order status that does not generate a support ticket"
+            },
+            {
+              "_key": "7e9e38f0bc2f",
+              "_type": "vcItem",
+              "body": "Authentication and servicing notifications as templates, with residency pinned and consent evidenced. Note the hard limit: Meta prohibits several financial verticals outright, including payday loans and debt collection, whatever licences you hold.",
+              "label": "Financial services",
+              "meta": "Benefits",
+              "title": "Servicing on the channel customers use, inside the rules you answer to"
+            },
+            {
+              "_key": "4a542f9573d4",
+              "_type": "vcItem",
+              "body": "Prospective students answer on WhatsApp when they will not answer email. Enquiry, document chase and enrolment reminders run as templates against the student record, with the whole thread visible to whoever handles the application next.",
+              "label": "Education",
+              "meta": "Benefits",
+              "title": "Enrolment follow-up that does not go to a dead inbox"
+            }
+          ],
+          "layout": "cards3",
+          "tone": "plain"
+        },
+        {
+          "_key": "54f625e4dd52",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "What goes wrong",
+            "heading": "Why WhatsApp projects stall",
+            "lead": "Four failure modes we are usually called in to undo, and what we do instead."
+          },
+          "items": [
+            {
+              "_key": "ec84205cf8cb",
+              "_type": "vcItem",
+              "body": "When they leave, the pipeline leaves with them. There is no reporting, no handover, and no record that a conversation ever happened.",
+              "label": "01",
+              "title": "It lives on someone’s personal phone"
+            },
+            {
+              "_key": "982da4ac5165",
+              "_type": "vcItem",
+              "body": "Submitted late, miscategorised as marketing, and suddenly the launch date belongs to Meta’s review queue rather than yours.",
+              "label": "02",
+              "title": "Templates written the night before launch"
+            },
+            {
+              "_key": "f21168028a75",
+              "_type": "vcItem",
+              "body": "A checkbox on a form that never reached the CRM. The first regulator question is “show me”, and there is nothing to show.",
+              "label": "03",
+              "title": "Consent captured nowhere in particular"
+            },
+            {
+              "_key": "47c121f254aa",
+              "_type": "vcItem",
+              "body": "The marketplace app works for the pilot team, then the price to extend it to everyone else exceeds the cost of building it properly.",
+              "label": "04",
+              "title": "Per-seat app licences that cap the rollout"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "fa7ef7129085",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "How we build it",
+            "heading": "How we build it"
+          },
+          "items": [
+            {
+              "_key": "acdf22acb4f9",
+              "_type": "vcItem",
+              "body": "Registered to your portfolio, connected to the CRM, and reportable. People leave; the pipeline stays.",
+              "label": "01",
+              "title": "One business number, owned by the business"
+            },
+            {
+              "_key": "676df90efce4",
+              "_type": "vcItem",
+              "body": "Written, categorised and submitted early, with the approval state monitored by webhook so a rejection is a task rather than a surprise.",
+              "label": "02",
+              "title": "Templates designed with the categories in mind"
+            },
+            {
+              "_key": "e2e6d2441ec7",
+              "_type": "vcItem",
+              "body": "Captured at the point of opt-in with wording version and timestamp, honoured on and off WhatsApp, and exportable when someone asks.",
+              "label": "03",
+              "title": "Consent as a first-class field"
+            },
+            {
+              "_key": "a6af9f2d8e4e",
+              "_type": "vcItem",
+              "body": "Built against the Cloud API into your own system of record, with no per-seat licence between you and a full rollout.",
+              "label": "04",
+              "title": "An integration you own outright"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "plain"
+        },
+        {
+          "_key": "68dfa648c94d",
+          "_type": "vcCards",
+          "head": {
+            "_type": "vcHead",
+            "badge": "The engagement",
+            "heading": "How the engagement *actually runs*",
+            "lead": "Fixed phases, defined outcomes, published fees. You always know what is being delivered, by when, and at what cost."
+          },
+          "items": [
+            {
+              "_key": "776004c7c4d6",
+              "_type": "vcItem",
+              "body": "Where conversations happen today, who owns them, what consent you can actually prove, and which access tier your volume justifies.",
+              "label": "01",
+              "title": "Channel & consent audit"
+            },
+            {
+              "_key": "d7ef667a0a74",
+              "_type": "vcItem",
+              "body": "How a message becomes a record, which object it attaches to, who it routes to, and what happens when nobody answers in time.",
+              "label": "02",
+              "title": "Data model & routing design"
+            },
+            {
+              "_key": "73b9c50b1b9c",
+              "_type": "vcItem",
+              "body": "Rate limits, retries, dead-letter queues and alerting designed in, because integrations that fail silently corrupt trust in every connected system.",
+              "label": "03",
+              "title": "Build, with error handling first"
+            },
+            {
+              "_key": "75136a8cd6bf",
+              "_type": "vcItem",
+              "body": "Architecture documentation, a named maintenance path, and your team trained on the parts they will change. No mystery middleware.",
+              "label": "04",
+              "title": "Handover you can maintain"
+            }
+          ],
+          "layout": "cards4",
+          "tone": "alt"
+        },
+        {
+          "_key": "f764ba200c1c",
+          "_type": "vcProof",
+          "badge": "Client proof",
+          "ctas": [
+            {
+              "_key": "0881a673b442",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Start your transformation",
+              "style": "primary"
+            }
+          ],
+          "heading": "What our customers *say about us.*",
+          "layout": "sticky",
+          "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+          "quotes": [
+            {
+              "_key": "b28fd619a5bb",
+              "_ref": "vcQuote-jade-wood-popology-d71b1e",
+              "_type": "reference"
+            },
+            {
+              "_key": "f1abc28ec203",
+              "_ref": "vcQuote-jason-doan-holt-cat-e3d04d",
+              "_type": "reference"
+            },
+            {
+              "_key": "b8e3f08da7ef",
+              "_ref": "vcQuote-jemma-ryan",
+              "_type": "reference"
+            },
+            {
+              "_key": "d53181e59d60",
+              "_ref": "vcQuote-mairhead-mckinley-givergy-1d6acd",
+              "_type": "reference"
+            },
+            {
+              "_key": "d0a7dc88c485",
+              "_ref": "vcQuote-allie-swindlehurst-falkbuilt-6c1df8",
+              "_type": "reference"
+            },
+            {
+              "_key": "bb1db8639c3b",
+              "_ref": "vcQuote-emily-hill-tourism-northern-territory-aece52",
+              "_type": "reference"
+            },
+            {
+              "_key": "fc45254c3e53",
+              "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning-d93d05",
+              "_type": "reference"
+            },
+            {
+              "_key": "24d510a0b040",
+              "_ref": "vcQuote-kerrie-e",
+              "_type": "reference"
+            },
+            {
+              "_key": "0977f5abe53d",
+              "_ref": "vcQuote-ron-amaram-risk-2-solutions-859a4f",
+              "_type": "reference"
+            },
+            {
+              "_key": "42f53f5529f9",
+              "_ref": "vcQuote-lorenzo-tejada-orrell-clsq-dbc6d5",
+              "_type": "reference"
+            },
+            {
+              "_key": "5ab64fce5f0a",
+              "_ref": "vcQuote-anthony-rowson-happy-little-campers",
+              "_type": "reference"
+            },
+            {
+              "_key": "b0607a3aaa78",
+              "_ref": "vcQuote-tedd-long-mcag-inc-c38f71",
+              "_type": "reference"
+            },
+            {
+              "_key": "d6e153d21132",
+              "_ref": "vcQuote-louis-stenmark-windfall-bio-ab1a17",
+              "_type": "reference"
+            },
+            {
+              "_key": "3449f704cef8",
+              "_ref": "vcQuote-teddy-mangion",
+              "_type": "reference"
+            },
+            {
+              "_key": "a39b60b8da9a",
+              "_ref": "vcQuote-luke-reddin-clean-power-australia-b9d14b",
+              "_type": "reference"
+            },
+            {
+              "_key": "407f8f29577d",
+              "_ref": "vcQuote-brad-cannon-monday-com-858fef",
+              "_type": "reference"
+            },
+            {
+              "_key": "ae0634afc6fc",
+              "_ref": "vcQuote-bianca-genesio-g8-education-a84128",
+              "_type": "reference"
+            },
+            {
+              "_key": "2a0a32a6bc2b",
+              "_ref": "vcQuote-anthony-d-agostino-true-steel-frames-c2163e",
+              "_type": "reference"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "13a11905debc",
+          "_type": "vcBooking",
+          "badge": "Book a time",
+          "heading": "Talk to a consultant who has shipped this",
+          "lead": "Thirty minutes. We will tell you whether WhatsApp is the right channel for your market before we quote you anything."
+        },
+        {
+          "_key": "8530aa642dc7",
+          "_type": "vcFaq",
+          "badge": "FAQ",
+          "heading": "Frequently asked questions",
+          "tabs": [
+            {
+              "_key": "b44307682e79",
+              "_type": "vcFaqTab",
+              "items": [
+                {
+                  "_key": "7ea72cd8a15f",
+                  "_ref": "faqItem-vc-6ae32e59b5",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "0a385e44cb97",
+                  "_ref": "faqItem-vc-2a446a262e",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "4a806c0e0243",
+                  "_ref": "faqItem-vc-c231fa0841",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "610de602fcdf",
+                  "_ref": "faqItem-vc-dffc3e4960",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "a4685a66c105",
+                  "_ref": "faqItem-vc-dc396a27e4",
+                  "_type": "reference"
+                },
+                {
+                  "_key": "24e53ff5367c",
+                  "_ref": "faqItem-vc-80442690a4",
+                  "_type": "reference"
+                }
+              ],
+              "label": "FAQ"
+            }
+          ],
+          "tone": "alt"
+        },
+        {
+          "_key": "6985a0d63a7b",
+          "_type": "vcClosing",
+          "badge": "Next step",
+          "ctas": [
+            {
+              "_key": "056f971fb72d",
+              "_type": "vcCta",
+              "arrow": true,
+              "href": "#book",
+              "label": "Book a discovery call",
+              "style": "inverse"
+            }
+          ],
+          "heading": "Get WhatsApp out of the group chat",
+          "lead": "Book a 30-minute discovery call. We will give you a frank read on scope, fit and cost."
+        }
+      ],
+      "seoDescription": "Fruition connects the WhatsApp Business Platform to monday.com, HubSpot and your ERP, so enquiries become tracked records with an owner and an SLA. Australia, the UK, the US and APAC.",
+      "seoTitle": "WhatsApp CRM & ERP Integration | Fruition: WhatsApp Business Platform into monday.com, HubSpot & your ERP",
+      "title": "WhatsApp CRM & ERP Integration | Fruition: WhatsApp Business Platform into monday.com, HubSpot & your ERP"
+    }
+  ]
+}

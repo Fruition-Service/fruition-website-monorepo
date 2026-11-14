@@ -10,3 +10,9 @@
 .vc-p-integrations .tool-logo img{display:block;object-fit:contain;object-position:left center}
 .vc-p-integrations .tool-logo img.wm-img{width:auto;height:auto;max-width:140px;max-height:36px}
 .vc-p-integrations .tool-logo img.sq{width:44px;height:44px}
+
+/* Four-step flow on /integrations/{whatsapp,line,viber} (vcSteps layout "steps s4", Edward 14 Nov 2026),
+   the rule the partner pages already have. */
+.vc-p-integrations .steps.s4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1023px){.vc-p-integrations .steps.s4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:767px){.vc-p-integrations .steps.s4{grid-template-columns:1fr}}
