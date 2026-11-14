@@ -781,6 +781,9 @@
    gap the other Version C tab rows use. */
 .vc .tabs + .pgrid, .vc .tabs + .pcards { margin-top: 24px; }
 
+/* Hero fact pills (vcHero.pills, /industries since 14 Nov 2026): space them off the buttons. */
+.vc .hero .josh-pills{margin-top:16px}
+
 
 .vc-p-ai-use-cases .logos{grid-template-columns:repeat(5,1fr)}
 .vc-p-ai-use-cases .cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}

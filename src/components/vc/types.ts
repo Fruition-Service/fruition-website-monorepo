@@ -15,7 +15,7 @@ export interface VcLogoData { _key?: string; image?: VcImage; alt?: string; href
 export interface VcStatData { _key?: string; value?: string; label?: string }
 export interface VcItemData {
   _key?: string; label?: string; title?: string; body?: string; meta?: string; tags?: string[]; anchor?: string
-  image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; bullets?: string[]
+  image?: VcImage; linkLabel?: string; href?: string; ai?: boolean; cardLink?: boolean; cardTile?: boolean; bullets?: string[]
   aiLabel?: string; aiNote?: string; listClass?: string; bulletIcon?: string; metric?: string; metricLabel?: string; num?: string; kicker?: string; arrow?: boolean; icon?: string
   /** Tool card logo (layout "tools"); `logoShape` is "wm-img" (wordmark) or "sq" (square mark). */
   logo?: VcImage; logoShape?: string
@@ -33,7 +33,7 @@ interface Base {
 
 export interface VcHeroData extends Base {
   _type: "vcHero"; badge?: string; heading?: string; lead?: string; ctas?: VcCtaData[]
-  art?: VcImage; stageClass?: string; stage?: VcNodeData[]; prompt?: { label?: string; placeholder?: string; ariaLabel?: string; sendLabel?: string; note?: string; href?: string; chips?: { _key?: string; label?: string; text?: string }[] }; frameSvg?: string; frameSvgAria?: string; frameClass?: string; credsClass?: string; variant?: string; artClass?: string; frameImage?: VcImage; creds?: VcLogoData[]; chipValue?: string; chipLabel?: string; floatBadges?: VcLogoData[]; floatBadgeClass?: string
+  art?: VcImage; stageClass?: string; stage?: VcNodeData[]; prompt?: { label?: string; placeholder?: string; ariaLabel?: string; sendLabel?: string; note?: string; href?: string; chips?: { _key?: string; label?: string; text?: string }[] }; frameSvg?: string; frameSvgAria?: string; frameClass?: string; credsClass?: string; variant?: string; artClass?: string; frameImage?: VcImage; creds?: VcLogoData[]; pills?: string[]; chipValue?: string; chipLabel?: string; floatBadges?: VcLogoData[]; floatBadgeClass?: string
   mapKind?: string; mapSvg?: string; mapAspect?: string; mapAria?: string; mapFlag?: string; mapLabel?: string
   pins?: { _key?: string; label?: string; left?: number; top?: number; side?: string; on?: boolean }[]
   stats?: VcStatData[]; statsNote?: string; spacer?: boolean; trustLabel?: string; searchPlaceholder?: string; searchClear?: boolean
