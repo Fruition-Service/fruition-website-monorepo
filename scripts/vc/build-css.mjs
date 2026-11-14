@@ -33,6 +33,8 @@ import postcss from 'postcss'
 const DERIVED_PAGES = [
   // /post/<slug>: blog post template (review-v3 blog-sap / blog-claude-github mock-ups, 14 Nov 2026).
   { slug: 'blog-post', from: 'consulting-blog' },
+  // /thank-you: the contact-us hero with the three-step hand-off (review-v3 thank-you mock-up, 14 Nov 2026).
+  { slug: 'thank-you', from: 'contact-us' },
 ]
 
 const root = new URL('../../', import.meta.url).pathname

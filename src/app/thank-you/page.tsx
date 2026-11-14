@@ -1,3 +1,4 @@
+import "@/styles/vc/pages/thank-you.css"
 import type { Metadata } from "next"
 import { getBlogPosts } from "@/sanity/queries"
 import { THANK_YOU_NEXT_PATH } from "@/lib/thankYou"
@@ -14,7 +15,7 @@ import ThankYouContent, { type ThankYouPost } from "./ThankYouContent"
  */
 export const metadata: Metadata = {
   title: "Thank you: Fruition",
-  description: "Your request is with the Fruition team — we reply within one business day.",
+  description: "Your request is with the Fruition team. We reply within one business day.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/thank-you" },
 }
