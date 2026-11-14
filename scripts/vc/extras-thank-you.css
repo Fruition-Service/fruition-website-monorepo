@@ -1,0 +1,35 @@
+/* /thank-you, Version C (review-v3 p/thank-you.html, approved by Edward 14 Nov 2026).
+   The contact-us hero with the message card turned into the three-step hand-off.
+   Appended to the /contact-us stylesheet by build-css.mjs (DERIVED_PAGES) to make
+   src/styles/vc/pages/thank-you.css; the page renders `vc vc-p-contact-us vc-p-thank-you`.
+   Kept from the old page: the steps, the redirect countdown and its pause (WCAG 2.2.1). */
+.vc-p-thank-you .hero{padding-bottom:var(--sec)}
+.vc-p-thank-you .hero-grid{align-items:start}
+.vc-p-thank-you .hero-copy{padding-top:24px}
+.vc-p-thank-you .btn{cursor:pointer}
+.vc-p-thank-you .ty-clock{margin-top:40px;max-width:420px}
+.vc-p-thank-you .ty-rule{height:2px;border-radius:1px;background:var(--line);overflow:hidden}
+.vc-p-thank-you .ty-rule i{display:block;height:100%;background:var(--accent);transform:scaleX(var(--p,0));transform-origin:left;transition:transform 1s linear}
+.vc-p-thank-you .ty-clock .label{margin-top:12px}
+.vc-p-thank-you .msg .ty-steps{margin:0 0 28px;gap:8px}
+.vc-p-thank-you .msg .ty-steps button{height:44px;cursor:pointer}
+.vc-p-thank-you .ty-body{margin-top:20px;display:grid;gap:16px}
+.vc-p-thank-you .ty-body>p:not(.small){font-size:17px;line-height:1.55;color:var(--ink)}
+.vc-p-thank-you dl.ty-body{gap:0}
+.vc-p-thank-you dl.ty-body .fld{padding:14px 0;border-top:1px solid var(--line)}
+.vc-p-thank-you dl.ty-body .fld:last-child{border-bottom:1px solid var(--line)}
+.vc-p-thank-you .ty-posts{margin-top:20px;list-style:none;display:flex;flex-direction:column}
+.vc-p-thank-you .ty-posts li{border-top:1px solid var(--line)}
+.vc-p-thank-you .ty-posts li:last-child{border-bottom:1px solid var(--line)}
+.vc-p-thank-you .ty-posts a{display:flex;align-items:baseline;justify-content:space-between;gap:20px;min-height:44px;padding:14px 0;font-size:15px;line-height:1.45;color:var(--ink);transition:color .2s}
+.vc-p-thank-you .ty-posts a:hover{color:var(--accent)}
+.vc-p-thank-you .ty-posts .label{flex:none}
+@media (prefers-reduced-motion:reduce){.vc-p-thank-you .ty-rule i{transition:none}}
+@media (max-width:1023px){
+.vc-p-thank-you .hero-grid{grid-template-columns:1fr;gap:48px}
+.vc-p-thank-you .hero-copy{padding-top:0}
+}
+@media (max-width:767px){
+.vc-p-thank-you .ctas .btn{width:100%;justify-content:center}
+.vc-p-thank-you .ty-posts a{flex-direction:column;gap:6px}
+}
