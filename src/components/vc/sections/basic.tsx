@@ -433,14 +433,18 @@ export function Card({ it, cls = "card", frame = "shot", pills = false, tagClass
     // A full-width "see all" card, or a hub tile in the grid (cardTile): the whole tile is the link.
     return (
       <Link className={`${cls.replace(" uc", "")} go-card${it.cardTile ? " ind" : ""}`} href={vercelStegaClean(it.href)}>
+        {/* Hub tiles (cardTile, /industries) lead with their line icon; the whole tile is the link, so no arrow. */}
+        {it.cardTile && it.icon && <SvgIcon svg={it.icon} className="ico" />}
         <div>
           {it.cardTile && it.label && <span className="label">{it.label}</span>}
           {it.title && <h3 className="h3">{it.title}</h3>}
           {it.body && <p className="body">{it.body}</p>}
         </div>
-        <span className="link">
-          <Arrow />
-        </span>
+        {!it.cardTile && (
+          <span className="link">
+            <Arrow />
+          </span>
+        )}
       </Link>
     )
   }

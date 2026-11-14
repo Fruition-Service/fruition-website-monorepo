@@ -84,6 +84,14 @@ Used by "By tool." on `/integrations` since 13 Nov 2026 (`scripts/vc/integration
 also removed the "Tools we integrate daily." marquee). Styles live in `scripts/vc/extras-integrations.css`;
 a second page using the layout needs them moved to `extras.css`.
 
+### Section backgrounds alternate
+
+White (`tone: plain`) and grey (`tone: alt`) sections alternate down every page. The audit band always takes
+the colour of the section above it, so a page that drops a section next to it (for example the partner
+pages with no case study) can end up with two white sections in a row. `scripts/vc/retone-sections-2026-11.ts
+<path> ...` finds the fewest tone flips that fix a page (dry run by default, `--apply` backs up first);
+17 pages were fixed on 14 Nov 2026. Check a page live after reordering or removing sections.
+
 ## Page-specific sections
 
 Pages in one `group` (partner, industry, msol, ...) share a section template: the same section types
