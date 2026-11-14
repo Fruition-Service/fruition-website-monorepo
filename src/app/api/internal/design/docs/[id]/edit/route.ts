@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getPortalApiUser, getPortalAdmin } from "@/lib/portalAuth"
-import { DESIGN_DOC_MODEL } from "@/lib/design/fruitionDocPrompt"
-import { DESIGN_EDIT_SYSTEM_PROMPT } from "@/lib/design/docEdit"
+import { DESIGN_DOC_MODEL } from "@/lib/design/buildDocPrompt"
+import { buildEditPrompt } from "@/lib/design/docEdit"
 
 export const runtime = "nodejs"
 // Edits are much faster than full generation (no PDF parse), but a large
@@ -78,7 +78,7 @@ export async function POST(req: Request, ctx: Ctx) {
   const admin = getPortalAdmin()
   const { data: doc, error: dbError } = await admin
     .from("design_docs")
-    .select("id, title, html")
+    .select("id, title, html, template")
     .eq("id", id)
     .eq("author_id", user.id) // docs are private to their author
     .maybeSingle()
@@ -90,7 +90,7 @@ export async function POST(req: Request, ctx: Ctx) {
     max_tokens: MAX_OUTPUT_TOKENS,
     stream: true,
     messages: [
-      { role: "system", content: DESIGN_EDIT_SYSTEM_PROMPT },
+      { role: "system", content: buildEditPrompt(doc.template) },
       {
         role: "user",
         content: `Here is the current document, titled ${JSON.stringify(doc.title)}:\n\n${doc.html}`,

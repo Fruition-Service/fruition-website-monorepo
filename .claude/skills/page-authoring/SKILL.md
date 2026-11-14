@@ -29,8 +29,12 @@ src/app/<route>/
 2. Load content server-side; push interactivity into a `"use client"` child.
 3. Reuse sections from `src/components/sections/`.
 4. **Add the route to `src/app/sitemap.ts`.** It is not automatic.
-5. If it replaces an existing URL, add a redirect to `auditRedirects` in `next.config.ts`.
-6. Verify: `npm test && npm run typecheck && npm run lint`.
+5. **If the page's hero container is not `max-w-[1148px] px-4`, register its shell in
+   `src/lib/pageShell.ts`.** The breadcrumb bar renders above `<main>` and cannot read the
+   page's container, so it takes the width from that registry — an unregistered page gets the
+   1148px default and its trail hangs away from the page copy.
+6. If it replaces an existing URL, add a redirect to `auditRedirects` in `next.config.ts`.
+7. Verify: `npm test && npm run typecheck && npm run lint`.
 
 ## Retiring or consolidating a page
 

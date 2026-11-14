@@ -2,46 +2,80 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { FileUp, Loader2, Sparkles } from "lucide-react"
+import dynamic from "next/dynamic"
+import { Loader2, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { DEFAULT_TEMPLATE_ID, TEMPLATES, getTemplate, type TemplateId } from "@/lib/design/templates"
+import { withTheme } from "@/lib/design/theme"
+import type { DesignSource } from "@/lib/design/extract/types"
 
-const MAX_PDF_BYTES = 10 * 1024 * 1024
+// ssr:false keeps the DOCX/PPTX parsers out of the Cloudflare Worker bundle,
+// which sits within a few hundred KiB of its 10 MiB limit. See the picker's
+// own comment — this is a deploy constraint, not a rendering preference.
+const DesignSourcePicker = dynamic(() => import("./DesignSourcePicker"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-card border-2 border-dashed border-[var(--color-border)] p-8 text-center text-sm text-muted-foreground">
+      Loading…
+    </div>
+  ),
+})
 
 type Phase = "idle" | "generating" | "saving" | "error"
 
 /**
- * Upload a PDF → stream Claude's Fruition-branded HTML into a live preview →
- * save the finished document and route to its page.
+ * Pick a template and a source (PDF, DOCX/PPTX, or pasted text) → stream the
+ * Fruition-branded HTML into a live preview → save and route to the document.
+ *
+ * DOCX/PPTX are extracted here in the browser: the parsers are heavy and
+ * dynamically imported, so they stay out of the Cloudflare Worker bundle.
  */
 export default function DesignGenerator() {
   const router = useRouter()
-  const [file, setFile] = React.useState<File | null>(null)
+  const [source, setSource] = React.useState<DesignSource | null>(null)
+  const [templateId, setTemplateId] = React.useState<TemplateId>(DEFAULT_TEMPLATE_ID)
   const [title, setTitle] = React.useState("")
   const [phase, setPhase] = React.useState<Phase>("idle")
   const [error, setError] = React.useState<string | null>(null)
   const [html, setHtml] = React.useState("")
-  const [dragOver, setDragOver] = React.useState(false)
   const abortRef = React.useRef<AbortController | null>(null)
 
   React.useEffect(() => () => abortRef.current?.abort(), [])
 
-  function pickFile(f: File | undefined | null) {
-    setError(null)
-    if (!f) return
-    if (f.type !== "application/pdf" && !f.name.toLowerCase().endsWith(".pdf")) {
-      setError("Only PDF files are supported.")
-      return
-    }
-    if (f.size > MAX_PDF_BYTES) {
-      setError("PDF is too large (max 10 MB).")
-      return
-    }
-    setFile(f)
+  const template = getTemplate(templateId)
+  const busy = phase === "generating" || phase === "saving"
+
+  /** The form body the generate route expects. */
+  function buildForm(src: DesignSource): FormData {
+    const form = new FormData()
+    form.set("template", templateId)
+    if (title.trim()) form.set("title", title.trim())
+    if (src.kind === "pdf") form.set("file", src.file)
+    else form.set("text", src.text)
+    return form
+  }
+
+  function sourceFilename(src: DesignSource): string | null {
+    return src.kind === "pdf" ? src.file.name : (src.filename ?? null)
+  }
+
+  function defaultTitle(src: DesignSource): string {
+    if (title.trim()) return title.trim()
+    const name = sourceFilename(src)
+    return name ? name.replace(/\.(pdf|docx|pptx)$/i, "") : "Untitled document"
   }
 
   async function generate() {
-    if (!file || phase === "generating" || phase === "saving") return
+    if (!source || busy) return
     setError(null)
     setHtml("")
     setPhase("generating")
@@ -49,9 +83,7 @@ export default function DesignGenerator() {
     abortRef.current = controller
 
     try {
-      const form = new FormData()
-      form.set("file", file)
-      if (title.trim()) form.set("title", title.trim())
+      const form = buildForm(source)
 
       const res = await fetch("/api/internal/design/generate", {
         method: "POST",
@@ -91,9 +123,10 @@ export default function DesignGenerator() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: title.trim() || file.name.replace(/\.pdf$/i, ""),
+          title: defaultTitle(source),
           html: finalHtml,
-          source_filename: file.name,
+          template: templateId,
+          source_filename: sourceFilename(source),
         }),
       })
       const saved = (await save.json()) as { id?: string; error?: string }
@@ -106,54 +139,44 @@ export default function DesignGenerator() {
     }
   }
 
-  const busy = phase === "generating" || phase === "saving"
-
   return (
     <div className="flex flex-col gap-4">
-      <div
-        className="rounded-card bg-surface p-6 sm:p-8"
-        style={{ boxShadow: "var(--shadow-card)" }}
-      >
+      <div className="rounded-card bg-surface p-6 sm:p-8" style={{ boxShadow: "var(--shadow-card)" }}>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">New design document</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Upload any PDF and it will be redesigned in the Fruition document style — same content,
-          new look. You can export the result as a PDF.
+          Turn any document into the Fruition house style — same content, new look. Pick a template,
+          give it a source, and export the result as a PDF.
         </p>
 
-        <div className="mt-6 grid gap-4 sm:max-w-xl">
-          <label
-            onDragOver={(e) => {
-              e.preventDefault()
-              setDragOver(true)
-            }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={(e) => {
-              e.preventDefault()
-              setDragOver(false)
-              pickFile(e.dataTransfer.files?.[0])
-            }}
-            className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-card border-2 border-dashed p-8 text-center transition-colors ${
-              dragOver
-                ? "border-[var(--purple-primary)] bg-[var(--light-section-bg,#ecf1fc)]"
-                : "border-[var(--color-border)]"
-            }`}
-          >
-            <FileUp className="size-6 text-[var(--purple-primary)]" />
-            <span className="text-sm font-medium text-ink-heading">
-              {file ? file.name : "Drop a PDF here or click to browse"}
-            </span>
-            <span className="text-xs text-muted-foreground">PDF only, up to 10 MB</span>
-            <input
-              type="file"
-              accept="application/pdf,.pdf"
-              className="hidden"
+        <div className="mt-6 grid gap-5 sm:max-w-xl">
+          <div className="grid gap-2">
+            <Label htmlFor="design-template">Template</Label>
+            <Select
+              value={templateId}
+              onValueChange={(v) => setTemplateId(v as TemplateId)}
               disabled={busy}
-              onChange={(e) => pickFile(e.target.files?.[0])}
-            />
-          </label>
+            >
+              <SelectTrigger id="design-template">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {TEMPLATES.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">{template.description}</p>
+          </div>
+
+          <div className="grid gap-2">
+            <Label>Source</Label>
+            <DesignSourcePicker disabled={busy} onChange={setSource} />
+          </div>
 
           <Input
-            placeholder="Document title (optional — derived from the PDF if empty)"
+            placeholder="Document title (optional — derived from the source if empty)"
             value={title}
             disabled={busy}
             onChange={(e) => setTitle(e.target.value)}
@@ -162,7 +185,7 @@ export default function DesignGenerator() {
           {error && <p className="text-sm text-red-600">{error}</p>}
 
           <div>
-            <Button onClick={generate} disabled={!file || busy}>
+            <Button onClick={generate} disabled={!source || busy}>
               {busy ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
@@ -186,14 +209,13 @@ export default function DesignGenerator() {
       </div>
 
       {(html || busy) && (
-        <div
-          className="rounded-card bg-surface p-2 sm:p-3"
-          style={{ boxShadow: "var(--shadow-card)" }}
-        >
+        <div className="rounded-card bg-surface p-2 sm:p-3" style={{ boxShadow: "var(--shadow-card)" }}>
           <iframe
             title="Design preview"
             sandbox=""
-            srcDoc={html}
+            // Themed exactly as the saved document will be, so the preview can't
+            // promise something the finished document doesn't deliver.
+            srcDoc={withTheme(html, templateId)}
             className="h-[75vh] w-full rounded-[calc(var(--radius-card)-8px)] border border-[var(--color-border)] bg-white"
           />
         </div>

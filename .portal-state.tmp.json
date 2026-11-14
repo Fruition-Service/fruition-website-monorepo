@@ -1,0 +1,135 @@
+{
+  "cookies": [
+    {
+      "name": "sb-jnmdtrgtxdjfhbdkdvja-auth-token.0",
+      "value": "base64-eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSkZVekkxTmlJc0ltdHBaQ0k2SW1NeE5tSmhNV1l3TFdFM1lXWXROR1UyTVMwNVptWTRMV00wT0RjNE9HSTVNRGxrWmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcGMzTWlPaUpvZEhSd2N6b3ZMMnB1YldSMGNtZDBlR1JxWm1oaVpHdGtkbXBoTG5OMWNHRmlZWE5sTG1OdkwyRjFkR2d2ZGpFaUxDSnpkV0lpT2lJM1ptSTFORE15WWkxbE5HWmtMVFExTW1RdE9XRTJZeTAxTm1VeFlXTXpaalV3WW1JaUxDSmhkV1FpT2lKaGRYUm9aVzUwYVdOaGRHVmtJaXdpWlhod0lqb3hOemc0TXpNek16a3dMQ0pwWVhRaU9qRTNPRGd6TWprM09UQXNJbVZ0WVdsc0lqb2laV1IzWVhKa1FHWnlkV2wwYVc5dWMyVnlkbWxqWlhNdWFXOGlMQ0p3YUc5dVpTSTZJaUlzSW1Gd2NGOXRaWFJoWkdGMFlTSTZleUp3Y205MmFXUmxjaUk2SW1kdmIyZHNaU0lzSW5CeWIzWnBaR1Z5Y3lJNld5Sm5iMjluYkdVaVhYMHNJblZ6WlhKZmJXVjBZV1JoZEdFaU9uc2lZWFpoZEdGeVgzVnliQ0k2SW1oMGRIQnpPaTh2YkdnekxtZHZiMmRzWlhWelpYSmpiMjUwWlc1MExtTnZiUzloTDBGRFp6aHZZMHBtV2t0MVNFUkJVelZUY21oT2IydDZSbTR5WjJ0SlpqVlNRMTh0ZUVKaFZrUndkVXM1ZFRGNVNuSlBjbkJNWDNjOWN6azJMV01pTENKamRYTjBiMjFmWTJ4aGFXMXpJanA3SW1oa0lqb2labkoxYVhScGIyNXpaWEoyYVdObGN5NXBieUo5TENKbGJXRnBiQ0k2SW1Wa2QyRnlaRUJtY25WcGRHbHZibk5sY25acFkyVnpMbWx2SWl3aVpXMWhhV3hmZG1WeWFXWnBaV1FpT25SeWRXVXNJbVoxYkd4ZmJtRnRaU0k2SWtWa2QyRnlaQ0JhYUdGdVp5SXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllXTmpiM1Z1ZEhNdVoyOXZaMnhsTG1OdmJTSXNJbTVoYldVaU9pSkZaSGRoY21RZ1dtaGhibWNpTENKd2FHOXVaVjkyWlhKcFptbGxaQ0k2Wm1Gc2MyVXNJbkJwWTNSMWNtVWlPaUpvZEhSd2N6b3ZMMnhvTXk1bmIyOW5iR1YxYzJWeVkyOXVkR1Z1ZEM1amIyMHZZUzlCUTJjNGIyTktabHBMZFVoRVFWTTFVM0pvVG05cmVrWnVNbWRyU1dZMVVrTmZMWGhDWVZaRWNIVkxPWFV4ZVVweVQzSndURjkzUFhNNU5pMWpJaXdpY0hKdmRtbGtaWEpmYVdRaU9pSXhNVEk1T0RVNE1UWXhOVGN4TWpVeE9UTTJPRFFpTENKemRXSWlPaUl4TVRJNU9EVTRNVFl4TlRjeE1qVXhPVE0yT0RRaWZTd2ljbTlzWlNJNkltRjFkR2hsYm5ScFkyRjBaV1FpTENKaFlXd2lPaUpoWVd3eElpd2lZVzF5SWpwYmV5SnRaWFJvYjJRaU9pSnZkSEFpTENKMGFXMWxjM1JoYlhBaU9qRTNPRGd6TWprM09UQjlYU3dpYzJWemMybHZibDlwWkNJNkltRmpaVEUxTjJWaUxXRm1PR1V0TkRVMllpMDRZalU0TFdVME5EZzRNREkyT1dKbU5TSXNJbWx6WDJGdWIyNTViVzkxY3lJNlptRnNjMlY5Lm1KM2FDS2VsWF9ybDBRUFFYeUN5WHZXVFdFaFVZZ3UtcEIxaW80VDVZb095WHQtX1ROYnB4aUExeVFNSlFHUk1rM0xKbnBkMnZtM1BuZUt6RC00LVhBIiwidG9rZW5fdHlwZSI6ImJlYXJlciIsImV4cGlyZXNfaW4iOjM2MDAsImV4cGlyZXNfYXQiOjE3ODgzMzMzOTAsInJlZnJlc2hfdG9rZW4iOiJueWh2NmV2cG1nNmwiLCJ1c2VyIjp7ImlkIjoiN2ZiNTQzMmItZTRmZC00NTJkLTlhNmMtNTZlMWFjM2Y1MGJiIiwiYXVkIjoiYXV0aGVudGljYXRlZCIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiZW1haWwiOiJlZHdhcmRAZnJ1aXRpb25zZXJ2aWNlcy5pbyIsImVtYWlsX2NvbmZpcm1lZF9hdCI6IjIwMjYtMDctMDNUMTI6NDY6MjcuNjk4NTU0WiIsInBob25lIjoiIiwiY29uZmlybWVkX2F0IjoiMjAyNi0wNy0wM1QxMjo0NjoyNy42OTg1NTRaIiwicmVjb3Zlcnlfc2VudF9hdCI6IjIwMjYtMDktMDJUMDY6MTY6MTguMDU2MTU3WiIsImxhc3Rfc2lnbl9pbl9hdCI6IjIwMjYtMDktMDJUMDY6MTY6MzAuMzYzNzI2MDg3WiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6Imdvb2dsZSIsInByb3ZpZGVycyI6WyJnb29nbGUiXX0sInVzZXJfbWV0YWRhdGEiOnsiYXZhdGFyX3VybCI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0pmWkt1SERBUzVTcmhOb2t6Rm4yZ2tJZjVSQ18teEJhVkRwdUs5dTF5SnJPcnBMX3c9czk2LWMiLCJjdXN0b21fY2xhaW1zIjp7ImhkIjoiZnJ1aXRpb25zZXJ2aWNlcy5pbyJ9LCJlbWFpbCI6ImVkd2FyZEBmcnVpdGlvbnNlcnZpY2VzLmlvIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZ1bGxfbmFtZSI6IkVkd2FyZCBaaGFuZyIsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbSIsIm5hbWUiOiJFZHdhcmQgWmhhbmciLCJwaG9uZV92ZXJpZmllZCI6ZmFsc2UsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NKZlpLdUhEQVM1U3JoTm9rekZuMmdrSWY1U",
+      "domain": "www.fruitionservices.io",
+      "path": "/",
+      "expires": 1822889791.348501,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "sb-jnmdtrgtxdjfhbdkdvja-auth-token.1",
+      "value": "kNfLXhCYVZEcHVLOXUxeUpyT3JwTF93PXM5Ni1jIiwicHJvdmlkZXJfaWQiOiIxMTI5ODU4MTYxNTcxMjUxOTM2ODQiLCJzdWIiOiIxMTI5ODU4MTYxNTcxMjUxOTM2ODQifSwiaWRlbnRpdGllcyI6W3siaWRlbnRpdHlfaWQiOiIzZmZhZDVhYS1hYzczLTQ3NWUtYWI0YS1kNDliNjU2YzNhNmMiLCJpZCI6IjExMjk4NTgxNjE1NzEyNTE5MzY4NCIsInVzZXJfaWQiOiI3ZmI1NDMyYi1lNGZkLTQ1MmQtOWE2Yy01NmUxYWMzZjUwYmIiLCJpZGVudGl0eV9kYXRhIjp7ImF2YXRhcl91cmwiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NKZlpLdUhEQVM1U3JoTm9rekZuMmdrSWY1UkNfLXhCYVZEcHVLOXUxeUpyT3JwTF93PXM5Ni1jIiwiY3VzdG9tX2NsYWltcyI6eyJoZCI6ImZydWl0aW9uc2VydmljZXMuaW8ifSwiZW1haWwiOiJlZHdhcmRAZnJ1aXRpb25zZXJ2aWNlcy5pbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmdWxsX25hbWUiOiJFZHdhcmQgWmhhbmciLCJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYW1lIjoiRWR3YXJkIFpoYW5nIiwicGhvbmVfdmVyaWZpZWQiOmZhbHNlLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSmZaS3VIREFTNVNyaE5va3pGbjJna0lmNVJDXy14QmFWRHB1Szl1MXlKck9ycExfdz1zOTYtYyIsInByb3ZpZGVyX2lkIjoiMTEyOTg1ODE2MTU3MTI1MTkzNjg0Iiwic3ViIjoiMTEyOTg1ODE2MTU3MTI1MTkzNjg0In0sInByb3ZpZGVyIjoiZ29vZ2xlIiwibGFzdF9zaWduX2luX2F0IjoiMjAyNi0wNy0wM1QxMjo0NjoyNy42OTAzNDZaIiwiY3JlYXRlZF9hdCI6IjIwMjYtMDctMDNUMTI6NDY6MjcuNjkwNDAzWiIsInVwZGF0ZWRfYXQiOiIyMDI2LTA4LTExVDA2OjQ4OjQ5LjIxNzA1NVoiLCJlbWFpbCI6ImVkd2FyZEBmcnVpdGlvbnNlcnZpY2VzLmlvIn1dLCJjcmVhdGVkX2F0IjoiMjAyNi0wNy0wM1QxMjo0NjoyNy42ODAzMzlaIiwidXBkYXRlZF9hdCI6IjIwMjYtMDktMDJUMDY6MTY6MzAuMzk0NzQ4WiIsImlzX2Fub255bW91cyI6ZmFsc2V9fQ",
+      "domain": "www.fruitionservices.io",
+      "path": "/",
+      "expires": 1822889791.348578,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "pNkNLuNffsDkM8LyosCJzAGuKQbxOBYDk94R0M4HzWw-1788329791.9375966-1.0.1.1-yY09ojTREhpwdNxb94wAFrIqsWo.LNSbvmeJq1Vf9m99Ca45.Dkn20HYODqPR5BTMWIyylH_mARlF6OggsdkFAeGmUe8A_GtKpkdLx_45UX8SzlR5DmxCWxwkp.bYWOx",
+      "domain": ".bzrcdn.openai.com",
+      "path": "/",
+      "expires": 1788331591.949481,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "v2ZGx9Y.wr.xso4WSUwsViOIcgogrOBaGZZi42JMCR8-1788329791.9375966-1.0.1.1-b6L.1nub8UJlfUvDsTDSffKCtYDa1IH3tuCLAApMtWU",
+      "domain": ".bzrcdn.openai.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__obref",
+      "value": "f7dba282-a706-404c-9ea0-df3f50d62ae2",
+      "domain": ".fruitionservices.io",
+      "path": "/",
+      "expires": 1819865792.00471,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.1713792655.1788329792",
+      "domain": ".fruitionservices.io",
+      "path": "/",
+      "expires": 1822889792.308509,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_CJ16CQ18PB",
+      "value": "GS2.1.s1788329792$o1$g0$t1788329792$j60$l0$h1838948789",
+      "domain": ".fruitionservices.io",
+      "path": "/",
+      "expires": 1822889792.22804,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1127757434.1788329792",
+      "domain": ".fruitionservices.io",
+      "path": "/",
+      "expires": 1796105792,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "test_cookie",
+      "value": "CheckForPermission",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1788330692.336835,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_25NQ0WX71L",
+      "value": "GS2.1.s1788329792$o1$g0$t1788329792$j60$l0$h0",
+      "domain": ".fruitionservices.io",
+      "path": "/",
+      "expires": 1822889792.343016,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "0SOP7ktyF8WtK0j6fc4RneblXbjLWR98sbRvrO.ispw-1788329793.6021693-1.0.1.1-yKwIb5Zd9sSwIopYXvvLo2eEtSkyNabb5PdEPH4zs9JkvtX03MP7c480kClg5.zefn3JK6mf48ESz7ogAgk5bgGckgLqyJDaTnIea3BioOmVwoUh2h2wk.k6ypo_NZDi",
+      "domain": ".bzr.openai.com",
+      "path": "/",
+      "expires": 1788331593.828621,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "EhQ8_ZO0OxFy7gZcg2eoOtOr9bx_VqGKqznHZ1TOWOY-1788329793.6021693-1.0.1.1-U7eHBvSl919NqDHqpHjsx28Pxk4PlhK3BePH7L5Bkuo",
+      "domain": ".bzr.openai.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.fruitionservices.io",
+      "localStorage": [
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gsid_dc\":{\"value\":{\"joinId\":\"s-2aBKeVEmx2kTbXr-hHYwlDM8VbX1vafQ\",\"lastJoinedTimeMs\":1788329792242},\"expires\":1788330092242},\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1788329792243},\"expires\":1796105792243}}"
+        }
+      ]
+    }
+  ]
+}
