@@ -191,6 +191,20 @@ export const vcCases = defineType({
       description: 'Named clients only. Each case study is shared: edit it once, every page updates.',
       of: [defineArrayMember({ type: 'reference', to: [{ type: 'vcCase' }] })],
     }),
+    defineField({
+      name: 'hub',
+      title: 'Link card after the case studies (optional)',
+      type: 'object',
+      description: 'A card in the same frame that sends visitors on, e.g. to the industry use case hub, with a row of client logos instead of a photo. Use it when there are fewer named case studies than slots.',
+      fields: [
+        defineField({ name: 'label', title: 'Small label', type: 'string' }),
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'body', title: 'Text', type: 'text', rows: 3 }),
+        defineField({ name: 'linkLabel', title: 'Link label', type: 'string' }),
+        defineField({ name: 'href', title: 'Link', type: 'string' }),
+        defineField({ name: 'logos', title: 'Logos on the panel', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
+      ],
+    }),
   ],
   preview: preview('Case studies'),
 })

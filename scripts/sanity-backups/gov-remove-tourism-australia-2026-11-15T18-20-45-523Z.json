@@ -1,0 +1,589 @@
+{
+  "_createdAt": "2026-11-10T20:15:33Z",
+  "_id": "vcPage-monday-for-government",
+  "_rev": "yfMOnpqsGU6HIl2c2xwVQ9",
+  "_type": "vcPage",
+  "_updatedAt": "2026-11-13T15:42:09Z",
+  "group": "industry",
+  "path": "/monday-for-government",
+  "sections": [
+    {
+      "_key": "78bcb93086e1",
+      "_type": "vcHero",
+      "art": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-8bfcfdd2007d3c4a319ebede83e972015a41b597-880x750-webp",
+          "_type": "reference"
+        }
+      },
+      "badge": "monday.com Platinum Partner",
+      "ctas": [
+        {
+          "_key": "0cbfb665604a",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#book",
+          "label": "Book a Free Audit",
+          "style": "primary"
+        },
+        {
+          "_key": "e95163698717",
+          "_type": "vcCta",
+          "arrow": false,
+          "href": "/contact-us#book",
+          "label": "Get Started with monday.com",
+          "style": "outline"
+        }
+      ],
+      "heading": "monday.com Implementation for *Government and Local Councils*",
+      "lead": "Fruition is a Platinum monday.com partner for government and the public sector. We build secure, compliant workflows that help agencies and councils streamline their operations."
+    },
+    {
+      "_key": "a771de44c00a",
+      "_type": "vcLogos",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Clients",
+        "heading": "Agencies and councils *that work with Fruition.*",
+        "lead": "Government bodies running case, project and service workflows on monday.com."
+      },
+      "logos": [
+        {
+          "_key": "4c23b9158ac3",
+          "_type": "vcLogo",
+          "alt": "Government of Western Australia Department of Finance",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-063a0efda5e41ed88fbd983644db87ce4648c3d2-400x70-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "ff3026c9a4c3",
+          "_type": "vcLogo",
+          "alt": "Albury City Council",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-f9a8b18de398ca6d6573321fed02eecc673c8f49-400x304-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "13ab6062758b",
+          "_type": "vcLogo",
+          "alt": "Queensland Government, Queensland Health",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-2f8b7f063629de1b5c92d144aa572a61bccfb95d-379x105-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "75d99644de40",
+          "_type": "vcLogo",
+          "alt": "Northern Territory Tourism",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-29445468de0aafaa95f22aa5589f2c85f85f3345-400x151-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "3908f7552f6c",
+          "_type": "vcLogo",
+          "alt": "NSW Government EnergyCo",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-f32833ecf0233362b454f7f6e9c0ce17330c36d1-400x110-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "f6f044d8f65e",
+          "_type": "vcLogo",
+          "alt": "CSIRO",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-4f002009a60ef449925512a9470a469376791642-400x92-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "855e42b1687f",
+          "_type": "vcLogo",
+          "alt": "VicHealth",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-d44b81c034cdeb5c24f11b9e650c5bc23a3b9edd-400x126-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "ec9ff7614540",
+          "_type": "vcLogo",
+          "alt": "Army and Air Force Canteen Service",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-874dd921b5c6466264a393e9bf7600cb73f9245c-400x156-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "56b39fcc763c",
+          "_type": "vcLogo",
+          "alt": "Shire of Augusta Margaret River",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-a47016d2530a93354ee1627bacea94986b6766ea-400x340-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "93d03d7f4048",
+          "_type": "vcLogo",
+          "alt": "Surrey County Council",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-0268cd7f413c0c0c449215134ca1659072e99712-110x99-png",
+              "_type": "reference"
+            }
+          }
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "2e4abff3584b",
+      "_type": "vcSteps",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Our approach",
+        "heading": "Modernise public services *without the IT queue.*",
+        "lead": "Secure workflow, case management and governed AI, rolled out in a way agencies can audit."
+      },
+      "items": [
+        {
+          "_key": "637d4f4922ce",
+          "_type": "vcStep",
+          "body": "Non-IT teams build and adapt their own workflows on approved platforms, without waiting in the IT queue.",
+          "n": "01",
+          "title": "Change without bottlenecks"
+        },
+        {
+          "_key": "608b59f4cb7a",
+          "_type": "vcStep",
+          "body": "Critical processes and decision protocols captured in one system, so services continue when experienced staff move on.",
+          "n": "02",
+          "title": "Knowledge that stays"
+        },
+        {
+          "_key": "a71d7df1e53b",
+          "_type": "vcStep",
+          "body": "Automated request tracking, case management and real-time status updates that make public services more responsive.",
+          "n": "03",
+          "title": "Faster citizen service"
+        }
+      ],
+      "layout": "steps",
+      "tone": "plain"
+    },
+    {
+      "_key": "045fae012806",
+      "_type": "vcCases",
+      "cases": [
+        {
+          "_key": "bf36da3d9ac8",
+          "_ref": "vcCase-tourism-nt",
+          "_type": "reference"
+        },
+        {
+          "_key": "18e7a81d5272",
+          "_ref": "vcCase-tourism-australia",
+          "_type": "reference"
+        }
+      ],
+      "head": {
+        "_type": "vcHead",
+        "badge": "Case studies",
+        "heading": "Government *case studies.*",
+        "lead": "Two client builds and what they changed."
+      },
+      "tone": "alt"
+    },
+    {
+      "_key": "ee3d0d6d18ad",
+      "_type": "vcAudit",
+      "cta": {
+        "_type": "vcCta",
+        "arrow": true,
+        "href": "#book",
+        "label": "Book a workflow review",
+        "style": "primary"
+      },
+      "heading": "Modernise case work *without the risk.*",
+      "text": "A free 30-minute review of your agency's workflows.",
+      "tone": "plain"
+    },
+    {
+      "_key": "e32b1087ac99",
+      "_type": "vcCards",
+      "head": {
+        "_type": "vcHead",
+        "badge": "What we build",
+        "heading": "Government *systems.*",
+        "lead": "Four builds for agencies that need control and transparency."
+      },
+      "items": [
+        {
+          "_key": "8c9dd914af2e",
+          "_type": "vcItem",
+          "body": "Pre-approved workflows with automated compliance monitoring and audit-ready documentation.",
+          "label": "01",
+          "title": "Compliance & audit trails"
+        },
+        {
+          "_key": "23db813a80f3",
+          "_type": "vcItem",
+          "body": "Real-time financial tracking, forecasting and variance reporting, with dashboards that show who is accountable.",
+          "label": "02",
+          "title": "Budget transparency"
+        },
+        {
+          "_key": "671d5c19e90e",
+          "_type": "vcItem",
+          "body": "Shared visibility across departments, dependency tracking and standardised approval workflows.",
+          "label": "03",
+          "title": "Multi-agency coordination"
+        },
+        {
+          "_key": "9cb52064b638",
+          "_type": "vcItem",
+          "body": "Role-based access, encryption and AI-assisted planning that stays inside agency security requirements.",
+          "label": "04",
+          "title": "Secure, governed AI"
+        }
+      ],
+      "layout": "cards2",
+      "tone": "plain"
+    },
+    {
+      "_key": "8da654d5b2b0",
+      "_type": "vcProof",
+      "badge": "Client proof",
+      "ctas": [
+        {
+          "_key": "90805c517d81",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#book",
+          "label": "Start Your Transformation",
+          "style": "primary"
+        }
+      ],
+      "heading": "What our customers *say about us.*",
+      "layout": "sticky",
+      "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+      "quotes": [
+        {
+          "_key": "23b8f6875a8c",
+          "_ref": "vcQuote-jade-wood-popology",
+          "_type": "reference"
+        },
+        {
+          "_key": "9a888972405d",
+          "_ref": "vcQuote-emily-hill-tourism-northern-territory",
+          "_type": "reference"
+        },
+        {
+          "_key": "230ab5e2ed52",
+          "_ref": "vcQuote-allie-swindlehurst-falkbuilt",
+          "_type": "reference"
+        },
+        {
+          "_key": "f15f11b39757",
+          "_ref": "vcQuote-mairhead-mckinley-givergy",
+          "_type": "reference"
+        },
+        {
+          "_key": "f86e4d8c0be0",
+          "_ref": "vcQuote-jason-doan-holt-cat",
+          "_type": "reference"
+        },
+        {
+          "_key": "899f75fc1e71",
+          "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning",
+          "_type": "reference"
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "910fd7e52579",
+      "_type": "vcCards",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Security",
+        "heading": "The security standards *agencies cannot compromise on.*",
+        "lead": "Public-sector workflows carry records that must not leak. These are the controls we configure before any sensitive data moves in."
+      },
+      "items": [
+        {
+          "_key": "4cb56ad78c74",
+          "_type": "vcItem",
+          "body": "People see only the records they are assigned to, non-owners edit only their own work, and guests never reach the wider workspace.",
+          "label": "01",
+          "title": "Item-level permissions"
+        },
+        {
+          "_key": "622600bfa314",
+          "_type": "vcItem",
+          "body": "Encryption, comprehensive audit logging, HIPAA support through a Business Associate Agreement and an emergency lockdown control.",
+          "label": "02",
+          "title": "Compliance-grade data handling"
+        },
+        {
+          "_key": "de03be383ecb",
+          "_type": "vcItem",
+          "body": "IP allowlisting, single sign-on with Azure AD, Okta or SAML, multi-factor authentication and admin-level controls on public sharing.",
+          "label": "03",
+          "title": "Access control and identity"
+        }
+      ],
+      "layout": "cards3",
+      "tone": "plain"
+    },
+    {
+      "_key": "f7fda5dd0ff1",
+      "_type": "vcProducts",
+      "head": {
+        "_type": "vcHead",
+        "badge": "In the product",
+        "heading": "Work leaders *can actually see.*",
+        "lead": "Two of the views agency teams and executives use."
+      },
+      "items": [
+        {
+          "_key": "903dcea99d63",
+          "_type": "vcItem",
+          "body": "Department initiatives with project health, progress and priority on one board, from procurement to community services.",
+          "image": {
+            "_type": "image",
+            "alt": "Modernisation portfolio",
+            "asset": {
+              "_ref": "image-942f5344c17113a02eddbdf4fe5e8c1e96187b0b-1373x1174-avif",
+              "_type": "reference"
+            }
+          },
+          "title": "Modernisation portfolio"
+        },
+        {
+          "_key": "2817e4b23c61",
+          "_type": "vcItem",
+          "body": "A self-service front door where residents search for help across taxes, recreation, education and welfare.",
+          "image": {
+            "_type": "image",
+            "alt": "Citizen portal",
+            "asset": {
+              "_ref": "image-87c875eb6625a4ed064f1685bfc0033e2cbcd3a7-1600x1159-png",
+              "_type": "reference"
+            }
+          },
+          "title": "Citizen portal"
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "94ff001a0f09",
+      "_type": "vcUseCases",
+      "anchor": "ai-use-cases",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Use case catalogue",
+        "heading": "Government & public sector *use cases*",
+        "lead": "Every use case comes from a real Fruition client engagement, with the client’s name withheld."
+      },
+      "linkLabel": "See the build",
+      "moreLabel": "See all {count} use cases",
+      "source": "/monday-for-government",
+      "tone": "plain"
+    },
+    {
+      "_key": "0a0351e25422",
+      "_type": "vcBooking",
+      "badge": "Book a time",
+      "heading": "Schedule a 30-min call with a *monday.com government expert*",
+      "lead": "From compliance and case management to citizen service portals, talk to a Fruition consultant about modernising your agency."
+    },
+    {
+      "_key": "ab291b070d90",
+      "_type": "vcFaq",
+      "badge": "FAQ",
+      "heading": "Frequently asked questions.",
+      "tabs": [
+        {
+          "_key": "09ff482909e8",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "617b42dc74d2",
+              "_ref": "faqItem-vc-d00f75d01a",
+              "_type": "reference"
+            },
+            {
+              "_key": "dfb2f04a2b82",
+              "_ref": "faqItem-vc-0b6cda5ad3",
+              "_type": "reference"
+            },
+            {
+              "_key": "dea3a29d2a99",
+              "_ref": "faqItem-vc-41c3d3ea31",
+              "_type": "reference"
+            },
+            {
+              "_key": "9c787d26dcbd",
+              "_ref": "faqItem-vc-56716d3425",
+              "_type": "reference"
+            },
+            {
+              "_key": "2e6aa2f365f0",
+              "_ref": "faqItem-vc-29885d9c20",
+              "_type": "reference"
+            },
+            {
+              "_key": "4d2636d97f40",
+              "_ref": "faqItem-vc-bf818acef1",
+              "_type": "reference"
+            },
+            {
+              "_key": "d5787f07afbc",
+              "_ref": "faqItem-vc-0c39458bf0",
+              "_type": "reference"
+            },
+            {
+              "_key": "2766aff0f469",
+              "_ref": "faqItem-vc-24f4496922",
+              "_type": "reference"
+            },
+            {
+              "_key": "2aef56bce10e",
+              "_ref": "faqItem-vc-6a11e044c7",
+              "_type": "reference"
+            },
+            {
+              "_key": "b13b80ef094b",
+              "_ref": "faqItem-vc-a518dee04d",
+              "_type": "reference"
+            }
+          ],
+          "label": "Government"
+        },
+        {
+          "_key": "d35dc08d0b85",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "1bde4ff714d7",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-0",
+              "_type": "reference"
+            },
+            {
+              "_key": "6e44b9701bb3",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-1",
+              "_type": "reference"
+            },
+            {
+              "_key": "642f1b9f133d",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-2",
+              "_type": "reference"
+            },
+            {
+              "_key": "19bf4e3e8ca7",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-3",
+              "_type": "reference"
+            },
+            {
+              "_key": "98a7ba0f2a8c",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-4",
+              "_type": "reference"
+            },
+            {
+              "_key": "d93c0656f096",
+              "_ref": "faqItem-migrated-ai-consulting-governance-and-compliance-5",
+              "_type": "reference"
+            }
+          ],
+          "label": "AI governance"
+        },
+        {
+          "_key": "0724849bc8d0",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "a6d631c317f9",
+              "_ref": "faq-996791c3b8e54fea",
+              "_type": "reference"
+            },
+            {
+              "_key": "cf712a3f7ea0",
+              "_ref": "faq-3a5a095f24921851",
+              "_type": "reference"
+            },
+            {
+              "_key": "55745078f658",
+              "_ref": "faq-e92a6bfd27d1a1a2",
+              "_type": "reference"
+            },
+            {
+              "_key": "3b1ad1d9a295",
+              "_ref": "faq-7b7398dca28f22d5",
+              "_type": "reference"
+            }
+          ],
+          "label": "monday.com consulting"
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "7db33710d3cc",
+      "_type": "vcClosing",
+      "badge": "Next step",
+      "ctas": [
+        {
+          "_key": "c7927a693cfa",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#book",
+          "label": "Book a discovery call",
+          "style": "inverse"
+        }
+      ],
+      "heading": "Join *900+ organisations* that have maximised their workflows with our monday.com expert support",
+      "lead": "Book a 30-minute discovery call. We'll give you a frank read on scope, fit, and cost."
+    }
+  ],
+  "seoDescription": "Fruition implements monday.com for government agencies and councils: permissions, compliance and citizen-request workflows. 900+ implementations.",
+  "seoTitle": "monday.com for Government & Public Sector | Fruition",
+  "title": "monday.com for Government & Public Sector | Fruition"
+}
