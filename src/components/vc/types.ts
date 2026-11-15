@@ -46,7 +46,9 @@ export interface VcStepsData extends Base {
   _type: "vcSteps"; head?: VcHeadData; layout?: string; titleClass?: string
   items?: { _key?: string; n?: string; bar?: number; title?: string; body?: string; bullets?: string[]; meta?: string }[]
 }
-export interface VcCasesData extends Base { _type: "vcCases"; head?: VcHeadData; cases?: VcCaseData[] }
+/** Optional link card after the case studies: logo panel, copy and a link (e.g. to the use case hub). */
+export interface VcCaseHubData { label?: string; title?: string; body?: string; linkLabel?: string; href?: string; logos?: VcLogoData[] }
+export interface VcCasesData extends Base { _type: "vcCases"; head?: VcHeadData; cases?: VcCaseData[]; hub?: VcCaseHubData }
 /** A service deep dive: heading block, numbered approach steps and a 4-card grid. Page-specific by design. */
 export interface VcDeepDiveData extends Base {
   _type: "vcDeepDive"; head?: VcHeadData; stepsHeading?: string; steps?: { _key?: string; title?: string; body?: string }[]

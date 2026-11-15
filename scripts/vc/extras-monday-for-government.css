@@ -1,0 +1,16 @@
+/* Case studies: optional link card after the cases (vcCases.hub), e.g. /monday-for-government pointing to
+   the government use cases once Tourism Australia came out (monday item 2908075208, 16 Nov 2026).
+   Spec: Claude Design, Fruition project, file "Government case studies". */
+.vc .csc-hub{text-decoration:none;color:inherit;transition:border-color .25s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.vc .csc-hub:hover,.vc .csc-hub:focus-visible{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 18px 40px -18px color-mix(in srgb, var(--accent) 35%, transparent)}
+.vc .csc-hub:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vc .csc-hub-panel{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(140deg,var(--vc-midnight) 0%,color-mix(in srgb, var(--vc-midnight) 55%, var(--accent)) 55%,var(--accent) 130%);display:grid;place-items:center;padding:7%;box-sizing:border-box}
+.vc .csc-hub-logos{list-style:none;margin:0;padding:0;width:100%;height:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:10px}
+.vc .csc-hub-logo{display:flex;align-items:center;justify-content:center;padding:6px;border:1px solid rgba(255,255,255,.16);border-radius:12px;min-width:0;min-height:0}
+.vc .csc-hub-logo img{max-width:82%;max-height:56%;width:auto;height:auto;object-fit:contain;filter:brightness(0) invert(1)}
+.vc .csc-hub-cta{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;min-height:44px;font-weight:600;font-size:16px;color:var(--accent)}
+.vc .csc-hub-cta svg{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.vc .csc-hub:hover .csc-hub-cta svg{transform:translateX(4px)}
+@media (min-width:768px) and (max-width:1024px){.vc .csc-res b{font-size:20px}.vc .csc-hub-logos{gap:8px}}
+@media (max-width:767px){.vc .csc-hub-logos{gap:6px}}
+@media (prefers-reduced-motion:reduce){.vc .csc-hub,.vc .csc-hub-cta svg{transition:none}.vc .csc-hub:hover,.vc .csc-hub:focus-visible,.vc .csc-hub:hover .csc-hub-cta svg{transform:none}}

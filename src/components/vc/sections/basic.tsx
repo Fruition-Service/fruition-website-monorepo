@@ -378,8 +378,38 @@ export function VcCases({ s }: { s: VcCasesData }) {
             </div>
           </article>
         ))}
+        {s.hub?.href && <CaseHub hub={s.hub} />}
       </div>
     </Sec>
+  )
+}
+
+/** The link card that can follow the case studies: client logos on the photo slot, copy, and a link. */
+function CaseHub({ hub }: { hub: NonNullable<VcCasesData["hub"]> }) {
+  const href = vercelStegaClean(hub.href ?? "")
+  return (
+    <Link href={href} className="csc csc-hub">
+      <div className="csc-hub-panel">
+        {!!hub.logos?.length && (
+          <ul className="csc-hub-logos" aria-label="Clients">
+            {hub.logos.map((l, i) => (
+              <li className="csc-hub-logo" key={l._key ?? i}>
+                <SImg image={l.image} width={160} height={64} fit="max" alt={l.alt} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div className="csc-b">
+        {hub.label && <span className="label">{hub.label}</span>}
+        {hub.title && <h3 className="h3">{hub.title}</h3>}
+        {hub.body && <p className="body">{hub.body}</p>}
+        <span className="csc-hub-cta">
+          {hub.linkLabel || "Explore use cases"}
+          <Arrow />
+        </span>
+      </div>
+    </Link>
   )
 }
 
