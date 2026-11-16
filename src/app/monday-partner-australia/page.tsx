@@ -1,10 +1,11 @@
 import "@/styles/vc/pages/monday-partner-australia.css"
 import { VcPage, vcMetadata } from "@/components/vc/VcPage"
+import { locationHreflangAlternates } from "@/lib/metadata"
 
 const PATH = "/monday-partner-australia"
 
 export function generateMetadata() {
-  return vcMetadata(PATH, { locale: "en_AU" })
+  return vcMetadata(PATH, { locale: "en_AU", languages: locationHreflangAlternates() })
 }
 
 export default function Page() {

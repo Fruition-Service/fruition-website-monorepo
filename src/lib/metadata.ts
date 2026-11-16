@@ -80,6 +80,28 @@ export function buildOgMetadata(input: OgMetadataInput) {
 }
 
 /**
+ * hreflang alternates shared by the six regional monday.com partner pages, so
+ * each one points search engines at the same set (monday 2909138172). Keys are
+ * lowercase to match the tags as requested; Australia is the x-default.
+ */
+export const LOCATION_PAGE_HREFLANG = {
+  "en-au": "/monday-partner-australia",
+  "en-gb": "/monday-partner-uk",
+  "en-us": "/monday-partner-us",
+  "en-sg": "/monday-partner-singapore",
+  "en-in": "/monday-partner-india",
+  "en-ph": "/monday-partner-philippines",
+  "x-default": "/monday-partner-australia",
+} as const
+
+/** Absolute-URL `alternates.languages` for the regional partner pages. */
+export function locationHreflangAlternates(): Record<keyof typeof LOCATION_PAGE_HREFLANG, string> {
+  return Object.fromEntries(
+    Object.entries(LOCATION_PAGE_HREFLANG).map(([lang, path]) => [lang, `${SITE_URL}${path}`]),
+  ) as Record<keyof typeof LOCATION_PAGE_HREFLANG, string>
+}
+
+/**
  * Build an absolute image URL from a Sanity image reference.
  *
  * Uses 1200×630 crop suitable for OG/Twitter cards.

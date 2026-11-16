@@ -105,13 +105,19 @@ export async function VcPage({ path, slug, page: given }: { path: string; slug: 
 /** Page metadata from the vcPage document, with the route's own fallbacks. */
 export async function vcMetadata(
   path: string,
-  fallback: { title?: string | null; description?: string | null; locale?: string } = {},
+  fallback: {
+    title?: string | null
+    description?: string | null
+    locale?: string
+    /** hreflang alternates, e.g. locationHreflangAlternates() on the regional partner pages. */
+    languages?: NonNullable<Metadata["alternates"]>["languages"]
+  } = {},
 ): Promise<Metadata> {
   const page = await getVcPage(path)
   const title = page?.seoTitle || fallback.title || undefined
   const description = page?.seoDescription || fallback.description || undefined
   return {
-    alternates: { canonical: path },
+    alternates: { canonical: path, ...(fallback.languages ? { languages: fallback.languages } : {}) },
     title,
     description,
     ...buildOgMetadata({
