@@ -1,5 +1,6 @@
 import { vercelStegaClean } from "@vercel/stega"
 import type { VcPageData } from "@/components/vc/types"
+import { currency } from "@/lib/currency/kit"
 import { DATE_MODIFIED, PACKAGES, PAGE_URL, SITE_URL } from "./content"
 
 /*
@@ -13,6 +14,11 @@ import { DATE_MODIFIED, PACKAGES, PAGE_URL, SITE_URL } from "./content"
 const clean = (s?: string) => vercelStegaClean(s ?? "").trim()
 /** "$2,500", "US$2,500" or "A$18,000" -> 2500 / 18000. */
 const amount = (s?: string) => Number(clean(s).replace(/[^0-9.]/g, "")) || 0
+/** Service rows carry their own currency ("A$8,000", "US$3,000"); a bare "$" there means AUD. */
+const rowPrice = (s?: string) => {
+  const p = currency.parse(clean(s), "AUD")
+  return { minPrice: p?.amount ?? amount(s), priceCurrency: p?.currency ?? "AUD" }
+}
 
 export function buildPricingJsonLd(page: VcPageData, seo: { title?: string; description?: string }) {
   const ORG_ID = `${SITE_URL}/#organization`
@@ -46,7 +52,7 @@ export function buildPricingJsonLd(page: VcPageData, seo: { title?: string; desc
         // Rows priced as an "initial phase" get that suffix; outcome packages are named in full already.
         name: /initial phase/i.test(clean(r.note)) ? `${clean(r.name)}: initial phase` : clean(r.name),
         url: `${SITE_URL}${clean(r.href)}`,
-        priceSpecification: { "@type": "PriceSpecification", minPrice: amount(r.price), priceCurrency: "AUD" },
+        priceSpecification: { "@type": "PriceSpecification", ...rowPrice(r.price) },
         itemOffered: { "@type": "Service", name: clean(r.name), provider: { "@id": ORG_ID } },
       })),
     )
