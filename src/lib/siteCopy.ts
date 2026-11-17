@@ -34,6 +34,8 @@ export const SITE_COPY = {
     label: "Booking band: paragraph (default)",
     text: "Pick a time and we'll map your pipeline live on the call: your stages, your handoffs, your reporting. No slides.",
   },
+  "booking-call-label": { label: "Booking band: call block heading", text: "Prefer to talk? Call us" },
+  "booking-call-nearest": { label: "Booking band: tag on the office nearest the visitor", text: "Nearest to you" },
   "booking-proof": { label: "Booking band: proof line", text: "Platinum monday.com partner · 900+ implementations" },
 
   // Booking band on /contact-us

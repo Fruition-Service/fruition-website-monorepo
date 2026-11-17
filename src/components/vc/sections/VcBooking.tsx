@@ -4,6 +4,7 @@ import { BookingCard } from "@/components/sections/BookingSection"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import { vercelStegaClean } from "@vercel/stega"
 import { useOfficeStrap } from "@/components/OfficeStrapProvider"
+import BookingCallOptions from "@/components/BookingCallOptions"
 import { Acc, Badge } from "../primitives"
 import type { VcBookingData } from "../types"
 
@@ -44,6 +45,7 @@ export default function VcBooking({ s, email }: { s: VcBookingData; email?: stri
               {offices}
             </div>
           </div>
+          <BookingCallOptions tone="dark" />
           {s.tag && (
             <div className="tag">
               <span className="label">{s.tag}</span>
