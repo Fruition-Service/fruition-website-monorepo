@@ -282,6 +282,13 @@ const auditRedirects: Redirect[] = [
   { source: "/author/ishani-dhar-chowdury", destination: "/author/ishani-dhar-chowdhury", permanent: true },
   { source: "/author/fruition-services", destination: "/author/fruition-editorial", permanent: true },
 
+  // monday 2909158661 (Vadim): the partner-directory post is folded into the
+  // canonical certified-partner guide. Its Sanity blogPost is still published
+  // and is left untouched; this redirect runs before the page, so it wins.
+  // Explicit `statusCode: 301` (not `permanent`, which emits a 308) because the
+  // acceptance check on redirect items is the literal status code on the wire.
+  { source: "/post/monday-com-partner-directory", destination: "/post/finding-monday-com-certified-partner", statusCode: 301 },
+
   // monday 2893694816: /contactustest was a staff sandbox of past booking-card
   // versions and is deleted. `:path*` matches zero or more segments, so the
   // bare URL and anything under it land on the real contact page.
