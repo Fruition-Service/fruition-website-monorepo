@@ -114,9 +114,24 @@ export const NAV_VC: NavVcItem[] = [
     feature: {
       kicker: 'Use case hub',
       quote: '279 real AI and monday.com builds across 12 industries, filterable by team and outcome.',
-      label: 'Browse AI use cases',
+      label: 'Browse use cases',
       href: '/ai-use-cases',
       slides: [
+        // First page: the best-known clients from the homepage logo wall
+        // (siteSettings.carouselLogos). Never add a name from the NDA list.
+        {
+          title: 'Trusted by teams across 900+ implementations',
+          meta: '279 builds across 12 industries',
+          href: '/ai-use-cases',
+          logos: [
+            { alt: 'NSW Government', asset: 'image-a76238ed023b45602730a252c456f248216a4664-259x280-png' },
+            { alt: 'Scania', asset: 'image-7cd3b8aef0d102de405f11ffcaab7b65385fc14d-288x78-png' },
+            { alt: 'Daily Mail', asset: 'image-d5b681e9d7e17ba462f8c4e3d95b5b22c00cfaf9-900x185-png' },
+            { alt: 'Telstra', asset: 'image-034c0b291272f680c860dc42ac88d17776d2f356-900x248-png' },
+            { alt: 'Specsavers', asset: 'image-9435fce8d10d7491b53c702de6cbf0d50e5e508f-899x344-png' },
+            { alt: 'CSIRO', asset: 'image-81985272b636b9b5ea67500e58ba32665bfd027e-900x207-png' },
+          ],
+        },
         {
           title: 'Professional services & agencies',
           meta: '70 builds',
