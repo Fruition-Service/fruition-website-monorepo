@@ -12,6 +12,7 @@
  */
 export const REDIRECTED_POST_SLUGS: ReadonlySet<string> = new Set([
   "monday-com-vs-clickup-1",
+  "monday-com-partner-directory",
   "mondaycom-implementation-consultants",
   "mondaycom-implementation-consultant-diy-self-service",
   "monday-crm-implementation-consultant",
