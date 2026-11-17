@@ -171,6 +171,16 @@ export const VC_PAGE_SPECIFIC_SECTIONS: VcPageSpecificSection[] = [
     added: '2026-11-13',
     source: 'scripts/vc/contact-hero-partner-ecosystem-2026-11.ts',
   },
+  {
+    path: '/implementation-packages',
+    key: 'pagespecific-pricing-package-matrix',
+    type: 'vcTable',
+    heading: "What's included in *each monday.com implementation package*",
+    reason:
+      'The detailed per-package inclusion table the page had before the Version C redesign (13 rows by Training & Optimisation, Lock-Step, Deployed Engineer), restored verbatim directly under the packages section. Edward, 17 Nov 2026. Blank cells read "Not included".',
+    added: '2026-11-17',
+    source: 'scripts/vc/impl-packages-ai-badges-2026-11.ts',
+  },
 ]
 
 export const PAGE_SPECIFIC_KEY_PREFIX = 'pagespecific-'

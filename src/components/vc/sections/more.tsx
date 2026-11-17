@@ -108,7 +108,42 @@ const Chk = () => (
   </svg>
 )
 
+function VcMatrix({ s }: { s: VcTableData }) {
+  const cols = s.columns ?? []
+  return (
+    <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="compare">
+      <Head head={s.head} />
+      <div className="table pkm" role="table">
+        <div className="tr th" role="row">
+          <div role="columnheader" className="k" aria-hidden="true" />
+          {cols.map((c, i) => (
+            <div role="columnheader" key={i} className={i === 1 ? "us" : undefined}>
+              {c}
+            </div>
+          ))}
+        </div>
+        {(s.rows ?? []).map((r, i) => (
+          <div className="tr" role="row" key={r._key ?? i}>
+            <div className="k" role="rowheader">
+              {r.label}
+            </div>
+            {cols.map((c, j) => {
+              const v = r.cells?.[j]
+              return (
+                <div role="cell" key={j} data-col={c} className={`${j === 1 ? "us " : ""}${v ? "" : "none"}`.trim() || undefined}>
+                  {v || "Not included"}
+                </div>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+    </Sec>
+  )
+}
+
 export function VcTable({ s }: { s: VcTableData }) {
+  if (vercelStegaClean(s.variant ?? "") === "matrix") return <VcMatrix s={s} />
   const [a, b, c] = s.columns ?? []
   return (
     <Sec tone={s.tone} pageSpecific={s.pageSpecific} anchor={s.anchor} cls={s.sectionClass} dataSec="compare">
