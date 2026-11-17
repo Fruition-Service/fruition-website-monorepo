@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { getPortalApiUser, bylineFor } from "@/lib/portalAuth"
-import { getAtPath, isSafeDocId, parsePath, publishedId } from "@/lib/inlineEdit"
+import { getAtPath, isRemovableItemPath, isSafeDocId, parsePath, publishedId } from "@/lib/inlineEdit"
 import { editWriteClient, revalidateAfterEdit } from "@/lib/inlineEditServer"
 
 export const runtime = "nodejs"
@@ -60,6 +60,12 @@ export async function POST(req: Request) {
   if (!t) return badRequest("Bad field reference")
   if (typeof body.value !== "string") return badRequest("Value must be text")
   if (body.value.length > MAX_LENGTH) return badRequest("Text is too long")
+  // Empty text renders nothing, so it carries no edit marker and can never be
+  // clicked again here (a FAQ tab cleared this way became a blank bubble that
+  // no one could fix, 16 Nov 2026). Tabs have a Remove action instead.
+  if (!body.value.trim()) {
+    return badRequest("Text can't be saved empty here. To delete a FAQ tab, click its label and use Remove tab; other text can be cleared in Sanity Studio.", 422)
+  }
 
   const client = editWriteClient()
   const docs = await client.fetch<{ _id: string }[]>(
@@ -78,5 +84,41 @@ export async function POST(req: Request) {
   const failed = revalidateAfterEdit(body.pagePath)
 
   console.log(`[inline-edit] ${await bylineFor(user)} set ${t.id} ${t.path}`)
+  return NextResponse.json({ ok: true, revalidateFailed: failed })
+}
+
+/**
+ * Remove one item from a removable array (a FAQ tab, a FAQ topic) on this
+ * page's document. The central questions it pointed at are left alone.
+ */
+export async function DELETE(req: Request) {
+  const user = await getPortalApiUser()
+  if (!user) return badRequest("Unauthorized", 401)
+
+  let body: { id?: unknown; path?: unknown; pagePath?: unknown }
+  try {
+    body = await req.json()
+  } catch {
+    return badRequest("Invalid JSON")
+  }
+  const t = target(body.id, body.path)
+  if (!t || !isRemovableItemPath(t.path)) return badRequest("This can't be removed here")
+
+  const client = editWriteClient()
+  const docs = await client.fetch<Record<string, unknown>[]>(`*[_id in [$id, $draft]]`, { id: t.id, draft: `drafts.${t.id}` })
+  const published = docs.find((d) => d._id === t.id)
+  if (!published) return badRequest("Document not found", 404)
+  if (getAtPath(published, t.segments) == null) return badRequest("Already removed", 404)
+  const siblings = getAtPath(published, t.segments.slice(0, -1))
+  if (Array.isArray(siblings) && siblings.length <= 1) return badRequest("This is the only one left, so it can't be removed", 422)
+
+  const tx = client.transaction().patch(t.id, (p) => p.unset([t.path]))
+  const draft = docs.find((d) => d._id === `drafts.${t.id}`)
+  if (draft && getAtPath(draft, t.segments) != null) tx.patch(`drafts.${t.id}`, (p) => p.unset([t.path]))
+  await tx.commit({ visibility: "sync" })
+
+  const failed = revalidateAfterEdit(body.pagePath)
+
+  console.log(`[inline-edit] ${await bylineFor(user)} removed ${t.id} ${t.path}`)
   return NextResponse.json({ ok: true, revalidateFailed: failed })
 }
