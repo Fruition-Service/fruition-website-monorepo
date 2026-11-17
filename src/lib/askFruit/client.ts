@@ -3,6 +3,7 @@
  * reducer that applies stream events to an evaluation. Ported from Proploy's
  * features/ai-workspace stream.ts, client.ts and evaluation-reducer.ts.
  */
+import type { ChatDocument } from "./documents"
 import {
   EVENT_TYPES,
   type AskFruitEvent,
@@ -54,7 +55,7 @@ export function parseFrame(frame: string): AskFruitEvent | null {
  * surface as a synthetic `error` event so the caller has one code path.
  */
 export async function* streamChat(
-  body: { message: string; evaluation_id?: string | null },
+  body: { message: string; evaluation_id?: string | null; document?: ChatDocument },
   signal?: AbortSignal,
 ): AsyncGenerator<AskFruitEvent> {
   let res: Response

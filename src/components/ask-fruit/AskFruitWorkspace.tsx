@@ -328,13 +328,13 @@ export default function AskFruitWorkspace({ trust }: { trust?: ReactNode } = {})
               sending={af.sending}
               status={af.status}
               prefill={prefill}
-              onSend={(t) => void af.send(t)}
+              onSend={(t, d) => void af.send(t, d)}
               onStop={af.stop}
               onOpenBrief={setBrief}
             />
           ) : (
             <div className="flex min-h-0 flex-1 overflow-y-auto">
-              <Welcome onSend={(t) => void af.send(t)} sending={af.sending} trust={trust} />
+              <Welcome onSend={(t, d) => void af.send(t, d)} sending={af.sending} trust={trust} />
             </div>
           )}
         </main>

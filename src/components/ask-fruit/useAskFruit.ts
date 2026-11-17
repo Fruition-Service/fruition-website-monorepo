@@ -12,6 +12,7 @@ import {
   toSummary,
   type ApiError,
 } from "@/lib/askFruit/client"
+import { DEFAULT_DOCUMENT_MESSAGE, type ChatDocument } from "@/lib/askFruit/documents"
 import type { EvaluationDetail, EvaluationSummary, Offering } from "@/lib/askFruit/types"
 
 const ACTIVE_KEY = "ask-fruit-active-evaluation"
@@ -115,8 +116,9 @@ export function useAskFruit() {
   }, [activate])
 
   const send = useCallback(
-    async (message: string) => {
-      const text = message.trim()
+    async (message: string, document?: ChatDocument | null) => {
+      // A document on its own is a complete turn, as the route also allows.
+      const text = message.trim() || (document ? DEFAULT_DOCUMENT_MESSAGE : "")
       if (!text || sendingRef.current) return
       sendingRef.current = true
       setSending(true)
@@ -132,7 +134,14 @@ export function useAskFruit() {
         ...base,
         messages: [
           ...base.messages,
-          { id: `local-u-${Date.now()}`, role: "user", markdown: text, status: "complete", created_at: now },
+          {
+            id: `local-u-${Date.now()}`,
+            role: "user",
+            markdown: text,
+            status: "complete",
+            created_at: now,
+            ...(document ? { attachment: document } : {}),
+          },
           { id: `local-a-${Date.now()}`, role: "assistant", markdown: "", status: "streaming", created_at: now },
         ],
       }
@@ -143,7 +152,7 @@ export function useAskFruit() {
       abortRef.current = controller
       try {
         for await (const event of streamChat(
-          { message: text, evaluation_id: startId === DRAFT ? null : startId },
+          { message: text, evaluation_id: startId === DRAFT ? null : startId, ...(document ? { document } : {}) },
           controller.signal,
         )) {
           current = applyEvent(current, event)

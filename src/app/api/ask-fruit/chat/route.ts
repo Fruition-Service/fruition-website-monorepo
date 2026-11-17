@@ -11,6 +11,7 @@ import {
   withVisitorCookie,
 } from "@/lib/askFruit/server"
 import { EvaluationStore, getUsage, logTurn, newEvaluation } from "@/lib/askFruit/store"
+import { DEFAULT_DOCUMENT_MESSAGE, parseChatDocument } from "@/lib/askFruit/documents"
 import { MAX_MESSAGE_CHARS, type AskFruitEvent, type EvaluationDetail } from "@/lib/askFruit/types"
 
 export const runtime = "nodejs"
@@ -34,7 +35,8 @@ function titleFrom(message: string): string {
 /**
  * One Implementation Calculator turn, streamed as server-sent events.
  *
- * Body: { message, evaluation_id? }. Without an evaluation id a new evaluation
+ * Body: { message, evaluation_id?, document? } where document is { name, text, truncated }
+ * extracted in the browser (re-validated and capped here). Without an evaluation id a new evaluation
  * is created. Events: session, status, tool_call, message_delta, requirements,
  * recommendations, shortlist, document_ready, message_final | error, done.
  */
@@ -42,13 +44,16 @@ export async function POST(req: Request) {
   if (!askFruitEnabled()) return jsonError(503, "UNAVAILABLE", "The Implementation Calculator is offline right now.")
   if (!sameOrigin(req)) return jsonError(403, "FORBIDDEN", "Cross-site requests are not allowed.")
 
-  let body: { message?: unknown; evaluation_id?: unknown }
+  let body: { message?: unknown; evaluation_id?: unknown; document?: unknown }
   try {
     body = await req.json()
   } catch {
     return jsonError(400, "BAD_REQUEST", "Expected a JSON body.")
   }
-  const message = typeof body.message === "string" ? body.message.trim() : ""
+  const document = parseChatDocument(body.document)
+  let message = typeof body.message === "string" ? body.message.trim() : ""
+  // A document on its own is a complete turn.
+  if (!message && document) message = DEFAULT_DOCUMENT_MESSAGE
   if (!message) return jsonError(400, "BAD_REQUEST", "Type a message first.")
   if (message.length > MAX_MESSAGE_CHARS) {
     return jsonError(400, "MESSAGE_TOO_LONG", `Keep messages under ${MAX_MESSAGE_CHARS.toLocaleString()} characters.`)
@@ -108,7 +113,7 @@ export async function POST(req: Request) {
         }
         let errorCode: string | null = null
         try {
-          const gen = runTurn({ evaluation, message, apiKey, model, signal: abort.signal })
+          const gen = runTurn({ evaluation, message, document, apiKey, model, signal: abort.signal })
           while (true) {
             const next = await gen.next()
             if (next.done) {
@@ -127,7 +132,14 @@ export async function POST(req: Request) {
         const now = new Date().toISOString()
         evaluation.messages = [
           ...priorMessages,
-          { id: crypto.randomUUID(), role: "user", markdown: message, status: "complete", created_at: now },
+          {
+            id: crypto.randomUUID(),
+            role: "user",
+            markdown: message,
+            status: "complete",
+            created_at: now,
+            ...(document ? { attachment: document } : {}),
+          },
           {
             id: crypto.randomUUID(),
             role: "assistant",

@@ -3,6 +3,9 @@
 import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react"
 import { ArrowUp, Square } from "lucide-react"
 import { MAX_MESSAGE_CHARS } from "@/lib/askFruit/types"
+import type { ChatDocument } from "@/lib/askFruit/documents"
+import { AttachButton, AttachStatus } from "./AttachDocument"
+import { useDocumentAttach } from "./useDocumentAttach"
 
 export const STARTERS = [
   { label: "Move our CRM", text: "We run sales on Salesforce and want to move to monday CRM. What would that involve?" },
@@ -18,15 +21,19 @@ export function Composer({
   prefill,
   autoFocus,
   large,
+  attach: allowAttach = false,
 }: {
-  onSend: (text: string) => void
+  onSend: (text: string, document?: ChatDocument) => void
   onStop?: () => void
   sending: boolean
   prefill?: { text: string; nonce: number } | null
   autoFocus?: boolean
   large?: boolean
+  /** Show the paperclip. Off where the message is handed on as a URL (the /ask-fruit hero). */
+  attach?: boolean
 }) {
   const [value, setValue] = useState("")
+  const attach = useDocumentAttach()
   const ref = useRef<HTMLTextAreaElement>(null)
 
   // A gap chip puts a sentence starter in the box without sending it. Adopted
@@ -57,10 +64,13 @@ export function Composer({
   const submit = (e?: FormEvent) => {
     e?.preventDefault()
     const text = value.trim()
-    if (!text || sending) return
-    onSend(text)
+    const document = allowAttach ? attach.chatDocument : null
+    if ((!text && !document) || sending || attach.reading) return
+    onSend(text, document ?? undefined)
     setValue("")
+    attach.clear()
   }
+  const canSend = Boolean(value.trim() || (allowAttach && attach.chatDocument)) && !sending && !attach.reading
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e)
@@ -69,10 +79,12 @@ export function Composer({
   return (
     <form
       onSubmit={submit}
-      className={`flex items-end gap-2 rounded-card border border-ui bg-surface shadow-card transition-colors focus-within:border-brand ${
+      className={`rounded-card border border-ui bg-surface shadow-card transition-colors focus-within:border-brand ${
         large ? "p-3 pl-5" : "p-2 pl-4"
       }`}
     >
+      {allowAttach ? <AttachStatus attach={attach} variant="app" /> : null}
+      <div className="flex items-end gap-2">
       <label htmlFor="af-composer" className="sr-only">
         Message the Implementation Calculator
       </label>
@@ -88,6 +100,7 @@ export function Composer({
         placeholder={large ? "Describe what you are trying to fix or build…" : "Reply to the Implementation Calculator…"}
         className={`min-h-11 flex-1 resize-none bg-transparent py-2.5 text-ink outline-none placeholder:text-faint ${large ? "text-[16px]" : "text-[16px] md:text-[15px]"}`}
       />
+      {allowAttach ? <AttachButton attach={attach} variant="app" inputId="af-composer-file" disabled={sending} /> : null}
       {sending && onStop ? (
         <button
           type="button"
@@ -101,12 +114,13 @@ export function Composer({
         <button
           type="submit"
           aria-label="Send"
-          disabled={!value.trim() || sending}
+          disabled={!canSend}
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-brand text-white transition-colors hover:bg-brand-dark disabled:bg-lilac-strong"
         >
           <ArrowUp size={18} aria-hidden />
         </button>
       )}
+      </div>
     </form>
   )
 }

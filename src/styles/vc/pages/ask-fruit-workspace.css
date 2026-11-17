@@ -964,5 +964,28 @@
 .vc-p-ask-fruit-workspace .hero{padding:32px 0 0}
 .vc-p-ask-fruit-workspace .steps{grid-template-columns:minmax(0,1fr)}
 }
+/* Document upload (Claude Design "Calculator input upload", 17 Nov 2026): paperclip beside Send,
+   a file chip above the textarea, one-line error / truncation notes, helper text in the footer. */
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .cmp-foot{align-items:center;justify-content:space-between;gap:12px;padding:0 10px 10px 22px}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach-help{min-width:0;margin-right:auto;font-size:12px;line-height:1.4;color:var(--ink-2)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach{flex:none;width:44px;height:44px;margin:0 6px 0 0;padding:0;border:0;border-radius:9999px;background:transparent;color:var(--ink-2);display:grid;place-items:center;cursor:pointer;transition:color .2s,background .2s}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach:hover,.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach:focus-visible{color:var(--accent);background:var(--accent-tint)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach:disabled{cursor:default;opacity:.55}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att{display:flex;flex-direction:column;gap:8px;padding:12px 12px 0}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-chip{display:flex;align-items:center;gap:10px;min-width:0;padding:0 0 0 12px;background:#ecf1fc;border:1px solid var(--line);border-radius:12px;color:var(--accent)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-chip svg{flex:none}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 0;font-size:14px;font-weight:500;color:var(--ink)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-meta{flex:none;font:500 11.5px/1 var(--mono,'JetBrains Mono',monospace);color:var(--ink-2);white-space:nowrap}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-x{flex:none;width:44px;height:44px;margin:0;padding:0;border:0;border-radius:12px;background:transparent;color:var(--ink-2);display:grid;place-items:center;cursor:pointer}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-x:hover{color:var(--accent)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-x:focus-visible{color:var(--accent);outline:2px solid var(--accent);outline-offset:-4px}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-note{margin:0;padding:0 4px;display:flex;align-items:center;gap:6px;font-size:13px;line-height:1.4;color:var(--ink-2)}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-note svg{flex:none}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .att-err{color:#c4314b}
+@media (max-width:767px){
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .attach-help{display:none}
+.vc-p-ask-fruit-workspace .hero .inner.dark.ask-box .cmp-foot{justify-content:flex-end}
+}
 
 }
