@@ -83,6 +83,14 @@ export default function VcCatalogueView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tiles, search, haystacks])
 
+  // On a phone the chip rows scroll sideways: keep the chosen chip in view.
+  useEffect(() => {
+    document.querySelectorAll<HTMLElement>(".filters .tabs").forEach((row) => {
+      const on = row.querySelector<HTMLElement>('button[aria-pressed="true"]')
+      if (on && on.offsetLeft + on.offsetWidth > row.clientWidth + row.scrollLeft) row.scrollLeft = Math.max(0, on.offsetLeft - 32)
+    })
+  }, [f.industry, f.dept])
+
   const [more, setMore] = useState({ key: "", count: PAGE })
   const limit = more.key === search ? more.count : PAGE
   const shown = useMemo(() => new Set(visible.slice(0, limit).map((t) => t.id)), [visible, limit])
@@ -109,7 +117,10 @@ export default function VcCatalogueView({
     }
   }, [slug])
 
-  const industryByKey = useMemo(() => new Map(industries.map((i) => [i.key, i])), [industries])
+  const industryKeys = useMemo(() => {
+    const has = new Set(tiles.map((t) => t.industry))
+    return industries.filter((i) => has.has(i.key))
+  }, [tiles, industries])
   const filtered = visible.length !== tiles.length
   const count = filtered
     ? fill(s.countFiltered, { shown: Math.min(limit, visible.length), total: visible.length })
@@ -121,27 +132,29 @@ export default function VcCatalogueView({
     <>
       <Head head={s.head} />
       <div className="filters">
-        {f.industry && industryByKey.has(f.industry) && (
-          <div className="frow">
-            <span className="label">{s.industryLabel || "Industry"}</span>
-            <div className="tabs" role="group">
-              <button type="button" onClick={() => setParam("industry", "")}>
-                {s.allIndustriesLabel || "All industries"}
+        <div className="frow">
+          <span className="label" id="uc-industry-label">
+            {s.industryLabel || "Industry"}
+          </span>
+          <div className="tabs" role="group" aria-labelledby="uc-industry-label">
+            <button type="button" className={f.industry ? "" : "on"} aria-pressed={!f.industry} onClick={() => setParam("industry", "")}>
+              {s.allIndustriesLabel || "All industries"}
+            </button>
+            {industryKeys.map((i) => (
+              <button type="button" key={i.key} className={f.industry === i.key ? "on" : ""} aria-pressed={f.industry === i.key} onClick={() => setParam("industry", i.key)}>
+                {i.name}
               </button>
-              <button type="button" className="on" aria-pressed="true">
-                {industryByKey.get(f.industry)?.name}
-              </button>
-            </div>
+            ))}
           </div>
-        )}
+        </div>
         <div className="frow">
           <span className="label">{s.departmentLabel}</span>
           <div className="tabs" role="group">
-            <button type="button" className={f.dept ? "" : "on"} onClick={() => setParam("dept", "")}>
+            <button type="button" className={f.dept ? "" : "on"} aria-pressed={!f.dept} onClick={() => setParam("dept", "")}>
               {s.allDepartmentsLabel}
             </button>
             {deptKeys.map(([k, label]) => (
-              <button type="button" key={k} className={f.dept === k ? "on" : ""} onClick={() => setParam("dept", k)}>
+              <button type="button" key={k} className={f.dept === k ? "on" : ""} aria-pressed={f.dept === k} onClick={() => setParam("dept", k)}>
                 {label}
               </button>
             ))}

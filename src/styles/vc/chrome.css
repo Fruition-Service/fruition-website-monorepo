@@ -688,6 +688,16 @@
     gap: 6px;
     margin-bottom: 12px;
   }
+  /* "Browse use cases" button: always visible under the sliding pages. The card
+     is one link, so this is a span styled as the nav's .btn.sm pill. */
+  .vcn .fb-cta {
+    align-self: stretch;
+    margin-top: 2px;
+  }
+  .vcn .fb:hover .fb-cta {
+    --bg: var(--accent-press);
+    --bd: var(--accent-press);
+  }
   .vcn .fb-industry {
     font-size: 15px;
     font-weight: 600;

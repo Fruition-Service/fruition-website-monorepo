@@ -1,0 +1,910 @@
+{
+  "_id": "vcPage-ai-use-cases",
+  "sections": [
+    {
+      "_key": "9f7596261bc9",
+      "_type": "vcHero",
+      "badge": "Use case library",
+      "creds": [
+        {
+          "_key": "472ba8034c2a",
+          "_type": "vcLogo",
+          "alt": "monday.com Platinum Partner",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-f8884b26b1df478c718a6625ee989370c5afcfa2-400x136-png",
+              "_type": "reference"
+            }
+          },
+          "partner": {
+            "_ref": "partner-monday",
+            "_type": "reference"
+          },
+          "partnerImage": "badge"
+        },
+        {
+          "_key": "97efced89a52",
+          "_type": "vcLogo",
+          "alt": "Claude Partner Network Select Services Partner",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-22427abb08ced2db62ca61fbf41998f7371cd8ed-253x80-png",
+              "_type": "reference"
+            }
+          },
+          "partner": {
+            "_ref": "partner-claude",
+            "_type": "reference"
+          },
+          "partnerImage": "badge"
+        },
+        {
+          "_key": "53250413f7de",
+          "_type": "vcLogo",
+          "alt": "OpenAI Select Partner",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-d3cca438d824022b892882bd550422cc70a37c40-469x221-png",
+              "_type": "reference"
+            }
+          },
+          "partner": {
+            "_ref": "partner-openai",
+            "_type": "reference"
+          },
+          "partnerImage": "badge"
+        },
+        {
+          "_key": "49f67b964843",
+          "_type": "vcLogo",
+          "alt": "ElevenLabs Eleven Agents Certified Partner",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-4a7514c3c3aa72f72cdd7096c832f18cf7c02fe7-1144x1133-svg",
+              "_type": "reference"
+            }
+          },
+          "partner": {
+            "_ref": "partner-elevenlabs",
+            "_type": "reference"
+          },
+          "partnerImage": "badge",
+          "shape": "sq"
+        }
+      ],
+      "credsClass": "ai",
+      "ctas": [
+        {
+          "_key": "d079ec31a572",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#catalogue",
+          "label": "Explore use cases",
+          "style": "primary"
+        },
+        {
+          "_key": "1993e60d5c94",
+          "_type": "vcCta",
+          "arrow": false,
+          "href": "#book",
+          "label": "Book a discovery call",
+          "style": "outline"
+        }
+      ],
+      "frameClass": "art-frame",
+      "frameSvg": "<svg viewBox=\"0 0 560 420\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"soft\" x=\"0\" y=\"0\" width=\"560\" height=\"420\"></rect><rect class=\"box\" x=\"20\" y=\"20\" width=\"520\" height=\"380\" rx=\"14\"></rect><rect class=\"soft\" x=\"40\" y=\"38\" width=\"480\" height=\"38\" rx=\"19\"></rect><circle cx=\"63\" cy=\"56\" r=\"5.5\" fill=\"none\" stroke=\"var(--ink-3)\" stroke-width=\"1.5\"></circle><line x1=\"67\" y1=\"60\" x2=\"71\" y2=\"64\" stroke=\"var(--ink-3)\" stroke-width=\"1.5\" stroke-linecap=\"round\"></line><text class=\"ts\" x=\"82\" y=\"61\">Search 279 use cases</text><rect class=\"af\" x=\"40\" y=\"88\" width=\"48\" height=\"26\" rx=\"13\"></rect><text class=\"mw\" x=\"64.0\" y=\"105\" text-anchor=\"middle\">ALL</text><rect class=\"box\" x=\"96\" y=\"88\" width=\"101\" height=\"26\" rx=\"13\"></rect><text class=\"m\" x=\"146.5\" y=\"105\" text-anchor=\"middle\">SALES &amp; CRM</text><rect class=\"box\" x=\"205\" y=\"88\" width=\"74\" height=\"26\" rx=\"13\"></rect><text class=\"m\" x=\"242.0\" y=\"105\" text-anchor=\"middle\">FINANCE</text><rect class=\"box\" x=\"287\" y=\"88\" width=\"74\" height=\"26\" rx=\"13\"></rect><text class=\"m\" x=\"324.0\" y=\"105\" text-anchor=\"middle\">AI ONLY</text><text class=\"m\" x=\"520\" y=\"105\" text-anchor=\"end\">279 RESULTS</text><rect class=\"box\" x=\"40\" y=\"130\" width=\"233\" height=\"76\" rx=\"10\"></rect><text class=\"m\" x=\"56\" y=\"154\">SALES &amp; CRM</text><text class=\"t\" x=\"56\" y=\"176\">AI outbound lead engine</text><rect class=\"af\" x=\"231\" y=\"142\" width=\"26\" height=\"16\" rx=\"8\"></rect><text class=\"mw\" x=\"244\" y=\"153.5\" text-anchor=\"middle\">AI</text><rect class=\"box\" x=\"287\" y=\"130\" width=\"233\" height=\"76\" rx=\"10\"></rect><text class=\"m\" x=\"303\" y=\"154\">FINANCE &amp; PROCUREMENT</text><text class=\"t\" x=\"303\" y=\"176\">Automated contractor</text><text class=\"t\" x=\"303\" y=\"193\">payroll payments</text><rect x=\"40\" y=\"218\" width=\"233\" height=\"76\" rx=\"10\" fill=\"var(--accent-tint)\" stroke=\"var(--accent)\" stroke-width=\"1.5\"></rect><text class=\"ma\" x=\"56\" y=\"242\">OPERATIONS &amp; DELIVERY</text><text class=\"t\" x=\"56\" y=\"264\">Meeting-to-action</text><text class=\"t\" x=\"56\" y=\"281\">follow-up automation</text><rect class=\"af\" x=\"231\" y=\"230\" width=\"26\" height=\"16\" rx=\"8\"></rect><text class=\"mw\" x=\"244\" y=\"241.5\" text-anchor=\"middle\">AI</text><rect class=\"box\" x=\"287\" y=\"218\" width=\"233\" height=\"76\" rx=\"10\"></rect><text class=\"m\" x=\"303\" y=\"242\">PROJECTS &amp; PMO</text><text class=\"t\" x=\"303\" y=\"264\">Time tracking sync and</text><text class=\"t\" x=\"303\" y=\"281\">hours reporting</text><rect class=\"af\" x=\"478\" y=\"230\" width=\"26\" height=\"16\" rx=\"8\"></rect><text class=\"mw\" x=\"491\" y=\"241.5\" text-anchor=\"middle\">AI</text><rect class=\"box\" x=\"40\" y=\"306\" width=\"233\" height=\"76\" rx=\"10\"></rect><text class=\"m\" x=\"56\" y=\"330\">MARKETING</text><text class=\"t\" x=\"56\" y=\"352\">Autonomous AI</text><text class=\"t\" x=\"56\" y=\"369\">marketing agent</text><rect class=\"af\" x=\"231\" y=\"318\" width=\"26\" height=\"16\" rx=\"8\"></rect><text class=\"mw\" x=\"244\" y=\"329.5\" text-anchor=\"middle\">AI</text><rect class=\"box\" x=\"287\" y=\"306\" width=\"233\" height=\"76\" rx=\"10\"></rect><text class=\"m\" x=\"303\" y=\"330\">PEOPLE &amp; HR</text><text class=\"t\" x=\"303\" y=\"352\">People, IT and payroll</text><text class=\"t\" x=\"303\" y=\"369\">request hub</text></svg>",
+      "frameSvgAria": "A preview of the use case catalogue: a search bar, filters and a grid of use case tiles, some marked with an AI step",
+      "heading": "Fruition AI and software solutions, *by industry.*",
+      "lead": "A catalogue of 279 real Fruition builds across 12 industries, 41 with AI steps. Filter by industry, team and solution, then select \"See the build\" for the process behind each one.",
+      "trustLabel": "Trusted by teams across 900+ implementations",
+      "trustLogos": [
+        {
+          "_key": "9d6ef4748e34",
+          "_type": "vcLogo",
+          "alt": "Telstra",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-3ce944e93a39095f012920864543d3f530f9b9c5-256x70-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "660e2a2f5b6b",
+          "_type": "vcLogo",
+          "alt": "Reserve Bank of Australia",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-b8e1d23457369bfb2313b3b60a8eaed2e4bdaac0-256x149-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "c46ea965f99f",
+          "_type": "vcLogo",
+          "alt": "CSIRO",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-823f6dc8abe8b0b70e1513bed51cde439404802a-256x58-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "1f5db885bba4",
+          "_type": "vcLogo",
+          "alt": "Transport for NSW",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-2324cc743fbd0053417f3a36c75f2d3c53fd605f-256x276-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "b6c1fe425025",
+          "_type": "vcLogo",
+          "alt": "SBS",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-edb4724ca1068b15982821dda58a953101fa0890-256x174-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "3221ee91491e",
+          "_type": "vcLogo",
+          "alt": "Specsavers",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-39cb56dea0198961626bca8e67b033333d087b21-256x97-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "ef5320687579",
+          "_type": "vcLogo",
+          "alt": "Scania",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-047f2df0e0cf347a62252b375c9ef8e0cab23adf-256x69-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "c602bb5e42d8",
+          "_type": "vcLogo",
+          "alt": "Ticketek",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-f64ea1b48872c57f60c055aaf2917fade3cd645b-256x105-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "9ef73eca1007",
+          "_type": "vcLogo",
+          "alt": "Carsales",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-372bc135946df4f88c7e6345fe24bbc889a5e731-256x93-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "9f31b6879a09",
+          "_type": "vcLogo",
+          "alt": "NRL",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-c686a1e0257d5c70a814f95250be2ba0b3d2485d-256x326-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "f7d383ca9ab3",
+          "_type": "vcLogo",
+          "alt": "Daily Mail",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-ac1f6fa57e238a3d6a2e096cec487eaa77f5e4a0-256x52-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "358471c31e36",
+          "_type": "vcLogo",
+          "alt": "Queensland Health",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-eebc3e940b76849a46eeb1d3cea6a62dcab5563b-256x71-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "c3bdfcaf09d1",
+          "_type": "vcLogo",
+          "alt": "Ogilvy",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-4ab578cc2093dd926416cd1172552c0e764e3ff1-256x99-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "19da54dc3bfa",
+          "_type": "vcLogo",
+          "alt": "Tourism Australia",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-844e9b90c562ac493d089650c333775516d347c2-256x104-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "963b611dadd7",
+          "_type": "vcLogo",
+          "alt": "Tourism NT",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-cea2d13d84e513ec980cd6dc74e9a89e3f815413-256x96-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "37cc1621f67a",
+          "_type": "vcLogo",
+          "alt": "Vinnies",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-3cc21e7e74dfe873f3aa200da947788577bf1c6a-256x67-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "9946aec70ce0",
+          "_type": "vcLogo",
+          "alt": "EVT",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-c9a4bdc120fc6cc57649d6d495aae100c20115da-256x94-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "104c1219dc27",
+          "_type": "vcLogo",
+          "alt": "Retail Food Group",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-7caff8a3d653fc17c51b8f554323428ed52c0f0b-256x125-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "e8c49e2f86df",
+          "_type": "vcLogo",
+          "alt": "Patties Food Group",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-8f67b717a0ac1f9c04edf4ec97b60ef9ee501d15-256x143-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "5b769387ad7f",
+          "_type": "vcLogo",
+          "alt": "Kookaburra Sport",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-7f76fba60e588af17ff4dadc8a764d6b3c423e6b-256x74-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "324d6dd704a4",
+          "_type": "vcLogo",
+          "alt": "Landcom",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-5f45ffe32b6480ff91e5a882e200f3c046839046-256x46-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "a5d6244eca6c",
+          "_type": "vcLogo",
+          "alt": "Athletics Australia",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-1a2afd23a3167f805758a9a8aedce7d645ea46f3-256x205-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "3cdc3f6d5fd3",
+          "_type": "vcLogo",
+          "alt": "VicHealth",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-e975c3ded402bab3b830d6e11ec8e786f0cbcc60-256x80-png",
+              "_type": "reference"
+            }
+          }
+        },
+        {
+          "_key": "a51aee575b3e",
+          "_type": "vcLogo",
+          "alt": "Hume Bank",
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "image-1440c8a86520cc2b3f33d45b29d76078b1dbc9ad-256x44-png",
+              "_type": "reference"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "_key": "438c151b3e75",
+      "_type": "vcIndustryGrid",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Industries",
+        "heading": "Browse by *industry.*",
+        "lead": "Each industry has its own page with every use case, the integrations that come up most and typical timeframes."
+      },
+      "labelTemplate": "{count} use cases · {ai} with AI",
+      "tone": "plain"
+    },
+    {
+      "_key": "7680b9d047f2",
+      "_type": "vcAudit",
+      "cta": {
+        "_type": "vcCta",
+        "arrow": true,
+        "href": "#book",
+        "label": "Talk through a use case",
+        "style": "primary"
+      },
+      "heading": "Found a use case *that fits your business?*",
+      "text": "A free 30-minute call to see how it would work with your tools and data.",
+      "tone": "alt"
+    },
+    {
+      "_key": "b495b6c5b82a",
+      "_type": "vcCatalogue",
+      "aiLabel": "AI",
+      "aiOnlyLabel": "Show AI use cases only",
+      "allDepartmentsLabel": "All departments",
+      "anchor": "catalogue",
+      "countAll": "Showing all {total} use cases",
+      "countFiltered": "Showing {shown} of {total} matching use cases",
+      "departmentLabel": "Department",
+      "emptyText": "No use cases match. Clear a filter to see more.",
+      "filterLabel": "Filter",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Use case catalogue",
+        "heading": "Find a use case *like yours.*",
+        "lead": "Client names are withheld. Select \"See the build\" on any tile for the full detail."
+      },
+      "linkLabel": "See the build",
+      "moreLabel": "Show more",
+      "overrides": [
+        {
+          "_key": "e6b28f426921",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-demo-crm-erp",
+          "summary": "Sales demos and new hires needed a realistic, end-to-end reference system with orders, inventory, production and finance working together.",
+          "title": "Demo CRM and ERP reference environment"
+        },
+        {
+          "_key": "761d338adbfa",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-outbound-lead-engine",
+          "metric": "27 POSITIVE REPLIES",
+          "summary": "Revenue relied on inbound and referrals. The goal was predictable outbound on our own infrastructure, without an agency or a team of SDRs.",
+          "title": "AI outbound lead engine"
+        },
+        {
+          "_key": "16464fbcafb4",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-time-tracking-hours-reporting",
+          "metric": "3 REGIONS",
+          "summary": "Logged hours did not reliably land on the right monday.com project, causing double entries and overruns that surfaced late.",
+          "title": "Time tracking sync and hours reporting"
+        },
+        {
+          "_key": "8716196b7062",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-marketa",
+          "summary": "An always-on agent researches and drafts against a shared knowledge base, so the team can publish more industry-specific content without adding headcount.",
+          "title": "Autonomous AI marketing agent"
+        },
+        {
+          "_key": "fd6551df0084",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-meeting-to-action",
+          "summary": "Call notes and follow-up emails took consultant time, and action items did not reliably reach the right person, board or client folder.",
+          "title": "Meeting-to-action follow-up automation"
+        },
+        {
+          "_key": "4525bf294314",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-proposal-generator",
+          "metric": "<30 MIN PER PROPOSAL",
+          "summary": "Writing a costed, on-brand proposal after every discovery call took hours and produced inconsistent documents.",
+          "title": "Discovery call to proposal generator"
+        },
+        {
+          "_key": "9715d19363d8",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-google-ads-agent",
+          "summary": "Paid search across three brands and five markets needs constant keyword pruning, ad copy and bid changes, once handled by a dedicated SEM contractor.",
+          "title": "AI-assisted Google Ads agent"
+        },
+        {
+          "_key": "f8b3cddbbd2f",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-website-rebuild",
+          "summary": "The Wix site had security gaps, limited AEO/SEO control and could not take programmatic content from agents.",
+          "title": "Secure headless website rebuild"
+        },
+        {
+          "_key": "9c78ca9cdb49",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-ops-dashboards",
+          "summary": "Project leads were overloaded and leadership lacked one view of workload, bench utilisation, pipeline against capacity and revenue per head.",
+          "title": "Leadership workload and capacity dashboards"
+        },
+        {
+          "_key": "fd3e3f35e858",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-security-uplift",
+          "metric": "26 USERS",
+          "summary": "A government-sector security questionnaire exposed gaps in encryption, device management and MFA across a team in three regions.",
+          "title": "Security uplift for a distributed team"
+        },
+        {
+          "_key": "3689c12b56f7",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-proploy",
+          "summary": "Businesses struggle to compare software and find a vetted partner, so a two-sided marketplace matches buyers with products and experts.",
+          "title": "Proploy AI software marketplace"
+        },
+        {
+          "_key": "d4fec904e69b",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-social-publishing",
+          "summary": "Every blog and social post was scheduled by hand across brands, channels and profiles, so approved content was not consistently redistributed.",
+          "title": "Automated blog-to-social publishing"
+        },
+        {
+          "_key": "edd758de3064",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-inbound-lead-capture",
+          "summary": "Website bookings, inbound emails and partner referrals did not reliably create a scored lead in the right regional CRM or prompt a timely reply.",
+          "title": "Inbound lead capture and routing"
+        },
+        {
+          "_key": "f6ebb33f2539",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-sales-to-delivery-handover",
+          "summary": "Context gathered in sales was lost at handover, so delivery leads re-asked clients questions, and won Atlassian deals were re-keyed into Jira.",
+          "title": "Sales-to-delivery handover with AI client profile"
+        },
+        {
+          "_key": "c9b466100c4b",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-landing-page-agent",
+          "metric": "11 LANDING PAGES",
+          "summary": "Every new campaign or regional landing page needed manual design and build work, slowing ad launches.",
+          "title": "AI landing page build agent"
+        },
+        {
+          "_key": "e17eafc0e1fd",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-skills-solution-library",
+          "summary": "Claude skills, past project designs and learnings were hard to find and reuse, so each implementation started from scratch.",
+          "title": "Claude skills and solution library"
+        },
+        {
+          "_key": "909ad8546e24",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-people-it-requests",
+          "summary": "Staff requests for access, HR and payroll came through scattered chats and emails, with onboarding SOPs and reviews not tracked.",
+          "title": "People, IT and payroll request hub"
+        },
+        {
+          "_key": "5cb5a7a44a54",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-po-to-invoice",
+          "metric": "~20 MIN TO SECONDS",
+          "summary": "Every purchase order meant re-keying details between email, the work board and the finance system.",
+          "title": "Purchase order to invoice automation"
+        },
+        {
+          "_key": "a1e049ee8900",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-rfp-responder",
+          "summary": "Government tenders were found, classified and answered manually, limiting turnaround and how many bids could be pursued.",
+          "title": "AI tender and RFP responder"
+        },
+        {
+          "_key": "8f28abb888a8",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-work-order-esign",
+          "summary": "Work orders and agreements were assembled and sent for signature by hand, with different legal templates for AU, UK and US.",
+          "title": "Work order generation and e-signature"
+        },
+        {
+          "_key": "ebd49437efc9",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-ai-executive-assistant",
+          "summary": "Executives lose time tracking commitments from meetings and email, and routine tasks were mixed with strategic initiatives.",
+          "title": "AI executive assistant for follow-ups"
+        },
+        {
+          "_key": "36c96e6edd3a",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-chatbot-knowledge-base",
+          "summary": "Visitors had no instant way to get answers or book a call, and consultants kept re-asking questions answered in transcripts, email and chat.",
+          "title": "AI website chatbot and knowledge assistant"
+        },
+        {
+          "_key": "6ce169661a6d",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-financial-dashboard",
+          "summary": "Monthly operating costs of over AUD 130k were rising, and leadership lacked a quick view of R&D, recruitment, marketing and non-billable spend.",
+          "title": "AI-built financial cost dashboard"
+        },
+        {
+          "_key": "0e467d770e40",
+          "_type": "vcTileOverride",
+          "id": "uc-fruition-contractor-payroll",
+          "summary": "Paying contractors across several countries and currencies was manual and error-prone; one payment mistake cost about $6,000.",
+          "title": "Automated contractor payroll payments"
+        }
+      ],
+      "ownLabel": "Our own build",
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search use cases",
+      "tone": "alt"
+    },
+    {
+      "_key": "34eed961060b",
+      "_type": "vcSteps",
+      "head": {
+        "_type": "vcHead",
+        "badge": "Our method",
+        "heading": "How a Fruition build *ships.*",
+        "lead": "Process before platform. Every build follows the same five phases."
+      },
+      "items": [
+        {
+          "_key": "d4d03730fafc",
+          "_type": "vcStep",
+          "body": "Stakeholder interviews, current-state map and solution fit.",
+          "bullets": [],
+          "n": "01",
+          "title": "Discovery"
+        },
+        {
+          "_key": "9d694f9f518c",
+          "_type": "vcStep",
+          "body": "Boards, automations, AI steps and integrations agreed in writing.",
+          "bullets": [],
+          "n": "02",
+          "title": "Design"
+        },
+        {
+          "_key": "d5a5974a415d",
+          "_type": "vcStep",
+          "body": "Boards, dashboards, agents and connectors configured against the signed design.",
+          "bullets": [],
+          "n": "03",
+          "title": "Build"
+        },
+        {
+          "_key": "5e5cc6dfe2d6",
+          "_type": "vcStep",
+          "body": "Role-based training, runbooks and admin certification.",
+          "bullets": [],
+          "n": "04",
+          "title": "Enablement"
+        },
+        {
+          "_key": "dd8a29818568",
+          "_type": "vcStep",
+          "body": "Adoption monitoring, tuning and a clean hand-off to support.",
+          "bullets": [],
+          "n": "05",
+          "title": "Hypercare"
+        }
+      ],
+      "layout": "steps",
+      "tone": "plain"
+    },
+    {
+      "_key": "79eb0f1dff13",
+      "_type": "vcProof",
+      "badge": "Client proof",
+      "ctas": [
+        {
+          "_key": "6e3fab6a6e6b",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#book",
+          "label": "Start your transformation",
+          "style": "primary"
+        }
+      ],
+      "heading": "What our customers *say about us.*",
+      "layout": "sticky",
+      "lead": "Operations and IT leaders on what changed after we mapped the process first.",
+      "quotes": [
+        {
+          "_key": "03b8d5ab8d02",
+          "_ref": "vcQuote-jade-wood-popology",
+          "_type": "reference"
+        },
+        {
+          "_key": "79964da37b86",
+          "_ref": "vcQuote-emily-hill-tourism-northern-territory",
+          "_type": "reference"
+        },
+        {
+          "_key": "9d61f07053ac",
+          "_ref": "vcQuote-allie-swindlehurst-falkbuilt",
+          "_type": "reference"
+        },
+        {
+          "_key": "c6c46ed6a461",
+          "_ref": "vcQuote-mairhead-mckinley-givergy",
+          "_type": "reference"
+        },
+        {
+          "_key": "b403b034a2bb",
+          "_ref": "vcQuote-jason-doan-holt-cat",
+          "_type": "reference"
+        },
+        {
+          "_key": "d704548ee253",
+          "_ref": "vcQuote-brandon-lee-horridge-bl-air-conditioning",
+          "_type": "reference"
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "258a882ea23d",
+      "_type": "vcBooking",
+      "badge": "Book a time",
+      "calTitle": "Use case call",
+      "heading": "Talk through *a use case.*",
+      "lead": "Pick a time and bring the use case you found. We'll show how it would work with your tools and data."
+    },
+    {
+      "_key": "eec67e01b263",
+      "_type": "vcFaq",
+      "badge": "FAQ",
+      "heading": "Questions about these *use cases*",
+      "tabs": [
+        {
+          "_key": "88ef0d7e4b76",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "dba9a90b2aa2",
+              "_ref": "faqItem-vc-6e9388f7a7",
+              "_type": "reference"
+            },
+            {
+              "_key": "92e4b6a164dc",
+              "_ref": "faqItem-vc-2d1fe44472",
+              "_type": "reference"
+            },
+            {
+              "_key": "29c68165d92a",
+              "_ref": "faqItem-vc-c0219deec3",
+              "_type": "reference"
+            },
+            {
+              "_key": "2afe887e4ff1",
+              "_ref": "faqItem-vc-f4ec765392",
+              "_type": "reference"
+            },
+            {
+              "_key": "2bed0053d30d",
+              "_ref": "faqItem-vc-0659a049d9",
+              "_type": "reference"
+            },
+            {
+              "_key": "4f694f906a99",
+              "_ref": "faqItem-vc-cbc86bb7c0",
+              "_type": "reference"
+            }
+          ],
+          "label": "AI use cases"
+        },
+        {
+          "_key": "c084484e4f75",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "cf666b353c8a",
+              "_ref": "faqItem-migrated-ai-consulting-0",
+              "_type": "reference"
+            },
+            {
+              "_key": "3dcd7386291b",
+              "_ref": "faqItem-migrated-ai-consulting-1",
+              "_type": "reference"
+            },
+            {
+              "_key": "8528d68457a4",
+              "_ref": "faqItem-migrated-ai-consulting-2",
+              "_type": "reference"
+            },
+            {
+              "_key": "1277587df8c9",
+              "_ref": "faqItem-migrated-ai-consulting-3",
+              "_type": "reference"
+            },
+            {
+              "_key": "b73033e395fc",
+              "_ref": "faqItem-migrated-ai-consulting-4",
+              "_type": "reference"
+            },
+            {
+              "_key": "74ce1ac8a5d9",
+              "_ref": "faqItem-migrated-ai-consulting-5",
+              "_type": "reference"
+            }
+          ],
+          "label": "AI consulting"
+        },
+        {
+          "_key": "3f7780c9eaad",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "92bb3398d1b3",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-0",
+              "_type": "reference"
+            },
+            {
+              "_key": "aed62445d80d",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-1",
+              "_type": "reference"
+            },
+            {
+              "_key": "ae1196c7b3fc",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-2",
+              "_type": "reference"
+            },
+            {
+              "_key": "7a066908951a",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-3",
+              "_type": "reference"
+            },
+            {
+              "_key": "c7ab51653d13",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-4",
+              "_type": "reference"
+            },
+            {
+              "_key": "aaed4d19931e",
+              "_ref": "faqItem-migrated-ai-consulting-agent-development-5",
+              "_type": "reference"
+            }
+          ],
+          "label": "AI agents"
+        },
+        {
+          "_key": "67a5b7248278",
+          "_type": "vcFaqTab",
+          "items": [
+            {
+              "_key": "dc97f40e8719",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-0",
+              "_type": "reference"
+            },
+            {
+              "_key": "cc60c9d0be59",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-1",
+              "_type": "reference"
+            },
+            {
+              "_key": "4731e8733a6a",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-2",
+              "_type": "reference"
+            },
+            {
+              "_key": "f60553a098bf",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-3",
+              "_type": "reference"
+            },
+            {
+              "_key": "b38122853f6a",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-4",
+              "_type": "reference"
+            },
+            {
+              "_key": "1d32fd0117b8",
+              "_ref": "faqItem-migrated-ai-consulting-rag-knowledge-systems-5",
+              "_type": "reference"
+            }
+          ],
+          "label": "RAG knowledge systems"
+        }
+      ],
+      "tone": "alt"
+    },
+    {
+      "_key": "e844af43410f",
+      "_type": "vcClosing",
+      "badge": "Next step",
+      "ctas": [
+        {
+          "_key": "5270acdf49e3",
+          "_type": "vcCta",
+          "arrow": true,
+          "href": "#book",
+          "label": "Book a Free Consultation",
+          "style": "inverse"
+        }
+      ],
+      "heading": "Ready to *scale your workflows?*",
+      "lead": "Tell us the process you want to fix. If it isn't here yet, it's likely our next build."
+    }
+  ]
+}

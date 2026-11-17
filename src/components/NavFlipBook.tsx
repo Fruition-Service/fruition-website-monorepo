@@ -137,7 +137,7 @@ export default function NavFlipBook({ kicker, slides, label, href, active, onNav
                   <>
                     {logos.length > 0 && (
                       <span className="fb-row">
-                        {logos.slice(0, 3).map((l, j) => (
+                        {logos.slice(0, 6).map((l, j) => (
                           <Logo key={l._key || j} image={l} />
                         ))}
                       </span>
@@ -152,6 +152,12 @@ export default function NavFlipBook({ kicker, slides, label, href, active, onNav
           })}
         </span>
       </span>
+      {!isCase && label && (
+        <span className="fb-cta btn sm">
+          <span>{label}</span>
+          <span aria-hidden>&rarr;</span>
+        </span>
+      )}
     </Link>
   )
 }
