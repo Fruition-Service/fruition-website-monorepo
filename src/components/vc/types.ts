@@ -107,7 +107,7 @@ export interface VcTrackData extends Base {
   recLabel?: string; tracks?: { _key?: string; title?: string; body?: string; fit?: string }[]; cta?: VcCtaData; pills?: string[]
 }
 export interface VcTableData extends Base {
-  _type: "vcTable"; head?: VcHeadData; variant?: string; columns?: string[]; rows?: { _key?: string; label?: string; no?: string; yes?: string }[]
+  _type: "vcTable"; head?: VcHeadData; variant?: string; columns?: string[]; rows?: { _key?: string; label?: string; no?: string; yes?: string; cells?: string[] }[]
 }
 
 export interface VcPartnerStatusData extends Base {

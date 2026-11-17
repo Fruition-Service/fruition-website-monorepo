@@ -22,3 +22,34 @@
 .vc-p-pricing #packages .pk.feat .ticks svg{background:var(--on-dark)}
 .vc-p-pricing #packages .pk.feat .btn:focus-visible{outline:2px solid var(--on-dark);outline-offset:3px}
 @media (max-width:1023px){.vc-p-pricing #packages .grid3{grid-template-columns:1fr;max-width:520px;margin-inline:auto}}
+
+/* Hero badge card, five badges (monday.com, Atlassian, HubSpot, OpenAI, Claude; Edward 17 Nov 2026):
+   credsClass "two" wraps them into two balanced rows (three, then two) and right-aligns the card. */
+.vc-p-pricing .frame .creds.two{flex-wrap:wrap;justify-content:center;row-gap:10px;width:min(448px,calc(100% + 4px))}
+.vc-p-pricing .frame .creds.two img{height:46px}
+.vc-p-pricing .frame .creds.two img.sqh{height:56px}
+@media (max-width:767px){
+  .vc-p-pricing .frame .creds.two{width:auto}
+  .vc-p-pricing .frame .creds.two img{height:34px}
+  .vc-p-pricing .frame .creds.two img.sqh{height:42px}
+}
+
+/* PAGE-SPECIFIC: "What's included in each monday.com implementation package" (vcTable, variant
+   "matrix", key pagespecific-pricing-package-matrix), directly under the packages. One row per
+   inclusion, one column per package, Lock-Step (the featured tier) tinted. Empty cells read
+   "Not included" in a muted tone. Below 768px each row stacks: label, then one line per package
+   with the package name as a small mono caption. */
+.vc-p-pricing .table.pkm{border-radius:var(--r3)}
+.vc-p-pricing .table.pkm .tr{grid-template-columns:minmax(180px,1.1fr) repeat(3,minmax(0,1fr))}
+.vc-p-pricing .table.pkm .tr>div{padding:18px 22px;font-size:15px;line-height:1.45}
+.vc-p-pricing .table.pkm .th>div{font-size:13px;letter-spacing:0;text-transform:none;font-family:var(--sans);font-weight:500;color:var(--ink);padding:20px 22px}
+.vc-p-pricing .table.pkm .th>div.us{background:var(--midnight);color:var(--on-dark)}
+.vc-p-pricing .table.pkm .tr>div.us:not(.th>div){background:color-mix(in srgb, var(--vc-accent) 5%, transparent)}
+.vc-p-pricing .table.pkm .tr>div.none{color:var(--ink-3)}
+@media (max-width:767px){
+  .vc-p-pricing .table.pkm .th{display:none}
+  .vc-p-pricing .table.pkm .tr{grid-template-columns:minmax(0,1fr)}
+  .vc-p-pricing .table.pkm .tr>div{border-left:0;padding:12px 18px}
+  .vc-p-pricing .table.pkm .tr>div.k{background:var(--paper-2);padding:14px 18px;font-weight:600}
+  .vc-p-pricing .table.pkm .tr>div[data-col]::before{content:attr(data-col);display:block;font:400 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:var(--ink-3);margin-bottom:2px}
+}

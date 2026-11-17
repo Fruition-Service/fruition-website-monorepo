@@ -124,6 +124,18 @@ function RegionMap({ s }: { s: VcHeroData }) {
   )
 }
 
+/** Partner badges pinned to the bottom right of a framed hero image (`floatBadges`). */
+function FrameFloatBadges({ badges }: { badges?: VcLogoData[] }) {
+  if (!badges?.length) return null
+  return (
+    <div className="creds creds-br">
+      {badges.map((b, i) => (
+        <SImg key={b._key ?? i} image={b.image} width={160} height={50} fit="max" alt={b.alt} lazy={false} className={vercelStegaClean(b.shape ?? "") || undefined} />
+      ))}
+    </div>
+  )
+}
+
 export function VcHero({ s }: { s: VcHeroData }) {
   const variant = vercelStegaClean(s.variant ?? "")
   const artClass = vercelStegaClean(s.artClass ?? "")
@@ -139,6 +151,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
         </div>
       )}
       <SImg image={s.frameImage} width={variant.includes("hc") ? 1100 : 720} priority />
+      <FrameFloatBadges badges={s.floatBadges} />
       {s.chipValue && (
         <div className="chip">
           <span className="dot" />
@@ -264,6 +277,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
                 </div>
               )}
               <SImg image={s.frameImage} width={720} priority />
+              <FrameFloatBadges badges={s.floatBadges} />
               {s.chipValue && (
                 <div className="chip">
                   <span className="dot" />

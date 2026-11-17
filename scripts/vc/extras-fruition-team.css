@@ -14,3 +14,20 @@
 .vc-p-fruition-team .lc.open{height:auto}
 .vc-p-fruition-team .lc.open .pb{overflow:visible}
 .vc-p-fruition-team .lc.open .bio{flex:none;overflow:visible;-webkit-line-clamp:unset;-webkit-mask-image:none;mask-image:none}
+
+/* Hero badge cards (Edward 17 Nov 2026): top right now carries monday.com, HubSpot and Atlassian
+   (`creds`); bottom right carries OpenAI and Claude (`floatBadges`, class creds-br), opposite the
+   "40+ certified consultants" chip. On mobile both cards stack flat above and below the image. */
+.vc .frame .creds-br{position:absolute;right:-20px;top:auto;bottom:-22px;z-index:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:12px;box-shadow:0 16px 40px -12px color-mix(in srgb, var(--vc-ink) 18%, transparent)}
+.vc .frame .creds-br img{height:44px;width:auto;border:0;border-radius:8px}
+.vc-p-fruition-team .frame .creds{flex-wrap:wrap;justify-content:flex-end;max-width:calc(100% + 4px)}
+.vc-p-fruition-team .frame .creds img{height:44px}
+.vc-p-fruition-team .frame .creds img.sqh{height:52px}
+@media (max-width:1023px){.vc .frame .creds-br{right:16px}}
+@media (max-width:767px){
+  .vc .frame .creds-br{position:static;margin-top:12px;bottom:auto;box-shadow:none;justify-content:center;flex-wrap:wrap}
+  .vc .frame .creds-br img{height:36px}
+  .vc-p-fruition-team .frame .creds{justify-content:center}
+  .vc-p-fruition-team .frame .creds img{height:34px}
+  .vc-p-fruition-team .frame .creds img.sqh{height:42px}
+}

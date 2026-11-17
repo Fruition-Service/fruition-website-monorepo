@@ -587,7 +587,7 @@ export const vcTable = defineType({
   fields: [
     ...sectionBase,
     head(),
-    defineField({ name: 'variant', title: 'Row style', type: 'string', options: { list: [{ title: 'Without us vs with us', value: 'compare' }, { title: 'Challenge, what we do, how we help', value: 'help' }] }, initialValue: 'compare' }),
+    defineField({ name: 'variant', title: 'Row style', type: 'string', options: { list: [{ title: 'Without us vs with us', value: 'compare' }, { title: 'Challenge, what we do, how we help', value: 'help' }, { title: 'Package matrix (one column per package, cells per row)', value: 'matrix' }] }, initialValue: 'compare' }),
     listOfStrings('columns', 'Column headings (three)'),
     defineField({
       name: 'rows',
@@ -601,6 +601,7 @@ export const vcTable = defineType({
             defineField({ name: 'label', title: 'Row label', type: 'string' }),
             defineField({ name: 'no', title: 'Without us', type: 'string' }),
             defineField({ name: 'yes', title: 'With Fruition', type: 'string' }),
+            defineField({ name: 'cells', title: 'Cells (package matrix only, one per column; blank reads "Not included")', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
           ],
           preview: { select: { title: 'label' } },
         }),
