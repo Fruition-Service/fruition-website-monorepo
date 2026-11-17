@@ -45,8 +45,9 @@ const COPY_REGION_PARENTS = new Set(['coverageRegions'])
  * Which strings get the hidden source map. Only human copy: it must not sit
  * under a system or machine-value key, and it must contain a space, start with
  * a capital letter or sit in a known text field (enums and keys elsewhere are
- * lowercase single words). Paths and URLs are machine values, but a house-style
- * eyebrow starting with two slashes ("// Public sector security") is copy.
+ * lowercase single words). Paths, URLs and #anchors are machine values, but a
+ * house-style eyebrow starting with two slashes ("// Public sector security") or a
+ * title starting with a hash ("#1 in ROVO") is copy.
  */
 export const stegaFilter: FilterDefault = (props) => {
   if (!props.filterDefault(props)) return false
@@ -56,6 +57,8 @@ export const stegaFilter: FilterDefault = (props) => {
     return false
   }
   const v = props.value.trim()
-  if (v.length < 2 || /^https?:|^\/(?!\/)|^#|^mailto:|^tel:/i.test(v)) return false
+  // An in-page anchor ("#faq") has no spaces; copy that starts with a hash
+  // ("#1 in ROVO" on /atlassian-consulting) does, and must stay editable.
+  if (v.length < 2 || /^https?:|^\/(?!\/)|^#\S*$|^mailto:|^tel:/i.test(v)) return false
   return /\s/.test(v) || /^[A-Z0-9]/.test(v) || TEXT_KEYS.has(keys[keys.length - 1] ?? '')
 }

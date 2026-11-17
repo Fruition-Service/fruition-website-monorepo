@@ -20,6 +20,11 @@ describe('stegaFilter', () => {
     expect(run('tel:+61 2 0000 0000')).toBe(false)
   })
 
+  it('marks copy that starts with a hash, but not an anchor', () => {
+    expect(run('#1 in ROVO', ['items', { _key: 'a' }, 'title'])).toBe(true)
+    expect(run('#jira', ['items', { _key: 'a' }, 'title'])).toBe(false)
+  })
+
   it('marks a lowercase single word in a text field', () => {
     expect(run('monday.com', ['heading'])).toBe(true)
   })
