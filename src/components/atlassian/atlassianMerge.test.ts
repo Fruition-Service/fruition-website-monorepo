@@ -7,7 +7,7 @@ import { ATLASSIAN_DEEP_DIVES, ATLASSIAN_SERVICE_ANCHORS } from '@/data/practice
 import { groupFaqsIntoTabs, type CentralFaqItem } from '@/sanity/groupFaqs'
 import { atlassianFaqTabs } from './faqTabs'
 
-/** The Atlassian merge (monday 2899845035): one page, four deep dives, 15 FAQs. */
+/** The Atlassian merge (monday 2899845035): one page, four deep dives, 11 FAQs (four dropped, monday 2901620001). */
 
 const RETIRED = [
   '/atlassian-consulting/jira',
@@ -25,7 +25,6 @@ const RETIRED_ANCHOR: Record<string, string> = {
 
 const FAQ_ORDER = [
   'What does an Atlassian consultant do?',
-  'Can Fruition help with a messy Jira instance?',
   'Should we use Jira or monday.com?',
   'Our Jira is a mess, rebuild or restructure?',
   'Why does our Confluence become unusable over time?',
@@ -33,10 +32,7 @@ const FAQ_ORDER = [
   'Why do teams migrate from Jira to monday.com?',
   'Can Jira history and attachments migrate to monday.com?',
   'How long does a Jira to monday migration take?',
-  'What did the Givergy migration achieve?',
   'How long does a typical Atlassian engagement take?',
-  'Why choose Fruition over a Big-4 consulting firm?',
-  'How much does Atlassian consulting cost with Fruition?',
   'Which regions does Fruition deliver Atlassian services in?',
   'Can Fruition deliver this remotely?',
 ]
@@ -73,7 +69,7 @@ describe('/atlassian-consulting merged page', () => {
     }
   })
 
-  it('ships the 15 consolidated questions in order', () => {
+  it('ships the 11 consolidated questions in order', () => {
     expect(ATLASSIAN_FAQS.map((f) => f.q)).toEqual(FAQ_ORDER)
     expect(hub.faqs).toBe(ATLASSIAN_FAQS)
   })
