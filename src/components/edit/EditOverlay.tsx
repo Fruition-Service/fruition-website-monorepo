@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { assetIdFromImageUrl, parseStegaHref, type FieldRef } from "@/lib/inlineEdit"
+import { assetIdFromImageUrl, parseStegaHref, removableItemFor, type FieldRef, type RemovableItem } from "@/lib/inlineEdit"
 
 /**
  * Framer-style inline editor for the public site.
@@ -32,6 +32,9 @@ import { assetIdFromImageUrl, parseStegaHref, type FieldRef } from "@/lib/inline
 
 const MARK = ["fe-editable", "cursor-text", "outline-dashed", "outline-1", "outline-offset-2", "outline-primary/50", "hover:outline-2", "hover:outline-primary"]
 const ACTIVE = ["outline-solid", "outline-2", "outline-primary", "bg-primary/5"]
+// Labels styled uppercase in CSS (FAQ tabs, eyebrows) show their real case
+// while being edited, so what you type is what gets stored.
+const INLINE_ACTIVE = ["normal-case"]
 const IMAGE_MARK = ["cursor-pointer", "outline-dashed", "outline-2", "-outline-offset-2", "outline-primary/60", "hover:outline-primary"]
 const FLASH_KEY = "fruition-edit-flash"
 
@@ -62,6 +65,20 @@ type Editing = {
   /** "inline" edits the element itself; "panel" edits the stored value in a docked textarea. */
   mode: "inline" | "panel"
   original: Node[]
+  /** Set when the field is a FAQ tab's label (or a topic name): the tab can be removed. */
+  removable: RemovableItem | null
+}
+
+/**
+ * The text typed into a contenteditable element. Not innerText: that applies
+ * CSS text-transform, so an uppercase-styled tab label was saved in capitals
+ * ("MONDAY.COM IN AUSTRALIA", 16 Nov 2026).
+ */
+function typedText(el: HTMLElement): string {
+  const clone = el.cloneNode(true) as HTMLElement
+  clone.querySelectorAll("br").forEach((br) => br.replaceWith("\n"))
+  clone.querySelectorAll("div,p").forEach((block) => block.prepend("\n"))
+  return (clone.textContent ?? "").replace(/^\n/, "").replace(/\n+$/, "")
 }
 
 const normalise = (s: string) => vercelStegaClean(s).replace(/\s+/g, " ").trim()
@@ -298,7 +315,7 @@ export default function EditOverlay() {
   const finish = useCallback((restore: boolean) => {
     const cur = editingRef.current
     if (!cur) return
-    cur.el.classList.remove(...ACTIVE)
+    cur.el.classList.remove(...ACTIVE, ...INLINE_ACTIVE)
     if (cur.mode === "inline") {
       cur.el.removeAttribute("contenteditable")
       // Put React's own text nodes back so it can keep updating them.
@@ -307,12 +324,46 @@ export default function EditOverlay() {
     setEditing(null)
   }, [])
 
+  const remove = useCallback(async () => {
+    const cur = editingRef.current
+    if (!cur?.removable) return
+    const name = cur.raw.trim() || `this ${cur.removable.noun}`
+    const ok = window.confirm(
+      `Remove the ${cur.removable.noun} "${name}" from this page?\n\nIts questions stay in the central FAQ store and on any other page that uses them.`,
+    )
+    if (!ok) return
+    setSaving(true)
+    try {
+      const res = await fetch("/api/internal/edit/field", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: cur.ref.id, path: cur.removable.path, pagePath: location.pathname }),
+      })
+      const json = (await res.json().catch(() => ({}))) as { error?: string }
+      if (!res.ok) throw new Error(json.error || `Remove failed (${res.status})`)
+      try {
+        sessionStorage.setItem(FLASH_KEY, `Removed the ${cur.removable.noun}. The live site shows it from the next page load.`)
+      } catch {}
+      location.reload()
+    } catch (err) {
+      setSaving(false)
+      setStatus({ tone: "error", text: err instanceof Error ? err.message : "Remove failed" })
+    }
+  }, [])
+
   const save = useCallback(async () => {
     const cur = editingRef.current
     if (!cur) return
-    const value = cur.mode === "inline" ? (cur.el.innerText ?? "").replace(/\n+$/, "") : draft
+    const value = cur.mode === "inline" ? typedText(cur.el) : draft
     if (value === cur.raw) {
       finish(true)
+      return
+    }
+    // Empty text leaves nothing on the page to click, so it could never be
+    // edited again. Deleting a tab's label means "remove the tab".
+    if (!value.trim()) {
+      if (cur.removable) void remove()
+      else setStatus({ tone: "error", text: "Text can't be saved empty here. Clear it in Sanity Studio instead, or press Esc to cancel." })
       return
     }
     setSaving(true)
@@ -332,7 +383,7 @@ export default function EditOverlay() {
       setSaving(false)
       setStatus({ tone: "error", text: err instanceof Error ? err.message : "Save failed" })
     }
-  }, [draft, finish])
+  }, [draft, finish, remove])
 
   const start = useCallback(async (el: HTMLElement) => {
     const ref = refOf(el)
@@ -356,6 +407,7 @@ export default function EditOverlay() {
     const original = Array.from(el.childNodes)
     el.classList.add(...ACTIVE)
     if (inline) {
+      el.classList.add(...INLINE_ACTIVE)
       el.replaceChildren(document.createTextNode(raw))
       el.setAttribute("contenteditable", "plaintext-only")
       el.focus()
@@ -368,7 +420,7 @@ export default function EditOverlay() {
     } else {
       setDraft(raw)
     }
-    setEditing({ el, ref, raw, mode: inline ? "inline" : "panel", original })
+    setEditing({ el, ref, raw, mode: inline ? "inline" : "panel", original, removable: removableItemFor(ref.path) })
   }, [])
 
   // Clicking outlined text edits it instead of following links or buttons.
@@ -547,6 +599,11 @@ export default function EditOverlay() {
             className="min-h-32 text-base"
           />
           <div className="mt-3 flex justify-end gap-2">
+            {editing.removable && (
+              <Button variant="destructive" className="mr-auto min-h-11" onClick={() => void remove()} disabled={saving}>
+                Remove {editing.removable.noun}
+              </Button>
+            )}
             <Button variant="outline" className="min-h-11" onClick={() => finish(true)} disabled={saving}>
               Cancel
             </Button>
@@ -579,6 +636,11 @@ export default function EditOverlay() {
             <Button size="sm" variant="ghost" className="min-h-11 md:min-h-9" onClick={() => finish(true)} disabled={saving}>
               Cancel
             </Button>
+            {editing.removable && (
+              <Button size="sm" variant="destructive" className="min-h-11 md:min-h-9" onClick={() => void remove()} disabled={saving}>
+                Remove {editing.removable.noun}
+              </Button>
+            )}
           </>
         ) : count > 0 ? (
           <span>Editing: click any outlined text or image ({count} on this page)</span>

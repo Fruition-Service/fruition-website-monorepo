@@ -25,7 +25,8 @@ export function VcFaqTabsList({ tabs, active, onPick }: { tabs: VcFaqTabData[]; 
           className={i === active ? "on" : ""}
           onClick={() => onPick(i)}
         >
-          {t.label}
+          {/* A blank label (cleared in the inline editor before tabs could be removed) must not render as an empty pill. */}
+          {t.label?.trim() ? t.label : "More questions"}
         </button>
       ))}
     </div>

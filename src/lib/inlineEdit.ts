@@ -61,6 +61,56 @@ export function parsePath(path: string): Segment[] | null {
   return out.length ? out : null
 }
 
+/** Turn parsed segments back into a Studio path (`a[_key=="k"].b[0]`). */
+export function formatPath(segments: Segment[]): string {
+  let out = ""
+  for (const seg of segments) {
+    if (typeof seg === "string") out += out ? `.${seg}` : seg
+    else if (typeof seg === "number") out += `[${seg}]`
+    else out += `[_key=="${seg._key}"]`
+  }
+  return out
+}
+
+/**
+ * Arrays whose items an editor may remove from the page, and what to call one.
+ * Kept to the left-hand FAQ tab list (vcFaq.tabs, legacy faqTabs) and the FAQ
+ * help centre topics: removing one only drops it from that page, the central
+ * faqItem questions it pointed at stay in the store.
+ */
+export const REMOVABLE_ARRAYS: Readonly<Record<string, string>> = { tabs: "tab", faqTabs: "tab", categories: "topic" }
+
+export interface RemovableItem {
+  /** Path of the array item itself, e.g. `sections[_key=="a"].tabs[_key=="b"]`. */
+  path: string
+  /** "tab" or "topic", for button labels. */
+  noun: string
+}
+
+/**
+ * When an edited field is the label of a removable array item (a FAQ tab's
+ * label, a topic's name), the item that a "Remove" button would delete.
+ */
+export function removableItemFor(fieldPath: string): RemovableItem | null {
+  const segs = parsePath(fieldPath)
+  if (!segs || segs.length < 3) return null
+  const field = segs[segs.length - 1]
+  const item = segs[segs.length - 2]
+  const array = segs[segs.length - 3]
+  if (typeof field !== "string" || typeof item !== "object" || typeof array !== "string") return null
+  const noun = REMOVABLE_ARRAYS[array]
+  return noun ? { path: formatPath(segs.slice(0, -1)), noun } : null
+}
+
+/** True for the path of a removable item itself (what the remove route accepts). */
+export function isRemovableItemPath(path: string): boolean {
+  const segs = parsePath(path)
+  if (!segs || segs.length < 2) return false
+  const item = segs[segs.length - 1]
+  const array = segs[segs.length - 2]
+  return typeof item === "object" && typeof array === "string" && array in REMOVABLE_ARRAYS
+}
+
 /** Walk a parsed path into a document. */
 export function getAtPath(doc: unknown, segments: Segment[]): unknown {
   let cur: unknown = doc

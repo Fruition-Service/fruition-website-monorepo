@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest"
 import {
+  formatPath,
+  isRemovableItemPath,
+  removableItemFor,
   getAtPath,
   isEditablePagePath,
   isSafeDocId,
@@ -128,5 +131,36 @@ describe("pickMetaDoc", () => {
   })
   it("returns null when nothing on the page is an SEO document", () => {
     expect(pickMetaDoc([], [faq], "/faqs")).toBeNull()
+  })
+})
+
+describe("removable items (FAQ tabs)", () => {
+  const tab = 'sections[_key=="e6d955eb187b"].tabs[_key=="8654da20306b"]'
+
+  it("offers to remove the tab whose label is being edited", () => {
+    expect(removableItemFor(`${tab}.label`)).toEqual({ path: tab, noun: "tab" })
+    expect(removableItemFor('faqTabs[_key=="t1"].label')).toEqual({ path: 'faqTabs[_key=="t1"]', noun: "tab" })
+    expect(removableItemFor('sections[_key=="s"].categories[_key=="c"].name')).toEqual({
+      path: 'sections[_key=="s"].categories[_key=="c"]',
+      noun: "topic",
+    })
+  })
+
+  it("never offers it for other fields", () => {
+    expect(removableItemFor('sections[_key=="s"].heading')).toBeNull()
+    expect(removableItemFor('sections[_key=="s"].items[_key=="i"].title')).toBeNull()
+    expect(removableItemFor(`${tab}.items[_key=="q"].label`)).toBeNull()
+    expect(removableItemFor("tabs")).toBeNull()
+  })
+
+  it("accepts only removable item paths on the server side", () => {
+    expect(isRemovableItemPath(tab)).toBe(true)
+    expect(isRemovableItemPath('sections[_key=="s"]')).toBe(false)
+    expect(isRemovableItemPath(`${tab}.label`)).toBe(false)
+    expect(isRemovableItemPath('sections[_key=="s"].cards[_key=="c"]')).toBe(false)
+  })
+
+  it("round-trips paths", () => {
+    expect(formatPath(["sections", { _key: "a" }, "tabs", 2, "label"])).toBe('sections[_key=="a"].tabs[2].label')
   })
 })
