@@ -1,29 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { callRows, type CallOffice } from "@/lib/callOffices"
 
-export interface CallOffice {
-  _key?: string
-  flag?: string
-  city?: string
-  label?: string
-  phone?: string
-  phoneTel?: string
-}
-
-/** Display country per flag, `siteSettings.offices` has no country field.
- *  Mirrors the map in `components/home/WhereWeWork.tsx`. */
-const COUNTRY: Record<string, string> = {
-  "🇦🇺": "Australia",
-  "🇸🇬": "Singapore",
-  "🇵🇭": "Philippines",
-  "🇮🇳": "India",
-  "🇬🇧": "United Kingdom",
-  "🇺🇸": "United States",
-}
-
-/** West-to-east from the Sydney HQ, matching the "Where we work" row. */
-const ORDER = ["🇦🇺", "🇸🇬", "🇵🇭", "🇮🇳", "🇬🇧", "🇺🇸"]
+export type { CallOffice }
 
 interface Props {
   offices: CallOffice[]
@@ -41,17 +21,7 @@ export default function RegionalCallPopover({ offices, fallbackPhone }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
-  const rows = offices
-    .filter((o) => o.flag && COUNTRY[o.flag] && (o.phone || o.phoneTel))
-    .sort((a, b) => ORDER.indexOf(a.flag!) - ORDER.indexOf(b.flag!))
-    .map((o) => ({
-      key: o._key ?? o.flag!,
-      flag: o.flag!,
-      country: COUNTRY[o.flag!],
-      city: (o.city ?? "").split(",")[0].trim(),
-      phone: o.phone ?? o.phoneTel!,
-      tel: (o.phoneTel ?? o.phone!).replace(/[^\d+]/g, ""),
-    }))
+  const rows = callRows(offices)
 
   useEffect(() => {
     if (!open) return
@@ -139,9 +109,7 @@ export function MobileCallList({
   fallbackPhone,
   onNavigate,
 }: Props & { onNavigate?: () => void }) {
-  const rows = offices
-    .filter((o) => o.flag && COUNTRY[o.flag] && (o.phone || o.phoneTel))
-    .sort((a, b) => ORDER.indexOf(a.flag!) - ORDER.indexOf(b.flag!))
+  const rows = callRows(offices)
 
   if (rows.length === 0) {
     if (!fallbackPhone) return null
@@ -156,26 +124,22 @@ export function MobileCallList({
     <>
       <p className="nc-k nd-dk">Call an office</p>
       <ul className="nc-list nd-dcalls">
-        {rows.map((o) => {
-          const country = COUNTRY[o.flag!]
-          const place = (o.city ?? "").split(",")[0].trim()
-          return (
-            <li key={o._key ?? o.flag!}>
-              <a href={`tel:${(o.phoneTel ?? o.phone!).replace(/[^\d+]/g, "")}`} onClick={onNavigate}>
-                <span className="nc-c">
-                  <span aria-hidden className="nc-f">
-                    {o.flag}
-                  </span>
-                  <span>
-                    <span className="nc-n">{country}</span>
-                    {place && place !== country && <span className="nc-s">{place}</span>}
-                  </span>
+        {rows.map((row) => (
+          <li key={row.key}>
+            <a href={`tel:${row.tel}`} onClick={onNavigate}>
+              <span className="nc-c">
+                <span aria-hidden className="nc-f">
+                  {row.flag}
                 </span>
-                <span className="nc-p">{o.phone ?? o.phoneTel}</span>
-              </a>
-            </li>
-          )
-        })}
+                <span>
+                  <span className="nc-n">{row.country}</span>
+                  {row.city && row.city !== row.country && <span className="nc-s">{row.city}</span>}
+                </span>
+              </span>
+              <span className="nc-p">{row.phone}</span>
+            </a>
+          </li>
+        ))}
       </ul>
     </>
   )

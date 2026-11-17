@@ -3,11 +3,13 @@ import Script from "next/script"
 import { Poppins, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import "@/styles/vc/chrome.css"
+import "@/styles/vc/booking-call.css"
 import "@/styles/ctaBlue.css"
 import "@/styles/palette.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { OfficeStrapProvider } from "@/components/OfficeStrapProvider"
+import { CallOfficesProvider } from "@/components/CallOfficesProvider"
 import NavigationProgress from "@/components/NavigationProgress"
 import CookieNotice from "@/components/CookieNotice"
 import SiteFrame from "@/components/SiteFrame"
@@ -441,6 +443,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <NavigationProgress />
           <OfficeStrapProvider value={officeStrap(siteSettings?.offices)}>
+          <CallOfficesProvider value={siteSettings?.offices ?? []}>
           <SiteCopyProvider copy={siteCopy}>
           <PartnerBadgesProvider badges={partnerBadgeMap(partners)}>
             <SiteFrame
@@ -467,6 +470,7 @@ export default async function RootLayout({
             </SiteFrame>
           </PartnerBadgesProvider>
           </SiteCopyProvider>
+          </CallOfficesProvider>
           </OfficeStrapProvider>
         </ThemeProvider>
       </body>

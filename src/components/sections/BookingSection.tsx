@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import BookingCallOptions from "@/components/BookingCallOptions"
 import { FALLBACK_BOOKING_URL } from "@/lib/regionBooking"
 import { zoneAbbr } from "@/lib/meetingTime"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -1211,6 +1212,8 @@ export default function BookingSection({
               {offices ?? officeStrapText}
             </span>
           </div>
+
+          <BookingCallOptions tone="light" />
 
           <div style={{ height: 1, background: "var(--color-border)", margin: "32px 0 20px", maxWidth: 460 }} />
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
