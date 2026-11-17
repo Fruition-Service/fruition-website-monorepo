@@ -114,7 +114,7 @@ describe('mergePracticePage', () => {
         { title: 'Plain', body: 'Card.', href: '   ' },
       ],
       childLinks: [
-        { label: 'Partner', href: ' /partnerships/certified-atlassian-partner ' },
+        { label: 'Partner', href: ' /atlassian-consulting#partner ' },
         { label: 'Packages', href: '/implementation-packages', description: ' Docs. ' },
         { label: 'Blank description', href: '/x', description: '  ' },
       ],
@@ -125,7 +125,7 @@ describe('mergePracticePage', () => {
     ])
     expect(merged.services[1]).not.toHaveProperty('href')
     expect(merged.children).toEqual([
-      { label: 'Partner', href: '/partnerships/certified-atlassian-partner' },
+      { label: 'Partner', href: '/atlassian-consulting#partner' },
       { label: 'Packages', href: '/implementation-packages', description: 'Docs.' },
       { label: 'Blank description', href: '/x' },
     ])

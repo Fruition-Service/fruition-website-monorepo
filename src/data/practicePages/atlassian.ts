@@ -7,7 +7,9 @@ import type { PracticeFaq, PracticePage } from './types'
  * Jebathilak). In November 2026 (monday 2899845035) the four leaf pages it
  * linked to were folded into it: their copy lives on as the deep dives in
  * ./atlassianDeepDives.ts, their routes 301 here (next.config.ts), and the 34
- * questions across the five pages collapsed into the 15 below.
+ * questions across the five pages collapsed into 15. Four of those (old
+ * numbers 02, 10, 12 and 13) were dropped in monday 2901620001, leaving the
+ * 11 below.
  */
 
 const HUB = { label: 'Atlassian Consulting', href: '/atlassian-consulting' }
@@ -22,10 +24,6 @@ export const ATLASSIAN_FAQS: PracticeFaq[] = [
   {
     q: 'What does an Atlassian consultant do?',
     a: 'An Atlassian consultant implements, optimises, and integrates Jira, Confluence, and Jira Service Management, covering workflow design, permission architecture, plugin strategy, and cross-tool integration. Fruition delivers these services across Australia, the UK, and the US.',
-  },
-  {
-    q: 'Can Fruition help with a messy Jira instance?',
-    a: 'Yes: Jira rescue engagements are a core service: workflow consolidation, permission scheme cleanup, plugin audit, and board restructure. Most instances accumulate years of configuration debt that a structured 3–4 week cleanup resolves.',
   },
   {
     q: 'Should we use Jira or monday.com?',
@@ -56,20 +54,8 @@ export const ATLASSIAN_FAQS: PracticeFaq[] = [
     a: 'Typically 6–8 weeks for a multi-team migration: two weeks audit and mapping, two weeks structure build, two weeks staged migration and validation, and one to two weeks training and cutover. Single-team moves run faster.',
   },
   {
-    q: 'What did the Givergy migration achieve?',
-    a: 'Givergy moved from Jira and BitBucket silos to monday Dev with GitHub integration: automated branch tracking, unified multi-repository visibility, and role-based dashboards giving developers, QA, and management customised views of one source of truth.',
-  },
-  {
     q: 'How long does a typical Atlassian engagement take?',
     a: 'Most Atlassian engagements run 4 to 12 weeks from kickoff to delivery depending on scope. Fruition works in fixed phases with defined outcomes, so you always know what is being delivered, by when, and at what cost.',
-  },
-  {
-    q: 'Why choose Fruition over a Big-4 consulting firm?',
-    a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
-  },
-  {
-    q: 'How much does Atlassian consulting cost with Fruition?',
-    a: 'Engagements start at AUD $12,000 for a structured initial phase, with fixed-fee pricing published per phase: Confluence from AUD $10,000, Jira and Jira Service Management from AUD $12,000, Jira to monday migration from AUD $15,000. Mid-scope projects are quoted after a scoping call. We serve Australia (AUD), the UK (GBP), and the US (USD) with local pricing in each region.',
   },
   {
     q: 'Which regions does Fruition deliver Atlassian services in?',

@@ -4,7 +4,7 @@ import type { CentralFaqItem } from '@/sanity/groupFaqs'
 
 /**
  * The FAQ tabs /atlassian-consulting renders. The central `faqItem` documents
- * tagged `atlassian-consulting` win (one category, so one list of 15), unless
+ * tagged `atlassian-consulting` win (one category, so one list), unless
  * the page sets `preferPageFaqs`; with none in Sanity the page's own list
  * renders. Same precedence as PracticePageTemplate, kept pure so it can be
  * tested without Sanity.
