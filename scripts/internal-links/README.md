@@ -11,6 +11,22 @@ second run over its own output adds nothing.
 Inserted links are ordinary `link` annotations with a relative href, the same shape editors create in
 Studio. They render with the existing in-prose link style and open in the same tab.
 
+## Does editing targets.json go live?
+
+No, not by itself.
+
+- `targets.json` is only the list this tool reads. The website does not read it. Editing it, or merging
+  the edit to `production`, redeploys the site but adds or changes no link on any live page.
+- Links appear on live blog posts only when someone runs the apply command,
+  `npm run internal-links:apply`, with a Sanity write token from the password manager. That writes the
+  links into the posts in Sanity. Start with `--limit 10`; see [Apply to production](#apply-to-production).
+- Posts that already have links keep them. Removing a row from `targets.json` does not remove links
+  that were already written; those have to be removed in Studio.
+- To check a post: open it on the live site and hover the anchor text, or view the page source and look
+  for `href="/target-path"` on that text. The page cache refreshes within about 60 seconds of an apply.
+  To see what is still waiting, run `npm run internal-links:dry -- --only <slug>`: an empty list for that
+  post means everything is already applied.
+
 ## Add a target
 
 Copy one object in `targets.json` and edit it:
