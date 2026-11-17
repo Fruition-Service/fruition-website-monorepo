@@ -13,6 +13,7 @@
  *   tool blocks never have to be replayed across turns.
  */
 import { streamCompletion, UpstreamError, type ChatMessage, type Usage } from "./openrouter"
+import { HISTORY_DOCUMENT_CHARS, userContentWithDocument, type ChatDocument } from "./documents"
 import { buildStatePrompt, STATIC_PROMPT } from "./prompt"
 import { executeTool, isToolName, TOOL_DEFINITIONS, TOOL_LABELS, type ToolContext } from "./tools"
 import type { AskFruitEvent, EvaluationDetail } from "./types"
@@ -26,6 +27,8 @@ const HISTORY_CHARS = 4000
 export interface TurnInput {
   evaluation: EvaluationDetail
   message: string
+  /** Document the visitor attached to this message, already validated. */
+  document?: ChatDocument | null
   apiKey: string
   model?: string
   signal?: AbortSignal
@@ -45,8 +48,17 @@ export function historyMessages(evaluation: EvaluationDetail): ChatMessage[] {
     .filter((m) => m.status !== "failed" && m.status !== "streaming" && m.markdown.trim())
     .slice(-HISTORY_MESSAGES)
   const out: Array<{ role: "user" | "assistant"; content: string }> = []
+  // Replay attached documents newest first until the budget is spent, so a long
+  // conversation of uploads cannot grow the prompt without bound.
+  let docBudget = HISTORY_DOCUMENT_CHARS
+  const withDoc = new Set<string>()
+  for (const m of [...prior].reverse()) {
+    if (m.role !== "user" || !m.attachment?.text || docBudget < m.attachment.text.length) continue
+    docBudget -= m.attachment.text.length
+    withDoc.add(m.id)
+  }
   for (const m of prior) {
-    const content = m.markdown.slice(0, HISTORY_CHARS)
+    const content = userContentWithDocument(m.markdown.slice(0, HISTORY_CHARS), withDoc.has(m.id) ? m.attachment : null)
     const last = out[out.length - 1]
     if (last && last.role === m.role) last.content += `\n\n${content}`
     else out.push({ role: m.role, content })
@@ -84,7 +96,7 @@ export async function* runTurn(input: TurnInput): AsyncGenerator<AskFruitEvent, 
   const { evaluation } = input
   const queue: AskFruitEvent[] = []
   const ctx: ToolContext = { evaluation, emit: (event) => queue.push(event) }
-  const messages: ChatMessage[] = [...historyMessages(evaluation), { role: "user", content: input.message }]
+  const messages: ChatMessage[] = [...historyMessages(evaluation), { role: "user", content: userContentWithDocument(input.message, input.document) }]
   const usage = { prompt_tokens: 0, completion_tokens: 0, cost: 0 }
   let reply = ""
 

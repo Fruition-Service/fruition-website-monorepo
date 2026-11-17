@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react"
-import { CalendarDays, FileText, Maximize2 } from "lucide-react"
+import { CalendarDays, FileText, Maximize2, Paperclip } from "lucide-react"
 import { CalendlyEmbed } from "@/components/sections/BookingSection"
+import type { ChatDocument } from "@/lib/askFruit/documents"
 import type { BriefDocument, EvaluationDetail } from "@/lib/askFruit/types"
 import { Composer } from "./Composer"
 import { Markdown } from "./Markdown"
@@ -121,7 +122,7 @@ export function Conversation({
   sending: boolean
   status: WorkingStatus | null
   prefill: { text: string; nonce: number } | null
-  onSend: (text: string) => void
+  onSend: (text: string, document?: ChatDocument) => void
   onStop: () => void
   onOpenBrief: (doc: BriefDocument) => void
 }) {
@@ -161,9 +162,17 @@ export function Conversation({
           {evaluation.messages.map((m, i) =>
             m.role === "user" ? (
               <div key={m.id} className="flex justify-end">
-                <p className="max-w-[85%] rounded-chip rounded-br-[4px] bg-surface-subtle px-4 py-2.5 text-[15px] leading-relaxed whitespace-pre-wrap text-ink">
-                  {m.markdown}
-                </p>
+                <div className="flex max-w-[85%] flex-col items-end gap-1.5">
+                  {m.attachment ? (
+                    <p className="inline-flex max-w-full items-center gap-2 rounded-chip border border-ui bg-surface px-3 py-1.5 text-[13px] text-muted">
+                      <Paperclip size={14} className="shrink-0 text-brand" aria-hidden />
+                      <span className="truncate">{m.attachment.name}</span>
+                    </p>
+                  ) : null}
+                  <p className="rounded-chip rounded-br-[4px] bg-surface-subtle px-4 py-2.5 text-[15px] leading-relaxed whitespace-pre-wrap text-ink">
+                    {m.markdown}
+                  </p>
+                </div>
               </div>
             ) : (
               <div key={m.id} className="flex flex-col gap-2">
@@ -186,7 +195,7 @@ export function Conversation({
       </div>
       <div className="border-t border-ui bg-surface px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:px-8">
         <div className="mx-auto w-full max-w-[820px]">
-          <Composer onSend={onSend} onStop={onStop} sending={sending} prefill={prefill} />
+          <Composer onSend={onSend} onStop={onStop} sending={sending} prefill={prefill} attach />
           <p className="mt-2 text-center text-[11.5px] text-faint">
             The Implementation Calculator can be wrong. Pricing and timelines are confirmed with a consultant.
           </p>

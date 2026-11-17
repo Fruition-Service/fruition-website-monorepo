@@ -3,7 +3,10 @@
 import { useState, type CSSProperties, type FormEvent, type KeyboardEvent, type ReactNode } from "react"
 import { MAX_MESSAGE_CHARS } from "@/lib/askFruit/types"
 import { CHIP_ICONS } from "@/components/vc/sections/VcAskPrompt"
+import { DOCUMENT_HELP, type ChatDocument } from "@/lib/askFruit/documents"
+import { AttachButton, AttachStatus } from "./AttachDocument"
 import { STARTERS } from "./Composer"
+import { useDocumentAttach } from "./useDocumentAttach"
 
 const STEPS = [
   ["01", "Describe", "Your goal, your tools, what is breaking."],
@@ -21,16 +24,24 @@ const STEPS = [
  * Sending is the live workspace's own: the question goes straight into a new
  * conversation, as the old composer did.
  */
-export function Welcome({ onSend, sending, trust }: { onSend: (text: string) => void; sending: boolean; trust?: ReactNode }) {
+export function Welcome({ onSend, sending, trust }: {
+  onSend: (text: string, document?: ChatDocument) => void
+  sending: boolean
+  trust?: ReactNode
+}) {
   const [value, setValue] = useState("")
+  const attach = useDocumentAttach()
 
   const submit = (e?: FormEvent) => {
     e?.preventDefault()
     const text = value.trim()
-    if (!text || sending) return
-    onSend(text)
+    const document = attach.chatDocument
+    if ((!text && !document) || sending || attach.reading) return
+    onSend(text, document ?? undefined)
     setValue("")
+    attach.clear()
   }
+  const canSend = Boolean(value.trim() || attach.chatDocument) && !sending && !attach.reading
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e)
   }
@@ -55,6 +66,7 @@ export function Welcome({ onSend, sending, trust }: { onSend: (text: string) => 
           <div className="hero-art">
             <form className="inner dark ask-box" onSubmit={submit}>
               <div className="cmp">
+                <AttachStatus attach={attach} variant="vc" />
                 <textarea
                   id="af-composer"
                   rows={3}
@@ -67,7 +79,9 @@ export function Welcome({ onSend, sending, trust }: { onSend: (text: string) => 
                   aria-label="Message the Implementation Calculator"
                 />
                 <div className="cmp-foot">
-                  <button className="send" type="submit" aria-label="Send" disabled={!value.trim() || sending}>
+                  <span className="attach-help">{DOCUMENT_HELP}</span>
+                  <AttachButton attach={attach} variant="vc" inputId="af-welcome-file" disabled={sending} />
+                  <button className="send" type="submit" aria-label="Send" disabled={!canSend}>
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M5 12h14M13 6l6 6-6 6" />
                     </svg>

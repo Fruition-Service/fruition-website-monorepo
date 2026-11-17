@@ -9,6 +9,8 @@
  * Browser-safe: no server imports.
  */
 
+import type { ChatDocument } from "./documents"
+
 export type FitStatus = "yes" | "partial" | "no" | "unknown"
 
 /** Where a verdict came from: a documented fact about the offering, or the agent's read. */
@@ -99,6 +101,8 @@ export interface EvaluationMessage {
   markdown: string
   status?: "complete" | "streaming" | "failed"
   created_at?: string
+  /** A document the visitor attached to this (user) message; its text is replayed to the model. */
+  attachment?: ChatDocument
 }
 
 export type EvaluationStage = "discovery" | "recommending" | "comparing" | "planning"
@@ -155,6 +159,8 @@ export const EVENT_TYPES: readonly AskFruitEventType[] = [
 export interface ChatRequest {
   message: string
   evaluation_id?: string | null
+  /** Text extracted in the browser from an uploaded brief; see documents.ts. */
+  document?: ChatDocument
 }
 
 /** Limits enforced by the route, mirrored in the composer. */
