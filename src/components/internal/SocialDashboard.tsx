@@ -138,6 +138,9 @@ function publishWindow(days: number): { from: string; to: string } {
   return { from: day(days), to: day(0) }
 }
 
+/** How long the dashboard waits on one of its requests before saying so. */
+const LOAD_TIMEOUT_MS = 30_000
+
 export default function SocialDashboard({
   insights,
   initialTab = "queue",
@@ -161,28 +164,39 @@ export default function SocialDashboard({
   const [busyId, setBusyId] = useState<string | null>(null)
 
   const load = useCallback(async () => {
-    try {
-      const [postsRes, compRes, statsRes] = await Promise.all([
-        fetch("/api/internal/social/posts"),
-        fetch("/api/internal/social/compose"),
-        fetch("/api/internal/social/analytics"),
-      ])
-      const posts = (await postsRes.json()) as { rows?: SocialRow[]; error?: string }
-      if (!postsRes.ok || !posts.rows) {
-        setError(posts.error ?? "Failed to load posts.")
-      } else {
-        setRows(posts.rows)
-        setError(null)
-      }
-      // Compositions and analytics are enrichment: a failure there costs a link
-      // or a number, and must not blank the list.
-      const comps = (await compRes.json().catch(() => ({}))) as { compositions?: Composition[] }
-      if (compRes.ok && comps.compositions) setCompositions(comps.compositions)
-      const stats = (await statsRes.json().catch(() => ({}))) as { overview?: AnalyticsOverview; rows?: AnalyticsRow[] }
-      if (statsRes.ok && stats.rows) setAnalytics({ overview: stats.overview ?? {}, rows: stats.rows })
-    } catch {
-      setError("Failed to load posts.")
+    setError(null)
+    // Each request lands on its own. The list used to wait for all three, so
+    // one slow Zernio call (analytics is the usual one) held the whole page on
+    // its loading skeleton with no message, which read as "the portal is down".
+    const getJson = async <T,>(url: string): Promise<{ ok: boolean; data: T }> => {
+      const res = await fetch(url, { signal: AbortSignal.timeout(LOAD_TIMEOUT_MS) })
+      return { ok: res.ok, data: (await res.json().catch(() => ({}))) as T }
     }
+    const postsTask = getJson<{ rows?: SocialRow[]; error?: string }>("/api/internal/social/posts")
+      .then(({ ok, data }) => {
+        if (ok && data.rows) setRows(data.rows)
+        else setError(data.error ?? "Failed to load posts.")
+      })
+      .catch((err: unknown) => {
+        setError(
+          err instanceof DOMException && err.name === "TimeoutError"
+            ? "Zernio didn't answer within 30 seconds, so the posts couldn't load. Zernio itself may be slow right now; try again in a minute."
+            : "Failed to load posts.",
+        )
+      })
+    // Compositions and analytics are enrichment: a failure there costs a link
+    // or a number, and must not blank the list.
+    const compTask = getJson<{ compositions?: Composition[] }>("/api/internal/social/compose")
+      .then(({ ok, data }) => {
+        if (ok && data.compositions) setCompositions(data.compositions)
+      })
+      .catch(() => {})
+    const statsTask = getJson<{ overview?: AnalyticsOverview; rows?: AnalyticsRow[] }>("/api/internal/social/analytics")
+      .then(({ ok, data }) => {
+        if (ok && data.rows) setAnalytics({ overview: data.overview ?? {}, rows: data.rows })
+      })
+      .catch(() => {})
+    await Promise.all([postsTask, compTask, statsTask])
   }, [])
 
   useEffect(() => {
@@ -526,6 +540,11 @@ export default function SocialDashboard({
       {error && (
         <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
           {error}
+          {rows === null && (
+            <button type="button" onClick={() => void load()} className="ml-2 font-medium underline underline-offset-2">
+              Try again
+            </button>
+          )}
         </p>
       )}
       {notice && <p className="mb-4 rounded-md bg-primary/10 px-3 py-2 text-sm text-primary">{notice}</p>}
