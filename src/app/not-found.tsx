@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Page not found · Fruition Services",
   description:
     "The page you were looking for doesn't exist. Head back home or pick up one of our most-visited pages.",
+  // Replaces the root layout's "index, follow" (and its googlebot tag), which
+  // otherwise sat next to Next's own noindex on every junk URL. Next still adds
+  // its bare `noindex` tag on 404s; the fruition-edge Worker drops that one so
+  // the live page carries a single robots tag (monday 2913602725).
+  robots: { index: false, follow: false },
 }
 
 const QUICK_LINKS = [

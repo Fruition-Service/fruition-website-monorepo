@@ -1,6 +1,6 @@
 "use client"
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 /**
  * Site-wide BreadcrumbList JSON-LD, rendered once by SiteFrame (§05: breadcrumb
@@ -11,6 +11,21 @@ import { usePathname } from 'next/navigation'
  */
 
 const HIDDEN_PREFIXES = ['/internal', '/studio', '/post', '/api']
+
+/**
+ * Next renders every unmatched URL from one shared, prerendered `/_not-found`
+ * route. Its HTML is cached and served for any junk path, so a crumb trail
+ * built from the path would put schema on URLs that do not exist (monday
+ * 2913602725). During the prerender usePathname() is '/_not-found'; in the
+ * browser it is the junk URL, but the selected layout segment is still
+ * '/_not-found' (Next 16 keeps the slash; older builds dropped it).
+ */
+const NOT_FOUND_ROUTE = '/_not-found'
+
+export function isNotFoundRoute(pathname: string | null, segments: string[]): boolean {
+  const first = segments[0]
+  return pathname === NOT_FOUND_ROUTE || first === NOT_FOUND_ROUTE || first === NOT_FOUND_ROUTE.slice(1)
+}
 
 /**
  * Virtual hierarchy for flat legacy URLs: the crumb trail shows the logical
@@ -122,6 +137,9 @@ function labelFor(segment: string): string {
 
 export default function Breadcrumbs() {
   const pathname = usePathname()
+  const layoutSegments = useSelectedLayoutSegments()
+
+  if (isNotFoundRoute(pathname, layoutSegments)) return null
 
   if (!pathname || pathname === '/' || HIDDEN_PREFIXES.some((p) => pathname.startsWith(p))) {
     return null
