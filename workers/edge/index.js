@@ -208,6 +208,30 @@ function forClient(res, state, siteCacheControl, env) {
   return out
 }
 
+// 404s (monday 2913602725). Next adds its own bare noindex tag to every 404
+// render, next to the "noindex, nofollow" that src/app/not-found.tsx asks for,
+// and it has no switch to turn its tag off. Drop Next's copy so a junk URL
+// carries one robots tag, and send the same rule as a header, which only this
+// Worker can do: the site's middleware runs before the status is known.
+const NOT_FOUND_ROBOTS = "noindex, nofollow"
+const NEXT_NOINDEX_TAG = '<meta name="robots" content="noindex"/>'
+
+async function notFoundForClient(res, env) {
+  const headers = new Headers(res.headers)
+  headers.set("X-Robots-Tag", NOT_FOUND_ROBOTS)
+  headers.set("X-Edge-Build", env.BUILD_ID || "none")
+  let body = res.body
+  if (body && (headers.get("Content-Type") || "").startsWith("text/html")) {
+    const html = await res.text()
+    // Only when the page's own tag is there, so the page never ends up with none.
+    body = html.includes(`<meta name="robots" content="${NOT_FOUND_ROBOTS}"/>`)
+      ? html.replace(NEXT_NOINDEX_TAG, "")
+      : html
+    headers.delete("Content-Length")
+  }
+  return new Response(body, { status: res.status, statusText: res.statusText, headers })
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
@@ -245,6 +269,7 @@ export default {
       ctx.waitUntil(storeBoth(copy, url, env, true, version).catch(() => null))
       return forClient(res, "MISS", siteCc, env)
     }
+    if (res.status === 404) return notFoundForClient(res, env)
     const out = new Response(res.body, res)
     out.headers.set("X-Edge-Build", env.BUILD_ID || "none")
     return out

@@ -264,3 +264,49 @@ describe("fruition-edge content version (Sanity edits)", () => {
     expect(refreshReq.headers.get("Accept")).toBe("text/html")
   })
 })
+
+describe("fruition-edge 404s (monday 2913602725)", () => {
+  // What the site Worker sends for a junk URL: Next's own bare noindex plus the
+  // "noindex, nofollow" from src/app/not-found.tsx.
+  const NOT_FOUND_HTML =
+    '<html><head><meta name="robots" content="noindex"/><title>Page not found</title>' +
+    '<meta name="robots" content="noindex, nofollow"/></head><body>404</body></html>'
+  const notFound = (body = NOT_FOUND_HTML, headers = {}) =>
+    new Response(body, {
+      status: 404,
+      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "s-maxage=60", ...headers },
+    })
+  const robotsTags = (html) => html.match(/<meta name="robots"[^>]*>/g) ?? []
+
+  it("leaves one noindex, nofollow robots tag and sends the same header", async () => {
+    const t = setup()
+    t.site.fetch.mockResolvedValueOnce(notFound())
+    const res = await edge.fetch(get("/fruition-team/winning303"), t.env, t.ctx)
+    await t.settle()
+    expect(res.status).toBe(404)
+    expect(res.headers.get("X-Robots-Tag")).toBe("noindex, nofollow")
+    expect(res.headers.get("X-Edge-Build")).toBe(ENV_BUILD)
+    const html = await res.text()
+    expect(robotsTags(html)).toEqual(['<meta name="robots" content="noindex, nofollow"/>'])
+    expect(html).not.toContain("index, follow")
+    expect(html).toContain("<title>Page not found</title>")
+    expect(t.cache.store.size).toBe(0)
+    expect(t.kv.put).not.toHaveBeenCalled()
+  })
+
+  it("keeps Next's tag when the page's own tag is missing, so a 404 is never left without one", async () => {
+    const t = setup()
+    const body = '<html><head><meta name="robots" content="noindex"/></head></html>'
+    t.site.fetch.mockResolvedValueOnce(notFound(body))
+    const res = await edge.fetch(get("/zzz"), t.env, t.ctx)
+    expect(await res.text()).toBe(body)
+    expect(res.headers.get("X-Robots-Tag")).toBe("noindex, nofollow")
+  })
+
+  it("does not touch 200 pages", async () => {
+    const t = setup()
+    const res = await edge.fetch(get("/fruition-team"), t.env, t.ctx)
+    expect(res.headers.get("X-Robots-Tag")).toBeNull()
+    expect(await res.text()).toBe("<html>page</html>")
+  })
+})
