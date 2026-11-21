@@ -9,14 +9,38 @@
  *
  * Shared by the edit API route (prompt) and the viewer client (parse/apply) —
  * keep this file free of server-only imports.
+ *
+ * The style rules the model must respect are derived from the document's
+ * template rather than restated here, so they cannot drift from theme/.
  */
+
+import { getTemplate } from "./templates"
+
+/** The class list, kept short — the editing model needs the vocabulary, not the spec. */
+const VOCABULARY_SUMMARY =
+  "fr-doc, fr-cover, fr-eyebrow, fr-title, fr-meta/fr-meta-item, fr-toc, fr-section, fr-sublabel, fr-table (fr-name), fr-callout, fr-figure (fr-figure-flow, fr-node, fr-arrow), fr-signoff (fr-signer, fr-signer-name, fr-signer-role, fr-sig-field, fr-date-field, fr-field-label), fr-footer, and for decks fr-deck, fr-slide, fr-slide-title, fr-slide-body, fr-cols, fr-stats/fr-stat, fr-slide-foot"
 
 /** Marker lines for an edit block. Kept in one place so prompt and parser can't drift. */
 const SEARCH_MARK = "<<<<<<< SEARCH"
 const DIVIDE_MARK = "======="
 const REPLACE_MARK = ">>>>>>> REPLACE"
 
-export const DESIGN_EDIT_SYSTEM_PROMPT = `You are Fruition's brand document designer, now in EDITING mode. The user has an existing Fruition-branded single-file HTML document (it follows the Fruition house style: Poppins, purple #8015e8 accents, gradient cover card, numbered sections, styled tables, sign-off cards, running footer). You make the changes they ask for.
+export function buildEditPrompt(templateId: string | null | undefined): string {
+  const template = getTemplate(templateId)
+  const legacy = !templateId || templateId === "legacy"
+
+  // Legacy documents carry their own model-authored CSS inline; new ones are
+  // semantic HTML with the stylesheet attached at render time. The rule the
+  // editing model must follow differs completely between the two.
+  const styleRules = legacy
+    ? `- This document carries its own <style> block. Keep the styling consistent with it and keep the document a single self-contained file (no newly *loaded* external resources — scripts, stylesheets, fonts, images).
+- Every colored/tinted element keeps -webkit-print-color-adjust: exact; print-color-adjust: exact;
+- Preserve pagination-friendly print CSS: no fixed heights, no 100vh, long tables break between rows (thead as table-header-group), break-inside: avoid only on units smaller than a page.`
+    : `- Write NO CSS. This document has no <style> block and must not gain one: the Fruition stylesheet is attached automatically at render time. Never add a <style> block, a stylesheet <link>, or a style="…" attribute — any CSS you add will fight the stylesheet.
+- Style comes only from the class vocabulary: ${VOCABULARY_SUMMARY}. Do not invent classes.
+- \`fr-section\` headings number themselves. Never type a number into an <h2> or into a table-of-contents <li>.`
+
+  return `You are Fruition's brand document designer, now in EDITING mode. The user has an existing Fruition-branded single-file HTML document (a ${template.label}). You make the changes they ask for.
 
 # How to respond
 - Start with a one-or-two sentence plain-language summary of what you changed (or an answer, if they only asked a question).
@@ -39,16 +63,15 @@ ${REPLACE_MARK}
 # Full rewrite (rare)
 If the request is so sweeping that patching is impractical (e.g. "restructure the whole document"), output the complete new document instead of edit blocks: your summary sentence, then the full HTML starting with <!DOCTYPE html> and ending with </html>.
 
-# Style rules (must hold after your edits)
-- Stay in the Fruition document style; keep the document a single self-contained file (all CSS in the existing <style> block, no JavaScript, no newly *loaded* external resources — scripts, stylesheets, fonts, images). Hyperlinks are NOT external resources: <a href="…"> navigational links are always allowed.
-- Links are content — preserve them. Never delete a link or turn it into inert plain text, and never alter the URL. When you add or move a link (e.g. a link to an interactive/live diagram such as Mermaid Live or a monday.com board), embed it as a real working anchor: <a href="THE-EXACT-URL" target="_blank" rel="noopener">…</a> with the exact absolute URL.
+# Rules that must hold after your edits
+${styleRules}
+- Links are content — preserve them. Never delete a link or turn it into inert plain text, and never alter the URL. When you add or move a link (e.g. to an interactive diagram such as Mermaid Live or a monday.com board), embed it as a real working anchor: <a href="THE-EXACT-URL" target="_blank" rel="noopener">…</a> with the exact absolute URL.
 - Diagrams need extra care. When editing a figure card or recreated diagram, keep every node label and every connection intact, and keep any interactive-diagram link working — a diagram behind a broken or missing link is a defect.
 - Never modify, expand, or re-emit the Fruition logo data URI — treat any <img src="data:..."> as opaque and leave its src untouched.
-- Every colored/tinted element keeps -webkit-print-color-adjust: exact; print-color-adjust: exact;
-- Preserve pagination-friendly print CSS: no fixed heights, no 100vh, long tables break between rows (thead as table-header-group), break-inside: avoid only on units smaller than a page.
 - "monday.com"/"monday" always lowercase. No emoji.
 
 If the user asks a question or something needs no document change, just answer in plain language with no edit blocks.`
+}
 
 /** One parsed SEARCH/REPLACE block. */
 export interface DocEdit {

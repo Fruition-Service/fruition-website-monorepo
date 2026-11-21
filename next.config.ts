@@ -195,6 +195,23 @@ const auditRedirects: Redirect[] = [
   // 20-21: deleted automations posts → the canonical automations guide.
   { source: "/post/monday-com-automations", destination: "/post/how-to-monday-com-automations", statusCode: 301 },
   { source: "/post/monday-automation-secrets", destination: "/post/how-to-monday-com-automations", statusCode: 301 },
+
+  // ── Legacy Wix blog tag/hashtag archives (September 2026) ──
+  // The old Wix blog had per-tag and per-hashtag archive pages. This site has
+  // no tag concept at all (blogPost has categories, not tags), so every one of
+  // those URLs has to land somewhere. src/redirects.ts already parks 690 of
+  // them on /consulting-blog, but that list was enumerated from the Wix export,
+  // so any tag the export missed still 404s — /tags/monday-ai-pricing-model and
+  // /tags/ai-pricing are two that were reported live. These rules replace the
+  // enumeration with a pattern, so a slug missing from the export can no longer
+  // 404. `:slug*` matches zero or more segments, which also covers the bare
+  // /consulting-blog/tags and /consulting-blog/hashtags index URLs.
+  //
+  // These sit in auditRedirects (before wixRedirects) deliberately: they now
+  // handle every tag URL, and the enumerated entries downstream are unreachable
+  // but harmless — src/redirects.ts is generated, so they stay put.
+  { source: "/consulting-blog/tags/:slug*", destination: "/consulting-blog", permanent: true },
+  { source: "/consulting-blog/hashtags/:slug*", destination: "/consulting-blog", permanent: true },
 ];
 
 const nextConfig: NextConfig = {

@@ -14,6 +14,13 @@ export const TRUSTPILOT_REVIEWS_URL = "https://www.trustpilot.com/review/fruitio
  */
 export const G2_RATING = "5.0"
 
+/**
+ * Temporary kill switch. The badges are hidden site-wide while the review
+ * profiles are being worked on; nothing here is removed, so flipping this back
+ * to `true` restores them exactly as they were.
+ */
+const SHOW_REVIEW_BADGES = false
+
 interface Props {
   className?: string
 }
@@ -32,6 +39,8 @@ const badgeClass =
  * colours stay out of the token layer, matching the existing partner logos.
  */
 export default function ReviewBadges({ className = "" }: Props) {
+  if (!SHOW_REVIEW_BADGES) return null
+
   return (
     <div className={`flex flex-col gap-2 md:flex-row md:items-start ${className}`}>
       <a

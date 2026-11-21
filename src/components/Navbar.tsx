@@ -345,27 +345,31 @@ export default function Navbar({ siteSettings }: { siteSettings?: SiteSettingsPr
                     >
                       {section.heading && (
                         <p
-                          className={`text-xs pb-3 border-b mb-3 flex items-center gap-2 text-muted border-ui ${
+                          className={`text-xs pb-3 border-b mb-3 text-muted border-ui ${
                             columnsLayout ? 'font-semibold uppercase tracking-wider' : 'font-medium'
                           }`}
                         >
-                          {section.heading}
-                          {section.logo ? (
-                            <Image
-                              src={section.logo}
-                              alt={section.badge ?? ''}
-                              width={150}
-                              height={38}
-                              className="h-[26px] w-auto shrink-0 rounded-[4px] object-contain"
-                              unoptimized
-                            />
-                          ) : (
-                            section.badge && (
-                              <span className="inline-flex items-center rounded-full ring-1 ring-ui text-muted text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 whitespace-nowrap">
-                                {section.badge}
-                              </span>
-                            )
-                          )}
+                          {/* Fixed row height (the partner logo's) so headings with
+                              and without a logo share one baseline and one rule. */}
+                          <span className="flex items-center gap-2 min-h-[26px]">
+                            {section.heading}
+                            {section.logo ? (
+                              <Image
+                                src={section.logo}
+                                alt={section.badge ?? ''}
+                                width={150}
+                                height={38}
+                                className="h-[26px] w-auto shrink-0 rounded-[4px] object-contain"
+                                unoptimized
+                              />
+                            ) : (
+                              section.badge && (
+                                <span className="inline-flex items-center rounded-full ring-1 ring-ui text-muted text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 whitespace-nowrap">
+                                  {section.badge}
+                                </span>
+                              )
+                            )}
+                          </span>
                         </p>
                       )}
                       <div

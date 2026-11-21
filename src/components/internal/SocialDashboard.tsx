@@ -561,13 +561,15 @@ function CompositionRow({
   const line = totals ? metricLine(totals) : null
 
   return (
-    <li className="min-w-0 rounded-lg border border-border p-4">
+    <li className="relative min-w-0 rounded-lg border border-border p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-within:border-primary/40">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex flex-wrap items-center gap-2">
+            {/* Stretched link: the whole card opens the composer, but the
+                buttons and channel links above it still take their own clicks. */}
             <Link
               href={`/internal/social/${c.id}`}
-              className="text-sm font-semibold text-foreground underline-offset-2 hover:underline"
+              className="text-sm font-semibold text-foreground underline-offset-2 after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:underline"
             >
               {c.title}
             </Link>
@@ -584,7 +586,7 @@ function CompositionRow({
           <p className="truncate text-xs text-muted-foreground">{entry.preview.replace(/\n+/g, " ") || "No copy yet"}</p>
           {line && <p className="mt-1 font-mono text-[11px] tabular-nums text-primary">{line}</p>}
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="relative z-10 flex shrink-0 gap-2">
           <Button variant="outline" size="xs" onClick={() => onDuplicate(c)} disabled={busy}>
             Duplicate
           </Button>
@@ -624,7 +626,7 @@ function CompositionRow({
                 href={ch.url}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-primary underline-offset-2 hover:underline"
+                className="relative z-10 font-medium text-primary underline-offset-2 hover:underline"
               >
                 view
               </a>
@@ -660,12 +662,17 @@ function PostRow({
           : row.source?.draftId
             ? `/internal/blog/${row.source.draftId}/edit`
             : undefined
+        // What clicking the card should open: the composer if we wrote it here,
+        // the blog post it came from, else the live post on the platform.
+        const editHref = composition ? `/internal/social/${composition.id}` : blogHref
+        const cardHref = editHref ?? liveUrl
+        const cardExternal = !editHref && Boolean(liveUrl)
         const canUnpublish = row.status === "published" && row.platforms.some((p) => p.platform !== "instagram")
         const canDelete = row.status !== "published"
         const line = metrics ? metricLine(metrics) : null
 
         return (
-          <li className="flex min-w-0 gap-3 rounded-lg border border-border p-4">
+          <li className="relative flex min-w-0 gap-3 rounded-lg border border-border p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-within:border-primary/40">
             {row.mediaUrl && (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={row.mediaUrl} alt="" className="size-16 shrink-0 rounded-md object-cover" />
@@ -691,11 +698,23 @@ function PostRow({
                   </span>
                 )}
               </div>
-              <p className="truncate text-sm text-foreground">{row.title || row.content.split("\n")[0]}</p>
+              {cardHref ? (
+                // Stretched link: the whole card is the click target; the links
+                // and buttons beside it sit above it and keep their own clicks.
+                <Link
+                  href={cardHref}
+                  {...(cardExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+                  className="block truncate text-sm text-foreground underline-offset-2 after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:underline"
+                >
+                  {row.title || row.content.split("\n")[0]}
+                </Link>
+              ) : (
+                <p className="truncate text-sm text-foreground">{row.title || row.content.split("\n")[0]}</p>
+              )}
               <p className="truncate text-xs text-muted-foreground">{row.content.replace(/\n+/g, " ")}</p>
               {line && <p className="mt-1 font-mono text-[11px] tabular-nums text-primary">{line}</p>}
             </div>
-            <div className="flex shrink-0 flex-col items-end justify-center gap-1.5">
+            <div className="relative z-10 flex shrink-0 flex-col items-end justify-center gap-1.5">
               <div className="flex gap-3 text-xs font-medium">
                 {liveUrl && (
                   <a
@@ -876,17 +895,32 @@ function PerformanceList({
         </div>
         <ul className="space-y-2">
           {top.map((row) => (
-            <li key={row.analyticsId} className="flex items-start gap-3 rounded-lg border border-border p-3">
+            <li
+              key={row.analyticsId}
+              className="relative flex items-start gap-3 rounded-lg border border-border p-3 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-within:border-primary/40"
+            >
               <span className="mt-0.5 shrink-0 text-primary">
                 <PlatformNameIcon name={row.platform} size={15} />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm text-foreground">{row.content.split("\n")[0] || "(no caption)"}</p>
+                {row.platformPostUrl ? (
+                  // Stretched link: clicking anywhere on the row opens the post.
+                  <a
+                    href={row.platformPostUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block truncate text-sm text-foreground underline-offset-2 after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:underline"
+                  >
+                    {row.content.split("\n")[0] || "(no caption)"}
+                  </a>
+                ) : (
+                  <p className="truncate text-sm text-foreground">{row.content.split("\n")[0] || "(no caption)"}</p>
+                )}
                 <p className="mt-0.5 truncate font-mono text-[11px] tabular-nums text-muted-foreground">
                   {metricLine(row.metrics) ?? "no engagement recorded yet"}
                 </p>
               </div>
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="relative z-10 flex shrink-0 items-center gap-2">
                 {row.external && (
                   <span className="hidden text-[11px] text-muted-foreground sm:inline" title="Published outside this portal">
                     posted elsewhere
