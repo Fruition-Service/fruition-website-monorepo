@@ -83,7 +83,7 @@ function card(title: string, eyebrow: string): Node {
         "div",
         { display: "flex", alignItems: "center", justifyContent: "space-between" },
         [
-          h("div", { display: "flex", gap: 14 }, [chip("monday.com Platinum Partner"), chip("900+ implementations")], { key: "chips" }),
+          h("div", { display: "flex", gap: 14 }, [chip("monday.com Platinum Partner"), chip("1000+ implementations")], { key: "chips" }),
           h("div", { display: "flex", fontSize: 24, fontWeight: 500, color: "#e3cdfb" }, "fruitionservices.io", { key: "domain" }),
         ],
         { key: "footer" },

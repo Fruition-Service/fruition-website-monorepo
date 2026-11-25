@@ -20,7 +20,7 @@ export const PARTNERS_HUB = {
     'OpenAI Select Partner',
     'monday.com Platinum · Rising Star 2026',
     'Atlassian Platinum · Rising Star 2026',
-    '900+ implementations',
+    '1000+ implementations',
     'AU · UK · US · APAC',
   ],
   coreHeading: 'Our core partners',

@@ -127,7 +127,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">900+</div><div class="l">systems delivered across six offices</div></div>
+<div><div class="v">1000+</div><div class="l">systems delivered across six offices</div></div>
 <div><div class="v">2-4 wks</div><div class="l">typical build-to-launch timeline for a base44 app</div></div>
 <div><div class="v">No dev overhead</div><div class="l">custom apps delivered without traditional development costs</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>

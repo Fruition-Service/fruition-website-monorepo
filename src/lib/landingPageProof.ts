@@ -8,7 +8,7 @@
  * - quotes: `TestimonialsRoll` (two columns rolling in opposite directions on
  *   desktop, a swipe rail below 1024px), fed with the page's own industry quotes
  *   first and then the same Sanity case studies the regional pages show;
- * - logos: `ClientLogoWall` (mist tiles plus the "900+ more" counter, a
+ * - logos: `ClientLogoWall` (mist tiles plus the "1000+ more" counter, a
  *   self-scrolling band on phones), without the catalog links, so the page
  *   keeps no exits other than the form, the phone number and the calendar.
  *
@@ -83,8 +83,8 @@ function chipLogos(html: string): ProofLogo[] {
 
 const DEFAULT_HEADING = "What clients say about Fruition's monday.com consultants"
 const INTRO = "Operations and IT leaders on what changed after we mapped the process first."
-const COUNTER = "900+ more"
-const LOGOS_HEADING = "Trusted by teams across 900+ implementations."
+const COUNTER = "1000+ more"
+const LOGOS_HEADING = "Trusted by teams across 1000+ implementations."
 /** Dot colours cycle so adjacent cards never repeat (TestimonialsRoll). */
 const DOTS = ["#00ca72", "#579bfc", "#8015e8", "#fdab3d"]
 const MAX_QUOTES = 10

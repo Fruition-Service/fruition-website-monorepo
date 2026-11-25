@@ -35,7 +35,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         title: 'Proof per sector',
-        body: '900+ implementations means precedent in your vertical, not a promise to learn on your budget.',
+        body: '1000+ implementations means precedent in your vertical, not a promise to learn on your budget.',
       },
     ],
     servicesEyebrow: 'Sectors',
@@ -124,7 +124,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
     faqs: [
       {
         q: 'Does Fruition specialise in specific industries?',
-        a: 'Yes: construction, financial services, healthcare, education, nonprofits, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 900+ delivered projects.',
+        a: 'Yes: construction, financial services, healthcare, education, nonprofits, manufacturing, professional services, solar and renewables, and government are established verticals, each with implementation precedent, compliance frameworks, and sector-specific templates from 1000+ delivered projects.',
       },
       {
         q: 'How much does industry consulting cost with Fruition?',
@@ -140,7 +140,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',
@@ -212,7 +212,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',
@@ -284,7 +284,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',
@@ -356,7 +356,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',
@@ -428,7 +428,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',
@@ -500,7 +500,7 @@ export const INDUSTRIES_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 1000+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
       },
       {
         q: 'Can Fruition deliver this remotely?',

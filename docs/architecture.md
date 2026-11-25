@@ -183,7 +183,7 @@ does not render anything.
 - **FAQs have two sources**: a page document's own `faqTabs` field and central `faqItem`
   documents. Always go through `resolveFaqTabs()` (`src/sanity/groupFaqs.ts`). FAQ JSON-LD is
   emitted by `FaqAccordion` from exactly the tabs it renders, never site-wide.
-- **The implementation count ("900+")** appears in code strings, Sanity strings and the
+- **The implementation count ("1000+")** appears in code strings, Sanity strings and the
   `proofStats` singleton. Change all three together.
 - **Videos** added in Sanity emit no `VideoObject` schema until `scripts/sync-video-catalog.mjs`
   regenerates `src/lib/videoCatalog.generated.ts`.

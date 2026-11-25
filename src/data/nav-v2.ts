@@ -100,7 +100,7 @@ export const NAV_V2: NavV2Item[] = [
             label: 'Implementation Packages',
             href: '/implementation-packages',
             icon: 'package',
-            description: 'Fixed-fee packages: 900+ delivered',
+            description: 'Fixed-fee packages: 1000+ delivered',
             featured: true,
           },
           {

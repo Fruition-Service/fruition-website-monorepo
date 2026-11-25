@@ -22,7 +22,7 @@
  * Singapore, India and the Philippines have almost nothing tagged on that
  * board: one genuine local client each. Those three sets lead with that client
  * and fill the rest with multinationals we have delivered for, which is what
- * the "900+ implementations" heading claims anyway. Tag more rows on the board
+ * the "1000+ implementations" heading claims anyway. Tag more rows on the board
  * and re-run this to make them properly local.
  */
 import { writeClient } from './sanity-migrate/lib'
@@ -35,7 +35,7 @@ interface PoolLogo {
 }
 
 /**
- * Nine tiles per region — the tenth cell in the 2×5 grid is the "900+ more"
+ * Nine tiles per region — the tenth cell in the 2×5 grid is the "1000+ more"
  * counter. Names must match an `alt` already in Sanity; the script fails loudly
  * on anything it cannot resolve rather than quietly shipping a short wall.
  */

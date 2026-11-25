@@ -51,7 +51,7 @@ ${LP_FONTS}
 <div class="hero-tags">
 <span>Sydney headquartered</span>
 <span>Anthropic and OpenAI partner</span>
-<span>900+ implementations</span>
+<span>1000+ implementations</span>
 <span>Fixed-fee quotes</span>
 </div>
 </div>

@@ -127,7 +127,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">900+</div><div class="l">systems delivered across six offices</div></div>
+<div><div class="v">1000+</div><div class="l">systems delivered across six offices</div></div>
 <div><div class="v">2-6 wks</div><div class="l"><!-- FOR EDWARD: confirm typical Claude AI timeline --> typical build-to-launch timeline</div></div>
 <div><div class="v">Enterprise-grade</div><div class="l">data governance built into every Claude AI deployment</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>

@@ -45,13 +45,13 @@ const regionLogoSet = {
       type: 'text',
       rows: 3,
       description:
-        'The line under "Trusted by teams across 900+ implementations." Leave blank for the shipped wording.',
+        'The line under "Trusted by teams across 1000+ implementations." Leave blank for the shipped wording.',
     },
     {
       name: 'logos',
       title: 'Logos',
       type: 'array',
-      description: 'The first nine are drawn — the tenth cell is the "900+ more" counter.',
+      description: 'The first nine are drawn — the tenth cell is the "1000+ more" counter.',
       of: [
         {
           type: 'object',

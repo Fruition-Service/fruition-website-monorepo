@@ -107,7 +107,7 @@ export default function RegionPageTemplate({
         lead={clientLogosLead?.trim() || region.clients.lead}
         logos={clientLogos}
         maxTiles={CLIENT_TILES}
-        counterLabel="900+ more"
+        counterLabel="1000+ more"
       />
 
       {/*

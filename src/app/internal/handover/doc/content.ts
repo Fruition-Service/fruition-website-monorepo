@@ -696,7 +696,7 @@ npx wrangler whoami          <span class="c"># confirm it is Fruition, not a per
       <thead><tr><th>Content trap</th><th>What to do</th></tr></thead>
       <tbody>
         <tr><td>FAQs have two sources</td><td>A page's own <code>faqTabs</code> field and central <code>faqItem</code> documents. Always go through <code>resolveFaqTabs()</code>. FAQ JSON-LD comes only from <code>FaqAccordion</code>, built from the tabs it renders.</td></tr>
-        <tr><td>"900+ implementations"</td><td>Lives in code strings, Sanity strings and the <code>proofStats</code> singleton. Change all three together.</td></tr>
+        <tr><td>"1000+ implementations"</td><td>Lives in code strings, Sanity strings and the <code>proofStats</code> singleton. Change all three together.</td></tr>
         <tr><td>Videos</td><td>A video added in Sanity emits no <code>VideoObject</code> until <code>scripts/sync-video-catalog.mjs</code> regenerates the catalog.</td></tr>
         <tr><td>Blog body images</td><td>Must be Sanity-hosted. A remote <code>![](url)</code> publishes as a link; the publish paths sideload images first.</td></tr>
         <tr><td>Document ids with dots</td><td>Are private: unauthenticated queries cannot see them. Public ids must be dot-free.</td></tr>

@@ -35,7 +35,7 @@ function initials(name?: string): string {
 
 export default function TestimonialCtaBanner({
   headingPart1 = "Join ",
-  headingAccent = "900+ organisations",
+  headingAccent = "1000+ organisations",
   headingPart2 = " that have maximised their workflows with our monday.com expert support",
   primaryCtaLabel,
   primaryCtaUrl,

@@ -17,7 +17,7 @@ export const INDUSTRIES_HUB = {
   heading: 'Workflow and AI consulting',
   accent: 'by industry',
   lead: 'Fruition designs project, CRM and AI workflows for construction, manufacturing, government, professional services, real estate and financial services. Each industry has prebuilt solutions in our use case hub that we adapt to your process.',
-  facts: ['45 prebuilt solutions', 'NSW Government ICT Services Scheme supplier', '900+ implementations'],
+  facts: ['45 prebuilt solutions', 'NSW Government ICT Services Scheme supplier', '1000+ implementations'],
   sectorsHeading: 'Industries we specialise in',
   sectors: [
     {

@@ -466,13 +466,13 @@ export default function UniversalPageTemplate({
         />
       )}
 
-      {/* 15. Testimonial CTA Banner (bottom) — defaults to "Join 900+ organisations …"
+      {/* 15. Testimonial CTA Banner (bottom) — defaults to "Join 1000+ organisations …"
            but a page may override the copy via joinHeading* (most useful when
            hideJoinStatsSection is true so there's no duplicate banner). */}
       {!page.hideTestimonialBanner && (
         <TestimonialCtaBanner
           headingPart1={page.joinHeadingPart1 || "Join "}
-          headingAccent={page.joinHeadingAccent || "900+ organisations"}
+          headingAccent={page.joinHeadingAccent || "1000+ organisations"}
           headingPart2={page.joinHeadingPart2 || " that have maximised their workflows with our monday.com expert support"}
           primaryCtaUrl={calendlyUrl}
           secondaryCtaUrl={calendlyUrl}

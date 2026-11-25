@@ -32,7 +32,7 @@ interface ClientProofSectionProps {
  */
 export default function ClientProofSection({
   eyebrow = "Our clients",
-  heading = "Trusted by teams across 900+ implementations.",
+  heading = "Trusted by teams across 1000+ implementations.",
   lead,
   logos,
   maxTiles = 24,

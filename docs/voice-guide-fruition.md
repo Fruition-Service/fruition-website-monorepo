@@ -70,7 +70,7 @@ APPROVED FRUITION CREDENTIALS (allow-list — these are published facts, use the
 - 500+ implementations worldwide.
 - 4.7/5 CSAT score.
 - 9,000+ billable hours.
-- 700+ satisfied clients.
+- 1000+ satisfied clients.
 - 27+ (also stated as 37+) certified monday.com consultants/experts.
 - Use these as written. They are the ONE exception to the "no performance numbers" rule below. Keep them current; if a number looks stale, prefer the more conservative figure.
 
