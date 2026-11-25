@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONSULTING_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT, IMPLEMENTATION_COUNT_NUMBER } from "@/lib/implementationCount"
 
 export const html = `<!DOCTYPE html>
 <html lang="en-AU">
@@ -49,7 +50,7 @@ ${LP_FONTS}
 <div class="hero-tags">
 <span>monday.com Platinum Partner</span>
 <span>Advanced Delivery Partner</span>
-<span>1000+ implementations</span>
+<span>${IMPLEMENTATION_COUNT} implementations</span>
 <span>NSW Gov ICT Scheme, Advanced supplier</span>
 </div>
 </div>
@@ -125,7 +126,7 @@ ${LP_FONTS}
 <div class="why-card">
 <div class="why-num">02</div>
 <h3>Proven Scale &amp; Success</h3>
-<p>An Advanced Delivery Partner with a flawless 5.0 CSAT rating and over 1,000 successful implementations worldwide.</p>
+<p>An Advanced Delivery Partner with a flawless 5.0 CSAT rating and over ${IMPLEMENTATION_COUNT_NUMBER} successful implementations worldwide.</p>
 </div>
 <div class="why-card">
 <div class="why-num">03</div>
@@ -134,7 +135,7 @@ ${LP_FONTS}
 </div>
 </div>
 <div class="stats">
-<div class="stat"><b>1000+</b><span>Implementations worldwide</span></div>
+<div class="stat"><b>${IMPLEMENTATION_COUNT}</b><span>Implementations worldwide</span></div>
 <div class="stat"><b>5.0</b><span>CSAT rating</span></div>
 <div class="stat"><b>600+</b><span>Client optimisations</span></div>
 <div class="stat"><b>Platinum</b><span>Partner tier</span></div>

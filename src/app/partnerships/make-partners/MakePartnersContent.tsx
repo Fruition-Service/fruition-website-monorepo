@@ -48,6 +48,7 @@ import type { CaseStudy, SiteSettingsData, ComparisonTab } from "@/components/se
 import { urlFor } from "@/sanity/image"
 import CtaButton from "@/components/CtaButton"
 import AuditCtaBanner from "@/components/sections/AuditCtaBanner"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 /* ------------------------------------------------------------------ */
 /*  Make Feature Tabs — hardcoded content                              */
@@ -78,7 +79,7 @@ const MAKE_FEATURE_TABS: MakeFeatureTab[] = [
         number: "01",
         title: "As a Gold Partner, we leverage make's features to transform your operations:",
         bullets: [
-          { icon: Link2, text: "Unlimited Integration Possibilities: Connect seamlessly with 1000+ apps and services" },
+          { icon: Link2, text: `Unlimited Integration Possibilities: Connect seamlessly with ${IMPLEMENTATION_COUNT} apps and services` },
           { icon: Zap, text: "Real-Time Execution: Experience immediate process automation that responds instantly to triggers" },
           { icon: Lock, text: "Enterprise-Grade Security: Trust in our SOC 2 Type II certified platform for maximum protection" },
           { icon: TrendingUp, text: "Scalable Architecture: Effortlessly handle millions of operations as your business grows" },

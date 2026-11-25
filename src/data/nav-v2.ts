@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 /**
  * Website Reorganisation Plan v1.0 (July 2026) — six-tab navigation.
  * Services · Partnerships · Industries · Insights · About · Contact.
@@ -100,7 +101,7 @@ export const NAV_V2: NavV2Item[] = [
             label: 'Implementation Packages',
             href: '/implementation-packages',
             icon: 'package',
-            description: 'Fixed-fee packages: 1000+ delivered',
+            description: `Fixed-fee packages: ${IMPLEMENTATION_COUNT} delivered`,
             featured: true,
           },
           {

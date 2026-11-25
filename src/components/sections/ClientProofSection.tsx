@@ -1,6 +1,7 @@
 import Reveal from "@/components/home/Reveal"
 import ClientLogoWall from "./ClientLogoWall"
 import type { CarouselLogo } from "./types"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 interface ClientProofSectionProps {
   /** Small caps line above the heading. */
@@ -32,7 +33,7 @@ interface ClientProofSectionProps {
  */
 export default function ClientProofSection({
   eyebrow = "Our clients",
-  heading = "Trusted by teams across 1000+ implementations.",
+  heading = `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
   lead,
   logos,
   maxTiles = 24,

@@ -7,6 +7,7 @@ import type {
   RegionStat,
 } from "@/components/region/types"
 import { REGION_LOCAL_BUSINESS } from "@/data/regionLocalBusiness"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 /**
  * Content for the six /monday-partner-* region pages.
@@ -18,7 +19,7 @@ import { REGION_LOCAL_BUSINESS } from "@/data/regionLocalBusiness"
  *
  * Copy rules followed here:
  *  - Claims are limited to ones the site already makes (Platinum Partner,
- *    Advanced Delivery Partner, 1000+ implementations, ex-monday.com founder).
+ *    Advanced Delivery Partner, the implementation count, ex-monday.com founder).
  *  - No invented CSAT/review scores — the real review figures live on the
  *    testimonials page and are not restated as headline stats.
  *  - Regional detail is factual context (time zones, privacy law, local
@@ -60,7 +61,7 @@ const STATS: RegionStat[] = [
     label: 'of team time recovered from "work about work" and manual re-keying',
   },
   { value: "2–4 wks", label: "typical time from kickoff to a live, working system" },
-  { value: "1000+", label: "monday.com implementations delivered across six offices" },
+  { value: IMPLEMENTATION_COUNT, label: "monday.com implementations delivered across six offices" },
 ]
 
 const STATS_FOOTNOTE =
@@ -171,7 +172,7 @@ const australia: RegionContent = {
     headingAccent: "monday.com partner in Australia.",
     subheading:
       "Work with a certified monday.com Platinum Partner and expert consultants who handle your entire monday CRM implementation and integration. Servicing clients across Sydney, Melbourne, Brisbane, Adelaide and Perth — get running in days, not months.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in Australia",
@@ -186,13 +187,13 @@ const australia: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "From ASX-listed groups and state agencies to family-run contractors — a sample of the Australian teams now running on systems we built.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in Australia?",
     answer:
-      "Fruition Services is a leading monday.com partner in Australia — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and certified consultants based locally across Sydney, Melbourne, Brisbane, Adelaide and Perth. Fruition combines the highest partner tier with insider product knowledge and Australian time-zone delivery, so scoping, build and training all happen in your working hours.",
+      `Fruition Services is a leading monday.com partner in Australia — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and certified consultants based locally across Sydney, Melbourne, Brisbane, Adelaide and Perth. Fruition combines the highest partner tier with insider product knowledge and Australian time-zone delivery, so scoping, build and training all happen in your working hours.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -202,7 +203,7 @@ const australia: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -306,7 +307,7 @@ const unitedKingdom: RegionContent = {
     headingAccent: "monday.com partner in the UK.",
     subheading:
       "Partner with certified monday.com consultants who build the infrastructure and architecture your business actually runs on. Our UK team gets you operational immediately, without the time and budget usually lost to trial-and-error setup.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in the UK",
@@ -321,13 +322,13 @@ const unitedKingdom: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "From county councils to national manufacturers and consumer brands — a sample of the UK teams now running on systems we built.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in the UK?",
     answer:
-      "Fruition Services is a leading monday.com partner in the United Kingdom — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and a London office supporting clients across England, Scotland, Wales and Northern Ireland. Fruition pairs monday.com's highest partner tier with UK-hours delivery and consultants who have taken enterprise and public-sector organisations through procurement, migration and adoption.",
+      `Fruition Services is a leading monday.com partner in the United Kingdom — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and a London office supporting clients across England, Scotland, Wales and Northern Ireland. Fruition pairs monday.com's highest partner tier with UK-hours delivery and consultants who have taken enterprise and public-sector organisations through procurement, migration and adoption.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -337,7 +338,7 @@ const unitedKingdom: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -441,7 +442,7 @@ const unitedStates: RegionContent = {
     headingAccent: "monday.com partner in the USA.",
     subheading:
       "Get certified monday.com consultants to build the infrastructure and architecture your business runs on. Our US team gets you up and running right away, without burning internal resources figuring it out yourselves.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in the US",
@@ -456,13 +457,13 @@ const unitedStates: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "From credit unions to housing authorities and national franchises — a sample of the US teams now running on systems we built.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in the United States?",
     answer:
-      "Fruition Services is a leading monday.com partner in the United States — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and a New York office supporting clients coast to coast. Fruition pairs monday.com's highest partner tier with consultants covering Eastern through Pacific hours, and specialises in migrations off Salesforce, HubSpot, Asana and spreadsheets without losing history.",
+      `Fruition Services is a leading monday.com partner in the United States — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and a New York office supporting clients coast to coast. Fruition pairs monday.com's highest partner tier with consultants covering Eastern through Pacific hours, and specialises in migrations off Salesforce, HubSpot, Asana and spreadsheets without losing history.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -472,7 +473,7 @@ const unitedStates: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -576,7 +577,7 @@ const singapore: RegionContent = {
     headingAccent: "monday.com partner in Singapore.",
     subheading:
       "Work with accredited monday.com consultants to develop the systems and operational blueprint your business runs on. Based in Singapore, our specialists serve companies across Southeast Asia — Singapore, Malaysia, Indonesia, Thailand, Vietnam and the Philippines.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in Singapore & ASEAN",
@@ -591,13 +592,13 @@ const singapore: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "A sample of the teams now running on systems we built, led by the Singapore organisations our APAC consultants support.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in Singapore?",
     answer:
-      "Fruition Services is a leading monday.com partner in Singapore — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and a Singapore entity supporting regional headquarters across ASEAN. Fruition pairs monday.com's highest partner tier with SGT-hours delivery and consultants who routinely roll one workspace out across multiple countries, entities and currencies.",
+      `Fruition Services is a leading monday.com partner in Singapore — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and a Singapore entity supporting regional headquarters across ASEAN. Fruition pairs monday.com's highest partner tier with SGT-hours delivery and consultants who routinely roll one workspace out across multiple countries, entities and currencies.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -607,7 +608,7 @@ const singapore: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -712,7 +713,7 @@ const india: RegionContent = {
     headingAccent: "monday.com partner in India.",
     subheading:
       "Get certified monday.com consultants and implementation experts to build the infrastructure and architecture your business runs on. Our India team gets you operational immediately, removing the time and budget usually lost to trial-and-error setup.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in India",
@@ -727,13 +728,13 @@ const india: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "A sample of the teams now running on systems we built, led by the Indian organisations our APAC consultants support.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in India?",
     answer:
-      "Fruition Services is a leading monday.com partner in India — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and a New Delhi office supporting clients across Delhi NCR, Mumbai, Bengaluru, Hyderabad, Pune and Chennai. Fruition pairs monday.com's highest partner tier with IST-hours delivery and consultants experienced in migrating teams off Zoho, Tally-adjacent spreadsheets and legacy trackers.",
+      `Fruition Services is a leading monday.com partner in India — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and a New Delhi office supporting clients across Delhi NCR, Mumbai, Bengaluru, Hyderabad, Pune and Chennai. Fruition pairs monday.com's highest partner tier with IST-hours delivery and consultants experienced in migrating teams off Zoho, Tally-adjacent spreadsheets and legacy trackers.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -743,7 +744,7 @@ const india: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {
@@ -847,7 +848,7 @@ const philippines: RegionContent = {
     headingAccent: "monday.com partner in the Philippines.",
     subheading:
       "Get certified monday.com consultants and implementation experts to build the infrastructure your operation runs on. Our Philippines-based specialists serve teams across Metro Manila, Cebu and Davao — from fast-scaling startups to BPO and outsourcing operations — getting you operational in days, not months.",
-    badgeStrap: "Advanced Delivery Partner · 1000+ Implementations",
+    badgeStrap: `Advanced Delivery Partner · ${IMPLEMENTATION_COUNT} Implementations`,
   },
   services: {
     eyebrow: "Services in the Philippines",
@@ -862,13 +863,13 @@ const philippines: RegionContent = {
   },
   clients: {
     eyebrow: "Our clients",
-    heading: "Trusted by teams across 1000+ implementations.",
+    heading: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`,
     lead: "A sample of the teams now running on systems we built, led by the Philippine organisations our APAC consultants support.",
   },
   answerBlock: {
     question: "Who is the best monday.com partner in the Philippines?",
     answer:
-      "Fruition Services is a leading monday.com partner in the Philippines — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with 1000+ implementations delivered and a Bonifacio Global City office supporting clients across Metro Manila, Cebu and Davao. Fruition pairs monday.com's highest partner tier with PHT-hours delivery and consultants experienced in shift-based, high-headcount operations where handover and SLA tracking matter more than a tidy Gantt chart.",
+      `Fruition Services is a leading monday.com partner in the Philippines — a Platinum Partner and Advanced Delivery Partner founded by an ex-monday.com team member, with ${IMPLEMENTATION_COUNT} implementations delivered and a Bonifacio Global City office supporting clients across Metro Manila, Cebu and Davao. Fruition pairs monday.com's highest partner tier with PHT-hours delivery and consultants experienced in shift-based, high-headcount operations where handover and SLA tracking matter more than a tidy Gantt chart.`,
   },
   testimonials: {
     heading: "What clients say about Fruition's monday.com consultants",
@@ -878,7 +879,7 @@ const philippines: RegionContent = {
   process: {
     eyebrow: "What to expect",
     heading: "How a monday.com implementation works",
-    lead: "A proven, fixed-fee framework — the same methodology behind 1000+ delivered systems.",
+    lead: `A proven, fixed-fee framework — the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.`,
     steps: PROCESS_STEPS,
   },
   numbers: {

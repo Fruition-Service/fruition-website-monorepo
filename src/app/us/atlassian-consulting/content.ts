@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION &mdash; ORPHAN SEM LANDING PAGE (US Atlassian &middot; Google Ads)
@@ -47,7 +48,7 @@ ${LP_FONTS}
 </ul>
 <div class="badges">
 <span class="badge">Atlassian Partner</span>
-<span class="badge">1000+ implementations</span>
+<span class="badge">${IMPLEMENTATION_COUNT} implementations</span>
 <span class="badge">Fixed-fee delivery</span>
 </div>
 </div>
@@ -114,7 +115,7 @@ ${LP_FONTS}
 <div class="wrap">
 <p class="k">What to expect</p>
 <h2 class="sec">How an Atlassian <em>implementation works</em></h2>
-<p class="lede">A proven, fixed-fee methodology, the same approach behind 1000+ delivered systems.</p>
+<p class="lede">A proven, fixed-fee methodology, the same approach behind ${IMPLEMENTATION_COUNT} delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your existing workflows, tools and data, and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution design</h3><p>Boards, workflows, automations and permissions designed around how your team actually operates.</p></div>
@@ -127,7 +128,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">1000+</div><div class="l">implementations delivered across six offices</div></div>
+<div><div class="v">${IMPLEMENTATION_COUNT}</div><div class="l">implementations delivered across six offices</div></div>
 <div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working Atlassian system</div></div>
 <div><div class="v">30%</div><div class="l"><!-- FOR EDWARD: confirm Atlassian productivity stat --> typical reduction in project admin time reported by clients</div></div>
 <div><div class="v">Full history</div><div class="l">projects, issues and attachments migrated with relationships preserved</div></div>

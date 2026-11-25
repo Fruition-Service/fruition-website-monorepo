@@ -1,4 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 export default defineType({
   name: 'mondayImplementationConsultantsPage',
@@ -235,9 +236,9 @@ export default defineType({
     defineField({ name: 'discoverSecondaryCtaLabel', title: 'Discover Secondary CTA Label', type: 'string' }),
     defineField({ name: 'discoverSecondaryCtaUrl', title: 'Discover Secondary CTA URL', type: 'string' }),
 
-    // Join 1000+ stats section
+    // "Join <count> businesses" stats section
     defineField({ name: 'joinSectionHeadingPart1', title: 'Join Section — "Join" prefix', type: 'string' }),
-    defineField({ name: 'joinSectionHeadingAccent', title: 'Join Section — "1000+ businesses" accent', type: 'string' }),
+    defineField({ name: 'joinSectionHeadingAccent', title: `Join Section — "${IMPLEMENTATION_COUNT} businesses" accent`, type: 'string' }),
     defineField({ name: 'joinSectionHeadingPart2', title: 'Join Section — suffix', type: 'string' }),
     defineField({ name: 'joinSectionSubheading', title: 'Join Section Subheading', type: 'string' }),
     defineField({

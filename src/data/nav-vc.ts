@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 /**
  * Version C menu (approved November 2026): AI, Partnership, Industries, Pricing,
  * Company and a direct Contact link. Copy, links and structure are the
@@ -120,7 +121,7 @@ export const NAV_VC: NavVcItem[] = [
         // First page: the best-known clients from the homepage logo wall
         // (siteSettings.carouselLogos). Never add a name from the NDA list.
         {
-          title: 'Trusted by teams across 1000+ implementations',
+          title: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations`,
           meta: '279 builds across 12 industries',
           href: '/ai-use-cases',
           logos: [
@@ -287,7 +288,7 @@ export const NAV_VC: NavVcItem[] = [
         columns: 2,
         grow: 2,
         items: [
-          { label: 'Implementation packages', href: '/implementation-packages', description: 'Fixed-fee packages: 1000+ delivered', icon: 'implementation-packages' },
+          { label: 'Implementation packages', href: '/implementation-packages', description: `Fixed-fee packages: ${IMPLEMENTATION_COUNT} delivered`, icon: 'implementation-packages' },
           { label: 'Training', href: '/training', description: 'Role-based enablement for your teams', icon: 'training' },
           { label: 'Licence procurement', href: '/licence-procurement', description: 'Audit, sourcing and renewal management', icon: 'financial-services' },
           { label: 'Implementation calculator', href: '/ask-fruit', description: 'Estimated scope, timeline and fee in minutes', icon: 'implementation-calculator' },
@@ -357,7 +358,7 @@ export const NAV_VC: NavVcItem[] = [
   },
   {
     label: 'Company',
-    note: '1000+ implementations, six offices, one delivery standard.',
+    note: `${IMPLEMENTATION_COUNT} implementations, six offices, one delivery standard.`,
     sections: [
       {
         heading: 'Proof',

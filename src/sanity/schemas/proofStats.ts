@@ -14,7 +14,9 @@ export default {
       name: 'implementations',
       title: 'Implementations completed',
       type: 'string',
-      description: 'e.g. "1000+" — the number cited in FAQ answers, stat cards and hero copy.',
+      readOnly: true,
+      description:
+        'Not used. The implementation count is set once in code (src/lib/implementationCount.ts). In any text field, type {{implementations}} to show it.',
     },
     { name: 'clientRating', title: 'Client rating', type: 'string', description: 'e.g. "4.9"' },
     { name: 'marketsCount', title: 'Markets served', type: 'string', description: 'e.g. "6" (Australia, UK, US, Singapore, India, Philippines)' },

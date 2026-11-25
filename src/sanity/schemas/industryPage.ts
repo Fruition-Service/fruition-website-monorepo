@@ -1,4 +1,5 @@
 import { pageBodyField, LEGACY_BODY_DESCRIPTION } from './objects/pageBody'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 export default {
   name: 'industryPage',
@@ -44,7 +45,7 @@ export default {
         type: 'object',
         name: 'heroStat',
         fields: [
-          { name: 'value', title: 'Value (e.g. "1000+")', type: 'string' },
+          { name: 'value', title: `Value (e.g. "${IMPLEMENTATION_COUNT}")`, type: 'string' },
           { name: 'label', title: 'Label', type: 'string' },
         ],
       }],
@@ -457,7 +458,7 @@ export default {
     { name: 'applicationFormHeading', title: 'Application Form Heading', type: 'string' },
     { name: 'applicationFormEmbedUrl', title: 'Application Form Embed URL', type: 'url' },
 
-    // Join 1000+ stats section
+    // "Join <count> businesses" stats section
     { name: 'joinHeadingPart1', title: 'Join Heading Part 1', type: 'string' },
     { name: 'joinHeadingAccent', title: 'Join Heading Accent', type: 'string' },
     { name: 'joinHeadingPart2', title: 'Join Heading Part 2', type: 'string' },

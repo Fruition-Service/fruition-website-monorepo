@@ -1,61 +1,35 @@
 /**
- * Raise Fruition's implementation/client count across the Sanity dataset.
- * Current raise (2026-11-25): every "900+" and "700+" becomes "1000+", and
- * prose "over 900" / "more than 900" becomes "over 1,000" / "more than 1,000".
- * (The previous run, 2026-09-14, took 500+ to 900+.)
+ * OPTIONAL Studio tidy-up: replace hard-coded implementation counts in the
+ * Sanity dataset ("900+", "700+", "1,000+", ...) with the {{implementations}}
+ * token.
+ *
+ * The live site does not need this. Every CMS read already swaps old counts
+ * for the current value (src/lib/implementationCount.ts, wired in
+ * src/sanity/client.ts). Running it only makes Studio show the token, so
+ * editors see that the figure is managed in one place.
  *
  *   npx tsx scripts/raise-implementation-count.ts            # dry run
  *   npx tsx scripts/raise-implementation-count.ts --apply    # backs up, then writes
  *   npx tsx scripts/raise-implementation-count.ts --restore scripts/stat-backups/<file>.json
  *
  * Walks every string in every published document, including strings nested
- * inside objects and portable text. Writes go straight to the published
- * documents (targeted `set` patches), so the site picks them up through the
- * Sanity webhook in about two minutes. Documents with an open draft are
- * listed; their draft keeps the old figure until someone publishes or
- * discards it, so check those by hand.
+ * inside objects and portable text, and writes targeted `set` patches to the
+ * published documents. Documents with an open draft are listed; their draft
+ * keeps the old text until someone publishes or discards it.
  *
- * NOT every match is Fruition's count. These are left alone:
- *   - anything inside a larger number (1,900+, 2700+)
- *   - dollar amounts ($900+, USD 700+)
- *   - third-party product facts (700+ integrations, 900+ apps, ...)
- *   - a bare "700" or "900" without "+", which in old blog posts is a dated
- *     historical figure ("Platinum in 2026 with 700 clients")
+ * Figures that are not Fruition's count are left alone: larger numbers
+ * (1,900+), prices ($900+) and other products' figures (1000+ apps). Prose
+ * such as "over 900 implementations" is also left as is; the read layer
+ * keeps it current.
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { writeClient } from './sanity-migrate/lib'
+import { tokeniseImplementationCount } from '../src/lib/implementationCount'
 
 const BACKUP_DIR = path.join(__dirname, 'stat-backups')
 
-const TO = '1000+'
-
-/** A bare 900+ or 700+ — never one inside 1,900+ or 2700+. */
-const BARE = /(?<![\d,.])(?:900|700)\+/g
-
-/** "over 900 implementations" style prose, without the plus. */
-const PROSE = /\b(over|more than)( )(?:900|700)\b(?![\d,+])/gi
-
-/** Contexts where the match is not Fruition's count. Tested against ±70 chars. */
-const NOT_OURS =
-  /(?:900|700)\+?\s*(native\s+)?(integrations|apps|hubs|applications|templates|connectors)|USD\s*(?:900|700)|\$\s*(?:900|700)/i
-
-function replaceOurs(value: string, re: RegExp, to: (m: RegExpMatchArray) => string): string {
-  let out = ''
-  let last = 0
-  for (const m of value.matchAll(re)) {
-    const i = m.index!
-    const ctx = value.slice(Math.max(0, i - 70), i + m[0].length + 70)
-    out += value.slice(last, i) + (NOT_OURS.test(ctx) ? m[0] : to(m))
-    last = i + m[0].length
-  }
-  return out + value.slice(last)
-}
-
-function raise(value: string): string {
-  const plus = replaceOurs(value, BARE, () => TO)
-  return replaceOurs(plus, PROSE, (m) => `${m[1]}${m[2]}1,000`)
-}
+const raise = tokeniseImplementationCount
 
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json }
 
@@ -140,7 +114,7 @@ async function main() {
   }
 
   const total = touched.reduce((s, t) => s + t.edits.length, 0)
-  console.log(`${touched.length} documents, ${total} strings to raise\n`)
+  console.log(`${touched.length} documents, ${total} strings to tokenise\n`)
   for (const t of touched) {
     console.log(`  ${String(t.doc._type).padEnd(28)} ${t.doc._id}  (${t.edits.length})`)
     if (process.argv.includes('--verbose')) {
@@ -166,7 +140,7 @@ async function main() {
   fs.mkdirSync(BACKUP_DIR, { recursive: true })
   const file = path.join(
     BACKUP_DIR,
-    `pre-1000-raise-${new Date().toISOString().replace(/[:.]/g, '-')}.json`,
+    `pre-count-token-${new Date().toISOString().replace(/[:.]/g, '-')}.json`,
   )
   const undo = touched.flatMap((t) =>
     t.edits.map((e) => ({ _id: t.doc._id as string, path: e.path, from: e.from, to: e.to })),
@@ -182,7 +156,7 @@ async function main() {
     done += t.edits.length
     console.log(`   ✅ ${t.doc._id} (${t.edits.length})`)
   }
-  console.log(`\n✅ raised ${done} strings across ${touched.length} documents`)
+  console.log(`\n✅ tokenised ${done} strings across ${touched.length} documents`)
 }
 
 main().catch((err) => {

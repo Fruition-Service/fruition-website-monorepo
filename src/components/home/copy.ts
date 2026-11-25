@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 /**
  * Home page copy slots.
  *
@@ -19,7 +20,7 @@ export const HOME_COPY = {
   "hero-lead": { label: "Hero: lead paragraph", text: "Fruition is a monday.com Platinum Partner helping small businesses, mid-market and enterprise teams across Australia, India, the Philippines, Singapore, the UK and the US. We design the way work should run \u2014 build it, and help you maintain it." },
   "hero-cta-primary": { label: "Hero: primary button", text: "Book a discovery call" },
   "hero-cta-secondary": { label: "Hero: secondary button", text: "Explore our services" },
-  "hero-proof": { label: "Hero: proof line under buttons", text: "1000+ implementations · 6 markets" },
+  "hero-proof": { label: "Hero: proof line under buttons", text: `${IMPLEMENTATION_COUNT} implementations · 6 markets` },
   "hero-orbit-more": { label: "Hero graphic: orbit badge", text: "+40" },
   "hero-node-monday": { label: "Hero graphic: monday.com pill", text: "monday.com" },
   "hero-node-atlassian": { label: "Hero graphic: Atlassian pill", text: "Atlassian" },
@@ -30,8 +31,8 @@ export const HOME_COPY = {
   "hero-node-n8n": { label: "Hero graphic: n8n pill", text: "n8n" },
 
   // Clients
-  "clients-heading": { label: "Clients strip: heading", text: "Trusted by teams across 1000+ implementations" },
-  "clients-more": { label: "Clients strip: last tile", text: "1000+ more" },
+  "clients-heading": { label: "Clients strip: heading", text: `Trusted by teams across ${IMPLEMENTATION_COUNT} implementations` },
+  "clients-more": { label: "Clients strip: last tile", text: `${IMPLEMENTATION_COUNT} more` },
 
   // Services
   "services-eyebrow": { label: "Services: eyebrow", text: "What we do" },
@@ -118,7 +119,7 @@ export const HOME_COPY = {
   "platforms-lead": { label: "Certifications: lead paragraph", text: "Platinum on the platform we build on. Credentialled on everything it has to talk to." },
   "platforms-stat-1-value": { label: "Certifications: figure 1", text: "8" },
   "platforms-stat-1-label": { label: "Certifications: figure 1 label", text: "vendor certifications" },
-  "platforms-stat-2-value": { label: "Certifications: figure 2", text: "1000+" },
+  "platforms-stat-2-value": { label: "Certifications: figure 2", text: IMPLEMENTATION_COUNT },
   "platforms-stat-2-label": { label: "Certifications: figure 2 label", text: "implementations" },
   "platforms-monday-title": { label: "Certifications: monday.com card heading", text: "Platinum tier \u2014 the top 1% of monday.com partners." },
   "platforms-monday-body": { label: "Certifications: monday.com card body", text: "Our founder spent six years in sales leadership at monday.com, so rollouts start from how the platform is meant to be used." },

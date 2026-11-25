@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION &mdash; ORPHAN SEM LANDING PAGE (AU ChatGPT &middot; Google Ads)
@@ -47,7 +48,7 @@ ${LP_FONTS}
 </ul>
 <div class="badges">
 <span class="badge">AI Implementation Partner</span>
-<span class="badge">1000+ systems delivered</span>
+<span class="badge">${IMPLEMENTATION_COUNT} systems delivered</span>
 <span class="badge">Fixed-fee delivery</span>
 </div>
 </div>
@@ -127,7 +128,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">1000+</div><div class="l">systems delivered across six offices</div></div>
+<div><div class="v">${IMPLEMENTATION_COUNT}</div><div class="l">systems delivered across six offices</div></div>
 <div><div class="v">2-6 wks</div><div class="l"><!-- FOR EDWARD: confirm typical ChatGPT timeline --> typical build-to-launch timeline</div></div>
 <div><div class="v">Practical AI</div><div class="l">use cases scoped from your actual workflow, not off-the-shelf demos</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>

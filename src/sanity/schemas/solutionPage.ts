@@ -112,7 +112,7 @@ export default {
       }],
     },
 
-    // Join 1000+ stats section
+    // "Join <count> businesses" stats section
     { name: 'joinHeadingPart1', title: 'Join Heading Part 1', type: 'string' },
     { name: 'joinHeadingAccent', title: 'Join Heading Accent', type: 'string' },
     { name: 'joinHeadingPart2', title: 'Join Heading Part 2', type: 'string' },

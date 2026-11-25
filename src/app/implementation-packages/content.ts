@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT, IMPLEMENTATION_COUNT_NUMBER } from "@/lib/implementationCount"
 /**
  * /implementation-packages copy and structured data.
  *
@@ -344,7 +345,7 @@ export const AT_A_GLANCE: Array<[string, string]> = [
   ["monday.com status", "monday.com Platinum Partner"],
   ["Other partnerships", "Atlassian partner · OpenAI partner · Anthropic Claude partner"],
   ["Recognition", "2026 Rising Star awards · Finalist, 2026 Australian AI Awards · NSW Government ICT Services Scheme (SCM0020, Advanced)"],
-  ["Clients", "1000+ small and mid-sized organisations"],
+  ["Clients", `${IMPLEMENTATION_COUNT} small and mid-sized organisations`],
   ["Implementation packages", PACKAGES.map((p) => `${p.name} (from ${usd(p.basePriceUsd)} ${p.cadence})`).join(" · ")],
   ["Other services", SERVICE_PRICES.map((g) => `${g.eyebrow} (from ${aud(groupFrom(g))})`).join(" · ")],
   ["monday.com products", "Work Management, monday CRM, monday Service, monday dev, monday AI and Vibe apps"],
@@ -477,7 +478,7 @@ export const FAQS: Array<{ q: string; a: string }> = [
   },
   {
     q: "Is Fruition a certified monday.com partner?",
-    a: "Yes. Fruition is a monday.com Platinum Partner with consultants in Australia, Singapore, India, the UK and the US, and has worked with more than 1,000 small and mid-sized organisations.",
+    a: `Yes. Fruition is a monday.com Platinum Partner with consultants in Australia, Singapore, India, the UK and the US, and has worked with more than ${IMPLEMENTATION_COUNT_NUMBER} small and mid-sized organisations.`,
   },
 ]
 

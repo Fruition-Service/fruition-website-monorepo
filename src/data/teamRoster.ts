@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 // Canonical Fruition team roster sourced from monday.com board
 // https://fruitionservices.monday.com/boards/1879224155 (view ALL = active only).
 //
@@ -34,7 +35,7 @@ export interface TeamRosterMember {
 
 export const TEAM_ROSTER: TeamRosterMember[] = [
   // ---------- AU (Australia: Sydney / Melbourne) ----------
-  { id: "1879225505", name: "Josh Jebathilak", role: "Founder & CEO, ex-monday.com", regions: ["APAC"], emoji: "🥭", photoUrl: "https://avatars.slack-edge.com/2023-11-27/6263149572353_c61c7bebd59907d8ec96_512.png", linkedinUrl: "https://www.linkedin.com/in/joshuajebathilak/", bio: "Founder & CEO of Fruition Services and former monday.com team member. Josh leads Fruition's global delivery across Australia, the UK, US, India, and Singapore, building the certified Platinum-Partner consulting practice that helps 1000+ organisations get more out of their monday.com, ClickUp, n8n, Aircall, and Atlassian stack." },
+  { id: "1879225505", name: "Josh Jebathilak", role: "Founder & CEO, ex-monday.com", regions: ["APAC"], emoji: "🥭", photoUrl: "https://avatars.slack-edge.com/2023-11-27/6263149572353_c61c7bebd59907d8ec96_512.png", linkedinUrl: "https://www.linkedin.com/in/joshuajebathilak/", bio: `Founder & CEO of Fruition Services and former monday.com team member. Josh leads Fruition's global delivery across Australia, the UK, US, India, and Singapore, building the certified Platinum-Partner consulting practice that helps ${IMPLEMENTATION_COUNT} organisations get more out of their monday.com, ClickUp, n8n, Aircall, and Atlassian stack.` },
   { id: "1998171996", name: "Branson McMahon", role: "AI Sales Engineer & Project Manager", regions: ["APAC"], photoUrl: "https://avatars.slack-edge.com/2026-04-02/10833300331986_368b5867e1068f2482bd_512.jpg", linkedinUrl: "https://www.linkedin.com/in/branson-mcmahon-2a5205235/" },
   { id: "5024831399", name: "Sarah Wealleans", role: "AI Project Manager", regions: ["APAC"], emoji: "🥝", photoUrl: "https://avatars.slack-edge.com/2025-10-13/9712137442384_798afc8d24a6d84c17dd_512.png", linkedinUrl: "https://www.linkedin.com/in/sarah-wealleans-00561865/" },
   { id: "5024831847", name: "Swapna Singh", role: "AI & Implementation Consultant", regions: ["APAC"], photoUrl: "https://avatars.slack-edge.com/2025-01-21/8335572173521_36d9f325e1860470297b_512.jpg", linkedinUrl: "https://www.linkedin.com/in/swapnapsingh-pmp-5aa287a1/" },

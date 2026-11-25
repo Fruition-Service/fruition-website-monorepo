@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION &mdash; ORPHAN SEM LANDING PAGE (UK Lovable &middot; Google Ads)
@@ -128,7 +129,7 @@ ${LP_FONTS}
 <div class="wrap">
 <div class="grid4">
 <div><div class="v">Days</div><div class="l">not months, typical time from spec to a production-ready Lovable app</div></div>
-<div><div class="v">1000+</div><div class="l">systems delivered across six offices</div></div>
+<div><div class="v">${IMPLEMENTATION_COUNT}</div><div class="l">systems delivered across six offices</div></div>
 <div><div class="v">Full-stack</div><div class="l">frontend, backend, auth and integrations all handled</div></div>
 <div><div class="v">Fixed fee</div><div class="l">agreed before any build starts, no hourly billing surprises</div></div>
 </div>

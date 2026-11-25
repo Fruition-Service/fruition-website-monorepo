@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION &mdash; ORPHAN SEM LANDING PAGE (UK Manufacturing · Google Ads)
@@ -48,7 +49,7 @@ ${LP_FONTS}
 <div class="badges">
 <span class="badge">monday.com Platinum Partner</span>
 <span class="badge">Advanced Delivery Partner</span>
-<span class="badge">1000+ implementations</span>
+<span class="badge">${IMPLEMENTATION_COUNT} implementations</span>
 <span class="badge">UK public-sector experience</span>
 </div>
 </div>
@@ -115,7 +116,7 @@ ${LP_FONTS}
 <div class="wrap">
 <p class="k">What to expect</p>
 <h2 class="sec">How a monday.com <em>implementation works</em></h2>
-<p class="lede">A proven, fixed-fee framework, the same methodology behind 1000+ delivered systems.</p>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your workflows and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Solution architecture</h3><p>Boards, automations and dashboards built around how you actually operate.</p></div>
@@ -128,7 +129,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">1000+</div><div class="l">implementations delivered across six offices</div></div>
+<div><div class="v">${IMPLEMENTATION_COUNT}</div><div class="l">implementations delivered across six offices</div></div>
 <div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live, working system</div></div>
 <div><div class="v">260+</div><div class="l">hours saved per year by a typical client team</div></div>
 <div><div class="v">20-30%</div><div class="l">of team time recovered from manual re-keying</div></div>
