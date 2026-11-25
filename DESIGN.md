@@ -43,7 +43,7 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace"
+    fontFamily: "Inter, system-ui, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 600
     lineHeight: 1.4
@@ -95,7 +95,7 @@ components:
 
 **Creative North Star: "The Consultant's Terminal"**
 
-Fruition sells engineering-grade workflow and AI implementation, and the design proves it the way an engineer would: a clean white worksheet, precise hairline rules, monospaced labels that read like annotations in a well-kept log, and one confident voltage-purple accent. The system is *precise but approachable* — big friendly Poppins headlines carry the human voice, while the JetBrains Mono metadata layer (eyebrows, stat tags, pricing rows, terminal panels) carries the proof-of-work. The overall impression: a consultancy whose website looks like it was built by the same people who will build your systems. Because it was.
+Fruition sells engineering-grade workflow and AI implementation, and the design proves it the way an engineer would: a clean white worksheet, precise hairline rules, crisp uppercase Inter labels that read like annotations in a well-kept log, and one confident voltage-purple accent. The system is *precise but approachable* — big friendly Poppins headlines carry the human voice, while the Inter metadata layer (eyebrows, stat tags, pricing rows, terminal panels) carries the proof-of-work. The overall impression: a consultancy whose website looks like it was built by the same people who will build your systems. Because it was.
 
 The system explicitly rejects the **AI-hype aesthetic** (dark-mode neon, sparkle icons, glassmorphism, "magic" language) and the site's own **Wix-era legacy drift** (per-page fonts, competing button styles, hardcoded one-off layouts, desktop-only pages). Light theme only, site-wide, by design.
 
@@ -137,9 +137,10 @@ A restrained palette: near-black ink on white paper, with a single voltage-purpl
 
 **Display Font:** Poppins (with system-ui fallback)
 **Body Font:** Poppins
-**Label/Mono Font:** JetBrains Mono (with ui-monospace fallback)
+**Label Font:** Inter (with system-ui fallback). Exposed as the Tailwind `font-mono` utility and the Version C `--mono` var; the role names predate the switch from JetBrains Mono (November 2026).
+**Code Font:** system monospace (`font-code`, and the default for `<pre>`/`<code>`), no webfont. Only for real code.
 
-**Character:** One warm geometric sans doing all the talking, one engineer's monospace doing all the annotating. Poppins at 700 with tight tracking is confident and human; JetBrains Mono at 12px uppercase is the precision layer. Montserrat is retired — any remaining use is legacy debt.
+**Character:** One warm geometric sans doing all the talking, one neutral grotesque doing all the annotating. Poppins at 700 with tight tracking is confident and human; Inter at 12px uppercase is the precision layer. Montserrat is retired — any remaining use is legacy debt.
 
 ### Hierarchy
 - **Display** (700, `clamp(2rem, 6vw, 4.875rem)`, 1.05, -0.035em): Hero H1 only. Mid-sentence emphasis via an accent-colored span, never a whole accent line.
@@ -147,12 +148,12 @@ A restrained palette: near-black ink on white paper, with a single voltage-purpl
 - **Title** (600, `clamp(1.25rem, 2vw, 1.375rem)`, 1.25, -0.015em): Card and feature titles (H3/H4).
 - **Body Lead** (400, `clamp(1.0625rem, 1.5vw, 1.1875rem)`, 1.5): Hero leads and section leads, always in Ink Soft, max 56–64ch.
 - **Body** (400, 1rem, 1.55): Standard copy, max 65–75ch. Card body copy may drop to 15px/14px in Ink Soft.
-- **Label** (JetBrains Mono, 600, 0.75rem, 0.14em tracking, UPPERCASE): Eyebrows, step tags, stat labels, table headers, pricing metadata.
+- **Label** (Inter, 600, 0.75rem, 0.14em tracking, UPPERCASE): Eyebrows, step tags, stat labels, table headers, pricing metadata.
 
 ### Named Rules
 **The One-Step-Down Rule.** Mobile renders every role one visual step smaller than desktop. This is achieved by the `clamp()` values above — never by sprinkling `text-3xl md:text-5xl` per element. If a heading needs a size utility, the type scale is wrong; fix the scale.
 
-**The Mono Voice Rule.** JetBrains Mono marks *metadata* — labels, tags, timestamps, prices, stats. It never sets body copy, headings, or CTAs. If it's a sentence, it's Poppins; if it's an annotation, it's mono.
+**The Label Voice Rule.** Inter marks *metadata* — labels, tags, timestamps, prices, stats. It never sets body copy, headings, or CTAs. If it's a sentence, it's Poppins; if it's an annotation, it's the label voice (`font-mono`).
 
 ## 4. Elevation
 
@@ -220,7 +221,7 @@ The system is flat-by-default: depth is drawn with 1px hairline borders and surf
 - **Don't** regress into **Wix-era legacy drift**: no per-page fonts, no Montserrat, no new button variants, no hardcoded one-off section layouts.
 - **Don't** write layout or typography as inline `style={{...}}` — inline pixel values are the root cause of the site's broken mobile pages.
 - **Don't** define CSS outside `@layer` — unlayered rules override Tailwind utilities and have already caused visible bugs (the double sticky-CTA button).
-- **Don't** use JetBrains Mono for sentences, or purple for more than ~10% of a screen.
+- **Don't** use the Inter label voice for sentences, or purple for more than ~10% of a screen.
 - **Don't** use the legacy `#4674FB` blue hover, `#579bfc` hovers, or any color not in the palette above.
 - **Don't** exceed a 6rem display size or track tighter than -0.04em — big is confident, shouting is not.
 
@@ -238,7 +239,7 @@ rendered by `src/components/vc/` from a `vcPage` Sanity document, never from cod
   hand-written part (booking card skin, utilities) is `scripts/vc/extras.css`.
 - **Look.** Ink `--vc-ink` on white and `--vc-paper-2`, one accent (`--vc-accent`, voltage purple),
   midnight bands for booking and audit. Display and headings are Poppins 500 with tight tracking;
-  badges, buttons and labels are JetBrains Mono uppercase. Buttons are pills with a roll-up label.
+  badges, buttons and labels are Inter uppercase. Buttons are pills with a roll-up label.
   Accented words in a heading are written `*like this*` in Sanity.
 - **Site chrome.** The announcement bar, header and footer are Version C too: `src/styles/vc/chrome.css`
   (hand-written, layered, scoped under `.vcn-ann` / `.vcn` / `.vcf`), content from Sanity `siteSettings`.

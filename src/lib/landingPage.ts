@@ -1,4 +1,5 @@
 import type { LeadRegion } from "@/lib/leadNotify"
+import { withBrandH1 } from "./brandWords"
 import { ogCardUrl } from "@/lib/metadata"
 import { extractProof, mergeQuotes, renderProof, type ProofLogo, type ProofQuote } from "@/lib/landingPageProof"
 import { getRegionLogos, REGION_LOGO_KEYS } from "@/sanity/regionLogos"
@@ -602,7 +603,8 @@ export async function landingPageResponse(
   opts: { source: string; region: LeadRegion },
 ): Promise<Response> {
   const [quotes, fill] = await Promise.all([sharedQuotes(), regionFillLogos(opts.region)])
-  const laidOut = withLandingPageLayout(html, quotes, opts.region, opts.source, fill)
+  // Vendor names in the h1 take their brand colour (brandWords.ts).
+  const laidOut = withBrandH1(withLandingPageLayout(html, quotes, opts.region, opts.source, fill))
   return new Response(withLandingPageTracking(withDisplayCurrency(laidOut, opts.region), opts), {
     headers: {
       "Content-Type": "text/html; charset=utf-8",

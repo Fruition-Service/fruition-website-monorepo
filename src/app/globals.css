@@ -39,6 +39,12 @@
   /* Far end of the booking band's gradient, the navy the purple one landed on. */
   --cta-blue-deep: #0a1638;
 
+  /* Vendor brand colours, used only for the vendor's name inside an H1
+     (src/lib/brandWords.ts). Atlassian blue 7.1:1 on white; HubSpot orange
+     3.1:1, which clears WCAG large text (H1s are 36px and up). */
+  --atlassian-blue: #0052cc;
+  --hubspot-orange: #ff5c35;
+
   /* New primitives */
   --color-text-secondary: #686b82;
   --color-border: #dedee5;
@@ -186,7 +192,11 @@ html[data-palette="blue"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-poppins), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* Label voice (eyebrows, tags, stats). The utility keeps the name `font-mono`, but it is Inter. */
+  --font-mono: var(--font-inter), 'Inter', system-ui, sans-serif;
+  /* Real code (<pre>, <code>, code editors): system monospace, no webfont. */
+  --font-code: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --default-mono-font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Color tokens → bg-brand, text-brand, border-brand, etc. */
   --color-brand: var(--purple-primary);
@@ -201,6 +211,10 @@ html[data-palette="blue"] {
   --color-cta-blue-soft: var(--cta-blue-soft);
   --color-cta-blue-pale: var(--cta-blue-pale);
   --color-cta-blue-deep: var(--cta-blue-deep);
+
+  /* Vendor names in H1s → text-atlassian, text-hubspot */
+  --color-atlassian: var(--atlassian-blue);
+  --color-hubspot: var(--hubspot-orange);
 
   --color-surface-dark: var(--dark-bg);
   --color-surface-dark-2: var(--dark-bg-secondary);

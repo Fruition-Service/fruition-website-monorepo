@@ -21,7 +21,7 @@
       "title": { "displayName": "Title", "purpose": "Card and feature titles." },
       "body-lead": { "displayName": "Body Lead", "purpose": "Hero and section leads in Ink Soft, max 56-64ch." },
       "body": { "displayName": "Body", "purpose": "Standard copy, max 65-75ch." },
-      "label": { "displayName": "Mono Label", "purpose": "Eyebrows, tags, stat labels, pricing metadata. Never sentences." }
+      "label": { "displayName": "Label", "purpose": "Eyebrows, tags, stat labels, pricing metadata. Never sentences." }
     },
     "shadows": [
       { "name": "whisper", "value": "0 4px 24px rgba(0,0,0,0.03)", "purpose": "Resting ambience under panels on Cool Paper." },
@@ -60,9 +60,9 @@
       "name": "Eyebrow",
       "kind": "chip",
       "refersTo": "eyebrow",
-      "description": "Mono uppercase section opener in accent purple — the signature terminal cue.",
+      "description": "Inter uppercase section opener in accent purple — the signature terminal cue.",
       "html": "<div class=\"ds-eyebrow\">★ 4-week AI capability assessment</div>",
-      "css": ".ds-eyebrow { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8015e8; }"
+      "css": ".ds-eyebrow { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8015e8; }"
     },
     {
       "name": "Card",
@@ -70,7 +70,7 @@
       "refersTo": "card",
       "description": "20px-radius white card with hairline border; hover = accent border + lift.",
       "html": "<div class=\"ds-card\"><div class=\"ds-card-num\">01</div><h3 class=\"ds-card-title\">Process mapping</h3><p class=\"ds-card-body\">We map how work actually flows through your team, then score each step for AI readiness.</p></div>",
-      "css": ".ds-card { background: #ffffff; border: 1px solid #dedee5; border-radius: 20px; padding: 36px 32px; box-shadow: 0 1px 17px rgba(0,0,0,0.04); transition: all .2s ease; max-width: 340px; font-family: Poppins, system-ui, sans-serif; } .ds-card:hover { border-color: #8015e8; box-shadow: 0 12px 30px rgba(0,0,0,0.06); transform: translateY(-3px); } .ds-card-num { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; color: #8015e8; margin-bottom: 20px; } .ds-card-title { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; margin: 0 0 12px; color: #242323; } .ds-card-body { font-size: 15px; line-height: 1.55; color: #686b82; margin: 0; }"
+      "css": ".ds-card { background: #ffffff; border: 1px solid #dedee5; border-radius: 20px; padding: 36px 32px; box-shadow: 0 1px 17px rgba(0,0,0,0.04); transition: all .2s ease; max-width: 340px; font-family: Poppins, system-ui, sans-serif; } .ds-card:hover { border-color: #8015e8; box-shadow: 0 12px 30px rgba(0,0,0,0.06); transform: translateY(-3px); } .ds-card-num { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; color: #8015e8; margin-bottom: 20px; } .ds-card-title { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; margin: 0 0 12px; color: #242323; } .ds-card-body { font-size: 15px; line-height: 1.55; color: #686b82; margin: 0; }"
     },
     {
       "name": "Data Row",
@@ -78,7 +78,7 @@
       "refersTo": "card",
       "description": "Dashed-ledger row for pricing/regions: label left, mono value right.",
       "html": "<ul class=\"ds-ledger\"><li><span>Australia</span><span class=\"ds-ledger-val\">AUD $24,500 + GST</span></li><li><span>United Kingdom</span><span class=\"ds-ledger-val\">GBP £14,500 + VAT</span></li><li><span>United States</span><span class=\"ds-ledger-val\">USD $18,500</span></li></ul>",
-      "css": ".ds-ledger { list-style: none; padding: 0; margin: 0; min-width: 320px; font-family: Poppins, system-ui, sans-serif; } .ds-ledger li { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 0; border-bottom: 1px dashed #dedee5; font-size: 18px; font-weight: 500; color: #242323; } .ds-ledger li:last-child { border-bottom: none; } .ds-ledger-val { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 13px; font-weight: 400; color: #686b82; }"
+      "css": ".ds-ledger { list-style: none; padding: 0; margin: 0; min-width: 320px; font-family: Poppins, system-ui, sans-serif; } .ds-ledger li { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 0; border-bottom: 1px dashed #dedee5; font-size: 18px; font-weight: 500; color: #242323; } .ds-ledger li:last-child { border-bottom: none; } .ds-ledger-val { font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 400; color: #686b82; }"
     },
     {
       "name": "Terminal Panel",
@@ -86,12 +86,12 @@
       "refersTo": "card",
       "description": "Signature dark log panel showing work-in-progress; max one per page.",
       "html": "<div class=\"ds-terminal\"><div class=\"ds-terminal-title\">Assessment log</div><div class=\"ds-log\"><span class=\"ds-ts\">09:14</span><span class=\"ds-tag\">[SCAN]</span><span class=\"ds-msg\">Mapping intake workflow…</span></div><div class=\"ds-log\"><span class=\"ds-ts\">09:31</span><span class=\"ds-tag ds-tag-done\">[DONE]</span><span class=\"ds-msg\">14 processes scored</span></div></div>",
-      "css": ".ds-terminal { background: #15131c; border: 1px solid #2a2733; border-radius: 16px; padding: 22px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; color: #cfd0d6; box-shadow: 0 14px 40px rgba(20,18,28,0.18); min-width: 300px; } .ds-terminal-title { font-size: 10px; letter-spacing: 0.12em; color: #6f7178; margin-bottom: 14px; text-transform: uppercase; } .ds-log { display: flex; gap: 10px; padding: 4px 0; } .ds-ts { color: #6f7178; flex-shrink: 0; } .ds-tag { color: #8015e8; flex-shrink: 0; } .ds-tag-done { color: #7be08a; } .ds-msg { color: #e7e7ee; }"
+      "css": ".ds-terminal { background: #15131c; border: 1px solid #2a2733; border-radius: 16px; padding: 22px; font-family: Inter, system-ui, sans-serif; font-size: 12px; color: #cfd0d6; box-shadow: 0 14px 40px rgba(20,18,28,0.18); min-width: 300px; } .ds-terminal-title { font-size: 10px; letter-spacing: 0.12em; color: #6f7178; margin-bottom: 14px; text-transform: uppercase; } .ds-log { display: flex; gap: 10px; padding: 4px 0; } .ds-ts { color: #6f7178; flex-shrink: 0; } .ds-tag { color: #8015e8; flex-shrink: 0; } .ds-tag-done { color: #7be08a; } .ds-msg { color: #e7e7ee; }"
     }
   ],
   "narrative": {
     "northStar": "The Consultant's Terminal",
-    "overview": "Fruition sells engineering-grade workflow and AI implementation, and the design proves it the way an engineer would: a clean white worksheet, precise hairline rules, monospaced labels that read like annotations in a well-kept log, and one confident voltage-purple accent. The system is precise but approachable — big friendly Poppins headlines carry the human voice, while the JetBrains Mono metadata layer carries the proof-of-work. The overall impression: a consultancy whose website looks like it was built by the same people who will build your systems.",
+    "overview": "Fruition sells engineering-grade workflow and AI implementation, and the design proves it the way an engineer would: a clean white worksheet, precise hairline rules, crisp uppercase Inter labels that read like annotations in a well-kept log, and one confident voltage-purple accent. The system is precise but approachable — big friendly Poppins headlines carry the human voice, while the Inter metadata layer carries the proof-of-work. The overall impression: a consultancy whose website looks like it was built by the same people who will build your systems.",
     "keyCharacteristics": [
       "White surface, cool-paper alternating sections, structure drawn with 1px hairlines rather than shadows",
       "One accent (voltage purple) used sparingly; mono labels mark every data moment",
@@ -104,7 +104,7 @@
       { "name": "The One Accent Rule", "body": "Voltage purple covers at most ~10% of any screen. If a section feels flat, the fix is type scale, spacing, or a mono label — not more purple.", "section": "colors" },
       { "name": "The Semantic Token Rule", "body": "Components consume colors only through the semantic tokens in globals.css. A raw hex value in a component file is a defect.", "section": "colors" },
       { "name": "The One-Step-Down Rule", "body": "Mobile renders every type role one visual step smaller than desktop, achieved by clamp() — never by per-element breakpoint size classes.", "section": "typography" },
-      { "name": "The Mono Voice Rule", "body": "JetBrains Mono marks metadata — labels, tags, timestamps, prices, stats. It never sets body copy, headings, or CTAs.", "section": "typography" },
+      { "name": "The Label Voice Rule", "body": "Inter marks metadata — labels, tags, timestamps, prices, stats. It never sets body copy, headings, or CTAs.", "section": "typography" },
       { "name": "The Hairline-Not-Shadow Rule", "body": "Separate things with a 1px hairline border or a surface change first. A shadow that reads as a visible gray smudge is too dark.", "section": "elevation" }
     ],
     "dos": [
@@ -120,7 +120,7 @@
       "Don't regress into Wix-era legacy drift: no per-page fonts, no Montserrat, no new button variants, no hardcoded one-off section layouts.",
       "Don't write layout or typography as inline style={{...}} — inline pixel values are the root cause of the broken mobile pages.",
       "Don't define CSS outside @layer — unlayered rules override Tailwind utilities (cause of the double sticky-CTA button).",
-      "Don't use JetBrains Mono for sentences, or purple for more than ~10% of a screen.",
+      "Don't use the Inter label voice for sentences, or purple for more than ~10% of a screen.",
       "Don't use the legacy #4674FB or #579bfc blue hovers, or any color not in the palette.",
       "Don't exceed a 6rem display size or track tighter than -0.04em."
     ]

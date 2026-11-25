@@ -464,7 +464,8 @@ const CSS = `
   --ink-soft: var(--text-muted-fg);
   --rule: var(--border-ui);
   --paper: var(--surface-subtle);
-  --mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --mono: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --code: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --purple: var(--purple-primary);
   color: var(--ink);
   background: var(--surface);
@@ -519,7 +520,7 @@ const CSS = `
 .aipartner .log-line .tag-done { color: #7be08a; }
 .aipartner .log-line .msg { color: #e7e7ee; }
 .aipartner .hero-code pre { margin: 0; white-space: pre-wrap; word-break: break-word; line-height: 1.7; }
-.aipartner .hero-code code { color: #cdd6e4; font-family: var(--mono); }
+.aipartner .hero-code code { color: #cdd6e4; font-family: var(--code); }
 
 /* Hero side: regions */
 .aipartner .hero-regions { border-left: 1px solid var(--rule); padding-left: 36px; }

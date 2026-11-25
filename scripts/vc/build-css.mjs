@@ -138,7 +138,7 @@ function scopeCss(css, scope) {
     else decl.value = tokeniseHex(decl.value)
     // Fonts come from next/font (layout.tsx), never a hard-coded family name.
     if (decl.prop === '--sans') decl.value = 'var(--font-poppins), system-ui, sans-serif'
-    if (decl.prop === '--mono') decl.value = "var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace"
+    if (decl.prop === '--mono') decl.value = "var(--font-inter), 'Inter', system-ui, sans-serif"
   })
   return tree.toString()
 }

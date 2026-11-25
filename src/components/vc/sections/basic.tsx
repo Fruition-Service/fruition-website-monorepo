@@ -168,7 +168,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
     <>
       <Badge>{s.badge}</Badge>
       <h1 className="display">
-        <Acc text={s.heading} />
+        <Acc text={s.heading} brands />
       </h1>
       {s.lead && <p className="lead">{s.lead}</p>}
       <Ctas ctas={s.ctas} />
@@ -191,7 +191,7 @@ export function VcHero({ s }: { s: VcHeroData }) {
           <div className="hc-in">
             <Badge>{s.badge}</Badge>
             <h1 className="display">
-              <Acc text={s.heading} />
+              <Acc text={s.heading} brands />
             </h1>
             {s.lead && <p className="lead">{s.lead}</p>}
             <Ctas ctas={s.ctas} />

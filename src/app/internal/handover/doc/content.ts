@@ -12,7 +12,7 @@ export const HANDOVER_HTML = String.raw`<!doctype html><html lang="en"><head><me
 <title>Fruition Website Handover</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: Fruition "consultant's terminal". White paper, mono-labelled precision, one voltage-purple accent.
    Sticky contents rail on desktop, single column on phones. Diagrams are inline SVG in their own scroll boxes. */
@@ -42,7 +42,8 @@ export const HANDOVER_HTML = String.raw`<!doctype html><html lang="en"><head><me
   --hero-fg: #ffffff;
   --hero-dim: #cdb4f5;
   --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-mono: "Inter", system-ui, sans-serif;
+  --font-code: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --r-card: 20px;
   --r-chip: 10px;
 }
@@ -75,7 +76,8 @@ body {
 }
 a { color: var(--brand); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
-code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+code { font-family: var(--font-code); font-size: 0.86em; }
+.mono { font-family: var(--font-mono); font-size: 0.86em; }
 p code, li code, td code, dd code, .note code {
   background: var(--brand-soft); color: var(--brand-ink);
   padding: 1px 6px; border-radius: 6px; overflow-wrap: anywhere;
@@ -150,7 +152,7 @@ td.m, td .m { font-family: var(--font-mono); font-size: 12.5px; }
 td { min-width: 120px; }
 
 /* ---------- code ---------- */
-.code { position: relative; background: var(--code-bg); color: var(--code-fg); border-radius: 16px; padding: 40px 18px 16px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 0; white-space: pre; }
+.code { position: relative; background: var(--code-bg); color: var(--code-fg); border-radius: 16px; padding: 40px 18px 16px; font-family: var(--font-code); font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 0; white-space: pre; }
 .code .c { color: var(--code-dim); }
 .copy { position: absolute; top: 10px; right: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--code-fg); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
 .copy:hover { background: rgba(255,255,255,0.16); }
@@ -200,7 +202,7 @@ figure.dia { margin: 0; background: var(--sunk); border: 1px solid var(--hair); 
 .gotcha p strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- zone file ---------- */
-.zone { background: var(--code-bg); color: var(--code-fg); border-radius: 16px; padding: 16px 18px; overflow-x: auto; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.75; }
+.zone { background: var(--code-bg); color: var(--code-fg); border-radius: 16px; padding: 16px 18px; overflow-x: auto; font-family: var(--font-code); font-size: 12.5px; line-height: 1.75; }
 .zone .h { color: var(--code-dim); }
 .zone .p { color: #f6a54a; }
 .zone .g { color: #8be0b6; }
@@ -931,7 +933,7 @@ npx wrangler whoami          <span class="c"># confirm it is Fruition, not a per
     <div class="grid3">
       <div class="card"><span class="k">Tokens</span><p class="soft">Semantic tokens only. No raw hex, no inline <code>style</code> for layout or type. Cards: <code>rounded-card shadow-whisper ring-1 ring-ui bg-surface-raised</code>.</p></div>
       <div class="card"><span class="k">Breakpoints</span><p class="soft">Exactly three: base, <code>md:</code> 768px, <code>lg:</code> 1024px. Mobile type is one step down. No <code>sm:</code>, <code>xl:</code>, <code>2xl:</code>.</p></div>
-      <div class="card"><span class="k">Type</span><p class="soft">Poppins for everything, JetBrains Mono for eyebrows and labels (<code>font-mono text-xs uppercase tracking-[0.14em]</code>). Nothing else.</p></div>
+      <div class="card"><span class="k">Type</span><p class="soft">Poppins for everything, Inter for eyebrows and labels (<code>font-mono text-xs uppercase tracking-[0.14em]</code>). Nothing else.</p></div>
       <div class="card"><span class="k">Done at three widths</span><p class="soft">Works at 375, 768 and 1440: one column on mobile, no horizontal overflow, 44px tap targets.</p></div>
       <div class="card"><span class="k">Copy is sacred</span><p class="soft">Visual work never rewrites page copy or Sanity content. Supplied HTML or agency drops give you copy and structure only; rebuild them in this system.</p></div>
       <div class="card"><span class="k">Portal</span><p class="soft"><code>/internal</code> uses shadcn/ui only, with its own neutral theme in <code>globals.css</code>, isolated from the marketing palette.</p></div>

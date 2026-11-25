@@ -9,7 +9,7 @@
  *   .vcf), so nothing here can restyle other markup. The Version C page
  *   stylesheets are scoped under `.vc` and never touch these roots.
  * - Colours come from the `--vc-*` tokens in globals.css, never a hex.
- * - Fonts come from the next/font variables (--font-poppins, --font-jetbrains).
+ * - Fonts come from the next/font variables (--font-poppins, --font-inter).
  * - Three widths only: phone (max 767), tablet (768 to 1023), desktop (1024 up).
  *   The mock-up's extra 1240px tweak is done with clamp() instead.
  */
@@ -33,7 +33,7 @@
     --max: 1344px;
     --ease: cubic-bezier(0.77, 0, 0.175, 1);
     --sans: var(--font-poppins), system-ui, sans-serif;
-    --mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+    --mono: var(--font-inter), "Inter", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.005em;
   }

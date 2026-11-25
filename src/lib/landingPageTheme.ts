@@ -22,9 +22,9 @@
  * styles; they now resolve to site tokens.
  */
 
-/** Poppins + JetBrains Mono, the only two families on the site. */
+/** Poppins + Inter, the only two families on the site. */
 export const LP_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">`
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">`
 
 const TOKENS = `
 :root{
@@ -35,8 +35,9 @@ const TOKENS = `
 --navy:#10003a;--navy-2:#1c0a52;--terminal:#15131c;
 --cta:var(--brand);--cta-light:var(--brand);--cta-dark:var(--brand-press);--cta-deep:var(--navy);--cta-pale:var(--brand-tint);
 --amber:#fdab3d;--green:#1f9d55;
+--atlassian:#0052cc;--hubspot:#ff5c35;
 --r1:8px;--r2:12px;--r3:16px;--r4:24px;--pill:100px;
---mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+--mono:'Inter',system-ui,sans-serif;
 --sans:'Poppins',system-ui,sans-serif;
 --shadow-whisper:none;
 --shadow-lift:0 16px 40px -12px rgba(15,13,20,.18);
@@ -55,6 +56,7 @@ a{color:inherit}
 .wrap{max-width:1344px;margin:0 auto;padding:0 48px}
 section{padding:120px 0}
 ::selection{background:var(--brand-soft);color:var(--brand-dark)}
+h1 .brand-atlassian{color:var(--atlassian)}h1 .brand-hubspot{color:var(--hubspot)}
 :focus-visible{outline:2px solid var(--brand);outline-offset:3px}
 input,select,textarea,button{font-family:inherit}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}

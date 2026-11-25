@@ -24,7 +24,8 @@ A PostToolUse hook (`.claude/hooks/design-guard.mjs`) blocks these on any line y
    Design mobile-first from a single column. Mobile type is one size down from desktop.
 3. **No inline `style={{}}` for layout or typography.** Inline pixel values are the documented
    root cause of the site's broken mobile pages. Use Tailwind utilities.
-4. **Poppins and JetBrains Mono only.** Mono is for eyebrows and labels, never sentences.
+4. **Poppins and Inter only.** Inter is the label voice for eyebrows and labels, never sentences. It is
+   still reached through `font-mono` (Tailwind) and `--mono` (Version C); real code uses `font-code`.
 5. **Never define CSS outside `@layer`** — unlayered rules beat Tailwind utilities and have
    already shipped visible bugs (the double sticky-CTA button).
 6. **Never rewrite page copy or Sanity content during visual work.** Presentation only.

@@ -14,7 +14,7 @@ unless explicitly asked.
 - Raw hex colours instead of semantic tokens from `globals.css`.
 - Breakpoints outside base / `md:` / `lg:` — no `sm:`, `xl:`, `2xl:`.
 - Inline `style={{}}` carrying layout or typography.
-- Fonts other than Poppins / JetBrains Mono; mono used for sentences.
+- Fonts other than Poppins / Inter; the label voice (`font-mono`) used for sentences.
 - Retired legacy blues `#4674FB`, `#579bfc`.
 - CSS defined outside `@layer`.
 

@@ -7,7 +7,7 @@
  * file serves both and is loaded once from the root layout.
  *
  * Rules, per DESIGN.md: inside `@layer components`, tokens only (no raw colour),
- * Poppins / JetBrains Mono through the same variables the band already uses,
+ * Poppins / Inter through the same variables the band already uses,
  * three breakpoints (base, 768), 48px minimum tap targets.
  */
 @layer components {
@@ -59,7 +59,7 @@
     flex: 1 1 auto;
   }
   .book-call .bc-p {
-    font: 400 13px/1 var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+    font: 400 13px/1 var(--font-inter), "Inter", system-ui, sans-serif;
     white-space: nowrap;
     margin-left: auto;
   }
@@ -82,7 +82,7 @@
     font-size: 12px;
   }
   .book-call .bc-near {
-    font: 400 11px/1.3 var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+    font: 400 11px/1.3 var(--font-inter), "Inter", system-ui, sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }

@@ -96,7 +96,7 @@ by a hook on every edit under `src/`:
 
 - Semantic tokens from `src/app/globals.css` only: no raw hex, no inline `style` for layout or type.
 - Exactly three breakpoints: base, `md:` (768px), `lg:` (1024px).
-- Poppins and JetBrains Mono only.
+- Poppins and Inter only (Inter is the label voice, still called `font-mono` / `--mono`).
 - Never rewrite page copy or Sanity content during visual work.
 - **Supplied HTML is a reference, never code to ship.** HTML files, build packs, mockups or agency
   drops attached to a task give you the copy and the section structure only. Keep the copy

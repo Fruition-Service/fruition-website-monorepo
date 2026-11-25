@@ -258,7 +258,7 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp *{box-sizing:border-box}
 .lpp h2,.lpp p,.lpp blockquote,.lpp figure{text-align:left;max-width:none}
 .lpp-wrap{max-width:1344px;margin:0 auto;padding:0 16px}
-.lpp-eyebrow{display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 14px 0 10px;border-radius:100px;background:var(--lpp-mist);border:1px solid var(--lpp-line);font:400 12px/1 'JetBrains Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.02em;color:var(--lpp-fg);margin:0}
+.lpp-eyebrow{display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 14px 0 10px;border-radius:100px;background:var(--lpp-mist);border:1px solid var(--lpp-line);font:400 12px/1 'Inter',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;color:var(--lpp-fg);margin:0}
 .lpp-eyebrow::before{content:"";width:16px;height:8px;border-radius:4px;background:var(--lpp-brand);flex:none}
 .lpp-h2{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em;color:var(--lpp-fg);margin:24px 0 0;text-wrap:balance}
 .lpp-h2 em{font-style:normal;color:var(--lpp-brand)}
@@ -266,15 +266,15 @@ background:#fff;padding:64px 0;font-family:Poppins,system-ui,sans-serif;color:va
 .lpp-shead{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:32px}
 .lpp-shead .lpp-lead{margin:0}
 .lpp-roll{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
-.lpp-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:32px;height:48px;padding:0 22px;border-radius:100px;background:var(--lpp-brand);border:1px solid var(--lpp-brand);color:#fff;font:500 13px/1 'JetBrains Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;white-space:nowrap}
+.lpp-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:32px;height:48px;padding:0 22px;border-radius:100px;background:var(--lpp-brand);border:1px solid var(--lpp-brand);color:#fff;font:500 13px/1 'Inter',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;white-space:nowrap}
 .lpp-btn:hover{background:#6a11c2;border-color:#6a11c2}
 .lpp-card{margin:0 0 24px;border:1px solid var(--lpp-line);border-radius:16px;background:#fff;padding:24px}
-.lpp-co{display:flex;align-items:center;gap:9px;font:400 11px/1.3 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.02em;text-transform:uppercase;color:var(--lpp-muted)}
+.lpp-co{display:flex;align-items:center;gap:9px;font:400 11px/1.3 'Inter',system-ui,sans-serif;letter-spacing:.02em;text-transform:uppercase;color:var(--lpp-muted)}
 .lpp-dot{width:7px;height:7px;border-radius:9999px;flex:none}
 .lpp-card blockquote{margin:16px 0 0;font-size:17px;line-height:1.5;letter-spacing:-.01em;color:var(--lpp-body);text-wrap:pretty}
 .lpp-card figcaption{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid var(--lpp-line)}
 .lpp-avatar{width:40px;height:40px;flex:none;border-radius:9999px;object-fit:cover}
-.lpp-initials{display:flex;align-items:center;justify-content:center;background:var(--lpp-mist);color:var(--lpp-muted);font:500 13px/1 'JetBrains Mono',ui-monospace,monospace}
+.lpp-initials{display:flex;align-items:center;justify-content:center;background:var(--lpp-mist);color:var(--lpp-muted);font:500 13px/1 'Inter',system-ui,sans-serif}
 .lpp-who{display:flex;flex-direction:column;min-width:0}
 .lpp-who b{font-size:15px;font-weight:500;color:var(--lpp-body)}
 .lpp-who span{font-size:13px;color:var(--lpp-muted)}

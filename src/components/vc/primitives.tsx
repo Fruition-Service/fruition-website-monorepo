@@ -1,6 +1,8 @@
+import { Fragment } from "react"
 import Link from "next/link"
 import { vercelStegaClean, vercelStegaSplit } from "@vercel/stega"
 import { urlFor } from "@/sanity/image"
+import { splitBrandWords } from "@/lib/brandWords"
 import type { VcCtaData, VcHeadData, VcImage } from "./types"
 
 /**
@@ -12,16 +14,44 @@ import type { VcCtaData, VcHeadData, VcImage } from "./types"
  * the editor tags the whole heading (not just the accent span) and edits the
  * stored text, asterisks included.
  */
-export function Acc({ text, em = false }: { text?: string | null; em?: boolean }) {
+export function Acc({ text, em = false, brands = false }: { text?: string | null; em?: boolean; brands?: boolean }) {
   if (!text) return null
   const { cleaned, encoded } = vercelStegaSplit(text)
   const parts = cleaned.split(/\*([^*]+)\*/)
+  // H1s only: vendor names take their brand colour (src/lib/brandWords.ts).
+  const words = (p: string) => (brands ? <BrandWords text={p} /> : p)
   return (
     <>
       {parts.map((p, i) =>
-        i % 2 === 0 ? p : em ? <em key={i}>{p}</em> : <span key={i} className="acc">{p}</span>,
+        i % 2 === 0 ? (
+          <Fragment key={i}>{words(p)}</Fragment>
+        ) : em ? (
+          <em key={i}>{words(p)}</em>
+        ) : (
+          <span key={i} className="acc">
+            {words(p)}
+          </span>
+        ),
       )}
       {encoded}
+    </>
+  )
+}
+
+const BRAND_CLASS = { atlassian: "text-atlassian", hubspot: "text-hubspot" } as const
+
+function BrandWords({ text }: { text: string }) {
+  return (
+    <>
+      {splitBrandWords(text).map((w, i) =>
+        w.brand ? (
+          <span key={i} className={BRAND_CLASS[w.brand]}>
+            {w.text}
+          </span>
+        ) : (
+          <Fragment key={i}>{w.text}</Fragment>
+        ),
+      )}
     </>
   )
 }

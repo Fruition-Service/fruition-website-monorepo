@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
-import { Poppins, JetBrains_Mono } from "next/font/google"
+import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
 import "@/styles/vc/chrome.css"
 import "@/styles/vc/booking-call.css"
@@ -144,9 +144,10 @@ const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700"],
 })
 
-// The mono accent voice (DESIGN.md): eyebrows, tags, stats, pricing metadata.
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
+// The label voice (DESIGN.md): eyebrows, tags, stats, pricing metadata.
+// Exposed as Tailwind `font-mono` and the Version C `--mono` var (role names kept).
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 })
@@ -423,7 +424,7 @@ export default async function RootLayout({
             the component for the mechanics. */}
         <RegionLocalBusinessSchema />
       </head>
-      <body className={`${poppins.variable} ${jetbrainsMono.variable} antialiased`}>
+      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         <CtaClickTracker />
         <BookingEventTracker />
         <InPageBookingLinks />

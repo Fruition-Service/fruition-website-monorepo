@@ -66,7 +66,7 @@ export default function DesignDocCodeEditor({ value, onChange, onSave, dirty, sa
         <div
           ref={gutterRef}
           aria-hidden
-          className="select-none overflow-hidden py-3 pl-3 pr-2 text-right font-mono text-xs leading-5 text-white/25"
+          className="select-none overflow-hidden py-3 pl-3 pr-2 text-right font-code text-xs leading-5 text-white/25"
         >
           {Array.from({ length: lineCount }, (_, i) => (
             <div key={i}>{i + 1}</div>
@@ -86,7 +86,7 @@ export default function DesignDocCodeEditor({ value, onChange, onSave, dirty, sa
           autoCorrect="off"
           autoCapitalize="off"
           aria-label="Document HTML"
-          className="min-h-0 flex-1 resize-none bg-transparent py-3 pr-3 font-mono text-xs leading-5 text-white/90 outline-none"
+          className="min-h-0 flex-1 resize-none bg-transparent py-3 pr-3 font-code text-xs leading-5 text-white/90 outline-none"
         />
       </div>
 
