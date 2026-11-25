@@ -6,6 +6,8 @@
 //
 // A page's own `heroPartnerBadges` in Sanity still wins over this map.
 
+import { CLAUDE_PARTNER } from "./claudePartnerTier"
+
 export type PartnerBadgeKey =
   | "monday"
   | "make"
@@ -40,7 +42,8 @@ export const PARTNER_BADGES: Record<PartnerBadgeKey, ServicePartnerBadge> = {
   openai: { key: "openai", src: "/images/partner-badges/openai.webp", alt: "OpenAI Select Partner", width: 283, height: 132, shape: "wide" },
   elevenlabs: { key: "elevenlabs", src: "/images/partner-badges/elevenlabs.svg", alt: "ElevenLabs Eleven Agents Certified Partner", width: 216, height: 214, shape: "square" },
   hootsuite: { key: "hootsuite", src: "/images/partner-badges/hootsuite.webp", alt: "Hootsuite Solution Partner", width: 216, height: 216, shape: "square" },
-  claude: { key: "claude", src: "/images/partner-badges/claude.webp", alt: "Claude Partner Network Select Services Partner", width: 416, height: 132, shape: "wide" },
+  // Tier artwork and wording come from claudePartnerTier.ts (Certified now, Select soon).
+  claude: { key: "claude", ...CLAUDE_PARTNER.badge, alt: CLAUDE_PARTNER.alt, shape: "wide" },
 }
 
 const AI_BADGES: PartnerBadgeKey[] = ["claude", "openai", "elevenlabs", "googleCloud"]

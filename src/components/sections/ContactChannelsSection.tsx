@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { CLAUDE_PARTNER } from "@/data/claudePartnerTier"
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/fruition-services"
 
@@ -78,7 +79,7 @@ const BADGES: { src: string; alt: string; width: number; height: number }[] = [
   { src: "/images/home/partner-monday.png", alt: "monday.com Platinum Partner", width: 268, height: 92 },
   { src: "/images/home/partner-atlassian.png", alt: "Atlassian Platinum Solution Partner", width: 291, height: 92 },
   { src: "/images/home/partner-hubspot.png", alt: "HubSpot Solutions Partner", width: 124, height: 124 },
-  { src: "/images/home/partner-claude.png", alt: "Claude Select Services Partner", width: 253, height: 80 },
+  { ...CLAUDE_PARTNER.home, alt: CLAUDE_PARTNER.alt },
   { src: "/images/home/partner-openai.png", alt: "OpenAI Select Partner", width: 331, height: 156 },
   { src: "/images/home/partner-aws.png", alt: "AWS Partner", width: 123, height: 124 },
   { src: "/images/home/partner-googlecloud.png", alt: "Google Cloud Partner", width: 598, height: 147 },

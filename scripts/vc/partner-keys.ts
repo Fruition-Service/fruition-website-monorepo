@@ -14,7 +14,7 @@ export const PARTNER_RULES: { key: string; name: string; href?: string; label: R
   { key: 'microsoft-copilot', name: 'Microsoft Copilot', href: '/partnerships/microsoft-copilot-partner', label: /^Microsoft Copilot$/i, hrefs: ['/partnerships/microsoft-copilot-partner'] },
   { key: 'azure', name: 'Microsoft Azure', href: '/partnerships/microsoft-azure-partner', label: /^Azure$/i, hrefs: ['/partnerships/microsoft-azure-partner'] },
   { key: 'openai', name: 'OpenAI', href: '/partnerships/openai-chatgpt-partner', label: /^OpenAI( Select Partner)?$/i, hrefs: ['/partnerships/openai-chatgpt-partner'] },
-  { key: 'claude', name: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', label: /^(Anthropic Claude|Claude (Partner Network )?Select Services Partner|Anthropic Claude Partner Network)/i, hrefs: ['/partnerships/anthropic-claude-partner'] },
+  { key: 'claude', name: 'Anthropic Claude', href: '/partnerships/anthropic-claude-partner', label: /^(Anthropic Claude|Claude (Partner Network )?(Select|Certified) Services Partner|Anthropic Claude Partner Network)/i, hrefs: ['/partnerships/anthropic-claude-partner'] },
   { key: 'elevenlabs', name: 'ElevenLabs', href: '/partnerships/elevenlabs-partner', label: /^ElevenLabs/i, hrefs: ['/partnerships/elevenlabs-partner'] },
   { key: 'hootsuite', name: 'Hootsuite', href: '/partnerships/hootsuite-delivery-partner', label: /^Hootsuite/i, hrefs: ['/partnerships/hootsuite-delivery-partner'] },
   { key: 'aircall', name: 'Aircall', href: '/partnerships/aircall-partner', label: /^Aircall( Partner)?$/i, hrefs: ['/partnerships/aircall-partner'] },

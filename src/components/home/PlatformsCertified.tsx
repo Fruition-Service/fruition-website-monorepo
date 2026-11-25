@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
 import Reveal from "./Reveal"
 import { homeText, type HomeCopy, type HomeCopySlot } from "./copy"
+import { CLAUDE_PARTNER } from "@/data/claudePartnerTier"
 
 const MONDAY_POINTS: HomeCopySlot[] = [
   "platforms-monday-point-1",
@@ -12,7 +13,7 @@ const MONDAY_POINTS: HomeCopySlot[] = [
 ]
 
 const ALSO_CERTIFIED = [
-  { src: "/images/home/partner-claude.png", alt: "Claude Select Services Partner", h: 44 },
+  { src: CLAUDE_PARTNER.home.src, alt: CLAUDE_PARTNER.alt, h: 44 },
   { src: "/images/home/partner-openai.png", alt: "OpenAI Select Partner", h: 50 },
   { src: "/images/home/partner-make.png", alt: "Make Partner", h: 36 },
   { src: "/images/home/partner-aws.png", alt: "AWS Partner", h: 58 },
