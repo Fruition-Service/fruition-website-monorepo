@@ -77,6 +77,11 @@ const auditRedirects: Redirect[] = [
   // so /partnerships/[slug] was serving it as a 200 with an empty shell — a
   // soft 404 that a status-code sweep cannot see (see /page-authoring).
   { source: "/partnerships/consultants", destination: "/monday-implementation-consultants", permanent: true },
+  // The Wix site published per-type sitemaps. scripts/import-blog.ts and
+  // scripts/MIGRATION-REPORT.md reference these two; both now 404, so send
+  // crawlers and old Search Console entries to the single sitemap.
+  { source: "/blog-posts-sitemap.xml", destination: "/sitemap.xml", permanent: true },
+  { source: "/blog-categories-sitemap.xml", destination: "/sitemap.xml", permanent: true },
 
   // ── Blog consolidation (August 2026 content audit, board item 2816307976) ──
   // Sixteen thin/overlapping consultant posts folded into the canonical piece
