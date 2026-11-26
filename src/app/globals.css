@@ -613,6 +613,17 @@ body {
   max-width: 100%;
 }
 
+/* No page scrollbar on any route. The page still scrolls (wheel, touch,
+   keyboard); only the browser's default bar is hidden. Inner scroll areas
+   keep theirs. */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

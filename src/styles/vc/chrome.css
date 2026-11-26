@@ -1003,9 +1003,9 @@
     letter-spacing: 0.02em;
     color: white;
   }
-  /* Ventures sits in the brand column, a little clear of the email above it. */
-  .vcf .brand .ventures {
-    margin-top: 16px;
+  /* Ventures sits under the Company list, well clear of it. */
+  .vcf .col .ventures {
+    margin-top: 64px;
   }
   .vcf .col li {
     margin-bottom: 10px;

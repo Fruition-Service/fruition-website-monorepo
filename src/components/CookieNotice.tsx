@@ -6,17 +6,22 @@
 // document <head> (src/app/layout.tsx) so it runs before RB2B is injected.
 //
 // Storage key is shared with that head script — keep them in sync.
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type CSSProperties } from "react"
 import Link from "next/link"
+import { useStickyCtaBar } from "@/components/sections/StickyCtaContext"
 
 const CONSENT_KEY = "fruition-visitor-consent"
 const EXIT_MS = 260
+
+/** Clearance in px between the notice and the sticky CTA bar beneath it. */
+const CLEARANCE = 12
 
 type Choice = "accepted" | "declined"
 
 export default function CookieNotice() {
   const [mounted, setMounted] = useState(false)
   const [entered, setEntered] = useState(false)
+  const bar = useStickyCtaBar()
 
   useEffect(() => {
     let stored: string | null = null
@@ -53,11 +58,22 @@ export default function CookieNotice() {
 
   if (!mounted) return null
 
+  // The CTA bar is a full-width fixed strip along the floor, so the notice
+  // stands on top of it while it is showing. The reported height already
+  // includes the bar's own bottom padding, so adding the clearance leaves a
+  // clean gap. Both slide with the same 300ms bottom transition. Its left edge
+  // follows the bar card's (page gutter, or the 1200px column centred), so the
+  // two line up at every width.
+  const lift = bar.visible
+    ? ({ "--notice-lift": `${bar.height + CLEARANCE}px` } as CSSProperties)
+    : undefined
+
   return (
     <div
       role="region"
       aria-label="Visitor identification notice"
-      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] md:inset-x-auto md:left-6 md:bottom-6 md:justify-start md:px-0 md:pb-0"
+      style={lift}
+      className="fixed inset-x-0 bottom-[var(--notice-lift,0px)] z-50 flex justify-center px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] transition-[bottom] duration-300 motion-reduce:transition-none md:inset-x-auto md:left-[max(1.5rem,calc((100vw-1200px)/2))] md:bottom-[var(--notice-lift,1.5rem)] md:justify-start md:px-0 md:pb-0 lg:left-[max(2rem,calc((100vw-1200px)/2))]"
     >
       <div
         style={{

@@ -21,7 +21,9 @@ const EXCLUDED_PREFIXES = ["/internal", "/studio", "/ask-fruit"]
 const CLEARANCE = 12
 
 /**
- * Floating Implementation Calculator launcher, bottom right, every marketing page. A plain
+ * Floating Implementation Calculator launcher, bottom right, every marketing page.
+ * Its bottom inset matches its right inset at every breakpoint (16 / 24 / 32px),
+ * so it sits the same distance from both edges. A plain
  * button: no hover tag or hover motion, a click opens the workspace.
  *
  * Rendered ONCE, site-wide, by <SiteFrame>, next to <SiteStickyCta>; pages do
@@ -87,7 +89,7 @@ export default function AskFruitLauncher() {
   return (
     <div
       ref={anchorRef}
-      className="fixed right-4 bottom-[var(--launcher-lift,max(1rem,env(safe-area-inset-bottom,0px)))] z-40 transition-[bottom] duration-300 motion-reduce:transition-none md:right-6 lg:right-8"
+      className="fixed right-4 bottom-[var(--launcher-lift,max(1rem,env(safe-area-inset-bottom,0px)))] z-40 transition-[bottom] duration-300 motion-reduce:transition-none md:right-6 md:bottom-[var(--launcher-lift,max(1.5rem,env(safe-area-inset-bottom,0px)))] lg:right-8 lg:bottom-[var(--launcher-lift,max(2rem,env(safe-area-inset-bottom,0px)))]"
       style={lift}
     >
       <Link
