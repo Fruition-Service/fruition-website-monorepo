@@ -112,6 +112,7 @@ describe("Version C footer and banner", () => {
   it("links LUCA Robotics under Ventures with a followed link", () => {
     expect(html).toContain(">Ventures<")
     expect(html).toMatch(/<a href="https:\/\/constructionrobots\.com\.au">LUCA Robotics<\/a>/)
+    expect(html).toMatch(/<a href="https:\/\/proploy\.io">Proploy<\/a>/)
     expect(html).not.toMatch(/constructionrobots\.com\.au"[^>]*nofollow/)
   })
 
