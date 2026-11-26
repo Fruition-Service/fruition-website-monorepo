@@ -14,7 +14,7 @@ anything leaves the machine. Only run it for real on a branch the user has asked
 you to ship.
 
 **Pick the repo first.** This project root holds several repos
-(`fruition-website-monorepo`, `marketa-monorepo`, `fibreconx-chart-api`, plus
+(`fruition-website-monorepo`, `marketa-monorepo`, other client repos, plus
 worktrees). Ship the one whose files you actually changed this session. If that
 is genuinely ambiguous, ask rather than guessing — merging deploys to
 production. `cd` into it before running anything.
@@ -27,7 +27,7 @@ Then:
    - secrets, tokens, or `.env` values in the diff
    - unrelated work mixed in — these repos squash-merge, so one PR should be one change
    - the change is obviously incomplete or was mid-edit
-3. If the branch is the default branch (`production` on the website repo, `main` on marketa/fibreconx), create a feature branch first — the script refuses to run there.
+3. If the branch is the default branch (`production` on the website repo, `main` on marketa and the other repos), create a feature branch first — the script refuses to run there.
 4. Write a commit message: a `type(scope): summary` subject under ~72 chars, then a body explaining *why*, not just what. If the user passed a message in `$ARGUMENTS`, use it.
 5. Run the shipper:
 

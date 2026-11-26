@@ -6,7 +6,7 @@
 #         ship.sh --dry-run [...]      run every check, stop before push/PR/merge
 #
 # Run it from anywhere inside the target repo. The base branch is the repo's
-# own default branch (production here, main for marketa/fibreconx), so this
+# own default branch (production here, main for marketa and the others), so this
 # works across every repo under ~/Github/Fruition-Service.
 #
 # Refuses to merge unless every required check passes. Never force-pushes.
