@@ -105,9 +105,9 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
   const contactEmail = siteSettings?.contactEmail
   const phone = isRealPhone(siteSettings?.phone) ? siteSettings?.phone : undefined
   const columns = siteSettings?.footerColumns ?? []
-  // Ventures stacks under the Locations column (the last one if that heading is ever renamed).
-  const locationsIndex = columns.findIndex((c) => c.heading?.trim().toLowerCase() === 'locations')
-  const venturesIndex = locationsIndex >= 0 ? locationsIndex : columns.length - 1
+  // Ventures stacks under the Company column (the last one if that heading is ever renamed).
+  const companyIndex = columns.findIndex((c) => c.heading?.trim().toLowerCase() === 'company')
+  const venturesIndex = companyIndex >= 0 ? companyIndex : columns.length - 1
 
   return (
     <footer className="vcf">
