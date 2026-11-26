@@ -105,6 +105,9 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
   const contactEmail = siteSettings?.contactEmail
   const phone = isRealPhone(siteSettings?.phone) ? siteSettings?.phone : undefined
   const columns = siteSettings?.footerColumns ?? []
+  // Ventures stacks under the Locations column (the last one if that heading is ever renamed).
+  const locationsIndex = columns.findIndex((c) => c.heading?.trim().toLowerCase() === 'locations')
+  const venturesIndex = locationsIndex >= 0 ? locationsIndex : columns.length - 1
 
   return (
     <footer className="vcf">
@@ -130,17 +133,6 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 {contactEmail}
               </a>
             )}
-            {/* Ventures: a plain followed link (no rel="nofollow") so search engines connect Fruition's ventures to it. */}
-            <div className="col ventures">
-              <h2>Ventures</h2>
-              <ul>
-                {VENTURES.map((v) => (
-                  <li key={v.href}>
-                    <a href={v.href}>{v.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
 
           {columns.map((col, i) => (
@@ -153,6 +145,19 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                   </li>
                 ))}
               </ul>
+              {i === venturesIndex && (
+                // A plain followed link (no rel="nofollow") so search engines connect Fruition's ventures to it.
+                <div className="ventures">
+                  <h2>Ventures</h2>
+                  <ul>
+                    {VENTURES.map((v) => (
+                      <li key={v.href}>
+                        <a href={v.href}>{v.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
         </div>
