@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONSULTING_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 export const html = `<!DOCTYPE html>
 <html lang="en-AU">
@@ -51,7 +52,7 @@ ${LP_FONTS}
 <div class="hero-tags">
 <span>Sydney headquartered</span>
 <span>Anthropic and OpenAI partner</span>
-<span>900+ implementations</span>
+<span>${IMPLEMENTATION_COUNT} implementations</span>
 <span>Fixed-fee quotes</span>
 </div>
 </div>

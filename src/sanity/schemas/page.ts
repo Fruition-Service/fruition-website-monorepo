@@ -1,4 +1,5 @@
 import { pageBodyField } from './objects/pageBody'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 /** Plain paragraphs, bullet/numbered lists and bold: all a case study column needs. */
 const caseStudyBlock = {
@@ -69,7 +70,7 @@ export default {
         type: 'object',
         name: 'heroStat',
         fields: [
-          { name: 'value', title: 'Value (e.g. "900+")', type: 'string' },
+          { name: 'value', title: `Value (e.g. "${IMPLEMENTATION_COUNT}")`, type: 'string' },
           { name: 'label', title: 'Label', type: 'string' },
         ],
       }],
@@ -335,7 +336,7 @@ export default {
       }],
     },
 
-    // Join 900+ stats section
+    // "Join <count> businesses" stats section
     { name: 'joinHeadingPart1', title: 'Join Heading Part 1', type: 'string' },
     { name: 'joinHeadingAccent', title: 'Join Heading Accent', type: 'string' },
     { name: 'joinHeadingPart2', title: 'Join Heading Part 2', type: 'string' },

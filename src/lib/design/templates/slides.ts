@@ -1,4 +1,5 @@
 import type { DocTemplate } from "./types"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 export const slides: DocTemplate = {
   id: "slides",
@@ -20,7 +21,7 @@ Slide kinds:
 - \`<section class="fr-slide">\` — a content slide.
 
 Inside \`.fr-slide-body\` use: short \`<ul>\` bullets, \`<div class="fr-cols">\` for two columns,
-\`<div class="fr-stats">\` of \`<div class="fr-stat"><div class="fr-stat-value">900+</div><div class="fr-stat-label">implementations</div></div>\`
+\`<div class="fr-stats">\` of \`<div class="fr-stat"><div class="fr-stat-value">${IMPLEMENTATION_COUNT}</div><div class="fr-stat-label">implementations</div></div>\`
 for figures, \`<table class="fr-table">\`, \`<div class="fr-callout">\`, and
 \`<div class="fr-figure">\` for diagrams.
 

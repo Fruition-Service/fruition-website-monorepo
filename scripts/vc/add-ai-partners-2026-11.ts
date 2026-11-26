@@ -95,7 +95,7 @@ const PAGES: Spec[] = [
         ['Governance & managed operations', 'Admin controls, approval gates, usage monitoring and regular reviews so Bots stay useful, safe and on budget.'],
       ],
     },
-    practitioner: 'Josh Jebathilak, Managing Director, leads every Grok Bot engagement. He has led over 900 implementations across work platforms and AI systems.',
+    practitioner: 'Josh Jebathilak, Managing Director, leads every Grok Bot engagement. He has led over 1,000 implementations across work platforms and AI systems.',
     booking: { calTitle: 'Grok Bot scoping call', heading: 'Scope your first *Grok Bot.*', lead: '30 minutes to pick the workflow, agree the guardrails and price a fixed discovery phase.' },
     faqs: [
       ['What is Grok Bot?', 'Grok Bot is the AI agent product from xAI. Each Bot has its own cloud computer, signs in to your tools and works through tasks on its own, and a Bot can be shared with a whole team and brought into Slack, Microsoft Teams and video calls.'],
@@ -153,7 +153,7 @@ const PAGES: Spec[] = [
         ['Governance & managed operations', 'Data and training settings, approval gates, usage monitoring and regular reviews so Muse stays useful, safe and on budget.'],
       ],
     },
-    practitioner: 'Josh Jebathilak, Managing Director, leads every Meta Muse engagement. He has led over 900 implementations across work platforms and AI systems.',
+    practitioner: 'Josh Jebathilak, Managing Director, leads every Meta Muse engagement. He has led over 1,000 implementations across work platforms and AI systems.',
     booking: { calTitle: 'Meta Muse scoping call', heading: 'Scope your first *Meta Muse workflow.*', lead: '30 minutes to pick the workflow, agree the guardrails and price a fixed discovery phase.' },
     faqs: [
       ['What is Meta Muse?', 'Muse is Meta’s AI agent. It runs on Meta’s Muse Spark models, works through its own app, the web and WhatsApp, and completes tasks such as bookings, emails and purchases through the accounts you connect. Muse for Small Business adds business connectors.'],

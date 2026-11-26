@@ -64,6 +64,8 @@ depends on the Workers runtime.
 - **Never hand-edit `src/redirects.ts` (892 Wix redirects) or `src/tagRedirects.ts`.** New
   redirects go in `auditRedirects` in `next.config.ts`.
 - **New pages must be added to `STATIC_PATHS` in `src/app/sitemap.ts` by hand.**
+- **Never type the implementation count.** Use `IMPLEMENTATION_COUNT` from
+  `src/lib/implementationCount.ts` (in Sanity: `{{implementations}}`). The file says how to change it.
 - **Unknown `/partnerships/<slug>` returns 200 with an empty shell, not a 404.** Link checkers
   cannot catch nav links pointing at pages that do not exist. Verify page files exist by hand.
 - **Portal auth is per page, not middleware.** Every `/internal` page must call

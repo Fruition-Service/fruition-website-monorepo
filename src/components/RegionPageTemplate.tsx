@@ -24,6 +24,7 @@ import {
   RegionVideoSection,
   type RegionContent,
 } from "@/components/region"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 type RegionSanityPage = RegionSanityContent & {
   primaryCtaLabel?: string
@@ -107,7 +108,7 @@ export default function RegionPageTemplate({
         lead={clientLogosLead?.trim() || region.clients.lead}
         logos={clientLogos}
         maxTiles={CLIENT_TILES}
-        counterLabel="900+ more"
+        counterLabel={`${IMPLEMENTATION_COUNT} more`}
       />
 
       {/*

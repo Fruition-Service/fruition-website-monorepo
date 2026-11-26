@@ -1,4 +1,5 @@
 import type { HubCard } from '@/components/hubs/HubSections'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 /**
  * /partnerships hub (Josh's navigation prototype, 21 Oct 2026). Copy is the
@@ -20,7 +21,7 @@ export const PARTNERS_HUB = {
     'OpenAI Select Partner',
     'monday.com Platinum · Rising Star 2026',
     'Atlassian Platinum · Rising Star 2026',
-    '900+ implementations',
+    `${IMPLEMENTATION_COUNT} implementations`,
     'AU · UK · US · APAC',
   ],
   coreHeading: 'Our core partners',

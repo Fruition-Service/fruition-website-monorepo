@@ -1,4 +1,5 @@
 import type { PracticePage } from './types'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 /**
  * Proof cluster — the /certifications-and-awards page. (The /case-studies hub
@@ -54,7 +55,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
     services: [
       {
         title: 'monday.com: Platinum Partner',
-        body: 'Highest partner tier. 900+ implementations. Rising Star Award 2026 (Prague Partner Summit). Certified across CRM, Work Management, Dev, and Service.',
+        body: `Highest partner tier. ${IMPLEMENTATION_COUNT} implementations. Rising Star Award 2026 (Prague Partner Summit). Certified across CRM, Work Management, Dev, and Service.`,
       },
       {
         title: 'Atlassian',
@@ -78,7 +79,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
     children: [
       {
         label: 'monday.com: Platinum Partner',
-        description: 'Highest partner tier: 900+ implementations, Rising Star 2026.',
+        description: `Highest partner tier: ${IMPLEMENTATION_COUNT} implementations, Rising Star 2026.`,
         href: '/partnerships/monday-consulting-partner',
       },
       {
@@ -140,7 +141,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
     faqs: [
       {
         q: 'What does monday.com Platinum Partner status mean?',
-        a: 'Platinum is monday.com’s highest partner tier, requiring sustained implementation volume, certified consultants, and verified client satisfaction. Fruition holds Platinum status with 900+ implementations delivered.',
+        a: `Platinum is monday.com’s highest partner tier, requiring sustained implementation volume, certified consultants, and verified client satisfaction. Fruition holds Platinum status with ${IMPLEMENTATION_COUNT} implementations delivered.`,
       },
       {
         q: 'Does being a partner bias Fruition’s recommendations?',
@@ -160,7 +161,7 @@ export const PROOF_PAGES: Record<string, PracticePage> = {
       },
       {
         q: 'Why choose Fruition over a Big-4 consulting firm?',
-        a: 'Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold 900+ implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.',
+        a: `Fruition is practitioner-led: the person who scopes your engagement is the person who delivers it. We publish fixed fees, hold ${IMPLEMENTATION_COUNT} implementations of delivery history, and are certified partners across monday.com (Platinum), Atlassian, HubSpot, and the major AI platforms, so recommendations are cross-platform and honest.`,
       },
       {
         q: 'Can Fruition deliver this remotely?',

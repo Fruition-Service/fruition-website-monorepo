@@ -5,6 +5,7 @@ import { urlFor } from "@/sanity/image"
 import CtaButton from "@/components/CtaButton"
 import type { CaseStudy, SanityImageRef } from "./types"
 import { orderSlides } from "@/lib/testimonialSlides"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 interface TestimonialCtaBannerProps {
   headingPart1?: string
@@ -35,7 +36,7 @@ function initials(name?: string): string {
 
 export default function TestimonialCtaBanner({
   headingPart1 = "Join ",
-  headingAccent = "900+ organisations",
+  headingAccent = `${IMPLEMENTATION_COUNT} organisations`,
   headingPart2 = " that have maximised their workflows with our monday.com expert support",
   primaryCtaLabel,
   primaryCtaUrl,

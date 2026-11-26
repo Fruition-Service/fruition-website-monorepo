@@ -2,6 +2,7 @@ import { CustomFont, ImageResponse, cache } from "@cf-wasm/og/workerd"
 import semibold from "./assets/Poppins-SemiBold.ttf"
 import medium from "./assets/Poppins-Medium.ttf"
 import logoSvg from "./assets/logo-fruition-white.svg"
+import { IMPLEMENTATION_COUNT } from "../../../src/lib/implementationCount"
 
 /**
  * Social preview card (1200×630) for every fruitionservices.io page that has no
@@ -83,7 +84,7 @@ function card(title: string, eyebrow: string): Node {
         "div",
         { display: "flex", alignItems: "center", justifyContent: "space-between" },
         [
-          h("div", { display: "flex", gap: 14 }, [chip("monday.com Platinum Partner"), chip("900+ implementations")], { key: "chips" }),
+          h("div", { display: "flex", gap: 14 }, [chip("monday.com Platinum Partner"), chip(`${IMPLEMENTATION_COUNT} implementations`)], { key: "chips" }),
           h("div", { display: "flex", fontSize: 24, fontWeight: 500, color: "#e3cdfb" }, "fruitionservices.io", { key: "domain" }),
         ],
         { key: "footer" },

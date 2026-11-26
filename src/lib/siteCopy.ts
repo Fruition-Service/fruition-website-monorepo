@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 /**
  * Copy slots for the parts every page shares: the announcement strip, the
  * mid-page audit banner and the booking band and card.
@@ -36,7 +37,7 @@ export const SITE_COPY = {
   },
   "booking-call-label": { label: "Booking band: call block heading", text: "Prefer to talk? Call us" },
   "booking-call-nearest": { label: "Booking band: tag on the office nearest the visitor", text: "Nearest to you" },
-  "booking-proof": { label: "Booking band: proof line", text: "Platinum monday.com partner · 900+ implementations" },
+  "booking-proof": { label: "Booking band: proof line", text: `Platinum monday.com partner · ${IMPLEMENTATION_COUNT} implementations` },
 
   // Booking band on /contact-us
   "booking-contact-eyebrow": { label: "Contact page booking band: eyebrow", text: "Book a call" },

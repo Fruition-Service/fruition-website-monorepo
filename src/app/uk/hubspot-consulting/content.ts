@@ -2,6 +2,7 @@
    Self-contained by design: no site chrome, noindex. Styles come from the shared
    site theme in landingPageTheme.ts. */
 import { LP_FONTS, LP_CONVERSION_CSS } from "@/lib/landingPageTheme"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 export const html = `<!DOCTYPE html>
 <!--
   FRUITION &mdash; ORPHAN SEM LANDING PAGE (UK HubSpot &middot; Google Ads)
@@ -47,7 +48,7 @@ ${LP_FONTS}
 </ul>
 <div class="badges">
 <span class="badge">HubSpot Solutions Partner</span>
-<span class="badge">900+ implementations</span>
+<span class="badge">${IMPLEMENTATION_COUNT} implementations</span>
 <span class="badge">Fixed-fee delivery</span>
 </div>
 </div>
@@ -114,7 +115,7 @@ ${LP_FONTS}
 <div class="wrap">
 <p class="k">What to expect</p>
 <h2 class="sec">How a HubSpot <em>implementation works</em></h2>
-<p class="lede">A proven, fixed-fee framework, the same methodology behind 900+ delivered systems.</p>
+<p class="lede">A proven, fixed-fee framework, the same methodology behind ${IMPLEMENTATION_COUNT} delivered systems.</p>
 <div class="steps">
 <div class="step"><div class="n">1</div><h3>Discovery &amp; scoping</h3><p>We map your current CRM, data and processes, and agree a fixed quote before any build starts.</p></div>
 <div class="step"><div class="n">2</div><h3>Build &amp; configure</h3><p>Pipelines, properties, sequences and dashboards configured to your actual workflow.</p></div>
@@ -127,7 +128,7 @@ ${LP_FONTS}
 <section class="stats">
 <div class="wrap">
 <div class="grid4">
-<div><div class="v">900+</div><div class="l">implementations delivered across six offices</div></div>
+<div><div class="v">${IMPLEMENTATION_COUNT}</div><div class="l">implementations delivered across six offices</div></div>
 <div><div class="v">2-4 wks</div><div class="l">typical kickoff to a live HubSpot system</div></div>
 <div><div class="v">Full history</div><div class="l">contacts, deals and activities migrated, relationships preserved</div></div>
 <div><div class="v">30-day</div><div class="l">post-launch support included in every engagement</div></div>

@@ -1,5 +1,6 @@
 import StatsBlockView from "@/components/sections/StatsBlockView"
 import type { StatItem, SiteSettingsData } from "./types"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 interface JoinStatsSectionProps {
   headingPart1?: string
@@ -15,7 +16,7 @@ interface JoinStatsSectionProps {
 
 export default function JoinStatsSection({
   headingPart1 = "Join ",
-  headingAccent = "900+ businesses",
+  headingAccent = `${IMPLEMENTATION_COUNT} businesses`,
   headingPart2 = " that have leveraged our monday.com expert consultants.",
   subheading,
   stats = [],

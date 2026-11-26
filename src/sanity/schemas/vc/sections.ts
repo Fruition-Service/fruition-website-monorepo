@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { ctas, head, heading, image, partnerRef, sectionBase } from './fields'
 import { vcCoreSections, vcNode } from './core'
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 /**
  * Version C sections. A page is an ordered list of these (vcPage.sections);
@@ -41,7 +42,7 @@ export const vcHero = defineType({
     defineField({ name: 'artClass', title: 'Graphic shape', type: 'string', description: 'Machine value: empty, or "wide" for landscape renders.' }),
     image('frameImage', 'Framed screenshot', 'Used instead of the 3D graphic on product pages: a screenshot in a grey frame.'),
     defineField({ name: 'creds', title: 'Badges on the frame', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
-    defineField({ name: 'pills', title: 'Fact pills under the buttons', type: 'array', of: [{ type: 'string' }], description: 'Short facts shown as pills below the hero buttons, e.g. "900+ implementations". Used on /industries.' }),
+    defineField({ name: 'pills', title: 'Fact pills under the buttons', type: 'array', of: [{ type: 'string' }], description: `Short facts shown as pills below the hero buttons, e.g. "${IMPLEMENTATION_COUNT} implementations". Used on /industries.` }),
     defineField({ name: 'stageClass', title: 'Stage style', type: 'string', description: 'Design-system value for the animated stage. Leave as is.' }),
     defineField({ name: 'stage', title: 'Animated stage', type: 'array', description: 'The animated network graphic. Edit the labels and images in place on the page.', of: [defineArrayMember({ type: 'vcNode' })] }),
     defineField({ name: 'frameSvg', title: 'Framed artwork (SVG markup)', type: 'text', rows: 3, description: 'Generated artwork shown in the frame. Do not edit by hand.' }),
@@ -133,7 +134,7 @@ export const vcLogos = defineType({
     head(),
     defineField({ name: 'gridClass', title: 'Grid style', type: 'string', description: 'Design-system value from the mock-up, e.g. "ten". Leave as is.' }),
     defineField({ name: 'logos', title: 'Logos', type: 'array', of: [defineArrayMember({ type: 'vcLogo' })] }),
-    defineField({ name: 'more', title: 'Counter tile text', type: 'string', description: 'Optional last tile, e.g. "900+ more".' }),
+    defineField({ name: 'more', title: 'Counter tile text', type: 'string', description: `Optional last tile, e.g. "${IMPLEMENTATION_COUNT} more".` }),
   ],
   preview: preview('Client logos'),
 })

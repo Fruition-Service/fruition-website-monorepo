@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/image'
 import PaperPlaneIcon from '@/components/common/icons/PaperPlaneIcon'
 import type { SiteSettings } from '@/types/siteSettings'
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 interface Stat {
   _key?: string
@@ -38,7 +39,7 @@ const fallbackIcons = [
 ]
 
 function renderHeadingWithAccent(heading: string, accent?: string) {
-  const target = accent || '900+ businesses'
+  const target = accent || `${IMPLEMENTATION_COUNT} businesses`
   const idx = heading.indexOf(target)
   if (idx >= 0) {
     return (

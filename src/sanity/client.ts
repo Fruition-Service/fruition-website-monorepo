@@ -1,6 +1,7 @@
 import { createClient } from 'next-sanity'
 import { rewriteBookingLinks } from '@/lib/bookingLink'
 import { dropRetiredHubNavLinks, rewriteRetiredLinks } from '@/lib/retiredLinks'
+import { syncImplementationCountIn } from '@/lib/implementationCount'
 import { apiVersion, dataset, projectId } from './env'
 import { isEditMode, stegaFilter } from './editMode'
 
@@ -49,6 +50,10 @@ const editBase = createClient({
  * rewrite, because the Services menu already lists
  * /monday-implementation-consultants as "Implementation consultants" and a
  * rewritten entry would duplicate it.
+ *
+ * Last, syncImplementationCountIn brings every Fruition implementation count
+ * in CMS text (old figures and the {{implementations}} token) up to the one value
+ * set in src/lib/implementationCount.ts.
  */
 export const client = {
   // Generic defaults to `any` to match next-sanity's own fetch signature —
@@ -56,7 +61,9 @@ export const client = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetch: async <T = any>(query: string, params?: Record<string, unknown>): Promise<T> => {
     const c = (await isEditMode()) ? editBase : base
-    return rewriteRetiredLinks(withoutRetiredHubNav(rewriteBookingLinks(await c.fetch<T>(query, params ?? {}))))
+    return syncImplementationCountIn(
+      rewriteRetiredLinks(withoutRetiredHubNav(rewriteBookingLinks(await c.fetch<T>(query, params ?? {})))),
+    )
   },
 }
 

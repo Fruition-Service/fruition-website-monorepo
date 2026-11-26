@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 /**
  * A per-region client logo wall for the six /monday-partner-* pages.
  *
@@ -45,13 +46,13 @@ const regionLogoSet = {
       type: 'text',
       rows: 3,
       description:
-        'The line under "Trusted by teams across 900+ implementations." Leave blank for the shipped wording.',
+        `The line under "Trusted by teams across ${IMPLEMENTATION_COUNT} implementations." Leave blank for the shipped wording.`,
     },
     {
       name: 'logos',
       title: 'Logos',
       type: 'array',
-      description: 'The first nine are drawn — the tenth cell is the "900+ more" counter.',
+      description: `The first nine are drawn — the tenth cell is the "${IMPLEMENTATION_COUNT} more" counter.`,
       of: [
         {
           type: 'object',

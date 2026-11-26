@@ -183,8 +183,12 @@ does not render anything.
 - **FAQs have two sources**: a page document's own `faqTabs` field and central `faqItem`
   documents. Always go through `resolveFaqTabs()` (`src/sanity/groupFaqs.ts`). FAQ JSON-LD is
   emitted by `FaqAccordion` from exactly the tabs it renders, never site-wide.
-- **The implementation count ("900+")** appears in code strings, Sanity strings and the
-  `proofStats` singleton. Change all three together.
+- **The implementation count is one constant**, `IMPLEMENTATION_COUNT_NUMBER` in
+  `src/lib/implementationCount.ts`. Code imports it; every Sanity read swaps old figures and the
+  `{{implementations}}` token for it (`src/sanity/client.ts`), so CMS text needs no edit. To change
+  it: edit the constant, add the old value to `PREVIOUS_IMPLEMENTATION_COUNTS`, update
+  `public/index.md`, redeploy `workers/og-card`. `implementationCount.test.ts` fails if a figure
+  is typed out anywhere in `src/`.
 - **Videos** added in Sanity emit no `VideoObject` schema until `scripts/sync-video-catalog.mjs`
   regenerates `src/lib/videoCatalog.generated.ts`.
 - **Blog body images must be Sanity-hosted.** A remote `![](url)` publishes as a link; the publish

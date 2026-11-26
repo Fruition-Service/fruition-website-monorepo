@@ -3,6 +3,7 @@ import { FAQ_CONTACT_EMAIL, withFaq, withLandingPageLayout } from "./landingPage
 import { extractProof } from "./landingPageProof"
 import { adLandingPages } from "./adLandingPages"
 import type { LeadRegion } from "./leadNotify"
+import { IMPLEMENTATION_COUNT } from "@/lib/implementationCount"
 
 const routes = adLandingPages()
 const pages = routes.map((r) => r.page)
@@ -49,7 +50,7 @@ describe("withLandingPageLayout", () => {
     const lead = band.indexOf('class="lpp-lead lpp-logos-lead"')
     const logos = band.indexOf('class="lpp-grid"')
     const quotes = band.indexOf(">Client proof<")
-    expect(band.replace(/<\/?em>/g, "")).toContain("Trusted by teams across 900+ implementations.")
+    expect(band.replace(/<\/?em>/g, "")).toContain(`Trusted by teams across ${IMPLEMENTATION_COUNT} implementations.`)
     expect(title).toBeGreaterThan(0)
     expect(lead).toBeGreaterThan(title)
     expect(logos).toBeGreaterThan(lead)

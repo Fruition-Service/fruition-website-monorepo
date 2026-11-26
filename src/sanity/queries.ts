@@ -1,6 +1,7 @@
 import { cache } from 'react'
 import { client } from './client'
 import { authorSlug } from './authorSlug'
+import { IMPLEMENTATION_COUNT } from '@/lib/implementationCount'
 
 /* ================================================================== */
 /*  Blog                                                                */
@@ -744,10 +745,10 @@ export async function getFaqItemsForPage(pageKey: string) {
 }
 
 /** Canonical fallbacks when the proofStats doc is absent — matches the live
- *  dataset's dominant values (implementation count raised 500+ → 900+ on
- *  2026-09-14; 4.9 rating; 180,000+ monday customers). */
+ *  dataset's dominant values (4.9 rating; 180,000+ monday customers). The
+ *  implementation count always comes from src/lib/implementationCount.ts. */
 export const PROOF_STATS_DEFAULTS = {
-  implementations: '900+',
+  implementations: IMPLEMENTATION_COUNT,
   clientRating: '4.9',
   marketsCount: '6',
   mondayEcosystemCustomers: '180,000+',
@@ -768,6 +769,7 @@ export async function getProofStats(): Promise<typeof PROOF_STATS_DEFAULTS> {
   }`)
   const merged = { ...PROOF_STATS_DEFAULTS }
   for (const key of Object.keys(PROOF_STATS_DEFAULTS) as (keyof typeof PROOF_STATS_DEFAULTS)[]) {
+    if (key === 'implementations') continue // set in code, never in Studio
     const v = doc?.[key]
     if (v != null && (typeof v !== 'string' || v.trim() !== '') && !(Array.isArray(v) && v.length === 0)) {
       ;(merged as Record<string, unknown>)[key] = v

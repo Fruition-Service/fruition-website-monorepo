@@ -2,7 +2,7 @@
  * Platform pages (Atlassian, HubSpot and the /partnerships/* partner pages):
  *
  * 1. Drop the hero statistics strip and show the client logo carousel in the
- *    hero instead: the same "Trusted by teams across 900+ implementations"
+ *    hero instead: the same "Trusted by teams across <count> implementations"
  *    marquee as the AI pages (hero `trustLabel` + `trustLogos`, copied from
  *    vcPage-ai-consulting). The first version of this script misread the
  *    request and added a static "Platforms" partner-badge grid under the hero;

@@ -135,7 +135,7 @@ export interface RoiCalcConfig {
 
 export interface StatMetric {
   _key?: string
-  /** Bold highlighted figure, e.g. "900+" */
+  /** Bold highlighted figure, e.g. the implementation count */
   value?: string
   /** Supporting statement */
   text?: string
