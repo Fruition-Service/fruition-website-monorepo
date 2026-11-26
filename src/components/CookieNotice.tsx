@@ -61,7 +61,9 @@ export default function CookieNotice() {
   // The CTA bar is a full-width fixed strip along the floor, so the notice
   // stands on top of it while it is showing. The reported height already
   // includes the bar's own bottom padding, so adding the clearance leaves a
-  // clean gap. Both slide with the same 300ms bottom transition.
+  // clean gap. Both slide with the same 300ms bottom transition. Its left edge
+  // follows the bar card's (page gutter, or the 1200px column centred), so the
+  // two line up at every width.
   const lift = bar.visible
     ? ({ "--notice-lift": `${bar.height + CLEARANCE}px` } as CSSProperties)
     : undefined
@@ -71,7 +73,7 @@ export default function CookieNotice() {
       role="region"
       aria-label="Visitor identification notice"
       style={lift}
-      className="fixed inset-x-0 bottom-[var(--notice-lift,0px)] z-50 flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] transition-[bottom] duration-300 motion-reduce:transition-none md:inset-x-auto md:left-6 md:bottom-[var(--notice-lift,1.5rem)] md:justify-start md:px-0 md:pb-0"
+      className="fixed inset-x-0 bottom-[var(--notice-lift,0px)] z-50 flex justify-center px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] transition-[bottom] duration-300 motion-reduce:transition-none md:inset-x-auto md:left-[max(1.5rem,calc((100vw-1200px)/2))] md:bottom-[var(--notice-lift,1.5rem)] md:justify-start md:px-0 md:pb-0 lg:left-[max(2rem,calc((100vw-1200px)/2))]"
     >
       <div
         style={{
