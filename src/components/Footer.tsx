@@ -8,6 +8,8 @@ import { urlFor } from '@/sanity/image'
 import CurrencySwitcher from '@/components/currency/CurrencySwitcher'
 import { vercelStegaClean } from '@vercel/stega'
 
+const LUCA_ROBOTICS_URL = 'https://constructionrobots.com.au'
+
 interface FooterLink {
   label?: string
   href?: string
@@ -125,6 +127,15 @@ export default function Footer({ siteSettings }: { siteSettings?: SiteSettingsPr
                 {contactEmail}
               </a>
             )}
+            {/* Ventures: a plain followed link (no rel="nofollow") so search engines connect LUCA Robotics to Fruition. */}
+            <div className="col">
+              <h2>Ventures</h2>
+              <ul>
+                <li>
+                  <a href={LUCA_ROBOTICS_URL}>LUCA Robotics</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {columns.map((col, i) => (
