@@ -159,7 +159,7 @@ export const NAV_VC: NavVcItem[] = [
           logos: [
             { alt: 'Ausdeck', asset: 'image-5484ead34a282ea50b1ffda4d97ae12c7cb4cf60-153x42-png' },
             { alt: 'Bielby', asset: 'image-47f46119cde1e03ae657ef7e33b12dd5259de72f-167x56-png' },
-            { alt: 'FibreconX', asset: 'image-bded71d00c16cc95c2dbd30f5a85584eb1e07310-900x139-png' },
+            { alt: 'Scania', asset: 'image-7cd3b8aef0d102de405f11ffcaab7b65385fc14d-288x78-png' },
           ],
         },
         {

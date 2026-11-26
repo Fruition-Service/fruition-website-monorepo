@@ -46,7 +46,6 @@ const L: Record<string, string> = {
   Telstra: 'image-03e39019b1fc471111dbb3a588f4d1bfd2c430c5-400x110-png',
   Carsales: 'image-7175249d9f6f1cf1d64916a003d9fb5899e903e4-300x109-png',
   Ledgy: 'image-08b31ad5b0ea141d8fc8597b98481a8e44f0f91c-400x93-png',
-  FibreconX: 'image-02a4bc03205f930e48a950a7e0d15d6bde07808d-256x39-png',
   'Propel ICT': 'image-b3eb151099888ea624d8d87c513138784c30e09c-900x212-png',
   Focaldata: 'image-26434dd41f656d3be00bca6d1fb3909784241990-400x66-png',
   Givergy: 'image-4e5dfb4cc6b0e9f78a582aefb5e308a03e8f25ed-420x147-png',
@@ -244,7 +243,7 @@ const PAGES: Spec[] = [
     logos: {
       heading: 'Technology companies *that work with Fruition.*',
       lead: 'Software, platform, telecoms and data businesses running workflows we built.',
-      names: ['Telstra', 'Carsales', 'Ledgy', 'Kinetic Solutions', 'Construsoft', 'Givergy', 'Mandata', 'FibreconX', 'Propel ICT', 'Focaldata'],
+      names: ['Telstra', 'Carsales', 'Ledgy', 'Kinetic Solutions', 'Construsoft', 'Givergy', 'Mandata', 'Ticketek', 'Propel ICT', 'Focaldata'],
     },
     approach: {
       heading: 'Revenue and delivery *on the same page.*',
