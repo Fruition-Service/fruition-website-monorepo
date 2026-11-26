@@ -109,6 +109,12 @@ describe("Version C footer and banner", () => {
     expect(html).toMatch(/<a href="\/contact-us#book" data-cta-variant="primary" class="btn inverse sm">/)
   })
 
+  it("links LUCA Robotics under Ventures with a followed link", () => {
+    expect(html).toContain(">Ventures<")
+    expect(html).toMatch(/<a href="https:\/\/constructionrobots\.com\.au">LUCA Robotics<\/a>/)
+    expect(html).not.toMatch(/constructionrobots\.com\.au"[^>]*nofollow/)
+  })
+
   it("takes the banner text and link from props", () => {
     const banner = renderToStaticMarkup(<AwardBanner copy={{ "award-text": "Big news" }} href="/post/x" />)
     expect(banner).toContain(">Big news<")
