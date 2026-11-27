@@ -1,0 +1,270 @@
+[
+ {
+  "_key": "0cuf1rtv70",
+  "_type": "navItem",
+  "footerLinks": [
+   {
+    "_key": "rb8j5d5u1u",
+    "_type": "navFooterLink",
+    "href": "/partnerships",
+    "label": "All partners & integrations →"
+   },
+   {
+    "_key": "efmnb0n4lw",
+    "_type": "navFooterLink",
+    "href": "/pricing",
+    "label": "Licence procurement →"
+   }
+  ],
+  "footerNote": "Platform-agnostic: we recommend the stack that fits your process, not the other way round.",
+  "label": "Partners",
+  "layout": "columns",
+  "sections": [
+   {
+    "_key": "2bgonxc5ju",
+    "_type": "navSection",
+    "heading": "AI platforms",
+    "items": [
+     {
+      "_key": "knhs6p9ek2",
+      "_type": "navLink",
+      "href": "/partnerships/openai-chatgpt-partner",
+      "icon": "openai",
+      "label": "OpenAI",
+      "tier": "Select"
+     },
+     {
+      "_key": "wb263r3nrg",
+      "_type": "navLink",
+      "href": "/partnerships/anthropic-claude-partner",
+      "icon": "anthropic",
+      "label": "Anthropic Claude"
+     },
+     {
+      "_key": "nq7pi3us9e",
+      "_type": "navLink",
+      "href": "/ai-consulting",
+      "icon": "bulb",
+      "label": "AI consulting"
+     }
+    ]
+   },
+   {
+    "_key": "1hqxylazup",
+    "_type": "navSection",
+    "heading": "Work platforms",
+    "items": [
+     {
+      "_key": "2gg4dnrk4r",
+      "_type": "navLink",
+      "href": "/partnerships/monday-consulting-partner",
+      "icon": "monday",
+      "label": "monday.com",
+      "tier": "Platinum"
+     },
+     {
+      "_key": "q26m85exfv",
+      "_type": "navLink",
+      "href": "/partnerships/certified-atlassian-partner",
+      "icon": "atlassian",
+      "label": "Atlassian",
+      "tier": "Platinum"
+     },
+     {
+      "_key": "se0x3lz36a",
+      "_type": "navLink",
+      "href": "/implementation-packages",
+      "icon": "package",
+      "label": "Implementation packages"
+     }
+    ]
+   },
+   {
+    "_key": "420a82ui3u",
+    "_type": "navSection",
+    "heading": "Automation",
+    "items": [
+     {
+      "_key": "viyhiv2qvl",
+      "_type": "navLink",
+      "href": "/partnerships/n8n-integration-partner",
+      "icon": "n8n",
+      "label": "n8n"
+     },
+     {
+      "_key": "ziq30mooc4",
+      "_type": "navLink",
+      "href": "/partnerships/make-partners",
+      "icon": "make",
+      "label": "Make"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_key": "0y81vax8as",
+  "_type": "navItem",
+  "footerLinks": [
+   {
+    "_key": "cg15gtmiiz",
+    "_type": "navFooterLink",
+    "href": "/industries",
+    "label": "All industries →"
+   },
+   {
+    "_key": "ixk3ygu0zy",
+    "_type": "navFooterLink",
+    "href": "/ai-use-cases",
+    "label": "Browse use cases →"
+   }
+  ],
+  "footerNote": "Also: retail, healthcare, solar & renewables.",
+  "label": "Industries",
+  "layout": "columns",
+  "sections": [
+   {
+    "_key": "r7hewn4ufx",
+    "_type": "navSection",
+    "columns": 2,
+    "heading": "Industries we specialise in",
+    "items": [
+     {
+      "_key": "3k42rrgz8c",
+      "_type": "navLink",
+      "href": "/monday-for-construction",
+      "icon": "building",
+      "label": "Construction"
+     },
+     {
+      "_key": "3mmq5c5oke",
+      "_type": "navLink",
+      "href": "/monday-for-manufacturing",
+      "icon": "factory",
+      "label": "Manufacturing"
+     },
+     {
+      "_key": "4etxspbt1d",
+      "_type": "navLink",
+      "href": "/monday-for-government",
+      "icon": "flag",
+      "label": "Government"
+     },
+     {
+      "_key": "xq64ra1t1z",
+      "_type": "navLink",
+      "href": "/monday-for-professional-services",
+      "icon": "briefcase",
+      "label": "Professional services"
+     },
+     {
+      "_key": "enot63eq28",
+      "_type": "navLink",
+      "href": "/monday-for-real-estate",
+      "icon": "home",
+      "label": "Real estate"
+     },
+     {
+      "_key": "bziuqqoy7u",
+      "_type": "navLink",
+      "href": "/industries/financial-services",
+      "icon": "dollar",
+      "label": "Financial services"
+     }
+    ]
+   },
+   {
+    "_key": "d2g3hmdtf4",
+    "_type": "navSection",
+    "heading": "Use case hub",
+    "items": [
+     {
+      "_key": "dc3lkfe8xa",
+      "_type": "navLink",
+      "href": "/ai-use-cases",
+      "icon": "list",
+      "label": "AI use case hub"
+     },
+     {
+      "_key": "v68ykoebgn",
+      "_type": "navLink",
+      "href": "/monday-consulting-solutions/monday-project-management",
+      "icon": "layers",
+      "label": "Project & portfolio management"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_key": "aru6rhh19a",
+  "_type": "navItem",
+  "feature": {
+   "attribution": "Ron Amaram · General Manager, Risk 2 Solutions",
+   "href": "/customer-testimonials",
+   "kicker": "Customer story",
+   "label": "Read customer stories →",
+   "quote": "Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."
+  },
+  "label": "Customers",
+  "layout": "columns",
+  "sections": [
+   {
+    "_key": "0zfdfske4y",
+    "_type": "navSection",
+    "heading": "Proof",
+    "items": [
+     {
+      "_key": "cxjobo3js8",
+      "_type": "navLink",
+      "href": "/customer-testimonials",
+      "icon": "users",
+      "label": "Customer stories"
+     },
+     {
+      "_key": "5lnkcl3z7p",
+      "_type": "navLink",
+      "href": "/customer-testimonials#case-studies",
+      "icon": "chart",
+      "label": "Case studies"
+     }
+    ]
+   },
+   {
+    "_key": "snrdbbpy5k",
+    "_type": "navSection",
+    "heading": "Why Fruition",
+    "items": [
+     {
+      "_key": "mu999yguef",
+      "_type": "navLink",
+      "href": "/certifications-and-awards",
+      "icon": "shield",
+      "label": "Certifications & awards"
+     },
+     {
+      "_key": "r3pwih6wv3",
+      "_type": "navLink",
+      "href": "/fruition-team",
+      "icon": "user",
+      "label": "Our team"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_key": "wpnijgmhop",
+  "_type": "navItem",
+  "href": "/consulting-blog",
+  "label": "Blog",
+  "sections": []
+ },
+ {
+  "_key": "l8t0r90xpp",
+  "_type": "navItem",
+  "href": "/contact-us",
+  "label": "Contact",
+  "sections": []
+ }
+]

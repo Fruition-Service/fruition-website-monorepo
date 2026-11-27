@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getPortalApiUser, getPortalAdmin } from "@/lib/portalAuth"
+import { DEFAULT_TEMPLATE_ID, isTemplateId } from "@/lib/design/templates"
 
 export const runtime = "nodejs"
 
@@ -8,7 +9,7 @@ export async function POST(req: Request) {
   const user = await getPortalApiUser()
   if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
 
-  let body: { title?: string; html?: string; source_filename?: string }
+  let body: { title?: string; html?: string; source_filename?: string; template?: string }
   try {
     body = (await req.json()) as typeof body
   } catch {
@@ -25,6 +26,9 @@ export async function POST(req: Request) {
       author_id: user.id,
       title: body.title?.trim() || "Untitled document",
       source_filename: body.source_filename ?? null,
+      // An unrecognised template would silently mis-style the document at render
+      // time, so fall back to the default rather than storing it.
+      template: isTemplateId(body.template) ? body.template : DEFAULT_TEMPLATE_ID,
       html: body.html,
     })
     .select("id")

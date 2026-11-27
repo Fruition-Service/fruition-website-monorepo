@@ -12,6 +12,7 @@ import PaperPlaneIcon from "@/components/common/icons/PaperPlaneIcon"
 import FaqAccordion from "@/components/sections/FaqAccordion"
 import LeftRightSection from "@/components/sections/LeftRightSection"
 import CroSections, { type CroSectionsData } from "@/components/sections/CroSections"
+import YouTubeEmbed from "@/components/YouTubeEmbed"
 import StickyCtaConfig from "@/components/sections/StickyCtaContext"
 import TrainingRecommender from "@/components/sections/TrainingRecommender"
 import type { FaqTab as SharedFaqTab } from "@/components/sections/types"
@@ -427,13 +428,7 @@ export default function MondayTrainingContent({
         <section className="bg-surface pb-14 md:pb-24">
           <div className="mx-auto max-w-[1042px] px-4">
             <div className="rounded-card overflow-hidden aspect-video">
-              <iframe
-                src={videoEmbedUrl}
-                title={videoTitle}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+              <YouTubeEmbed url={videoEmbedUrl} title={videoTitle} />
             </div>
           </div>
         </section>

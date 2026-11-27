@@ -1289,10 +1289,22 @@ export interface SocialDraft {
 }
 
 /**
+ * Auto-drafting is OFF by default: every blog used to spawn nine drafts nobody
+ * asked for, and almost none were published. Social posts are written on
+ * demand from the portal's social panel instead. Set BLOG_AUTO_SOCIAL_DRAFTS=1
+ * to bring the automatic drafts back. (Mirrors marketa-monorepo, where the
+ * blog pipeline actually runs.)
+ */
+function autoSocialDraftsEnabled(): boolean {
+  const v = (process.env.BLOG_AUTO_SOCIAL_DRAFTS || "").trim().toLowerCase()
+  return v === "1" || v === "true" || v === "yes"
+}
+
+/**
  * Generate captions and create one Zernio draft per platform for a freshly
  * generated blog. Returns the dashboard URL for Slack buttons, or null when
- * the integration isn't configured. Never throws for per-platform failures —
- * only when nothing could be created at all.
+ * auto-drafting is off or the integration isn't configured. Never throws for
+ * per-platform failures — only when nothing could be created at all.
  */
 export async function createSocialDraftsForBlog(args: {
   source: SocialSource
@@ -1304,6 +1316,7 @@ export async function createSocialDraftsForBlog(args: {
   blogUrl?: string
   imageUrl?: string
 }): Promise<SocialDraft | null> {
+  if (!autoSocialDraftsEnabled()) return null
   if (!apiKey()) return null
 
   const captions = await generateSocialCaptions({

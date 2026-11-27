@@ -1,0 +1,595 @@
+{
+  "navigation": [
+    {
+      "_key": "xrsmds29bs",
+      "_type": "navItem",
+      "footerLinks": [
+        {
+          "_key": "ja9zi73smm",
+          "_type": "navFooterLink",
+          "href": "/partnerships",
+          "label": "All partners & integrations →"
+        },
+        {
+          "_key": "gev7lkj96w",
+          "_type": "navFooterLink",
+          "href": "/pricing",
+          "label": "Licence procurement →"
+        }
+      ],
+      "footerNote": "Platform-agnostic: we recommend the stack that fits your process, not the other way round.",
+      "label": "Partners",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "5ve3rd4dcf",
+          "_type": "navSection",
+          "heading": "AI platforms",
+          "items": [
+            {
+              "_key": "rnwldi6175",
+              "_type": "navLink",
+              "href": "/partnerships/openai-chatgpt-partner",
+              "icon": "openai",
+              "label": "OpenAI",
+              "tier": "Select"
+            },
+            {
+              "_key": "9q5ue3lrkc",
+              "_type": "navLink",
+              "href": "/partnerships/anthropic-claude-partner",
+              "icon": "anthropic",
+              "label": "Anthropic Claude"
+            },
+            {
+              "_key": "qtjr104u1w",
+              "_type": "navLink",
+              "href": "/ai-consulting",
+              "icon": "bulb",
+              "label": "AI consulting"
+            }
+          ]
+        },
+        {
+          "_key": "6zu4vjuxje",
+          "_type": "navSection",
+          "heading": "Work platforms",
+          "items": [
+            {
+              "_key": "t2s0dkhqiw",
+              "_type": "navLink",
+              "href": "/partnerships/monday-consulting-partner",
+              "icon": "monday",
+              "label": "monday.com",
+              "tier": "Platinum"
+            },
+            {
+              "_key": "2s6ad8l3mw",
+              "_type": "navLink",
+              "href": "/partnerships/certified-atlassian-partner",
+              "icon": "atlassian",
+              "label": "Atlassian",
+              "tier": "Platinum"
+            },
+            {
+              "_key": "y6804t9zbp",
+              "_type": "navLink",
+              "href": "/implementation-packages",
+              "icon": "package",
+              "label": "Implementation packages"
+            }
+          ]
+        },
+        {
+          "_key": "n6vmgni2b0",
+          "_type": "navSection",
+          "heading": "Automation",
+          "items": [
+            {
+              "_key": "6oqja1pl4o",
+              "_type": "navLink",
+              "href": "/partnerships/n8n-integration-partner",
+              "icon": "n8n",
+              "label": "n8n"
+            },
+            {
+              "_key": "exovujzlmt",
+              "_type": "navLink",
+              "href": "/partnerships/make-partners",
+              "icon": "make",
+              "label": "Make"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "p6crrxvoro",
+      "_type": "navItem",
+      "footerLinks": [
+        {
+          "_key": "0bsiqa4896",
+          "_type": "navFooterLink",
+          "href": "/industries",
+          "label": "All industries →"
+        },
+        {
+          "_key": "ay7fx05fi9",
+          "_type": "navFooterLink",
+          "href": "/ai-use-cases",
+          "label": "Browse use cases →"
+        }
+      ],
+      "footerNote": "Also: retail, healthcare, solar & renewables.",
+      "label": "Industries",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "swaxz2z899",
+          "_type": "navSection",
+          "columns": 2,
+          "heading": "Industries we specialise in",
+          "items": [
+            {
+              "_key": "e6ml6whuaj",
+              "_type": "navLink",
+              "href": "/monday-for-construction",
+              "icon": "building",
+              "label": "Construction"
+            },
+            {
+              "_key": "l0ck7a878y",
+              "_type": "navLink",
+              "href": "/monday-for-manufacturing",
+              "icon": "factory",
+              "label": "Manufacturing"
+            },
+            {
+              "_key": "qiuq0z2fw1",
+              "_type": "navLink",
+              "href": "/monday-for-government",
+              "icon": "flag",
+              "label": "Government"
+            },
+            {
+              "_key": "6h0s0an0wu",
+              "_type": "navLink",
+              "href": "/monday-for-professional-services",
+              "icon": "briefcase",
+              "label": "Professional services"
+            },
+            {
+              "_key": "aol0q667sm",
+              "_type": "navLink",
+              "href": "/monday-for-real-estate",
+              "icon": "home",
+              "label": "Real estate"
+            },
+            {
+              "_key": "fabh2nhma5",
+              "_type": "navLink",
+              "href": "/industries/financial-services",
+              "icon": "dollar",
+              "label": "Financial services"
+            }
+          ]
+        },
+        {
+          "_key": "8jlvf1gkyp",
+          "_type": "navSection",
+          "heading": "Use case hub",
+          "items": [
+            {
+              "_key": "669afrgtqh",
+              "_type": "navLink",
+              "href": "/ai-use-cases",
+              "icon": "list",
+              "label": "AI use case hub"
+            },
+            {
+              "_key": "rhirwgdb4s",
+              "_type": "navLink",
+              "href": "/monday-consulting-solutions/monday-project-management",
+              "icon": "layers",
+              "label": "Project & portfolio management"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "j8qlcwwapn",
+      "_type": "navItem",
+      "feature": {
+        "attribution": "Ron Amaram · General Manager, Risk 2 Solutions",
+        "href": "/customer-testimonials",
+        "kicker": "Customer story",
+        "label": "Read customer stories →",
+        "quote": "Fruition have been instrumental in moving us to a 'single source of truth' system for managing sales and projects."
+      },
+      "label": "Customers",
+      "layout": "columns",
+      "sections": [
+        {
+          "_key": "lzcovvp6t5",
+          "_type": "navSection",
+          "heading": "Proof",
+          "items": [
+            {
+              "_key": "p9kft6z2fy",
+              "_type": "navLink",
+              "href": "/customer-testimonials",
+              "icon": "users",
+              "label": "Customer stories"
+            },
+            {
+              "_key": "0ii51su8wh",
+              "_type": "navLink",
+              "href": "/customer-testimonials#case-studies",
+              "icon": "chart",
+              "label": "Case studies"
+            },
+            {
+              "_key": "wqwpq9utjj",
+              "_type": "navLink",
+              "href": "/ai-use-cases",
+              "icon": "list",
+              "label": "AI use case hub"
+            }
+          ]
+        },
+        {
+          "_key": "151wumpn7b",
+          "_type": "navSection",
+          "heading": "Why Fruition",
+          "items": [
+            {
+              "_key": "x1mngy2zmw",
+              "_type": "navLink",
+              "href": "/certifications-and-awards",
+              "icon": "shield",
+              "label": "Certifications & awards"
+            },
+            {
+              "_key": "b2tgriifia",
+              "_type": "navLink",
+              "href": "/fruition-team",
+              "icon": "user",
+              "label": "Our team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_key": "90ca1q8ldn",
+      "_type": "navItem",
+      "href": "/ai-use-cases",
+      "label": "AI Use Cases",
+      "sections": []
+    },
+    {
+      "_key": "7aeb98pumt",
+      "_type": "navItem",
+      "href": "/consulting-blog",
+      "label": "Blog",
+      "sections": []
+    },
+    {
+      "_key": "thg4boy1bs",
+      "_type": "navItem",
+      "href": "/contact-us",
+      "label": "Contact",
+      "sections": []
+    }
+  ],
+  "footerTagline": "Platform-agnostic AI and workflow consultancy. Process before platform.",
+  "footerBadges": [
+    "OpenAI Select Partner",
+    "monday.com Platinum",
+    "Atlassian Platinum",
+    "Rising Star 2026 ×2"
+  ],
+  "footerColumns": [
+    {
+      "_key": "70z2dkmht2",
+      "_type": "footerColumn",
+      "heading": "Services",
+      "links": [
+        {
+          "_key": "mc1fhj1bcq",
+          "_type": "footerColumnLink",
+          "href": "/implementation-packages",
+          "label": "Implementation packages"
+        },
+        {
+          "_key": "ylrrsk23uh",
+          "_type": "footerColumnLink",
+          "href": "/pricing",
+          "label": "Licence procurement"
+        },
+        {
+          "_key": "mf6suhxrmg",
+          "_type": "footerColumnLink",
+          "href": "/monday-implementation-consultants",
+          "label": "Implementation consultants"
+        },
+        {
+          "_key": "ajg89z9x3e",
+          "_type": "footerColumnLink",
+          "href": "/monday-crm-consulting",
+          "label": "CRM consulting"
+        },
+        {
+          "_key": "t2u1jfpk34",
+          "_type": "footerColumnLink",
+          "href": "/monday-training",
+          "label": "Training"
+        },
+        {
+          "_key": "rh810vew02",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting",
+          "label": "AI consulting"
+        },
+        {
+          "_key": "0zll1ulzps",
+          "_type": "footerColumnLink",
+          "href": "/ai-capability-assessment",
+          "label": "AI capability assessment"
+        },
+        {
+          "_key": "sifcgmg7u1",
+          "_type": "footerColumnLink",
+          "href": "/ai-strategy-and-execution",
+          "label": "AI strategy & execution"
+        },
+        {
+          "_key": "n3y23rf5ez",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/agent-development",
+          "label": "Agent development"
+        },
+        {
+          "_key": "cwxmi7m6wr",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/rag-knowledge-systems",
+          "label": "RAG & knowledge systems"
+        },
+        {
+          "_key": "htzyheqwfo",
+          "_type": "footerColumnLink",
+          "href": "/ai-consulting/governance-and-compliance",
+          "label": "AI governance"
+        }
+      ]
+    },
+    {
+      "_key": "8n2ia1e124",
+      "_type": "footerColumn",
+      "heading": "Platforms",
+      "links": [
+        {
+          "_key": "lz7tb8tiis",
+          "_type": "footerColumnLink",
+          "href": "/atlassian-consulting/jira",
+          "label": "Jira"
+        },
+        {
+          "_key": "sjv4l1i7yv",
+          "_type": "footerColumnLink",
+          "href": "/atlassian-consulting/jira-service-management",
+          "label": "Jira Service Management"
+        },
+        {
+          "_key": "50nwzy72g3",
+          "_type": "footerColumnLink",
+          "href": "/atlassian-consulting/confluence",
+          "label": "Confluence"
+        },
+        {
+          "_key": "d857zied8d",
+          "_type": "footerColumnLink",
+          "href": "/atlassian-consulting/jira-to-monday-migration",
+          "label": "Jira → monday migration"
+        },
+        {
+          "_key": "9qt2z2hmns",
+          "_type": "footerColumnLink",
+          "href": "/hubspot-consulting/implementation",
+          "label": "HubSpot implementation"
+        },
+        {
+          "_key": "yf48mq5sqi",
+          "_type": "footerColumnLink",
+          "href": "/hubspot-consulting/breeze-ai",
+          "label": "HubSpot Breeze AI"
+        },
+        {
+          "_key": "lfa06mlqwi",
+          "_type": "footerColumnLink",
+          "href": "/partnerships",
+          "label": "All partners"
+        },
+        {
+          "_key": "8fyym688gd",
+          "_type": "footerColumnLink",
+          "href": "/integrations",
+          "label": "Integrations"
+        }
+      ]
+    },
+    {
+      "_key": "4gdm310erc",
+      "_type": "footerColumn",
+      "heading": "Industries",
+      "links": [
+        {
+          "_key": "4lbsxua7qp",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-construction",
+          "label": "Construction"
+        },
+        {
+          "_key": "1gl2aerbza",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-manufacturing",
+          "label": "Manufacturing"
+        },
+        {
+          "_key": "79ix7n41qm",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-government",
+          "label": "Government"
+        },
+        {
+          "_key": "cjvrezya2a",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-professional-services",
+          "label": "Professional services"
+        },
+        {
+          "_key": "7qp3ukg7p5",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-real-estate",
+          "label": "Real estate"
+        },
+        {
+          "_key": "2v16i9y2u5",
+          "_type": "footerColumnLink",
+          "href": "/industries/financial-services",
+          "label": "Financial services"
+        },
+        {
+          "_key": "eyysj66jfb",
+          "_type": "footerColumnLink",
+          "href": "/monday-for-retail",
+          "label": "Retail"
+        },
+        {
+          "_key": "4isf4t4b1x",
+          "_type": "footerColumnLink",
+          "href": "/industries/healthcare",
+          "label": "Healthcare"
+        },
+        {
+          "_key": "5wriigepq5",
+          "_type": "footerColumnLink",
+          "href": "/industries/solar-renewables",
+          "label": "Solar & renewables"
+        },
+        {
+          "_key": "lk4de3i9nt",
+          "_type": "footerColumnLink",
+          "href": "/ai-use-cases",
+          "label": "AI use case hub"
+        },
+        {
+          "_key": "0bvjlipa4c",
+          "_type": "footerColumnLink",
+          "href": "/ask-fruit",
+          "label": "Implementation calculator"
+        }
+      ]
+    },
+    {
+      "_key": "mfmtstl0bb",
+      "_type": "footerColumn",
+      "heading": "Locations",
+      "links": [
+        {
+          "_key": "yfv7xhkos2",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-australia",
+          "label": "Australia"
+        },
+        {
+          "_key": "hsunmtw8kt",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-uk",
+          "label": "United Kingdom"
+        },
+        {
+          "_key": "nb10t5j2cc",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-us",
+          "label": "United States"
+        },
+        {
+          "_key": "zy4h0ycsuo",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-singapore",
+          "label": "Singapore & Malaysia"
+        },
+        {
+          "_key": "qebynjuibj",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-india",
+          "label": "India"
+        },
+        {
+          "_key": "27nqdovlro",
+          "_type": "footerColumnLink",
+          "href": "/monday-partner-philippines",
+          "label": "Philippines"
+        }
+      ]
+    },
+    {
+      "_key": "zbwykl47qc",
+      "_type": "footerColumn",
+      "heading": "Company",
+      "links": [
+        {
+          "_key": "fpo4fijtrs",
+          "_type": "footerColumnLink",
+          "href": "/about-us",
+          "label": "About Fruition"
+        },
+        {
+          "_key": "11w7xa1111",
+          "_type": "footerColumnLink",
+          "href": "/fruition-team",
+          "label": "Team"
+        },
+        {
+          "_key": "6zvugcfu24",
+          "_type": "footerColumnLink",
+          "href": "/careers",
+          "label": "Careers"
+        },
+        {
+          "_key": "av4g6t3s3a",
+          "_type": "footerColumnLink",
+          "href": "/certifications-and-awards",
+          "label": "Certifications & awards"
+        },
+        {
+          "_key": "v9yjwe8nsz",
+          "_type": "footerColumnLink",
+          "href": "/customer-testimonials",
+          "label": "Customer stories"
+        },
+        {
+          "_key": "7w3jjlbbw4",
+          "_type": "footerColumnLink",
+          "href": "/consulting-blog",
+          "label": "Blog"
+        },
+        {
+          "_key": "bpblvkwqp5",
+          "_type": "footerColumnLink",
+          "href": "/faqs",
+          "label": "FAQs"
+        },
+        {
+          "_key": "6uiwzdba5n",
+          "_type": "footerColumnLink",
+          "href": "/contact-us",
+          "label": "Contact"
+        }
+      ]
+    }
+  ],
+  "footerCopyrightText": "© 2026 Fruition Services · ABN 12 667 454 006 · Level 12, 64 York Street, Sydney NSW 2000"
+}

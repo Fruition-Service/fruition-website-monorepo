@@ -1,0 +1,15 @@
+import { chromium } from 'playwright'
+const b = await chromium.launch({ channel: 'chromium' })
+const ctx = await b.newContext({ storageState: '.portal-state.tmp.json', viewport: { width: 1500, height: 1100 } })
+const p = await ctx.newPage()
+p.on('console', m => { if (m.type()==='error') console.log('PAGE ERR:', m.text().slice(0,200)) })
+await p.goto('https://www.fruitionservices.io/internal/social/new', { waitUntil: 'networkidle', timeout: 60000 })
+await p.waitForTimeout(1500)
+// pick Instagram channel
+const ig = p.getByText('Instagram', { exact: true }).first()
+await ig.click()
+await p.waitForTimeout(1500)
+console.log('--- after selecting Instagram ---')
+console.log((await p.locator('body').innerText()).slice(0, 2500))
+await p.screenshot({ path: '.shot-ig.tmp.png', fullPage: true })
+await b.close()
